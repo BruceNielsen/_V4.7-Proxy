@@ -1,0 +1,187 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{23D1F355-55B4-4116-A9D6-C9AE36819F78}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FruPak.PF.Utils.UserControls</RootNamespace>
+    <AssemblyName>FruPak.PF.Utils.UserControls</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.3.1.0.0\lib\net40\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Barcode.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Barcode.Designer.cs">
+      <DependentUpon>Barcode.cs</DependentUpon>
+    </Compile>
+    <Compile Include="BatchNum.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="BatchNum.designer.cs">
+      <DependentUpon>BatchNum.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Customer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Customer.Designer.cs">
+      <DependentUpon>Customer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Fruit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Fruit.designer.cs">
+      <DependentUpon>Fruit.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grower.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Grower.designer.cs">
+      <DependentUpon>Grower.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MaterialNumber.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="MaterialNumber.designer.cs">
+      <DependentUpon>MaterialNumber.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Separator_Combobox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Test_Grower.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Test_Grower.designer.cs">
+      <DependentUpon>Test_Grower.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Test_Material_Number.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Test_Material_Number.designer.cs">
+      <DependentUpon>Test_Material_Number.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WODisplay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WODisplay.designer.cs">
+      <DependentUpon>WODisplay.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Barcode.resx">
+      <DependentUpon>Barcode.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="BatchNum.resx">
+      <DependentUpon>BatchNum.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Customer.resx">
+      <DependentUpon>Customer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Fruit.resx">
+      <DependentUpon>Fruit.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grower.resx">
+      <DependentUpon>Grower.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="MaterialNumber.resx">
+      <DependentUpon>MaterialNumber.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Separator_Combobox.resx">
+      <DependentUpon>Separator_Combobox.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Test_Grower.resx">
+      <DependentUpon>Test_Grower.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Test_Material_Number.resx">
+      <DependentUpon>Test_Material_Number.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="WODisplay.resx">
+      <DependentUpon>WODisplay.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FruPak.PF.Data.AccessLayer\FruPak.PF.Data.Access_Layer.csproj">
+      <Project>{3414FDC5-0AA3-46FA-BDCB-37954C6CE2F5}</Project>
+      <Name>FruPak.PF.Data.Access_Layer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FruPak.PF.Global\FruPak.PF.Global.csproj">
+      <Project>{CC23E470-4C74-4F8E-9AC6-432DCD2DF065}</Project>
+      <Name>FruPak.PF.Global</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

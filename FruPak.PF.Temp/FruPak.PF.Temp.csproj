@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{A384F785-BEFC-42AF-93AC-CA3250FA1DF7}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FruPak.PF.Temp</RootNamespace>
+    <AssemblyName>FruPak.PF.Temp</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.3.1.0.0\lib\net40\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Temp_Form.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Temp_Form.designer.cs">
+      <DependentUpon>Temp_Form.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Pre_System_Stock.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Pre_System_Stock.designer.cs">
+      <DependentUpon>Pre_System_Stock.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Submission.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Submission.designer.cs">
+      <DependentUpon>Submission.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Submission_Bins.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Submission_Bins.designer.cs">
+      <DependentUpon>Submission_Bins.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Temp_Form.resx">
+      <DependentUpon>Temp_Form.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Pre_System_Stock.resx">
+      <DependentUpon>Pre_System_Stock.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Submission.resx">
+      <DependentUpon>Submission.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Submission_Bins.resx">
+      <DependentUpon>Submission_Bins.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FruPak.PF.Common.Code\FruPak.PF.Common.Code.csproj">
+      <Project>{7A894363-CA13-4FB8-9A82-ABB3F8FFAE50}</Project>
+      <Name>FruPak.PF.Common.Code</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FruPak.PF.Data.AccessLayer\FruPak.PF.Data.Access_Layer.csproj">
+      <Project>{3414FDC5-0AA3-46FA-BDCB-37954C6CE2F5}</Project>
+      <Name>FruPak.PF.Data.Access_Layer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FruPak.PF.Global\FruPak.PF.Global.csproj">
+      <Project>{CC23E470-4C74-4F8E-9AC6-432DCD2DF065}</Project>
+      <Name>FruPak.PF.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FruPak.PF.PrintLayer\FruPak.PF.PrintLayer.csproj">
+      <Project>{CD7844BC-7688-4047-B176-7D12816F889C}</Project>
+      <Name>FruPak.PF.PrintLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FruPak.PF.Utils.UserControls\FruPak.PF.Utils.UserControls.csproj">
+      <Project>{23D1F355-55B4-4116-A9D6-C9AE36819F78}</Project>
+      <Name>FruPak.PF.Utils.UserControls</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

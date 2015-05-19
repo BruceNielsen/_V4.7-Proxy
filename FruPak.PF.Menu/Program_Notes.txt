@@ -1,0 +1,524 @@
+﻿NOTE: 01/05/2015
+If you rename your network ID you MUST change the 2 entries in FruPak.Phantom.config:
+ 
+ <Phantom_Dev_TestMode_Server>-</Phantom_Dev_TestMode_Server>
+ <Phantom_Dev_ProductionMode_Server>-</Phantom_Dev_ProductionMode_Server>
+
+(I renamed the laptop from Bruce-Laptop to just -)
+
+--------------------------------------------------------------------------------
+Begin.
+--------------------------------------------------------------------------------
+Earlier code revisions/versions had no comments entered, and this was before 
+We/I started adding in version numbers.
+--------------------------------------------------------------------------------
+Anything pertaining to the very early code resides in the handwritten notebook:
+Transcription follows... (Order is just how it appears in the book)
+------------------------------------------[ Begin Page One ]--------------------
+FruPak Process Factory (December 2014)
+
+Connection strings are in FruPak.PF.Data.Access_Layer\Dconfig.cs
+
+(Pseudocode, and capitalization/case may be incorrect)
+
+if Global.bol_testing = true
+	use FruPak-SQL
+		Process_Factory_Test
+		UID:jobs; Pass: jobs
+else
+	use FruPak-SQL
+		Process_Factory
+		UID:jobs; Pass: jobs
+
+--------------------------------------
+
+MAC addresses are in DB table SC_Install
+For testing, add in either or both Wired and Wireless addresses (Of this Laptop)
+
+You'll need to login as a windows authenticated user.\ to do these next bits.
+
+Add jobs login to Sql, pass: jobs
+(Database -> Security -> Logins -> New User -> Jobs)
+Untick 'Enforce Password Expiration' and 'Must Change at next login'
+Set permissions on Process.Factory
+
+Next, go to the jobs login, click on Server Roles, tick sysadmin, then check Securables - 
+Connect SQL should be tocked for owner sa.
+
+Log out and back in as jobs user.
+
+
+------------------------------------------[ Begin Page Two  ]-------------------
+Code files have been renamed for consistency - Multiple word names are now 
+separated by an underscore.
+
+Form title texts have been renamed along the form of:
+
+FruPak.PF.Subname etc. Form Title.
+
+This will aid in tracking down problem areas.
+--------------------------------------
+Reprint_Palletcards printer has been hardcoded to:
+
+Brother HL-2040 Series
+
+For testing, you can install CutePDF Virtual Printer and rename it accordingly.
+NOTE: you need to be online when installing this, as it downloads GhostPrint
+as well (Required, NOT optional)
+
+------------------------------------------[ Begin Page Three ]------------------
+PDFPrint (Not CutePDF) has a hardcoded log file:
+
+\\FruPak-SBS\Publicdocs\FruPak\Client\Logs\PDFPrint.txt
+
+A crash when printing a pallet card will leave WinWord running hidden in the 
+background, causing an error:
+"Cannot access the file PF-BinCard.Dotx because it is being used by another
+process"
+
+To fix, use TaskMan to find and kill off the WinWord process.
+
+------------------------------------------[ Begin Page Four ]-------------------
+The Application has now been retrofitted with the logging framework nLog.
+
+The output of all the various log statements is controlled from one text file 
+(xml format) - NLog.config located in the application's directory.
+
+The granularity of the output has 6 (six) selectable levels:
+
+Trace and Debug (Not usually for production code - Maximum info)
+Info
+Warning
+Error
+Fatal
+
+The CSV LogFile is probably the most useful output.
+--------------------------------------
+
+Excel commands you can add to your toolbar to make working with the log file 
+easier:
+
+Close, Select Current Region, Autofit Column Width.
+------------------------------------------[ Begin Page Five ]-------------------
+
+(Logging Continued)
+
+Logs can go to:
+
+	Email
+	CSV Files (For Excel)
+	Database
+	Flat Text Files
+	Email
+
+Logging has been installed into each code file so that it will catch and record
+errors or informational messages with no further coding.
+
+------------------------------------------[ Begin Page Six ]--------------------
+Notes from the Trenches 15/12/2014
+
+Massive number of errors in:
+
+FruPak.PF.WorkOrder\Cleaning.cs - 
+On clicking on each tab at random without doing anything else:
+
+All NullReferenceExceptions caused by not checking for null before attempting to 
+cast a nonexistent value to a string value.
+
+This error is now trapped, logged and prevented from corrupting the database by
+refusing access to it.
+
+Root cause: Program attempting to validate ComboBoxes which hadn't actually
+selected anything yet.
+
+------------------------------------------[ Begin Page Seven ]------------------
+Sarcasm: Tha amazing invisible app that wants to validate you before you've
+even had a chance to establish your credentials.
+
+The program is opening a connection to the database before the app can even log 
+a program start message:
+
+SqlAccessLayer.cs\Run_Query.
+
+(Observation from Feb/2015 - It's trying to validate your machine's MAC address)
+Which is a bit dumb, as people can sit at more than one computer - you're not 
+welded to the thing.
+
+To continue:
+
+Program Execution Flow:
+	Startup Object is:
+	FruPak.ProcessFactory.Program.
+
+	Calls:
+		IF Args (Program Arguments) > 0 
+			THEN CALL Install
+		OR if there's more than an hours time elapsed between now and the last 
+			program run time
+		THEN
+			CALL FruPak.PF.Menu.Main_Menu (Also triggers the install bit I think)
+		OTHERWISE OR (not real, just pseudo code)
+			IF less than an hour has elapsed since the last program run,
+		CALL FruPak.PF.Menu.Main_Menu directly.
+
+	Hang in there...
+
+	After the background copy of everything in P:\ (Public drive) completes,
+	it calls:
+
+	Get_Install_Id (MAC_Address)
+
+		*** This is where Crashes/Hangs originate if there's a MAC address
+		problem. Also source of huge timeouts and cascading error messages
+		if the network is not there/has gone out for lunch.
+
+
+	------------------------------------------[ Begin Page Eight ]--------------
+	Wednesday 17/12/2014
+
+	By the time the main form has been instantiated, the PropertyGrid has been 
+	filled with the contents of the new settings class, which, as a bonus, is 
+	freely editable from the grid and is saved when you exit the app.
+	Just remember to move the focus (click somewhere else) after you've edited
+	something in order to make it stick.
+
+	The left panel (containing a RichTextBox) is a new, additional target for
+	the NLog logging class/library, and provides a very convenient way of 
+	watching what's happening inside the app in real time; (It mimics the CSV
+	output) Maximize the main menu form to see it.
+
+	At the bottom-left of this window are some menu choices.
+	These let you clear the text window, inspect the properties of the text 
+	debug window (Setting the font size is probably the only useful option),
+	and check out the new program settings file/feature.
+
+	The debug box is limited to around 2 million characters. I suggest clearing 
+	it way, way before then.
+	------------------------------------------[ Begin Page Nine -]--------------
+	When editing the settings from the PropertyGrid, be aware that the settings
+	are only registered when you shift focus to another field.
+
+	This is built-in Windows behaviour.
+	------------------------------------------[ Begin Page Eleven ]-------------
+	(Page Ten was just junk)
+	Wednesday 17/12/2014
+
+	Implemented a persistent settings class. Reads and writes to XML Files.
+
+	[Omit vague mental wandering - solved in later version]
+
+	Passwords are stored using a DES Encryption (For no particular reason),
+	but are clear text within the app. Basically, I left it enabled because it
+	was a freebie with the code and required zero effort on my part.
+
+	If the settings file is deleted, the app will create a new one with default
+	settings. This file will definitely need to be edited later on.
+
+	There are currently (28/12/2014) only about 3 (Three) hardcoded strings I
+	have found which have not yet been moved to the settings file.
+	They appear to be for Dave's personal testing only.
+
+	NOTE from 10/01/2015: NOPE, Hardcoded strings are everywhere, and they're
+	not just Dave's old test code - They're live. :-(
+	------------------------------------------[ Begin Page Twelve ]-------------
+	email address: phantom-dev@outlook.com
+
+	------------------------------------------[ Begin Page Confused ]-----------
+
+	Page Thirteen, Fourteen and Fifteen were junk dated around the 
+	5th and 6th/1/2015 	- obviously at a loss as to how to fix these dratted 
+	errors.
+	------------------------------------------[ Begin Page Sixteen ]------------
+	02/01/2015
+
+	The source of the Outlook/SQL disconnect is because the ID Field changes
+	between locations - Folders - Computers etc.
+
+	The MSDN EXPLICITLY states: You should NEVER use this field if you need
+	to move the App/Data.
+
+	Avoiding/Obviating this problem is doable, but non-trivial.
+
+	The answer lies in disconnecting Outlook from the app, and moving the 
+	contact details into a new table (within the SQL database), which would
+	improve consistency, as you'd now just be dealing with two programs, 
+	not three.
+
+	Any concerns about email functionality from within SQL or the FruPak App
+	are baseless, as either one supports email functions fully.
+
+	What I would do personally is handle any email/attachment requests inside 
+	the FruPak app and just CC. whoever originated the Order/Invoice/Whatever.
+
+	That gives you your paper trail (e-paper) which gets rid of the problem, 
+	which Microsoft tells you you shouldn't do, and leaves your 
+	customer/grower/trader info inside the database itself (where I personally 
+	think it belonged in the first place.)
+	------------------------------------------[ Begin Page Seventeen ]----------
+	This one's definitely out of time sequence, but here goes anyway...
+
+	I found and suppressed the code in each and every form which hid the 
+	complexities of where you were/are with a generic "FruPak" title.
+
+	Any errors will now be instantly trackable to their origin, just by reading
+	the form title.
+
+	eg. Crash in FruPak ProcessFactory (Generic) becomes:
+	Crash in FruPak.Common.Maintenance (Specific).
+
+	All guesswork removed. The CSV log will contain the same info all the way
+	down to where it lost the plot.
+
+	------------------------------------------[ Begin Page Eighteen ]-----------
+	06/01/2015
+
+	Using Tortoise SVN, I was able to identify what had changed since the 
+	19/12/2014 version which worked.
+
+	Seems that while I was hunting down the Outlook problem (Big problem) 
+	I installed some calls to performance monitors and the like.
+
+	Crash, crash, crash.
+
+	SVN (SubVersion)revealed (Once I'd figured out how to use it properly the 
+	other night)
+
+...that the only change of note was the performance monitoring.
+
+Questioning Chris this morning revealed that the Win7 box it was running on 
+wasn't particularly hardened, nor were the users part of the Administrators 
+group. (Good Practice, BTW)
+
+I subsequently checked the MSDN, fount of all knowledge (In IT-Land anyway) and 
+discovered that ordinary users were/are not allowed access to performance 
+counters.
+
+OOPS:	Dev-Laptop	=	Admin	-	OK
+		Jim			=	Admin	-	OK
+		FruPak		=	User	-	Crash
+
+*** [ REMOVED ALL RELATED CODE ] ***
+
+
+Difference between now and the 19/12/2014 code?
+
+Removed Monitor
+Refined CSV Logging
+Suppressed excessive SQL SELECT statements
+Removed repetitive housekeeping logs
+
+- Nothing else has changed - 
+
+------------------------------------------[ Begin Page Nineteen ]---------------
+Notes from a few days back (Written up 8/1/2015)
+
+Working from the Flat with pretty much no Internet connection, I have noticed
+that the .Net framework thinks that this laptop has no MAC address, even though 
+that's baked into the firmware of every NIC on the planet.
+
+It spots a wired or wireless connection instantly though. Weird.
+
+...Here comes the explanation of what happens with no MAC address...
+From my notes
+
+Must have valid MAC address in SC_Install
+
+If no address, program will insert an empty entry in the MAC address field after
+creating a new record, Date and Time stamped, and with a user name set to null.
+
+This, BTW, is the reason I always see a file copy at startup, as the app checks
+for name and MAC last run to decide whether to copy or not.
+
+So, in the SQL Table Designer, you can see that both the MAC address and the 
+User Name fields allow nulls.
+
+***Direct quote from notebook - I have no idea***
+(I've forgotten what this bit means)
+User jobs in process factory DB has permission granted to connect, same with
+user Bruce-Laptop\Bruce.
+
+---[ Observation from 12/02/2015 ]---
+Mmm. I bet that happened right after we restored a newer DB backup over the top
+of the old one I'd been using for ages - Permissions may have been screwed 
+maybe, but what DEFINITELY HAPPENED was tied up with the link between Outlook 
+and the names links. Screwed me 3 or 4 times now.
+
+Change to Outlook? everything breaks. Re-link grower names, and watch for the
+2_zillion outlook key string from the exchange server not matching your puny
+little one from your toy pc. 
+
+RELINK NAMES!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+PF-Contacts - Mapping. Ask Sel what he broke yesterday (11-02-2015)
+
+OK, maybe it was not that specifically, but there's something about Outlook.
+Watch for anomalies. Here be Dragons.
+
+------------------------------------------[ Begin Page Twenty ]-----------------
+
+Not really, but I am getting confused.
+
+The text continues:
+The code was looking specifically for a  System.Data.OLEDB.OLEDBexception
+
+... If that particular exception didn't match exactly, well here are the rest of 
+my notes.
+
+If anything went wrong with the MAC address for whatever reason, the Finally 
+clause following would have closed the DB connection silently, and returned a 
+null, at which point the app was left in an indeterminate state, at which point 
+I could not predict what should happen.
+
+Best guess: Crashed before the logging could kick in.
+
+Have since added extra fault logging, exception handling, and now it should
+inform you of the exact nature of the crash/problem before quitting gracefully.
+
+NOTE from 12/02/2015 - It won't of course - There's a fundamental design fault.
+See any trashy Spy novel from the 60's regarding compartmentalization of intel.
+Didn't work then. Won't work now.
+------------------------------------------[ Begin Page Twenty-One ]-------------
+08/01/2015 - Stored Procedures
+
+Figured out how to debug (Partially - by no means perfectly): 
+SQL Stored Procedures
+
+Was hoping to find a product to do the heavy grunt work for me, but alas, 
+couldn't find one, and the nearest ones were stupidly expensive anyway.
+
+The Bane of my life for the last few days has been a stored procedure which has 
+been bombing out due to it expecting a SCALAR (Single) answer to its query and 
+just dropping dead with no way of finding out what happened - Error 512 
+(Basically expecting a single value)
+
+With some digging, I found that SQL supports a print statement, and best of all,
+a Try/Catch construct.
+
+So,
+
+Turns out if you separate out each Predicate Clause in a SubQuery, 
+SQL will give you what you need to know, along with the ability to say (eg) 
+'About to read xx table etc."
+
+From there on in, you know exactly where to start looking.
+
+To be totally clear here, if I attempted to run all those single queries in one 
+hit, the call would fail and crash the program due to multiple values being 
+received when it expected only one (Scalar)
+
+[Needs code example here]
+
+--------------------------------------------------------------------------------
+Revision 21 - Wednesday 31 December 2014 1:48:12 p.m.
+
+Major overhaul - SQL access layer logging
+All forms now showing true names
+--------------------------------------------------------------------------------
+
+Revision 23 - Monday, 5 January 20156:09:15 p.m.
+
+Added tracing code to track startup file copy operations.
+Replaced Exception ex.ToString() with Exception ex.Message 
+(More concise and way easier to read)
+--------------------------------------------------------------------------------
+
+Revision 31 - Wednesday 28 January 2015 3:57:00 p.m.
+
+Nearly borked it. Reverted to known good version. Thanks, SVN. Stupid bloody ribbon.
+--------------------------------------------------------------------------------
+
+Revision 33
+
+UI logging and Machine-Generated logging fully installed into all forms in 
+FruPak.PF.Dispatch.
+--------------------------------------------------------------------------------
+
+Revision: 34
+Author: Bruce
+Date: Thursday, 29 January 2015 5:28:09 p.m.
+Message:
+Logging code (UI + Machine-Generated) is now installed in all UI forms.
+--------------------------------------------------------------------------------
+
+Revision: 36
+Author: Bruce
+Date: Wednesday, 4 February 2015 3:21:46 p.m.
+Message:
+Reverted back to the original printer setup
+Re-enabled logging in SQLAccessLayer (1)
+Made beginnings of Sql String Verifier (Strip out illegal characters)
+
+--------------------------------------------------------------------------------
+
+01234567890123456789012345678901234567890123456789012345678901234567890123456789 - 80 Characters
+																				|
+--------------------------------------------------------------------------------
+v2.1 (11/02/2015)
+All changes/alterations requested by Sel.
+
+Began correcting the tab ordering - currently all forms in PF.Dispatch and PF.Utilities.Scanning have been completed.
+
+Began adding code to close the current form via hitting the Esc (Escape) key. Currently active in the Shipping_Search, Shipping_Order,
+Repack, Tipping and Transfer forms (The rest to follow).
+
+Repack form - Added auto-filling/validating the DataGrid when scanning a barcode into the form, whereas prior to this you
+would have to physically set the form focus to another field via either the mouse or keyboard in order to trigger the update.
+
+The barcode in the Barcode_To text field in the Repack form is now automatically copied to a text label for reference, and also has a
+'Copy to Clipboard' button for convenience. The Barcode_To field is updated after filling in all required information and pressing the 
+Update button.
+
+The major fault in the Repack form is now fixed. If a Req'd (Required) quantity is not entered in the DataGrid, the program will now insert 
+a 0 (zero), print a message in red and stop with no further processing - This leaves the database intact and avoids entering bad data
+which corrupts the database - It would otherwise appear as a mangled order with incorrect numbers which would require SQL administrator 
+intervention to repair.
+
+The Material_Num field is now visible in the widened ComboBox on the Repack form. The data was there all along, but was never visible.
+The reason for this is the underlying SQL Stored Procedure which populates that particular ComboBox returned a Combination of 2 fields,
+resulting in an excessively long string which the original ComboBox was unable to display correctly.
+
+Note: The Material_Num data is not easily available in the Tipping to Order and Transfer forms. It would require a somewhat major effort 
+to write the stored procedure necessary to return that data which I doubt is really necessary at this point in time.
+
+Also, in the Repack form, the Total Value field is now correctly updated after a change in the corresponding DataGrid's values.
+
+--------------------------------------------------------------------------------
+v2.2 (12/02/2015)
+All changes/alterations requested by Sel.
+
+Repack form - Removed the Barcode_To field - Just the new non-editable label is now updated.
+
+ALL forms throughout the entire application now will exit immediately upon pressing the Esc (Escape Key), 
+including the main menu form.
+
+ALL forms and user controls throughout the entire application now have the tab ordering set in a (hopefully)
+consistent order. Specific forms can be altered by request if I haven't got it quite right.
+
+As the application depends upon Outlook so intimately, I have added a startup check to see if it is already running.
+If it is, no further action will be taken; conversely, if it is not running, the application will start it up.
+There is a possible conflict here if the two applications (FruPak.PF and Outlook) are running in different authentication modes.
+Both should be set to run as Administrator.
+
+I have been unable to reproduce the fault reported by Sel where the highlight on overdue/current orders goes away after clicking
+on one of the headers in the DataGrid (Which re-sorts the grid entries). (Shipping_Search I think is where this was supposedly happening)
+
+I have removed the error MessageBoxes which can appear when attempting to print a non-existent/invalid Word document 
+(Any error messages are still logged to the Log.csv file). This problem seems to occur when:
+	
+	-There is a missing/blank field in Outlook's Process-Factory Contacts ie. a missing business address.
+	
+	-There has been a duplicate set of contacts imported into Outlook ie. Sel imported the contacts into his personal contact list
+	in Outlook, and the application became confused and could no longer print anything whereas prior to this it was printing fine.
+	Sel resolved the problem by removing the duplicate entries from his personal address book.
+
+	-The printer templates are missing from the applications folder ie. FruPak\Client\Templates (Must check the exact location)
+
+
+Any comment TextBoxes will be scanned for illegal characters which could confuse the SQL parser - currently this only checks and corrects 
+for a single ' (apostrophe), but is easily extended as I have placed the check function into a globally accessible area of the code which
+means that I only have to extend the check there and the change will be reflected throughout the entire application.
+
+--------------------------------------------------------------------------------
+Future changes:
+
+Remove the Printer Name code from the settings file - The application just prints to whatever is set as the default printer.
+I suspect I was looking at early development code when I encountered the original hardcoded printer name strings.

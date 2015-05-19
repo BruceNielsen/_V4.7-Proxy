@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3414FDC5-0AA3-46FA-BDCB-37954C6CE2F5}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FruPak.PF.Data.AccessLayer</RootNamespace>
+    <AssemblyName>FruPak.PF.Data.AccessLayer</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.3.1.0.0\lib\net40\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="CM_Bins.cs" />
+    <Compile Include="CM_Block.cs" />
+    <Compile Include="CM_Block_Variety_Relationship.cs" />
+    <Compile Include="CM_Brand.cs" />
+    <Compile Include="CM_Cities.cs" />
+    <Compile Include="CM_Count.cs" />
+    <Compile Include="CM_Defect.cs" />
+    <Compile Include="CM_Defect_Class.cs" />
+    <Compile Include="CM_Defect_Defect_Class_Relationship.cs" />
+    <Compile Include="CM_Destination.cs" />
+    <Compile Include="CM_ESP.cs" />
+    <Compile Include="CM_Fruit_Type.cs" />
+    <Compile Include="CM_Fruit_Variety.cs" />
+    <Compile Include="CM_Grade.cs" />
+    <Compile Include="CM_Grower.cs" />
+    <Compile Include="CM_Growing_Method.cs" />
+    <Compile Include="CM_Location.cs" />
+    <Compile Include="CM_Market_Attribute.cs" />
+    <Compile Include="CM_Material.cs" />
+    <Compile Include="CM_Material_Rates_Relationship.cs" />
+    <Compile Include="CM_Material_ST_Product_Relationship.cs" />
+    <Compile Include="CM_Orchardist.cs" />
+    <Compile Include="CM_Pack_Type.cs" />
+    <Compile Include="CM_Pack_Type_Weight.cs" />
+    <Compile Include="CM_Pallet_Type.cs" />
+    <Compile Include="CM_Product_Group.cs" />
+    <Compile Include="CM_Product_Product_Group_Relationship.cs" />
+    <Compile Include="CM_Size.cs" />
+    <Compile Include="CM_Status.cs" />
+    <Compile Include="CM_Storage.cs" />
+    <Compile Include="CM_System.cs" />
+    <Compile Include="CM_System_Email.cs" />
+    <Compile Include="CM_Trader.cs" />
+    <Compile Include="CM_Treatment.cs" />
+    <Compile Include="CM_Truck.cs" />
+    <Compile Include="DConfig.cs" />
+    <Compile Include="EX_GDI_Bins.cs" />
+    <Compile Include="EX_GDI_Overrun.cs" />
+    <Compile Include="EX_GDI_Submission.cs" />
+    <Compile Include="EX_Pipfruit_Orchard.cs" />
+    <Compile Include="EX_Pipfruit_PCR.cs" />
+    <Compile Include="EX_PipFruit_Register.cs" />
+    <Compile Include="GH_Submission.cs" />
+    <Compile Include="PF_A_Customer_Sales_Discount.cs" />
+    <Compile Include="PF_A_Customer_Sales_Rates.cs" />
+    <Compile Include="PF_A_Fruit_Purchase.cs" />
+    <Compile Include="PF_A_Invoice.cs" />
+    <Compile Include="PF_A_Invoice_Details.cs" />
+    <Compile Include="PF_A_Rates.cs" />
+    <Compile Include="PF_BaseLoad.cs" />
+    <Compile Include="PF_Batch_Chemical.cs" />
+    <Compile Include="PF_Batch_Test.cs" />
+    <Compile Include="PF_Chemicals.cs" />
+    <Compile Include="PF_Cleaning_Area.cs" />
+    <Compile Include="PF_Cleaning_Area_Completed.cs" />
+    <Compile Include="PF_Cleaning_Area_Parts.cs" />
+    <Compile Include="PF_Cleaning_Area_Parts_Completed.cs" />
+    <Compile Include="PF_Clean_Area_Area_Parts_Relationship.cs" />
+    <Compile Include="PF_Customer.cs" />
+    <Compile Include="PF_Defect_Results.cs" />
+    <Compile Include="PF_Orders.cs" />
+    <Compile Include="PF_Orders_Intended.cs" />
+    <Compile Include="PF_Orders_Pallets.cs" />
+    <Compile Include="PF_Orders_Staff_Relationship.cs" />
+    <Compile Include="PF_Other_Work.cs" />
+    <Compile Include="PF_Other_Work_Types.cs" />
+    <Compile Include="PF_Pallet.cs" />
+    <Compile Include="PF_Pallet_Details.cs" />
+    <Compile Include="PF_PreSystem_Pallet_Stock.cs" />
+    <Compile Include="PF_Process_Setup.cs" />
+    <Compile Include="PF_Process_Setup_Work_Order_Relationship.cs" />
+    <Compile Include="PF_Product.cs" />
+    <Compile Include="PF_Product_Chemicals_Relationship.cs" />
+    <Compile Include="PF_Product_Cleaning_Area_Relationship.cs" />
+    <Compile Include="PF_Product_LabResults.cs" />
+    <Compile Include="PF_Product_Other.cs" />
+    <Compile Include="PF_Product_Tests_Relationship.cs" />
+    <Compile Include="PF_Reports.cs" />
+    <Compile Include="PF_Staff.cs" />
+    <Compile Include="PF_Stock_Holding.cs" />
+    <Compile Include="PF_Stock_Item.cs" />
+    <Compile Include="PF_Stock_Used.cs" />
+    <Compile Include="PF_Test.cs" />
+    <Compile Include="PF_Work_Order.cs" />
+    <Compile Include="PF_Work_Order_Material_Relationship.cs" />
+    <Compile Include="PF_Work_Order_Staff_Relationship.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SC_Install.cs" />
+    <Compile Include="SC_Log.cs" />
+    <Compile Include="SC_Log_Action.cs" />
+    <Compile Include="SC_Menu.cs" />
+    <Compile Include="SC_Menu_Group_Relationship.cs" />
+    <Compile Include="SC_Menu_Panel.cs" />
+    <Compile Include="SC_Menu_Panel_Group_Relationship.cs" />
+    <Compile Include="SC_User.cs" />
+    <Compile Include="SC_User_Groups.cs" />
+    <Compile Include="SC_User_Group_Relationship.cs" />
+    <Compile Include="SQLAccessLayer.cs" />
+    <Compile Include="SY_Message.cs" />
+    <Compile Include="SY_PrintRequest.cs" />
+    <Compile Include="SY_SendMail.cs" />
+    <Compile Include="Temp_submission.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FruPak.PF.CustomSettings\FruPak.PF.CustomSettings.csproj">
+      <Project>{03ac6274-6499-478e-ae47-3680a8451cd3}</Project>
+      <Name>FruPak.PF.CustomSettings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FruPak.PF.Global\FruPak.PF.Global.csproj">
+      <Project>{CC23E470-4C74-4F8E-9AC6-432DCD2DF065}</Project>
+      <Name>FruPak.PF.Global</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="ClassDiagram2.cd" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

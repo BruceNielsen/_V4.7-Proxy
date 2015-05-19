@@ -1,0 +1,239 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{7ECD8DC7-B83D-4A41-ADB5-E1532C4AEB3A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>FruPak.PF.Utils.Common</RootNamespace>
+    <AssemblyName>FruPak.PF.Utils.Common</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.3.1.0.0\lib\net40\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Fruit_Variety.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fruit_Variety.designer.cs">
+      <DependentUpon>Fruit_Variety.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grower.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grower.designer.cs">
+      <DependentUpon>Grower.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grower_Block.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grower_Block.designer.cs">
+      <DependentUpon>Grower_Block.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Grower_Block_Variety.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Grower_Block_Variety.designer.cs">
+      <DependentUpon>Grower_Block_Variety.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common_Maintenance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common_Maintenance.designer.cs">
+      <DependentUpon>Common_Maintenance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Common_Maintenance2.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Common_Maintenance2.designer.cs">
+      <DependentUpon>Common_Maintenance2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Material.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Material.designer.cs">
+      <DependentUpon>Material.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Material_Rate_Relat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Material_Rate_Relat.designer.cs">
+      <DependentUpon>Material_Rate_Relat.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Material_Relationship_Maint.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Material_Relationship_Maint.designer.cs">
+      <DependentUpon>Material_Relationship_Maint.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PF_Customer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PF_Customer.designer.cs">
+      <DependentUpon>PF_Customer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PF_Staff.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="PF_Staff.designer.cs">
+      <DependentUpon>PF_Staff.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Fruit_Variety.resx">
+      <DependentUpon>Fruit_Variety.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grower.resx">
+      <DependentUpon>Grower.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grower_Block.resx">
+      <DependentUpon>Grower_Block.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Grower_Block_Variety.resx">
+      <DependentUpon>Grower_Block_Variety.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common_Maintenance.resx">
+      <DependentUpon>Common_Maintenance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Common_Maintenance2.resx">
+      <DependentUpon>Common_Maintenance2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Material.resx">
+      <DependentUpon>Material.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Material_Rate_Relat.resx">
+      <DependentUpon>Material_Rate_Relat.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Material_Relationship_Maint.resx">
+      <DependentUpon>Material_Relationship_Maint.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PF_Customer.resx">
+      <DependentUpon>PF_Customer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PF_Staff.resx">
+      <DependentUpon>PF_Staff.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FruPak.PF.Common.Code\FruPak.PF.Common.Code.csproj">
+      <Project>{7A894363-CA13-4FB8-9A82-ABB3F8FFAE50}</Project>
+      <Name>FruPak.PF.Common.Code</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FruPak.PF.Data.AccessLayer\FruPak.PF.Data.Access_Layer.csproj">
+      <Project>{3414FDC5-0AA3-46FA-BDCB-37954C6CE2F5}</Project>
+      <Name>FruPak.PF.Data.Access_Layer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FruPak.PF.Data.Outlook\FruPak.PF.Data.Outlook.csproj">
+      <Project>{0C73C37C-8860-4CE3-8677-67D44DA753F2}</Project>
+      <Name>FruPak.PF.Data.Outlook</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FruPak.PF.Global\FruPak.PF.Global.csproj">
+      <Project>{CC23E470-4C74-4F8E-9AC6-432DCD2DF065}</Project>
+      <Name>FruPak.PF.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FruPak.PF.Utils.UserControls\FruPak.PF.Utils.UserControls.csproj">
+      <Project>{23D1F355-55B4-4116-A9D6-C9AE36819F78}</Project>
+      <Name>FruPak.PF.Utils.UserControls</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>5</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Outlook">
+      <Guid>{00062FFF-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>9</VersionMajor>
+      <VersionMinor>4</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

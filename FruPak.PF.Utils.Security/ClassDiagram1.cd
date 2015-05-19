@@ -1,0 +1,110 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="FruPak.Pf.Utils.Security">
+    <Position X="3.427" Y="5.156" Height="0.75" Width="1.7" />
+  </Comment>
+  <Class Name="FruPak.PF.Utils.Security.General" Collapsed="true">
+    <Position X="11.25" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAEAAAAAAAAAAAAAAAAQAAAAABAAAAAA=</HashCode>
+      <FileName>General.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FruPak.PF.Utils.Security.Logon">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="FruPak.PF.Utils.Security.Logon.ResultFromFrmMain" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Logon.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>gCCAAgAAACMAAQQDAEGAABRSAAAgQEBAAAAIAEAAgAE=</HashCode>
+      <FileName>Logon.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FruPak.PF.Utils.Security.Menu_Maintenance">
+    <Position X="2" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>IBAAACBAACAkBgAAgADQiFACgAiDBgAAIQAACEAAAAA=</HashCode>
+      <FileName>Menu_Maintenance.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FruPak.PF.Utils.Security.Menu_Panel_Maintenance">
+    <Position X="3.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>oBAAACBAACAkBgAigCDACFACgBgDBAAAAQAAGkAAgAA=</HashCode>
+      <FileName>Menu_Panel_Maintenance.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FruPak.PF.Utils.Security.Password_Reset">
+    <Position X="5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>gAAAAABAgCIABQAAAACAARACAAgAQAQgAAAAQEAAACA=</HashCode>
+      <FileName>Password_Reset.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FruPak.PF.Utils.Security.Program" Collapsed="true">
+    <Position X="11.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAIAAAAAABAAAAAQ=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FruPak.PF.Utils.Security.Security_Maintenance">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>IRAAAIBBACAkBAAAgADACBACgAgABQCAAAFCgEAAAAA=</HashCode>
+      <FileName>Security_Maintenance.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FruPak.PF.Utils.Security.User_Group_Maintenance">
+    <Position X="8" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>MBAAACBAACAkBgAAgQDQCBACgAgDBgAAIEAACEAAAAI=</HashCode>
+      <FileName>User_Group_Maintenance.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FruPak.PF.Utils.Security.User_Maintenance">
+    <Position X="9.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>IABAACBFkCCkBQAABADwClpCAIwCBAQAICAAANABACA=</HashCode>
+      <FileName>User_Maintenance.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FruPak.PF.Utils.Security.Properties.Resources" Collapsed="true">
+    <Position X="11.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FruPak.PF.Utils.Security.Properties.Settings" Collapsed="true">
+    <Position X="11.25" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

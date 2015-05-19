@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="FruPak.PF.Data.Access_Layer&#xD;&#xA;&#xD;&#xA;SQLAccessLayer.cs">
+    <Position X="5.958" Y="0.51" Height="1.021" Width="1.95" />
+  </Comment>
+  <Class Name="FruPak.Utils.Data.SQLAccessLayer">
+    <Position X="0.5" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAEEAggEyAAAgAAAAAABAABAAYCAQAABAAAE=</HashCode>
+      <FileName>SQLAccessLayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FruPak.Utils.Data.SQLAccessLayer2">
+    <Position X="3.25" Y="0.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AACAAAAAAAEAggkyAAAgAAAAAAAAEBAAICAQAAAAgAE=</HashCode>
+      <FileName>SQLAccessLayer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

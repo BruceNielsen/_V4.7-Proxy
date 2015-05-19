@@ -1,0 +1,81 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Comment CommentText="FruPak.PF.Menu">
+    <Position X="7.51" Y="3.125" Height="0.75" Width="1.7" />
+  </Comment>
+  <Class Name="Tools.CollapsibleSplitter" Collapsed="true">
+    <Position X="5.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AhCAQQQIAAgBAAQg4gAQgAQWghoABABBIAAUARAQGAA=</HashCode>
+      <FileName>CollapsibleSplitter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Tools.CollapsibleSplitterDesigner" Collapsed="true">
+    <Position X="5.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>CollapsibleSplitter.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FruPak.PF.Menu.Fun_Messages">
+    <Position X="4" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>IBAACABAECIEhJSAgATACBAygCgACCAAAgAAAFAAAAA=</HashCode>
+      <FileName>Fun_Messages.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FruPak.PF.Menu.Main_Menu">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>/93v/u9zua93b9zbd9/x22fn1ml4D97P9fPpbtvz67s=</HashCode>
+      <FileName>Main_Menu.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FruPak.PF.Menu.Program" Collapsed="true">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAIAAAAAABAAAAAQ=</HashCode>
+      <FileName>Program.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FruPak.PF.Menu.RobinJ">
+    <Position X="2.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAAAAAABCAAAABCAACkABACAAAAAAAAAAAABEAAAgA=</HashCode>
+      <FileName>RobinJ.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FruPak.PF.Menu.Properties.Resources" Collapsed="true">
+    <Position X="7.5" Y="1.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FruPak.PF.Menu.Properties.Settings" Collapsed="true">
+    <Position X="7.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>
+    </TypeIdentifier>
+  </Class>
+  <Enum Name="Tools.VisualStyles" Collapsed="true">
+    <Position X="5.75" Y="3.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAAAAAAAAAACAAAAAABAAAACAAAAAAAAAEA=</HashCode>
+      <FileName>CollapsibleSplitter.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Enum Name="Tools.SplitterState" Collapsed="true">
+    <Position X="5.75" Y="2.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAgAAAAAIAAAAAAAAAAAAAAAAAAAAAAACAAAABAAA=</HashCode>
+      <FileName>CollapsibleSplitter.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
