@@ -48,15 +48,15 @@
             this.textBoxMaterialNumber.Location = new System.Drawing.Point(15, 25);
             this.textBoxMaterialNumber.Name = "textBoxMaterialNumber";
             this.textBoxMaterialNumber.Size = new System.Drawing.Size(224, 20);
-            this.textBoxMaterialNumber.TabIndex = 6;
+            this.textBoxMaterialNumber.TabIndex = 1;
             // 
             // buttonCancel
             // 
             this.buttonCancel.Location = new System.Drawing.Point(15, 51);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 5;
-            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.TabIndex = 2;
+            this.buttonCancel.Text = "&Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
@@ -65,8 +65,8 @@
             this.buttonOK.Location = new System.Drawing.Point(164, 51);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonOK.TabIndex = 4;
-            this.buttonOK.Text = "OK";
+            this.buttonOK.TabIndex = 3;
+            this.buttonOK.Text = "&OK";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
@@ -81,7 +81,7 @@
             this.Controls.Add(this.buttonOK);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "InputMaterialNumber";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Material Number";
             this.ResumeLayout(false);
             this.PerformLayout();

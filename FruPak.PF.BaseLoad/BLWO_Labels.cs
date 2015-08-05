@@ -13,14 +13,14 @@ using FruPak.PF.CustomSettings;
 namespace FruPak.PF.BaseLoad
 {
     // ------------------------------------------------------------------------------
-    // BN Note - 12-02-2015 - Noticed that some of the controls on this form had the 
+    // BN Note - 12-02-2015 - Noticed that some of the controls on this form had the
     // Tag property set to the same value as the TabIndex value...
     // I don't know if this is significant or what.
     // ------------------------------------------------------------------------------
     public partial class BLWO_Labels : Form
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
-       
+
         // Declare application settings object - 12-01-2015 BN - BEGIN
         private static PhantomCustomSettings Settings;
         // Declare application settings object - 12-01-2015 BN - END
@@ -183,7 +183,7 @@ namespace FruPak.PF.BaseLoad
             cmb_Pallet_Type.DisplayMember = "Combined";
             cmb_Pallet_Type.ValueMember = "PalletType_Id";
             cmb_Pallet_Type.Text = null;
-            
+
             ds_Get_Info.Dispose();
 
             //Location
@@ -191,7 +191,7 @@ namespace FruPak.PF.BaseLoad
             cmb_Location.DataSource = ds_Get_Info.Tables[0];
             cmb_Location.DisplayMember = "Code";
             cmb_Location.ValueMember = "Location_Id";
-            
+
             cmb_Location.Text = "YPCP";
             ds_Get_Info.Dispose();
 
@@ -201,7 +201,7 @@ namespace FruPak.PF.BaseLoad
             cmb_Material.DataSource = ds_Get_Info.Tables[0];
             cmb_Material.DisplayMember = "Combined";
             cmb_Material.ValueMember = "Material_Id";
-            
+
             if (ds_Get_Info.Tables[0].Rows.Count > 1)
             {
                 cmb_Material.Text = null;
@@ -279,7 +279,7 @@ namespace FruPak.PF.BaseLoad
             img_edit1.Name = "Edit";
             img_edit1.Image = FruPak.PF.Global.Properties.Resources.edit;
             img_edit1.ReadOnly = true;
-            
+
             var col20 = new DataGridViewTextBoxColumn();
             var col21 = new DataGridViewTextBoxColumn();
             var col22 = new DataGridViewTextBoxColumn();
@@ -400,7 +400,7 @@ namespace FruPak.PF.BaseLoad
 
 
             ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Get_Info(int_Work_Order_Id, int_DVG_Pallet_Id);
-            
+
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {
                 int i_rows = Convert.ToInt32(dataGridView2.Rows.Count.ToString());
@@ -492,29 +492,29 @@ namespace FruPak.PF.BaseLoad
         {
             DialogResult DLR_MessageBox = new DialogResult();
             string str_msg = "";
-            
+
 
             int int_result = 0;
 
-           
+
             switch (btn_Add.Text)
             {
-                case "Add":
+                case "&Add":
                     str_msg = str_msg + Create_New_Pallet();
                     str_msg = str_msg + Create_New_Pallet_Details();
                     break;
-                case "Update":
+                case "&Update":
                     str_msg = str_msg + Create_New_Pallet();
                     if (cmb_Batch1.SelectedItem != null || cmb_Batch2.SelectedItem != null || cmb_Batch3.SelectedItem != null)
                     {
                         str_msg = str_msg + Create_New_Pallet_Details();
                     }
                     break;
-                case "Update Batch":
+                case "Update &Batch":
                     str_msg = str_msg + Create_New_Pallet_Details();
                     break;
-            }         
- 
+            }
+
             if (str_msg.Length != 0)
             {
                 DLR_MessageBox = MessageBox.Show(str_msg, "Process Factory - Work Order(Labels)", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -525,7 +525,7 @@ namespace FruPak.PF.BaseLoad
                 #region ----------- switch --------------
                 switch (btn_Add.Text)
                 {
-                    case "Add":
+                    case "&Add":
                         int_Pallet_Id = FruPak.PF.Common.Code.General.int_max_user_id("PF_Pallet");
 
                         //setting barcode_Trader = 0, is a reset that is requireed
@@ -538,7 +538,7 @@ namespace FruPak.PF.BaseLoad
                         int_result = Process_Pallet_Details(int_Pallet_Id, nud_Quantity1.Value);
 
                         break;
-                        case "Add SML/Rej":
+                        case "Add &SML/Rej":
                         for (int i = 0; i< Convert.ToInt32(nud_Quantity1.Value);i++)
                             {
                                 int_Pallet_Id = FruPak.PF.Common.Code.General.int_max_user_id("PF_Pallet");
@@ -551,14 +551,14 @@ namespace FruPak.PF.BaseLoad
                                 Print_Bin_Cards();
                             }
                         break;
-                    case "Update":
+                    case "&Update":
                         int_result = FruPak.PF.Data.AccessLayer.PF_Pallet.Update(int_DVG_Row_id, Convert.ToInt32(cmb_Pallet_Type.SelectedValue.ToString()), Convert.ToInt32(cmb_Location.SelectedValue.ToString()), int_Current_User_Id);
                         int_result = Process_Pallet_Details(int_DVG_Row_id, nud_Quantity1.Value);
                         break;
-                    case "Update Batch":
+                    case "Update &Batch":
                         string str_batch = "";
                         str_batch = woDisplay1.Process_Date.Substring(0, 4) + woDisplay1.Process_Date.Substring(5, 2) + woDisplay1.Process_Date.Substring(8, 2);
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Update(int_DVG_Row_id,Convert.ToInt32(str_batch + cmb_Batch1.SelectedItem.ToString()), Convert.ToInt32(cmb_Material.SelectedValue.ToString()), 
+                        int_result = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Update(int_DVG_Row_id,Convert.ToInt32(str_batch + cmb_Batch1.SelectedItem.ToString()), Convert.ToInt32(cmb_Material.SelectedValue.ToString()),
                                                                                         nud_Quantity1.Value, int_Current_User_Id);
                         break;
                 }
@@ -602,7 +602,7 @@ namespace FruPak.PF.BaseLoad
                 }
                 else
                 {
-                    str_day = dtp_Batch_Date1.Value.Day.ToString();                   
+                    str_day = dtp_Batch_Date1.Value.Day.ToString();
                 }
                 if (dtp_Batch_Date1.Value.Month < 10)
                 {
@@ -706,7 +706,7 @@ namespace FruPak.PF.BaseLoad
             {
                 dr = ds.Tables[0].Rows[i];
                 int_PrePalletStock_ID = Convert.ToInt32(dr["PrePalletStock_ID"].ToString());
-                dec_current_total = Convert.ToDecimal(dr["Quantity"].ToString());                
+                dec_current_total = Convert.ToDecimal(dr["Quantity"].ToString());
             }
 
             dec_current_total = dec_current_total - Quantity;
@@ -716,7 +716,7 @@ namespace FruPak.PF.BaseLoad
                 {
                     FruPak.PF.Data.AccessLayer.PF_PreSystem_Pallet_Stock.Update(int_PrePalletStock_ID,dec_current_total,int_Current_User_Id);
                 }
-                else 
+                else
                 {
                     FruPak.PF.Data.AccessLayer.PF_PreSystem_Pallet_Stock.Update(int_PrePalletStock_ID,0,int_Current_User_Id);
                 }
@@ -743,12 +743,12 @@ namespace FruPak.PF.BaseLoad
             cmb_Batch3.Visible = true;
             nud_Quantity3.Visible = true;
             dtp_Batch_Date1.Value = DateTime.Now;
-            btn_Add.Text = "Add";
+            btn_Add.Text = "&Add";
         }
         private void btn_Close_Click(object sender, EventArgs e)
         {
             this.Close();
-        }        
+        }
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             if ((sender as DataGridView).Rows[Convert.ToInt32((sender as DataGridView).CurrentCell.RowIndex.ToString())].Cells[0].Value != null)
@@ -776,7 +776,7 @@ namespace FruPak.PF.BaseLoad
                 FruPak.PF.Data.AccessLayer.PF_Pallet.Update_For_PCard(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Pallet_Id"].Value.ToString()), true, int_Current_User_Id);
                 Cursor = Cursors.Default;
                 #region ------------- print and cleanup -------------
-                //Clean Up 
+                //Clean Up
 
                 // Modified for alterable path setting via config file. We do not approve of hardcoded strings. 12-01-2015 BN
                 //lst_filenames.AddRange(System.IO.Directory.GetFiles(@"\\FRUPAK-SBS\PublicDocs\FruPak\Server\Temp", "*" + dataGridView1.Rows[e.RowIndex].Cells["Barcode"].Value.ToString() + "*", System.IO.SearchOption.TopDirectoryOnly));
@@ -826,8 +826,8 @@ namespace FruPak.PF.BaseLoad
             {
                 int_DVG_Row_id = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
                 cmb_Pallet_Type.SelectedValue = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString());
-                cmb_Location.SelectedValue = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString());              
-                btn_Add.Text = "Update";
+                cmb_Location.SelectedValue = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString());
+                btn_Add.Text = "&Update";
             }
             #endregion
         }
@@ -849,7 +849,7 @@ namespace FruPak.PF.BaseLoad
                 if (DLR_Message == DialogResult.Yes)
                 {
                     int_result = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Delete(Convert.ToInt32(dataGridView2.Rows[e.RowIndex].Cells["PalletDetails_Id"].Value.ToString()));
-                    
+
                 }
                 if (int_result > 0)
                 {
@@ -884,7 +884,7 @@ namespace FruPak.PF.BaseLoad
                 cmb_Batch3.Visible = false;
                 nud_Quantity3.Visible = false;
 
-                btn_Add.Text = "Update Batch";
+                btn_Add.Text = "&Update Batch";
             }
             #endregion
         }
@@ -892,7 +892,7 @@ namespace FruPak.PF.BaseLoad
         {
             if (Convert.ToInt32((sender as ComboBox).SelectedItem.ToString()) == 0)
             {
-                btn_Add.Text = "Add SML/Rej";
+                btn_Add.Text = "Add &SML/Rej";
                 cmb_Batch2.Visible = false;
                 cmb_Batch3.Visible = false;
                 nud_Quantity2.Visible = false;
@@ -900,11 +900,11 @@ namespace FruPak.PF.BaseLoad
             }
             else
             {
-                btn_Add.Text = "Add";
+                btn_Add.Text = "&Add";
                 cmb_Batch2.Visible = true;
                 cmb_Batch3.Visible = true;
                 nud_Quantity2.Visible = true;
-                nud_Quantity3.Visible = true;              
+                nud_Quantity3.Visible = true;
             }
         }
         private void Print_Bin_Cards()
@@ -952,11 +952,11 @@ namespace FruPak.PF.BaseLoad
                 {
                     cmb_Pallet_Type.SelectedValue = 0;
                     cmb_Pallet_Type.Text = null;
-                }                
+                }
             }
         }
         private void dtp_Batch_Date1_ValueChanged(object sender, EventArgs e)
-        {            
+        {
             dtp_Batch_Date2.Value = dtp_Batch_Date1.Value;
             dtp_Batch_Date3.Value = dtp_Batch_Date1.Value;
         }
@@ -982,7 +982,7 @@ namespace FruPak.PF.BaseLoad
 
         #region Log Code
         /// <summary>
-        /// Formats the output to the debug log so that the actual log contents stand out amongst the machine-generated stuff. 
+        /// Formats the output to the debug log so that the actual log contents stand out amongst the machine-generated stuff.
         /// Refers to machine-generated content, not calling specifics.
         /// </summary>
         /// <param name="input">The code function that we want to log.</param>
@@ -996,7 +996,7 @@ namespace FruPak.PF.BaseLoad
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

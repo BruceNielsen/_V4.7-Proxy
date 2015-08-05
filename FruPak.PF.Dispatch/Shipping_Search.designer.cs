@@ -80,7 +80,7 @@
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 32);
             this.btn_Close.TabIndex = 13;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -109,7 +109,7 @@
             this.chb_All.Name = "chb_All";
             this.chb_All.Size = new System.Drawing.Size(37, 17);
             this.chb_All.TabIndex = 5;
-            this.chb_All.Text = "All";
+            this.chb_All.Text = "&All";
             this.chb_All.UseVisualStyleBackColor = true;
             this.chb_All.CheckedChanged += new System.EventHandler(this.chb_All_CheckedChanged);
             this.chb_All.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
@@ -122,7 +122,7 @@
             this.chb_PS.Name = "chb_PS";
             this.chb_PS.Size = new System.Drawing.Size(85, 17);
             this.chb_PS.TabIndex = 6;
-            this.chb_PS.Text = "Packing Slip";
+            this.chb_PS.Text = "Pac&king Slip";
             this.chb_PS.UseVisualStyleBackColor = true;
             this.chb_PS.CheckedChanged += new System.EventHandler(this.chb_PS_CheckedChanged);
             this.chb_PS.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
@@ -134,7 +134,7 @@
             this.chb_COA.Name = "chb_COA";
             this.chb_COA.Size = new System.Drawing.Size(126, 17);
             this.chb_COA.TabIndex = 7;
-            this.chb_COA.Text = "Certificate of Analysis";
+            this.chb_COA.Text = "Certificate of Anal&ysis";
             this.chb_COA.UseVisualStyleBackColor = true;
             this.chb_COA.CheckedChanged += new System.EventHandler(this.chb_COA_CheckedChanged);
             this.chb_COA.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
@@ -146,7 +146,7 @@
             this.chb_PC.Name = "chb_PC";
             this.chb_PC.Size = new System.Drawing.Size(77, 17);
             this.chb_PC.TabIndex = 8;
-            this.chb_PC.Text = "Pallet Card";
+            this.chb_PC.Text = "Pallet Ca&rd";
             this.chb_PC.UseVisualStyleBackColor = true;
             this.chb_PC.CheckedChanged += new System.EventHandler(this.chb_PC_CheckedChanged);
             this.chb_PC.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
@@ -158,7 +158,7 @@
             this.chb_ADDR.Name = "chb_ADDR";
             this.chb_ADDR.Size = new System.Drawing.Size(93, 17);
             this.chb_ADDR.TabIndex = 9;
-            this.chb_ADDR.Text = "Address Label";
+            this.chb_ADDR.Text = "Addres&s Label";
             this.chb_ADDR.UseVisualStyleBackColor = true;
             this.chb_ADDR.CheckedChanged += new System.EventHandler(this.chb_ADDR_CheckedChanged);
             this.chb_ADDR.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
@@ -169,7 +169,7 @@
             this.btn_Print.Name = "btn_Print";
             this.btn_Print.Size = new System.Drawing.Size(75, 32);
             this.btn_Print.TabIndex = 11;
-            this.btn_Print.Text = "Print";
+            this.btn_Print.Text = "&Print";
             this.btn_Print.UseVisualStyleBackColor = true;
             this.btn_Print.Click += new System.EventHandler(this.btn_Print_Click);
             // 
@@ -188,7 +188,7 @@
             this.btn_View.Name = "btn_View";
             this.btn_View.Size = new System.Drawing.Size(75, 32);
             this.btn_View.TabIndex = 12;
-            this.btn_View.Text = "View";
+            this.btn_View.Text = "&View";
             this.btn_View.UseVisualStyleBackColor = true;
             this.btn_View.Click += new System.EventHandler(this.btn_View_Click);
             // 
@@ -198,7 +198,7 @@
             this.btn_Email.Name = "btn_Email";
             this.btn_Email.Size = new System.Drawing.Size(67, 32);
             this.btn_Email.TabIndex = 10;
-            this.btn_Email.Text = "Email";
+            this.btn_Email.Text = "&Email";
             this.btn_Email.UseVisualStyleBackColor = true;
             this.btn_Email.Click += new System.EventHandler(this.btn_Email_Click);
             // 
@@ -219,7 +219,7 @@
             this.rdb_list_curr.Name = "rdb_list_curr";
             this.rdb_list_curr.Size = new System.Drawing.Size(78, 17);
             this.rdb_list_curr.TabIndex = 2;
-            this.rdb_list_curr.Text = "List Current";
+            this.rdb_list_curr.Text = "List C&urrent";
             this.rdb_list_curr.UseVisualStyleBackColor = true;
             this.rdb_list_curr.CheckedChanged += new System.EventHandler(this.rdb_list_CheckedChanged);
             // 
@@ -232,7 +232,7 @@
             this.rdb_List_All.Size = new System.Drawing.Size(55, 17);
             this.rdb_List_All.TabIndex = 3;
             this.rdb_List_All.TabStop = true;
-            this.rdb_List_All.Text = "List All";
+            this.rdb_List_All.Text = "&List All";
             this.rdb_List_All.UseVisualStyleBackColor = true;
             this.rdb_List_All.CheckedChanged += new System.EventHandler(this.rdb_list_CheckedChanged);
             // 
@@ -309,6 +309,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Shipping_Search";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.Dispatch.Shipping Search";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ShippingSearch_FormClosing);
             this.Load += new System.EventHandler(this.SizeAllColumns);

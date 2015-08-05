@@ -49,7 +49,7 @@
             this.tbc_Cleaning.Name = "tbc_Cleaning";
             this.tbc_Cleaning.SelectedIndex = 0;
             this.tbc_Cleaning.Size = new System.Drawing.Size(816, 269);
-            this.tbc_Cleaning.TabIndex = 0;
+            this.tbc_Cleaning.TabIndex = 2;
             this.tbc_Cleaning.SelectedIndexChanged += new System.EventHandler(this.tbc_Cleaning_SelectedIndexChanged);
             // 
             // tbp_Base
@@ -93,8 +93,8 @@
             this.btn_Close.Location = new System.Drawing.Point(749, 339);
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 23);
-            this.btn_Close.TabIndex = 2;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.TabIndex = 3;
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -109,6 +109,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Cleaning";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.WorkOrder.Cleaning";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cleaning_KeyDown);
             this.tbc_Cleaning.ResumeLayout(false);

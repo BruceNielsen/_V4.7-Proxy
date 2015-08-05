@@ -117,7 +117,257 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="lbl_message.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="lbl_message.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Microsoft Sans Serif, 10pt</value>
+  </data>
+  <data name="lbl_message.Location" type="System.Drawing.Point, System.Drawing">
+    <value>9, 8</value>
+  </data>
+  <data name="lbl_message.Size" type="System.Drawing.Size, System.Drawing">
+    <value>2, 19</value>
+  </data>
+  <data name="lbl_message.TabIndex" type="System.Int32, mscorlib">
+    <value>32</value>
+  </data>
+  <data name="&gt;&gt;lbl_message.Name" xml:space="preserve">
+    <value>lbl_message</value>
+  </data>
+  <data name="&gt;&gt;lbl_message.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;lbl_message.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;lbl_message.ZOrder" xml:space="preserve">
+    <value>8</value>
+  </data>
+  <data name="btn_Add.Location" type="System.Drawing.Point, System.Drawing">
+    <value>595, 248</value>
+  </data>
+  <data name="btn_Add.Size" type="System.Drawing.Size, System.Drawing">
+    <value>113, 36</value>
+  </data>
+  <data name="btn_Add.TabIndex" type="System.Int32, mscorlib">
+    <value>4</value>
+  </data>
+  <data name="btn_Add.Text" xml:space="preserve">
+    <value>&amp;Add Submission(s) to Purchase</value>
+  </data>
+  <data name="&gt;&gt;btn_Add.Name" xml:space="preserve">
+    <value>btn_Add</value>
+  </data>
+  <data name="&gt;&gt;btn_Add.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_Add.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btn_Add.ZOrder" xml:space="preserve">
+    <value>9</value>
+  </data>
+  <data name="dataGridView1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 89</value>
+  </data>
+  <data name="dataGridView1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>976, 150</value>
+  </data>
+  <data name="dataGridView1.TabIndex" type="System.Int32, mscorlib">
+    <value>2</value>
+  </data>
+  <data name="&gt;&gt;dataGridView1.Name" xml:space="preserve">
+    <value>dataGridView1</value>
+  </data>
+  <data name="&gt;&gt;dataGridView1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridView1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;dataGridView1.ZOrder" xml:space="preserve">
+    <value>7</value>
+  </data>
+  <data name="btn_Close.Location" type="System.Drawing.Point, System.Drawing">
+    <value>919, 473</value>
+  </data>
+  <data name="btn_Close.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="btn_Close.TabIndex" type="System.Int32, mscorlib">
+    <value>8</value>
+  </data>
+  <data name="btn_Close.Text" xml:space="preserve">
+    <value>&amp;Close</value>
+  </data>
+  <data name="&gt;&gt;btn_Close.Name" xml:space="preserve">
+    <value>btn_Close</value>
+  </data>
+  <data name="&gt;&gt;btn_Close.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_Close.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btn_Close.ZOrder" xml:space="preserve">
+    <value>5</value>
+  </data>
+  <data name="btn_reset.Location" type="System.Drawing.Point, System.Drawing">
+    <value>838, 473</value>
+  </data>
+  <data name="btn_reset.Size" type="System.Drawing.Size, System.Drawing">
+    <value>75, 23</value>
+  </data>
+  <data name="btn_reset.TabIndex" type="System.Int32, mscorlib">
+    <value>7</value>
+  </data>
+  <data name="btn_reset.Text" xml:space="preserve">
+    <value>&amp;Reset</value>
+  </data>
+  <data name="&gt;&gt;btn_reset.Name" xml:space="preserve">
+    <value>btn_reset</value>
+  </data>
+  <data name="&gt;&gt;btn_reset.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Button, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;btn_reset.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;btn_reset.ZOrder" xml:space="preserve">
+    <value>6</value>
+  </data>
+  <data name="nud_total.Enabled" type="System.Boolean, mscorlib">
+    <value>False</value>
+  </data>
+  <data name="nud_total.Location" type="System.Drawing.Point, System.Drawing">
+    <value>813, 248</value>
+  </data>
+  <data name="nud_total.Size" type="System.Drawing.Size, System.Drawing">
+    <value>120, 20</value>
+  </data>
+  <data name="nud_total.TabIndex" type="System.Int32, mscorlib">
+    <value>5</value>
+  </data>
+  <data name="nud_total.ThousandsSeparator" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="&gt;&gt;nud_total.Name" xml:space="preserve">
+    <value>nud_total</value>
+  </data>
+  <data name="&gt;&gt;nud_total.Type" xml:space="preserve">
+    <value>System.Windows.Forms.NumericUpDown, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;nud_total.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;nud_total.ZOrder" xml:space="preserve">
+    <value>4</value>
+  </data>
+  <data name="txt_Comments.Location" type="System.Drawing.Point, System.Drawing">
+    <value>89, 248</value>
+  </data>
+  <data name="txt_Comments.Multiline" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="txt_Comments.Size" type="System.Drawing.Size, System.Drawing">
+    <value>484, 67</value>
+  </data>
+  <data name="txt_Comments.TabIndex" type="System.Int32, mscorlib">
+    <value>3</value>
+  </data>
+  <data name="&gt;&gt;txt_Comments.Name" xml:space="preserve">
+    <value>txt_Comments</value>
+  </data>
+  <data name="&gt;&gt;txt_Comments.Type" xml:space="preserve">
+    <value>System.Windows.Forms.TextBox, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;txt_Comments.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;txt_Comments.ZOrder" xml:space="preserve">
+    <value>3</value>
+  </data>
+  <data name="label1.AutoSize" type="System.Boolean, mscorlib">
+    <value>True</value>
+  </data>
+  <data name="label1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>15, 248</value>
+  </data>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>56, 13</value>
+  </data>
+  <data name="label1.TabIndex" type="System.Int32, mscorlib">
+    <value>60</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>Comments</value>
+  </data>
+  <data name="&gt;&gt;label1.Name" xml:space="preserve">
+    <value>label1</value>
+  </data>
+  <data name="&gt;&gt;label1.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Label, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;label1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;label1.ZOrder" xml:space="preserve">
+    <value>2</value>
+  </data>
+  <data name="dataGridView2.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 337</value>
+  </data>
+  <data name="dataGridView2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>735, 159</value>
+  </data>
+  <data name="dataGridView2.TabIndex" type="System.Int32, mscorlib">
+    <value>6</value>
+  </data>
+  <data name="&gt;&gt;dataGridView2.Name" xml:space="preserve">
+    <value>dataGridView2</value>
+  </data>
+  <data name="&gt;&gt;dataGridView2.Type" xml:space="preserve">
+    <value>System.Windows.Forms.DataGridView, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </data>
+  <data name="&gt;&gt;dataGridView2.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;dataGridView2.ZOrder" xml:space="preserve">
+    <value>1</value>
+  </data>
+  <data name="customer1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>18, 42</value>
+  </data>
+  <data name="customer1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>465, 28</value>
+  </data>
+  <data name="customer1.TabIndex" type="System.Int32, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="&gt;&gt;customer1.Name" xml:space="preserve">
+    <value>customer1</value>
+  </data>
+  <data name="&gt;&gt;customer1.Type" xml:space="preserve">
+    <value>FruPak.PF.Utils.UserControls.Customer, FruPak.PF.Utils.UserControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+  </data>
+  <data name="&gt;&gt;customer1.Parent" xml:space="preserve">
+    <value>$this</value>
+  </data>
+  <data name="&gt;&gt;customer1.ZOrder" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <data name="$this.AutoScaleDimensions" type="System.Drawing.SizeF, System.Drawing">
+    <value>6, 13</value>
+  </data>
+  <data name="$this.ClientSize" type="System.Drawing.Size, System.Drawing">
+    <value>1006, 516</value>
+  </data>
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAIAICAAAAEAIACoEAAAJgAAABAQAAABACAAaAQAAM4QAAAoAAAAIAAAAEAAAAABACAAAAAAAIAQ
@@ -212,5 +462,18 @@
         AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAD//wAAOCAAADghAAAAIwAABCEAACQhAAAEZwAAD+cAAP//
         AAA84QAAPOEAAAThAAAEIQAAPCEAAAd/AAAH/wAA
 </value>
+  </data>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="$this.StartPosition" type="System.Windows.Forms.FormStartPosition, System.Windows.Forms">
+    <value>CenterScreen</value>
+  </data>
+  <data name="$this.Text" xml:space="preserve">
+    <value>FruPak.PF.Accounts.Fruit Purchase</value>
+  </data>
+  <data name="&gt;&gt;$this.Name" xml:space="preserve">
+    <value>Fruit_Purchase</value>
+  </data>
+  <data name="&gt;&gt;$this.Type" xml:space="preserve">
+    <value>System.Windows.Forms.Form, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </data>
 </root>

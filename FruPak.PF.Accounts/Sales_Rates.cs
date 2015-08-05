@@ -12,7 +12,7 @@ namespace FruPak.PF.Accounts
 {
     public partial class Sales_Rates : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static string str_table = "";
         private static int int_Current_User_Id = 0;
@@ -38,11 +38,11 @@ namespace FruPak.PF.Accounts
                     lbl_price.Text = "Discount:";
                     this.Text += " (Sales Discount)";
                     break;
-            } 
-            
-            
+            }
+
+
             //check if testing or not
-          
+
             //if (FruPak.PF.Global.Global.bol_Testing == true)
             //{
             //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
@@ -115,7 +115,7 @@ namespace FruPak.PF.Accounts
             var col4 = new DataGridViewTextBoxColumn();
             var col5 = new DataGridViewTextBoxColumn();
             var col6 = new DataGridViewTextBoxColumn();
-            
+
             col0.HeaderText = "Id";
             col0.Name = "Id";
             col0.ReadOnly = true;
@@ -127,7 +127,7 @@ namespace FruPak.PF.Accounts
             col1.Visible = false;
 
             col2.HeaderText = "Customer";
-            col2.Name = "Customer";            
+            col2.Name = "Customer";
             col2.ReadOnly = true;
 
             col3.HeaderText = "Material Id";
@@ -147,7 +147,7 @@ namespace FruPak.PF.Accounts
             col6.HeaderText = "Active";
             col6.Name = "Active";
             col6.ReadOnly = true;
-            
+
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { col0, col1, col2, col3, col4, col5, col6});
 
             DataGridViewImageColumn img_delete = new DataGridViewImageColumn();
@@ -179,10 +179,10 @@ namespace FruPak.PF.Accounts
                 case "PF_A_Customer_Sales_Discount":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_A_Customer_Sales_Discount.Get_Info_Translated();
                     break;
-            } 
+            }
 
             DataRow dr_Get_Info;
-            
+
             for (int i = 0; i < ds_Get_Info.Tables[0].Rows.Count; i++)
             {
                 dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
@@ -198,7 +198,7 @@ namespace FruPak.PF.Accounts
                     case "PF_A_Customer_Sales_Discount":
                         DGVC_Cell0.Value = dr_Get_Info["CustSalesDisc_Id"].ToString();
                         break;
-                }                
+                }
                 dataGridView1.Rows[i].Cells["Id"] = DGVC_Cell0;
 
                 DataGridViewCell DGVC_Cell1 = new DataGridViewTextBoxCell();
@@ -240,7 +240,7 @@ namespace FruPak.PF.Accounts
             dataGridView1.AutoResizeColumn(1, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(2, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(3, DataGridViewAutoSizeColumnMode.AllCells);
-            
+
             dataGridView1.AutoResizeColumn(5, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(6, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(7, DataGridViewAutoSizeColumnMode.AllCells);
@@ -275,7 +275,7 @@ namespace FruPak.PF.Accounts
                     case "PF_A_Customer_Sales_Discount":
                         str_msg = str_msg + "Invalid Discount. Please enter a valid Discount." + Environment.NewLine;
                         break;
-                }                
+                }
             }
             else
             {
@@ -293,7 +293,7 @@ namespace FruPak.PF.Accounts
                         case "PF_A_Customer_Sales_Discount":
                             str_msg = str_msg + "Invalid Discount. A Discount must be numeric. Please Re-enter a valid Discount." + Environment.NewLine;
                             break;
-                    } 
+                    }
                 }
             }
             if (str_msg.Length > 0)
@@ -304,7 +304,7 @@ namespace FruPak.PF.Accounts
             {
                 switch (btn_Add.Text)
                 {
-                    case "Add":
+                    case "&Add":
                         switch (str_table)
                         {
                             case "PF_A_Customer_Sales_Rates":
@@ -315,9 +315,9 @@ namespace FruPak.PF.Accounts
                                 int_result = FruPak.PF.Data.AccessLayer.PF_A_Customer_Sales_Discount.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_A_Customer_Sales_Discount"), Convert.ToInt32(cmb_Material.SelectedValue.ToString()),
                                                                                                      customer1.Customer_Id, Convert.ToDecimal(txt_Price.Text), Convert.ToBoolean(ckb_Active.Checked), int_Current_User_Id);
                                 break;
-                        } 
+                        }
                         break;
-                    case "Update":
+                    case "&Update":
                         switch (str_table)
                         {
                             case "PF_A_Customer_Sales_Rates":
@@ -328,7 +328,7 @@ namespace FruPak.PF.Accounts
                                 int_result = FruPak.PF.Data.AccessLayer.PF_A_Customer_Sales_Discount.Update(int_CustSalesRate_Id, Convert.ToInt32(cmb_Material.SelectedValue.ToString()),
                                                                                               customer1.Customer_Id, Convert.ToDecimal(txt_Price.Text), Convert.ToBoolean(ckb_Active.Checked), int_Current_User_Id);
                                 break;
-                        } 
+                        }
                         break;
                 }
             }
@@ -353,7 +353,7 @@ namespace FruPak.PF.Accounts
                 FruPak.PF.Data.AccessLayer.PF_A_Customer_Sales_Rates.Update_Active(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()), false, int_Current_User_Id);
                 populate_datagridview();
 
-                int int_result = FruPak.PF.Common.Code.General.Delete_Record(str_table, dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString(), 
+                int int_result = FruPak.PF.Common.Code.General.Delete_Record(str_table, dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString(),
                                     dataGridView1.Rows[e.RowIndex].Cells["Customer"].Value.ToString() + " - " + dataGridView1.Rows[e.RowIndex].Cells["Material"].Value.ToString());
 
                 if (int_result >= 0)
@@ -376,9 +376,9 @@ namespace FruPak.PF.Accounts
                 cmb_Material.SelectedValue = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Material_Id"].Value.ToString());
                 txt_Price.Text = dataGridView1.Rows[e.RowIndex].Cells["Value"].Value.ToString();
                 ckb_Active.Checked = Convert.ToBoolean(dataGridView1.Rows[e.RowIndex].Cells["Active"].Value.ToString());
-                btn_Add.Text = "Update";
+                btn_Add.Text = "&Update";
             }
-            
+
         }
         private void btn_reset_Click(object sender, EventArgs e)
         {
@@ -413,7 +413,7 @@ namespace FruPak.PF.Accounts
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

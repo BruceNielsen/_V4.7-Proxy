@@ -68,7 +68,7 @@
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(55, 23);
             this.btn_Close.TabIndex = 17;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -78,7 +78,7 @@
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(55, 23);
             this.btn_reset.TabIndex = 16;
-            this.btn_reset.Text = "Reset";
+            this.btn_reset.Text = "&Reset";
             this.btn_reset.UseVisualStyleBackColor = true;
             this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
             // 
@@ -88,7 +88,7 @@
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(143, 23);
             this.btn_Add.TabIndex = 8;
-            this.btn_Add.Text = "Add Orders to Invoice";
+            this.btn_Add.Text = "&Add Orders to Invoice";
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
@@ -122,7 +122,7 @@
             this.btn_Save.Name = "btn_Save";
             this.btn_Save.Size = new System.Drawing.Size(55, 23);
             this.btn_Save.TabIndex = 12;
-            this.btn_Save.Text = "Save";
+            this.btn_Save.Text = "&Save";
             this.btn_Save.UseVisualStyleBackColor = true;
             this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
             // 
@@ -151,7 +151,7 @@
             this.btn_email.Name = "btn_email";
             this.btn_email.Size = new System.Drawing.Size(67, 39);
             this.btn_email.TabIndex = 13;
-            this.btn_email.Text = "Email to Customer";
+            this.btn_email.Text = "&Email to Customer";
             this.btn_email.UseVisualStyleBackColor = true;
             this.btn_email.Visible = false;
             this.btn_email.Click += new System.EventHandler(this.btn_email_Click);
@@ -162,7 +162,7 @@
             this.btn_Print.Name = "btn_Print";
             this.btn_Print.Size = new System.Drawing.Size(55, 23);
             this.btn_Print.TabIndex = 15;
-            this.btn_Print.Text = "Print";
+            this.btn_Print.Text = "&Print";
             this.btn_Print.UseVisualStyleBackColor = true;
             this.btn_Print.Visible = false;
             this.btn_Print.Click += new System.EventHandler(this.btn_Print_Click);
@@ -191,7 +191,7 @@
             this.btn_View.Name = "btn_View";
             this.btn_View.Size = new System.Drawing.Size(55, 23);
             this.btn_View.TabIndex = 14;
-            this.btn_View.Text = "View";
+            this.btn_View.Text = "&View";
             this.btn_View.UseVisualStyleBackColor = true;
             this.btn_View.Visible = false;
             this.btn_View.Click += new System.EventHandler(this.btn_view_Click);
@@ -216,7 +216,7 @@
             this.ckb_COA.Name = "ckb_COA";
             this.ckb_COA.Size = new System.Drawing.Size(173, 17);
             this.ckb_COA.TabIndex = 11;
-            this.ckb_COA.Text = "Include a Certificate of Analysis";
+            this.ckb_COA.Text = "&Include a Certificate of Analysis";
             this.ckb_COA.UseVisualStyleBackColor = true;
             this.ckb_COA.Visible = false;
             this.ckb_COA.CheckedChanged += new System.EventHandler(this.ckb_COA_CheckedChanged);
@@ -245,7 +245,7 @@
             this.btn_Add_Rates.Name = "btn_Add_Rates";
             this.btn_Add_Rates.Size = new System.Drawing.Size(158, 23);
             this.btn_Add_Rates.TabIndex = 4;
-            this.btn_Add_Rates.Text = "Add Extra charges to Invoice";
+            this.btn_Add_Rates.Text = "Add E&xtra charges to Invoice";
             this.btn_Add_Rates.UseVisualStyleBackColor = true;
             this.btn_Add_Rates.Click += new System.EventHandler(this.btn_Add_Rates_Click);
             // 
@@ -290,6 +290,7 @@
             this.btn_delete.Name = "btn_delete";
             this.btn_delete.Size = new System.Drawing.Size(513, 23);
             this.btn_delete.TabIndex = 66;
+            this.btn_delete.TabStop = false;
             this.btn_delete.Text = "button1";
             this.btn_delete.UseVisualStyleBackColor = true;
             this.btn_delete.Visible = false;
@@ -312,8 +313,8 @@
             this.buttonSendDebugInfo.Location = new System.Drawing.Point(756, 485);
             this.buttonSendDebugInfo.Name = "buttonSendDebugInfo";
             this.buttonSendDebugInfo.Size = new System.Drawing.Size(238, 23);
-            this.buttonSendDebugInfo.TabIndex = 67;
-            this.buttonSendDebugInfo.Text = "Send Debug Info";
+            this.buttonSendDebugInfo.TabIndex = 18;
+            this.buttonSendDebugInfo.Text = "Send &Debug Info";
             this.toolTip1.SetToolTip(this.buttonSendDebugInfo, "Sends an email with debug info and a screenshot to: processerrors@frupak.co.nz");
             this.buttonSendDebugInfo.UseVisualStyleBackColor = true;
             this.buttonSendDebugInfo.Click += new System.EventHandler(this.buttonSendDebugInfo_Click);
@@ -329,8 +330,8 @@
             this.buttonOpenPdfFileLocation.Location = new System.Drawing.Point(756, 514);
             this.buttonOpenPdfFileLocation.Name = "buttonOpenPdfFileLocation";
             this.buttonOpenPdfFileLocation.Size = new System.Drawing.Size(238, 23);
-            this.buttonOpenPdfFileLocation.TabIndex = 68;
-            this.buttonOpenPdfFileLocation.Text = "Open Pdf File Location";
+            this.buttonOpenPdfFileLocation.TabIndex = 19;
+            this.buttonOpenPdfFileLocation.Text = "&Open Pdf File Location";
             this.buttonOpenPdfFileLocation.UseVisualStyleBackColor = true;
             this.buttonOpenPdfFileLocation.Click += new System.EventHandler(this.buttonOpenPdfFileLocation_Click);
             // 

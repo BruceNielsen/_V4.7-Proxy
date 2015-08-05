@@ -251,41 +251,41 @@
             // 
             // btn_Print
             // 
-            this.btn_Print.Location = new System.Drawing.Point(153, 525);
+            this.btn_Print.Location = new System.Drawing.Point(93, 525);
             this.btn_Print.Name = "btn_Print";
             this.btn_Print.Size = new System.Drawing.Size(75, 23);
             this.btn_Print.TabIndex = 12;
-            this.btn_Print.Text = "Print";
+            this.btn_Print.Text = "&Print";
             this.btn_Print.UseVisualStyleBackColor = true;
             this.btn_Print.Click += new System.EventHandler(this.btn_Print_Click);
             // 
             // btn_Add
             // 
-            this.btn_Add.Location = new System.Drawing.Point(234, 525);
+            this.btn_Add.Location = new System.Drawing.Point(255, 525);
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(75, 23);
-            this.btn_Add.TabIndex = 13;
-            this.btn_Add.Text = "Add";
+            this.btn_Add.TabIndex = 14;
+            this.btn_Add.Text = "&Add";
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
             // btn_Reset
             // 
-            this.btn_Reset.Location = new System.Drawing.Point(315, 525);
+            this.btn_Reset.Location = new System.Drawing.Point(336, 525);
             this.btn_Reset.Name = "btn_Reset";
             this.btn_Reset.Size = new System.Drawing.Size(75, 23);
             this.btn_Reset.TabIndex = 15;
-            this.btn_Reset.Text = "Reset";
+            this.btn_Reset.Text = "&Reset";
             this.btn_Reset.UseVisualStyleBackColor = true;
             this.btn_Reset.Click += new System.EventHandler(this.btn_Reset_Click);
             // 
             // btn_Current
             // 
-            this.btn_Current.Location = new System.Drawing.Point(138, 475);
+            this.btn_Current.Location = new System.Drawing.Point(93, 475);
             this.btn_Current.Name = "btn_Current";
             this.btn_Current.Size = new System.Drawing.Size(97, 26);
             this.btn_Current.TabIndex = 11;
-            this.btn_Current.Text = "Set to Current";
+            this.btn_Current.Text = "&Set to Current";
             this.btn_Current.UseVisualStyleBackColor = true;
             this.btn_Current.Click += new System.EventHandler(this.btn_Current_Click);
             // 
@@ -337,11 +337,11 @@
             // 
             // btn_Close
             // 
-            this.btn_Close.Location = new System.Drawing.Point(396, 525);
+            this.btn_Close.Location = new System.Drawing.Point(417, 525);
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 23);
             this.btn_Close.TabIndex = 16;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -381,18 +381,18 @@
             // 
             // btn_Update
             // 
-            this.btn_Update.Location = new System.Drawing.Point(234, 554);
+            this.btn_Update.Location = new System.Drawing.Point(174, 525);
             this.btn_Update.Name = "btn_Update";
             this.btn_Update.Size = new System.Drawing.Size(75, 23);
-            this.btn_Update.TabIndex = 14;
-            this.btn_Update.Text = "Update";
+            this.btn_Update.TabIndex = 13;
+            this.btn_Update.Text = "&Update";
             this.btn_Update.UseVisualStyleBackColor = true;
             this.btn_Update.Click += new System.EventHandler(this.btn_Add_Click);
             // 
             // grower1
             // 
             this.grower1.bol_test = false;
-            this.grower1.Grower_Id = 145;
+            this.grower1.Grower_Id = 0;
             this.grower1.Location = new System.Drawing.Point(34, 180);
             this.grower1.Name = "grower1";
             this.grower1.Orchardist_Id = 0;
@@ -402,7 +402,7 @@
             // fruit1
             // 
             this.fruit1.Block_Id = 0;
-            this.fruit1.FruitType_Id = 1;
+            this.fruit1.FruitType_Id = 0;
             this.fruit1.FruitVariety_Id = 0;
             this.fruit1.Location = new System.Drawing.Point(33, 260);
             this.fruit1.Name = "fruit1";

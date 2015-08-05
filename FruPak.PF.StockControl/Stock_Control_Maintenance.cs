@@ -15,7 +15,7 @@ namespace FruPak.PF.StockControl
     Maintenance Class.
      * In order to keep things simple and as standard as possible. It was decided where possible to a standard table structure would be used.
      * This structure is: _id, Code, Description, Mod_date, Mod_User_Id
-     * 
+     *
      * This class is a form used to Add, Update, and Delete general Common items, where the tables have followed the standard structure.
 
     Date        Author     Desc
@@ -24,13 +24,13 @@ namespace FruPak.PF.StockControl
     */
     public partial class Stock_Control_Maintenance : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static string str_table = "";
         private static int int_Current_User_Id = 0;
         private static int int_DVG_Row_id = 0;
         private static bool bol_write_access;
-       
+
         public Stock_Control_Maintenance(string str_type, int int_C_User_id, bool bol_w_a)
         {
             InitializeComponent();
@@ -109,7 +109,7 @@ namespace FruPak.PF.StockControl
             var col7 = new DataGridViewTextBoxColumn();
             var col8 = new DataGridViewTextBoxColumn();
             var col9 = new DataGridViewTextBoxColumn();
-            
+
             col0.HeaderText = "Id";
             col0.Name = "Id";
             col0.ReadOnly = true;
@@ -191,7 +191,7 @@ namespace FruPak.PF.StockControl
                         DGVC_User_Id.Value = dr_Get_Info["Stock_Item_Id"].ToString();
                         break;
                 }
-                
+
                 dataGridView1.Rows[i].Cells["Id"] = DGVC_User_Id;
 
                 DataGridViewCell DGVC_Name = new DataGridViewTextBoxCell();
@@ -213,7 +213,7 @@ namespace FruPak.PF.StockControl
                 DataGridViewCell DGVC_Active = new DataGridViewTextBoxCell();
                 DGVC_Active.Value = dr_Get_Info["PF_Active_Ind"].ToString();
                 dataGridView1.Rows[i].Cells["Active_Ind"] = DGVC_Active;
-                
+
                 DataGridViewCell DGVC_Mod_date = new DataGridViewTextBoxCell();
                 DGVC_Mod_date.Value = dr_Get_Info["Mod_date"].ToString();
                 dataGridView1.Rows[i].Cells["Mod_Date"] = DGVC_Mod_date;
@@ -271,8 +271,8 @@ namespace FruPak.PF.StockControl
                 txt_Description.Text = dataGridView1.Rows[e.RowIndex].Cells["Description"].Value.ToString();
                 nud_trigger.Value = Convert.ToDecimal(dataGridView1.Rows[e.RowIndex].Cells["Trigger"].Value.ToString());
                 nud_multiplier.Value = Convert.ToDecimal(dataGridView1.Rows[e.RowIndex].Cells["Multiplier"].Value.ToString());
-                ckb_Active.Checked = Convert.ToBoolean(dataGridView1.Rows[e.RowIndex].Cells["Active_Ind"].Value.ToString());                
-                btn_Add.Text = "Update";
+                ckb_Active.Checked = Convert.ToBoolean(dataGridView1.Rows[e.RowIndex].Cells["Active_Ind"].Value.ToString());
+                btn_Add.Text = "&Update";
             }
         }
         private void btn_Add_Click(object sender, EventArgs e)
@@ -298,7 +298,7 @@ namespace FruPak.PF.StockControl
                 str_code = cmb_Code.SelectedItem.ToString() + "-" + nud_Code.Value.ToString();
                 switch (btn_Add.Text)
                 {
-                    case "Add":
+                    case "&Add":
                         switch (str_table)
                         {
                             case "PF_Stock_Item":
@@ -306,7 +306,7 @@ namespace FruPak.PF.StockControl
                                 break;
                         }
                         break;
-                    case "Update":
+                    case "&Update":
                         switch (str_table)
                         {
                             case "PF_Stock_Item":
@@ -333,7 +333,7 @@ namespace FruPak.PF.StockControl
         /// validates the text fields on length
         /// </summary>
         /// <returns></returns>
-        /// 
+        ///
         private DataSet ds_validate;
         private string validate(string str_table, string str_btnText)
         {
@@ -363,7 +363,7 @@ namespace FruPak.PF.StockControl
                 str_msg = str_msg + "You must enter a multiplier somewhere between 0.50 and 99" + Environment.NewLine;
             }
 
-            if (btn_Add.Text == "Add")
+            if (btn_Add.Text == "&Add")
             {
                 switch (str_table)
                 {
@@ -380,7 +380,7 @@ namespace FruPak.PF.StockControl
                     ds_validate.Dispose();
                 }
             }
-            
+
             if (txt_Description.TextLength == 0)
             {
                 str_msg = str_msg + "Invalid Description: Please Enter a Description"+ Environment.NewLine;
@@ -404,7 +404,7 @@ namespace FruPak.PF.StockControl
             nud_multiplier.Value = 1;
             nud_trigger.Value = 1;
             txt_Description.ResetText();
-            btn_Add.Text = "Add";
+            btn_Add.Text = "&Add";
         }
         private void btn_Close_Click(object sender, EventArgs e)
         {
@@ -429,7 +429,7 @@ namespace FruPak.PF.StockControl
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

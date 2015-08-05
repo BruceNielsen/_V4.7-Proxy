@@ -15,9 +15,9 @@ namespace FruPak.PF.Utils.Common
     Maintenance2 Class.
      * In order to keep things simple and as standard as possible. It was decided where possible to a standard table structure would be used.
      * This structure is: _id, Code, Description, Outlook_Key, Active_Ind, Mod_date, Mod_User_Id
-     * 
+     *
      * This class is a form used to Add, Update, and Delete general Common items, where the tables have followed the standard structure.
-     * 
+     *
      * This class is used where Outlook is also needed to be accessed
 
     Date        Author     Desc
@@ -26,7 +26,7 @@ namespace FruPak.PF.Utils.Common
     */
     public partial class Common_Maintenance2 : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static string str_table = "";
         private static bool bol_write_access;
@@ -50,7 +50,7 @@ namespace FruPak.PF.Utils.Common
 
             //setup Outlook location
 
-            // Experimental Change 23-03-2015 
+            // Experimental Change 23-03-2015
             // FruPak.PF.Data.Outlook.Outlook.Folder_Name = FruPak.PF.Common.Code.Outlook.SetUp_Location("OutLook%");
             FruPak.PF.Data.Outlook.Outlook.Folder_Name = FruPak.PF.Common.Code.Outlook.SetUp_Location("OutLook");
 
@@ -119,7 +119,7 @@ namespace FruPak.PF.Utils.Common
             var col0 = new DataGridViewTextBoxColumn();
             var col1 = new DataGridViewTextBoxColumn();
             var col2 = new DataGridViewTextBoxColumn();
-            var col3 = new DataGridViewTextBoxColumn();            
+            var col3 = new DataGridViewTextBoxColumn();
             var col4 = new DataGridViewTextBoxColumn();
             var col5 = new DataGridViewTextBoxColumn();
             var col6 = new DataGridViewTextBoxColumn();
@@ -195,7 +195,7 @@ namespace FruPak.PF.Utils.Common
             dataGridView1.Refresh();
             dataGridView1.Rows.Clear();
 
-            
+
             DataRow dr_Get_Info;
 
             switch (str_table)
@@ -274,10 +274,10 @@ namespace FruPak.PF.Utils.Common
 
             DataSet ds_Contacts = FruPak.PF.Data.AccessLayer.PF_Customer.Get_Info();
             cmb_Outlook.DataSource = ds_Contacts.Tables[0];
-            cmb_Outlook.DisplayMember = "Name";            
+            cmb_Outlook.DisplayMember = "Name";
             cmb_Outlook.ValueMember = "Customer_Id";
             cmb_Outlook.Text = null;
-            Cursor = Cursors.Default;          
+            Cursor = Cursors.Default;
         }
         private DataSet ds_validate;
         private string validate(string str_table, string str_btnText)
@@ -329,7 +329,15 @@ namespace FruPak.PF.Utils.Common
 
         private void btn_Add_Click(object sender, EventArgs e)
         {
+            // This can take quite a while, so give some visual feedback - BN 24-06-2015
+
+            // Set cursor as hourglass
+            Cursor.Current = Cursors.WaitCursor;
+
             Add_btn();
+
+            // Set cursor as default arrow
+            Cursor.Current = Cursors.Default;
         }
         private void Add_btn()
         {
@@ -350,11 +358,11 @@ namespace FruPak.PF.Utils.Common
             }
             if (DLR_MessageBox != DialogResult.OK)
             {
-                
+
 
                 switch (btn_Add.Text)
                 {
-                    case "Add":
+                    case "&Add":
                         switch (str_table)
                         {
                             case "CM_Trader":
@@ -365,7 +373,7 @@ namespace FruPak.PF.Utils.Common
                                 break;
                         }
                         break;
-                    case "Update":
+                    case "&Update":
                         switch (str_table)
                         {
                             case "CM_Trader":
@@ -493,9 +501,9 @@ namespace FruPak.PF.Utils.Common
                         txt_barcode.Text = dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();
                         break;
                 }
-                
+
                 ckb_Active.Checked = Convert.ToBoolean(dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString());
-                btn_Add.Text = "Update";
+                btn_Add.Text = "&Update";
             }
             //outlook View
             else if (e.ColumnIndex == 10)
@@ -519,7 +527,7 @@ namespace FruPak.PF.Utils.Common
             txt_Description.ResetText();
             txt_barcode.ResetText();
             cmb_Outlook.Text = null;
-            btn_Add.Text = "Add";
+            btn_Add.Text = "&Add";
         }
         private void btn_Close_Click(object sender, EventArgs e)
         {
@@ -544,7 +552,7 @@ namespace FruPak.PF.Utils.Common
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

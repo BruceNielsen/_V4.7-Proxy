@@ -105,7 +105,7 @@
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(75, 23);
             this.btn_Add.TabIndex = 10;
-            this.btn_Add.Text = "Add";
+            this.btn_Add.Text = "&Add";
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
@@ -142,7 +142,7 @@
             this.rb_Perm_staff.Size = new System.Drawing.Size(76, 17);
             this.rb_Perm_staff.TabIndex = 5;
             this.rb_Perm_staff.Tag = "P";
-            this.rb_Perm_staff.Text = "Permanent";
+            this.rb_Perm_staff.Text = "&Permanent";
             this.rb_Perm_staff.UseVisualStyleBackColor = true;
             // 
             // rb_Seasonal_Staff
@@ -155,7 +155,7 @@
             this.rb_Seasonal_Staff.TabIndex = 6;
             this.rb_Seasonal_Staff.TabStop = true;
             this.rb_Seasonal_Staff.Tag = "S";
-            this.rb_Seasonal_Staff.Text = "Seasonal";
+            this.rb_Seasonal_Staff.Text = "&Seasonal";
             this.rb_Seasonal_Staff.UseVisualStyleBackColor = true;
             // 
             // rb_Casual_Staff
@@ -166,7 +166,7 @@
             this.rb_Casual_Staff.Size = new System.Drawing.Size(57, 17);
             this.rb_Casual_Staff.TabIndex = 7;
             this.rb_Casual_Staff.Tag = "C";
-            this.rb_Casual_Staff.Text = "Casual";
+            this.rb_Casual_Staff.Text = "Cas&ual";
             this.rb_Casual_Staff.UseVisualStyleBackColor = true;
             // 
             // lbl_Emp_Num
@@ -206,7 +206,7 @@
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(75, 23);
             this.btn_reset.TabIndex = 11;
-            this.btn_reset.Text = "Reset";
+            this.btn_reset.Text = "&Reset";
             this.btn_reset.UseVisualStyleBackColor = true;
             this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
             // 
@@ -216,7 +216,7 @@
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 23);
             this.btn_Close.TabIndex = 12;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -280,6 +280,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "WO_Staff";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.WorkOrder.Work Order Staff";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.WO_Staff_KeyDown);

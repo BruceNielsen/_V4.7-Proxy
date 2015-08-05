@@ -12,7 +12,7 @@ namespace FruPak.PF.Utils.Common
 {
     public partial class Grower : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static bool bol_write_access;
         private static int int_Current_User_Id = 0;
@@ -24,13 +24,13 @@ namespace FruPak.PF.Utils.Common
             int_Current_User_Id = int_C_User_id;
 
             //setup Outlook location
-            
+
             //restrict access
             bol_write_access = bol_w_a;
             btn_Add.Enabled = bol_w_a;
             //check if testing or not
 
-            
+
             //if (FruPak.PF.Global.Global.bol_Testing == true)
             //{
             //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
@@ -120,7 +120,7 @@ namespace FruPak.PF.Utils.Common
             col4.Name = "Global_Gap_Number";
             col4.Width = 100;
             col4.ReadOnly = true;
-            
+
             col5.HeaderText = "GST";
             col5.Name = "GST";
             col5.ReadOnly = true;
@@ -165,7 +165,7 @@ namespace FruPak.PF.Utils.Common
             btn_block1.Text = "Block";
             btn_block1.UseColumnTextForButtonValue = true;
             dataGridView1.Columns.Add(btn_block1);
-            
+
         }
         private void populate_datagridview()
         {
@@ -243,7 +243,7 @@ namespace FruPak.PF.Utils.Common
             cmb_Orchardist.DisplayMember = "Description";
             cmb_Orchardist.ValueMember = "Orchardist_Id";
             cmb_Orchardist.Text = null;
-          
+
             if (cmb_Rpin.SelectedValue != null)
             {
                 Read_PipFruit(cmb_Rpin.SelectedValue.ToString());
@@ -269,7 +269,7 @@ namespace FruPak.PF.Utils.Common
                     cmb_Orchardist.SelectedIndex = cmb_Orchardist.FindString(dr_EX_Details["Orchardist"].ToString());
                 }
 
-            }            
+            }
         }
         private void btn_Add_Click(object sender, EventArgs e)
         {
@@ -282,7 +282,7 @@ namespace FruPak.PF.Utils.Common
             string str_rpin = "";
             int int_result = 0;
 
-            if (btn_Add.Text == "Add")
+            if (btn_Add.Text == "&Add")
             {
                 if (cmb_Rpin.SelectedValue == null && cmb_Rpin.Text == "")
                 {
@@ -354,7 +354,7 @@ namespace FruPak.PF.Utils.Common
             {
                 switch (btn_Add.Text)
                 {
-                    case "Add":
+                    case "&Add":
 
                         int_Grower_Id = FruPak.PF.Common.Code.General.int_max_user_id("CM_Grower");
                         int_result = FruPak.PF.Data.AccessLayer.CM_Grower.Insert(int_Grower_Id, str_rpin, Convert.ToInt32(cmb_Orchardist.SelectedValue.ToString()),
@@ -385,7 +385,7 @@ namespace FruPak.PF.Utils.Common
                         }
                         lbl_message.Text = str_rpin + " has been added";
                         break;
-                    case "Update":
+                    case "&Update":
 
                         if (cmb_Rpin.SelectedValue == null)
                         {
@@ -516,7 +516,7 @@ namespace FruPak.PF.Utils.Common
             txt_Global_Gap.ResetText();
             txt_GST.ResetText();
             ckb_Active.Checked = true;
-            btn_Add.Text = "Add";
+            btn_Add.Text = "&Add";
             customer1.Customer_Id = 0;
             cmb_Orchardist.Text = null;
             cmb_Rpin.Text = null;
@@ -543,7 +543,7 @@ namespace FruPak.PF.Utils.Common
         }
 
         private void cmb_Orchardist_SelectionChangeCommitted(object sender, EventArgs e)
-        {            
+        {
             DataSet ds = FruPak.PF.Data.AccessLayer.CM_Orchardist.Get_Info(Convert.ToInt32((sender as ComboBox).SelectedValue.ToString()));
             DataRow dr;
 
@@ -564,7 +564,7 @@ namespace FruPak.PF.Utils.Common
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

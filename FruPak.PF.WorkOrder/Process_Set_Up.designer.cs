@@ -59,7 +59,7 @@
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 23);
             this.btn_Close.TabIndex = 10;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -69,7 +69,7 @@
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(75, 23);
             this.btn_reset.TabIndex = 9;
-            this.btn_reset.Text = "Reset";
+            this.btn_reset.Text = "&Reset";
             this.btn_reset.UseVisualStyleBackColor = true;
             this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
             // 
@@ -79,7 +79,7 @@
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(75, 23);
             this.btn_Add.TabIndex = 8;
-            this.btn_Add.Text = "Add";
+            this.btn_Add.Text = "&Add";
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
@@ -231,7 +231,7 @@
             this.btn_Update.Name = "btn_Update";
             this.btn_Update.Size = new System.Drawing.Size(112, 23);
             this.btn_Update.TabIndex = 12;
-            this.btn_Update.Text = "Add Relationship";
+            this.btn_Update.Text = "Add Relation&ship";
             this.btn_Update.UseVisualStyleBackColor = true;
             this.btn_Update.Click += new System.EventHandler(this.btn_Update_Click);
             // 
@@ -241,7 +241,7 @@
             this.btn_new.Name = "btn_new";
             this.btn_new.Size = new System.Drawing.Size(75, 23);
             this.btn_new.TabIndex = 7;
-            this.btn_new.Text = "New";
+            this.btn_new.Text = "&New";
             this.btn_new.UseVisualStyleBackColor = true;
             this.btn_new.Click += new System.EventHandler(this.btn_new_Click);
             // 
@@ -273,7 +273,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Process_Set_Up";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.WorkOrder.Process Set Up";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Process_Set_Up_KeyDown);

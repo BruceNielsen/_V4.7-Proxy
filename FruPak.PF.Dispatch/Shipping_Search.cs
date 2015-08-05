@@ -284,6 +284,8 @@ namespace FruPak.PF.Dispatch
 
         private void btn_View_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
+
             logger.Log(LogLevel.Info, DecorateString("FruPak.PF.Dispatch.Shipping Search", "btn_View_Click", "(View)"));
 
             //view_list.Clear();
@@ -313,6 +315,10 @@ namespace FruPak.PF.Dispatch
                     FruPak.PF.Common.Code.General.Report_Viewer(FruPak.PF.PrintLayer.Word.FilePath + "\\" + FruPak.PF.PrintLayer.Word.FileName + ".pdf");
                 }
             }
+
+            view_list.Clear();
+            Cursor.Current = Cursors.Default;
+
         }
 
         private void chb_ADDR_CheckedChanged(object sender, EventArgs e)
@@ -535,7 +541,9 @@ namespace FruPak.PF.Dispatch
                             str_msg = str_msg + "No Street Address loaded in OutLook for this Customer. Please load an Address and try again." + Environment.NewLine;
                         }
 
-                        if (FruPak.PF.Data.Outlook.Contacts.Contact_Company_Name == "")
+                        // Yet again no checking for nulls
+                        if (FruPak.PF.Data.Outlook.Contacts.Contact_Company_Name == "" ||
+                            FruPak.PF.Data.Outlook.Contacts.Contact_Company_Name == null)
                         {
                             if (FruPak.PF.Data.Outlook.Contacts.Contact_First_Name == "" && FruPak.PF.Data.Outlook.Contacts.Contact_Last_Name == "")
                             {
@@ -551,7 +559,7 @@ namespace FruPak.PF.Dispatch
                             str_delivery_name = FruPak.PF.Data.Outlook.Contacts.Contact_Company_Name;
                         }
 
-                        str_msg = check_tickboxs();
+                        //str_msg = check_tickboxs();
 
                         if (str_msg.Length > 0)
                         {
@@ -893,7 +901,7 @@ namespace FruPak.PF.Dispatch
             // BN 23-04-2015
             // Shipping_Search isn't clearing the last search when you close the form
 
-            view_list.Clear();
+            //view_list.Clear();
             chb_All.Checked = false;
         }
 

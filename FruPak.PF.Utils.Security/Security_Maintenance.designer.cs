@@ -52,7 +52,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(543, 531);
-            this.dataGridView1.TabIndex = 0;
+            this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // lbl_message
@@ -79,7 +79,7 @@
             this.txt_code.MaxLength = 10;
             this.txt_code.Name = "txt_code";
             this.txt_code.Size = new System.Drawing.Size(123, 20);
-            this.txt_code.TabIndex = 1;
+            this.txt_code.TabIndex = 2;
             // 
             // lbl_Description
             // 
@@ -96,15 +96,15 @@
             this.txt_Description.Multiline = true;
             this.txt_Description.Name = "txt_Description";
             this.txt_Description.Size = new System.Drawing.Size(340, 85);
-            this.txt_Description.TabIndex = 2;
+            this.txt_Description.TabIndex = 3;
             // 
             // btn_Close
             // 
             this.btn_Close.Location = new System.Drawing.Point(873, 182);
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 23);
-            this.btn_Close.TabIndex = 20;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.TabIndex = 6;
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -113,8 +113,8 @@
             this.btn_reset.Location = new System.Drawing.Point(781, 182);
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(75, 23);
-            this.btn_reset.TabIndex = 4;
-            this.btn_reset.Text = "Reset";
+            this.btn_reset.TabIndex = 5;
+            this.btn_reset.Text = "&Reset";
             this.btn_reset.UseVisualStyleBackColor = true;
             this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
             // 
@@ -123,8 +123,8 @@
             this.btn_Add.Location = new System.Drawing.Point(690, 182);
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(75, 23);
-            this.btn_Add.TabIndex = 3;
-            this.btn_Add.Text = "Add";
+            this.btn_Add.TabIndex = 4;
+            this.btn_Add.Text = "&Add";
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 

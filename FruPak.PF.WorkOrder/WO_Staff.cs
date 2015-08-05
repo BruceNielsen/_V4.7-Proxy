@@ -12,7 +12,7 @@ namespace FruPak.PF.WorkOrder
 {
     public partial class WO_Staff : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static bool bol_write_access;
         private static int int_Current_User_Id = 0;
@@ -41,7 +41,7 @@ namespace FruPak.PF.WorkOrder
 
             //restrict access
             bol_write_access = bol_w_a;
-            btn_Add.Enabled = bol_w_a;   
+            btn_Add.Enabled = bol_w_a;
 
             AddColumnsProgrammatically();
             populate_combobox();
@@ -127,7 +127,7 @@ namespace FruPak.PF.WorkOrder
                     dataGridView1.Rows[i_rows].Cells[4] = DGVC_Extra_Hours;
                 }
                 ds_Get_Info.Dispose();
-            }            
+            }
             else
             {
                 DataSet ds_Get_Reltn = FruPak.PF.Data.AccessLayer.PF_Staff.Get_Info_Perm_Staff();
@@ -211,7 +211,7 @@ namespace FruPak.PF.WorkOrder
         {
             DialogResult DLR_Message = new DialogResult();
             int int_result = 0;
-            
+
 
             //Delete
             if (e.ColumnIndex == 5)
@@ -248,7 +248,7 @@ namespace FruPak.PF.WorkOrder
 
                 ckb_Process_Hours.Checked = Convert.ToBoolean(dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString());
                 nud_Extra_Hours.Value = Convert.ToDecimal(dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString());
-                btn_Add.Text = "Update";
+                btn_Add.Text = "&Update";
             }
 
         }
@@ -276,7 +276,7 @@ namespace FruPak.PF.WorkOrder
             }
             if (DLR_MessageBox != DialogResult.OK)
             {
-                if (btn_Add.Text == "Add")
+                if (btn_Add.Text == "&Add")
                 {
                     if (cmb_Staff.SelectedValue != null)
                     {
@@ -384,7 +384,7 @@ namespace FruPak.PF.WorkOrder
             txt_Emp_Num.ResetText();
             txt_hourly_rate.ResetText();
             grb_Employ.Visible = false;
-            btn_Add.Text = "Add";
+            btn_Add.Text = "&Add";
         }
         private void cmb_Staff_TextUpdate(object sender, EventArgs e)
         {
@@ -426,7 +426,7 @@ namespace FruPak.PF.WorkOrder
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

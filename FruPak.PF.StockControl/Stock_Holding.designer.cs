@@ -71,7 +71,7 @@
             this.cmb_stock_Item.Location = new System.Drawing.Point(699, 55);
             this.cmb_stock_Item.Name = "cmb_stock_Item";
             this.cmb_stock_Item.Size = new System.Drawing.Size(296, 21);
-            this.cmb_stock_Item.TabIndex = 1;
+            this.cmb_stock_Item.TabIndex = 2;
             // 
             // label2
             // 
@@ -87,7 +87,7 @@
             this.txt_Inv_Num.Location = new System.Drawing.Point(699, 108);
             this.txt_Inv_Num.Name = "txt_Inv_Num";
             this.txt_Inv_Num.Size = new System.Drawing.Size(211, 20);
-            this.txt_Inv_Num.TabIndex = 3;
+            this.txt_Inv_Num.TabIndex = 4;
             // 
             // label3
             // 
@@ -108,15 +108,15 @@
             0});
             this.nud_quantity.Name = "nud_quantity";
             this.nud_quantity.Size = new System.Drawing.Size(120, 20);
-            this.nud_quantity.TabIndex = 4;
+            this.nud_quantity.TabIndex = 5;
             // 
             // btn_Close
             // 
             this.btn_Close.Location = new System.Drawing.Point(906, 188);
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 23);
-            this.btn_Close.TabIndex = 8;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.TabIndex = 9;
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -125,8 +125,8 @@
             this.btn_reset.Location = new System.Drawing.Point(744, 188);
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(75, 23);
-            this.btn_reset.TabIndex = 6;
-            this.btn_reset.Text = "Reset";
+            this.btn_reset.TabIndex = 7;
+            this.btn_reset.Text = "&Reset";
             this.btn_reset.UseVisualStyleBackColor = true;
             this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
             // 
@@ -135,8 +135,8 @@
             this.btn_Add.Location = new System.Drawing.Point(663, 188);
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(75, 23);
-            this.btn_Add.TabIndex = 5;
-            this.btn_Add.Text = "Add";
+            this.btn_Add.TabIndex = 6;
+            this.btn_Add.Text = "&Add";
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
@@ -151,7 +151,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(580, 158);
-            this.dataGridView1.TabIndex = 49;
+            this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // dtp_Arrival_Date
@@ -160,7 +160,7 @@
             this.dtp_Arrival_Date.Location = new System.Drawing.Point(699, 82);
             this.dtp_Arrival_Date.Name = "dtp_Arrival_Date";
             this.dtp_Arrival_Date.Size = new System.Drawing.Size(104, 20);
-            this.dtp_Arrival_Date.TabIndex = 2;
+            this.dtp_Arrival_Date.TabIndex = 3;
             // 
             // label4
             // 
@@ -176,8 +176,8 @@
             this.btn_Refresh.Location = new System.Drawing.Point(825, 188);
             this.btn_Refresh.Name = "btn_Refresh";
             this.btn_Refresh.Size = new System.Drawing.Size(75, 23);
-            this.btn_Refresh.TabIndex = 7;
-            this.btn_Refresh.Text = "Refresh";
+            this.btn_Refresh.TabIndex = 8;
+            this.btn_Refresh.Text = "Re&fresh";
             this.btn_Refresh.UseVisualStyleBackColor = true;
             this.btn_Refresh.Click += new System.EventHandler(this.btn_Refresh_Click);
             // 
@@ -203,6 +203,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Stock_Holding";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.StockControl.Holding";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Stock_Holding_KeyDown);

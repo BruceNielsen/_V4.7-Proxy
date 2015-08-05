@@ -35,6 +35,7 @@
             this.lbl_weight = new System.Windows.Forms.Label();
             this.btn_Close = new System.Windows.Forms.Button();
             this.barcode1 = new FruPak.PF.Utils.UserControls.Barcode();
+            this.buttonZeroTareWeight = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).BeginInit();
             this.SuspendLayout();
             // 
@@ -46,7 +47,7 @@
             this.btn_Tipped.Size = new System.Drawing.Size(258, 46);
             this.btn_Tipped.TabIndex = 3;
             this.btn_Tipped.Tag = "";
-            this.btn_Tipped.Text = "Update";
+            this.btn_Tipped.Text = "&Update";
             this.btn_Tipped.UseVisualStyleBackColor = true;
             this.btn_Tipped.Click += new System.EventHandler(this.btn_Tipped_Click);
             // 
@@ -63,6 +64,12 @@
             this.nud_weight.Name = "nud_weight";
             this.nud_weight.Size = new System.Drawing.Size(137, 26);
             this.nud_weight.TabIndex = 2;
+            this.nud_weight.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.nud_weight.Enter += new System.EventHandler(this.nud_weight_Enter);
             // 
             // lbl_message
             // 
@@ -92,7 +99,7 @@
             this.btn_Close.Size = new System.Drawing.Size(258, 46);
             this.btn_Close.TabIndex = 4;
             this.btn_Close.Tag = "";
-            this.btn_Close.Text = "Close";
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -105,11 +112,22 @@
             this.barcode1.Size = new System.Drawing.Size(293, 33);
             this.barcode1.TabIndex = 1;
             // 
+            // buttonZeroTareWeight
+            // 
+            this.buttonZeroTareWeight.Location = new System.Drawing.Point(290, 113);
+            this.buttonZeroTareWeight.Name = "buttonZeroTareWeight";
+            this.buttonZeroTareWeight.Size = new System.Drawing.Size(55, 23);
+            this.buttonZeroTareWeight.TabIndex = 27;
+            this.buttonZeroTareWeight.Text = "Zero";
+            this.buttonZeroTareWeight.UseVisualStyleBackColor = true;
+            this.buttonZeroTareWeight.Click += new System.EventHandler(this.buttonZeroTareWeight_Click);
+            // 
             // Bin_Tare_Weights
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(530, 318);
+            this.Controls.Add(this.buttonZeroTareWeight);
             this.Controls.Add(this.barcode1);
             this.Controls.Add(this.btn_Close);
             this.Controls.Add(this.btn_Tipped);
@@ -119,6 +137,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Bin_Tare_Weights";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.Utils.Scanning.Bin Tare Weights";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Bin_Tare_Weights_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).EndInit();
@@ -135,5 +154,6 @@
         private System.Windows.Forms.Label lbl_weight;
         private System.Windows.Forms.Button btn_Close;
         private UserControls.Barcode barcode1;
+        private System.Windows.Forms.Button buttonZeroTareWeight;
     }
 }

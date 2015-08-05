@@ -124,7 +124,7 @@
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(129, 52);
             this.btn_Close.TabIndex = 15;
-            this.btn_Close.Text = "E&xit";
+            this.btn_Close.Text = "&Close";
             this.btn_Close.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
@@ -222,7 +222,7 @@
             this.button11.Name = "button11";
             this.button11.Size = new System.Drawing.Size(130, 52);
             this.button11.TabIndex = 12;
-            this.button11.Text = "&Create Pallet Card";
+            this.button11.Text = "Create Pallet Car&d";
             this.button11.TextImageRelation = System.Windows.Forms.TextImageRelation.ImageBeforeText;
             this.button11.UseVisualStyleBackColor = true;
             this.button11.Click += new System.EventHandler(this.button11_Click);
@@ -314,6 +314,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Tablet_Menu";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.Menu.Tablet.Tablet Menu";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Tablet_Menu_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();

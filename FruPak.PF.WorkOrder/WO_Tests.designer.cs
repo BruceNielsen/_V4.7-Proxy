@@ -48,8 +48,8 @@
             this.btn_Close.Location = new System.Drawing.Point(776, 76);
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 23);
-            this.btn_Close.TabIndex = 8;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.TabIndex = 7;
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -58,8 +58,8 @@
             this.btn_reset.Location = new System.Drawing.Point(684, 76);
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(75, 23);
-            this.btn_reset.TabIndex = 7;
-            this.btn_reset.Text = "Reset";
+            this.btn_reset.TabIndex = 6;
+            this.btn_reset.Text = "&Reset";
             this.btn_reset.UseVisualStyleBackColor = true;
             this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
             // 
@@ -68,8 +68,8 @@
             this.btn_Add.Location = new System.Drawing.Point(593, 76);
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(75, 23);
-            this.btn_Add.TabIndex = 6;
-            this.btn_Add.Text = "Add";
+            this.btn_Add.TabIndex = 5;
+            this.btn_Add.Text = "&Add";
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
@@ -124,7 +124,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(830, 239);
-            this.dataGridView1.TabIndex = 5;
+            this.dataGridView1.TabIndex = 8;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellLeave);
             this.dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_KeyDown);

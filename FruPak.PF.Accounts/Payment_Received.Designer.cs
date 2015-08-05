@@ -49,7 +49,7 @@
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 36);
             this.btn_Close.TabIndex = 8;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -59,7 +59,7 @@
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(75, 36);
             this.btn_reset.TabIndex = 7;
-            this.btn_reset.Text = "Reset";
+            this.btn_reset.Text = "&Reset";
             this.btn_reset.UseVisualStyleBackColor = true;
             this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
             // 
@@ -69,7 +69,7 @@
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(75, 36);
             this.btn_Add.TabIndex = 6;
-            this.btn_Add.Text = "Update";
+            this.btn_Add.Text = "&Update";
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
@@ -102,7 +102,7 @@
             this.btn_Email.Name = "btn_Email";
             this.btn_Email.Size = new System.Drawing.Size(75, 36);
             this.btn_Email.TabIndex = 5;
-            this.btn_Email.Text = "Email Office";
+            this.btn_Email.Text = "&Email Office";
             this.btn_Email.UseVisualStyleBackColor = true;
             this.btn_Email.Click += new System.EventHandler(this.btn_Email_Click);
             // 
@@ -112,7 +112,7 @@
             this.btn_Statement.Name = "btn_Statement";
             this.btn_Statement.Size = new System.Drawing.Size(75, 36);
             this.btn_Statement.TabIndex = 4;
-            this.btn_Statement.Text = "Statement";
+            this.btn_Statement.Text = "&Statement";
             this.btn_Statement.UseVisualStyleBackColor = true;
             this.btn_Statement.Click += new System.EventHandler(this.btn_Statement_Click);
             // 
@@ -163,6 +163,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Payment_Received";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.Accounts.Payment Received";
             this.Load += new System.EventHandler(this.Payment_Received_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Payment_Received_KeyDown);

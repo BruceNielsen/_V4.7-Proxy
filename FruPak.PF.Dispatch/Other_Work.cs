@@ -278,13 +278,13 @@ namespace FruPak.PF.Dispatch
             {
                 switch (btn_Add.Text)
                 {
-                    case "Add":
+                    case "&Add":
                         int_result = FruPak.PF.Data.AccessLayer.PF_Other_Work.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Other_Work"), Convert.ToInt32(cmb_Work_Type.SelectedValue.ToString()), Convert.ToInt32(cmb_Staff.SelectedValue.ToString()),
                             dtp_Start.Value.ToShortDateString() + " " + dtp_Start.Value.Hour.ToString() +":"+ dtp_Start.Value.Minute +":" + dtp_Start.Value.Second.ToString(),
                             dtp_Finish.Value.ToShortDateString() + " " + dtp_Finish.Value.Hour.ToString() + ":" + dtp_Finish.Value.Minute.ToString() + ":" + dtp_Finish.Value.Second.ToString(),
                             txt_Description.Text, int_Current_User_Id);
                         break;
-                    case "Update":
+                    case "&Update":
                         int_result = FruPak.PF.Data.AccessLayer.PF_Other_Work.Update(int_Other_Work_Id, Convert.ToInt32(cmb_Work_Type.SelectedValue.ToString()), Convert.ToInt32(cmb_Staff.SelectedValue.ToString()),
                             dtp_Start.Value.ToShortDateString() + " " + dtp_Start.Value.Hour.ToString() + ":" + dtp_Start.Value.Minute + ":" + dtp_Start.Value.Second.ToString(),
                             dtp_Finish.Value.ToShortDateString() + " " + dtp_Finish.Value.Hour.ToString() + ":" + dtp_Finish.Value.Minute.ToString() + ":" + dtp_Finish.Value.Second.ToString(),

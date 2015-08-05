@@ -264,5 +264,17 @@ namespace FruPak.PF.Utils.Scanning
 
         #endregion
 
+        private void nud_weight_Enter(object sender, EventArgs e)
+        {
+            nud_weight.Focus();
+            nud_weight.Select(0, nud_weight.Value.ToString("000000").Length);
+
+        }
+
+        private void buttonZeroTareWeight_Click(object sender, EventArgs e)
+        {
+            nud_weight.Value = 0;
+        }
+
     }
 }

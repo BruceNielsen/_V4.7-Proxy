@@ -62,7 +62,7 @@
             this.btn_Print.Name = "btn_Print";
             this.btn_Print.Size = new System.Drawing.Size(75, 52);
             this.btn_Print.TabIndex = 2;
-            this.btn_Print.Text = "Print";
+            this.btn_Print.Text = "&Print";
             this.btn_Print.UseVisualStyleBackColor = true;
             this.btn_Print.Click += new System.EventHandler(this.btn_Print_Click);
             // 
@@ -73,7 +73,7 @@
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 52);
             this.btn_Close.TabIndex = 4;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -84,7 +84,7 @@
             this.btn_reprint.Name = "btn_reprint";
             this.btn_reprint.Size = new System.Drawing.Size(75, 52);
             this.btn_reprint.TabIndex = 3;
-            this.btn_reprint.Text = "RePrint";
+            this.btn_reprint.Text = "&Reprint";
             this.btn_reprint.UseVisualStyleBackColor = true;
             this.btn_reprint.Click += new System.EventHandler(this.btn_reprint_Click);
             // 
@@ -101,6 +101,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Create_Small_Rejects";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.Utils.Scanning.Create Small Rejects";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Create_Small_Rejects_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nud_required)).EndInit();

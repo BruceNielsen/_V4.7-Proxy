@@ -434,19 +434,19 @@ namespace FruPak.PF.Dispatch
             string str_msg = "";
             if (customer1.Customer_Id <= 0)
             {
-                str_msg = str_msg + "Invalid Customer. Please Select a valid Customer from the dropdown List." + Environment.NewLine;
+                str_msg = str_msg + "Invalid Customer.\r\nPlease Select a valid Customer from the dropdown List.\r\n" + Environment.NewLine;
             }
             if (txt_Customer_Ref.TextLength == 0)
             {
-                str_msg = str_msg + "Invalid Customer Reference. Please Enter a valid Customer Order Reference." + Environment.NewLine;
+                str_msg = str_msg + "Invalid Customer Reference.\r\nPlease Enter a valid Customer Order Reference.\r\n" + Environment.NewLine;
             }
             if (cmb_Truck.SelectedValue == null)
             {
-                str_msg = str_msg + "Invalid Truck. Please Select a valid Truck from the dropdown List." + Environment.NewLine;
+                str_msg = str_msg + "Invalid Truck.\r\nPlease Select a valid Truck from the dropdown List.\r\n" + Environment.NewLine;
             }
             if (cmb_Destination.SelectedValue == null)
             {
-                str_msg = str_msg + "Invalid Destination. Please Select a valid Destination from the dropdown List." + Environment.NewLine;
+                str_msg = str_msg + "Invalid Destination.\r\nPlease Select a valid Destination from the dropdown List.\r\n" + Environment.NewLine;
             }
             //if (txt_Freight_Docket.TextLength == 0)
             //{
@@ -472,7 +472,7 @@ namespace FruPak.PF.Dispatch
             {
                 switch (btn_Add.Text)
                 {
-                    case "Add":
+                    case "&Add":
                         
                         int_order_id = FruPak.PF.Common.Code.General.int_max_user_id("PF_Orders");
                         int_result = FruPak.PF.Data.AccessLayer.PF_Orders.Insert(int_order_id, Convert.ToInt32(cmb_Truck.SelectedValue.ToString()), Convert.ToInt32(cmb_Destination.SelectedValue.ToString()), dtp_Load_Date.Value.ToString("yyyy/MM/dd"), txt_Customer_Ref.Text, txt_Freight_Docket.Text, customer1.Customer_Id, txt_Comments.Text, true, ckb_Hold_For_Payment.Checked, int_Current_User_Id);
@@ -485,7 +485,7 @@ namespace FruPak.PF.Dispatch
                             }
                         }
                         break;
-                    case "Update":
+                    case "&Update":
                         int_result = FruPak.PF.Data.AccessLayer.PF_Orders.Update(int_order_id, Convert.ToInt32(cmb_Truck.SelectedValue.ToString()), Convert.ToInt32(cmb_Destination.SelectedValue.ToString()), dtp_Load_Date.Value.ToString("yyyy/MM/dd"), txt_Customer_Ref.Text, txt_Freight_Docket.Text, customer1.Customer_Id, txt_Comments.Text, true, ckb_Hold_For_Payment.Checked, int_Current_User_Id);
                         FruPak.PF.Data.AccessLayer.PF_Orders_Pallets.Delete(int_order_id);
                         for (int i = 0; i < Convert.ToInt32(dataGridView2.Rows.Count.ToString()); i++)
@@ -725,7 +725,7 @@ namespace FruPak.PF.Dispatch
                     cmb_Destination.SelectedValue = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[7].Value.ToString());
                     txt_Freight_Docket.Text = dataGridView1.Rows[e.RowIndex].Cells[9].Value.ToString();
                     txt_Comments.Text = dataGridView1.Rows[e.RowIndex].Cells[10].Value.ToString();
-                    btn_Add.Text = "Update";
+                    btn_Add.Text = "&Update";
                     populate_DataGridView2();
                     DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Orders_Pallets.Get_Info_for_Order(int_order_id);
                     DataRow dr_Get_Info;
@@ -783,7 +783,7 @@ namespace FruPak.PF.Dispatch
             txt_Comments.ResetText();
             txt_Customer_Ref.ResetText();
             txt_Freight_Docket.ResetText();
-            btn_Add.Text = "Add";
+            btn_Add.Text = "&Add";
             populate_DataGridView2();
         }
         private void btn_Refresh_Click(object sender, EventArgs e)

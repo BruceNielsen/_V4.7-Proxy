@@ -74,7 +74,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(967, 279);
+            this.dataGridView1.Size = new System.Drawing.Size(1110, 279);
             this.dataGridView1.TabIndex = 10;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
@@ -185,7 +185,7 @@
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 23);
             this.btn_Close.TabIndex = 14;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -195,7 +195,7 @@
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(75, 23);
             this.btn_reset.TabIndex = 12;
-            this.btn_reset.Text = "Reset";
+            this.btn_reset.Text = "&Reset";
             this.btn_reset.UseVisualStyleBackColor = true;
             this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
             // 
@@ -205,7 +205,7 @@
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(75, 23);
             this.btn_Add.TabIndex = 11;
-            this.btn_Add.Text = "Add";
+            this.btn_Add.Text = "&Add";
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
@@ -215,7 +215,7 @@
             this.btn_Refresh.Name = "btn_Refresh";
             this.btn_Refresh.Size = new System.Drawing.Size(75, 23);
             this.btn_Refresh.TabIndex = 13;
-            this.btn_Refresh.Text = "Refresh";
+            this.btn_Refresh.Text = "Re&fresh";
             this.btn_Refresh.UseVisualStyleBackColor = true;
             this.btn_Refresh.Click += new System.EventHandler(this.btn_Refresh_Click);
             // 
@@ -239,7 +239,7 @@
             this.dataGridView2.Location = new System.Drawing.Point(623, 109);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersVisible = false;
-            this.dataGridView2.Size = new System.Drawing.Size(359, 150);
+            this.dataGridView2.Size = new System.Drawing.Size(502, 150);
             this.dataGridView2.TabIndex = 9;
             this.dataGridView2.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellLeave);
             // 
@@ -304,7 +304,7 @@
             this.ckb_Hold_For_Payment.Name = "ckb_Hold_For_Payment";
             this.ckb_Hold_For_Payment.Size = new System.Drawing.Size(107, 17);
             this.ckb_Hold_For_Payment.TabIndex = 8;
-            this.ckb_Hold_For_Payment.Text = "Hold for Payment";
+            this.ckb_Hold_For_Payment.Text = "&Hold for Payment";
             this.ckb_Hold_For_Payment.UseVisualStyleBackColor = true;
             // 
             // panelShipping_Order
@@ -320,14 +320,14 @@
             this.panelShipping_Order.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.panelShipping_Order.Location = new System.Drawing.Point(0, 578);
             this.panelShipping_Order.Name = "panelShipping_Order";
-            this.panelShipping_Order.Size = new System.Drawing.Size(1006, 35);
+            this.panelShipping_Order.Size = new System.Drawing.Size(1149, 35);
             this.panelShipping_Order.TabIndex = 72;
             // 
             // Shipping_Order
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1006, 613);
+            this.ClientSize = new System.Drawing.Size(1149, 613);
             this.Controls.Add(this.panelShipping_Order);
             this.Controls.Add(this.ckb_Hold_For_Payment);
             this.Controls.Add(this.customer1);

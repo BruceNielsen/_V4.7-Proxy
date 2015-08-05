@@ -61,7 +61,7 @@
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 23);
             this.btn_Close.TabIndex = 13;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -71,7 +71,7 @@
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(75, 23);
             this.btn_reset.TabIndex = 12;
-            this.btn_reset.Text = "Reset";
+            this.btn_reset.Text = "&Reset";
             this.btn_reset.UseVisualStyleBackColor = true;
             this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
             // 
@@ -81,7 +81,7 @@
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(156, 23);
             this.btn_Add.TabIndex = 5;
-            this.btn_Add.Text = "Add Work Orders to Invoice";
+            this.btn_Add.Text = "Add &Work Orders to Invoice";
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
@@ -143,7 +143,7 @@
             this.btn_Save.Name = "btn_Save";
             this.btn_Save.Size = new System.Drawing.Size(75, 23);
             this.btn_Save.TabIndex = 9;
-            this.btn_Save.Text = "Save";
+            this.btn_Save.Text = "&Save";
             this.btn_Save.UseVisualStyleBackColor = true;
             this.btn_Save.Click += new System.EventHandler(this.btn_Save_Click);
             // 
@@ -153,7 +153,7 @@
             this.btn_Add_Rates.Name = "btn_Add_Rates";
             this.btn_Add_Rates.Size = new System.Drawing.Size(158, 23);
             this.btn_Add_Rates.TabIndex = 6;
-            this.btn_Add_Rates.Text = "Add Extra charges to Invoice";
+            this.btn_Add_Rates.Text = "&Add Extra charges to Invoice";
             this.btn_Add_Rates.UseVisualStyleBackColor = true;
             this.btn_Add_Rates.Visible = false;
             this.btn_Add_Rates.Click += new System.EventHandler(this.btn_Add_Rates_Click);
@@ -181,7 +181,7 @@
             this.btn_email.Name = "btn_email";
             this.btn_email.Size = new System.Drawing.Size(75, 23);
             this.btn_email.TabIndex = 10;
-            this.btn_email.Text = "Email";
+            this.btn_email.Text = "&Email";
             this.btn_email.UseVisualStyleBackColor = true;
             this.btn_email.Visible = false;
             this.btn_email.Click += new System.EventHandler(this.btn_email_Click);
@@ -192,7 +192,7 @@
             this.btn_Print.Name = "btn_Print";
             this.btn_Print.Size = new System.Drawing.Size(75, 23);
             this.btn_Print.TabIndex = 11;
-            this.btn_Print.Text = "Print";
+            this.btn_Print.Text = "&Print";
             this.btn_Print.UseVisualStyleBackColor = true;
             this.btn_Print.Visible = false;
             this.btn_Print.Click += new System.EventHandler(this.btn_Print_Click);

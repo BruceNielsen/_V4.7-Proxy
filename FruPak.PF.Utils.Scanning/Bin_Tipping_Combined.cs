@@ -165,14 +165,14 @@ namespace FruPak.PF.Utils.Scanning
         }
         private void nud_weight_Leave(object sender, EventArgs e)
         {
-            if (dec_weight > 0)
-            {
-                btn_Wet_BinTipping.Focus();
-            }
-            else
-            {
-                btn_Weight_BinTipping.Focus();
-            }
+            //if (dec_weight > 0)
+            //{
+            //    btn_Wet_BinTipping.Focus();
+            //}
+            //else
+            //{
+            //    btn_Weight_BinTipping.Focus();
+            //}
         }
         private void txt_barcode_Validating(object sender, CancelEventArgs e)
         {
@@ -189,7 +189,7 @@ namespace FruPak.PF.Utils.Scanning
         private void Reset()
         {
             barcode_BinTipping.BarcodeValue = "";
-            nud_weight_BinTipping.Value = 0;
+            nud_weight_BinTipping.Value = 60;
             btn_Dry_BinTipping.UseVisualStyleBackColor = true;
             btn_Dry_BinTipping.FlatStyle = FlatStyle.Standard;
 
@@ -485,6 +485,39 @@ namespace FruPak.PF.Utils.Scanning
             {
                 this.barcode_BinTipping.BarcodeValue = barcode_BinTareWeights.BarcodeValue;
             }
+        }
+
+        private void nud_weight_BinTipping_Enter(object sender, EventArgs e)
+        {
+            nud_weight_BinTipping.Focus();
+            nud_weight_BinTipping.Select(0, nud_weight_BinTipping.Value.ToString("000000").Length);
+
+                // Interesting tip;
+                // You can get to the TextBox portion of the control through a trick, 
+                // use the Controls property. Like this:
+                //
+                // var box = (TextBox)numericUpDown1.Controls[1];
+                // box.SelectAll();
+                // box.Focus();
+                //
+                // This would normally be a bit fragile, but it is 99.9% guaranteed that NumericUpDown is never going to change.
+
+        }
+
+        private void nud_weight_BinTareWeights_Enter(object sender, EventArgs e)
+        {
+            nud_weight_BinTareWeights.Focus();
+            nud_weight_BinTareWeights.Select(0, nud_weight_BinTareWeights.Value.ToString("000000").Length);
+        }
+
+        private void buttonZeroGrossWeight_Click(object sender, EventArgs e)
+        {
+            nud_weight_BinTipping.Value = 0;
+        }
+
+        private void buttonZeroBinTareWeight_Click(object sender, EventArgs e)
+        {
+            nud_weight_BinTareWeights.Value = 0;
         }
 
 

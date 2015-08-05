@@ -13,7 +13,7 @@ namespace FruPak.PF.Utils.Security
     /*Description
     -----------------
     User Group Class.
-     * 
+     *
      * This class is a form used to Add, Update, and Delete USer Groups
 
     Date        Author     Desc
@@ -23,7 +23,7 @@ namespace FruPak.PF.Utils.Security
 
     public partial class User_Group_Maintenance : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static int int_Current_User_Id = 0;
         private static bool bol_Write_access;
@@ -170,7 +170,7 @@ namespace FruPak.PF.Utils.Security
 
                 //dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
                 dataGridView1.AutoResizeColumn(0, DataGridViewAutoSizeColumnMode.AllCells);
-                dataGridView1.AutoResizeColumn(1, DataGridViewAutoSizeColumnMode.AllCells);          
+                dataGridView1.AutoResizeColumn(1, DataGridViewAutoSizeColumnMode.AllCells);
                 dataGridView1.AutoResizeColumn(5, DataGridViewAutoSizeColumnMode.AllCells);
                 dataGridView1.AutoResizeColumn(6, DataGridViewAutoSizeColumnMode.AllCells);
 
@@ -183,7 +183,7 @@ namespace FruPak.PF.Utils.Security
 
             //dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
             dataGridView1.AutoResizeColumn(0, DataGridViewAutoSizeColumnMode.AllCells);
-            dataGridView1.AutoResizeColumn(1, DataGridViewAutoSizeColumnMode.AllCells);        
+            dataGridView1.AutoResizeColumn(1, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(5, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(6, DataGridViewAutoSizeColumnMode.AllCells);
         }
@@ -209,7 +209,7 @@ namespace FruPak.PF.Utils.Security
             {
                 str_msg = str_msg + "Invalid Group Name: Please enter a Group Name" + Environment.NewLine;
             }
-            else if ((sender as Button).Text == "Add") 
+            else if ((sender as Button).Text == "&Add")
             {
                 DataSet ds_Get_UserGroup_Info = FruPak.PF.Data.AccessLayer.SC_User_Groups.Get_Info(txt_Group_Name.Text);
                 if (Convert.ToInt32(ds_Get_UserGroup_Info.Tables[0].Rows.Count.ToString()) > 0)
@@ -230,10 +230,10 @@ namespace FruPak.PF.Utils.Security
             {
                 switch ((sender as Button).Text)
                 {
-                    case "Add":
+                    case "&Add":
                         int_result = FruPak.PF.Data.AccessLayer.SC_User_Groups.Insert(FruPak.PF.Common.Code.General.int_max_user_id("SC_User_Groups"), txt_Group_Name.Text, txt_Group_Description.Text, int_Current_User_Id);
                         break;
-                    case "Update":
+                    case "&Update":
                         int_result = FruPak.PF.Data.AccessLayer.SC_User_Groups.Update(int_UserGroup_id, txt_Group_Name.Text, txt_Group_Description.Text, int_Current_User_Id);
                         break;
                 }
@@ -252,13 +252,13 @@ namespace FruPak.PF.Utils.Security
             }
 
             populate_datagridview();
-            
+
         }
         private void Reset()
         {
             txt_Group_Name.ResetText();
             txt_Group_Description.ResetText();
-            btn_Add.Text = "Add";
+            btn_Add.Text = "&Add";
             btn_Add.Visible = true;
             btn_Update_Relationships.Visible = false;
             checkedListBox1.Visible = false;
@@ -312,18 +312,18 @@ namespace FruPak.PF.Utils.Security
                 int_UserGroup_id = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
                 txt_Group_Name.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
                 txt_Group_Description.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
-                btn_Add.Text = "Update";
+                btn_Add.Text = "&Update";
                 update_checkList();
                 btn_Update_Relationships.Visible = true;
                 checkedListBox1.Visible = true;
             }
-            
+
         }
 
         private void update_checkList()
         {
             DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.SC_User_Group_Relationship.Get_Info_By_Group(int_UserGroup_id);
-            DataRow dr_Get_Info;         
+            DataRow dr_Get_Info;
 
             for (int i = 0 ;i < Convert.ToInt32(checkedListBox1.Items.Count.ToString()); i ++ )
             {
@@ -355,7 +355,7 @@ namespace FruPak.PF.Utils.Security
                 else
                 {
                     FruPak.PF.Data.AccessLayer.SC_User_Group_Relationship.Delete_User_From_Group(int_User_Id, int_UserGroup_id);
-                }                
+                }
             }
         }
 
@@ -366,7 +366,7 @@ namespace FruPak.PF.Utils.Security
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

@@ -12,7 +12,7 @@ namespace FruPak.PF.Temp
 {
     public partial class Submission_Bins : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static bool bol_write_access;
         private static int int_Current_User_Id = 0;
@@ -22,55 +22,67 @@ namespace FruPak.PF.Temp
         public Submission_Bins(int submission_Id, int Trader_Id, int int_C_User_id, bool bol_w_a, bool bol_Add)
         {
             InitializeComponent();
-            int_Current_User_Id = int_C_User_id;
-            int_Submission_Id = submission_Id;
-            int_Trader_Id = Trader_Id;
 
-            //restrict access
-            bol_write_access = bol_w_a;
-            btn_Add.Enabled = bol_w_a;
-
-
-            //check if testing or not
-
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
-            //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
-            //}
-            //else
-            //{
-            //    this.Text = "FruPak Process Factory";
-            //}
-
-            //populate submission number
-            txt_Submission.Text = Convert.ToString(submission_Id);
-
-            populate_comboboxes();
-
-            if (bol_Add == true)
+            if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
             {
-                btn_Add.Text = "Add";
+                Console.WriteLine("FruPak.PF.Utils.UserControls.Submission_Bins - UsageMode = Designtime - Skipping populate()");
             }
             else
             {
-                btn_Add.Text = "Update";
-                DataSet ds = FruPak.PF.Data.AccessLayer.CM_Bins.Get_Info_Submission(int_Submission_Id);
-                DataRow dr;
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-                {
-                    dr = ds.Tables[0].Rows[i];
-                    cmb_Location.SelectedValue = Convert.ToInt32(dr["Location_Id"].ToString());
-                    cmb_ESP.SelectedValue = Convert.ToInt32(dr["ESP_Id"].ToString());
-                    cmb_Storage.SelectedValue = Convert.ToInt32(dr["Storage_Id"].ToString());
-                    fruit1.FruitType_Id = Convert.ToInt32(dr["FruitType_Id"].ToString());
-                    fruit1.FruitVariety_Id = Convert.ToInt32(dr["Variety_Id"].ToString());
-                    materialNumber1.setMaterial(dr["Material"].ToString());
-                    nud_total_bins.Value = Convert.ToDecimal(dr["NumBins"]);
-                    dec_cur_num_bins = Convert.ToDecimal(dr["NumBins"]);
-                }
-                ds.Dispose();
-            }
+                Console.WriteLine("FruPak.PF.Utils.UserControls.Submission_Bins - UsageMode = Runtime - Running populate()");
+                //populate_comboboxes();
+                //}
 
+                int_Current_User_Id = int_C_User_id;
+                int_Submission_Id = submission_Id;
+                int_Trader_Id = Trader_Id;
+
+                //restrict access
+                bol_write_access = bol_w_a;
+                btn_Add.Enabled = bol_w_a;
+
+
+                //check if testing or not
+
+                //if (FruPak.PF.Global.Global.bol_Testing == true)
+                //{
+                //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+                //}
+                //else
+                //{
+                //    this.Text = "FruPak Process Factory";
+                //}
+
+                //populate submission number
+                txt_Submission.Text = Convert.ToString(submission_Id);
+
+
+                populate_comboboxes();
+
+                if (bol_Add == true)
+                {
+                    btn_Add.Text = "&Add";
+                }
+                else
+                {
+                    btn_Add.Text = "&Update";
+                    DataSet ds = FruPak.PF.Data.AccessLayer.CM_Bins.Get_Info_Submission(int_Submission_Id);
+                    DataRow dr;
+                    for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                    {
+                        dr = ds.Tables[0].Rows[i];
+                        cmb_Location.SelectedValue = Convert.ToInt32(dr["Location_Id"].ToString());
+                        cmb_ESP.SelectedValue = Convert.ToInt32(dr["ESP_Id"].ToString());
+                        cmb_Storage.SelectedValue = Convert.ToInt32(dr["Storage_Id"].ToString());
+                        fruit1.FruitType_Id = Convert.ToInt32(dr["FruitType_Id"].ToString());
+                        fruit1.FruitVariety_Id = Convert.ToInt32(dr["Variety_Id"].ToString());
+                        materialNumber1.setMaterial(dr["Material"].ToString());
+                        nud_total_bins.Value = Convert.ToDecimal(dr["NumBins"]);
+                        dec_cur_num_bins = Convert.ToDecimal(dr["NumBins"]);
+                    }
+                    ds.Dispose();
+                }
+            }
             #region Log any interesting events from the UI to the CSV log file
             foreach (Control c in this.Controls)
             {
@@ -187,15 +199,15 @@ namespace FruPak.PF.Temp
             {
                 switch (btn_Add.Text)
                 {
-                    case "Add":
+                    case "&Add":
                         for (int i = 0; i < nud_total_bins.Value; i++)
                         {
                             int_result = Add_New_Bins();
                         }
                         break;
-                    case "Update":
+                    case "&Update":
                         // add new bins
-                        
+
                         if (dec_cur_num_bins < nud_total_bins.Value)
                         {
                             decimal dec_current = dec_cur_num_bins;
@@ -221,7 +233,7 @@ namespace FruPak.PF.Temp
                            // int_result = FruPak.PF.Data.AccessLayer.CM_Bins.Update(int_Submission_Id, Convert.ToInt32(cmb_Location.SelectedValue.ToString()),Convert.
                             MessageBox.Show("Not Coded Yet", "Process Factory - Temp(Submisssion - Update)", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
-                        break;                     
+                        break;
                 }
             }
             if (int_result > 0)
@@ -245,7 +257,7 @@ namespace FruPak.PF.Temp
         private int int_result = 0;
         private int Add_New_Bins()
         {
-            
+
             int int_new_Bin_Id = FruPak.PF.Common.Code.General.int_max_user_id("CM_Bins");
 
             //Setup for Generating Barcode
@@ -272,7 +284,7 @@ namespace FruPak.PF.Temp
 
         private void btn_reset_Click(object sender, EventArgs e)
         {
-            Reset();   
+            Reset();
         }
         private void Reset()
         {
@@ -293,7 +305,7 @@ namespace FruPak.PF.Temp
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

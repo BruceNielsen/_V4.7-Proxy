@@ -24,7 +24,7 @@ namespace FruPak.PF.Menu
             DataSet ds = FruPak.PF.Data.AccessLayer.SC_User.Get_For_Combo();
 
             DataRow toinsert = ds.Tables[0].NewRow();
-            
+
             toinsert[0] = 0;
             toinsert[9] = "Everyone";
 
@@ -158,7 +158,7 @@ namespace FruPak.PF.Menu
             dataGridView1.AutoResizeColumn(5, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(6, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(7, DataGridViewAutoSizeColumnMode.AllCells);
-            dataGridView1.AutoResizeColumn(8, DataGridViewAutoSizeColumnMode.AllCells); 
+            dataGridView1.AutoResizeColumn(8, DataGridViewAutoSizeColumnMode.AllCells);
         }
         private void btn_Close_Click(object sender, EventArgs e)
         {
@@ -208,7 +208,7 @@ namespace FruPak.PF.Menu
             rdb_Message_End.Checked = false;
             rdb_Message_Excl.Checked = false;
             rdb_Message_Start.Checked = false;
-            btn_Add.Text = "Add";
+            btn_Add.Text = "&Add";
         }
 
         private void btn_Add_Click(object sender, EventArgs e)
@@ -298,14 +298,14 @@ namespace FruPak.PF.Menu
             {
                 switch (btn_Add.Text)
                 {
-                    case "Add":
+                    case "&Add":
                         int_result = int_result + FruPak.PF.Data.AccessLayer.SY_Message.Insert(FruPak.PF.Common.Code.General.int_max_user_id("SY_Message"), int_User_Id, str_Display, str_End_Date, str_repeat);
                         break;
-                    case "Update":
+                    case "&Update":
                         int_result = int_result + FruPak.PF.Data.AccessLayer.SY_Message.Update(int_Message_Id, int_User_Id, str_Display, str_End_Date, str_repeat);
                         break;
                 }
-                
+
 
             }
             if (int_result > 0 )
@@ -314,7 +314,7 @@ namespace FruPak.PF.Menu
                 lbl_message.ForeColor = System.Drawing.Color.Blue;
                 populate_datagridview();
                 Reset();
-            }            
+            }
         }
         private int int_Message_Id = 0;
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -357,8 +357,8 @@ namespace FruPak.PF.Menu
                 txt_Display_Message.Text = dataGridView1.CurrentRow.Cells["Message"].Value.ToString().Replace('%', ' ');
                 dtp_End_Date.Value = Convert.ToDateTime(dataGridView1.CurrentRow.Cells["End_Date"].Value.ToString());
                 dtp_End_Time.Value = Convert.ToDateTime(dataGridView1.CurrentRow.Cells["End_Date"].Value.ToString());
-                try 
-                { 
+                try
+                {
                     cmb_Repeat_Type_SelectionChange(dataGridView1.CurrentRow.Cells["Repeat_Ind"].Value.ToString().Substring(0, 1).ToUpper());
                     switch (dataGridView1.CurrentRow.Cells["Repeat_Ind"].Value.ToString().Substring(0, 1).ToUpper())
                     {
@@ -378,10 +378,10 @@ namespace FruPak.PF.Menu
                             break;
                     }
                 }
-                catch 
+                catch
                 {
                     cmb_Repeat_Type_SelectionChange("O");
-                    cmb_Repeat_Type.SelectedItem = "One Off"; 
+                    cmb_Repeat_Type.SelectedItem = "One Off";
                 }
                 try
                 {
@@ -404,7 +404,7 @@ namespace FruPak.PF.Menu
                 {
                     rdb_Message_Excl.Checked = true;
                 }
-                btn_Add.Text = "Update";
+                btn_Add.Text = "&Update";
             }
             #endregion
         }

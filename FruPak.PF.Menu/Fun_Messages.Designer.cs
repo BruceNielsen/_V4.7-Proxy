@@ -80,7 +80,7 @@
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 23);
             this.btn_Close.TabIndex = 13;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -90,7 +90,7 @@
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(75, 23);
             this.btn_reset.TabIndex = 12;
-            this.btn_reset.Text = "Reset";
+            this.btn_reset.Text = "&Reset";
             this.btn_reset.UseVisualStyleBackColor = true;
             this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
             // 
@@ -100,14 +100,14 @@
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(75, 23);
             this.btn_Add.TabIndex = 11;
-            this.btn_Add.Text = "Add";
+            this.btn_Add.Text = "&Add";
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(56, 361);
+            this.label1.Location = new System.Drawing.Point(59, 361);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(29, 13);
             this.label1.TabIndex = 39;
@@ -176,10 +176,10 @@
             this.rdb_Message_Start.AutoSize = true;
             this.rdb_Message_Start.Location = new System.Drawing.Point(410, 419);
             this.rdb_Message_Start.Name = "rdb_Message_Start";
-            this.rdb_Message_Start.Size = new System.Drawing.Size(207, 17);
+            this.rdb_Message_Start.Size = new System.Drawing.Size(210, 17);
             this.rdb_Message_Start.TabIndex = 8;
             this.rdb_Message_Start.TabStop = true;
-            this.rdb_Message_Start.Text = "include countdown at start of message";
+            this.rdb_Message_Start.Text = "Include countdown at &Start of message";
             this.rdb_Message_Start.UseVisualStyleBackColor = true;
             // 
             // rdb_Message_End
@@ -187,10 +187,10 @@
             this.rdb_Message_End.AutoSize = true;
             this.rdb_Message_End.Location = new System.Drawing.Point(410, 444);
             this.rdb_Message_End.Name = "rdb_Message_End";
-            this.rdb_Message_End.Size = new System.Drawing.Size(205, 17);
+            this.rdb_Message_End.Size = new System.Drawing.Size(207, 17);
             this.rdb_Message_End.TabIndex = 9;
             this.rdb_Message_End.TabStop = true;
-            this.rdb_Message_End.Text = "include countdown at end of message";
+            this.rdb_Message_End.Text = "Include countdown at &End of message";
             this.rdb_Message_End.UseVisualStyleBackColor = true;
             // 
             // rdb_Message_Excl
@@ -201,7 +201,7 @@
             this.rdb_Message_Excl.Size = new System.Drawing.Size(187, 17);
             this.rdb_Message_Excl.TabIndex = 10;
             this.rdb_Message_Excl.TabStop = true;
-            this.rdb_Message_Excl.Text = "Exclude countdown from message";
+            this.rdb_Message_Excl.Text = "E&xclude countdown from message";
             this.rdb_Message_Excl.UseVisualStyleBackColor = true;
             // 
             // cmb_Repeat_Type
@@ -258,6 +258,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Fun_Messages";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.Menu.Fun Messages";
             this.Load += new System.EventHandler(this.Fun_Messages_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Fun_Messages_KeyDown);

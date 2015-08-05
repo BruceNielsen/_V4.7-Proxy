@@ -15,7 +15,7 @@ namespace FruPak.PF.WorkOrder
     Maintenance Class.
      * In order to keep things simple and as standard as possible. It was decided where possible to a standard table structure would be used.
      * This structure is: _id, Code, Description, Mod_date, Mod_User_Id
-     * 
+     *
      * This class is a form used to Add, Update, and Delete general Common items, where the tables have followed the standard structure.
 
     Date        Author     Desc
@@ -24,13 +24,13 @@ namespace FruPak.PF.WorkOrder
     */
     public partial class Work_Order_Maintenance : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static string str_table = "";
         private static int int_Current_User_Id = 0;
         private static int int_DVG_Row_id = 0;
         private static bool bol_write_access;
-       
+
         public Work_Order_Maintenance(string str_type, int int_C_User_id, bool bol_w_a)
         {
             InitializeComponent();
@@ -180,7 +180,7 @@ namespace FruPak.PF.WorkOrder
                     lbl_Value.Text = "# of Months";
                     break;
             }
-            
+
         }
         private void AddColumnsProgrammatically()
         {
@@ -380,7 +380,7 @@ namespace FruPak.PF.WorkOrder
                         DGVC_User_Id.Value = dr_Get_Info["Report_Id"].ToString();
                         break;
                 }
-                
+
                 dataGridView1.Rows[i].Cells["Id"] = DGVC_User_Id;
 
                 DataGridViewCell DGVC_Name = new DataGridViewTextBoxCell();
@@ -394,7 +394,7 @@ namespace FruPak.PF.WorkOrder
                 DataGridViewCell DGVC_Active = new DataGridViewTextBoxCell();
                 DGVC_Active.Value = dr_Get_Info["PF_Active_Ind"].ToString();
                 dataGridView1.Rows[i].Cells["Active_Ind"] = DGVC_Active;
-                
+
                 DataGridViewCell DGVC_Mod_date = new DataGridViewTextBoxCell();
                 DGVC_Mod_date.Value = dr_Get_Info["Mod_date"].ToString();
                 dataGridView1.Rows[i].Cells["Mod_Date"] = DGVC_Mod_date;
@@ -417,11 +417,11 @@ namespace FruPak.PF.WorkOrder
                         DGVC_Type.Value = dr_Get_Info["Value"].ToString();
                         dataGridView1.Rows[i].Cells[6] = DGVC_Type;
 
-                        
+
                         DGVC_prod_id.Value = dr_Get_Info["Product_Id"].ToString();
                         dataGridView1.Rows[i].Cells[7] = DGVC_prod_id;
 
-                        ds_Get_Info2 = FruPak.PF.Data.AccessLayer.PF_Product.Get_Info(Convert.ToInt32(dr_Get_Info["Product_Id"].ToString()));                        
+                        ds_Get_Info2 = FruPak.PF.Data.AccessLayer.PF_Product.Get_Info(Convert.ToInt32(dr_Get_Info["Product_Id"].ToString()));
                         for (int j = 0; j < Convert.ToInt32(ds_Get_Info2.Tables[0].Rows.Count.ToString()); j++)
                         {
                             dr_Get_Info2 = ds_Get_Info2.Tables[0].Rows[j];
@@ -443,11 +443,11 @@ namespace FruPak.PF.WorkOrder
                     case "PF_Product_Other":
                         DGVC_Type.Value = dr_Get_Info["Value"].ToString();
                         dataGridView1.Rows[i].Cells[6] = DGVC_Type;
-                        
+
                         DGVC_prod_id.Value = dr_Get_Info["Product_Id"].ToString();
                         dataGridView1.Rows[i].Cells[7] = DGVC_prod_id;
 
-                        ds_Get_Info2 = FruPak.PF.Data.AccessLayer.PF_Product.Get_Info(Convert.ToInt32(dr_Get_Info["Product_Id"].ToString()));                        
+                        ds_Get_Info2 = FruPak.PF.Data.AccessLayer.PF_Product.Get_Info(Convert.ToInt32(dr_Get_Info["Product_Id"].ToString()));
                         for (int j = 0; j < Convert.ToInt32(ds_Get_Info2.Tables[0].Rows.Count.ToString()); j++)
                         {
                             dr_Get_Info2 = ds_Get_Info2.Tables[0].Rows[j];
@@ -580,7 +580,7 @@ namespace FruPak.PF.WorkOrder
                     }
                 }
                 txt_Description.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
-                btn_Add.Text = "Update";
+                btn_Add.Text = "&Update";
                 switch (str_table)
                 {
                     case "PF_Chemicals":
@@ -658,7 +658,7 @@ namespace FruPak.PF.WorkOrder
         }
         private void populate_check_boxList()
         {
-            DataSet ds_Get_Info = null; 
+            DataSet ds_Get_Info = null;
             DataRow dr_Get_Info;
             checkedListBox1.Items.Clear();
 
@@ -702,7 +702,7 @@ namespace FruPak.PF.WorkOrder
                     case "PF_Tests":
                         checkedListBox1.Items.Add(dr_Get_Info["Product_Id"].ToString() + " " + dr_Get_Info["Code"].ToString());
                         break;
-                }                
+                }
             }
             ds_Get_Info.Dispose();
 
@@ -724,7 +724,7 @@ namespace FruPak.PF.WorkOrder
                 case "PF_Tests":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Product_Tests_Relationship.Get_Info_By_Test(int_DVG_Row_id);
                     break;
-            }            
+            }
 
             for (int i = 0; i < Convert.ToInt32(checkedListBox1.Items.Count.ToString()); i++)
             {
@@ -870,7 +870,7 @@ namespace FruPak.PF.WorkOrder
             {
                 switch (btn_Add.Text)
                 {
-                    case "Add":
+                    case "&Add":
                         switch (str_table)
                         {
                             case "PF_Chemicals":
@@ -899,7 +899,7 @@ namespace FruPak.PF.WorkOrder
                                 break;
                         }
                         break;
-                    case "Update":
+                    case "&Update":
                         switch (str_table)
                         {
                             case "PF_Chemicals":
@@ -947,7 +947,7 @@ namespace FruPak.PF.WorkOrder
         /// validates the text fields on length
         /// </summary>
         /// <returns></returns>
-        /// 
+        ///
         private DataSet ds_validate;
         private string validate(string str_table, string str_btnText)
         {
@@ -1050,7 +1050,7 @@ namespace FruPak.PF.WorkOrder
                         str_msg = str_msg + "Invalid Fruit Variety: Please select a valid Fruit Variety from the drop down list." + Environment.NewLine;
                     }
                     break;
-                    
+
 
                 case "PF_Product_Other":
                     if (cmb_Product.SelectedValue == null)
@@ -1084,7 +1084,7 @@ namespace FruPak.PF.WorkOrder
             fruit1.FruitVariety_Id = 0;
 
             btn_Update_Relationship.Visible = false;
-            btn_Add.Text = "Add";
+            btn_Add.Text = "&Add";
 
             switch (str_table)
             {
@@ -1232,7 +1232,7 @@ namespace FruPak.PF.WorkOrder
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

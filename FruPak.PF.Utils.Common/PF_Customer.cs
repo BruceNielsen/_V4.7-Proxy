@@ -12,13 +12,13 @@ namespace FruPak.PF.Utils.Common
 {
     public partial class PF_Customer : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static int int_Current_User_Id = 0;
         private static bool bol_write_access;
 
         /// <summary>
-        /// Occasionally getting: A first chance exception of type 'System.TypeInitializationException' occurred in FruPak.PF.Utils.Common.dll 
+        /// Occasionally getting: A first chance exception of type 'System.TypeInitializationException' occurred in FruPak.PF.Utils.Common.dll
         /// </summary>
         /// <param name="int_C_User_id"></param>
         /// <param name="bol_w_a"></param>
@@ -41,7 +41,7 @@ namespace FruPak.PF.Utils.Common
 
             try
             {
-                // Experimental Change 23-03-2015 
+                // Experimental Change 23-03-2015
                 //FruPak.PF.Data.Outlook.Outlook.Folder_Name = FruPak.PF.Common.Code.Outlook.SetUp_Location("OutLook%");
                 FruPak.PF.Data.Outlook.Outlook.Folder_Name = FruPak.PF.Common.Code.Outlook.SetUp_Location("OutLook");
 
@@ -183,7 +183,7 @@ namespace FruPak.PF.Utils.Common
         {
             dataGridView1.Refresh();
             dataGridView1.Rows.Clear();
-            
+
             DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Customer.Get_Info();
             DataRow dr_Get_Info;
 
@@ -253,7 +253,7 @@ namespace FruPak.PF.Utils.Common
                 MessageBox.Show("populate_outlook_Combo just failed.\r\nIs Outlook running?", "Outlook Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 Cursor = Cursors.Default;
             }
-            
+
             Cursor = Cursors.Default;
             Console.WriteLine("populate_outlook_Combo - End");
         }
@@ -270,12 +270,12 @@ namespace FruPak.PF.Utils.Common
         {
             txt_name.ResetText();
             cmb_Outlook.Text = null;
-            btn_Add.Text = "Add";
+            btn_Add.Text = "&Add";
         }
         private void btn_Add_Click(object sender, EventArgs e)
         {
             DialogResult DLR_MessageBox = new DialogResult();
-            string str_msg = "";            
+            string str_msg = "";
             int int_result = 0;
 
             if (cmb_Outlook.SelectedIndex == -1)
@@ -297,14 +297,14 @@ namespace FruPak.PF.Utils.Common
             {
                 switch (btn_Add.Text)
                 {
-                    case "Add":
+                    case "&Add":
                         int_result = FruPak.PF.Data.AccessLayer.PF_Customer.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Customer"), txt_name.Text, cmb_Outlook.SelectedValue.ToString(), ckb_Active.Checked, int_Current_User_Id);
                         break;
-                    case "Update":
+                    case "&Update":
                         int_result = FruPak.PF.Data.AccessLayer.PF_Customer.Update(int_DVG_Row_id, txt_name.Text, cmb_Outlook.SelectedValue.ToString(), ckb_Active.Checked, int_Current_User_Id);
                         break;
                 }
-                
+
             }
             if (int_result > 0)
             {
@@ -327,21 +327,38 @@ namespace FruPak.PF.Utils.Common
             // you'll cause a crash.
             //
             FruPak.PF.Data.Outlook.Contacts.Contact_Details(cmb_Outlook.SelectedValue.ToString());
-            try
+
+            // BN 5/8/2015 - The dude who originally wrote this was too lazy to
+            // check for nulls, and preferred to catch exceptions instead. Lazy
+            // git.
+
+            // Exceptions are expensive to catch in terms of processor time.
+            if (FruPak.PF.Data.Outlook.Contacts.Contact_Company_Name != "" &&
+                FruPak.PF.Data.Outlook.Contacts.Contact_Company_Name != null)
             {
                 txt_name.Text = FruPak.PF.Data.Outlook.Contacts.Contact_Company_Name.ToString();
             }
-            catch
+            else
             {
-                try
-                {
-                    txt_name.Text = FruPak.PF.Data.Outlook.Contacts.Contact_First_Name.ToString() + " " + FruPak.PF.Data.Outlook.Contacts.Contact_Last_Name.ToString();
-                }
-                catch (Exception ex)
-                {
-                    logger.Log(LogLevel.Debug, ex.Message);
-                }
+                txt_name.Text = FruPak.PF.Data.Outlook.Contacts.Contact_First_Name.ToString() + " " + FruPak.PF.Data.Outlook.Contacts.Contact_Last_Name.ToString();
             }
+
+            //try
+            //{
+            //    txt_name.Text = FruPak.PF.Data.Outlook.Contacts.Contact_Company_Name.ToString();
+            //}
+            //catch
+            //{
+            //    try
+            //    {
+            //        txt_name.Text = FruPak.PF.Data.Outlook.Contacts.Contact_First_Name.ToString() + " " + FruPak.PF.Data.Outlook.Contacts.Contact_Last_Name.ToString();
+            //    }
+            //    catch (Exception ex)
+            //    {
+            //        logger.Log(LogLevel.Debug, ex.Message);
+            //    }
+            //}
+
         }
         private int int_DVG_Row_id = 0;
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
@@ -381,10 +398,10 @@ namespace FruPak.PF.Utils.Common
                 int_DVG_Row_id = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
 
                 // Here we have the name of the customer selected from the DataGrid (Original code)
-                txt_name.Text = dataGridView1.Rows[e.RowIndex].Cells["Name"].Value.ToString();      
-          
+                txt_name.Text = dataGridView1.Rows[e.RowIndex].Cells["Name"].Value.ToString();
+
                 // ----------------------------------------------------------------------------------[ Addition 1 begin ]---
-                // Add a convenience search to the cmb_Outlook ComboBox to find the first (if any) 
+                // Add a convenience search to the cmb_Outlook ComboBox to find the first (if any)
                 // occurrence of the selected customer's name
                 cmb_Outlook.DroppedDown = true;
 
@@ -402,13 +419,13 @@ namespace FruPak.PF.Utils.Common
                 // ----------------------------------------------------------------------------------[ Addition 2 end   ]---
 
                 ckb_Active.Checked = Convert.ToBoolean(dataGridView1.Rows[e.RowIndex].Cells["PF_Active_Ind"].Value.ToString());
-                btn_Add.Text = "Update";
+                btn_Add.Text = "&Update";
             }
         }
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

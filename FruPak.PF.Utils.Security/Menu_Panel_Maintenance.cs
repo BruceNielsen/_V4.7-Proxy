@@ -13,7 +13,7 @@ namespace FruPak.PF.Utils.Security
     /*Description
     -----------------
     Menu Panel Class.
-        * 
+        *
         * This class is a form used to Add, Update, and Delete Menu Panel access.
         * A Menu panel is a control group on a Menu Tab
         * The actual Menu Panel still needs to be coded on to the Tab.
@@ -24,7 +24,7 @@ namespace FruPak.PF.Utils.Security
     */
     public partial class Menu_Panel_Maintenance : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static int int_SubMenu_id = 0;
         private static int int_Current_User_Id = 0;
@@ -242,7 +242,7 @@ namespace FruPak.PF.Utils.Security
             cmb_Menu.DataSource = ds_get_info.Tables[0];
             cmb_Menu.DisplayMember = "Name";
             cmb_Menu.ValueMember = "Menu_Id";
-            
+
         }
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
@@ -279,16 +279,16 @@ namespace FruPak.PF.Utils.Security
             else if (e.ColumnIndex == 7)
             {
                 int_SubMenu_id = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
-                                
+
                 cmb_Menu.SelectedIndex = cmb_Menu.FindString(dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString());
                 txt_SubMenu_Name.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
                 txt_Menu_Description.Text = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
-                btn_Add.Text = "Update";
+                btn_Add.Text = "&Update";
                 dataGridView2.Visible = true;
                 update_checkList();
                 btn_Add.Visible = true;
                 btn_Update_Relationships.Visible = true;
-                
+
             }
 
         }
@@ -327,7 +327,7 @@ namespace FruPak.PF.Utils.Security
             {
                 str_msg = str_msg + "Invalid SubMenu Name: Please enter a SubMenu Name" + Environment.NewLine;
             }
-            else if ((sender as Button).Text == "Add")
+            else if ((sender as Button).Text == "&Add")
             {
                 DataSet ds_Get_Menu_Info = FruPak.PF.Data.AccessLayer.SC_Menu_Panel.Get_Info(Convert.ToInt32(cmb_Menu.SelectedValue.ToString()),txt_SubMenu_Name.Text);
                 if (Convert.ToInt32(ds_Get_Menu_Info.Tables[0].Rows.Count.ToString()) > 0)
@@ -348,10 +348,10 @@ namespace FruPak.PF.Utils.Security
             {
                 switch ((sender as Button).Text)
                 {
-                    case "Add":
+                    case "&Add":
                         int_result = FruPak.PF.Data.AccessLayer.SC_Menu_Panel.Insert(FruPak.PF.Common.Code.General.int_max_user_id("SC_Menu_Panel"), Convert.ToInt32(cmb_Menu.SelectedValue.ToString()), txt_SubMenu_Name.Text, txt_Menu_Description.Text, int_Current_User_Id);
                         break;
-                    case "Update":
+                    case "&Update":
                         int_result = FruPak.PF.Data.AccessLayer.SC_Menu_Panel.Update(int_SubMenu_id, Convert.ToInt32(cmb_Menu.SelectedValue.ToString()), txt_SubMenu_Name.Text, txt_Menu_Description.Text, int_Current_User_Id);
                         break;
                 }
@@ -385,8 +385,8 @@ namespace FruPak.PF.Utils.Security
             dataGridView2.Visible = false;
             btn_Add.Visible = true;
             btn_Update_Relationships.Visible = false;
-            btn_Add.Text = "Add";
-            
+            btn_Add.Text = "&Add";
+
         }
         private void btn_Close_Click(object sender, EventArgs e)
         {
@@ -418,7 +418,7 @@ namespace FruPak.PF.Utils.Security
                 {
                     logger.Log(LogLevel.Debug, ex.Message);
                 }
-                
+
                 int int_UserGroup_id = Convert.ToInt32(dataGridView2.Rows[i].Cells[0].Value.ToString().Substring(0, dataGridView2.Rows[i].Cells[0].Value.ToString().IndexOf(' ')));
 
                 if (bol_selected == true)
@@ -435,7 +435,7 @@ namespace FruPak.PF.Utils.Security
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

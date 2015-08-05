@@ -44,11 +44,11 @@
             // 
             // btn_Continue
             // 
-            this.btn_Continue.Location = new System.Drawing.Point(105, 71);
+            this.btn_Continue.Location = new System.Drawing.Point(72, 71);
             this.btn_Continue.Name = "btn_Continue";
             this.btn_Continue.Size = new System.Drawing.Size(75, 23);
             this.btn_Continue.TabIndex = 2;
-            this.btn_Continue.Text = "Continue";
+            this.btn_Continue.Text = "&Continue";
             this.btn_Continue.UseVisualStyleBackColor = true;
             this.btn_Continue.Click += new System.EventHandler(this.btn_Continue_Click);
             // 

@@ -92,7 +92,7 @@ namespace FruPak.PF.PrintLayer
             return bol_Word;
         }
         public static void StartWord()
-        {           
+        {
             // start word and turn off msg boxes
             try
             {
@@ -109,8 +109,8 @@ namespace FruPak.PF.PrintLayer
                 //MessageBox.Show("StartWord: " + ex.Message + " - " + ex.StackTrace, "StartWord", MessageBoxButtons.OK, MessageBoxIcon.Stop);
 
                 // for future reference BN
-                
-                // close word and dispose reference 
+
+                // close word and dispose reference
                 //wordApplication.Quit();
                 //wordApplication.Dispose();
             }
@@ -119,7 +119,7 @@ namespace FruPak.PF.PrintLayer
         {
             try
             {
-                
+
             // start word and turn off msg boxes
             wordApplication = new _Word.Application();
             wordApplication.DisplayAlerts = WdAlertLevel.wdAlertsNone;
@@ -153,11 +153,11 @@ namespace FruPak.PF.PrintLayer
             object readOnly = false;
             object isVisible = true;
 
- 
+
             try
             {
                 // add a new document
-                newDocument = wordApplication.Documents.Open(@FilePath + "\\" + FileName + GetDefaultExtension(wordApplication), missing, missing, missing, missing, missing, missing, missing, missing, missing, 
+                newDocument = wordApplication.Documents.Open(@FilePath + "\\" + FileName + GetDefaultExtension(wordApplication), missing, missing, missing, missing, missing, missing, missing, missing, missing,
                     missing, isVisible,missing);
             }
             catch (Exception ex)
@@ -188,7 +188,7 @@ namespace FruPak.PF.PrintLayer
         {
             // Make a Word selection object.
             _Word.Selection selection = wordApplication.Selection;
-            
+
 
             // Loop through each of the Word documents
             foreach (string file in filesToMerge)
@@ -196,7 +196,7 @@ namespace FruPak.PF.PrintLayer
                 // Insert the files to our template
                // selection.InsertNewPage();
                 selection.InsertFile(file);
-                
+
             }
 
         }
@@ -287,7 +287,7 @@ namespace FruPak.PF.PrintLayer
             //if (version >= 12.00)
             if (version > 11.0)
             {
-                
+
                 return ".dotx";
             }
             else
@@ -295,132 +295,146 @@ namespace FruPak.PF.PrintLayer
         }
         public static int Print()
         {
-            if (wordApplication != null)
+            try
             {
-                int return_code = 0;
-                string default_printer = "";
-                //store current default printer - "Send To OneNote 2013"
-
-                // Changed to use the Phantom Settings class - The default behaviour prior to this was to use
-                // the default installed printer on the system. This gives more flexibility, but probably breaks
-                // MS Guidelines BN 2/02/2015
-
-                // Initialize settings
-                //#region Get "Application.StartupPath" folder
-                string path = Application.StartupPath;
-                //#endregion
-
-
-                Settings = new PhantomCustomSettings();
-                Settings.SettingsPath = Path.Combine(path, "FruPak.Phantom.config");
-                Settings.EncryptionKey = "phantomKey";
-
-                //if (!File.Exists(Settings.SettingsPath))
-                //{
-                //    Settings.Save();
-                //    //logger.Log(LogLevel.Info, LogCode("Default Phantom Settings file created"));
-                //}
-                //// Load settings - Normally in Form_Load
-                Settings.Load();
-                default_printer = Settings.Printer_Name;
-
-                // Reverted to the original, as it was causing problems on-site BN 4/02/2015
-                //default_printer = wordApplication.ActivePrinter;
-
-                // This code has been in place since day 1.
-                //try
-                //{
-                //    // Is this it????
-                //    //change printer
-                //    wordApplication.ActivePrinter = Printer;
-                //}
-                //catch (Exception ex)
-                //{
-                //    logger.Log(LogLevel.Debug, ex.Message + " - " + ex.StackTrace);
-                //}
-
-
-                double version = Convert.ToDouble(wordApplication.Version, CultureInfo.InvariantCulture);
-                object oBackground = false;
-
-                FileInfo wordFile = new FileInfo(@FilePath + "\\" + FileName + GetDefaultExtension(wordApplication));
-                object fileObject = wordFile.FullName;
-                object outputfile = @FilePath + "\\" + FileName;
-
-                object oMissing = System.Reflection.Missing.Value;
-                object oTrue = true;
-
-                logger.Log(LogLevel.Info, LogCodeStatic("FruPak.PF.PrintLayer.Word: Word version = " + version.ToString()));
-
-                //Word 2007
-                if (version == 12.0)
+                if (wordApplication != null)
                 {
-                    // Found, Noted, but for now, do not touch - 12-01-2015 BN
-                    // Hang on, isn't that path illegal anyway? Network paths ALWAYS have to be double quoted(backslashed) to be valid. ??? - 12-01-2015 BN
-                    // Unless they are verbatim, which means that if you start with an at (@) symbol, the rest will be treated as a literal path:
-                    // @"c:\test\test.txt"; is equal to "c:\\test\\test.txt';
+                    int return_code = 0;
+                    string default_printer = "";
+                    //store current default printer - "Send To OneNote 2013"
 
-                    //trial for 2007 start
-                    FilePath = @"\\FruPak-SBS\PublicDocs\\FruPak\Client\Printing\Saved";
-                    FileName = "Dave1";
-                    return_code = FruPak.PF.PrintLayer.Word.SaveAS();
+                    // Changed to use the Phantom Settings class - The default behaviour prior to this was to use
+                    // the default installed printer on the system. This gives more flexibility, but probably breaks
+                    // MS Guidelines BN 2/02/2015
 
-
-                    Microsoft.Office.Interop.Word.Application wordInstance = new Microsoft.Office.Interop.Word.Application();
-
-
-
-                    Microsoft.Office.Interop.Word.Document doc = wordInstance.Documents.Open(ref fileObject, ref oMissing, ref oTrue, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);
-                    doc.Activate();
-                    doc.PrintOut(oBackground, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing);
+                    // Initialize settings
+                    //#region Get "Application.StartupPath" folder
+                    string path = Application.StartupPath;
+                    //#endregion
 
 
-                    //end
+                    Settings = new PhantomCustomSettings();
+                    Settings.SettingsPath = Path.Combine(path, "FruPak.Phantom.config");
+                    Settings.EncryptionKey = "phantomKey";
+
+                    //if (!File.Exists(Settings.SettingsPath))
+                    //{
+                    //    Settings.Save();
+                    //    //logger.Log(LogLevel.Info, LogCode("Default Phantom Settings file created"));
+                    //}
+                    //// Load settings - Normally in Form_Load
+                    Settings.Load();
+                    default_printer = Settings.Printer_Name;
+
+                    // Reverted to the original, as it was causing problems on-site BN 4/02/2015
+                    //default_printer = wordApplication.ActivePrinter;0
+
+                    // This code has been in place since day 1.
+                    //try
+                    //{
+                    //    // Is this it????
+                    //    //change printer
+                    //    wordApplication.ActivePrinter = Printer;
+                    //}
+                    //catch (Exception ex)
+                    //{
+                    //    logger.Log(LogLevel.Debug, ex.Message + " - " + ex.StackTrace);
+                    //}
+
+
+                    double version = Convert.ToDouble(wordApplication.Version, CultureInfo.InvariantCulture);
+                    object oBackground = false;
+
+                    FileInfo wordFile = new FileInfo(@FilePath + "\\" + FileName + GetDefaultExtension(wordApplication));
+                    object fileObject = wordFile.FullName;
+                    object outputfile = @FilePath + "\\" + FileName;
+
+                    object oMissing = System.Reflection.Missing.Value;
+                    object oTrue = true;
+
+                    logger.Log(LogLevel.Info, LogCodeStatic("FruPak.PF.PrintLayer.Word: Word version = " + version.ToString()));
+
+                    //Word 2007
+                    if (version == 12.0)
+                    {
+                        // Found, Noted, but for now, do not touch - 12-01-2015 BN
+                        // Hang on, isn't that path illegal anyway? Network paths ALWAYS have to be double quoted(backslashed) to be valid. ??? - 12-01-2015 BN
+                        // Unless they are verbatim, which means that if you start with an at (@) symbol, the rest will be treated as a literal path:
+                        // @"c:\test\test.txt"; is equal to "c:\\test\\test.txt';
+
+                        //trial for 2007 start
+                        FilePath = @"\\FruPak-SBS\PublicDocs\\FruPak\Client\Printing\Saved";
+                        FileName = "Dave1";
+                        return_code = FruPak.PF.PrintLayer.Word.SaveAS();
+
+
+                        Microsoft.Office.Interop.Word.Application wordInstance = new Microsoft.Office.Interop.Word.Application();
+
+
+
+                        Microsoft.Office.Interop.Word.Document doc = wordInstance.Documents.Open(ref fileObject, ref oMissing, ref oTrue, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing, ref oMissing);
+                        doc.Activate();
+                        doc.PrintOut(oBackground, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing, oMissing);
+
+
+                        //end
+                    }
+                    else
+                    {
+                        try
+                        {
+                            // old code that worked for Robin, Glenys, and Dave's machines
+                            wordApplication.PrintOut(oBackground);
+                        }
+                        catch (Exception ex)
+                        {
+                            logger.Log(LogLevel.Debug, ex.Message + " - " + ex.StackTrace);
+                            return_code = 9;
+                        }
+
+                    }
+
+                    //reset Default Printer
+                    wordApplication.ActivePrinter = default_printer;
+
+                    return return_code;
                 }
                 else
                 {
-                    try
-                    {
-                        // old code that worked for Robin, Glenys, and Dave's machines
-                        wordApplication.PrintOut(oBackground);
-                    }
-                    catch (Exception ex)
-                    {
-                        logger.Log(LogLevel.Debug, ex.Message + " - " + ex.StackTrace);
-                        return_code = 9;
-                    }
+                    logger.Log(LogLevel.Debug, "Print: wordApplication is null.");
+                    //MessageBox.Show("Print: wordApplication is null.", "Print", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                    //return_code = 0;
 
+                    return 0;
+                }
+            }
+            catch (COMException cex)
+            {
+                {
+                    logger.Log(LogLevel.Debug, cex.Message + cex.InnerException.ToString());
+                    logger.Log(LogLevel.Debug, "wordApplication.ActivePrinter: " + wordApplication.ActivePrinter);
+                    logger.Log(LogLevel.Debug, "default_printer: " + Settings.Printer_Name);
+
+                    return 0;
                 }
 
-                //reset Default Printer
-                wordApplication.ActivePrinter = default_printer;
-
-                return return_code;
-            }
-            else
-            {
-                logger.Log(LogLevel.Debug, "Print: wordApplication is null.");
-                //MessageBox.Show("Print: wordApplication is null.", "Print", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                //return_code = 0;
-
-                return 0;
             }
         }
         public static void CloseWord()
         {
             try
             {
-                // close word and dispose reference
-                object ofalse = false;
-                wordApplication.Quit(ofalse);
-                wordApplication.Dispose();
-                
-                // Com crash
-                // The object's type must be __ComObject or derived from __ComObject.
-                // Parameter name: o
-
                 if (wordApplication != null)
                 {
+                    // close word and dispose reference
+                    object ofalse = false;
+                    wordApplication.Quit(ofalse);
+                    wordApplication.Dispose();
+
+                    // Com crash
+                    // The object's type must be __ComObject or derived from __ComObject.
+                    // Parameter name: o
+
                     //System.Runtime.InteropServices.Marshal.FinalReleaseComObject(wordApplication);
                     wordApplication = null;
                 }
@@ -446,7 +460,7 @@ namespace FruPak.PF.PrintLayer
             object missing = System.Reflection.Missing.Value;
 
             string paramExportFilePath = @FilePath + @"\" + FileName;
-            
+
             WdExportFormat paramExportFormat = WdExportFormat.wdExportFormatPDF;
             bool paramOpenAfterExport = false;
             WdExportOptimizeFor paramExportOptimizeFor = WdExportOptimizeFor.wdExportOptimizeForPrint;
@@ -491,18 +505,18 @@ namespace FruPak.PF.PrintLayer
 
                 newDocument.ExportAsFixedFormat(
                     paramExportFilePath,
-                    paramExportFormat, 
+                    paramExportFormat,
                     paramOpenAfterExport,
-                    paramExportOptimizeFor, 
-                    paramExportRange, 
+                    paramExportOptimizeFor,
+                    paramExportRange,
                     paramStartPage,
-                    paramEndPage, 
-                    paramExportItem, 
+                    paramEndPage,
+                    paramExportItem,
                     paramIncludeDocProps,
-                    paramKeepIRM, 
-                    paramCreateBookmarks, 
+                    paramKeepIRM,
+                    paramCreateBookmarks,
                     paramDocStructureTags,
-                    paramBitmapMissingFonts, 
+                    paramBitmapMissingFonts,
                     paramUseISO19005_1,
                     missing);
             }
@@ -563,10 +577,10 @@ namespace FruPak.PF.PrintLayer
 
             return return_code;
         }
-        
+
         #region Log Code Static
         /// <summary>
-        /// Formats the output to the debug log so that the actual log contents stand out amongst the machine-generated stuff. 
+        /// Formats the output to the debug log so that the actual log contents stand out amongst the machine-generated stuff.
         /// Refers to machine-generated content, not calling specifics.
         /// </summary>
         /// <param name="input">The code function that we want to log.</param>

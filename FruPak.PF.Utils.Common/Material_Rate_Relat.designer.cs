@@ -60,7 +60,7 @@
             this.btn_Update_Relationship.Name = "btn_Update_Relationship";
             this.btn_Update_Relationship.Size = new System.Drawing.Size(131, 23);
             this.btn_Update_Relationship.TabIndex = 3;
-            this.btn_Update_Relationship.Text = "Update relationship";
+            this.btn_Update_Relationship.Text = "&Update relationship";
             this.btn_Update_Relationship.UseVisualStyleBackColor = true;
             this.btn_Update_Relationship.Click += new System.EventHandler(this.btn_Update_Relationship_Click);
             // 
@@ -79,7 +79,7 @@
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 23);
             this.btn_Close.TabIndex = 5;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -89,7 +89,7 @@
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(75, 23);
             this.btn_reset.TabIndex = 4;
-            this.btn_reset.Text = "Reset";
+            this.btn_reset.Text = "&Reset";
             this.btn_reset.UseVisualStyleBackColor = true;
             this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
             // 
@@ -107,6 +107,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Material_Rate_Relat";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.Utils.Common.Material Rate Relationship";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Material_Rate_Relat_KeyDown);
             this.ResumeLayout(false);

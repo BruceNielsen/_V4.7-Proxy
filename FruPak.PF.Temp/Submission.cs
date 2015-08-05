@@ -13,7 +13,7 @@ namespace FruPak.PF.Temp
 {
     public partial class Submission : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static bool bol_write_access;
         private static int int_Current_User_Id = 0;
@@ -26,6 +26,7 @@ namespace FruPak.PF.Temp
             bol_write_access = bol_w_a;
             btn_Add.Enabled = bol_w_a;
             //check if testing or not
+            Console.WriteLine(FruPak.PF.Global.Global.bol_Testing);
 
 
             grower1.bol_test = FruPak.PF.Global.Global.bol_Testing;
@@ -142,26 +143,26 @@ namespace FruPak.PF.Temp
 
             col2.HeaderText = "Trader";
             col2.Name = "Trader";
-            col2.ReadOnly = true;            
+            col2.ReadOnly = true;
 
             col3.HeaderText = "Grower Id";
             col3.Name = "Grower_Id";
             col3.ReadOnly = true;
             col3.Visible = false;
-            
+
             col4.HeaderText = "Grower";
             col4.Name = "Grower";
             col4.ReadOnly = true;
-            
+
             col5.HeaderText = "Block_Id";
             col5.Name = "Block_Id";
             col5.ReadOnly = true;
             col5.Visible = true;
-            
+
             col6.HeaderText = "Block";
             col6.Name = "Block";
             col6.ReadOnly = true;
-            
+
             col7.HeaderText = "Sub Date";
             col7.Name = "Sub_Date";
             col7.ReadOnly = true;
@@ -190,7 +191,7 @@ namespace FruPak.PF.Temp
             btn_Reprint.Text = "Print";
             btn_Reprint.UseColumnTextForButtonValue = true;
             dataGridView1.Columns.Add(btn_Reprint);
-            
+
             DataGridViewImageColumn img_delete = new DataGridViewImageColumn();
             dataGridView1.Columns.Add(img_delete);
             img_delete.HeaderText = "Delete";
@@ -211,10 +212,10 @@ namespace FruPak.PF.Temp
         {
             dataGridView1.Refresh();
             dataGridView1.Rows.Clear();
-           
+
             DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.Temp_submission.Get_Info_Translated();
             DataRow dr_Get_Info;
-            
+
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {
@@ -329,24 +330,24 @@ namespace FruPak.PF.Temp
             //*******************************************************************************************
             switch (btn_Add.Text)
             {
-                case "Add":
+                case "&Add":
                     int_new_Sub_Id = FruPak.PF.Common.Code.General.int_max_user_id("GH_Submission");
                     break;
             }
-            
+
 
             bool bol_bins_Add = true;
             if (DLR_message != System.Windows.Forms.DialogResult.OK)
             {
                 switch (btn_Add.Text)
                 {
-                    case "Add":
+                    case "&Add":
                         int_result = FruPak.PF.Data.AccessLayer.GH_Submission.Insert(int_new_Sub_Id, Convert.ToInt32(cmb_Trader.SelectedValue.ToString()), grower1.Grower_Id,
                             Convert.ToInt32(cmb_Block.SelectedValue.ToString()), txt_Grower_Ref.Text, dtp_Sub_Date.Value.ToString("yyyy/MM/dd"), dtp_Harvest_Date.Value.ToString("yyyy/MM/dd"), Convert.ToInt32(nud_Pick_Num.Value.ToString()),
                             txt_Comments.Text, int_Current_User_Id);
                         bol_bins_Add = true;
                         break;
-                    case "Update":
+                    case "&Update":
                         int_result = FruPak.PF.Data.AccessLayer.GH_Submission.Update(int_new_Sub_Id, Convert.ToInt32(cmb_Trader.SelectedValue.ToString()), grower1.Grower_Id,
                             Convert.ToInt32(cmb_Block.SelectedValue.ToString()), txt_Grower_Ref.Text, dtp_Sub_Date.Value.ToString("yyyy/MM/dd"), dtp_Harvest_Date.Value.ToString("yyyy/MM/dd"), Convert.ToInt32(nud_Pick_Num.Value.ToString()),
                             txt_Comments.Text, int_Current_User_Id);
@@ -428,12 +429,12 @@ namespace FruPak.PF.Temp
                 Data = "S:" + dataGridView1.CurrentRow.Cells["Submission_Id"].Value.ToString() + ":" + Convert.ToBoolean(ckb_Print_all.Checked) ;
 
                 string curent_printer = System.Printing.LocalPrintServer.GetDefaultPrintQueue().FullName.ToString();
-                string str_req_Printer = FruPak.PF.Common.Code.General.Get_Single_System_Code("PR-Bincrd");                
+                string str_req_Printer = FruPak.PF.Common.Code.General.Get_Single_System_Code("PR-Bincrd");
                 foreach (string printer in System.Drawing.Printing.PrinterSettings.InstalledPrinters)
                 {
                     try
                     {
-                        if (printer.IndexOf(str_req_Printer) > 0) 
+                        if (printer.IndexOf(str_req_Printer) > 0)
                         {
                             FruPak.PF.PrintLayer.Word.Printer = printer;
                             myPrinters.SetDefaultPrinter(FruPak.PF.PrintLayer.Word.Printer);
@@ -442,7 +443,7 @@ namespace FruPak.PF.Temp
                     catch
                     {
                         myPrinters.SetDefaultPrinter(curent_printer);
-                    }                   
+                    }
                 }
 
                 FruPak.PF.PrintLayer.Bin_Card.Print(Data, true);
@@ -498,21 +499,21 @@ namespace FruPak.PF.Temp
 
 
                     cmb_Block.SelectedValue = Convert.ToInt32(dataGridView1.CurrentRow.Cells["Block_Id"].Value.ToString());
-                    
+
                     dtp_Sub_Date.Value = Convert.ToDateTime(dataGridView1.CurrentRow.Cells["Sub_Date"].Value.ToString());
                     dtp_Harvest_Date.Value = Convert.ToDateTime(dataGridView1.CurrentRow.Cells["Harvest_Date"].Value.ToString());
                     nud_Pick_Num.Value = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["Pick_Num"].Value.ToString());
                     txt_Comments.Text = dataGridView1.CurrentRow.Cells["Comments"].Value.ToString();
                     txt_Grower_Ref.Text = dataGridView1.CurrentRow.Cells["Grower_Reference"].Value.ToString();
 
-                    btn_Add.Text = "Update";
+                    btn_Add.Text = "&Update";
             }
             #endregion
         }
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

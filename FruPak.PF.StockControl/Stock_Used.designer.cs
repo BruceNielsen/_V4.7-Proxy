@@ -52,8 +52,8 @@
             this.btn_Refresh.Location = new System.Drawing.Point(838, 238);
             this.btn_Refresh.Name = "btn_Refresh";
             this.btn_Refresh.Size = new System.Drawing.Size(75, 23);
-            this.btn_Refresh.TabIndex = 7;
-            this.btn_Refresh.Text = "Refresh";
+            this.btn_Refresh.TabIndex = 8;
+            this.btn_Refresh.Text = "Re&fresh";
             this.btn_Refresh.UseVisualStyleBackColor = true;
             this.btn_Refresh.Click += new System.EventHandler(this.btn_Refresh_Click);
             // 
@@ -62,8 +62,8 @@
             this.btn_Close.Location = new System.Drawing.Point(919, 238);
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 23);
-            this.btn_Close.TabIndex = 8;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.TabIndex = 9;
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -72,8 +72,8 @@
             this.btn_reset.Location = new System.Drawing.Point(757, 238);
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(75, 23);
-            this.btn_reset.TabIndex = 6;
-            this.btn_reset.Text = "Reset";
+            this.btn_reset.TabIndex = 7;
+            this.btn_reset.Text = "&Reset";
             this.btn_reset.UseVisualStyleBackColor = true;
             this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
             // 
@@ -82,8 +82,8 @@
             this.btn_Add.Location = new System.Drawing.Point(676, 238);
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(75, 23);
-            this.btn_Add.TabIndex = 5;
-            this.btn_Add.Text = "Add";
+            this.btn_Add.TabIndex = 6;
+            this.btn_Add.Text = "&Add";
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
@@ -102,7 +102,7 @@
             this.dtp_Arrival_Date.Location = new System.Drawing.Point(705, 87);
             this.dtp_Arrival_Date.Name = "dtp_Arrival_Date";
             this.dtp_Arrival_Date.Size = new System.Drawing.Size(104, 20);
-            this.dtp_Arrival_Date.TabIndex = 2;
+            this.dtp_Arrival_Date.TabIndex = 3;
             // 
             // nud_quantity
             // 
@@ -114,7 +114,7 @@
             0});
             this.nud_quantity.Name = "nud_quantity";
             this.nud_quantity.Size = new System.Drawing.Size(120, 20);
-            this.nud_quantity.TabIndex = 3;
+            this.nud_quantity.TabIndex = 4;
             // 
             // label3
             // 
@@ -131,7 +131,7 @@
             this.cmb_stock_Item.Location = new System.Drawing.Point(705, 60);
             this.cmb_stock_Item.Name = "cmb_stock_Item";
             this.cmb_stock_Item.Size = new System.Drawing.Size(289, 21);
-            this.cmb_stock_Item.TabIndex = 1;
+            this.cmb_stock_Item.TabIndex = 2;
             // 
             // label1
             // 
@@ -157,7 +157,7 @@
             this.txt_comment.Multiline = true;
             this.txt_comment.Name = "txt_comment";
             this.txt_comment.Size = new System.Drawing.Size(289, 81);
-            this.txt_comment.TabIndex = 4;
+            this.txt_comment.TabIndex = 5;
             // 
             // label2
             // 
@@ -179,7 +179,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(583, 216);
-            this.dataGridView1.TabIndex = 68;
+            this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // Stock_Used
@@ -204,6 +204,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Stock_Used";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.StockControl.Stock Used";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Stock_Used_KeyDown);

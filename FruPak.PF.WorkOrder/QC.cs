@@ -12,7 +12,7 @@ namespace FruPak.PF.WorkOrder
 {
     public partial class QC : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static bool bol_write_access;
         private static int int_Current_User_Id = 0;
@@ -120,8 +120,8 @@ namespace FruPak.PF.WorkOrder
                 ds_Get_Info2.Dispose();
             }
             ds_Get_Info.Dispose();
-           
-            cmb_Defect.SelectedIndex = 0;            
+
+            cmb_Defect.SelectedIndex = 0;
         }
         private void AddColumnsProgrammatically()
         {
@@ -204,7 +204,7 @@ namespace FruPak.PF.WorkOrder
             dataGridView1.AutoResizeColumn(6, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(8, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(9, DataGridViewAutoSizeColumnMode.AllCells);
-            
+
         }
         private void populate_datagridview()
         {
@@ -290,13 +290,13 @@ namespace FruPak.PF.WorkOrder
             {
                 switch (btn_Add.Text)
                 {
-                    case "Add":
+                    case "&Add":
                         int_result = FruPak.PF.Data.AccessLayer.PF_Defect_Results.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Defect_Results"), int_Work_Order_Id, int_Defect_Id, Convert.ToDecimal(nud_num_Found.Value.ToString()), txt_comments.Text, int_Current_User_Id);
                         break;
-                    case "Update":
+                    case "&Update":
                         int_result = FruPak.PF.Data.AccessLayer.PF_Defect_Results.Update(int_DVG_Row_id, int_Work_Order_Id, int_Defect_Id, Convert.ToDecimal(nud_num_Found.Value.ToString()), txt_comments.Text, int_Current_User_Id);
                         break;
-                }                
+                }
             }
             if (int_result > 0)
             {
@@ -353,9 +353,9 @@ namespace FruPak.PF.WorkOrder
                 cmb_Defect.SelectedItem = dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString() + " - " + dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString();
                 nud_num_Found.Value = Convert.ToDecimal(dataGridView1.Rows[e.RowIndex].Cells[6].Value.ToString());
                 txt_comments.Text = dataGridView1.Rows[e.RowIndex].Cells[7].Value.ToString();
-                btn_Add.Text = "Update";
-            }           
-            
+                btn_Add.Text = "&Update";
+            }
+
         }
         private void btn_reset_Click(object sender, EventArgs e)
         {
@@ -366,7 +366,7 @@ namespace FruPak.PF.WorkOrder
             nud_num_Found.Value = 0;
             cmb_Defect.SelectedIndex = 0;
             txt_comments.ResetText();
-            btn_Add.Text = "Add";
+            btn_Add.Text = "&Add";
         }
         private void btn_Close_Click(object sender, EventArgs e)
         {
@@ -375,7 +375,7 @@ namespace FruPak.PF.WorkOrder
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

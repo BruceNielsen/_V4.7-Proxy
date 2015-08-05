@@ -91,7 +91,7 @@
             this.btn_login.Name = "btn_login";
             this.btn_login.Size = new System.Drawing.Size(75, 50);
             this.btn_login.TabIndex = 5;
-            this.btn_login.Text = "Login";
+            this.btn_login.Text = "&Login";
             this.btn_login.UseVisualStyleBackColor = true;
             this.btn_login.Click += new System.EventHandler(this.btn_login_Click);
             // 
@@ -103,7 +103,7 @@
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 50);
             this.btn_Close.TabIndex = 6;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -114,7 +114,7 @@
             this.btn_Change_Password.Name = "btn_Change_Password";
             this.btn_Change_Password.Size = new System.Drawing.Size(178, 74);
             this.btn_Change_Password.TabIndex = 7;
-            this.btn_Change_Password.Text = "Change Password";
+            this.btn_Change_Password.Text = "Change Pass&word";
             this.btn_Change_Password.UseVisualStyleBackColor = true;
             this.btn_Change_Password.Click += new System.EventHandler(this.btn_Change_Password_Click);
             // 
@@ -128,7 +128,7 @@
             this.rb_DB_Production.Size = new System.Drawing.Size(103, 24);
             this.rb_DB_Production.TabIndex = 3;
             this.rb_DB_Production.TabStop = true;
-            this.rb_DB_Production.Text = "Production";
+            this.rb_DB_Production.Text = "&Production";
             this.rb_DB_Production.UseVisualStyleBackColor = true;
             this.rb_DB_Production.CheckedChanged += new System.EventHandler(this.rb_CheckedChanged);
             // 
@@ -141,7 +141,7 @@
             this.rb_DB_Test.Size = new System.Drawing.Size(58, 24);
             this.rb_DB_Test.TabIndex = 4;
             this.rb_DB_Test.Tag = "Test";
-            this.rb_DB_Test.Text = "Test";
+            this.rb_DB_Test.Text = "&Test";
             this.rb_DB_Test.UseVisualStyleBackColor = true;
             this.rb_DB_Test.Visible = false;
             this.rb_DB_Test.CheckedChanged += new System.EventHandler(this.rb_CheckedChanged);

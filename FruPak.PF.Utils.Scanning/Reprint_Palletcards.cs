@@ -89,7 +89,8 @@ namespace FruPak.PF.Utils.Scanning
                         Data = Data + barcode1.BarcodeValue.ToString();
                         Data = Data + ":True";
 
-                        FruPak.PF.PrintLayer.Word.Printer = "Brother HL-2040 series";
+                        //FruPak.PF.PrintLayer.Word.Printer = "Brother HL-2040 series";
+                        FruPak.PF.PrintLayer.Word.Printer = Settings.Printer_Name;  // 16/06/2015 Fixed - Jim worked out there was some hardcoded strings
 
                         // Phantom 18/12/2014
                         //FruPak.PF.PrintLayer.Word.Printer = Settings.Printer_Name;    // Reverted 06-03-2015
@@ -133,7 +134,8 @@ namespace FruPak.PF.Utils.Scanning
                             Data = Data + barcode1.BarcodeValue.ToString();
                             Data = Data + ":True";
 
-                            FruPak.PF.PrintLayer.Word.Printer = "Brother HL-2040 series";
+                            //FruPak.PF.PrintLayer.Word.Printer = "Brother HL-2040 series";
+                            FruPak.PF.PrintLayer.Word.Printer = Settings.Printer_Name;  // 16/06/2015 Fixed - Jim worked out there was some hardcoded strings
 
                             // Phantom 18/12/2014
                             //FruPak.PF.PrintLayer.Word.Printer = Settings.Printer_Name;   // Reverted 06-03-2015

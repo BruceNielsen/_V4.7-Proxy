@@ -121,8 +121,8 @@
             this.btn_Close.Location = new System.Drawing.Point(897, 265);
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 23);
-            this.btn_Close.TabIndex = 15;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.TabIndex = 13;
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -131,8 +131,8 @@
             this.btn_reset.Location = new System.Drawing.Point(805, 265);
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(75, 23);
-            this.btn_reset.TabIndex = 14;
-            this.btn_reset.Text = "Reset";
+            this.btn_reset.TabIndex = 12;
+            this.btn_reset.Text = "&Reset";
             this.btn_reset.UseVisualStyleBackColor = true;
             this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
             // 
@@ -141,8 +141,8 @@
             this.btn_Add.Location = new System.Drawing.Point(714, 265);
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(75, 23);
-            this.btn_Add.TabIndex = 13;
-            this.btn_Add.Text = "Add";
+            this.btn_Add.TabIndex = 11;
+            this.btn_Add.Text = "&Add";
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
@@ -151,8 +151,8 @@
             this.btn_Update_Relationship.Location = new System.Drawing.Point(749, 546);
             this.btn_Update_Relationship.Name = "btn_Update_Relationship";
             this.btn_Update_Relationship.Size = new System.Drawing.Size(131, 23);
-            this.btn_Update_Relationship.TabIndex = 16;
-            this.btn_Update_Relationship.Text = "Update relationship";
+            this.btn_Update_Relationship.TabIndex = 15;
+            this.btn_Update_Relationship.Text = "&Update Relationship";
             this.btn_Update_Relationship.UseVisualStyleBackColor = true;
             this.btn_Update_Relationship.Visible = false;
             this.btn_Update_Relationship.Click += new System.EventHandler(this.btn_Update_Relationship_Click);
@@ -178,7 +178,7 @@
             this.ckb_Active.Name = "ckb_Active";
             this.ckb_Active.Size = new System.Drawing.Size(84, 24);
             this.ckb_Active.TabIndex = 10;
-            this.ckb_Active.Text = "Active Ind:";
+            this.ckb_Active.Text = "Active &Ind:";
             this.ckb_Active.UseVisualStyleBackColor = true;
             this.ckb_Active.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
             this.ckb_Active.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Enter_KeyPress);
@@ -191,7 +191,7 @@
             this.rb_PreOpCheck.Size = new System.Drawing.Size(92, 17);
             this.rb_PreOpCheck.TabIndex = 7;
             this.rb_PreOpCheck.TabStop = true;
-            this.rb_PreOpCheck.Text = "Pre Op Check";
+            this.rb_PreOpCheck.Text = "&Pre Op Check";
             this.rb_PreOpCheck.UseVisualStyleBackColor = true;
             this.rb_PreOpCheck.Visible = false;
             this.rb_PreOpCheck.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
@@ -204,7 +204,7 @@
             this.rb_batch.Size = new System.Drawing.Size(53, 17);
             this.rb_batch.TabIndex = 8;
             this.rb_batch.TabStop = true;
-            this.rb_batch.Text = "Batch";
+            this.rb_batch.Text = "&Batch";
             this.rb_batch.UseVisualStyleBackColor = true;
             this.rb_batch.Visible = false;
             this.rb_batch.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
@@ -217,7 +217,7 @@
             this.rb_Other.Size = new System.Drawing.Size(51, 17);
             this.rb_Other.TabIndex = 9;
             this.rb_Other.TabStop = true;
-            this.rb_Other.Text = "Other";
+            this.rb_Other.Text = "&Other";
             this.rb_Other.UseVisualStyleBackColor = true;
             this.rb_Other.Visible = false;
             this.rb_Other.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
@@ -281,7 +281,7 @@
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
             this.tabControl1.Size = new System.Drawing.Size(340, 214);
-            this.tabControl1.TabIndex = 12;
+            this.tabControl1.TabIndex = 14;
             this.tabControl1.Visible = false;
             // 
             // tabPage1
@@ -321,7 +321,7 @@
             // fruit1
             // 
             this.fruit1.Block_Id = 0;
-            this.fruit1.FruitType_Id = 1;
+            this.fruit1.FruitType_Id = 0;
             this.fruit1.FruitVariety_Id = 0;
             this.fruit1.Location = new System.Drawing.Point(590, 62);
             this.fruit1.Name = "fruit1";

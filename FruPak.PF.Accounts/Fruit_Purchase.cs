@@ -92,7 +92,7 @@ namespace FruPak.PF.Accounts
             //get list of products
             switch (btn_Add.Text)
             {
-                case "Update":
+                case "&Update":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.GH_Submission.Get_ALL_Fruit_For_Customer(customer1.Customer_Id);                    
                     break;
                 default:
@@ -419,7 +419,7 @@ namespace FruPak.PF.Accounts
         {
             customer1.Customer_Id = 0;
             customer1.Enabled = true;
-            btn_Add.Text = "Add Submission(s) to Purchase";
+            btn_Add.Text = "&Add Submission(s) to Purchase";
             dataGridView1.Refresh();
             dataGridView1.Rows.Clear();
             nud_total.Value = 0;
@@ -474,7 +474,7 @@ namespace FruPak.PF.Accounts
                 switch (btn_Add.Text)
                 {
                     #region ------------- Update -------------
-                    case "Update":
+                    case "&Update":
                         // reset fruit_purchade_ID to null 
                         int_result = int_result + FruPak.PF.Data.AccessLayer.GH_Submission.Reset_Purchase(int_DGV_Cell0, int_Current_User_Id);
 
@@ -614,7 +614,7 @@ namespace FruPak.PF.Accounts
             #region ------------- Edit -------------
             else if (e.ColumnIndex == 7)
             {
-                btn_Add.Text = "Update";
+                btn_Add.Text = "&Update";
                 int_DGV_Cell0 = Convert.ToInt32(dataGridView2.CurrentRow.Cells["FruitPurchase_Id"].Value.ToString());
                 customer1.Customer_Id = Convert.ToInt32(dataGridView2.CurrentRow.Cells["Customer_Id"].Value.ToString());
                 customer1.Enabled = false;

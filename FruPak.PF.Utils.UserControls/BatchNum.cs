@@ -19,7 +19,16 @@ namespace FruPak.PF.Utils.UserControls
         public BatchNum()
         {
             InitializeComponent();
-            populate();
+
+            if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
+            {
+                Console.WriteLine("FruPak.PF.Utils.UserControls.BatchNum - UsageMode = Designtime - Skipping populate()");
+            }
+            else
+            {
+                Console.WriteLine("FruPak.PF.Utils.UserControls.BatchNum - UsageMode = Runtime - Running populate()");
+                populate();
+            }
         }
         public void populate()
         {

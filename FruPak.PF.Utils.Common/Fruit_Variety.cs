@@ -13,7 +13,7 @@ namespace FruPak.PF.Utils.Common
     /*Description
     -----------------
     Fruit Variety Class.
-     * 
+     *
      * This class is a form used to Add, Update, and Delete Fruit Varieties, which are also linked to a fruit type
 
     Date        Author     Desc
@@ -22,7 +22,7 @@ namespace FruPak.PF.Utils.Common
     */
     public partial class Fruit_Variety : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static bool bol_Write_access;
         private static int int_Current_User_Id = 0;
@@ -253,7 +253,7 @@ namespace FruPak.PF.Utils.Common
                 cmb_Fruit.SelectedIndex = cmb_Fruit.FindString(dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString());
                 txt_code.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
                 txt_Description.Text = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
-                btn_Add.Text = "Update";
+                btn_Add.Text = "&Update";
             }
 
         }
@@ -267,7 +267,7 @@ namespace FruPak.PF.Utils.Common
             {
                 str_msg = str_msg + "Invalid Variety: Please enter a Variety" + Environment.NewLine;
             }
-            else if ((sender as Button).Text == "Add")
+            else if ((sender as Button).Text == "&Add")  // Third variant of messing around with the text
             {
                 DataSet ds_Get_Menu_Info = FruPak.PF.Data.AccessLayer.CM_Fruit_Variety.Get_Info(txt_code.Text);
                 if (Convert.ToInt32(ds_Get_Menu_Info.Tables[0].Rows.Count.ToString()) > 0)
@@ -288,10 +288,10 @@ namespace FruPak.PF.Utils.Common
             {
                 switch ((sender as Button).Text)
                 {
-                    case "Add":
+                    case "&Add":
                         int_result = FruPak.PF.Data.AccessLayer.CM_Fruit_Variety.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Fruit_Variety"), Convert.ToInt32(cmb_Fruit.SelectedValue.ToString()), txt_code.Text, txt_Description.Text, int_Current_User_Id);
                         break;
-                    case "Update":
+                    case "&Update":
                         int_result = FruPak.PF.Data.AccessLayer.CM_Fruit_Variety.Update(int_variety_Id, Convert.ToInt32(cmb_Fruit.SelectedValue.ToString()), txt_code.Text, txt_Description.Text, int_Current_User_Id);
                         break;
                 }
@@ -321,7 +321,7 @@ namespace FruPak.PF.Utils.Common
         {
             txt_code.ResetText();
             txt_Description.ResetText();
-            btn_Add.Text = "Add";
+            btn_Add.Text = "&Add";
         }
         private void btn_Close_Click(object sender, EventArgs e)
         {
@@ -330,7 +330,7 @@ namespace FruPak.PF.Utils.Common
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

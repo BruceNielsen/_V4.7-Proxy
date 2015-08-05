@@ -107,7 +107,7 @@
             this.btn_Update.Name = "btn_Update";
             this.btn_Update.Size = new System.Drawing.Size(75, 23);
             this.btn_Update.TabIndex = 4;
-            this.btn_Update.Text = "Update";
+            this.btn_Update.Text = "&Update";
             this.btn_Update.UseVisualStyleBackColor = true;
             this.btn_Update.Click += new System.EventHandler(this.btn_Update_Click);
             // 
@@ -117,7 +117,7 @@
             this.btn_Reset.Name = "btn_Reset";
             this.btn_Reset.Size = new System.Drawing.Size(75, 23);
             this.btn_Reset.TabIndex = 5;
-            this.btn_Reset.Text = "Reset";
+            this.btn_Reset.Text = "&Reset";
             this.btn_Reset.UseVisualStyleBackColor = true;
             this.btn_Reset.Click += new System.EventHandler(this.btn_Reset_Click);
             // 
@@ -127,7 +127,7 @@
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 23);
             this.btn_Close.TabIndex = 6;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 

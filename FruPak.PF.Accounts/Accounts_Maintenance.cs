@@ -273,7 +273,7 @@ namespace FruPak.PF.Accounts
                 txt_Description.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
                 txt_Value.Text = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
                 ckb_Active.Checked = Convert.ToBoolean(dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString());                
-                btn_Add.Text = "Update";
+                btn_Add.Text = "&Update";
             }
         }
  
@@ -301,7 +301,7 @@ namespace FruPak.PF.Accounts
                 str_code = cmb_Code.SelectedItem.ToString() + "-" + nud_Code.Value.ToString();
                 switch (str_btnText)
                 {
-                    case "Add":
+                    case "&Add":
                         switch (str_table)
                         {
                             case "PF_A_Rates":
@@ -309,7 +309,7 @@ namespace FruPak.PF.Accounts
                                 break;
                         }
                         break;
-                    case "Update":
+                    case "&Update":
                         switch (str_table)
                         {
                             case "PF_A_Rates":
@@ -405,7 +405,7 @@ namespace FruPak.PF.Accounts
             nud_Code.Value = 0;
             txt_Description.ResetText();
             txt_Value.ResetText();
-            btn_Add.Text = "Add";
+            btn_Add.Text = "&Add";
         }
         private void btn_Close_Click(object sender, EventArgs e)
         {

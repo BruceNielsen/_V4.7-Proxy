@@ -36,6 +36,10 @@ namespace FruPak.PF.Data.AccessLayer
         public static DataSet Get_Info()
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+
+            // 21/05/2015 BN - Will crash on the next line if the confic string is null
+            // (can happen when inspecting a form in design mode when the UserControl Fruit is on the form.
+
             return SQLAccessLayer.Run_Query("SELECT * FROM CM_Fruit_Type ORDER BY Code");
         }
         public static DataSet Get_Info(int FruitType_Id)

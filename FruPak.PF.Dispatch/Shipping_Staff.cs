@@ -12,7 +12,7 @@ namespace FruPak.PF.Dispatch
 {
     public partial class Shipping_Staff : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static bool bol_write_access;
         private static int int_Current_User_Id = 0;
@@ -139,7 +139,7 @@ namespace FruPak.PF.Dispatch
 
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { col0, col1, col2, col3, col4, col5, col6 });
 
-     
+
             DataGridViewImageColumn img_delete = new DataGridViewImageColumn();
             dataGridView1.Columns.Add(img_delete);
             img_delete.HeaderText = "Remove";
@@ -196,7 +196,7 @@ namespace FruPak.PF.Dispatch
                 dataGridView1.Rows[i_rows].Cells[4] = DGVC_Col4;
 
                 DataGridViewCell DGVC_Col5 = new DataGridViewTextBoxCell();
-                DGVC_Col5.Value = dr_Get_Info["Finish_Time"].ToString().Substring(0, 8); 
+                DGVC_Col5.Value = dr_Get_Info["Finish_Time"].ToString().Substring(0, 8);
                 dataGridView1.Rows[i_rows].Cells[5] = DGVC_Col5;
 
                 DataGridViewCell DGVC_Col6 = new DataGridViewTextBoxCell();
@@ -204,7 +204,7 @@ namespace FruPak.PF.Dispatch
                 {
                     case "P":
                         DGVC_Col6.Value = "Prep Order";
-                        
+
                         break;
                     case "D":
                         DGVC_Col6.Value = "Deliver Order";
@@ -225,65 +225,112 @@ namespace FruPak.PF.Dispatch
         }
         private void Add_btn()
         {
-            string str_msg = "";
-            int int_result = 0;
-            string str_work_type = "";
-            DialogResult dlr_Message = new DialogResult();
+            try
+            {
+                string str_msg = "";
+                int int_result = 0;
+                string str_work_type = "";
+                DialogResult dlr_Message = new DialogResult();
 
-            if (cmb_Staff.SelectedIndex == -1)
-            {
-                str_msg = str_msg + "Invalid Staff Member. YOU must selected a valid staff member from the dropdown list." + Environment.NewLine;
-            }
-            if (dtp_start.Value == dtp_finish.Value)
-            {
-                str_msg = str_msg + "Invalid Times. Start and Finsih Times need to be different. Please put in the correct start and finish times." + Environment.NewLine;
-            }
-            else if (dtp_start.Value > dtp_finish.Value)
-            {
-                str_msg = str_msg + "Invalid Times. Start and Finsih Times need to be different. Please put in the correct start and finish times." + Environment.NewLine;
-            }
-            if (rb_Pre_Order.Checked == true)
-            {
-                str_work_type = "P"; 
-            }
-            else if (rb_Deliver.Checked == true)
-            {
-                str_work_type = "D";
-            }
-            else
-            {
-                str_work_type = "";
-            }
-            if (str_msg.Length > 0)
-            {
-                dlr_Message = MessageBox.Show(str_msg, "Process Factory - Dispatch(Staff)", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            if (dlr_Message != System.Windows.Forms.DialogResult.OK)
-            {
-                switch (btn_Add.Text)
+                if (cmb_Staff.SelectedIndex == -1)
                 {
-                    case "Add":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Orders_Staff_Relationship.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Orders_Staff_Relationship"), int_order_id,
-                            Convert.ToInt32(cmb_Staff.SelectedValue.ToString()), dtp_start.Value.ToString("HH:mm:ss"), dtp_finish.Value.ToString("HH:mm:ss"),str_work_type, int_Current_User_Id);
-                        break;
-                    case "Update":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Orders_Staff_Relationship.Update(int_OStf_Relat_Id, Convert.ToInt32(cmb_Staff.SelectedValue.ToString()),
-                            dtp_start.Value.ToString("HH:mm:ss"), dtp_finish.Value.ToString("HH:mm:ss"),str_work_type, int_Current_User_Id);
-                        break;
+                    str_msg = str_msg + "Invalid Staff Member. You must select a valid staff member from the dropdown list." + Environment.NewLine;
+                    logger.Log(LogLevel.Info, "Invalid Staff Member. You must select a valid staff member from the dropdown list.");
                 }
-            }
+                if (dtp_start.Value == dtp_finish.Value)
+                {
+                    str_msg = str_msg + "Invalid Times. Start and Finish Times cannot be the same. Please put in the correct start and finish times." + Environment.NewLine;
+                    logger.Log(LogLevel.Info, "Invalid Times. Start and Finish Times cannot be the same. Please put in the correct start and finish times.");
+                }
+                else if (dtp_start.Value > dtp_finish.Value)
+                {
+                    str_msg = str_msg + "Invalid Times. Start time cannot be greater than the Finish Time. Please put in the correct start and finish times." + Environment.NewLine;
+                    logger.Log(LogLevel.Info, "Invalid Times. Start time cannot be greater than the Finish Time. Please put in the correct start and finish times.");
+                }
+                if (rb_Pre_Order.Checked == true)
+                {
+                    str_work_type = "P";
+                }
+                else if (rb_Deliver.Checked == true)
+                {
+                    str_work_type = "D";
+                }
+                else
+                {
+                    str_work_type = "";
+                }
+                if (str_msg.Length > 0)
+                {
+                    dlr_Message = MessageBox.Show(str_msg, "Process Factory - Dispatch(Staff)", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                if (dlr_Message != System.Windows.Forms.DialogResult.OK)
+                {
+                    logger.Log(LogLevel.Info, "--------------------------------------------------------");
+                    logger.Log(LogLevel.Info, "About to press the Add button in Dispatch.Shipping_Staff");
+                    logger.Log(LogLevel.Info, "--------------------------------------------------------");
+                    logger.Log(LogLevel.Info, "Add: FruPak.PF.Common.Code.General.int_max_user_id(PF_Orders_Staff_Relationship): " + FruPak.PF.Common.Code.General.int_max_user_id("PF_Orders_Staff_Relationship").ToString());
+                    logger.Log(LogLevel.Info, "Add: int_order_id: " + int_order_id.ToString());
+                    logger.Log(LogLevel.Info, "Add: Convert.ToInt32(cmb_Staff.SelectedValue.ToString()): " + Convert.ToInt32(cmb_Staff.SelectedValue.ToString()));
+                    logger.Log(LogLevel.Info, "Add: dtp_start.Value.ToString(HH:mm:ss): " + dtp_start.Value.ToString("HH:mm:ss"));
+                    logger.Log(LogLevel.Info, "Add: dtp_finish.Value.ToString(HH:mm:ss)" + dtp_finish.Value.ToString("HH:mm:ss"));
+                    logger.Log(LogLevel.Info, "Add: int_Current_User_Id: " + int_Current_User_Id.ToString());
+                    logger.Log(LogLevel.Info, "--------------------------------------------------------");
 
-            if (int_result > 0)
-            {
-                lbl_message.ForeColor = System.Drawing.Color.Blue;
-                lbl_message.Text = "Staff member has been assigned to the Order.";
+
+                    switch (btn_Add.Text)
+                    {
+                        case "&Add":
+                            int_result = FruPak.PF.Data.AccessLayer.PF_Orders_Staff_Relationship.Insert(
+                                FruPak.PF.Common.Code.General.int_max_user_id("PF_Orders_Staff_Relationship"),
+                                int_order_id,
+                                Convert.ToInt32(cmb_Staff.SelectedValue.ToString()),
+                                dtp_start.Value.ToString("HH:mm:ss"),
+                                dtp_finish.Value.ToString("HH:mm:ss"),
+                                str_work_type,
+                                int_Current_User_Id);
+
+                            logger.Log(LogLevel.Info, "Add button in Dispatch.Shipping_Staff Pressed");
+                            logger.Log(LogLevel.Info, "--------------------------------------------------------");
+                            logger.Log(LogLevel.Info, "Add: int_result: " + int_result.ToString());
+                            logger.Log(LogLevel.Info, "Add: FruPak.PF.Common.Code.General.int_max_user_id(PF_Orders_Staff_Relationship): " + FruPak.PF.Common.Code.General.int_max_user_id("PF_Orders_Staff_Relationship").ToString());
+                            logger.Log(LogLevel.Info, "Add: int_order_id: " + int_order_id.ToString());
+                            logger.Log(LogLevel.Info, "Add: Convert.ToInt32(cmb_Staff.SelectedValue.ToString()): " + Convert.ToInt32(cmb_Staff.SelectedValue.ToString()));
+                            logger.Log(LogLevel.Info, "Add: dtp_start.Value.ToString(HH:mm:ss): " + dtp_start.Value.ToString("HH:mm:ss"));
+                            logger.Log(LogLevel.Info, "Add: dtp_finish.Value.ToString(HH:mm:ss)" + dtp_finish.Value.ToString("HH:mm:ss"));
+                            logger.Log(LogLevel.Info, "Add: int_Current_User_Id: " + int_Current_User_Id.ToString());
+                            logger.Log(LogLevel.Info, "--------------------------------------------------------");
+
+
+
+
+                            break;
+                        case "&Update":
+                            int_result = FruPak.PF.Data.AccessLayer.PF_Orders_Staff_Relationship.Update(int_OStf_Relat_Id, Convert.ToInt32(cmb_Staff.SelectedValue.ToString()),
+                                dtp_start.Value.ToString("HH:mm:ss"), dtp_finish.Value.ToString("HH:mm:ss"), str_work_type, int_Current_User_Id);
+                            logger.Log(LogLevel.Info, "Update: int_result: " + int_result.ToString());
+
+                            break;
+                    }
+                }
+
+                if (int_result > 0)
+                {
+                    lbl_message.ForeColor = System.Drawing.Color.Blue;
+                    lbl_message.Text = "Staff member has been assigned to the Order.";
+                    logger.Log(LogLevel.Info, "Staff member has been assigned to the Order.");
+                }
+                else
+                {
+                    lbl_message.ForeColor = System.Drawing.Color.Red;
+                    lbl_message.Text = "Staff Member failed to be assigned to the Order.";
+                    logger.Log(LogLevel.Info, "Staff Member failed to be assigned to the Order.");
+                }
+                populate_datagridview();
             }
-            else
+            catch (Exception ex)
             {
-                lbl_message.ForeColor = System.Drawing.Color.Red;
-                lbl_message.Text = "Staff Member failed to be assigned to the Order.";
+                logger.Log(LogLevel.Debug, "Add Error: " + ex.Message);
             }
-            populate_datagridview();
         }
         private void btn_reset_Click(object sender, EventArgs e)
         {
@@ -294,7 +341,7 @@ namespace FruPak.PF.Dispatch
             cmb_Staff.Text = null;
             dtp_start.Value = DateTime.Now;
             dtp_finish.Value = dtp_start.Value;
-            btn_Add.Text = "Add";
+            btn_Add.Text = "&Add";
         }
         private void btn_Close_Click(object sender, EventArgs e)
         {
@@ -347,7 +394,7 @@ namespace FruPak.PF.Dispatch
                         rb_Deliver.Checked = true;
                         break;
                 }
-                btn_Add.Text = "Update";
+                btn_Add.Text = "&Update";
             }
         }
         private void KeyDown_1(object sender, KeyEventArgs e)
@@ -369,7 +416,7 @@ namespace FruPak.PF.Dispatch
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

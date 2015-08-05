@@ -29,6 +29,14 @@ namespace FruPak.PF.CustomSettings
             CopyDelayInMinutes = 60;
             MaxTreeFileSizeInMegabytes = "1";
 
+            UpdateAddress = "http://127.0.0.1:8099/FruPak-PF-Update.xml";
+            UpdateProxyUsername = "administrator";
+            UpdateProxyPassword = "1234";
+            UpdateProxyURI = "http://FruPak-Sql";
+            UpdateProxyPort = "8090";
+            UpdateUseProxy = false;
+
+
             #region FruPak Test Mode Database Connection Settings
             TestMode_Server = "FRUPAK-SQL";
             TestMode_Database = "Process_Factory_Test";
@@ -44,14 +52,14 @@ namespace FruPak.PF.CustomSettings
             #endregion
 
             #region Phantom Test Mode Database Connection Settings
-            Phantom_Dev_TestMode_Server = "Bruce-Laptop";
+            Phantom_Dev_TestMode_Server = @"-\SQLEXPRESS";
             Phantom_Dev_TestMode_Database = "Process_Factory_Test";
             Phantom_Dev_TestMode_User_Id = "jobs";
             Phantom_Dev_TestMode_Password = "jobs";
             #endregion
 
             #region Phantom Production Mode Database Connection Settings
-            Phantom_Dev_ProductionMode_Server = "Bruce-Laptop";
+            Phantom_Dev_ProductionMode_Server = @"-\SQLEXPRESS";
             Phantom_Dev_ProductionMode_Database = "Process_Factory";
             Phantom_Dev_ProductionMode_User_Id = "jobs";
             Phantom_Dev_ProductionMode_Password = "jobs";
@@ -91,6 +99,36 @@ namespace FruPak.PF.CustomSettings
         [Category("Phantom Technologies")]
         public string MaxTreeFileSizeInMegabytes { get; set; }
 
+        [DisplayName("XML File Address")]
+        [Description("Http location of XML file. IP or /url:Port/Filename. ie. http://127.0.0.1:8099/FruPak-PF-Update.xml")]
+        [Category("Update Settings")]
+        public string UpdateAddress { get; set; }
+
+        [DisplayName("Proxy Username")]
+        [Description("Proxy Username")]
+        [Category("Update Settings")]
+        public string UpdateProxyUsername { get; set; }
+
+        [DisplayName("Proxy Password")]
+        [Description("Proxy Password")]
+        [Category("Update Settings")]
+        public string UpdateProxyPassword { get; set; }
+
+        [DisplayName("Proxy URI")]
+        [Description("Proxy URI")]
+        [Category("Update Settings")]
+        public string UpdateProxyURI { get; set; }
+
+        [DisplayName("Proxy Port")]
+        [Description("Proxy Port")]
+        [Category("Update Settings")]
+        public string UpdateProxyPort { get; set; }
+
+        [DisplayName("Use Proxy")]
+        [Description("Use the proxy or not")]
+        [Category("Update Settings")]
+        public bool UpdateUseProxy { get; set; }
+
 
         //[DisplayName("Developer Size Mode")]
         //[Description("Allows or Disallows resizing the Main Menu Form.")]
@@ -112,7 +150,7 @@ namespace FruPak.PF.CustomSettings
         [Category("Path Settings")]
 
         public string Path_Remote_Path { get; set; }
-        
+
         #endregion
 
         #region AcroWrap Path
@@ -297,8 +335,8 @@ namespace FruPak.PF.CustomSettings
             writer.Write("Printer_Temp_Path", Path_Printer_Temp);
             writer.Write("Helpfile_Path", Path_Helpfile_Path);
             writer.Write("SMTP_Host_Name", Path_SMTP_Host);
-            
-            //writer.Write("Path_To_Settings", Path_To_Settings);          
+
+            //writer.Write("Path_To_Settings", Path_To_Settings);
             writer.Write("Printer_Name", Printer_Name);
             #endregion
 
@@ -338,9 +376,16 @@ namespace FruPak.PF.CustomSettings
             writer.Write("Copy_Delay_In_Minutes", CopyDelayInMinutes);
             writer.Write("Max_Tree_File_Size_In_Megabytes", MaxTreeFileSizeInMegabytes);
 
-            
+            writer.Write("Update_Address", UpdateAddress);
+            writer.Write("Update_Proxy_Username", UpdateProxyUsername);
+            writer.Write("Update_Proxy_Password", UpdateProxyPassword);
+            writer.Write("Update_Proxy_URI", UpdateProxyURI);
+            writer.Write("Update_Proxy_Port", UpdateProxyPort);
+            writer.Write("Update_Use_Proxy", UpdateUseProxy);
+
+
             //writer.Write("Phantom_Dev_EnableResize", Phantom_Dev_EnableResize);
-            
+
         }
 
         // Must override ReadSettings() to read values
@@ -354,7 +399,7 @@ namespace FruPak.PF.CustomSettings
             Path_Helpfile_Path = reader.Read("Helpfile_Path", "");
             Path_SMTP_Host = reader.Read("SMTP_Host_Name", "");
 
-            // 
+            //
 
             //Path_To_Settings = reader.Read("Path_To_Settings", "");
             Printer_Name = reader.Read("Printer_Name", "");
@@ -393,6 +438,14 @@ namespace FruPak.PF.CustomSettings
             CopyAtStartup = reader.Read("Copy_At_Startup", CopyAtStartup);
             CopyDelayInMinutes = reader.Read("Copy_Delay_In_Minutes", CopyDelayInMinutes);
             MaxTreeFileSizeInMegabytes = reader.Read("Max_Tree_File_Size_In_Megabytes", MaxTreeFileSizeInMegabytes);
+
+            UpdateAddress = reader.Read("Update_Address", UpdateAddress);
+            UpdateProxyUsername = reader.Read("Update_Proxy_Username", UpdateProxyUsername);
+            UpdateProxyPassword = reader.Read("Update_Proxy_Password", UpdateProxyPassword);
+            UpdateProxyURI = reader.Read("Update_Proxy_URI", UpdateProxyURI);
+            UpdateProxyPort = reader.Read("Update_Proxy_Port", UpdateProxyPort);
+            UpdateUseProxy = reader.Read("Update_Use_Proxy", UpdateUseProxy);
+
 
             //Phantom_Dev_EnableResize = reader.Read("Phantom_Dev_EnableResize", Phantom_Dev_EnableResize);
 

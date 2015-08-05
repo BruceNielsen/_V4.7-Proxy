@@ -13,7 +13,7 @@ namespace FruPak.PF.WorkOrder
 {
     public partial class WO_Create : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static bool bol_write_access;
         private static int int_Current_User_Id = 0;
@@ -28,9 +28,12 @@ namespace FruPak.PF.WorkOrder
             InitializeComponent();
 
             grower1.bol_test = bol_temp;
+
             FruPak.PF.Global.Global.bol_Testing = bol_temp;
 
             int_Current_User_Id = int_C_User_id;
+
+
             //check if testing or not
 
             //if (FruPak.PF.Global.Global.bol_Testing == true)
@@ -45,7 +48,7 @@ namespace FruPak.PF.WorkOrder
             bol_write_access = bol_w_a;
             btn_Add.Enabled = bol_w_a;
             btn_Update.Enabled = bol_w_a;
-            
+
             set_btn_Current();
             populate_combobox();
 
@@ -53,7 +56,7 @@ namespace FruPak.PF.WorkOrder
             {
                 int_Work_Order_Id = int_wo_id;
                 txt_WorkOrder.Text = Convert.ToString(int_wo_id);
-                btn_Add.Text = "Copy";
+                btn_Add.Text = "&Copy";
                 get_existing_Work_Order();
             }
             else
@@ -126,7 +129,7 @@ namespace FruPak.PF.WorkOrder
                 cmb_Growing_Method.SelectedValue = Convert.ToInt32(dr_Get_Info["Growing_Method_Id"].ToString());
                 txt_comments.Text = dr_Get_Info["Comments"].ToString();
             }
-            
+
             ds_Get_Info.Dispose();
             //total bins tipped
             ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Bins.Count_Bins_for_WorkOrder(int_Work_Order_Id);
@@ -266,7 +269,7 @@ namespace FruPak.PF.WorkOrder
 
             if (DLR_MessageBox != DialogResult.OK)
             {
-                if ((sender as Button).Text == "Add" || (sender as Button).Text == "Copy")
+                if ((sender as Button).Text == "&Add" || (sender as Button).Text == "&Copy")
                 {
                     int_Work_Order_Id = FruPak.PF.Common.Code.General.int_max_user_id("PF_Work_Order");
                     txt_WorkOrder.Text = Convert.ToString(int_Work_Order_Id);
@@ -289,7 +292,7 @@ namespace FruPak.PF.WorkOrder
                         lbl_message.Text = "Work Order: " + Convert.ToString(int_Work_Order_Id) + " failed to be Created";
                     }
                 }
-                else if ((sender as Button).Text == "Update")
+                else if ((sender as Button).Text == "&Update")
                 {
                     int_result = FruPak.PF.Data.AccessLayer.PF_Work_Order.Update(int_Work_Order_Id, Convert.ToDecimal(DateTime.Now.ToString("yyyy")),
                                                                              dtp_date.Value.ToString("yyyy/MM/dd"), dtp_start.Value.ToString("HH:mm:ss"), dtp_finish.Value.ToString("HH:mm:ss"),
@@ -336,7 +339,7 @@ namespace FruPak.PF.WorkOrder
             }
 
         }
- 
+
         private void btn_Reset_Click(object sender, EventArgs e)
         {
             Reset();
@@ -360,7 +363,7 @@ namespace FruPak.PF.WorkOrder
             txt_ctn_batch.ResetText();
             txt_current_batch.ResetText();
             txt_total_ctn.ResetText();
-            btn_Add.Text = "Add";
+            btn_Add.Text = "&Add";
             btn_Update.Visible = false;
             int_Work_Order_Id = 0;
             set_btn_Current();
@@ -403,7 +406,7 @@ namespace FruPak.PF.WorkOrder
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

@@ -334,7 +334,10 @@ namespace FruPak.PF.Data.Outlook
                                 if (contact.EntryID == str_Entry_Id)
                                 {
                                     Console.WriteLine("FruPak.PF.Data.Outlook.Contacts.Contact_Details: Match between contact id and entry id.");
-                                    Contact_Company_Name = contact.CompanyName.ToString();
+                                    if (contact.CompanyName != "" && contact.CompanyName != null) // BN
+                                    {
+                                        Contact_Company_Name = contact.CompanyName.ToString();
+                                    }
                                     if (contact.FirstName == null)
                                     {
                                         Contact_First_Name = "";
@@ -417,6 +420,7 @@ namespace FruPak.PF.Data.Outlook
                             }
                             catch
                             {
+                                Contact_Company_Name = "";  //BN
                                 Contact_First_Name = "";
                                 Contact_Last_Name = "";
                                 Contact_Business_Address = "";
@@ -463,6 +467,8 @@ namespace FruPak.PF.Data.Outlook
             dt_contacts.Columns.Add(dc_Entry_Id);
 
             dt_contacts.Rows.Add(dt_contacts.NewRow());
+
+            // Not sure if this warning is real - I don't think it is.
             foreach (object obj in Outlook.Folder_Name_Locationfield.Items)
             {
                 DataRow dr = dt_contacts.NewRow();

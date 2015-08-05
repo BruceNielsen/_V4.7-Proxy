@@ -17,7 +17,39 @@ namespace FruPak.PF.Utils.UserControls
         public Customer()
         {
             InitializeComponent();
-            populate();
+
+            // 20/05/2015 - BN - Identified source of really annoying bug - FruPak.PF.Utils.UserControls.Customer
+            // This customer control was executing code in the designer instead of ONLY at runtime, 
+            // causing VS/SQL to crash, and would delete the code and control if you tried to ignore the error,
+            // thereby mangling the code and rendering the customer UserControl useless and breaking the host form.
+            // 
+            // Initially I found it to be trying to use an old Sql Instance 
+            // (Bruce-Laptop) instead of the new one (-\SQLEXPRESS) which was a leftover from the default config file, 
+            // But on further investigation I ran across this article on CodeProject:
+            // http://www.codeproject.com/Tips/59203/Prevent-code-executing-at-Design-Time-in-Visual-St?msg=4455135#xx4455135xx
+            // Which solved the problem after a little bit of tinkering
+            //
+            // This does not work reliably:
+            //if (!DesignMode)
+            //{
+            //    Console.WriteLine("DesignMode = False");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("DesignMode = True");
+            //}
+
+            // This works perfectly:
+            if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
+            {
+                Console.WriteLine("FruPak.PF.Utils.UserControls.Customer - UsageMode = Designtime - Skipping populate()");
+            }
+            else
+            {
+                Console.WriteLine("FruPak.PF.Utils.UserControls.Customer - UsageMode = Runtime - Running populate()");
+                populate();
+            }
+
         }
         public void populate()
         {

@@ -86,6 +86,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Test_Material_Number";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.Utils.UserControls.Test Material Number";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Test_Material_Number_KeyDown);
             this.ResumeLayout(false);

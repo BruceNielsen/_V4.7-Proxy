@@ -51,7 +51,7 @@
             this.btn_Tipped.Size = new System.Drawing.Size(82, 68);
             this.btn_Tipped.TabIndex = 6;
             this.btn_Tipped.Tag = "";
-            this.btn_Tipped.Text = "Update";
+            this.btn_Tipped.Text = "&Update";
             this.btn_Tipped.UseVisualStyleBackColor = true;
             this.btn_Tipped.Click += new System.EventHandler(this.btn_Tipped_Click);
             // 
@@ -122,7 +122,7 @@
             this.btn_Close.Size = new System.Drawing.Size(79, 68);
             this.btn_Close.TabIndex = 7;
             this.btn_Close.Tag = "";
-            this.btn_Close.Text = "Close";
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -144,7 +144,7 @@
             this.rbn_WPC.Name = "rbn_WPC";
             this.rbn_WPC.Size = new System.Drawing.Size(79, 68);
             this.rbn_WPC.TabIndex = 5;
-            this.rbn_WPC.Text = "Bin Number";
+            this.rbn_WPC.Text = "Bin &Number";
             this.rbn_WPC.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbn_WPC.UseVisualStyleBackColor = true;
             // 
@@ -158,7 +158,7 @@
             this.rbn_PalletCard.Size = new System.Drawing.Size(82, 68);
             this.rbn_PalletCard.TabIndex = 4;
             this.rbn_PalletCard.TabStop = true;
-            this.rbn_PalletCard.Text = "Barcode";
+            this.rbn_PalletCard.Text = "&Barcode";
             this.rbn_PalletCard.UseVisualStyleBackColor = true;
             // 
             // Pallet_Weight
@@ -179,6 +179,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Pallet_Weight";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.Utils.Scanning.Pallet Weight";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Pallet_Weight_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nud_Gross_Weight)).EndInit();

@@ -67,7 +67,7 @@
             this.txt_Group_Name.MaxLength = 20;
             this.txt_Group_Name.Name = "txt_Group_Name";
             this.txt_Group_Name.Size = new System.Drawing.Size(196, 20);
-            this.txt_Group_Name.TabIndex = 1;
+            this.txt_Group_Name.TabIndex = 2;
             // 
             // txt_Group_Description
             // 
@@ -75,15 +75,15 @@
             this.txt_Group_Description.Multiline = true;
             this.txt_Group_Description.Name = "txt_Group_Description";
             this.txt_Group_Description.Size = new System.Drawing.Size(340, 85);
-            this.txt_Group_Description.TabIndex = 2;
+            this.txt_Group_Description.TabIndex = 3;
             // 
             // btn_Add
             // 
             this.btn_Add.Location = new System.Drawing.Point(703, 177);
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(75, 23);
-            this.btn_Add.TabIndex = 3;
-            this.btn_Add.Text = "Add";
+            this.btn_Add.TabIndex = 4;
+            this.btn_Add.Text = "&Add";
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
@@ -92,8 +92,8 @@
             this.btn_reset.Location = new System.Drawing.Point(794, 177);
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(75, 23);
-            this.btn_reset.TabIndex = 4;
-            this.btn_reset.Text = "Reset";
+            this.btn_reset.TabIndex = 5;
+            this.btn_reset.Text = "&Reset";
             this.btn_reset.UseVisualStyleBackColor = true;
             this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
             // 
@@ -103,7 +103,7 @@
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 23);
             this.btn_Close.TabIndex = 6;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -121,7 +121,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(560, 410);
-            this.dataGridView1.TabIndex = 7;
+            this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // lbl_message
@@ -138,8 +138,8 @@
             this.btn_Update_Relationships.Location = new System.Drawing.Point(749, 423);
             this.btn_Update_Relationships.Name = "btn_Update_Relationships";
             this.btn_Update_Relationships.Size = new System.Drawing.Size(163, 23);
-            this.btn_Update_Relationships.TabIndex = 6;
-            this.btn_Update_Relationships.Text = "Update Users in Group";
+            this.btn_Update_Relationships.TabIndex = 8;
+            this.btn_Update_Relationships.Text = "&Update Users in Group";
             this.btn_Update_Relationships.UseVisualStyleBackColor = true;
             this.btn_Update_Relationships.Visible = false;
             this.btn_Update_Relationships.Click += new System.EventHandler(this.button1_Click);
@@ -150,7 +150,7 @@
             this.checkedListBox1.Location = new System.Drawing.Point(657, 217);
             this.checkedListBox1.Name = "checkedListBox1";
             this.checkedListBox1.Size = new System.Drawing.Size(337, 199);
-            this.checkedListBox1.TabIndex = 5;
+            this.checkedListBox1.TabIndex = 7;
             this.checkedListBox1.Visible = false;
             this.checkedListBox1.Click += new System.EventHandler(this.checkedListBox1_Click);
             // 

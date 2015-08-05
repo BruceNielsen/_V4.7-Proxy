@@ -54,7 +54,7 @@
             this.cmb_Rpin.MaxLength = 5;
             this.cmb_Rpin.Name = "cmb_Rpin";
             this.cmb_Rpin.Size = new System.Drawing.Size(121, 21);
-            this.cmb_Rpin.TabIndex = 1;
+            this.cmb_Rpin.TabIndex = 2;
             this.cmb_Rpin.SelectedValueChanged += new System.EventHandler(this.cmb_Rpin_SelectedValueChanged);
             this.cmb_Rpin.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
             // 
@@ -82,7 +82,7 @@
             this.txt_Global_Gap.MaxLength = 13;
             this.txt_Global_Gap.Name = "txt_Global_Gap";
             this.txt_Global_Gap.Size = new System.Drawing.Size(205, 20);
-            this.txt_Global_Gap.TabIndex = 2;
+            this.txt_Global_Gap.TabIndex = 3;
             this.txt_Global_Gap.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
             // 
             // cmb_Orchardist
@@ -91,7 +91,7 @@
             this.cmb_Orchardist.Location = new System.Drawing.Point(775, 109);
             this.cmb_Orchardist.Name = "cmb_Orchardist";
             this.cmb_Orchardist.Size = new System.Drawing.Size(205, 21);
-            this.cmb_Orchardist.TabIndex = 3;
+            this.cmb_Orchardist.TabIndex = 4;
             this.cmb_Orchardist.SelectionChangeCommitted += new System.EventHandler(this.cmb_Orchardist_SelectionChangeCommitted);
             this.cmb_Orchardist.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
             // 
@@ -110,7 +110,7 @@
             this.txt_GST.MaxLength = 8;
             this.txt_GST.Name = "txt_GST";
             this.txt_GST.Size = new System.Drawing.Size(150, 20);
-            this.txt_GST.TabIndex = 5;
+            this.txt_GST.TabIndex = 6;
             this.txt_GST.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
             // 
             // lbl_GST
@@ -130,8 +130,8 @@
             this.ckb_Active.Location = new System.Drawing.Point(709, 206);
             this.ckb_Active.Name = "ckb_Active";
             this.ckb_Active.Size = new System.Drawing.Size(84, 24);
-            this.ckb_Active.TabIndex = 6;
-            this.ckb_Active.Text = "Active Ind:";
+            this.ckb_Active.TabIndex = 7;
+            this.ckb_Active.Text = "Active &Ind:";
             this.ckb_Active.UseVisualStyleBackColor = true;
             this.ckb_Active.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
             this.ckb_Active.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Enter_KeyPress);
@@ -141,8 +141,8 @@
             this.btn_Close.Location = new System.Drawing.Point(903, 247);
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 23);
-            this.btn_Close.TabIndex = 9;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.TabIndex = 10;
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -151,8 +151,8 @@
             this.btn_reset.Location = new System.Drawing.Point(811, 247);
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(75, 23);
-            this.btn_reset.TabIndex = 8;
-            this.btn_reset.Text = "Reset";
+            this.btn_reset.TabIndex = 9;
+            this.btn_reset.Text = "&Reset";
             this.btn_reset.UseVisualStyleBackColor = true;
             this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
             // 
@@ -161,8 +161,8 @@
             this.btn_Add.Location = new System.Drawing.Point(720, 247);
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(75, 23);
-            this.btn_Add.TabIndex = 7;
-            this.btn_Add.Text = "Add";
+            this.btn_Add.TabIndex = 8;
+            this.btn_Add.Text = "&Add";
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
@@ -186,7 +186,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(657, 531);
-            this.dataGridView1.TabIndex = 5;
+            this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // customer1
@@ -196,7 +196,7 @@
             this.customer1.Location = new System.Drawing.Point(700, 136);
             this.customer1.Name = "customer1";
             this.customer1.Size = new System.Drawing.Size(294, 28);
-            this.customer1.TabIndex = 4;
+            this.customer1.TabIndex = 5;
             // 
             // Grower
             // 

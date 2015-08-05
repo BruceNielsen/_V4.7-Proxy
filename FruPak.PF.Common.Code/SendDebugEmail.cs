@@ -54,11 +54,11 @@ namespace FruPak.PF.Common.Code
 
         private void buttonTest_Click(object sender, EventArgs e)
         {
-            this.textBoxBugReport.Text = "Testing from Bruce. Please ignore. " + DateTime.Now + "\r\n\r\n";
+            //this.textBoxBugReport.Text = "Testing from Bruce. Please ignore. " + DateTime.Now + "\r\n\r\n";
 
-            this.textBoxBugReport.Text += "I’m here to kick ass and chew bubblegum and I’m all out of bubblegum\r\n\r\nThey Live (1998)\r\nhttp://www.imdb.com/title/tt0096256/\r\n\r\n";
+            //this.textBoxBugReport.Text += "I’m here to kick ass and chew bubblegum and I’m all out of bubblegum\r\n\r\nThey Live (1998)\r\nhttp://www.imdb.com/title/tt0096256/\r\n\r\n";
 
-            this.textBoxBugReport.Text += "http://sploid.gizmodo.com/watch-this-insanely-fast-drone-fly-at-impossible-speeds-1701006766";
+            //this.textBoxBugReport.Text += "http://sploid.gizmodo.com/watch-this-insanely-fast-drone-fly-at-impossible-speeds-1701006766";
         }
     }
 }

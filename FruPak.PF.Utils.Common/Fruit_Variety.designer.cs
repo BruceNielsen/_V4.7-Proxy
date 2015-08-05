@@ -48,8 +48,8 @@
             this.btn_Close.Location = new System.Drawing.Point(862, 230);
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 23);
-            this.btn_Close.TabIndex = 6;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.TabIndex = 7;
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -58,8 +58,8 @@
             this.btn_reset.Location = new System.Drawing.Point(770, 230);
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(75, 23);
-            this.btn_reset.TabIndex = 5;
-            this.btn_reset.Text = "Reset";
+            this.btn_reset.TabIndex = 6;
+            this.btn_reset.Text = "&Reset";
             this.btn_reset.UseVisualStyleBackColor = true;
             this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
             // 
@@ -68,8 +68,8 @@
             this.btn_Add.Location = new System.Drawing.Point(679, 230);
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(75, 23);
-            this.btn_Add.TabIndex = 4;
-            this.btn_Add.Text = "Add";
+            this.btn_Add.TabIndex = 5;
+            this.btn_Add.Text = "&Add";
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
@@ -79,7 +79,7 @@
             this.txt_Description.Multiline = true;
             this.txt_Description.Name = "txt_Description";
             this.txt_Description.Size = new System.Drawing.Size(340, 85);
-            this.txt_Description.TabIndex = 3;
+            this.txt_Description.TabIndex = 4;
             // 
             // lbl_Description
             // 
@@ -96,7 +96,7 @@
             this.txt_code.MaxLength = 10;
             this.txt_code.Name = "txt_code";
             this.txt_code.Size = new System.Drawing.Size(123, 20);
-            this.txt_code.TabIndex = 2;
+            this.txt_code.TabIndex = 3;
             // 
             // lbl_Code
             // 
@@ -127,7 +127,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(543, 531);
-            this.dataGridView1.TabIndex = 5;
+            this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // lbl_Fruit
@@ -145,7 +145,7 @@
             this.cmb_Fruit.Location = new System.Drawing.Point(639, 44);
             this.cmb_Fruit.Name = "cmb_Fruit";
             this.cmb_Fruit.Size = new System.Drawing.Size(123, 21);
-            this.cmb_Fruit.TabIndex = 1;
+            this.cmb_Fruit.TabIndex = 2;
             // 
             // Fruit_Variety
             // 
@@ -166,6 +166,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Fruit_Variety";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.Utils.Common.Fruit Variety";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Fruit_Variety_KeyDown);

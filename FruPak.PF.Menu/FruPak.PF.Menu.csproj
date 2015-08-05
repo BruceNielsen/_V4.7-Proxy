@@ -97,6 +97,9 @@
       <DependentUpon>RobinJ.cs</DependentUpon>
     </Compile>
     <Compile Include="CheckIfFileIsLockedByProcess.cs" />
+    <Compile Include="Tools\BorderLabel\BorderLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Tools\CueControls\CueComboBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -111,9 +114,7 @@
     </Compile>
     <Compile Include="Tools\GroupedComboBox\BufferedPainter.cs" />
     <Compile Include="Tools\GroupedComboBox\Constants.cs" />
-    <Compile Include="Tools\GroupedComboBox\GroupedComboBox.cs">
-      <SubType>Component</SubType>
-    </Compile>
+    <Compile Include="Tools\GroupedComboBox\GroupedComboBox.cs" />
     <Compile Include="Tools\HintedTextBox\HintedTextBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -165,6 +166,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\AutoUpdater.NET\AutoUpdater.NET.csproj">
+      <Project>{fb9e7e6b-b19f-4f37-a708-2996190cef13}</Project>
+      <Name>AutoUpdater.NET</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FruPak.PF.Accounts\FruPak.PF.Accounts.csproj">
       <Project>{6543499B-86BE-4356-9496-34DAF73A998F}</Project>
       <Name>FruPak.PF.Accounts</Name>
@@ -231,6 +236,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Notes 2015 Winter Solistice.txt" />
     <Content Include="Program_Notes.txt" />
     <Content Include="Tools\TheGrouper\Grouper.bmp" />
     <Content Include="Tools\TheGrouper\Grouper.xml">
@@ -261,6 +267,17 @@
     <None Include="Resources\Calculator.png" />
     <None Include="Resources\Home.png" />
     <None Include="Resources\rbbtn_Fruit_Type.Image.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>4</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

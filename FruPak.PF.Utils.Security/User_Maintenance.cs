@@ -21,17 +21,17 @@ namespace FruPak.PF.Utils.Security
     */
     public partial class User_Maintenance : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static int int_Current_User_Id = 0;
-        private static bool bol_Write_access; 
+        private static bool bol_Write_access;
         public User_Maintenance(int int_C_User_Id, bool bol_w_a)
         {
             int_Current_User_Id = int_C_User_Id;
-            
+
             InitializeComponent();
 
-           
+
 
             // restrict write access
             bol_Write_access = bol_w_a;
@@ -143,7 +143,7 @@ namespace FruPak.PF.Utils.Security
             img_delete.Name = "Delete";
             img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
-            img_delete.Visible = bol_Write_access;            
+            img_delete.Visible = bol_Write_access;
 
             DataGridViewImageColumn img_edit = new DataGridViewImageColumn();
             dataGridView1.Columns.Add(img_edit);
@@ -210,7 +210,7 @@ namespace FruPak.PF.Utils.Security
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void SizeAllColumns(Object sender, EventArgs e)
-        {          
+        {
             dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
         private void populate_check_boxList()
@@ -269,6 +269,9 @@ namespace FruPak.PF.Utils.Security
                 txt_First_Name.Text = dataGridView1.Rows[e.RowIndex].Cells["First_Name"].Value.ToString();
                 txt_Last_Name.Text = dataGridView1.Rows[e.RowIndex].Cells["Last_Name"].Value.ToString();
                 txt_Logon.Text = dataGridView1.Rows[e.RowIndex].Cells["Logon"].Value.ToString();
+
+                txt_Password.Text = dataGridView1.Rows[e.RowIndex].Cells["Password"].Value.ToString();
+
                 str_logon = txt_Logon.Text;
                 ckb_Active.Checked = Convert.ToBoolean(dataGridView1.Rows[e.RowIndex].Cells["Active"].Value);
                 try
@@ -293,7 +296,7 @@ namespace FruPak.PF.Utils.Security
 
             for (int i = 0; i < Convert.ToInt32(checkedListBox1.Items.Count.ToString()); i++)
             {
-                string item = checkedListBox1.Items[i].ToString();                
+                string item = checkedListBox1.Items[i].ToString();
 
                 checkedListBox1.SetItemCheckState(i, CheckState.Unchecked);
                 for (int j = 0; j < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); j++)
@@ -313,12 +316,12 @@ namespace FruPak.PF.Utils.Security
             DialogResult DLR_MessageBox = new DialogResult();
             int int_update = 0;
 
-            if ((sender as Button).Text == "Add")
+            if ((sender as Button).Text == "&Add")
             {
                 str_msg = General.User_Check(txt_First_Name.Text, txt_Last_Name.Text, txt_Logon.Text, true, txt_Password.Text);
                 int_update = 1;
             }
-            else if ((sender as Button).Text == "Update")
+            else if ((sender as Button).Text == "&Update")
             {
                 if (txt_Password.TextLength == 0)
                 {
@@ -345,9 +348,9 @@ namespace FruPak.PF.Utils.Security
                         str_msg = General.User_Check(txt_First_Name.Text, txt_Last_Name.Text, txt_Logon.Text, true, txt_Password.Text);
                         int_update = 5;
                     }
-                }            
+                }
             }
-           
+
             if (str_msg.Length > 0)
             {
                 DLR_MessageBox = MessageBox.Show(str_msg, "Security - User Details", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -381,10 +384,10 @@ namespace FruPak.PF.Utils.Security
 
                 switch ((sender as Button).Text)
                 {
-                    case "Add":
+                    case "&Add":
                         FruPak.PF.Common.Code.General.write_log(int_User_Id, "Usr - Add", int_Current_User_Id);
                         break;
-                    case "Update":
+                    case "&Update":
                         FruPak.PF.Common.Code.General.write_log(int_User_Id, "Usr - Updated", int_Current_User_Id);
                         break;
                 }
@@ -400,7 +403,7 @@ namespace FruPak.PF.Utils.Security
                     lbl_message.ForeColor = System.Drawing.Color.Red;
                     lbl_message.Text = txt_First_Name.Text + " " + txt_Last_Name.Text + " has NOT to has been saved";
                 }
-                populate_datagridview();               
+                populate_datagridview();
             }
         }
         private void ckb_Show_Password_Click(object sender, EventArgs e)
@@ -426,7 +429,7 @@ namespace FruPak.PF.Utils.Security
             txt_Password.ResetText();
             ckb_Active.Checked = true;
             ckb_Show_Password.Checked = false;
-            btn_Update.Text = "Add";
+            btn_Update.Text = "&Add";
             checkedListBox1.Visible = false;
             btn_Add_Members.Visible = false;
         }
@@ -484,7 +487,7 @@ namespace FruPak.PF.Utils.Security
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

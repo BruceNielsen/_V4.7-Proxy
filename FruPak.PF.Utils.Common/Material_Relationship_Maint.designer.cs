@@ -40,7 +40,7 @@
             this.btn_Execute.Name = "btn_Execute";
             this.btn_Execute.Size = new System.Drawing.Size(75, 23);
             this.btn_Execute.TabIndex = 3;
-            this.btn_Execute.Text = "Execute";
+            this.btn_Execute.Text = "&Execute";
             this.btn_Execute.UseVisualStyleBackColor = true;
             this.btn_Execute.Click += new System.EventHandler(this.button1_Click);
             // 
@@ -52,7 +52,7 @@
             this.ckb_Rates.Size = new System.Drawing.Size(115, 17);
             this.ckb_Rates.TabIndex = 1;
             this.ckb_Rates.Tag = "PF_A_Rates";
-            this.ckb_Rates.Text = "Rates Relationship";
+            this.ckb_Rates.Text = "&Rates Relationship";
             this.ckb_Rates.UseVisualStyleBackColor = true;
             this.ckb_Rates.CheckedChanged += new System.EventHandler(this.ckb_CheckedChanged);
             this.ckb_Rates.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
@@ -65,7 +65,7 @@
             this.ckb_stock.Size = new System.Drawing.Size(115, 17);
             this.ckb_stock.TabIndex = 2;
             this.ckb_stock.Tag = "PF_Stock_Item";
-            this.ckb_stock.Text = "Stock Relationship";
+            this.ckb_stock.Text = "&Stock Relationship";
             this.ckb_stock.UseVisualStyleBackColor = true;
             this.ckb_stock.CheckedChanged += new System.EventHandler(this.ckb_CheckedChanged);
             this.ckb_stock.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);

@@ -12,7 +12,7 @@ namespace FruPak.PF.Utils.Common
 {
     public partial class Grower_Block_Variety : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static bool bol_write_access;
         private static int int_Current_User_Id = 0;
@@ -26,7 +26,7 @@ namespace FruPak.PF.Utils.Common
             int_Current_User_Id = int_C_User_id;
             int_Grower_Id = int_Grow_Id;
             txt_rpin.Text = FruPak.PF.Data.AccessLayer.CM_Grower.Get_RPIN(int_Grower_Id);
-            
+
             int_Block_Id = int_blk_Id;
             txt_Block.Text = FruPak.PF.Data.AccessLayer.CM_Block.Get_Block(int_Block_Id);
 
@@ -205,7 +205,7 @@ namespace FruPak.PF.Utils.Common
             DataSet ds_Get_Variety;
             DataRow dr_Get_Variety;
             ds_Get_Variety = FruPak.PF.Data.AccessLayer.EX_Pipfruit_Orchard.Get_Variety(txt_rpin.Text, txt_Block.Text.Substring(0, 1), txt_Block.Text.Substring(1, 1));
-            
+
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_Variety.Tables[0].Rows.Count.ToString()); i++)
             {
@@ -215,7 +215,7 @@ namespace FruPak.PF.Utils.Common
             ds_Get_Variety.Dispose();
 
             ds_Get_Variety = FruPak.PF.Data.AccessLayer.CM_Fruit_Variety.Get_non_pipfruit();
-            
+
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_Variety.Tables[0].Rows.Count.ToString()); i++)
             {
@@ -236,7 +236,7 @@ namespace FruPak.PF.Utils.Common
             int int_variety_Id = 0;
             string str_msg = "";
 
-            if (btn_Add.Text == "Add")
+            if (btn_Add.Text == "&Add")
             {
                 DataSet ds_Get_Variety_ID = FruPak.PF.Data.AccessLayer.CM_Fruit_Variety.Get_Info(cmb_variety.SelectedItem.ToString().Substring(0, cmb_variety.SelectedItem.ToString().IndexOf(":")));
                 DataRow dr_Get_Variety_ID;
@@ -262,7 +262,7 @@ namespace FruPak.PF.Utils.Common
             {
                 switch (btn_Add.Text)
                 {
-                    case "Add":
+                    case "&Add":
                         int_result = FruPak.PF.Data.AccessLayer.CM_Block_Variety_Relationship.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Block_Variety_Relationship"), int_Block_Id, int_variety_Id, int_Current_User_Id);
                         break;
                 }
@@ -318,8 +318,8 @@ namespace FruPak.PF.Utils.Common
             Reset();
         }
         private void Reset()
-        {            
-            btn_Add.Text = "Add";
+        {
+            btn_Add.Text = "&Add";
         }
         private void btn_Close_Click(object sender, EventArgs e)
         {
@@ -344,7 +344,7 @@ namespace FruPak.PF.Utils.Common
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

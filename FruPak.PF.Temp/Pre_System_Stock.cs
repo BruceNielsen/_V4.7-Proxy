@@ -12,7 +12,7 @@ namespace FruPak.PF.Temp
 {
     public partial class Pre_System_Stock : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static bool bol_write_access;
         private static int int_Current_User_Id = 0;
@@ -107,7 +107,7 @@ namespace FruPak.PF.Temp
             col3.HeaderText = "Material Description";
             col3.Name = "Material_desc";
             col3.ReadOnly = true;
-            
+
 
             col4.HeaderText = "Quantity";
             col4.Name = "Quantity";
@@ -206,14 +206,14 @@ namespace FruPak.PF.Temp
             {
                 switch (btn_Add.Text)
                 {
-                    case "Add":
+                    case "&Add":
                         int_result = FruPak.PF.Data.AccessLayer.PF_PreSystem_Pallet_Stock.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_PreSystem_Pallet_Stock"), materialNumber1.Material_Number, nud_quantity.Value, int_Current_User_Id);
                         break;
-                    case "Update":
+                    case "&Update":
                         int_result = FruPak.PF.Data.AccessLayer.PF_PreSystem_Pallet_Stock.Update(int_new_Id, materialNumber1.Material_Number, nud_quantity.Value, int_Current_User_Id);
                         break;
                 }
-                
+
             }
             if (int_result > 0)
             {
@@ -268,7 +268,7 @@ namespace FruPak.PF.Temp
                 materialNumber1.setMaterial(Convert.ToInt32(dataGridView1.CurrentRow.Cells["Material_Id"].Value.ToString()));
                 nud_quantity.Value = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["Quantity"].Value.ToString());
 
-                btn_Add.Text = "Update";
+                btn_Add.Text = "&Update";
             }
             #endregion
         }
@@ -286,12 +286,12 @@ namespace FruPak.PF.Temp
         {
             materialNumber1.Reset();
             nud_quantity.Value = 0;
-            btn_Add.Text = "Add";
+            btn_Add.Text = "&Add";
         }
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

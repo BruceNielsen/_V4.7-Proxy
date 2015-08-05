@@ -39,6 +39,7 @@
             this.btn_Dry = new System.Windows.Forms.Button();
             this.btn_Wet = new System.Windows.Forms.Button();
             this.barcode1 = new FruPak.PF.Utils.UserControls.Barcode();
+            this.buttonZeroGrossWeight = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).BeginInit();
             this.SuspendLayout();
             // 
@@ -65,6 +66,12 @@
             this.nud_weight.Name = "nud_weight";
             this.nud_weight.Size = new System.Drawing.Size(113, 26);
             this.nud_weight.TabIndex = 2;
+            this.nud_weight.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.nud_weight.Enter += new System.EventHandler(this.nud_weight_Enter);
             this.nud_weight.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_barcode_KeyDown);
             this.nud_weight.Leave += new System.EventHandler(this.nud_weight_Leave);
             // 
@@ -86,7 +93,7 @@
             this.btn_Weight.Size = new System.Drawing.Size(75, 46);
             this.btn_Weight.TabIndex = 5;
             this.btn_Weight.Tag = "                    lbl_message.Text = \"Invalid barcode\";";
-            this.btn_Weight.Text = "Weight";
+            this.btn_Weight.Text = "&Weight";
             this.btn_Weight.UseVisualStyleBackColor = true;
             this.btn_Weight.Click += new System.EventHandler(this.btn_Weight_Click);
             // 
@@ -108,7 +115,7 @@
             this.btn_Close.Size = new System.Drawing.Size(75, 46);
             this.btn_Close.TabIndex = 6;
             this.btn_Close.Tag = "";
-            this.btn_Close.Text = "Close";
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -128,7 +135,7 @@
             this.btn_Dry.Name = "btn_Dry";
             this.btn_Dry.Size = new System.Drawing.Size(75, 46);
             this.btn_Dry.TabIndex = 4;
-            this.btn_Dry.Text = "Dry Tip";
+            this.btn_Dry.Text = "&Dry Tip";
             this.btn_Dry.UseVisualStyleBackColor = true;
             this.btn_Dry.Click += new System.EventHandler(this.btn_Wet_Dry_Click);
             // 
@@ -140,7 +147,7 @@
             this.btn_Wet.Name = "btn_Wet";
             this.btn_Wet.Size = new System.Drawing.Size(75, 46);
             this.btn_Wet.TabIndex = 3;
-            this.btn_Wet.Text = "Wet Tip";
+            this.btn_Wet.Text = "Wet &Tip";
             this.btn_Wet.UseVisualStyleBackColor = true;
             this.btn_Wet.Click += new System.EventHandler(this.btn_Wet_Dry_Click);
             // 
@@ -155,12 +162,23 @@
             this.barcode1.txtChanged += new System.EventHandler(this.barcode1_txtChanged);
             this.barcode1.Validating += new System.ComponentModel.CancelEventHandler(this.txt_barcode_Validating);
             // 
+            // buttonZeroGrossWeight
+            // 
+            this.buttonZeroGrossWeight.Location = new System.Drawing.Point(249, 135);
+            this.buttonZeroGrossWeight.Name = "buttonZeroGrossWeight";
+            this.buttonZeroGrossWeight.Size = new System.Drawing.Size(55, 23);
+            this.buttonZeroGrossWeight.TabIndex = 34;
+            this.buttonZeroGrossWeight.Text = "Zero";
+            this.buttonZeroGrossWeight.UseVisualStyleBackColor = true;
+            this.buttonZeroGrossWeight.Click += new System.EventHandler(this.buttonZeroGrossWeight_Click);
+            // 
             // Bin_Tipping
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(397, 303);
+            this.Controls.Add(this.buttonZeroGrossWeight);
             this.Controls.Add(this.barcode1);
             this.Controls.Add(this.btn_Wet);
             this.Controls.Add(this.btn_Dry);
@@ -174,6 +192,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Bin_Tipping";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.Utils.Scanning.Bin Tipping";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Bin_Tipping_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).EndInit();
@@ -194,5 +213,6 @@
         private System.Windows.Forms.Button btn_Dry;
         private System.Windows.Forms.Button btn_Wet;
         private UserControls.Barcode barcode1;
+        private System.Windows.Forms.Button buttonZeroGrossWeight;
     }
 }

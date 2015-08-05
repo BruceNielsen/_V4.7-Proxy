@@ -66,7 +66,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(558, 531);
-            this.dataGridView1.TabIndex = 5;
+            this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // btn_Close
@@ -74,8 +74,8 @@
             this.btn_Close.Location = new System.Drawing.Point(871, 335);
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 23);
-            this.btn_Close.TabIndex = 8;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.TabIndex = 9;
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -84,8 +84,8 @@
             this.btn_reset.Location = new System.Drawing.Point(779, 335);
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(75, 23);
-            this.btn_reset.TabIndex = 7;
-            this.btn_reset.Text = "Reset";
+            this.btn_reset.TabIndex = 8;
+            this.btn_reset.Text = "&Reset";
             this.btn_reset.UseVisualStyleBackColor = true;
             this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
             // 
@@ -94,15 +94,15 @@
             this.btn_Add.Location = new System.Drawing.Point(688, 335);
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(75, 23);
-            this.btn_Add.TabIndex = 6;
-            this.btn_Add.Text = "Add";
+            this.btn_Add.TabIndex = 7;
+            this.btn_Add.Text = "&Add";
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
             // lbl_contact
             // 
             this.lbl_contact.AutoSize = true;
-            this.lbl_contact.Location = new System.Drawing.Point(585, 228);
+            this.lbl_contact.Location = new System.Drawing.Point(578, 228);
             this.lbl_contact.Name = "lbl_contact";
             this.lbl_contact.Size = new System.Drawing.Size(74, 13);
             this.lbl_contact.TabIndex = 55;
@@ -114,7 +114,7 @@
             this.cmb_Outlook.Location = new System.Drawing.Point(658, 225);
             this.cmb_Outlook.Name = "cmb_Outlook";
             this.cmb_Outlook.Size = new System.Drawing.Size(329, 21);
-            this.cmb_Outlook.TabIndex = 4;
+            this.cmb_Outlook.TabIndex = 5;
             this.cmb_Outlook.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
             // 
             // ckb_Active
@@ -125,8 +125,8 @@
             this.ckb_Active.Location = new System.Drawing.Point(588, 190);
             this.ckb_Active.Name = "ckb_Active";
             this.ckb_Active.Size = new System.Drawing.Size(84, 24);
-            this.ckb_Active.TabIndex = 3;
-            this.ckb_Active.Text = "Active Ind:";
+            this.ckb_Active.TabIndex = 4;
+            this.ckb_Active.Text = "Active &Ind:";
             this.ckb_Active.UseVisualStyleBackColor = true;
             this.ckb_Active.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
             // 
@@ -136,7 +136,7 @@
             this.txt_Description.Multiline = true;
             this.txt_Description.Name = "txt_Description";
             this.txt_Description.Size = new System.Drawing.Size(340, 85);
-            this.txt_Description.TabIndex = 2;
+            this.txt_Description.TabIndex = 3;
             // 
             // lbl_Description
             // 
@@ -153,7 +153,7 @@
             this.txt_code.MaxLength = 10;
             this.txt_code.Name = "txt_code";
             this.txt_code.Size = new System.Drawing.Size(123, 20);
-            this.txt_code.TabIndex = 1;
+            this.txt_code.TabIndex = 2;
             this.txt_code.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
             // 
             // lbl_Code
@@ -171,7 +171,7 @@
             this.txt_barcode.MaxLength = 10;
             this.txt_barcode.Name = "txt_barcode";
             this.txt_barcode.Size = new System.Drawing.Size(123, 20);
-            this.txt_barcode.TabIndex = 5;
+            this.txt_barcode.TabIndex = 6;
             this.txt_barcode.Visible = false;
             this.txt_barcode.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
             this.txt_barcode.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Enter_KeyPress);
@@ -208,6 +208,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Common_Maintenance2";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.Utils.Common Maintenance2 (Trader)";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Common_Maintenance2_KeyDown);

@@ -27,12 +27,25 @@ namespace FruPak.PF.Utils.UserControls
         public Grower()
         {
             InitializeComponent();
-            
-            FruPak.PF.Global.Global.bol_Testing = bol_test;
 
-            populate_Orchardist();
+            // BN 23/06/2015 This is screwing up the test function,
+            // causing the program to look in the wrong database,
+            // which leads to completely unexpected results when testing what's needed to clean out the database
+            // I don't know what further ramifications this will have later on.
+            // ----------------------------------------------
+            //FruPak.PF.Global.Global.bol_Testing = bol_test;
+            // ----------------------------------------------
 
-           
+            if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
+            {
+                Console.WriteLine("FruPak.PF.Utils.UserControls.Grower - UsageMode = Designtime - Skipping populate()");
+            }
+            else
+            {
+                Console.WriteLine("FruPak.PF.Utils.UserControls.Grower - UsageMode = Runtime - Running populate()");
+                populate_Orchardist();
+            }
+
         }
 
         private void populate_Orchardist()
@@ -72,7 +85,7 @@ namespace FruPak.PF.Utils.UserControls
 
             if (Orchardist_Id == 0)
             {
-                ds_get_info = FruPak.PF.Data.AccessLayer.CM_Grower.Get_Info(); 
+                ds_get_info = FruPak.PF.Data.AccessLayer.CM_Grower.Get_Info();
             }
             else
             {
@@ -118,22 +131,34 @@ namespace FruPak.PF.Utils.UserControls
             }
         }
 
+        // Crashes here in design mode when opening WO_Create designer
         // set and get for the grower id for the selected item.
         public int Grower_Id
         {
             get
             {
-                if (cmb_Grower.SelectedItem != null)
-                {
-                    return Convert.ToInt32((cmb_Grower.SelectedItem as ComboboxValues).GetValue);
-                }
+                //if (!DesignMode)
+                //{
+                //}
+
+
+                    if (cmb_Grower.SelectedItem != null)
+                    {
+                        return Convert.ToInt32((cmb_Grower.SelectedItem as ComboboxValues).GetValue);
+                    }
+
                 return 0;
             }
             set
             {
                 if (value == 0)
                 {
-                    cmb_Grower.SelectedIndex = 0;
+                    // Avoid designer crash
+                    if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
+                    {
+                        Console.WriteLine("FruPak.PF.WorkOrder - UsageMode = Designtime");
+                        cmb_Grower.SelectedIndex = 0;
+                    }
                 }
                 else
                 {

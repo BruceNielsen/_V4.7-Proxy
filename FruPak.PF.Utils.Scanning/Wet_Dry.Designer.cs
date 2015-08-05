@@ -85,12 +85,12 @@
             // btn_Close
             // 
             this.btn_Close.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Close.Location = new System.Drawing.Point(122, 315);
+            this.btn_Close.Location = new System.Drawing.Point(201, 315);
             this.btn_Close.Name = "btn_Close";
-            this.btn_Close.Size = new System.Drawing.Size(75, 46);
+            this.btn_Close.Size = new System.Drawing.Size(80, 46);
             this.btn_Close.TabIndex = 6;
             this.btn_Close.Tag = "";
-            this.btn_Close.Text = "Close";
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -98,12 +98,12 @@
             // 
             this.rbn_Wet.Appearance = System.Windows.Forms.Appearance.Button;
             this.rbn_Wet.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbn_Wet.Location = new System.Drawing.Point(15, 19);
+            this.rbn_Wet.Location = new System.Drawing.Point(18, 19);
             this.rbn_Wet.Name = "rbn_Wet";
-            this.rbn_Wet.Size = new System.Drawing.Size(58, 58);
+            this.rbn_Wet.Size = new System.Drawing.Size(80, 58);
             this.rbn_Wet.TabIndex = 4;
             this.rbn_Wet.TabStop = true;
-            this.rbn_Wet.Text = "Wet Tip";
+            this.rbn_Wet.Text = "&Wet Tip";
             this.rbn_Wet.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbn_Wet.UseVisualStyleBackColor = true;
             this.rbn_Wet.CheckedChanged += new System.EventHandler(this.rbn_btn_Click);
@@ -112,12 +112,12 @@
             // 
             this.rbn_Dry.Appearance = System.Windows.Forms.Appearance.Button;
             this.rbn_Dry.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbn_Dry.Location = new System.Drawing.Point(91, 19);
+            this.rbn_Dry.Location = new System.Drawing.Point(129, 19);
             this.rbn_Dry.Name = "rbn_Dry";
-            this.rbn_Dry.Size = new System.Drawing.Size(57, 58);
+            this.rbn_Dry.Size = new System.Drawing.Size(80, 58);
             this.rbn_Dry.TabIndex = 5;
             this.rbn_Dry.TabStop = true;
-            this.rbn_Dry.Text = "Dry Tip";
+            this.rbn_Dry.Text = "&Dry Tip";
             this.rbn_Dry.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbn_Dry.UseVisualStyleBackColor = true;
             this.rbn_Dry.CheckedChanged += new System.EventHandler(this.rbn_btn_Click);
@@ -127,12 +127,12 @@
             this.rbn_PF.Appearance = System.Windows.Forms.Appearance.Button;
             this.rbn_PF.Checked = true;
             this.rbn_PF.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.rbn_PF.Location = new System.Drawing.Point(91, 19);
+            this.rbn_PF.Location = new System.Drawing.Point(129, 19);
             this.rbn_PF.Name = "rbn_PF";
-            this.rbn_PF.Size = new System.Drawing.Size(78, 58);
+            this.rbn_PF.Size = new System.Drawing.Size(80, 58);
             this.rbn_PF.TabIndex = 3;
             this.rbn_PF.TabStop = true;
-            this.rbn_PF.Text = "Process Factory";
+            this.rbn_PF.Text = "&Process Factory";
             this.rbn_PF.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbn_PF.UseVisualStyleBackColor = true;
             // 
@@ -142,10 +142,10 @@
             this.rbn_GDI.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbn_GDI.Location = new System.Drawing.Point(18, 19);
             this.rbn_GDI.Name = "rbn_GDI";
-            this.rbn_GDI.Size = new System.Drawing.Size(58, 58);
+            this.rbn_GDI.Size = new System.Drawing.Size(80, 58);
             this.rbn_GDI.TabIndex = 2;
             this.rbn_GDI.TabStop = true;
-            this.rbn_GDI.Text = "GDI";
+            this.rbn_GDI.Text = "&GDI";
             this.rbn_GDI.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbn_GDI.UseVisualStyleBackColor = true;
             // 
@@ -155,7 +155,7 @@
             this.groupBox1.Controls.Add(this.rbn_PF);
             this.groupBox1.Location = new System.Drawing.Point(72, 116);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(181, 87);
+            this.groupBox1.Size = new System.Drawing.Size(233, 87);
             this.groupBox1.TabIndex = 44;
             this.groupBox1.TabStop = false;
             // 
@@ -165,7 +165,7 @@
             this.groupBox2.Controls.Add(this.rbn_Dry);
             this.groupBox2.Location = new System.Drawing.Point(72, 209);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(181, 100);
+            this.groupBox2.Size = new System.Drawing.Size(233, 100);
             this.groupBox2.TabIndex = 45;
             this.groupBox2.TabStop = false;
             // 

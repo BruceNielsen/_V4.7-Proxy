@@ -43,8 +43,8 @@
             this.buttonOK.Location = new System.Drawing.Point(161, 132);
             this.buttonOK.Name = "buttonOK";
             this.buttonOK.Size = new System.Drawing.Size(75, 23);
-            this.buttonOK.TabIndex = 0;
-            this.buttonOK.Text = "OK";
+            this.buttonOK.TabIndex = 5;
+            this.buttonOK.Text = "&OK";
             this.buttonOK.UseVisualStyleBackColor = true;
             this.buttonOK.Click += new System.EventHandler(this.buttonOK_Click);
             // 
@@ -53,8 +53,8 @@
             this.buttonCancel.Location = new System.Drawing.Point(15, 132);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 1;
-            this.buttonCancel.Text = "Cancel";
+            this.buttonCancel.TabIndex = 4;
+            this.buttonCancel.Text = "&Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
@@ -91,7 +91,7 @@
             this.comboBoxDate.Location = new System.Drawing.Point(15, 25);
             this.comboBoxDate.Name = "comboBoxDate";
             this.comboBoxDate.Size = new System.Drawing.Size(221, 21);
-            this.comboBoxDate.TabIndex = 6;
+            this.comboBoxDate.TabIndex = 1;
             this.comboBoxDate.SelectedIndexChanged += new System.EventHandler(this.comboBoxDate_SelectedIndexChanged);
             this.comboBoxDate.SelectedValueChanged += new System.EventHandler(this.comboBoxDate_SelectedValueChanged);
             // 
@@ -101,7 +101,7 @@
             this.comboBoxProduct.Location = new System.Drawing.Point(15, 65);
             this.comboBoxProduct.Name = "comboBoxProduct";
             this.comboBoxProduct.Size = new System.Drawing.Size(221, 21);
-            this.comboBoxProduct.TabIndex = 7;
+            this.comboBoxProduct.TabIndex = 2;
             // 
             // comboBoxWorkOrder
             // 
@@ -109,7 +109,7 @@
             this.comboBoxWorkOrder.Location = new System.Drawing.Point(15, 105);
             this.comboBoxWorkOrder.Name = "comboBoxWorkOrder";
             this.comboBoxWorkOrder.Size = new System.Drawing.Size(221, 21);
-            this.comboBoxWorkOrder.TabIndex = 8;
+            this.comboBoxWorkOrder.TabIndex = 3;
             // 
             // InputWorkOrder
             // 
@@ -126,7 +126,7 @@
             this.Controls.Add(this.buttonOK);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Name = "InputWorkOrder";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Work Order";
             this.ResumeLayout(false);
             this.PerformLayout();

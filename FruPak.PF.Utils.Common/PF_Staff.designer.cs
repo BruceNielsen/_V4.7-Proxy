@@ -54,7 +54,7 @@
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 23);
             this.btn_Close.TabIndex = 10;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -64,7 +64,7 @@
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(75, 23);
             this.btn_reset.TabIndex = 9;
-            this.btn_reset.Text = "Reset";
+            this.btn_reset.Text = "&Reset";
             this.btn_reset.UseVisualStyleBackColor = true;
             this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
             // 
@@ -74,7 +74,7 @@
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(75, 23);
             this.btn_Add.TabIndex = 8;
-            this.btn_Add.Text = "Add";
+            this.btn_Add.Text = "&Add";
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
@@ -112,19 +112,19 @@
             // 
             // txt_First_Name
             // 
-            this.txt_First_Name.Location = new System.Drawing.Point(638, 40);
+            this.txt_First_Name.Location = new System.Drawing.Point(674, 40);
             this.txt_First_Name.MaxLength = 20;
             this.txt_First_Name.Name = "txt_First_Name";
-            this.txt_First_Name.Size = new System.Drawing.Size(100, 20);
+            this.txt_First_Name.Size = new System.Drawing.Size(156, 20);
             this.txt_First_Name.TabIndex = 2;
             this.txt_First_Name.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
             // 
             // txt_Last_Name
             // 
-            this.txt_Last_Name.Location = new System.Drawing.Point(638, 66);
+            this.txt_Last_Name.Location = new System.Drawing.Point(674, 66);
             this.txt_Last_Name.MaxLength = 20;
             this.txt_Last_Name.Name = "txt_Last_Name";
-            this.txt_Last_Name.Size = new System.Drawing.Size(100, 20);
+            this.txt_Last_Name.Size = new System.Drawing.Size(156, 20);
             this.txt_Last_Name.TabIndex = 3;
             this.txt_Last_Name.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
             // 
@@ -142,7 +142,7 @@
             this.txt_Employee_Num.Location = new System.Drawing.Point(674, 92);
             this.txt_Employee_Num.MaxLength = 20;
             this.txt_Employee_Num.Name = "txt_Employee_Num";
-            this.txt_Employee_Num.Size = new System.Drawing.Size(64, 20);
+            this.txt_Employee_Num.Size = new System.Drawing.Size(156, 20);
             this.txt_Employee_Num.TabIndex = 4;
             this.txt_Employee_Num.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
             // 
@@ -172,16 +172,16 @@
             "Seasonal"});
             this.cmb_Emp_Type.Location = new System.Drawing.Point(674, 121);
             this.cmb_Emp_Type.Name = "cmb_Emp_Type";
-            this.cmb_Emp_Type.Size = new System.Drawing.Size(97, 21);
+            this.cmb_Emp_Type.Size = new System.Drawing.Size(156, 21);
             this.cmb_Emp_Type.TabIndex = 5;
             this.cmb_Emp_Type.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
             // 
             // txt_hourly_Rate
             // 
-            this.txt_hourly_Rate.Location = new System.Drawing.Point(677, 148);
+            this.txt_hourly_Rate.Location = new System.Drawing.Point(674, 148);
             this.txt_hourly_Rate.MaxLength = 20;
             this.txt_hourly_Rate.Name = "txt_hourly_Rate";
-            this.txt_hourly_Rate.Size = new System.Drawing.Size(94, 20);
+            this.txt_hourly_Rate.Size = new System.Drawing.Size(156, 20);
             this.txt_hourly_Rate.TabIndex = 6;
             this.txt_hourly_Rate.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
             // 
@@ -203,7 +203,7 @@
             this.ckb_Active.Name = "ckb_Active";
             this.ckb_Active.Size = new System.Drawing.Size(84, 24);
             this.ckb_Active.TabIndex = 7;
-            this.ckb_Active.Text = "Active Ind:";
+            this.ckb_Active.Text = "Active &Ind:";
             this.ckb_Active.UseVisualStyleBackColor = true;
             this.ckb_Active.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
             this.ckb_Active.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Enter_KeyPress);
@@ -232,6 +232,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "PF_Staff";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.Utils.Common.Staff ";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PF_Staff_KeyDown);

@@ -55,7 +55,7 @@
             this.btn_Peeler.Name = "btn_Peeler";
             this.btn_Peeler.Size = new System.Drawing.Size(75, 50);
             this.btn_Peeler.TabIndex = 4;
-            this.btn_Peeler.Text = "Peeler";
+            this.btn_Peeler.Text = "&Peeler";
             this.btn_Peeler.UseVisualStyleBackColor = true;
             this.btn_Peeler.Click += new System.EventHandler(this.btn_Peeler_Click);
             // 
@@ -66,7 +66,7 @@
             this.btn_Small.Name = "btn_Small";
             this.btn_Small.Size = new System.Drawing.Size(75, 50);
             this.btn_Small.TabIndex = 3;
-            this.btn_Small.Text = "Smalls";
+            this.btn_Small.Text = "&Smalls";
             this.btn_Small.UseVisualStyleBackColor = true;
             this.btn_Small.Click += new System.EventHandler(this.btn_Small_Click);
             // 
@@ -77,7 +77,7 @@
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 50);
             this.btn_Close.TabIndex = 6;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -122,7 +122,7 @@
             this.btn_Grower.Name = "btn_Grower";
             this.btn_Grower.Size = new System.Drawing.Size(75, 50);
             this.btn_Grower.TabIndex = 5;
-            this.btn_Grower.Text = "Grower";
+            this.btn_Grower.Text = "&Grower";
             this.btn_Grower.UseVisualStyleBackColor = true;
             this.btn_Grower.Click += new System.EventHandler(this.btn_Grower_Click);
             // 
@@ -141,6 +141,7 @@
             this.Controls.Add(this.barcode1);
             this.KeyPreview = true;
             this.Name = "Reject_Bins_Weights";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.Utils.Scanning.Reject_Bins_Weights";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Reject_Bins_Weights_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nud_Gross)).EndInit();

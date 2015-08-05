@@ -163,12 +163,12 @@ namespace FruPak.PF.Utils.Security
 
             if (Convert.ToInt32(ds_Get_User_Info.Tables[0].Rows.Count.ToString()) == 0)
             {
-                string str_Error_msg = "Invalid UserID" + Environment.NewLine + "The UserID you have entered is invalid. Please try again." + Environment.NewLine + "If the Error keeps occurring Please contact your local Friendly Support Team.";
+                string str_Error_msg = "Invalid UserID" + Environment.NewLine + "The UserID you have entered is invalid. Please try again." + Environment.NewLine + "If the error keeps occurring Please contact your local support Team.";
                 DLR_MessageBox = MessageBox.Show(str_Error_msg, "Security - Logon", MessageBoxButtons.RetryCancel, MessageBoxIcon.Stop);
             }
             else
             {
-                DataRow dr_Get_User_Info;         
+                DataRow dr_Get_User_Info;
 
                 for (int i = 0 ;i < Convert.ToInt32(ds_Get_User_Info.Tables[0].Rows.Count.ToString()); i ++ )
                 {
@@ -186,7 +186,7 @@ namespace FruPak.PF.Utils.Security
                     DLR_MessageBox = DialogResult.Cancel;
                     this.Close();
                     break;
-                case DialogResult.Retry: 
+                case DialogResult.Retry:
                     DLR_MessageBox = DialogResult.Retry;
                     break;
                 default:
@@ -195,6 +195,8 @@ namespace FruPak.PF.Utils.Security
             }
             FruPak.PF.Common.Code.General.write_log(int_User_id, str_Type, int_User_id);
             logger.Log(LogLevel.Info, LogCode("Logon.cs: write_log:" + int_User_id.ToString() + ", " + str_Type + ", " + int_User_id.ToString()));
+
+            FruPak.PF.Global.Global.LogonName = txt_User_Id.Text;
 
         }
 
@@ -229,7 +231,7 @@ namespace FruPak.PF.Utils.Security
                 var result = new ResultFromFrmMain();
 
                while (DLR_MessageBox == DialogResult.Retry || DLR_MessageBox == DialogResult.None)
-              
+
                 {
                     result.Result = f.ShowDialog();
                 }
@@ -293,7 +295,7 @@ namespace FruPak.PF.Utils.Security
         {
             // Phantom 12/12/2014
             var rad = (RadioButton) sender;
-            if (rad.Text == "Test" && rad.Checked == true)
+            if (rad.Text == "&Test" && rad.Checked == true)
             {
                 FruPak.PF.Global.Global.bol_Testing = true;
                 FruPak.PF.Global.Global.Phantom_Dev_Mode = true;
@@ -307,7 +309,7 @@ namespace FruPak.PF.Utils.Security
             }
 
             //// The compiler was complaining about this statement, so I had to cast it to string to get around it
-            //if ((string)(sender as RadioButton).Text == "Test" && (sender as RadioButton).Checked == true)
+            //if ((string)(sender as RadioButton).Text == "&Test" && (sender as RadioButton).Checked == true)
             //{
             //    FruPak.PF.Global.Global.bol_Testing = true;
             //    //FruPak.PF.Global.Global.Phantom_Dev_Mode = true;
@@ -315,7 +317,7 @@ namespace FruPak.PF.Utils.Security
             //else
             //{
             //    FruPak.PF.Global.Global.bol_Testing = false;
-            //    //FruPak.PF.Global.Global.Phantom_Dev_Mode = false; 
+            //    //FruPak.PF.Global.Global.Phantom_Dev_Mode = false;
             //}
         }
 
@@ -326,7 +328,7 @@ namespace FruPak.PF.Utils.Security
 
         //    this.txt_Password.Focus();
         //    this.txt_Password.Text = "pass2011";
-            
+
         //}
 
         private void Logon_Load(object sender, EventArgs e)
@@ -354,7 +356,7 @@ namespace FruPak.PF.Utils.Security
 
         #region Log Code
         /// <summary>
-        /// Formats the output to the debug log so that the actual log contents stand out amongst the machine-generated stuff. 
+        /// Formats the output to the debug log so that the actual log contents stand out amongst the machine-generated stuff.
         /// Refers to machine-generated content, not calling specifics.
         /// </summary>
         /// <param name="input">The code function that we want to log.</param>
@@ -368,7 +370,7 @@ namespace FruPak.PF.Utils.Security
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>
@@ -385,7 +387,8 @@ namespace FruPak.PF.Utils.Security
         private void Control_Validated(object sender, EventArgs e)
         {
             TextBox t = (TextBox)sender;
-            logger.Log(LogLevel.Info, DecorateString(t.Name, t.Text, "Validated"));
+            // Switched off, as it's a huge security risk
+            //logger.Log(LogLevel.Info, DecorateString(t.Name, t.Text, "Validated"));
         }
         private void Control_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -458,7 +461,7 @@ namespace FruPak.PF.Utils.Security
         private void panelHackSelkuckG_Click(object sender, EventArgs e)
         {
             this.txt_User_Id.Focus();
-            this.txt_User_Id.Text = "SelcukcG";
+            this.txt_User_Id.Text = "SelcukG";
             this.txt_Password.Focus();
             this.txt_Password.Text = "frupak2014";
 

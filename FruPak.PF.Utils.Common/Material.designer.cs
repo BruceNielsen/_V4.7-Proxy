@@ -359,7 +359,7 @@
             this.ckb_Active.Name = "ckb_Active";
             this.ckb_Active.Size = new System.Drawing.Size(84, 24);
             this.ckb_Active.TabIndex = 16;
-            this.ckb_Active.Text = "Active Ind:";
+            this.ckb_Active.Text = "Active &Ind:";
             this.ckb_Active.UseVisualStyleBackColor = true;
             this.ckb_Active.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
             this.ckb_Active.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.Enter_KeyPress);
@@ -369,8 +369,8 @@
             this.btn_Close.Location = new System.Drawing.Point(444, 429);
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 23);
-            this.btn_Close.TabIndex = 20;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.TabIndex = 21;
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -379,8 +379,8 @@
             this.btn_reset.Location = new System.Drawing.Point(282, 429);
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(75, 23);
-            this.btn_reset.TabIndex = 18;
-            this.btn_reset.Text = "Reset";
+            this.btn_reset.TabIndex = 19;
+            this.btn_reset.Text = "&Reset";
             this.btn_reset.UseVisualStyleBackColor = true;
             this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
             // 
@@ -389,8 +389,8 @@
             this.btn_Add.Location = new System.Drawing.Point(120, 429);
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(75, 23);
-            this.btn_Add.TabIndex = 16;
-            this.btn_Add.Text = "Add";
+            this.btn_Add.TabIndex = 17;
+            this.btn_Add.Text = "&Add";
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
@@ -419,8 +419,8 @@
             this.btn_Refresh.Location = new System.Drawing.Point(363, 429);
             this.btn_Refresh.Name = "btn_Refresh";
             this.btn_Refresh.Size = new System.Drawing.Size(75, 23);
-            this.btn_Refresh.TabIndex = 19;
-            this.btn_Refresh.Text = "Refresh";
+            this.btn_Refresh.TabIndex = 20;
+            this.btn_Refresh.Text = "Re&fresh";
             this.btn_Refresh.UseVisualStyleBackColor = true;
             this.btn_Refresh.Click += new System.EventHandler(this.btn_Refresh_Click);
             // 
@@ -429,15 +429,15 @@
             this.btn_reltn.Location = new System.Drawing.Point(201, 418);
             this.btn_reltn.Name = "btn_reltn";
             this.btn_reltn.Size = new System.Drawing.Size(75, 34);
-            this.btn_reltn.TabIndex = 17;
-            this.btn_reltn.Text = "Maintain Relationships";
+            this.btn_reltn.TabIndex = 18;
+            this.btn_reltn.Text = "&Maintain Relationships";
             this.btn_reltn.UseVisualStyleBackColor = true;
             this.btn_reltn.Click += new System.EventHandler(this.btn_reltn_Click);
             // 
             // fruit1
             // 
             this.fruit1.Block_Id = 0;
-            this.fruit1.FruitType_Id = 1;
+            this.fruit1.FruitType_Id = 0;
             this.fruit1.FruitVariety_Id = 0;
             this.fruit1.Location = new System.Drawing.Point(315, 37);
             this.fruit1.Name = "fruit1";

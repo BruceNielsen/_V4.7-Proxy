@@ -12,7 +12,7 @@ namespace FruPak.PF.Utils.Common
 {
     public partial class PF_Staff : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static int int_Current_User_Id = 0;
         //private static int int_DVG_Row_id = 0;
@@ -86,7 +86,7 @@ namespace FruPak.PF.Utils.Common
             var col4 = new DataGridViewTextBoxColumn();
             var col5 = new DataGridViewTextBoxColumn();
             var col6 = new DataGridViewTextBoxColumn();
-            
+
 
             col0.HeaderText = "Id";
             col0.Name = "Id";
@@ -223,7 +223,7 @@ namespace FruPak.PF.Utils.Common
                     Convert.ToInt32(txt_Employee_Num.Text);
                     switch (btn_Add.Text)
                     {
-                        case "Add":
+                        case "&Add":
                             DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Staff.Check_Employee_Num(Convert.ToInt32(txt_Employee_Num.Text));
 
                             if (ds_Get_Info.Tables[0].Rows.Count > 0)
@@ -267,10 +267,10 @@ namespace FruPak.PF.Utils.Common
 
                 switch (btn_Add.Text)
                 {
-                    case "Add":
+                    case "&Add":
                         int_result = FruPak.PF.Data.AccessLayer.PF_Staff.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Staff"), txt_First_Name.Text, txt_Last_Name.Text, Convert.ToInt32(txt_Employee_Num.Text), Convert.ToDecimal(txt_hourly_Rate.Text), Convert.ToBoolean(ckb_Active.Checked), cmb_Emp_Type.Text.Substring(0, 1), int_Current_User_Id);
                         break;
-                    case "Update":
+                    case "&Update":
                         int_result = FruPak.PF.Data.AccessLayer.PF_Staff.Update(int_staff_id, txt_First_Name.Text, txt_Last_Name.Text, Convert.ToInt32(txt_Employee_Num.Text), Convert.ToDecimal(txt_hourly_Rate.Text), Convert.ToBoolean(ckb_Active.Checked), cmb_Emp_Type.Text.Substring(0, 1), int_Current_User_Id);
                         break;
                 }
@@ -332,7 +332,7 @@ namespace FruPak.PF.Utils.Common
                 {
                     cmb_Emp_Type.Text = "Seasonal";
                 }
-                btn_Add.Text = "Update";
+                btn_Add.Text = "&Update";
             }
         }
         private void KeyDown_1(object sender, KeyEventArgs e)
@@ -354,7 +354,7 @@ namespace FruPak.PF.Utils.Common
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

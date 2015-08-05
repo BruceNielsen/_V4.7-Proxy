@@ -75,7 +75,7 @@
             // fruit1
             // 
             this.fruit1.Block_Id = 0;
-            this.fruit1.FruitType_Id = 1;
+            this.fruit1.FruitType_Id = 0;
             this.fruit1.FruitVariety_Id = 0;
             this.fruit1.Location = new System.Drawing.Point(21, 124);
             this.fruit1.Name = "fruit1";
@@ -89,7 +89,7 @@
             this.cmb_ESP.Location = new System.Drawing.Point(367, 273);
             this.cmb_ESP.Name = "cmb_ESP";
             this.cmb_ESP.Size = new System.Drawing.Size(184, 21);
-            this.cmb_ESP.TabIndex = 7;
+            this.cmb_ESP.TabIndex = 6;
             // 
             // label6
             // 
@@ -167,7 +167,7 @@
             this.btn_Refresh.Name = "btn_Refresh";
             this.btn_Refresh.Size = new System.Drawing.Size(75, 23);
             this.btn_Refresh.TabIndex = 10;
-            this.btn_Refresh.Text = "Refresh";
+            this.btn_Refresh.Text = "Re&fresh";
             this.btn_Refresh.UseVisualStyleBackColor = true;
             this.btn_Refresh.Click += new System.EventHandler(this.btn_Refresh_Click);
             // 
@@ -177,7 +177,7 @@
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 23);
             this.btn_Close.TabIndex = 11;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -187,7 +187,7 @@
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(75, 23);
             this.btn_reset.TabIndex = 9;
-            this.btn_reset.Text = "Reset";
+            this.btn_reset.Text = "&Reset";
             this.btn_reset.UseVisualStyleBackColor = true;
             this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
             // 
@@ -197,7 +197,7 @@
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(75, 23);
             this.btn_Add.TabIndex = 8;
-            this.btn_Add.Text = "Add";
+            this.btn_Add.Text = "&Add";
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
@@ -215,7 +215,7 @@
             this.nud_total_bins.Location = new System.Drawing.Point(239, 311);
             this.nud_total_bins.Name = "nud_total_bins";
             this.nud_total_bins.Size = new System.Drawing.Size(47, 20);
-            this.nud_total_bins.TabIndex = 6;
+            this.nud_total_bins.TabIndex = 7;
             // 
             // Submission_Bins
             // 
@@ -242,6 +242,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Submission_Bins";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.Temp.Submission Bins";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Submission_Bins_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nud_total_bins)).EndInit();

@@ -80,8 +80,8 @@
             this.btn_Close.Location = new System.Drawing.Point(660, 45);
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 34);
-            this.btn_Close.TabIndex = 9;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.TabIndex = 10;
+            this.btn_Close.Text = "&Close";
             this.toolTip1.SetToolTip(this.btn_Close, "Closes the form");
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
@@ -122,7 +122,7 @@
             this.btn_Email_Customer.Name = "btn_Email_Customer";
             this.btn_Email_Customer.Size = new System.Drawing.Size(170, 38);
             this.btn_Email_Customer.TabIndex = 8;
-            this.btn_Email_Customer.Text = "Email to Customer";
+            this.btn_Email_Customer.Text = "&Email to Customer";
             this.toolTip1.SetToolTip(this.btn_Email_Customer, "Send a copy of the invoice to the customerA copy is also emailed to the office.");
             this.btn_Email_Customer.UseVisualStyleBackColor = true;
             this.btn_Email_Customer.Click += new System.EventHandler(this.btn_Email_Customer_Click);
@@ -132,8 +132,8 @@
             this.btn_Print.Location = new System.Drawing.Point(6, 42);
             this.btn_Print.Name = "btn_Print";
             this.btn_Print.Size = new System.Drawing.Size(170, 38);
-            this.btn_Print.TabIndex = 7;
-            this.btn_Print.Text = "Print";
+            this.btn_Print.TabIndex = 6;
+            this.btn_Print.Text = "&Print";
             this.btn_Print.UseVisualStyleBackColor = true;
             this.btn_Print.Click += new System.EventHandler(this.btn_Print_Click);
             // 
@@ -143,8 +143,8 @@
             this.ckb_Customer.Location = new System.Drawing.Point(6, 19);
             this.ckb_Customer.Name = "ckb_Customer";
             this.ckb_Customer.Size = new System.Drawing.Size(70, 17);
-            this.ckb_Customer.TabIndex = 3;
-            this.ckb_Customer.Text = "Customer";
+            this.ckb_Customer.TabIndex = 4;
+            this.ckb_Customer.Text = "C&ustomer";
             this.toolTip1.SetToolTip(this.ckb_Customer, "Print an invoice for the customer");
             this.ckb_Customer.UseVisualStyleBackColor = true;
             this.ckb_Customer.CheckedChanged += new System.EventHandler(this.ckb_CheckedChanged);
@@ -155,8 +155,8 @@
             this.ckb_Office.Location = new System.Drawing.Point(122, 19);
             this.ckb_Office.Name = "ckb_Office";
             this.ckb_Office.Size = new System.Drawing.Size(54, 17);
-            this.ckb_Office.TabIndex = 4;
-            this.ckb_Office.Text = "Office";
+            this.ckb_Office.TabIndex = 5;
+            this.ckb_Office.Text = "&Office";
             this.toolTip1.SetToolTip(this.ckb_Office, "Email a copy of the invoice to the office");
             this.ckb_Office.UseVisualStyleBackColor = true;
             this.ckb_Office.CheckedChanged += new System.EventHandler(this.ckb_CheckedChanged);
@@ -166,8 +166,8 @@
             this.btn_View.Location = new System.Drawing.Point(6, 35);
             this.btn_View.Name = "btn_View";
             this.btn_View.Size = new System.Drawing.Size(112, 38);
-            this.btn_View.TabIndex = 6;
-            this.btn_View.Text = "View Invoice";
+            this.btn_View.TabIndex = 3;
+            this.btn_View.Text = "&View Invoice";
             this.toolTip1.SetToolTip(this.btn_View, "View the customer invoice");
             this.btn_View.UseVisualStyleBackColor = true;
             this.btn_View.Click += new System.EventHandler(this.btn_View_Click);
@@ -178,8 +178,8 @@
             this.ckb_COA.Location = new System.Drawing.Point(6, 19);
             this.ckb_COA.Name = "ckb_COA";
             this.ckb_COA.Size = new System.Drawing.Size(173, 17);
-            this.ckb_COA.TabIndex = 5;
-            this.ckb_COA.Text = "Include a Certificate of Analysis";
+            this.ckb_COA.TabIndex = 7;
+            this.ckb_COA.Text = "&Include a Certificate of Analysis";
             this.toolTip1.SetToolTip(this.ckb_COA, "Include a Certificate of Analysis to be sent with the email as an attachment");
             this.ckb_COA.UseVisualStyleBackColor = true;
             this.ckb_COA.CheckedChanged += new System.EventHandler(this.ckb_COA_CheckedChanged);
@@ -212,8 +212,8 @@
             this.buttonSendDebugInfo.Location = new System.Drawing.Point(554, 3);
             this.buttonSendDebugInfo.Name = "buttonSendDebugInfo";
             this.buttonSendDebugInfo.Size = new System.Drawing.Size(181, 23);
-            this.buttonSendDebugInfo.TabIndex = 13;
-            this.buttonSendDebugInfo.Text = "Send Debug Info";
+            this.buttonSendDebugInfo.TabIndex = 9;
+            this.buttonSendDebugInfo.Text = "&Send Debug Info";
             this.buttonSendDebugInfo.UseVisualStyleBackColor = true;
             this.buttonSendDebugInfo.Click += new System.EventHandler(this.buttonSendDebugInfo_Click);
             // 

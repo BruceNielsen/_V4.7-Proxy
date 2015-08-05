@@ -108,7 +108,7 @@
             this.chk_email_copy.Name = "chk_email_copy";
             this.chk_email_copy.Size = new System.Drawing.Size(99, 17);
             this.chk_email_copy.TabIndex = 8;
-            this.chk_email_copy.Text = "Copy to Sender";
+            this.chk_email_copy.Text = "Copy &to Sender";
             this.chk_email_copy.UseVisualStyleBackColor = true;
             // 
             // lbl_message
@@ -182,7 +182,7 @@
             this.btn_Cancel.Name = "btn_Cancel";
             this.btn_Cancel.Size = new System.Drawing.Size(75, 23);
             this.btn_Cancel.TabIndex = 10;
-            this.btn_Cancel.Text = "Cancel";
+            this.btn_Cancel.Text = "&Cancel";
             this.btn_Cancel.UseVisualStyleBackColor = true;
             this.btn_Cancel.Click += new System.EventHandler(this.btn_Cancel_Click);
             // 
@@ -193,7 +193,7 @@
             this.btn_Send.Name = "btn_Send";
             this.btn_Send.Size = new System.Drawing.Size(75, 23);
             this.btn_Send.TabIndex = 9;
-            this.btn_Send.Text = "Send";
+            this.btn_Send.Text = "&Send";
             this.btn_Send.UseVisualStyleBackColor = true;
             this.btn_Send.Click += new System.EventHandler(this.btn_Send_Click);
             // 
@@ -247,6 +247,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Send_Email";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.Common.Code.Send Email";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Invoice_email_FormClosing);
             this.Shown += new System.EventHandler(this.Send_Email_Shown);

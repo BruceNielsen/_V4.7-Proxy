@@ -15,7 +15,7 @@ namespace FruPak.PF.Utils.Security
     Maintenance Class.
      * In order to keep things simple and as standard as possible. It was decided where possible to a standard table structure would be used.
      * This structure is: _id, Code, Description, Mod_date, Mod_User_Id
-     * 
+     *
      * This class is a form used to Add, Update, and Delete general Security items, where the tables have foloowed the stanard structure.
 
     Date        Author     Desc
@@ -24,7 +24,7 @@ namespace FruPak.PF.Utils.Security
     */
     public partial class Security_Maintenance : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static string str_table = "";
         private static int int_Current_User_Id = 0;
@@ -36,7 +36,7 @@ namespace FruPak.PF.Utils.Security
             //restrict access
             bol_write_access = bol_w_a;
             btn_Add.Enabled = bol_w_a;
-            
+
             str_table = str_type;
             int_Current_User_Id = int_C_User_id;
             this.Text = str_type + " Maintenance";
@@ -161,7 +161,7 @@ namespace FruPak.PF.Utils.Security
                         DGVC_User_Id.Value = dr_Get_Info["Action_Id"].ToString();
                         break;
                 }
-                
+
                 dataGridView1.Rows[i].Cells[0] = DGVC_User_Id;
 
                 DataGridViewCell DGVC_Name = new DataGridViewTextBoxCell();
@@ -239,7 +239,7 @@ namespace FruPak.PF.Utils.Security
                 int_DVG_Row_id = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
                 txt_code.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
                 txt_Description.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
-                btn_Add.Text = "Update";
+                btn_Add.Text = "&Update";
             }
 
         }
@@ -258,22 +258,22 @@ namespace FruPak.PF.Utils.Security
             {
                 switch ((sender as Button).Text)
                 {
-                    case "Add":
+                    case "&Add":
                         switch (str_table)
                         {
                             case "SC_Log_Action":
                                 int_result = FruPak.PF.Data.AccessLayer.SC_Log_Action.Insert(FruPak.PF.Common.Code.General.int_max_user_id("SC_Log_Action"), txt_code.Text, txt_Description.Text, int_Current_User_Id);
                                 break;
 
-                        }                        
+                        }
                         break;
-                    case "Update":
+                    case "&Update":
                         switch (str_table)
                         {
                             case "SC_Log_Action":
                                 int_result = FruPak.PF.Data.AccessLayer.SC_Log_Action.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, int_Current_User_Id);
                                 break;
-                        }                       
+                        }
                         break;
                 }
             }
@@ -294,7 +294,7 @@ namespace FruPak.PF.Utils.Security
         /// validates the text fields on length
         /// </summary>
         /// <returns></returns>
-        /// 
+        ///
         private DataSet ds_validate;
         private string validate(string str_table, string str_btnText)
         {
@@ -313,7 +313,7 @@ namespace FruPak.PF.Utils.Security
                         break;
 
                 }
-               
+
                if (Convert.ToInt32(ds_validate.Tables[0].Rows.Count.ToString()) > 0)
                {
                    str_msg = str_msg + "Invalid Code: This Code already exists. Please choose a different Code" + Environment.NewLine;
@@ -335,7 +335,7 @@ namespace FruPak.PF.Utils.Security
         {
             txt_code.ResetText();
             txt_Description.ResetText();
-            btn_Add.Text = "Add";
+            btn_Add.Text = "&Add";
         }
         private void btn_Close_Click(object sender, EventArgs e)
         {
@@ -344,7 +344,7 @@ namespace FruPak.PF.Utils.Security
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

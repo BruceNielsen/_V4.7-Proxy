@@ -12,7 +12,7 @@ namespace FruPak.PF.StockControl
 {
     public partial class Stock_Holding : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static int int_Current_User_Id = 0;
         private static bool bol_write_access;
@@ -114,7 +114,7 @@ namespace FruPak.PF.StockControl
 
             col2.HeaderText = "Stock_Item";
             col2.Name = "Stock_Item";
-            col2.ReadOnly = true;            
+            col2.ReadOnly = true;
 
             col3.HeaderText = "Season";
             col3.Name = "Season";
@@ -244,7 +244,7 @@ namespace FruPak.PF.StockControl
             nud_quantity.Value = 0;
             txt_Inv_Num.ResetText();
             cmb_stock_Item.Text = null;
-            btn_Add.Text = "Add";
+            btn_Add.Text = "&Add";
         }
 
         private void btn_Close_Click(object sender, EventArgs e)
@@ -276,7 +276,7 @@ namespace FruPak.PF.StockControl
             {
                 switch (btn_Add.Text)
                 {
-                    case "Add":
+                    case "&Add":
                         int_result = FruPak.PF.Data.AccessLayer.PF_Stock_Holding.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Stock_Holding"), Convert.ToInt32(cmb_stock_Item.SelectedValue.ToString()), FruPak.PF.Common.Code.General.Get_Season(),
                                         txt_Inv_Num.Text, dtp_Arrival_Date.Value.Year.ToString() + "/" + dtp_Arrival_Date.Value.Month.ToString() + "/" +dtp_Arrival_Date.Value.Day.ToString(), Convert.ToInt32(nud_quantity.Value), int_Current_User_Id);
                         if (int_result > 0)
@@ -285,15 +285,15 @@ namespace FruPak.PF.StockControl
                         }
                         lbl_message.Text = "Consumable Item has been added.";
                         break;
-                    case "Update":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Stock_Holding.Update(int_DVG_Row_id, Convert.ToInt32(cmb_stock_Item.SelectedValue.ToString()), 
+                    case "&Update":
+                        int_result = FruPak.PF.Data.AccessLayer.PF_Stock_Holding.Update(int_DVG_Row_id, Convert.ToInt32(cmb_stock_Item.SelectedValue.ToString()),
                                         txt_Inv_Num.Text, dtp_Arrival_Date.Value.Year.ToString() + "/" + dtp_Arrival_Date.Value.Month.ToString() + "/" + dtp_Arrival_Date.Value.Day.ToString(), Convert.ToInt32(nud_quantity.Value), int_Current_User_Id);
                         lbl_message.Text = "Consumable Item has been Updated.";
                         break;
                 }
             }
             if (int_result > 0)
-            {                
+            {
                 lbl_message.ForeColor = System.Drawing.Color.Blue;
                 populate_datagridview();
                 Reset();
@@ -331,7 +331,7 @@ namespace FruPak.PF.StockControl
                 dtp_Arrival_Date.Value = Convert.ToDateTime(dataGridView1.Rows[e.RowIndex].Cells["Arrival_Date"].Value.ToString());
                 txt_Inv_Num.Text = dataGridView1.Rows[e.RowIndex].Cells["Invoice"].Value.ToString();
                 nud_quantity.Value = Convert.ToDecimal(dataGridView1.Rows[e.RowIndex].Cells["Quantity"].Value.ToString());
-                btn_Add.Text = "Update";
+                btn_Add.Text = "&Update";
             }
         }
 
@@ -348,7 +348,7 @@ namespace FruPak.PF.StockControl
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

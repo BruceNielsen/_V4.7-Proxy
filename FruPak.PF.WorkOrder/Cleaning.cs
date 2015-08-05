@@ -289,10 +289,10 @@ namespace FruPak.PF.WorkOrder
             {
                 switch (str_btn_Base_text)
                 {
-                    case "Add":
+                    case "&Add":
                         int_result = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Completed.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Cleaning_Area_Completed"), dtp_Completed.Value.ToString("yyyy/MM/dd"), Convert.ToInt32(tbc_Cleaning.SelectedTab.Tag), int_cmb_Staff_SelectedValue, str_dtp_start_Time_ValueChanged, str_dtp_finish_Time_ValueChanged, str_txt_comments_TextChanged, int_Current_User_Id);
                         break;
-                    case "Update":
+                    case "&Update":
                         int_result = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Completed.Update(int_CleanAreaCmp_Id, dtp_Completed.Value.ToString("yyyy/MM/dd"), int_cmb_Staff_SelectedValue, str_dtp_start_Time_ValueChanged, str_dtp_finish_Time_ValueChanged, str_txt_comments_TextChanged, int_Current_User_Id);
                         break;
                 }

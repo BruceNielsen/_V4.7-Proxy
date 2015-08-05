@@ -12,7 +12,7 @@ namespace FruPak.PF.WorkOrder
 {
     public partial class Process_Set_Up : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static bool bol_write_access;
         private static int int_Current_User_Id = 0;
@@ -25,7 +25,7 @@ namespace FruPak.PF.WorkOrder
             bol_write_access = bol_w_a;
             btn_Add.Enabled = bol_w_a;
 
-            
+
 
             //if (FruPak.PF.Global.Global.bol_Testing == true)
             //{
@@ -171,7 +171,7 @@ namespace FruPak.PF.WorkOrder
 
             col0.HeaderText = "Work Order";
             col0.Name = "Work_Order_Id";
-            col0.ReadOnly = true;            
+            col0.ReadOnly = true;
 
             col1.HeaderText = "Date";
             col1.Name = "Process_Date";
@@ -203,8 +203,8 @@ namespace FruPak.PF.WorkOrder
             col7.HeaderText = "FruitVariety";
             col7.Name = "FruitVariety";
             col7.ReadOnly = true;
-            
-            dataGridView2.Columns.AddRange(new DataGridViewColumn[] { col0, col1, col2, col3, col4, col5, col6, col7 });            
+
+            dataGridView2.Columns.AddRange(new DataGridViewColumn[] { col0, col1, col2, col3, col4, col5, col6, col7 });
 
             DataGridViewCheckBoxColumn chk_select = new DataGridViewCheckBoxColumn();
             dataGridView2.Columns.Add(chk_select);
@@ -245,7 +245,7 @@ namespace FruPak.PF.WorkOrder
                 DataGridViewCell DGVC_Cell3 = new DataGridViewTextBoxCell();
                 DGVC_Cell3.Value = dt.Day.ToString() + "/" + dt.Month.ToString() + "/" + dt.Year.ToString();
                 dataGridView1.Rows[i_rows].Cells["Start_Date"] = DGVC_Cell3;
-                
+
                 dt = Convert.ToDateTime(dr_Get_Info["Start_Time"].ToString());
                 DataGridViewCell DGVC_Cell4 = new DataGridViewTextBoxCell();
                 DGVC_Cell4.Value = dt.Hour.ToString() + ":" + dt.Minute.ToString() + ":" + dt.Second.ToString();
@@ -329,7 +329,7 @@ namespace FruPak.PF.WorkOrder
         }
         private void SizeAllColumns(Object sender, EventArgs e)
         {
-            ColumnSize();         
+            ColumnSize();
         }
         private void ColumnSize()
         {
@@ -362,7 +362,7 @@ namespace FruPak.PF.WorkOrder
                 str_msg = str_msg + "Invalid Start and Finsh Dates. You can not finsh before you start. " + Environment.NewLine;
             }
             // start and finsh on same day, finish time must be after start time
-            else if (dtp_start_date.Value.Date == dtp_finish_date.Value.Date) 
+            else if (dtp_start_date.Value.Date == dtp_finish_date.Value.Date)
             {
                 if (((dtp_start_time.Value.Hour * 360) + (dtp_start_time.Value.Minute * 60) + dtp_start_time.Value.Second) > ((dtp_finish_time.Value.Hour * 360) + (dtp_finish_time.Value.Minute * 60) + dtp_finish_time.Value.Second))
                 {
@@ -379,12 +379,12 @@ namespace FruPak.PF.WorkOrder
             {
                 switch (btn_Add.Text)
                 {
-                    case "Add":
+                    case "&Add":
                         int_result = FruPak.PF.Data.AccessLayer.PF_Process_Setup.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Process_Setup"), Convert.ToInt32(cmb_Staff.SelectedValue.ToString()), dtp_start_date.Value.ToString("yyyy/MM/dd"),
                                                                                     dtp_start_time.Value.Hour.ToString() + ":" + dtp_start_time.Value.Minute.ToString() + ":" + dtp_start_time.Value.Second.ToString(), dtp_finish_date.Value.ToString("yyyy/MM/dd"),
                                                                                     dtp_finish_time.Value.Hour.ToString() + ":" + dtp_finish_time.Value.Minute.ToString() + ":" + dtp_finish_time.Value.Second.ToString(), txt_comments.Text, int_Current_User_Id);
                         break;
-                    case "Update":
+                    case "&Update":
                         int_result = FruPak.PF.Data.AccessLayer.PF_Process_Setup.Update(int_dvg_Cell0, Convert.ToInt32(cmb_Staff.SelectedValue.ToString()), dtp_start_date.Value.ToString("yyyy/MM/dd"),
                                                                                     dtp_start_time.Value.Hour.ToString() + ":" + dtp_start_time.Value.Minute.ToString() + ":" + dtp_start_time.Value.Second.ToString(), dtp_finish_date.Value.ToString("yyyy/MM/dd"),
                                                                                     dtp_finish_time.Value.Hour.ToString() + ":" + dtp_finish_time.Value.Minute.ToString() + ":" + dtp_finish_time.Value.Second.ToString(), txt_comments.Text, int_Current_User_Id);
@@ -396,14 +396,14 @@ namespace FruPak.PF.WorkOrder
             {
                 switch (btn_Add.Text)
                 {
-                    case "Add":
+                    case "&Add":
                         lbl_message.Text = "Staff Time has been added";
                         break;
-                    case "Update":
+                    case "&Update":
                         lbl_message.Text = "Staff Time has been updated";
                         break;
                 }
-                
+
                 lbl_message.ForeColor = System.Drawing.Color.Blue;
                 populate_datagridview();
                 Reset();
@@ -458,7 +458,7 @@ namespace FruPak.PF.WorkOrder
                 dtp_finish_date.Value = Convert.ToDateTime(dataGridView1.CurrentRow.Cells["Finish_Date"].Value.ToString());
                 dtp_finish_time.Value = Convert.ToDateTime(dataGridView1.CurrentRow.Cells["Finish_Time"].Value.ToString());
                 txt_comments.Text = dataGridView1.CurrentRow.Cells["Comments"].Value.ToString();
-                btn_Add.Text = "Update";
+                btn_Add.Text = "&Update";
             }
 
         }
@@ -474,7 +474,7 @@ namespace FruPak.PF.WorkOrder
             dtp_finish_date.Value = DateTime.Now;
             dtp_finish_time.Value = DateTime.Now;
             txt_comments.ResetText();
-            btn_Add.Text = "Add";
+            btn_Add.Text = "&Add";
         }
         private void btn_Close_Click(object sender, EventArgs e)
         {
@@ -499,7 +499,7 @@ namespace FruPak.PF.WorkOrder
         private void btn_Update_Click(object sender, EventArgs e)
         {
             int int_result = 0;
-            
+
             for (int i2 = 0; i2 < dataGridView2.Rows.Count; i2++)
             {
                 if (Convert.ToBoolean(dataGridView2.Rows[i2].Cells["Select"].Value) == true)
@@ -543,7 +543,7 @@ namespace FruPak.PF.WorkOrder
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

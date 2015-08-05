@@ -13,7 +13,7 @@ namespace FruPak.PF.Utils.Security
     /*Description
     -----------------
     Menu Class.
-        * 
+        *
         * This class is a form used to Add, Update, and Delete Menu Tabs
         * A Menu Tab is a Tab on the Display ribbon
         * The actual Menu Tab still needs to be coded on to the Ribbon.
@@ -24,7 +24,7 @@ namespace FruPak.PF.Utils.Security
     */
     public partial class Menu_Maintenance : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static int int_Menu_id = 0;
         private static int int_Current_User_Id = 0;
@@ -34,7 +34,7 @@ namespace FruPak.PF.Utils.Security
         {
             int_Current_User_Id = int_C_User_Id;
             InitializeComponent();
-            
+
             // restrict write access
             bol_Write_access = bol_w_a;
             btn_Add.Enabled = bol_w_a;
@@ -182,12 +182,12 @@ namespace FruPak.PF.Utils.Security
             DialogResult DLR_MessageBox = new DialogResult();
             string str_msg = "";
             int int_result = 0;
-            
+
             if (txt_Menu_Name.TextLength == 0)
             {
                 str_msg = str_msg + "Invalid Menu Name: Please enter a Menu Name" + Environment.NewLine;
             }
-            else if ((sender as Button).Text == "Add")
+            else if ((sender as Button).Text == "&Add")
             {
                 DataSet ds_Get_Menu_Info = FruPak.PF.Data.AccessLayer.SC_Menu.Get_Info(txt_Menu_Name.Text);
                 if (Convert.ToInt32(ds_Get_Menu_Info.Tables[0].Rows.Count.ToString()) > 0)
@@ -208,10 +208,10 @@ namespace FruPak.PF.Utils.Security
             {
                 switch ((sender as Button).Text)
                 {
-                    case "Add":
+                    case "&Add":
                         int_result = FruPak.PF.Data.AccessLayer.SC_Menu.Insert(FruPak.PF.Common.Code.General.int_max_user_id("SC_Menu"), txt_Menu_Name.Text, txt_Menu_Description.Text, int_Current_User_Id);
                         break;
-                    case "Update":
+                    case "&Update":
                         int_result = FruPak.PF.Data.AccessLayer.SC_Menu.Update(int_Menu_id, txt_Menu_Name.Text, txt_Menu_Description.Text, int_Current_User_Id);
                         break;
                 }
@@ -269,7 +269,7 @@ namespace FruPak.PF.Utils.Security
                 int_Menu_id = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
                 txt_Menu_Name.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString();
                 txt_Menu_Description.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
-                btn_Add.Text = "Update";
+                btn_Add.Text = "&Update";
                 update_checkList();
                 btn_Update_Relationships.Visible = true;
                 checkedListBox1.Visible = true;
@@ -307,7 +307,7 @@ namespace FruPak.PF.Utils.Security
             for (int i = 0; i < Convert.ToInt32(checkedListBox1.Items.Count.ToString()); i++)
             {
                 string item = checkedListBox1.Items[i].ToString();
-             
+
                 checkedListBox1.SetItemCheckState(i, CheckState.Unchecked);
                 for (int j = 0; j < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); j++)
                 {
@@ -325,7 +325,7 @@ namespace FruPak.PF.Utils.Security
         {
             txt_Menu_Name.ResetText();
             txt_Menu_Description.ResetText();
-            btn_Add.Text = "Add";
+            btn_Add.Text = "&Add";
             btn_Add.Visible = true;
             btn_Update_Relationships.Visible = false;
             checkedListBox1.Visible = false;
@@ -364,7 +364,7 @@ namespace FruPak.PF.Utils.Security
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

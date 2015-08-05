@@ -44,7 +44,7 @@
             this.buttonCancel.Location = new System.Drawing.Point(291, 166);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
-            this.buttonCancel.TabIndex = 2;
+            this.buttonCancel.TabIndex = 3;
             this.buttonCancel.Text = "&Cancel";
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
@@ -55,7 +55,7 @@
             this.buttonOk.Location = new System.Drawing.Point(372, 166);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(75, 23);
-            this.buttonOk.TabIndex = 3;
+            this.buttonOk.TabIndex = 4;
             this.buttonOk.Text = "&Ok";
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
@@ -67,7 +67,7 @@
             this.textBoxBugReport.Name = "textBoxBugReport";
             this.textBoxBugReport.ScrollBars = System.Windows.Forms.ScrollBars.Both;
             this.textBoxBugReport.Size = new System.Drawing.Size(432, 96);
-            this.textBoxBugReport.TabIndex = 4;
+            this.textBoxBugReport.TabIndex = 1;
             this.textBoxBugReport.TextChanged += new System.EventHandler(this.textBoxBugReport_TextChanged);
             // 
             // pictureBoxBugReport
@@ -91,21 +91,23 @@
             // 
             // buttonTest
             // 
-            this.buttonTest.Location = new System.Drawing.Point(15, 166);
+            this.buttonTest.Location = new System.Drawing.Point(96, 166);
             this.buttonTest.Name = "buttonTest";
             this.buttonTest.Size = new System.Drawing.Size(75, 23);
             this.buttonTest.TabIndex = 7;
+            this.buttonTest.TabStop = false;
             this.buttonTest.Text = "Test";
             this.buttonTest.UseVisualStyleBackColor = true;
+            this.buttonTest.Visible = false;
             this.buttonTest.Click += new System.EventHandler(this.buttonTest_Click);
             // 
             // buttonClear
             // 
-            this.buttonClear.Location = new System.Drawing.Point(96, 166);
+            this.buttonClear.Location = new System.Drawing.Point(15, 166);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(75, 23);
-            this.buttonClear.TabIndex = 8;
-            this.buttonClear.Text = "Clear";
+            this.buttonClear.TabIndex = 2;
+            this.buttonClear.Text = "Clea&r";
             this.buttonClear.UseVisualStyleBackColor = true;
             this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 
@@ -124,7 +126,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "SendDebugEmail";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Send Debug Email";
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxBugReport)).EndInit();
             this.ResumeLayout(false);

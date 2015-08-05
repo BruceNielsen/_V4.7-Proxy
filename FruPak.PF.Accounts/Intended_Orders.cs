@@ -12,7 +12,7 @@ namespace FruPak.PF.Accounts
 {
     public partial class Intended_Orders : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static int int_Current_User_Id = 0;
         private static bool bol_write_access;
@@ -143,7 +143,7 @@ namespace FruPak.PF.Accounts
             col10.HeaderText = "Sold";
             col10.Name = "Sold";
             col10.ReadOnly = true;
-            
+
             col7.HeaderText = "Order";
             col7.Name = "custoemr_Order";
             col7.ReadOnly = true;
@@ -245,7 +245,7 @@ namespace FruPak.PF.Accounts
             dataGridView1.AutoResizeColumn(3, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(5, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(6, DataGridViewAutoSizeColumnMode.AllCells);
-            dataGridView1.AutoResizeColumn(7, DataGridViewAutoSizeColumnMode.AllCells);    
+            dataGridView1.AutoResizeColumn(7, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(9, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(10, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(11, DataGridViewAutoSizeColumnMode.AllCells);
@@ -268,7 +268,7 @@ namespace FruPak.PF.Accounts
             txt_Comments.ResetText();
             txt_Customer_Order.ResetText();
             ckb_Active.Checked = true;
-            btn_Add.Text = "Add";
+            btn_Add.Text = "&Add";
         }
         private void Intended_Orders_Load(object sender, EventArgs e)
         {
@@ -317,12 +317,12 @@ namespace FruPak.PF.Accounts
             {
                 switch (btn_Add.Text)
                 {
-                    case "Add":
+                    case "&Add":
                         int_result = FruPak.PF.Data.AccessLayer.PF_Orders_Intended.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Orders_Intended"), customer1.Customer_Id,
                                                                                           Convert.ToInt32(cmb_Material_Num.SelectedValue.ToString()), nud_Quantity.Value, nud_Unit_Price.Value,
                                                                                           txt_Comments.Text, txt_Customer_Order.Text, ckb_Active.Checked, int_Current_User_Id);
                         break;
-                    case "Update":
+                    case "&Update":
                         int_result = FruPak.PF.Data.AccessLayer.PF_Orders_Intended.Update(int_dgv_Id, customer1.Customer_Id, Convert.ToInt32(cmb_Material_Num.SelectedValue.ToString()), nud_Quantity.Value, nud_Unit_Price.Value,
                                                                                           txt_Comments.Text, txt_Customer_Order.Text, ckb_Active.Checked, int_Current_User_Id);
                         break;
@@ -331,7 +331,7 @@ namespace FruPak.PF.Accounts
             if (int_result > 0)
             {
                 lbl_message.Text = "Order for " + customer1.Customer_Name + " has been loaded/updated";
-                lbl_message.ForeColor = System.Drawing.Color.Blue;                
+                lbl_message.ForeColor = System.Drawing.Color.Blue;
             }
             else
             {
@@ -385,14 +385,14 @@ namespace FruPak.PF.Accounts
                 txt_Comments.Text = dataGridView1.Rows[e.RowIndex].Cells["Comments"].Value.ToString();
                 txt_Customer_Order.Text = dataGridView1.Rows[e.RowIndex].Cells["custoemr_Order"].Value.ToString();
                 ckb_Active.Checked = Convert.ToBoolean(dataGridView1.Rows[e.RowIndex].Cells["Active"].Value.ToString());
-                btn_Add.Text = "Update";
+                btn_Add.Text = "&Update";
             }
             #endregion
         }
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

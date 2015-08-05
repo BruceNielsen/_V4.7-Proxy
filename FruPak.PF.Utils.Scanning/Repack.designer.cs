@@ -118,8 +118,8 @@
             this.btn_Update.Location = new System.Drawing.Point(470, 222);
             this.btn_Update.Name = "btn_Update";
             this.btn_Update.Size = new System.Drawing.Size(79, 55);
-            this.btn_Update.TabIndex = 5;
-            this.btn_Update.Text = "Update";
+            this.btn_Update.TabIndex = 7;
+            this.btn_Update.Text = "&Update";
             this.btn_Update.UseVisualStyleBackColor = true;
             this.btn_Update.Click += new System.EventHandler(this.btn_Update_Click);
             // 
@@ -139,7 +139,7 @@
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(79, 55);
             this.btn_Close.TabIndex = 8;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -160,7 +160,7 @@
             this.txt_total.Name = "txt_total";
             this.txt_total.ReadOnly = true;
             this.txt_total.Size = new System.Drawing.Size(50, 26);
-            this.txt_total.TabIndex = 6;
+            this.txt_total.TabIndex = 10;
             // 
             // label5
             // 
@@ -178,7 +178,7 @@
             this.txt_Barcode_To.Location = new System.Drawing.Point(103, 251);
             this.txt_Barcode_To.Name = "txt_Barcode_To";
             this.txt_Barcode_To.Size = new System.Drawing.Size(335, 26);
-            this.txt_Barcode_To.TabIndex = 4;
+            this.txt_Barcode_To.TabIndex = 6;
             this.txt_Barcode_To.Visible = false;
             this.txt_Barcode_To.TextChanged += new System.EventHandler(this.txt_Barcode_To_TextChanged);
             // 
@@ -213,7 +213,7 @@
             this.dataGridView1.RowsDefaultCellStyle = dataGridViewCellStyle3;
             this.dataGridView1.RowTemplate.Height = 50;
             this.dataGridView1.Size = new System.Drawing.Size(355, 208);
-            this.dataGridView1.TabIndex = 4;
+            this.dataGridView1.TabIndex = 9;
             this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
             // 
             // labelBarcodeToBeCopied
@@ -232,8 +232,8 @@
             this.buttonCopyBarcodeToClipboard.Location = new System.Drawing.Point(102, 222);
             this.buttonCopyBarcodeToClipboard.Name = "buttonCopyBarcodeToClipboard";
             this.buttonCopyBarcodeToClipboard.Size = new System.Drawing.Size(108, 23);
-            this.buttonCopyBarcodeToClipboard.TabIndex = 6;
-            this.buttonCopyBarcodeToClipboard.Text = "Copy to Clipboard";
+            this.buttonCopyBarcodeToClipboard.TabIndex = 4;
+            this.buttonCopyBarcodeToClipboard.Text = "&Copy to Clipboard";
             this.buttonCopyBarcodeToClipboard.UseVisualStyleBackColor = true;
             this.buttonCopyBarcodeToClipboard.Click += new System.EventHandler(this.buttonCopyBarcodeToClipboard_Click);
             // 
@@ -242,8 +242,8 @@
             this.buttonClear.Location = new System.Drawing.Point(216, 222);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(108, 23);
-            this.buttonClear.TabIndex = 7;
-            this.buttonClear.Text = "Clear Label";
+            this.buttonClear.TabIndex = 5;
+            this.buttonClear.Text = "Clear &Label";
             this.buttonClear.UseVisualStyleBackColor = true;
             this.buttonClear.Visible = false;
             this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
@@ -284,6 +284,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Repack";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.Utils.Scanning.Repack";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Repack_KeyDown);

@@ -39,16 +39,18 @@
             this.btn_Dry_BinTipping = new System.Windows.Forms.Button();
             this.btn_Wet_BinTipping = new System.Windows.Forms.Button();
             this.groupBoxBinTipping = new System.Windows.Forms.GroupBox();
+            this.buttonZeroGrossWeight = new System.Windows.Forms.Button();
+            this.buttonCopyBinTippingBarcode = new System.Windows.Forms.Button();
+            this.barcode_BinTipping = new FruPak.PF.Utils.UserControls.Barcode();
             this.groupBoxBinTareWeights = new System.Windows.Forms.GroupBox();
+            this.buttonZeroBinTareWeight = new System.Windows.Forms.Button();
+            this.buttonCopyBinTareWeightsBarcode = new System.Windows.Forms.Button();
             this.labelNotes = new System.Windows.Forms.Label();
+            this.barcode_BinTareWeights = new FruPak.PF.Utils.UserControls.Barcode();
             this.btn_Tipped_BinTareWeights = new System.Windows.Forms.Button();
             this.nud_weight_BinTareWeights = new System.Windows.Forms.NumericUpDown();
             this.lbl_message_BinTareWeights = new System.Windows.Forms.Label();
             this.lbl_weight_BinTareWeights = new System.Windows.Forms.Label();
-            this.barcode_BinTareWeights = new FruPak.PF.Utils.UserControls.Barcode();
-            this.barcode_BinTipping = new FruPak.PF.Utils.UserControls.Barcode();
-            this.buttonCopyBinTareWeightsBarcode = new System.Windows.Forms.Button();
-            this.buttonCopyBinTippingBarcode = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nud_weight_BinTipping)).BeginInit();
             this.groupBoxBinTipping.SuspendLayout();
             this.groupBoxBinTareWeights.SuspendLayout();
@@ -77,7 +79,13 @@
             0});
             this.nud_weight_BinTipping.Name = "nud_weight_BinTipping";
             this.nud_weight_BinTipping.Size = new System.Drawing.Size(113, 26);
-            this.nud_weight_BinTipping.TabIndex = 2;
+            this.nud_weight_BinTipping.TabIndex = 3;
+            this.nud_weight_BinTipping.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.nud_weight_BinTipping.Enter += new System.EventHandler(this.nud_weight_BinTipping_Enter);
             this.nud_weight_BinTipping.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_barcode_KeyDown);
             this.nud_weight_BinTipping.Leave += new System.EventHandler(this.nud_weight_Leave);
             // 
@@ -97,9 +105,9 @@
             this.btn_Weight_BinTipping.Location = new System.Drawing.Point(79, 260);
             this.btn_Weight_BinTipping.Name = "btn_Weight_BinTipping";
             this.btn_Weight_BinTipping.Size = new System.Drawing.Size(75, 46);
-            this.btn_Weight_BinTipping.TabIndex = 5;
+            this.btn_Weight_BinTipping.TabIndex = 7;
             this.btn_Weight_BinTipping.Tag = "                    lbl_message.Text = \"Invalid barcode\";";
-            this.btn_Weight_BinTipping.Text = "Weight";
+            this.btn_Weight_BinTipping.Text = "&Weight";
             this.btn_Weight_BinTipping.UseVisualStyleBackColor = true;
             this.btn_Weight_BinTipping.Click += new System.EventHandler(this.btn_Weight_Click);
             // 
@@ -116,12 +124,12 @@
             // btn_Close_BinTipping
             // 
             this.btn_Close_BinTipping.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Close_BinTipping.Location = new System.Drawing.Point(173, 260);
+            this.btn_Close_BinTipping.Location = new System.Drawing.Point(304, 260);
             this.btn_Close_BinTipping.Name = "btn_Close_BinTipping";
             this.btn_Close_BinTipping.Size = new System.Drawing.Size(75, 46);
-            this.btn_Close_BinTipping.TabIndex = 6;
+            this.btn_Close_BinTipping.TabIndex = 13;
             this.btn_Close_BinTipping.Tag = "";
-            this.btn_Close_BinTipping.Text = "Close";
+            this.btn_Close_BinTipping.Text = "&Close";
             this.btn_Close_BinTipping.UseVisualStyleBackColor = true;
             this.btn_Close_BinTipping.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -140,8 +148,8 @@
             this.btn_Dry_BinTipping.Location = new System.Drawing.Point(173, 192);
             this.btn_Dry_BinTipping.Name = "btn_Dry_BinTipping";
             this.btn_Dry_BinTipping.Size = new System.Drawing.Size(75, 46);
-            this.btn_Dry_BinTipping.TabIndex = 4;
-            this.btn_Dry_BinTipping.Text = "Dry Tip";
+            this.btn_Dry_BinTipping.TabIndex = 6;
+            this.btn_Dry_BinTipping.Text = "&Dry Tip";
             this.btn_Dry_BinTipping.UseVisualStyleBackColor = true;
             this.btn_Dry_BinTipping.Click += new System.EventHandler(this.btn_Wet_Dry_Click);
             // 
@@ -152,13 +160,14 @@
             this.btn_Wet_BinTipping.Location = new System.Drawing.Point(79, 192);
             this.btn_Wet_BinTipping.Name = "btn_Wet_BinTipping";
             this.btn_Wet_BinTipping.Size = new System.Drawing.Size(75, 46);
-            this.btn_Wet_BinTipping.TabIndex = 3;
-            this.btn_Wet_BinTipping.Text = "Wet Tip";
+            this.btn_Wet_BinTipping.TabIndex = 5;
+            this.btn_Wet_BinTipping.Text = "W&et Tip";
             this.btn_Wet_BinTipping.UseVisualStyleBackColor = true;
             this.btn_Wet_BinTipping.Click += new System.EventHandler(this.btn_Wet_Dry_Click);
             // 
             // groupBoxBinTipping
             // 
+            this.groupBoxBinTipping.Controls.Add(this.buttonZeroGrossWeight);
             this.groupBoxBinTipping.Controls.Add(this.buttonCopyBinTippingBarcode);
             this.groupBoxBinTipping.Controls.Add(this.barcode_BinTipping);
             this.groupBoxBinTipping.Controls.Add(this.lbl_weight_BinTipping);
@@ -168,7 +177,6 @@
             this.groupBoxBinTipping.Controls.Add(this.lbl_message_BinTipping);
             this.groupBoxBinTipping.Controls.Add(this.lbl_WO_Num);
             this.groupBoxBinTipping.Controls.Add(this.nud_weight_BinTipping);
-            this.groupBoxBinTipping.Controls.Add(this.btn_Close_BinTipping);
             this.groupBoxBinTipping.Controls.Add(this.label_WorkOrder_BinTipping);
             this.groupBoxBinTipping.Location = new System.Drawing.Point(12, 12);
             this.groupBoxBinTipping.Name = "groupBoxBinTipping";
@@ -177,8 +185,40 @@
             this.groupBoxBinTipping.TabStop = false;
             this.groupBoxBinTipping.Text = "Bin Tipping";
             // 
+            // buttonZeroGrossWeight
+            // 
+            this.buttonZeroGrossWeight.Location = new System.Drawing.Point(254, 150);
+            this.buttonZeroGrossWeight.Name = "buttonZeroGrossWeight";
+            this.buttonZeroGrossWeight.Size = new System.Drawing.Size(55, 23);
+            this.buttonZeroGrossWeight.TabIndex = 4;
+            this.buttonZeroGrossWeight.Text = "Zero";
+            this.buttonZeroGrossWeight.UseVisualStyleBackColor = true;
+            this.buttonZeroGrossWeight.Click += new System.EventHandler(this.buttonZeroGrossWeight_Click);
+            // 
+            // buttonCopyBinTippingBarcode
+            // 
+            this.buttonCopyBinTippingBarcode.Location = new System.Drawing.Point(315, 93);
+            this.buttonCopyBinTippingBarcode.Name = "buttonCopyBinTippingBarcode";
+            this.buttonCopyBinTippingBarcode.Size = new System.Drawing.Size(35, 32);
+            this.buttonCopyBinTippingBarcode.TabIndex = 2;
+            this.buttonCopyBinTippingBarcode.Text = "->";
+            this.buttonCopyBinTippingBarcode.UseVisualStyleBackColor = true;
+            this.buttonCopyBinTippingBarcode.Click += new System.EventHandler(this.buttonCopyBinTippingBarcode_Click);
+            // 
+            // barcode_BinTipping
+            // 
+            this.barcode_BinTipping.BarcodeValue = "";
+            this.barcode_BinTipping.Location = new System.Drawing.Point(16, 93);
+            this.barcode_BinTipping.Name = "barcode_BinTipping";
+            this.barcode_BinTipping.Set_Label = "Barcode:";
+            this.barcode_BinTipping.Size = new System.Drawing.Size(293, 33);
+            this.barcode_BinTipping.TabIndex = 1;
+            this.barcode_BinTipping.txtChanged += new System.EventHandler(this.barcode1_txtChanged);
+            this.barcode_BinTipping.Validating += new System.ComponentModel.CancelEventHandler(this.txt_barcode_Validating);
+            // 
             // groupBoxBinTareWeights
             // 
+            this.groupBoxBinTareWeights.Controls.Add(this.buttonZeroBinTareWeight);
             this.groupBoxBinTareWeights.Controls.Add(this.buttonCopyBinTareWeightsBarcode);
             this.groupBoxBinTareWeights.Controls.Add(this.labelNotes);
             this.groupBoxBinTareWeights.Controls.Add(this.barcode_BinTareWeights);
@@ -186,12 +226,33 @@
             this.groupBoxBinTareWeights.Controls.Add(this.nud_weight_BinTareWeights);
             this.groupBoxBinTareWeights.Controls.Add(this.lbl_message_BinTareWeights);
             this.groupBoxBinTareWeights.Controls.Add(this.lbl_weight_BinTareWeights);
+            this.groupBoxBinTareWeights.Controls.Add(this.btn_Close_BinTipping);
             this.groupBoxBinTareWeights.Location = new System.Drawing.Point(376, 12);
             this.groupBoxBinTareWeights.Name = "groupBoxBinTareWeights";
             this.groupBoxBinTareWeights.Size = new System.Drawing.Size(385, 325);
             this.groupBoxBinTareWeights.TabIndex = 35;
             this.groupBoxBinTareWeights.TabStop = false;
             this.groupBoxBinTareWeights.Text = "Bin Tare Weights";
+            // 
+            // buttonZeroBinTareWeight
+            // 
+            this.buttonZeroBinTareWeight.Location = new System.Drawing.Point(304, 150);
+            this.buttonZeroBinTareWeight.Name = "buttonZeroBinTareWeight";
+            this.buttonZeroBinTareWeight.Size = new System.Drawing.Size(39, 23);
+            this.buttonZeroBinTareWeight.TabIndex = 11;
+            this.buttonZeroBinTareWeight.Text = "Zero";
+            this.buttonZeroBinTareWeight.UseVisualStyleBackColor = true;
+            this.buttonZeroBinTareWeight.Click += new System.EventHandler(this.buttonZeroBinTareWeight_Click);
+            // 
+            // buttonCopyBinTareWeightsBarcode
+            // 
+            this.buttonCopyBinTareWeightsBarcode.Location = new System.Drawing.Point(6, 93);
+            this.buttonCopyBinTareWeightsBarcode.Name = "buttonCopyBinTareWeightsBarcode";
+            this.buttonCopyBinTareWeightsBarcode.Size = new System.Drawing.Size(35, 32);
+            this.buttonCopyBinTareWeightsBarcode.TabIndex = 8;
+            this.buttonCopyBinTareWeightsBarcode.Text = "<-";
+            this.buttonCopyBinTareWeightsBarcode.UseVisualStyleBackColor = true;
+            this.buttonCopyBinTareWeightsBarcode.Click += new System.EventHandler(this.buttonCopyBinTareWeightsBarcode_Click);
             // 
             // labelNotes
             // 
@@ -202,15 +263,25 @@
             this.labelNotes.Text = "Note: The <- and -> buttons will copy the barcode from one field to another in th" +
     "e direction indicated, as long as the barcode is not empty.";
             // 
+            // barcode_BinTareWeights
+            // 
+            this.barcode_BinTareWeights.BarcodeValue = "";
+            this.barcode_BinTareWeights.Location = new System.Drawing.Point(50, 93);
+            this.barcode_BinTareWeights.Name = "barcode_BinTareWeights";
+            this.barcode_BinTareWeights.Set_Label = "Barcode:";
+            this.barcode_BinTareWeights.Size = new System.Drawing.Size(293, 33);
+            this.barcode_BinTareWeights.TabIndex = 9;
+            this.barcode_BinTareWeights.txtChanged += new System.EventHandler(this.barcode_BinTareWeights_txtChanged);
+            // 
             // btn_Tipped_BinTareWeights
             // 
             this.btn_Tipped_BinTareWeights.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.btn_Tipped_BinTareWeights.Location = new System.Drawing.Point(60, 192);
             this.btn_Tipped_BinTareWeights.Name = "btn_Tipped_BinTareWeights";
             this.btn_Tipped_BinTareWeights.Size = new System.Drawing.Size(238, 46);
-            this.btn_Tipped_BinTareWeights.TabIndex = 29;
+            this.btn_Tipped_BinTareWeights.TabIndex = 12;
             this.btn_Tipped_BinTareWeights.Tag = "";
-            this.btn_Tipped_BinTareWeights.Text = "Update";
+            this.btn_Tipped_BinTareWeights.Text = "&Update";
             this.btn_Tipped_BinTareWeights.UseVisualStyleBackColor = true;
             this.btn_Tipped_BinTareWeights.Click += new System.EventHandler(this.btn_Tipped_Click);
             // 
@@ -218,15 +289,21 @@
             // 
             this.nud_weight_BinTareWeights.DecimalPlaces = 3;
             this.nud_weight_BinTareWeights.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.nud_weight_BinTareWeights.Location = new System.Drawing.Point(161, 150);
+            this.nud_weight_BinTareWeights.Location = new System.Drawing.Point(185, 150);
             this.nud_weight_BinTareWeights.Maximum = new decimal(new int[] {
             999999,
             0,
             0,
             196608});
             this.nud_weight_BinTareWeights.Name = "nud_weight_BinTareWeights";
-            this.nud_weight_BinTareWeights.Size = new System.Drawing.Size(137, 26);
-            this.nud_weight_BinTareWeights.TabIndex = 28;
+            this.nud_weight_BinTareWeights.Size = new System.Drawing.Size(113, 26);
+            this.nud_weight_BinTareWeights.TabIndex = 10;
+            this.nud_weight_BinTareWeights.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+            this.nud_weight_BinTareWeights.Enter += new System.EventHandler(this.nud_weight_BinTareWeights_Enter);
             this.nud_weight_BinTareWeights.Leave += new System.EventHandler(this.nud_weight_Leave_BinTareWeights);
             // 
             // lbl_message_BinTareWeights
@@ -249,47 +326,6 @@
             this.lbl_weight_BinTareWeights.TabIndex = 31;
             this.lbl_weight_BinTareWeights.Text = "Tare Weight:";
             // 
-            // barcode_BinTareWeights
-            // 
-            this.barcode_BinTareWeights.BarcodeValue = "";
-            this.barcode_BinTareWeights.Location = new System.Drawing.Point(50, 93);
-            this.barcode_BinTareWeights.Name = "barcode_BinTareWeights";
-            this.barcode_BinTareWeights.Set_Label = "Barcode:";
-            this.barcode_BinTareWeights.Size = new System.Drawing.Size(293, 33);
-            this.barcode_BinTareWeights.TabIndex = 27;
-            this.barcode_BinTareWeights.txtChanged += new System.EventHandler(this.barcode_BinTareWeights_txtChanged);
-            // 
-            // barcode_BinTipping
-            // 
-            this.barcode_BinTipping.BarcodeValue = "";
-            this.barcode_BinTipping.Location = new System.Drawing.Point(16, 93);
-            this.barcode_BinTipping.Name = "barcode_BinTipping";
-            this.barcode_BinTipping.Set_Label = "Barcode:";
-            this.barcode_BinTipping.Size = new System.Drawing.Size(293, 33);
-            this.barcode_BinTipping.TabIndex = 1;
-            this.barcode_BinTipping.txtChanged += new System.EventHandler(this.barcode1_txtChanged);
-            this.barcode_BinTipping.Validating += new System.ComponentModel.CancelEventHandler(this.txt_barcode_Validating);
-            // 
-            // buttonCopyBinTareWeightsBarcode
-            // 
-            this.buttonCopyBinTareWeightsBarcode.Location = new System.Drawing.Point(6, 93);
-            this.buttonCopyBinTareWeightsBarcode.Name = "buttonCopyBinTareWeightsBarcode";
-            this.buttonCopyBinTareWeightsBarcode.Size = new System.Drawing.Size(35, 32);
-            this.buttonCopyBinTareWeightsBarcode.TabIndex = 34;
-            this.buttonCopyBinTareWeightsBarcode.Text = "<-";
-            this.buttonCopyBinTareWeightsBarcode.UseVisualStyleBackColor = true;
-            this.buttonCopyBinTareWeightsBarcode.Click += new System.EventHandler(this.buttonCopyBinTareWeightsBarcode_Click);
-            // 
-            // buttonCopyBinTippingBarcode
-            // 
-            this.buttonCopyBinTippingBarcode.Location = new System.Drawing.Point(315, 93);
-            this.buttonCopyBinTippingBarcode.Name = "buttonCopyBinTippingBarcode";
-            this.buttonCopyBinTippingBarcode.Size = new System.Drawing.Size(35, 32);
-            this.buttonCopyBinTippingBarcode.TabIndex = 35;
-            this.buttonCopyBinTippingBarcode.Text = "->";
-            this.buttonCopyBinTippingBarcode.UseVisualStyleBackColor = true;
-            this.buttonCopyBinTippingBarcode.Click += new System.EventHandler(this.buttonCopyBinTippingBarcode_Click);
-            // 
             // Bin_Tipping_Combined
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -301,6 +337,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Bin_Tipping_Combined";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.Utils.Scanning.Bin_Tipping_Combined";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Bin_Tipping_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nud_weight_BinTipping)).EndInit();
@@ -335,5 +372,7 @@
         private System.Windows.Forms.Label labelNotes;
         private System.Windows.Forms.Button buttonCopyBinTippingBarcode;
         private System.Windows.Forms.Button buttonCopyBinTareWeightsBarcode;
+        private System.Windows.Forms.Button buttonZeroGrossWeight;
+        private System.Windows.Forms.Button buttonZeroBinTareWeight;
     }
 }

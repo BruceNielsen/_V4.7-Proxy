@@ -51,8 +51,8 @@
             this.btn_Update_Relationships.Location = new System.Drawing.Point(749, 427);
             this.btn_Update_Relationships.Name = "btn_Update_Relationships";
             this.btn_Update_Relationships.Size = new System.Drawing.Size(163, 23);
-            this.btn_Update_Relationships.TabIndex = 8;
-            this.btn_Update_Relationships.Text = "Update Relationships";
+            this.btn_Update_Relationships.TabIndex = 9;
+            this.btn_Update_Relationships.Text = "&Update Relationships";
             this.btn_Update_Relationships.UseVisualStyleBackColor = true;
             this.btn_Update_Relationships.Visible = false;
             this.btn_Update_Relationships.Click += new System.EventHandler(this.btn_Add_Members_Click);
@@ -62,8 +62,8 @@
             this.btn_reset.Location = new System.Drawing.Point(799, 207);
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(75, 23);
-            this.btn_reset.TabIndex = 5;
-            this.btn_reset.Text = "Reset";
+            this.btn_reset.TabIndex = 6;
+            this.btn_reset.Text = "&Reset";
             this.btn_reset.UseVisualStyleBackColor = true;
             this.btn_reset.Click += new System.EventHandler(this.btn_reset_Click);
             // 
@@ -72,8 +72,8 @@
             this.btn_Add.Location = new System.Drawing.Point(708, 207);
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(75, 23);
-            this.btn_Add.TabIndex = 4;
-            this.btn_Add.Text = "Add";
+            this.btn_Add.TabIndex = 5;
+            this.btn_Add.Text = "&Add";
             this.btn_Add.UseVisualStyleBackColor = true;
             this.btn_Add.Click += new System.EventHandler(this.btn_Add_Click);
             // 
@@ -83,7 +83,7 @@
             this.txt_Menu_Description.Multiline = true;
             this.txt_Menu_Description.Name = "txt_Menu_Description";
             this.txt_Menu_Description.Size = new System.Drawing.Size(340, 85);
-            this.txt_Menu_Description.TabIndex = 3;
+            this.txt_Menu_Description.TabIndex = 4;
             // 
             // txt_SubMenu_Name
             // 
@@ -91,7 +91,7 @@
             this.txt_SubMenu_Name.MaxLength = 20;
             this.txt_SubMenu_Name.Name = "txt_SubMenu_Name";
             this.txt_SubMenu_Name.Size = new System.Drawing.Size(196, 20);
-            this.txt_SubMenu_Name.TabIndex = 2;
+            this.txt_SubMenu_Name.TabIndex = 3;
             // 
             // lbl_description
             // 
@@ -134,7 +134,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
             this.dataGridView1.Size = new System.Drawing.Size(564, 410);
-            this.dataGridView1.TabIndex = 20;
+            this.dataGridView1.TabIndex = 1;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
             // btn_Close
@@ -142,8 +142,8 @@
             this.btn_Close.Location = new System.Drawing.Point(890, 207);
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 23);
-            this.btn_Close.TabIndex = 6;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.TabIndex = 7;
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -153,7 +153,7 @@
             this.cmb_Menu.Location = new System.Drawing.Point(678, 37);
             this.cmb_Menu.Name = "cmb_Menu";
             this.cmb_Menu.Size = new System.Drawing.Size(196, 21);
-            this.cmb_Menu.TabIndex = 1;
+            this.cmb_Menu.TabIndex = 2;
             // 
             // lbl_Menu
             // 
@@ -174,7 +174,7 @@
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersVisible = false;
             this.dataGridView2.Size = new System.Drawing.Size(337, 174);
-            this.dataGridView2.TabIndex = 7;
+            this.dataGridView2.TabIndex = 8;
             this.dataGridView2.Visible = false;
             this.dataGridView2.Click += new System.EventHandler(this.dataGridView2_Click);
             // 

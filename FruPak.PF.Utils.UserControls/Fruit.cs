@@ -23,7 +23,16 @@ namespace FruPak.PF.Utils.UserControls
         public Fruit()
         {
             InitializeComponent();
-            populate_Combos();
+
+            if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
+            {
+                Console.WriteLine("FruPak.PF.Utils.UserControls.Fruit (Constructor) - UsageMode = Designtime - Skipping populate()");
+            }
+            else
+            {
+                Console.WriteLine("FruPak.PF.Utils.UserControls.Fruit (Constructor) - UsageMode = Runtime - Running populate()");
+                populate_Combos();
+            }
         }
 
         public int Block_Id
@@ -35,7 +44,22 @@ namespace FruPak.PF.Utils.UserControls
             set
             {
                 int_Block_Id = value;
-                populate_Combos();
+
+                // 21/05/2015 BN - This code will not work in the Constructor of Customer UserControl, but works here.
+                // Very weird, but it works.
+                if (!DesignMode)
+                {
+                    Console.WriteLine("DesignMode = False");
+                    Console.WriteLine("FruPak.PF.Utils.UserControls.Fruit (Block_Id) - DesignMode = False - Running populate()");
+                    populate_Combos();
+                }
+                else
+                {
+                    Console.WriteLine("DesignMode = True");
+                    Console.WriteLine("FruPak.PF.Utils.UserControls.Fruit (Block_Id) - DesignMode = True - Skipping populate()");
+                }
+
+                //populate_Combos();
             }
             
         }

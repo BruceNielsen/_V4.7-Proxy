@@ -12,7 +12,7 @@ namespace FruPak.PF.BaseLoad
 {
     public partial class Base_Load_Maintenance : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static int int_Current_User_Id = 0;
         private static bool bol_write_access;
@@ -24,7 +24,7 @@ namespace FruPak.PF.BaseLoad
             bol_write_access = bol_w_a;
             btn_Add.Enabled = bol_w_a;
             //check if testing or not
-            
+
             //if (FruPak.PF.Global.Global.bol_Testing == true)
             //{
             //    this.Text = "FruPak Process Factory - " + this.Text + "Test Environment";
@@ -126,7 +126,7 @@ namespace FruPak.PF.BaseLoad
         {
             dataGridView1.Refresh();
             dataGridView1.Rows.Clear();
-            
+
             DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_BaseLoad.Get_Info();
             DataRow dr_Get_Info;
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
@@ -179,7 +179,7 @@ namespace FruPak.PF.BaseLoad
         {
             cmb_Work_Order.Text = null;
             txt_Description.ResetText();
-            btn_Add.Text = "Add";
+            btn_Add.Text = "&Add";
         }
         private void btn_Add_Click(object sender, EventArgs e)
         {
@@ -203,10 +203,10 @@ namespace FruPak.PF.BaseLoad
             {
                 switch (btn_Add.Text)
                 {
-                    case "Add":
+                    case "&Add":
                         int_result = FruPak.PF.Data.AccessLayer.PF_BaseLoad.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_BaseLoad"), Convert.ToInt32(cmb_Work_Order.SelectedValue.ToString()), txt_Description.Text, Convert.ToBoolean(ckb_Active.Checked), int_Current_User_Id);
                         break;
-                    case "Update":
+                    case "&Update":
                         int_result = FruPak.PF.Data.AccessLayer.PF_BaseLoad.Update(int_dvg_id, Convert.ToInt32(cmb_Work_Order.SelectedValue.ToString()), txt_Description.Text, Convert.ToBoolean(ckb_Active.Checked), int_Current_User_Id);
                         break;
                 }
@@ -234,13 +234,13 @@ namespace FruPak.PF.BaseLoad
                 cmb_Work_Order.SelectedValue = Convert.ToInt32(dataGridView1.CurrentRow.Cells["Work_Order_Id"].Value.ToString());
                 txt_Description.Text = dataGridView1.CurrentRow.Cells["Description"].Value.ToString();
                 ckb_Active.Checked = Convert.ToBoolean(dataGridView1.CurrentRow.Cells["PF_Active_Ind"].Value.ToString());
-                btn_Add.Text = "Update";
+                btn_Add.Text = "&Update";
             }
         }
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

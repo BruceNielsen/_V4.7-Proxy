@@ -44,7 +44,7 @@ namespace FruPak.PF.Data.AccessLayer
 			if (!File.Exists(Settings.SettingsPath))
 			{
 				Settings.Save();
-                logger.Log(LogLevel.Info, LogCode("Default Phantom Settings file created"));
+				logger.Log(LogLevel.Info, LogCode("Default Phantom Settings file created"));
 			}
 			// Load settings - Normally in Form_Load
 			Settings.Load();
@@ -161,19 +161,19 @@ namespace FruPak.PF.Data.AccessLayer
 			dal = new DConfig();
 		}
 
-        #region Log Code
-        /// <summary>
-        /// Formats the output to the debug log so that the actual log contents stand out amongst the machine-generated stuff. 
-        /// Refers to machine-generated content, not calling specifics.
-        /// </summary>
-        /// <param name="input">The code function that we want to log.</param>
-        /// <returns>A formatted (Bracketed) string</returns>
-        public string LogCode(string input)
-        {
-            string Output = "___[ " + input + " ]___";
-            return Output;
-        }
-        #endregion
+		#region Log Code
+		/// <summary>
+		/// Formats the output to the debug log so that the actual log contents stand out amongst the machine-generated stuff. 
+		/// Refers to machine-generated content, not calling specifics.
+		/// </summary>
+		/// <param name="input">The code function that we want to log.</param>
+		/// <returns>A formatted (Bracketed) string</returns>
+		public string LogCode(string input)
+		{
+			string Output = "___[ " + input + " ]___";
+			return Output;
+		}
+		#endregion
 
 	}
 }

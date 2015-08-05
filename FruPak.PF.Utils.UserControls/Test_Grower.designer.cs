@@ -63,7 +63,7 @@
             // grower2
             // 
             this.grower2.bol_test = false;
-            this.grower2.Grower_Id = 145;
+            this.grower2.Grower_Id = 0;
             this.grower2.Location = new System.Drawing.Point(98, 57);
             this.grower2.Name = "grower2";
             this.grower2.Orchardist_Id = 0;
@@ -93,6 +93,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Test_Grower";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.Utils.UserControls.Test Grower";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Test_Grower_KeyDown);
             this.ResumeLayout(false);

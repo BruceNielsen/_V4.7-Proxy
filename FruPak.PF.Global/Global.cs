@@ -56,5 +56,11 @@ namespace FruPak.PF.Global
             }
         }
 
+        private static string _LogonName;
+        public static string LogonName
+        {
+            get { return _LogonName; }
+            set { _LogonName = value; }
+        }
     }
 }

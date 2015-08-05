@@ -12,7 +12,7 @@ namespace FruPak.PF.Utils.Common
 {
     public partial class Grower_Block : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static bool bol_write_access;
         private static int int_Current_User_Id = 0;
@@ -210,7 +210,7 @@ namespace FruPak.PF.Utils.Common
             string str_msg = "";
             int int_result = 0;
 
-            if (btn_Add.Text == "Add")
+            if (btn_Add.Text == "&Add")
             {
 
                 if (txt_code.TextLength == 0)
@@ -226,14 +226,14 @@ namespace FruPak.PF.Utils.Common
             {
                 switch (btn_Add.Text)
                 {
-                    case "Add":
+                    case "&Add":
                         if (txt_code.TextLength > 0)
                         {
                             int_result = FruPak.PF.Data.AccessLayer.CM_Block.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Block"), int_Grower_Id, txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                             lbl_message.Text = "Block " + txt_code.Text + " has been added";
                         }
                         break;
-                    case "Update":
+                    case "&Update":
                         int_result = FruPak.PF.Data.AccessLayer.CM_Block.Update(int_Block_Id, int_Grower_Id, txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                         lbl_message.Text = "Block " + txt_code.Text + " has been updated";
                         break;
@@ -259,7 +259,7 @@ namespace FruPak.PF.Utils.Common
                 txt_code.Text = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
                 txt_Description.Text = dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString();
                 ckb_Active.Checked = Convert.ToBoolean(dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString());
-                btn_Add.Text = "Update";
+                btn_Add.Text = "&Update";
             }
             //block Button
             else if (e.ColumnIndex == 9)
@@ -276,7 +276,7 @@ namespace FruPak.PF.Utils.Common
         {
             txt_code.ResetText();
             txt_Description.ResetText();
-            btn_Add.Text = "Add";
+            btn_Add.Text = "&Add";
             ckb_Active.Checked = true;
         }
         private void btn_Close_Click(object sender, EventArgs e)
@@ -302,7 +302,7 @@ namespace FruPak.PF.Utils.Common
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>

@@ -67,7 +67,7 @@
             this.rdb_prod.Size = new System.Drawing.Size(68, 23);
             this.rdb_prod.TabIndex = 2;
             this.rdb_prod.TabStop = true;
-            this.rdb_prod.Text = "Production";
+            this.rdb_prod.Text = "&Production";
             this.rdb_prod.UseVisualStyleBackColor = true;
             this.rdb_prod.CheckedChanged += new System.EventHandler(this.rdb_prod_test_CheckedChanged);
             // 
@@ -79,7 +79,7 @@
             this.rdb_Test.Name = "rdb_Test";
             this.rdb_Test.Size = new System.Drawing.Size(38, 23);
             this.rdb_Test.TabIndex = 3;
-            this.rdb_Test.Text = "Test";
+            this.rdb_Test.Text = "&Test";
             this.rdb_Test.UseVisualStyleBackColor = true;
             // 
             // btn_clear
@@ -88,7 +88,7 @@
             this.btn_clear.Name = "btn_clear";
             this.btn_clear.Size = new System.Drawing.Size(75, 23);
             this.btn_clear.TabIndex = 4;
-            this.btn_clear.Text = "Clear History";
+            this.btn_clear.Text = "Clear &History";
             this.btn_clear.UseVisualStyleBackColor = true;
             this.btn_clear.Click += new System.EventHandler(this.btn_clear_Click);
             // 

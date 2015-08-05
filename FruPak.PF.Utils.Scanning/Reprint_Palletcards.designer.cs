@@ -44,7 +44,7 @@
             this.btn_Print.Name = "btn_Print";
             this.btn_Print.Size = new System.Drawing.Size(75, 56);
             this.btn_Print.TabIndex = 4;
-            this.btn_Print.Text = "Print";
+            this.btn_Print.Text = "&Print";
             this.btn_Print.UseVisualStyleBackColor = true;
             this.btn_Print.Click += new System.EventHandler(this.btn_Print_Click);
             // 
@@ -55,7 +55,7 @@
             this.btn_close.Name = "btn_close";
             this.btn_close.Size = new System.Drawing.Size(75, 56);
             this.btn_close.TabIndex = 5;
-            this.btn_close.Text = "Close";
+            this.btn_close.Text = "&Close";
             this.btn_close.UseVisualStyleBackColor = true;
             this.btn_close.Click += new System.EventHandler(this.btn_close_Click);
             // 
@@ -78,7 +78,7 @@
             this.rbn_PalletCard.Size = new System.Drawing.Size(86, 56);
             this.rbn_PalletCard.TabIndex = 2;
             this.rbn_PalletCard.TabStop = true;
-            this.rbn_PalletCard.Text = "Barcode";
+            this.rbn_PalletCard.Text = "&Barcode";
             this.rbn_PalletCard.UseVisualStyleBackColor = true;
             // 
             // rbn_WPC
@@ -90,7 +90,7 @@
             this.rbn_WPC.Size = new System.Drawing.Size(75, 56);
             this.rbn_WPC.TabIndex = 3;
             this.rbn_WPC.TabStop = true;
-            this.rbn_WPC.Text = "Bin Number";
+            this.rbn_WPC.Text = "Bin &Number";
             this.rbn_WPC.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.rbn_WPC.UseVisualStyleBackColor = true;
             // 
@@ -117,6 +117,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "Reprint_Palletcards";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.Utils.Scanning.Reprint Palletcards";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Reprint_Palletcards_KeyDown);
             this.ResumeLayout(false);

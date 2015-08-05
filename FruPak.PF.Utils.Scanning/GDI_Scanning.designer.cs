@@ -61,10 +61,10 @@
             // 
             this.btn_Dry.Location = new System.Drawing.Point(454, 77);
             this.btn_Dry.Name = "btn_Dry";
-            this.btn_Dry.Size = new System.Drawing.Size(79, 55);
+            this.btn_Dry.Size = new System.Drawing.Size(79, 56);
             this.btn_Dry.TabIndex = 7;
             this.btn_Dry.Tag = "";
-            this.btn_Dry.Text = "Dry Tip";
+            this.btn_Dry.Text = "&Dry Tip";
             this.btn_Dry.UseVisualStyleBackColor = true;
             this.btn_Dry.Click += new System.EventHandler(this.btn_Tipped_Click);
             // 
@@ -97,7 +97,7 @@
             this.txt_barcode.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txt_barcode.Location = new System.Drawing.Point(113, 168);
             this.txt_barcode.Name = "txt_barcode";
-            this.txt_barcode.Size = new System.Drawing.Size(205, 26);
+            this.txt_barcode.Size = new System.Drawing.Size(213, 26);
             this.txt_barcode.TabIndex = 3;
             this.txt_barcode.TextChanged += new System.EventHandler(this.txt_barcode_TextChanged);
             this.txt_barcode.Validating += new System.ComponentModel.CancelEventHandler(this.txt_barcode_Validating);
@@ -126,7 +126,7 @@
             // 
             this.lbl_sub_Id.AutoSize = true;
             this.lbl_sub_Id.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lbl_sub_Id.Location = new System.Drawing.Point(22, 203);
+            this.lbl_sub_Id.Location = new System.Drawing.Point(18, 203);
             this.lbl_sub_Id.Name = "lbl_sub_Id";
             this.lbl_sub_Id.Size = new System.Drawing.Size(114, 20);
             this.lbl_sub_Id.TabIndex = 32;
@@ -139,7 +139,7 @@
             this.btn_Weight.Size = new System.Drawing.Size(79, 55);
             this.btn_Weight.TabIndex = 8;
             this.btn_Weight.Tag = "                    lbl_message.Text = \"Invalid barcode\";";
-            this.btn_Weight.Text = "Weight";
+            this.btn_Weight.Text = "&Weight";
             this.btn_Weight.UseVisualStyleBackColor = true;
             this.btn_Weight.Click += new System.EventHandler(this.btn_Weight_Click);
             // 
@@ -159,7 +159,7 @@
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(79, 55);
             this.btn_Close.TabIndex = 9;
-            this.btn_Close.Text = "Close";
+            this.btn_Close.Text = "&Close";
             this.btn_Close.UseVisualStyleBackColor = true;
             this.btn_Close.Click += new System.EventHandler(this.btn_Close_Click);
             // 
@@ -174,12 +174,12 @@
             // 
             // btn_Wet
             // 
-            this.btn_Wet.Location = new System.Drawing.Point(369, 77);
+            this.btn_Wet.Location = new System.Drawing.Point(353, 77);
             this.btn_Wet.Name = "btn_Wet";
-            this.btn_Wet.Size = new System.Drawing.Size(79, 55);
+            this.btn_Wet.Size = new System.Drawing.Size(79, 56);
             this.btn_Wet.TabIndex = 6;
             this.btn_Wet.Tag = "";
-            this.btn_Wet.Text = "Wet Tip";
+            this.btn_Wet.Text = "Wet &Tip";
             this.btn_Wet.UseVisualStyleBackColor = true;
             this.btn_Wet.Click += new System.EventHandler(this.btn_Tipped_Click);
             // 
@@ -193,7 +193,7 @@
             this.rbn_Bin.Size = new System.Drawing.Size(127, 56);
             this.rbn_Bin.TabIndex = 1;
             this.rbn_Bin.TabStop = true;
-            this.rbn_Bin.Text = "Submitted Bin";
+            this.rbn_Bin.Text = "&Submitted Bin";
             this.rbn_Bin.UseVisualStyleBackColor = true;
             this.rbn_Bin.CheckedChanged += new System.EventHandler(this.rbn_CheckedChanged);
             // 
@@ -205,7 +205,7 @@
             this.rbn_Overrun.Name = "rbn_Overrun";
             this.rbn_Overrun.Size = new System.Drawing.Size(110, 56);
             this.rbn_Overrun.TabIndex = 2;
-            this.rbn_Overrun.Text = "Overrun Bin";
+            this.rbn_Overrun.Text = "&Overrun Bin";
             this.rbn_Overrun.UseVisualStyleBackColor = true;
             // 
             // GDI_Scanning
@@ -231,6 +231,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.Name = "GDI_Scanning";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.Utils.Scanning.GDI Scanning";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GDI_Scanning_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).EndInit();

@@ -20,23 +20,35 @@ namespace FruPak.PF.Utils.Common
         public Material(int int_C_User_id, bool bol_w_a)
         {
             InitializeComponent();
-            int_Current_User_Id = int_C_User_id;
-            //check if testing or not
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
-            //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
-            //}
-            //else
-            //{
-            //    this.Text = "FruPak Process Factory";
-            //}
-            //restrict access
-            bol_write_access = bol_w_a;
-            btn_Add.Enabled = bol_w_a;          
+            if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
+            {
+                Console.WriteLine("FruPak.PF.Utils.Common.Material - UsageMode = Designtime - Skipping populate()");
+            }
+            else
+            {
+                Console.WriteLine("FruPak.PF.Utils.Common.Material - UsageMode = Runtime - Running populate()");
+                //populate_comboboxs();
+                //}
 
-            populate_comboboxs();
-            txt_Material_No.Text = "";
+                int_Current_User_Id = int_C_User_id;
+                //check if testing or not
+
+                //if (FruPak.PF.Global.Global.bol_Testing == true)
+                //{
+                //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+                //}
+                //else
+                //{
+                //    this.Text = "FruPak Process Factory";
+                //}
+                //restrict access
+                bol_write_access = bol_w_a;
+                btn_Add.Enabled = bol_w_a;
+
+                populate_comboboxs();
+                txt_Material_No.Text = "";
+            }
 
             #region Log any interesting events from the UI to the CSV log file
             foreach (Control c in this.Controls)
@@ -333,7 +345,7 @@ namespace FruPak.PF.Utils.Common
             nud_weight.Value = 0;
             fruit1.FruitType_Id = 0;
             fruit1.FruitVariety_Id = 0;
-            btn_Add.Text = "Add";
+            btn_Add.Text = "&Add";
         }
         private void btn_Close_Click(object sender, EventArgs e)
         {
