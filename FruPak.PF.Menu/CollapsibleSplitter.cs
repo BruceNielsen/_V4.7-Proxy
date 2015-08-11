@@ -42,7 +42,7 @@ namespace Tools
 	using System.ComponentModel;
 	using System.Drawing;
 	using System.Windows.Forms;
-    
+	
 	#region Enums
 	/// <summary>
 	/// Enumeration to sepcify the visual style to be applied to the CollapsibleSplitter control
@@ -216,7 +216,7 @@ namespace Tools
 		}
 
 		#endregion
-        
+		
 		#region Constructor
 
 		public CollapsibleSplitter()
@@ -915,7 +915,7 @@ namespace Tools
 
 			return  Color.FromArgb(255, newRed, newGreen, newBlue);
 		}
-	        
+			
 			#endregion
 
 		#endregion

@@ -523,12 +523,24 @@ namespace FruPak.PF.PrintLayer
             catch (Exception ex)
             {
                 newDocument.Close();
-
                 Console.WriteLine("SaveAsPdf: ExportFilePath: " + paramExportFilePath);
                 logger.Log(LogLevel.Debug, "SaveAsPdf: ExportFilePath: " + paramExportFilePath);
-                logger.Log(LogLevel.Debug, "Message: " + ex.Message + ", StackTrace: " + ex.StackTrace);
+                if(ex.Message == "See inner exception(s) for details.")
+                {
+                    // We know the inner exception is not null, but check it anyway
+                    if(ex.InnerException != null)
+                    {
+                        logger.Log(LogLevel.Debug, "InnerException: " + ex.InnerException.Message + ", StackTrace: " + ex.StackTrace);
+                        MessageBox.Show(ex.InnerException.Message + " - " + ex.StackTrace, "InnerException", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    }
+                }
+                else
+                {
+                    logger.Log(LogLevel.Debug, "Message: " + ex.Message + ", StackTrace: " + ex.StackTrace);
+                    MessageBox.Show(ex.Message + " - " + ex.StackTrace);
+                }
+
                 return_code = 9;
-                System.Windows.Forms.MessageBox.Show(ex.Message + " - " + ex.StackTrace);
             }
 
             return return_code;

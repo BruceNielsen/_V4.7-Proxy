@@ -111,47 +111,55 @@ namespace FruPak.PF.Utils.Scanning
                     }
                     ds.Dispose();
 
-
-                    // SystemOverflowException: Convert.ToInt32(barcode1.Get_Barcode.ToString() - BN
-                    ds = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Pallet_barocde(int_current_WO, Convert.ToInt32(barcode1.BarcodeValue.ToString()));
-                    string str_Barcode = "";
-                    for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                    // New trap for SystemOverflowException: Convert.ToInt32(barcode1.Get_Barcode.ToString() - BN 11/08/2015
+                    try
                     {
-                        dr = ds.Tables[0].Rows[i];
-                        str_Barcode = dr["Barcode"].ToString();
-                    }
-                    ds.Dispose();
-
-                    if (str_Barcode.Length > 0)
-                    {
-                        try
+                        ds = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Pallet_barocde(int_current_WO, Convert.ToInt32(barcode1.BarcodeValue.ToString()));
+                        string str_Barcode = "";
+                        for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                         {
-                            int_result = FruPak.PF.PrintLayer.WPC_Card.Print(str_Barcode, true, int_Current_User_Id);
+                            dr = ds.Tables[0].Rows[i];
+                            str_Barcode = dr["Barcode"].ToString();
                         }
-                        catch
+                        ds.Dispose();
+
+                        if (str_Barcode.Length > 0)
                         {
-                            string Data = "";
-                            Data = Data + barcode1.BarcodeValue.ToString();
-                            Data = Data + ":True";
+                            try
+                            {
+                                int_result = FruPak.PF.PrintLayer.WPC_Card.Print(str_Barcode, true, int_Current_User_Id);
+                            }
+                            catch
+                            {
+                                string Data = "";
+                                Data = Data + barcode1.BarcodeValue.ToString();
+                                Data = Data + ":True";
 
-                            //FruPak.PF.PrintLayer.Word.Printer = "Brother HL-2040 series";
-                            FruPak.PF.PrintLayer.Word.Printer = Settings.Printer_Name;  // 16/06/2015 Fixed - Jim worked out there was some hardcoded strings
+                                //FruPak.PF.PrintLayer.Word.Printer = "Brother HL-2040 series";
+                                FruPak.PF.PrintLayer.Word.Printer = Settings.Printer_Name;  // 16/06/2015 Fixed - Jim worked out there was some hardcoded strings
 
-                            // Phantom 18/12/2014
-                            //FruPak.PF.PrintLayer.Word.Printer = Settings.Printer_Name;   // Reverted 06-03-2015
+                                // Phantom 18/12/2014
+                                //FruPak.PF.PrintLayer.Word.Printer = Settings.Printer_Name;   // Reverted 06-03-2015
 
-                            FruPak.PF.PrintLayer.Word.Server_Print(Data, int_Current_User_Id);
+                                FruPak.PF.PrintLayer.Word.Server_Print(Data, int_Current_User_Id);
+                            }
+                        }
+                        else
+                        {
+                            int_result = 3; // Added this 11/08/2015 BN
+                                            //lbl_message.Text = "Invalid Bin Number";
                         }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        lbl_message.Text = "Invalid Bin Number";
+                        int_result = 3; // Added this 11/08/2015 BN
+                        MessageBox.Show(ex.Message, "Error converting number", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     }
                 }
 
                 if (int_result == 0)
                 {
-                    PrintMessage = "Pallet Card has been printed";
+                    lbl_message.Text = PrintMessage = "Pallet Card has been printed";
                     //Clean Up 
                     string filePath = Settings.Path_Printer_Temp;
 
@@ -164,9 +172,13 @@ namespace FruPak.PF.Utils.Scanning
                         File.Delete(filename);
                     }
                 }
+                else if (int_result == 3)
+                {
+                    lbl_message.Text = PrintMessage = "Invalid Bin Number"; // BN
+                }
                 else
                 {
-                    PrintMessage = "Pallet Card could not be printed";
+                    lbl_message.Text = PrintMessage = "Pallet Card could not be printed";
                 }
             }
         }

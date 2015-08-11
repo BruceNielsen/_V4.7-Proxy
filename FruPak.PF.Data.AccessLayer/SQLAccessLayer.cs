@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.OleDb;
 using NLog;
 using System.Windows.Forms;
+using System.Reflection;
 
 namespace FruPak.Utils.Data
 {
@@ -427,8 +428,21 @@ namespace FruPak.Utils.Data
                     if(!connectionString.Equals(string.Empty))
                     {
                         sqlConnection = new OleDbConnection(connectionString);
-                        sqlConnection.Open();
-                        return sqlConnection;
+                        try
+                        {
+                            sqlConnection.Open();
+                            return sqlConnection;
+                        }
+                        catch (System.Data.OleDb.OleDbException olex)
+                        {
+                            // The network is down
+                            MessageBox.Show("Either the Network is down, or the SQL server cannot be found.\r\n\r\n" + 
+                                "This application will Exit when you press the OK button.\r\n\r\n" + olex.Message, "Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+                            System.Diagnostics.Process proc = System.Diagnostics.Process.GetCurrentProcess();
+                            proc.Kill();
+
+                            return null;
+                        }
                     }
                     else 
                     {

@@ -1,0 +1,56 @@
+﻿Today is 22/06/2015 12:24 am. I am making notes from the (What I call)
+The Fortress of Solitude (Flat), preparing for the coming week.
+Jim has asked for this in case I get flattened by working under my van or
+hit by a truck or something. I quite agree.
+
+-------------------------------------------------------------------
+Yesterday was the 2015 Winter Solistice. Yay!
+-------------------------------------------------------------------
+
+Last major change - add hotkey accelerators as per Sel's request.
+
+I went through and added the accelerators to every single button and
+eligible control where applicable. On every single form.
+
+What that means is that when you hit the ALT key, a button which appears
+as Add, suddenly appears as &Add (Underscored A), meaning you hit Alt-A
+to actuate that button.
+
+Same with menus etc, except the menus are handled differently and present no problem
+
+SUPRISE!!! The original programmer (Dave) thought it would be a great idea
+to use predicates (if-that-then constructs) based on the text which appears
+on the button which was just pressed.
+
+...And then did shit like this:
+
+	(press Add button)
+	go do database lookup and change text on Add button to Update
+	And then on the next button press change the text back to Add.
+
+My question is why not check for an entity such as button_Add,
+and replace it with button_Update? As in check for an actual
+entity and not try to use a shortcut hack- we have all the benefits of
+object-oriented programming and this dude just ignores all that and heads back
+straight into the stone age.
+
+...But wait, there's more
+
+Further into the code you run across weird shit like:
+case bttn_Add ('cause he thought reading weird shorthand was better than reading the word button')
+
+(Soapbox mode ON)
+
+is this easier to read?		bttn_Add
+or this:					button_Add
+
+
+the compiler reduces the code to a token like this:
+A6
+
+Also,
+
+Switch case bttn_Add.Text blah blah	(Text? Seriously?)
+	case "Add"
+	case "Update"
+

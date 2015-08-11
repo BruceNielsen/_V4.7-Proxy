@@ -70,12 +70,11 @@
             // 
             // rbn_PalletCard
             // 
-            this.rbn_PalletCard.Appearance = System.Windows.Forms.Appearance.Button;
             this.rbn_PalletCard.Checked = true;
             this.rbn_PalletCard.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbn_PalletCard.Location = new System.Drawing.Point(104, 123);
             this.rbn_PalletCard.Name = "rbn_PalletCard";
-            this.rbn_PalletCard.Size = new System.Drawing.Size(86, 56);
+            this.rbn_PalletCard.Size = new System.Drawing.Size(125, 56);
             this.rbn_PalletCard.TabIndex = 2;
             this.rbn_PalletCard.TabStop = true;
             this.rbn_PalletCard.Text = "&Barcode";
@@ -83,11 +82,10 @@
             // 
             // rbn_WPC
             // 
-            this.rbn_WPC.Appearance = System.Windows.Forms.Appearance.Button;
             this.rbn_WPC.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.rbn_WPC.Location = new System.Drawing.Point(235, 123);
             this.rbn_WPC.Name = "rbn_WPC";
-            this.rbn_WPC.Size = new System.Drawing.Size(75, 56);
+            this.rbn_WPC.Size = new System.Drawing.Size(125, 56);
             this.rbn_WPC.TabIndex = 3;
             this.rbn_WPC.TabStop = true;
             this.rbn_WPC.Text = "Bin &Number";
@@ -100,8 +98,9 @@
             this.lbl_message.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_message.Location = new System.Drawing.Point(12, 9);
             this.lbl_message.Name = "lbl_message";
-            this.lbl_message.Size = new System.Drawing.Size(0, 20);
+            this.lbl_message.Size = new System.Drawing.Size(13, 20);
             this.lbl_message.TabIndex = 23;
+            this.lbl_message.Text = ".";
             // 
             // Reprint_Palletcards
             // 

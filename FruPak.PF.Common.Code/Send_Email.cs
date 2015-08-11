@@ -158,6 +158,8 @@ namespace FruPak.PF.Common.Code
         }
         private void Send_btn()
         {
+            // Inside here I can switch off all network validation so i can test for correct email functionality
+            // BN 11/08/2015
             DLR_Message = new DialogResult();
 
             string str_msg = "";

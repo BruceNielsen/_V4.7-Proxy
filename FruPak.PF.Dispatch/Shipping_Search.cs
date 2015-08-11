@@ -7,6 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using System.Diagnostics;
 
 namespace FruPak.PF.Dispatch
 {
@@ -285,6 +286,7 @@ namespace FruPak.PF.Dispatch
         private void btn_View_Click(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
+            ClearOutTempFolder();
 
             logger.Log(LogLevel.Info, DecorateString("FruPak.PF.Dispatch.Shipping Search", "btn_View_Click", "(View)"));
 
@@ -938,8 +940,153 @@ namespace FruPak.PF.Dispatch
             foreach (string filename in lst_filenames)
             {
                 // Crashes here if the file is still open
-                File.Delete(filename);
+                try
+                {
+                    Console.WriteLine("Trying to delete: " + filename);
+                    logger.Log(LogLevel.Info, "Trying to delete: " + filename);
+
+                    File.Delete(filename);
+                    // Might need some sort of delay here
+                    System.Threading.Thread.Sleep(250); // Milliseconds
+                    if (File.Exists(filename))
+                    {
+                        Console.WriteLine("Delete failed: " + filename);
+                        logger.Log(LogLevel.Warn, "Delete failed: " + filename);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Delete success: " + filename);
+                        logger.Log(LogLevel.Info, "Delete success: " + filename);
+                    }
+                }
+                catch (IOException ioe)
+                {
+                    logger.Log(LogLevel.Error, ioe.Message + " - " + filename);
+
+                    MessageBox.Show(ioe.Message, "IOException", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    List<Process> procs = Common.Code.FileUtil.WhoIsLocking(filename);
+
+                    if (procs.Count > 0) // System.Diagnostics.Process (WINWORD)
+                    {
+                        Console.WriteLine("Attempting to kill: " + procs[0].ProcessName);
+                        logger.Log(LogLevel.Info, "Attempting to kill: " + procs[0].ProcessName);
+
+                        procs[0].Kill();
+                        procs[0].WaitForExit();
+
+                        Console.WriteLine("Retrying to delete: " + filename);
+                        logger.Log(LogLevel.Info, "Retrying to delete: " + filename);
+
+                        File.Delete(filename);  // Retry the delete - If no exception was thrown, then it deleted ok
+
+                        // Might need some sort of delay here
+                        System.Threading.Thread.Sleep(250); // Milliseconds
+                        if (File.Exists(filename))
+                        {
+                            Console.WriteLine("Delete failed: " + filename);
+                            logger.Log(LogLevel.Warn, "Delete failed: " + filename);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Delete success: " + filename);
+                            logger.Log(LogLevel.Info, "Delete success: " + filename);
+                        }
+                    }
+                }
             }
+
+        }
+
+        private void ClearOutTempFolder()
+        {
+            FruPak.PF.PrintLayer.Word.FilePath = FruPak.PF.Common.Code.General.Get_Path("PF-TPPath");
+            DirectoryInfo di = new DirectoryInfo(FruPak.PF.PrintLayer.Word.FilePath);
+            if (di.Exists)
+            {
+                foreach (FileInfo fi in di.GetFiles())
+                {
+                    lst_filenames.Add(fi.FullName);
+                }
+                //foreach (string file in view_list)
+                //{
+                //    lst_filenames.AddRange(System.IO.Directory.GetFiles(FruPak.PF.PrintLayer.Word.FilePath, "*" + file + "*", System.IO.SearchOption.TopDirectoryOnly));
+                //}
+                //try
+                //{
+                //    if (FruPak.PF.PrintLayer.Word.FilePath != null)
+                //    {
+                //        lst_filenames.AddRange(System.IO.Directory.GetFiles(FruPak.PF.PrintLayer.Word.FilePath, "*" + str_barcode + "*", System.IO.SearchOption.TopDirectoryOnly));
+                //    }
+                //    else
+                //    {
+                //        logger.Log(LogLevel.Info, LogCode("FruPak.PF.PrintLayer.Word.FilePath == null"));
+                //    }
+                //}
+                //catch (Exception ex)
+                //{
+                //    logger.Log(LogLevel.Debug, ex.Message);
+                //}
+                foreach (string filename in lst_filenames)
+                {
+                    // Crashes here if the file is still open
+                    try
+                    {
+                        Console.WriteLine("Trying to delete: " + filename);
+                        logger.Log(LogLevel.Info, "Trying to delete: " + filename);
+
+                        File.Delete(filename);
+                        // Might need some sort of delay here
+                        System.Threading.Thread.Sleep(250); // Milliseconds
+                        if (File.Exists(filename))
+                        {
+                            Console.WriteLine("Delete failed: " + filename);
+                            logger.Log(LogLevel.Warn, "Delete failed: " + filename);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Delete success: " + filename);
+                            logger.Log(LogLevel.Info, "Delete success: " + filename);
+                        }
+                    }
+                    catch (IOException ioe)
+                    {
+                        logger.Log(LogLevel.Error, ioe.Message + " - " + filename);
+
+                        MessageBox.Show(ioe.Message, "IOException", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        List<Process> procs = Common.Code.FileUtil.WhoIsLocking(filename);
+
+                        if (procs.Count > 0) // System.Diagnostics.Process (WINWORD)
+                        {
+                            Console.WriteLine("Attempting to kill: " + procs[0].ProcessName);
+                            logger.Log(LogLevel.Info, "Attempting to kill: " + procs[0].ProcessName);
+
+                            procs[0].Kill();
+                            procs[0].WaitForExit();
+
+                            Console.WriteLine("Retrying to delete: " + filename);
+                            logger.Log(LogLevel.Info, "Retrying to delete: " + filename);
+
+                            File.Delete(filename);  // Retry the delete - If no exception was thrown, then it deleted ok
+
+                            // Might need some sort of delay here
+                            System.Threading.Thread.Sleep(250); // Milliseconds
+                            if (File.Exists(filename))
+                            {
+                                Console.WriteLine("Delete failed: " + filename);
+                                logger.Log(LogLevel.Warn, "Delete failed: " + filename);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Delete success: " + filename);
+                                logger.Log(LogLevel.Info, "Delete success: " + filename);
+                            }
+                        }
+                    }
+                }
+            }
+            lst_filenames.Clear();
         }
 
         // Clears the filter when the user clicks the "Show All" link

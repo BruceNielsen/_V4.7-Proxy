@@ -261,17 +261,20 @@ namespace FruPak.ProcessFactory
 
                 MessageBox.Show("MAC address is empty, or no matching record in SC_Install table.\r\nDo you have a working network connection?", "Warning: MAC Address is empty", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
-
-            int int_install_id = 0;
-            DataSet ds = FruPak.PF.Data.AccessLayer.SC_Install.Get_MAC(MAC);
-            DataRow dr;
-            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            else
             {
-                dr = ds.Tables[0].Rows[i];
-                int_install_id = Convert.ToInt32(dr["Install_Id"].ToString());
+                int int_install_id = 0;
+                DataSet ds = FruPak.PF.Data.AccessLayer.SC_Install.Get_MAC(MAC);
+                DataRow dr;
+                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                {
+                    dr = ds.Tables[0].Rows[i];
+                    int_install_id = Convert.ToInt32(dr["Install_Id"].ToString());
+                }
+                logger.Log(LogLevel.Info, LogCode("Get_Install_Id: MAC: " + MAC + ", int_install_id: " + int_install_id.ToString()));
+                return int_install_id;
             }
-            logger.Log(LogLevel.Info, LogCode("Get_Install_Id: MAC: " + MAC + ", int_install_id: " + int_install_id.ToString()));
-            return int_install_id;
+            return -1;  // Network has failed - BN 6-8-2015
         }
 
         /// <summary>

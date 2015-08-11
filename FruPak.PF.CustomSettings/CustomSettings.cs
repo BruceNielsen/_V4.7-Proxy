@@ -99,31 +99,37 @@ namespace FruPak.PF.CustomSettings
         [Category("Phantom Technologies")]
         public string MaxTreeFileSizeInMegabytes { get; set; }
 
+        [Browsable(false)]
         [DisplayName("XML File Address")]
         [Description("Http location of XML file. IP or /url:Port/Filename. ie. http://127.0.0.1:8099/FruPak-PF-Update.xml")]
         [Category("Update Settings")]
         public string UpdateAddress { get; set; }
 
+        [Browsable(false)]
         [DisplayName("Proxy Username")]
         [Description("Proxy Username")]
         [Category("Update Settings")]
         public string UpdateProxyUsername { get; set; }
 
+        [Browsable(false)]
         [DisplayName("Proxy Password")]
         [Description("Proxy Password")]
         [Category("Update Settings")]
         public string UpdateProxyPassword { get; set; }
 
+        [Browsable(false)]
         [DisplayName("Proxy URI")]
         [Description("Proxy URI")]
         [Category("Update Settings")]
         public string UpdateProxyURI { get; set; }
 
+        [Browsable(false)]
         [DisplayName("Proxy Port")]
         [Description("Proxy Port")]
         [Category("Update Settings")]
         public string UpdateProxyPort { get; set; }
 
+        [Browsable(false)]
         [DisplayName("Use Proxy")]
         [Description("Use the proxy or not")]
         [Category("Update Settings")]

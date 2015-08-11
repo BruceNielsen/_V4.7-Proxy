@@ -61,6 +61,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="RestartManagerApi.cs" />
     <Compile Include="SendDebugEmail.cs">
       <SubType>Form</SubType>
     </Compile>

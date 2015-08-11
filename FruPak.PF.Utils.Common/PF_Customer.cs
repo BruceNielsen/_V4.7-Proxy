@@ -329,8 +329,7 @@ namespace FruPak.PF.Utils.Common
             FruPak.PF.Data.Outlook.Contacts.Contact_Details(cmb_Outlook.SelectedValue.ToString());
 
             // BN 5/8/2015 - The dude who originally wrote this was too lazy to
-            // check for nulls, and preferred to catch exceptions instead. Lazy
-            // git.
+            // check for nulls, and preferred to catch exceptions instead.
 
             // Exceptions are expensive to catch in terms of processor time.
             if (FruPak.PF.Data.Outlook.Contacts.Contact_Company_Name != "" &&

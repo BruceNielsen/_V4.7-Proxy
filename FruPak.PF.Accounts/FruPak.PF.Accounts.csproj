@@ -63,7 +63,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CheckIfFileIsLockedByProcess.cs" />
     <Compile Include="Fruit_Purchase.cs">
       <SubType>Form</SubType>
     </Compile>

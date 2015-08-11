@@ -1,20 +1,18 @@
-//using log4net.Config;
-using System.Reflection;
-using System.Runtime.CompilerServices;
+﻿using System.Reflection;
 using System.Runtime.InteropServices;
+using System.Resources;
 
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FruPak.ProcessFactory")]
-[assembly: AssemblyDescription("Process Factory")]
+[assembly: AssemblyTitle("AutoUpdater.NET")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("Phantom Technologies Ltd")]
-[assembly: AssemblyProduct("FruPak.ProcessFactory")]
-[assembly: AssemblyCopyright("Copyright ©  2015")]
+[assembly: AssemblyCompany("RBSoft")]
+[assembly: AssemblyProduct("AutoUpdater.NET")]
+[assembly: AssemblyCopyright("Copyright © 2012-2015 RBSoft")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
-//[assembly: XmlConfigurator(Watch = true)]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
@@ -22,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("8e25c354-2fe3-4cc6-9743-83cafeff615e")]
+[assembly: Guid("a4037a6f-fdf7-46c8-a303-c3c4fcddb015")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -34,5 +32,6 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers 
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("4.7.1.1")]
-[assembly: AssemblyFileVersion("4.7.1.1")]
+[assembly: AssemblyVersion("1.3.2.0")]
+[assembly: AssemblyFileVersion("1.3.2.0")]
+[assembly: NeutralResourcesLanguageAttribute("en")]

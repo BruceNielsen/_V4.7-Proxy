@@ -6,6 +6,7 @@ using Microsoft.Office.Interop.Outlook;
 using System.ComponentModel;
 using System.Data;
 using NLog;
+using System.Runtime.InteropServices;
 
 namespace FruPak.PF.Data.Outlook
 {
@@ -320,6 +321,20 @@ namespace FruPak.PF.Data.Outlook
             {
                 if (Outlook.Folder_Name_Locationfield != null)
                 {
+                    string outlookFolderName = Outlook.Folder_Name;
+                    string outlookFolderNameLocation = Outlook.Folder_Name_Location.FolderPath;
+                    Console.WriteLine(outlookFolderName + outlookFolderNameLocation);
+                    // This retrieves the type name (MAPIfolder)
+                    //object selection = Outlook.Folder_Name_Locationfield;
+                    //if (selection != null)
+                    //{
+                    //    string typeName = ComUtils.ComHelper.GetTypeName(selection);
+                    //    //Debug.Print(typeName);
+
+                    //    // If you release this here, it breaks everything, unsurprisingly enough.
+                    //    Marshal.ReleaseComObject(selection);
+                    //}
+
                     foreach (object obj in Outlook.Folder_Name_Locationfield.Items)
                     {
                         if (obj is _ContactItem)

@@ -550,35 +550,35 @@ namespace FruPak.PF.Menu
 
 		private void buttonAdd_Click(object sender, EventArgs e)
 		{
-			using (Reversible.Transaction txn = undoRedoSession.Begin("Add item"))
-			{
-				// Increment node index reversibly
-				Reversible.Transaction.AddPropertyChange(v => nodeIndex = v, nodeIndex, nodeIndex + 1);
-				nodeIndex++;
+			//using (Reversible.Transaction txn = undoRedoSession.Begin("Add item"))
+			//{
+			//    // Increment node index reversibly
+			//    Reversible.Transaction.AddPropertyChange(v => nodeIndex = v, nodeIndex, nodeIndex + 1);
+			//    nodeIndex++;
 
-				TreeNode currentNode = treeViewUndoRedo.SelectedNode;
-				if (currentNode == null)
-				{
-					treeViewUndoRedo.Nodes.Add_Reversible(new TreeNode("Node" + nodeIndex));
-					//treeViewUndoRedo.Nodes.Add_Reversible(new TreeNode("Node"));
-				}
-				else
-				{
-					currentNode.Nodes.Add_Reversible(new TreeNode("Node" + nodeIndex));
-					//currentNode.Nodes.Add_Reversible(new TreeNode("Node"));
-				}
-				txn.Commit();
-			}
+			//    TreeNode currentNode = treeViewUndoRedo.SelectedNode;
+			//    if (currentNode == null)
+			//    {
+			//        treeViewUndoRedo.Nodes.Add_Reversible(new TreeNode("Node" + nodeIndex));
+			//        //treeViewUndoRedo.Nodes.Add_Reversible(new TreeNode("Node"));
+			//    }
+			//    else
+			//    {
+			//        currentNode.Nodes.Add_Reversible(new TreeNode("Node" + nodeIndex));
+			//        //currentNode.Nodes.Add_Reversible(new TreeNode("Node"));
+			//    }
+			//    txn.Commit();
+			//}
 		}
 
 		private void buttonClear_Click(object sender, EventArgs e)
 		{
-			using (Reversible.Transaction txn = undoRedoSession.Begin("Clear items"))
-			{
-				treeViewUndoRedo.Nodes.Clear_Reversible();
+			//using (Reversible.Transaction txn = undoRedoSession.Begin("Clear items"))
+			//{
+			//    treeViewUndoRedo.Nodes.Clear_Reversible();
 
-				txn.Commit();
-			}
+			//    txn.Commit();
+			//}
 		}
 
 		private void buttonRedo_Click(object sender, EventArgs e)
@@ -588,16 +588,16 @@ namespace FruPak.PF.Menu
 
 		private void buttonRemove_Click(object sender, EventArgs e)
 		{
-			if (treeViewUndoRedo.SelectedNode != null)
-			{
-				using (Reversible.Transaction txn = undoRedoSession.Begin("Remove item"))
-				{
-					nodeIndex++;
-					treeViewUndoRedo.Nodes.RemoveAt_Reversible(treeViewUndoRedo.SelectedNode.Index);
+			//if (treeViewUndoRedo.SelectedNode != null)
+			//{
+			//    using (Reversible.Transaction txn = undoRedoSession.Begin("Remove item"))
+			//    {
+			//        nodeIndex++;
+			//        treeViewUndoRedo.Nodes.RemoveAt_Reversible(treeViewUndoRedo.SelectedNode.Index);
 
-					txn.Commit();
-				}
-			}
+			//        txn.Commit();
+			//    }
+			//}
 		}
 
 		private void buttonUndo_Click(object sender, EventArgs e)
@@ -1223,7 +1223,13 @@ namespace FruPak.PF.Menu
 		{
 			string output = string.Empty;
 
-			output = intro + name + openPad + input + closePad + action + outro;
+			// Simplify the output 10/08/2015 BN
+			//output = intro + name + openPad + input + closePad + action + outro;
+			// -------------------------------------------------------------------
+
+			// Massively simplify what we see in the debug output, now that
+			// we're almost finished
+			output = input;
 			return output;
 		}
 
@@ -1672,20 +1678,20 @@ namespace FruPak.PF.Menu
 			//string format = "ddd MMM ddd d HH:mm yyyy";    // Use this format
 			//Console.WriteLine(time.ToString(format));  // Write to console
 
-			FileInfo fi = new FileInfo(Application.StartupPath + @"\Serialise.xml");
-			if (fi.Exists == true)
-			{
-				//FormSerialisor.Deserialise(this, Application.StartupPath + @"\serialise.xml");
-				TreeViewSerializer serializer = new TreeViewSerializer();
-				serializer.DeserializeTreeView(this.treeViewUndoRedo, Application.StartupPath + @"\Serialise.xml");
+			//FileInfo fi = new FileInfo(Application.StartupPath + @"\Serialise.xml");
+			//if (fi.Exists == true)
+			//{
+			//    //FormSerialisor.Deserialise(this, Application.StartupPath + @"\serialise.xml");
+			//    TreeViewSerializer serializer = new TreeViewSerializer();
+			//    serializer.DeserializeTreeView(this.treeViewUndoRedo, Application.StartupPath + @"\Serialise.xml");
 
-				DateTime dt = DateTime.Now;
-				//string sTime = String.Format("{0:T}", dt);  // "4:05:07 PM" LongTime
-				string sTime = String.Format("{0:hh:mm:ss}", dt);  // Hour 12/24 (12)
-				//historyAdd(dt.ToShortDateString() + " " + sTime + " Session Begin");
-				historyAdd(sTime + " Session Begin");
-				Console.WriteLine("Time: " + sTime);
-			}
+			//    DateTime dt = DateTime.Now;
+			//    //string sTime = String.Format("{0:T}", dt);  // "4:05:07 PM" LongTime
+			//    string sTime = String.Format("{0:hh:mm:ss}", dt);  // Hour 12/24 (12)
+			//    //historyAdd(dt.ToShortDateString() + " " + sTime + " Session Begin");
+			//    historyAdd(sTime + " Session Begin");
+			//    Console.WriteLine("Time: " + sTime);
+			//}
 
 			#region Check to see if Outlook is running, and if not, start it
 
@@ -2128,195 +2134,195 @@ namespace FruPak.PF.Menu
 
 		public void historyAdd(string historyAction)
 		{
-			using (Reversible.Transaction txn = undoRedoSession.Begin("Add item"))
-			{
-				// Increment node index reversibly
-				Reversible.Transaction.AddPropertyChange(v => nodeIndex = v, nodeIndex, nodeIndex + 1);
-				nodeIndex++;
+			//using (Reversible.Transaction txn = undoRedoSession.Begin("Add item"))
+			//{
+			//    // Increment node index reversibly
+			//    Reversible.Transaction.AddPropertyChange(v => nodeIndex = v, nodeIndex, nodeIndex + 1);
+			//    nodeIndex++;
 
-				//TreeView treeViewUndoRedo = new TreeView ();
+			//    //TreeView treeViewUndoRedo = new TreeView ();
 
-				// Always add to the root of the TreeView
-				// Don't add the nodeIndex number at the end
-				//treeViewUndoRedo.Nodes.Add_Reversible(new TreeNode(historyAction + nodeIndex));
+			//    // Always add to the root of the TreeView
+			//    // Don't add the nodeIndex number at the end
+			//    //treeViewUndoRedo.Nodes.Add_Reversible(new TreeNode(historyAction + nodeIndex));
 
-				// Prefix with short time
-				//DateTime.Now.ToShortTimeString();
+			//    // Prefix with short time
+			//    //DateTime.Now.ToShortTimeString();
 
-				DateTime dt = DateTime.Now;
+			//    DateTime dt = DateTime.Now;
 
-				//String.Format("{0:h mm ss tt}", dt);
-				//string sTime = String.Format("{0:T}", dt);  // "4:05:07 PM" LongTime
-				string sTime = String.Format("{0:hh:mm:ss}", dt);  // "4:05:07 PM" LongTime
+			//    //String.Format("{0:h mm ss tt}", dt);
+			//    //string sTime = String.Format("{0:T}", dt);  // "4:05:07 PM" LongTime
+			//    string sTime = String.Format("{0:hh:mm:ss}", dt);  // "4:05:07 PM" LongTime
 
-				#region Date and Time stamp the very first entry in the tree
-				if (treeViewUndoRedo.Nodes.Count == 0)
-				{
-					TreeNode tNew = new TreeNode(dt.ToShortDateString() + " " + sTime + " Session Begin");
-					tNew.ImageIndex = 11;
-					tNew.SelectedImageIndex = 11;
-					treeViewUndoRedo.Nodes.Add_Reversible(tNew);
-				}
-				else
-				{
-					// Check to see if the date is earlier than today's date.
-					//int lastBackslash = treeViewUndoRedo.Nodes[0].Text.LastIndexOf("/");
-					//string datePart = treeViewUndoRedo.Nodes[0].Text.Substring(0, (lastBackslash + 5)); // If you don't add 5 you'll just get 8/04
-					//string today = dt.ToString("d");    // Return Date value in the form 8/4/2015
-					//if (datePart.StartsWith(today) != true)
-					//{
-					// Date doesn't match so clear the tree after saving to a backup
-					FileInfo fi = new FileInfo(Application.StartupPath + @"\Serialise.xml");
-					if (fi.Exists == true)
-					{
-						string s = ExtensionMethods.ToFileSize(fi.Length);
-						Console.WriteLine("FileSize in Bytes: " + s);
-						Console.WriteLine("TreeSize in Megabytes: " + this.MaxTreeFileSize);
+			//    #region Date and Time stamp the very first entry in the tree
+			//    if (treeViewUndoRedo.Nodes.Count == 0)
+			//    {
+			//        TreeNode tNew = new TreeNode(dt.ToShortDateString() + " " + sTime + " Session Begin");
+			//        tNew.ImageIndex = 11;
+			//        tNew.SelectedImageIndex = 11;
+			//        treeViewUndoRedo.Nodes.Add_Reversible(tNew);
+			//    }
+			//    else
+			//    {
+			//        // Check to see if the date is earlier than today's date.
+			//        //int lastBackslash = treeViewUndoRedo.Nodes[0].Text.LastIndexOf("/");
+			//        //string datePart = treeViewUndoRedo.Nodes[0].Text.Substring(0, (lastBackslash + 5)); // If you don't add 5 you'll just get 8/04
+			//        //string today = dt.ToString("d");    // Return Date value in the form 8/4/2015
+			//        //if (datePart.StartsWith(today) != true)
+			//        //{
+			//        // Date doesn't match so clear the tree after saving to a backup
+			//        FileInfo fi = new FileInfo(Application.StartupPath + @"\Serialise.xml");
+			//        if (fi.Exists == true)
+			//        {
+			//            string s = ExtensionMethods.ToFileSize(fi.Length);
+			//            Console.WriteLine("FileSize in Bytes: " + s);
+			//            Console.WriteLine("TreeSize in Megabytes: " + this.MaxTreeFileSize);
 
-						// Bytes to Megabytes = Bytes / (1024 * 1024)
-						// Megabytes to Bytes = Megabytes * (1024 * 1024.0)
+			//            // Bytes to Megabytes = Bytes / (1024 * 1024)
+			//            // Megabytes to Bytes = Megabytes * (1024 * 1024.0)
 
-						// 1.   Convert MaxTreeSize to Bytes
-						// 2.   Compare fi.Length to converted size
+			//            // 1.   Convert MaxTreeSize to Bytes
+			//            // 2.   Compare fi.Length to converted size
 
-						float MaxTree = float.Parse(MaxTreeFileSize);   // float.Parse is totally new to me :)
-						float Max = MaxTree * (1024F * 1024.0F);
-						Console.WriteLine("TreeSize in Megabytes as float: " + Max.ToString());
-						if (fi.Length > Max)
-						{
-							// Copy to a new file, overwriting any previously existing file.
-							fi.CopyTo(Application.StartupPath + @"\Serialise_Backup.xml", true);
-							fi.Delete();
+			//            float MaxTree = float.Parse(MaxTreeFileSize);   // float.Parse is totally new to me :)
+			//            float Max = MaxTree * (1024F * 1024.0F);
+			//            Console.WriteLine("TreeSize in Megabytes as float: " + Max.ToString());
+			//            if (fi.Length > Max)
+			//            {
+			//                // Copy to a new file, overwriting any previously existing file.
+			//                fi.CopyTo(Application.StartupPath + @"\Serialise_Backup.xml", true);
+			//                fi.Delete();
 
-							treeViewUndoRedo.Nodes.Clear();
+			//                treeViewUndoRedo.Nodes.Clear();
 
-							TreeNode tNew = new TreeNode(dt.ToShortDateString() + " " + sTime + " Session Begin");
-							tNew.ImageIndex = 11;
-							tNew.SelectedImageIndex = 11;
-							treeViewUndoRedo.Nodes.Add_Reversible(tNew);
+			//                TreeNode tNew = new TreeNode(dt.ToShortDateString() + " " + sTime + " Session Begin");
+			//                tNew.ImageIndex = 11;
+			//                tNew.SelectedImageIndex = 11;
+			//                treeViewUndoRedo.Nodes.Add_Reversible(tNew);
 
-						}
+			//            }
 
-					}
-					//}
-				}
-				#endregion
+			//        }
+			//        //}
+			//    }
+			//    #endregion
 
-				if (treeViewUndoRedo.SelectedNode == null)
-				{
-					// Just select the last available node
-					int iCount = treeViewUndoRedo.Nodes.Count;
-					treeViewUndoRedo.SelectedNode = treeViewUndoRedo.Nodes[iCount - 1];
-				}
+			//    if (treeViewUndoRedo.SelectedNode == null)
+			//    {
+			//        // Just select the last available node
+			//        int iCount = treeViewUndoRedo.Nodes.Count;
+			//        treeViewUndoRedo.SelectedNode = treeViewUndoRedo.Nodes[iCount - 1];
+			//    }
 
-				TreeNode currentNode = treeViewUndoRedo.SelectedNode;
-				if (historyAction.StartsWith("TabPage"))                    //if (historyAction.StartsWith("Ribbon Tab"))
-				{
-					currentNode = null;
-					TreeNode tn = new TreeNode(sTime + " " + historyAction);
+			//    TreeNode currentNode = treeViewUndoRedo.SelectedNode;
+			//    if (historyAction.StartsWith("TabPage"))                    //if (historyAction.StartsWith("Ribbon Tab"))
+			//    {
+			//        currentNode = null;
+			//        TreeNode tn = new TreeNode(sTime + " " + historyAction);
 
-					if (historyAction.EndsWith("Home"))
-					{
-						tn.ImageIndex = 1;
-						tn.SelectedImageIndex = 1;
-					}
-					else if (historyAction.EndsWith("Security"))
-					{
-						tn.ImageIndex = 2;
-						tn.SelectedImageIndex = 2;
-					}
-					else if (historyAction.EndsWith("Common"))
-					{
-						tn.ImageIndex = 3;
-						tn.SelectedImageIndex = 3;
-					}
-					else if (historyAction.EndsWith("Process Factory"))
-					{
-						tn.ImageIndex = 4;
-						tn.SelectedImageIndex = 4;
-					}
-					else if (historyAction.EndsWith("Dispatch"))
-					{
-						tn.ImageIndex = 5;
-						tn.SelectedImageIndex = 5;
-					}
-					else if (historyAction.EndsWith("PF - Maintenance"))
-					{
-						tn.ImageIndex = 6;
-						tn.SelectedImageIndex = 6;
-					}
-					else if (historyAction.EndsWith("Accounting"))
-					{
-						tn.ImageIndex = 7;
-						tn.SelectedImageIndex = 7;
-					}
-					else if (historyAction.EndsWith("Consumables"))
-					{
-						tn.ImageIndex = 8;
-						tn.SelectedImageIndex = 8;
-					}
-					else if (historyAction.EndsWith("Extra"))
-					{
-						tn.ImageIndex = 9;
-						tn.SelectedImageIndex = 9;
-					}
-					else if (historyAction.EndsWith("Reports"))
-					{
-						tn.ImageIndex = 10;
-						tn.SelectedImageIndex = 10;
-					}
-					//else
-					//{
-					//    tn.ImageIndex = -1;
-					//}
-					treeViewUndoRedo.Nodes.Add_Reversible(tn);
-					treeViewUndoRedo.SelectedNode = tn;
-				}
-				else if (historyAction.StartsWith("Button"))
-				{
-					currentNode.Nodes.Add_Reversible(new TreeNode(sTime + " " + historyAction));
-				}
-				else if (historyAction.EndsWith("Session Begin"))
-				{
-					TreeNode tNew = new TreeNode(dt.ToShortDateString() + " " + sTime + " Session Begin");
-					tNew.ImageIndex = 11;
-					tNew.SelectedImageIndex = 11;
-					treeViewUndoRedo.Nodes.Add_Reversible(tNew);
-				}
-				else
-				{
-					currentNode.Nodes.Add_Reversible(new TreeNode(sTime + " " + historyAction));
-				}
+			//        if (historyAction.EndsWith("Home"))
+			//        {
+			//            tn.ImageIndex = 1;
+			//            tn.SelectedImageIndex = 1;
+			//        }
+			//        else if (historyAction.EndsWith("Security"))
+			//        {
+			//            tn.ImageIndex = 2;
+			//            tn.SelectedImageIndex = 2;
+			//        }
+			//        else if (historyAction.EndsWith("Common"))
+			//        {
+			//            tn.ImageIndex = 3;
+			//            tn.SelectedImageIndex = 3;
+			//        }
+			//        else if (historyAction.EndsWith("Process Factory"))
+			//        {
+			//            tn.ImageIndex = 4;
+			//            tn.SelectedImageIndex = 4;
+			//        }
+			//        else if (historyAction.EndsWith("Dispatch"))
+			//        {
+			//            tn.ImageIndex = 5;
+			//            tn.SelectedImageIndex = 5;
+			//        }
+			//        else if (historyAction.EndsWith("PF - Maintenance"))
+			//        {
+			//            tn.ImageIndex = 6;
+			//            tn.SelectedImageIndex = 6;
+			//        }
+			//        else if (historyAction.EndsWith("Accounting"))
+			//        {
+			//            tn.ImageIndex = 7;
+			//            tn.SelectedImageIndex = 7;
+			//        }
+			//        else if (historyAction.EndsWith("Consumables"))
+			//        {
+			//            tn.ImageIndex = 8;
+			//            tn.SelectedImageIndex = 8;
+			//        }
+			//        else if (historyAction.EndsWith("Extra"))
+			//        {
+			//            tn.ImageIndex = 9;
+			//            tn.SelectedImageIndex = 9;
+			//        }
+			//        else if (historyAction.EndsWith("Reports"))
+			//        {
+			//            tn.ImageIndex = 10;
+			//            tn.SelectedImageIndex = 10;
+			//        }
+			//        //else
+			//        //{
+			//        //    tn.ImageIndex = -1;
+			//        //}
+			//        treeViewUndoRedo.Nodes.Add_Reversible(tn);
+			//        treeViewUndoRedo.SelectedNode = tn;
+			//    }
+			//    else if (historyAction.StartsWith("Button"))
+			//    {
+			//        currentNode.Nodes.Add_Reversible(new TreeNode(sTime + " " + historyAction));
+			//    }
+			//    else if (historyAction.EndsWith("Session Begin"))
+			//    {
+			//        TreeNode tNew = new TreeNode(dt.ToShortDateString() + " " + sTime + " Session Begin");
+			//        tNew.ImageIndex = 11;
+			//        tNew.SelectedImageIndex = 11;
+			//        treeViewUndoRedo.Nodes.Add_Reversible(tNew);
+			//    }
+			//    else
+			//    {
+			//        currentNode.Nodes.Add_Reversible(new TreeNode(sTime + " " + historyAction));
+			//    }
 
-				treeViewUndoRedo.ExpandAll();
+			//    treeViewUndoRedo.ExpandAll();
 
-				// Make sure bottom node is visible
-				treeViewUndoRedo.Nodes[treeViewUndoRedo.Nodes.Count - 1].EnsureVisible();
+			//    // Make sure bottom node is visible
+			//    treeViewUndoRedo.Nodes[treeViewUndoRedo.Nodes.Count - 1].EnsureVisible();
 
-				//if (currentNode == null)
-				//{
-				//    treeViewUndoRedo.Nodes.Add_Reversible(new TreeNode(historyAction + nodeIndex));
-				//}
-				//else
-				//{
-				//    currentNode.Nodes.Add_Reversible(new TreeNode(historyAction + nodeIndex));
-				//}
+			//    //if (currentNode == null)
+			//    //{
+			//    //    treeViewUndoRedo.Nodes.Add_Reversible(new TreeNode(historyAction + nodeIndex));
+			//    //}
+			//    //else
+			//    //{
+			//    //    currentNode.Nodes.Add_Reversible(new TreeNode(historyAction + nodeIndex));
+			//    //}
 
-				//treeViewUndoRedo.Nodes.Add_Reversible(new TreeNode(sTime + " " + historyAction));
+			//    //treeViewUndoRedo.Nodes.Add_Reversible(new TreeNode(sTime + " " + historyAction));
 
-				//TreeNode currentNode = treeViewUndoRedo.SelectedNode;
-				//if (currentNode == null)
-				//{
-				//    treeViewUndoRedo.Nodes.Add_Reversible(new TreeNode(historyAction + nodeIndex));
-				//}
-				//else
-				//{
-				//    currentNode.Nodes.Add_Reversible(new TreeNode(historyAction + nodeIndex));
-				//}
+			//    //TreeNode currentNode = treeViewUndoRedo.SelectedNode;
+			//    //if (currentNode == null)
+			//    //{
+			//    //    treeViewUndoRedo.Nodes.Add_Reversible(new TreeNode(historyAction + nodeIndex));
+			//    //}
+			//    //else
+			//    //{
+			//    //    currentNode.Nodes.Add_Reversible(new TreeNode(historyAction + nodeIndex));
+			//    //}
 
-				txn.Commit();
+			//    txn.Commit();
 
-			}
+			//}
 		}
 
 		public void HistoryMessageSink(string message)
@@ -2439,55 +2445,55 @@ namespace FruPak.PF.Menu
 
 		private void loadHistoryToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			openFileDialog1.DefaultExt = "xml";
-			openFileDialog1.InitialDirectory = Application.ExecutablePath;
-			openFileDialog1.Title = "Load History File...";
-			openFileDialog1.Filter = "XML History Files|*.xml";
-			openFileDialog1.FileName = "Serialise*.xml";
+			//openFileDialog1.DefaultExt = "xml";
+			//openFileDialog1.InitialDirectory = Application.ExecutablePath;
+			//openFileDialog1.Title = "Load History File...";
+			//openFileDialog1.Filter = "XML History Files|*.xml";
+			//openFileDialog1.FileName = "Serialise*.xml";
 
-			// Show the dialog and get result.
-			DialogResult result = openFileDialog1.ShowDialog();
-
-
-			if (result == DialogResult.OK) // Test result.
-			{
-				// Overkill
-				//FileInfo fi = new FileInfo(Application.StartupPath + @"\serialise.xml");
-				FileInfo fi = new FileInfo(openFileDialog1.FileName);
-				if (fi.Exists == true)
-				{
-					TreeViewSerializer serializer = new TreeViewSerializer();
-					serializer.DeserializeTreeView(this.treeViewUndoRedo, openFileDialog1.FileName);
-
-					DateTime dt = DateTime.Now;
-					//string sTime = String.Format("{0:T}", dt);  // "4:05:07 PM" LongTime
-					//historyAdd(dt.ToShortDateString() + " " + sTime + " History Loaded");
-
-					string sTime = String.Format("{0:hh:mm:ss}", dt);  // Hour 12/24 (12)
-					//historyAdd(dt.ToShortDateString() + " " + sTime + " Session Begin");
-					historyAdd(sTime + " Session Begin");
-					//Console.WriteLine("Time: " + sTime);
-
-					TreeNode tNew = new TreeNode(dt.ToShortDateString() + " " + sTime + " History Loaded");
-					tNew.ImageIndex = 13;
-					tNew.SelectedImageIndex = 13;
-					treeViewUndoRedo.Nodes.Add_Reversible(tNew);
-
-				}
-			}
-			//Console.WriteLine(result); // <-- For debugging use.
+			//// Show the dialog and get result.
+			//DialogResult result = openFileDialog1.ShowDialog();
 
 
-			//FileInfo fi = new FileInfo(Application.StartupPath + @"\serialise.xml");
-			//if (fi.Exists == true)
+			//if (result == DialogResult.OK) // Test result.
 			//{
-			//    TreeViewSerializer serializer = new TreeViewSerializer();
-			//    serializer.DeserializeTreeView(this.treeViewUndoRedo, Application.StartupPath + @"\serialise.xml");
+			//    // Overkill
+			//    //FileInfo fi = new FileInfo(Application.StartupPath + @"\serialise.xml");
+			//    FileInfo fi = new FileInfo(openFileDialog1.FileName);
+			//    if (fi.Exists == true)
+			//    {
+			//        TreeViewSerializer serializer = new TreeViewSerializer();
+			//        serializer.DeserializeTreeView(this.treeViewUndoRedo, openFileDialog1.FileName);
 
-			//    DateTime dt = DateTime.Now;
-			//    string sTime = String.Format("{0:T}", dt);  // "4:05:07 PM" LongTime
-			//    historyAdd(dt.ToShortDateString() + " " + sTime + " Session Begin");
+			//        DateTime dt = DateTime.Now;
+			//        //string sTime = String.Format("{0:T}", dt);  // "4:05:07 PM" LongTime
+			//        //historyAdd(dt.ToShortDateString() + " " + sTime + " History Loaded");
+
+			//        string sTime = String.Format("{0:hh:mm:ss}", dt);  // Hour 12/24 (12)
+			//        //historyAdd(dt.ToShortDateString() + " " + sTime + " Session Begin");
+			//        historyAdd(sTime + " Session Begin");
+			//        //Console.WriteLine("Time: " + sTime);
+
+			//        TreeNode tNew = new TreeNode(dt.ToShortDateString() + " " + sTime + " History Loaded");
+			//        tNew.ImageIndex = 13;
+			//        tNew.SelectedImageIndex = 13;
+			//        treeViewUndoRedo.Nodes.Add_Reversible(tNew);
+
+			//    }
 			//}
+			////Console.WriteLine(result); // <-- For debugging use.
+
+
+			////FileInfo fi = new FileInfo(Application.StartupPath + @"\serialise.xml");
+			////if (fi.Exists == true)
+			////{
+			////    TreeViewSerializer serializer = new TreeViewSerializer();
+			////    serializer.DeserializeTreeView(this.treeViewUndoRedo, Application.StartupPath + @"\serialise.xml");
+
+			////    DateTime dt = DateTime.Now;
+			////    string sTime = String.Format("{0:T}", dt);  // "4:05:07 PM" LongTime
+			////    historyAdd(dt.ToShortDateString() + " " + sTime + " Session Begin");
+			////}
 		}
 
 		private void loadOldStockNumbersToolStripMenuItem_Click(object sender, EventArgs e)
@@ -2525,10 +2531,10 @@ namespace FruPak.PF.Menu
 			Settings = null;
 			logger.Log(LogLevel.Info, LogCode("Main_Menu.cs: Main_Menu_FormClosing: Settings file saved."));
 			logger.Log(LogLevel.Info, "---------------------[ Program Ending ]--- :" + DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString());
-			//FormSerialisor.Serialise(this, Application.StartupPath + @"\serialise.xml");
-			TreeViewSerializer serializer = new TreeViewSerializer();
-			//serializer.SerializeTreeView(this.treeViewUndoRedo, saveFile.FileName);
-			serializer.SerializeTreeView(this.treeViewUndoRedo, Application.StartupPath + @"\Serialise.xml");
+			////FormSerialisor.Serialise(this, Application.StartupPath + @"\serialise.xml");
+			//TreeViewSerializer serializer = new TreeViewSerializer();
+			////serializer.SerializeTreeView(this.treeViewUndoRedo, saveFile.FileName);
+			//serializer.SerializeTreeView(this.treeViewUndoRedo, Application.StartupPath + @"\Serialise.xml");
 
 		}
 
@@ -2560,7 +2566,6 @@ namespace FruPak.PF.Menu
 		{
 			// Collapse the CollapsableSplitter to the collapsed state. Phantom 20/12/2014
 			this.collapsibleSplitterDebugPanel.ToggleState();
-			this.collapsibleSplitter1.ToggleState();
 			this.collapsibleSplitterDebug.ToggleState();
 			this.labelTabControlMainBottomStatus.Text = string.Empty;
 
@@ -2583,8 +2588,9 @@ namespace FruPak.PF.Menu
 			//The version number has four parts, as follows:
 			//<major version>.<minor version>.<build number>.<revision>
 
-			this.Text += " V" + Application.ProductVersion + " - " +
-				"Special Proxy Test Version (05/08/2015)";
+			this.Text += " V" + Application.ProductVersion + " (10/08/2015) " +
+				System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+				//"Special Proxy Test Version (05/08/2015)";
 
 			// Make a note of the date the version number changed "
 			// (Started off with v.1.3, for no reason at all.)
@@ -3288,8 +3294,8 @@ namespace FruPak.PF.Menu
 
 		private void printTreeToolStripMenuItem_Click(object sender, EventArgs e)
 		{
-			var print = new PrintHelper();
-			print.PrintPreviewTree(this.treeViewUndoRedo, "FruPak History");
+			//var print = new PrintHelper();
+			//print.PrintPreviewTree(this.treeViewUndoRedo, "FruPak History");
 
 		}
 
@@ -3944,13 +3950,13 @@ namespace FruPak.PF.Menu
 				historyAdd(sTime + " Session Begin");
 				//Console.WriteLine("Time: " + sTime);
 
-				TreeNode tNew = new TreeNode(dt.ToShortDateString() + " " + sTime + " History Saved");
-				tNew.ImageIndex = 14;
-				tNew.SelectedImageIndex = 14;
-				treeViewUndoRedo.Nodes.Add_Reversible(tNew);
+				//TreeNode tNew = new TreeNode(dt.ToShortDateString() + " " + sTime + " History Saved");
+				//tNew.ImageIndex = 14;
+				//tNew.SelectedImageIndex = 14;
+				//treeViewUndoRedo.Nodes.Add_Reversible(tNew);
 
-				// Make sure the save happens after the Date/Time stamp
-				serializer.SerializeTreeView(this.treeViewUndoRedo, saveFileDialog1.FileName);
+				//// Make sure the save happens after the Date/Time stamp
+				//serializer.SerializeTreeView(this.treeViewUndoRedo, saveFileDialog1.FileName);
 
 			}
 

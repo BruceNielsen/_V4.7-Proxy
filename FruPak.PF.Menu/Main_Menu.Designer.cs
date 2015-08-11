@@ -57,19 +57,11 @@
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripStatusLabelActive = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTipMainMenu = new System.Windows.Forms.ToolTip(this.components);
+            this.collapsibleSplitterDebugPanel = new Tools.CollapsibleSplitter();
             this.panelPropertyGridDebug = new System.Windows.Forms.Panel();
             this.labelCurrentPropertyGridSelectedObject = new System.Windows.Forms.Label();
             this.timer = new System.Windows.Forms.Timer(this.components);
-            this.panelTreeView = new System.Windows.Forms.Panel();
-            this.treeViewUndoRedo = new System.Windows.Forms.TreeView();
             this.imageListTreeView = new System.Windows.Forms.ImageList(this.components);
-            this.labelTreeViewUndoRedo = new System.Windows.Forms.Label();
-            this.panelTreeViewSubPanel = new System.Windows.Forms.Panel();
-            this.buttonRemove = new System.Windows.Forms.Button();
-            this.buttonAdd = new System.Windows.Forms.Button();
-            this.buttonClear = new System.Windows.Forms.Button();
-            this.buttonRedo = new System.Windows.Forms.Button();
-            this.buttonUndo = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
@@ -220,22 +212,12 @@
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageHome = new System.Windows.Forms.TabPage();
-            this.tabPageSecurity = new System.Windows.Forms.TabPage();
-            this.tabPageCommon = new System.Windows.Forms.TabPage();
-            this.tabPageProcessFactory = new System.Windows.Forms.TabPage();
-            this.tabPageDispatch = new System.Windows.Forms.TabPage();
-            this.tabPageMaintenance = new System.Windows.Forms.TabPage();
-            this.tabPageAccounting = new System.Windows.Forms.TabPage();
-            this.tabPageConsumables = new System.Windows.Forms.TabPage();
-            this.tabPageExtra = new System.Windows.Forms.TabPage();
-            this.tabPageReports = new System.Windows.Forms.TabPage();
-            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
-            this.labelTabControlMainBottomStatus = new System.Windows.Forms.Label();
             this.gradientPanelHome = new Tools.GradientPanel.GradientPanel();
             this.grouperHomeMessage = new Tools.Grouper();
             this.buttonHomeAddNewMessage = new System.Windows.Forms.Button();
             this.grouperHomeHelp = new Tools.Grouper();
             this.buttonHomeHelp = new System.Windows.Forms.Button();
+            this.tabPageSecurity = new System.Windows.Forms.TabPage();
             this.gradientPanelSecurity = new Tools.GradientPanel.GradientPanel();
             this.grouperSecurity_Server = new Tools.Grouper();
             this.buttonSecurity_Server_Start = new System.Windows.Forms.Button();
@@ -245,6 +227,7 @@
             this.grouperSecurityMaintenance = new Tools.Grouper();
             this.buttonSecurityMaintenanceUser = new System.Windows.Forms.Button();
             this.buttonSecurityMaintenanceGroup = new System.Windows.Forms.Button();
+            this.tabPageCommon = new System.Windows.Forms.TabPage();
             this.gradientPanelCommon = new Tools.GradientPanel.GradientPanel();
             this.grouperCommonGrower = new Tools.Grouper();
             this.buttonCommonGrowerTrader = new System.Windows.Forms.Button();
@@ -267,6 +250,7 @@
             this.buttonCommonGroupsProductGroups = new System.Windows.Forms.Button();
             this.grouperCommonLocation = new Tools.Grouper();
             this.groupedComboBoxCommonLocation = new GroupedComboBox();
+            this.tabPageProcessFactory = new System.Windows.Forms.TabPage();
             this.gradientPanelProcessFactory = new Tools.GradientPanel.GradientPanel();
             this.grouperProcessFactoryCompleteWorkOrders = new Tools.Grouper();
             this.buttonProcessFactoryCompleteWorkOrdersComplete = new System.Windows.Forms.Button();
@@ -288,6 +272,7 @@
             this.buttonProcessFactoryCleaningCleaning = new System.Windows.Forms.Button();
             this.grouperProcessFactorySetup = new Tools.Grouper();
             this.buttonProcessFactorySetupFactory = new System.Windows.Forms.Button();
+            this.tabPageDispatch = new System.Windows.Forms.TabPage();
             this.gradientPanelDispatch = new Tools.GradientPanel.GradientPanel();
             this.grouperDispatchOther = new Tools.Grouper();
             this.buttonDispatchOtherOtherWork = new System.Windows.Forms.Button();
@@ -307,6 +292,7 @@
             this.buttonDispatchBaseLoadReset = new System.Windows.Forms.Button();
             this.cueComboBoxDispatchBaseLoadList = new Tools.CueComboBox();
             this.buttonDispatchBaseLoadComplete = new System.Windows.Forms.Button();
+            this.tabPageMaintenance = new System.Windows.Forms.TabPage();
             this.gradientPanelMaintenance = new Tools.GradientPanel.GradientPanel();
             this.grouperPfMaintenanceStaff = new Tools.Grouper();
             this.buttonPfMaintenanceStaffMaintenance = new System.Windows.Forms.Button();
@@ -321,6 +307,7 @@
             this.buttonPfMaintenanceTypesOtherValues = new System.Windows.Forms.Button();
             this.grouperPfMaintenanceLab = new Tools.Grouper();
             this.buttonPfMaintenanceLabLabResults = new System.Windows.Forms.Button();
+            this.tabPageAccounting = new System.Windows.Forms.TabPage();
             this.gradientPanelAccounting = new Tools.GradientPanel.GradientPanel();
             this.grouperAccountingIntent = new Tools.Grouper();
             this.buttonAccountingIntentOrder = new System.Windows.Forms.Button();
@@ -336,11 +323,13 @@
             this.buttonAccountingSalesDiscounts = new System.Windows.Forms.Button();
             this.grouperAccountingCosts = new Tools.Grouper();
             this.buttonAccountingCostsRates = new System.Windows.Forms.Button();
+            this.tabPageConsumables = new System.Windows.Forms.TabPage();
             this.gradientPanelConsumables = new Tools.GradientPanel.GradientPanel();
             this.grouperConsumablesMaintenance = new Tools.Grouper();
             this.buttonConsumablesMaintenance = new System.Windows.Forms.Button();
             this.buttonConsumablesMaintenanceUsageAdjustment = new System.Windows.Forms.Button();
             this.buttonConsumablesMaintenanceHolding = new System.Windows.Forms.Button();
+            this.tabPageExtra = new System.Windows.Forms.TabPage();
             this.gradientPanelExtra = new Tools.GradientPanel.GradientPanel();
             this.grouperExtraHistory = new Tools.Grouper();
             this.buttonExtraHistoryLoadOldStockNumbers = new System.Windows.Forms.Button();
@@ -350,38 +339,30 @@
             this.buttonExtraScanningTabletMenu = new System.Windows.Forms.Button();
             this.buttonExtraScanningReprintPalletCard = new System.Windows.Forms.Button();
             this.buttonExtraScanningPalletWeights = new System.Windows.Forms.Button();
+            this.tabPageReports = new System.Windows.Forms.TabPage();
             this.gradientPanelReports = new Tools.GradientPanel.GradientPanel();
             this.grouperReportsSSRS = new Tools.Grouper();
             this.cueComboBoxReportsSSRSReportList = new Tools.CueComboBox();
             this.buttonReportsSSRSRun = new System.Windows.Forms.Button();
             this.grouperReportsMaintenance = new Tools.Grouper();
             this.buttonReportsMaintenanceAddNewReport = new System.Windows.Forms.Button();
+            this.imageList1 = new System.Windows.Forms.ImageList(this.components);
+            this.labelTabControlMainBottomStatus = new System.Windows.Forms.Label();
             this.collapsibleSplitterDebug = new Tools.CollapsibleSplitter();
-            this.collapsibleSplitter1 = new Tools.CollapsibleSplitter();
-            this.collapsibleSplitterDebugPanel = new Tools.CollapsibleSplitter();
             this.statusStrip1.SuspendLayout();
             this.panelPropertyGridDebug.SuspendLayout();
-            this.panelTreeView.SuspendLayout();
-            this.panelTreeViewSubPanel.SuspendLayout();
             this.menuStrip1.SuspendLayout();
             this.tabControlMain.SuspendLayout();
             this.tabPageHome.SuspendLayout();
-            this.tabPageSecurity.SuspendLayout();
-            this.tabPageCommon.SuspendLayout();
-            this.tabPageProcessFactory.SuspendLayout();
-            this.tabPageDispatch.SuspendLayout();
-            this.tabPageMaintenance.SuspendLayout();
-            this.tabPageAccounting.SuspendLayout();
-            this.tabPageConsumables.SuspendLayout();
-            this.tabPageExtra.SuspendLayout();
-            this.tabPageReports.SuspendLayout();
             this.gradientPanelHome.SuspendLayout();
             this.grouperHomeMessage.SuspendLayout();
             this.grouperHomeHelp.SuspendLayout();
+            this.tabPageSecurity.SuspendLayout();
             this.gradientPanelSecurity.SuspendLayout();
             this.grouperSecurity_Server.SuspendLayout();
             this.grouperSecurityMenusSecurityTab.SuspendLayout();
             this.grouperSecurityMaintenance.SuspendLayout();
+            this.tabPageCommon.SuspendLayout();
             this.gradientPanelCommon.SuspendLayout();
             this.grouperCommonGrower.SuspendLayout();
             this.grouperCommonMaterial.SuspendLayout();
@@ -390,33 +371,40 @@
             this.grouperCommonTypes.SuspendLayout();
             this.grouperCommonGroups.SuspendLayout();
             this.grouperCommonLocation.SuspendLayout();
+            this.tabPageProcessFactory.SuspendLayout();
             this.gradientPanelProcessFactory.SuspendLayout();
             this.grouperProcessFactoryCompleteWorkOrders.SuspendLayout();
             this.grouperProcessFactoryWorkOrders.SuspendLayout();
             this.grouperProcessFactoryCleaning.SuspendLayout();
             this.grouperProcessFactorySetup.SuspendLayout();
+            this.tabPageDispatch.SuspendLayout();
             this.gradientPanelDispatch.SuspendLayout();
             this.grouperDispatchOther.SuspendLayout();
             this.grouperDispatchScanning.SuspendLayout();
             this.grouperDispatchPacking.SuspendLayout();
             this.grouperDispatchOrders.SuspendLayout();
             this.grouperDispatchBaseLoad.SuspendLayout();
+            this.tabPageMaintenance.SuspendLayout();
             this.gradientPanelMaintenance.SuspendLayout();
             this.grouperPfMaintenanceStaff.SuspendLayout();
             this.grouperPfMaintenanceCleaning.SuspendLayout();
             this.grouperPfMaintenanceTypes.SuspendLayout();
             this.grouperPfMaintenanceLab.SuspendLayout();
+            this.tabPageAccounting.SuspendLayout();
             this.gradientPanelAccounting.SuspendLayout();
             this.grouperAccountingIntent.SuspendLayout();
             this.grouperAccountingInvoicing.SuspendLayout();
             this.grouperAccountingSales.SuspendLayout();
             this.grouperAccountingCosts.SuspendLayout();
+            this.tabPageConsumables.SuspendLayout();
             this.gradientPanelConsumables.SuspendLayout();
             this.grouperConsumablesMaintenance.SuspendLayout();
+            this.tabPageExtra.SuspendLayout();
             this.gradientPanelExtra.SuspendLayout();
             this.grouperExtraHistory.SuspendLayout();
             this.grouperExtraGateHouse.SuspendLayout();
             this.grouperExtraScanning.SuspendLayout();
+            this.tabPageReports.SuspendLayout();
             this.gradientPanelReports.SuspendLayout();
             this.grouperReportsSSRS.SuspendLayout();
             this.grouperReportsMaintenance.SuspendLayout();
@@ -444,9 +432,9 @@
             // 
             this.richTextBoxDebug.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.richTextBoxDebug.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxDebug.Location = new System.Drawing.Point(206, 508);
+            this.richTextBoxDebug.Location = new System.Drawing.Point(0, 508);
             this.richTextBoxDebug.Name = "richTextBoxDebug";
-            this.richTextBoxDebug.Size = new System.Drawing.Size(910, 161);
+            this.richTextBoxDebug.Size = new System.Drawing.Size(1122, 161);
             this.richTextBoxDebug.TabIndex = 5;
             this.richTextBoxDebug.Text = "";
             this.richTextBoxDebug.TextChanged += new System.EventHandler(this.richTextBoxDebug_TextChanged);
@@ -458,7 +446,7 @@
             this.toolStripStatusLabelActive});
             this.statusStrip1.Location = new System.Drawing.Point(0, 669);
             this.statusStrip1.Name = "statusStrip1";
-            this.statusStrip1.Size = new System.Drawing.Size(1349, 22);
+            this.statusStrip1.Size = new System.Drawing.Size(1350, 22);
             this.statusStrip1.TabIndex = 6;
             this.statusStrip1.Text = "statusStrip1";
             // 
@@ -575,21 +563,21 @@
             // brotherHL2040SeriesToolStripMenuItem
             // 
             this.brotherHL2040SeriesToolStripMenuItem.Name = "brotherHL2040SeriesToolStripMenuItem";
-            this.brotherHL2040SeriesToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.brotherHL2040SeriesToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
             this.brotherHL2040SeriesToolStripMenuItem.Text = "Brother HL-2040 series";
             this.brotherHL2040SeriesToolStripMenuItem.Click += new System.EventHandler(this.brotherHL2040SeriesToolStripMenuItem_Click);
             // 
             // kyoceraFS1061DNKPSLToolStripMenuItem
             // 
             this.kyoceraFS1061DNKPSLToolStripMenuItem.Name = "kyoceraFS1061DNKPSLToolStripMenuItem";
-            this.kyoceraFS1061DNKPSLToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.kyoceraFS1061DNKPSLToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
             this.kyoceraFS1061DNKPSLToolStripMenuItem.Text = "Kyocera FS-1061DN KPSL";
             this.kyoceraFS1061DNKPSLToolStripMenuItem.Click += new System.EventHandler(this.kyoceraFS1061DNKPSLToolStripMenuItem_Click);
             // 
             // kyoceraFS1300DToolStripMenuItem
             // 
             this.kyoceraFS1300DToolStripMenuItem.Name = "kyoceraFS1300DToolStripMenuItem";
-            this.kyoceraFS1300DToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
+            this.kyoceraFS1300DToolStripMenuItem.Size = new System.Drawing.Size(206, 22);
             this.kyoceraFS1300DToolStripMenuItem.Text = "Kyocera FS-1300D";
             this.kyoceraFS1300DToolStripMenuItem.Click += new System.EventHandler(this.kyoceraFS1300DToolStripMenuItem_Click);
             // 
@@ -642,12 +630,28 @@
             this.toolStripStatusLabelActive.Size = new System.Drawing.Size(10, 17);
             this.toolStripStatusLabelActive.Text = ".";
             // 
+            // collapsibleSplitterDebugPanel
+            // 
+            this.collapsibleSplitterDebugPanel.AnimationDelay = 20;
+            this.collapsibleSplitterDebugPanel.AnimationStep = 20;
+            this.collapsibleSplitterDebugPanel.BorderStyle3D = System.Windows.Forms.Border3DStyle.Flat;
+            this.collapsibleSplitterDebugPanel.ControlToHide = this.panelPropertyGridDebug;
+            this.collapsibleSplitterDebugPanel.Dock = System.Windows.Forms.DockStyle.Right;
+            this.collapsibleSplitterDebugPanel.ExpandParentForm = false;
+            this.collapsibleSplitterDebugPanel.Location = new System.Drawing.Point(1122, 24);
+            this.collapsibleSplitterDebugPanel.Name = "collapsibleSplitterDebug";
+            this.collapsibleSplitterDebugPanel.TabIndex = 7;
+            this.collapsibleSplitterDebugPanel.TabStop = false;
+            this.toolTipMainMenu.SetToolTip(this.collapsibleSplitterDebugPanel, "PropertyGrid");
+            this.collapsibleSplitterDebugPanel.UseAnimations = false;
+            this.collapsibleSplitterDebugPanel.VisualStyle = Tools.VisualStyles.XP;
+            // 
             // panelPropertyGridDebug
             // 
             this.panelPropertyGridDebug.Controls.Add(this.propertyGridDebug);
             this.panelPropertyGridDebug.Controls.Add(this.labelCurrentPropertyGridSelectedObject);
             this.panelPropertyGridDebug.Dock = System.Windows.Forms.DockStyle.Right;
-            this.panelPropertyGridDebug.Location = new System.Drawing.Point(1124, 24);
+            this.panelPropertyGridDebug.Location = new System.Drawing.Point(1125, 24);
             this.panelPropertyGridDebug.Name = "panelPropertyGridDebug";
             this.panelPropertyGridDebug.Size = new System.Drawing.Size(225, 645);
             this.panelPropertyGridDebug.TabIndex = 9;
@@ -665,29 +669,6 @@
             // timer
             // 
             this.timer.Tick += new System.EventHandler(this.timer_Tick_1);
-            // 
-            // panelTreeView
-            // 
-            this.panelTreeView.Controls.Add(this.treeViewUndoRedo);
-            this.panelTreeView.Controls.Add(this.labelTreeViewUndoRedo);
-            this.panelTreeView.Controls.Add(this.panelTreeViewSubPanel);
-            this.panelTreeView.Dock = System.Windows.Forms.DockStyle.Left;
-            this.panelTreeView.Location = new System.Drawing.Point(0, 24);
-            this.panelTreeView.Name = "panelTreeView";
-            this.panelTreeView.Size = new System.Drawing.Size(198, 645);
-            this.panelTreeView.TabIndex = 10;
-            // 
-            // treeViewUndoRedo
-            // 
-            this.treeViewUndoRedo.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.treeViewUndoRedo.Font = new System.Drawing.Font("Courier New", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.treeViewUndoRedo.ImageIndex = 0;
-            this.treeViewUndoRedo.ImageList = this.imageListTreeView;
-            this.treeViewUndoRedo.Location = new System.Drawing.Point(0, 13);
-            this.treeViewUndoRedo.Name = "treeViewUndoRedo";
-            this.treeViewUndoRedo.SelectedImageIndex = 12;
-            this.treeViewUndoRedo.Size = new System.Drawing.Size(198, 600);
-            this.treeViewUndoRedo.TabIndex = 0;
             // 
             // imageListTreeView
             // 
@@ -709,80 +690,6 @@
             this.imageListTreeView.Images.SetKeyName(13, "Hopstarter-Soft-Scraps-Button-Upload.png");
             this.imageListTreeView.Images.SetKeyName(14, "Hopstarter-Soft-Scraps-Button-Download.png");
             // 
-            // labelTreeViewUndoRedo
-            // 
-            this.labelTreeViewUndoRedo.BackColor = System.Drawing.SystemColors.ControlDark;
-            this.labelTreeViewUndoRedo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.labelTreeViewUndoRedo.Location = new System.Drawing.Point(0, 0);
-            this.labelTreeViewUndoRedo.Name = "labelTreeViewUndoRedo";
-            this.labelTreeViewUndoRedo.Size = new System.Drawing.Size(198, 13);
-            this.labelTreeViewUndoRedo.TabIndex = 5;
-            this.labelTreeViewUndoRedo.Text = "History";
-            // 
-            // panelTreeViewSubPanel
-            // 
-            this.panelTreeViewSubPanel.Controls.Add(this.buttonRemove);
-            this.panelTreeViewSubPanel.Controls.Add(this.buttonAdd);
-            this.panelTreeViewSubPanel.Controls.Add(this.buttonClear);
-            this.panelTreeViewSubPanel.Controls.Add(this.buttonRedo);
-            this.panelTreeViewSubPanel.Controls.Add(this.buttonUndo);
-            this.panelTreeViewSubPanel.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelTreeViewSubPanel.Location = new System.Drawing.Point(0, 613);
-            this.panelTreeViewSubPanel.Name = "panelTreeViewSubPanel";
-            this.panelTreeViewSubPanel.Size = new System.Drawing.Size(198, 32);
-            this.panelTreeViewSubPanel.TabIndex = 1;
-            this.panelTreeViewSubPanel.Visible = false;
-            // 
-            // buttonRemove
-            // 
-            this.buttonRemove.Location = new System.Drawing.Point(148, 6);
-            this.buttonRemove.Name = "buttonRemove";
-            this.buttonRemove.Size = new System.Drawing.Size(45, 22);
-            this.buttonRemove.TabIndex = 4;
-            this.buttonRemove.Text = "Rem";
-            this.buttonRemove.UseVisualStyleBackColor = true;
-            this.buttonRemove.Click += new System.EventHandler(this.buttonRemove_Click);
-            // 
-            // buttonAdd
-            // 
-            this.buttonAdd.Location = new System.Drawing.Point(97, 6);
-            this.buttonAdd.Name = "buttonAdd";
-            this.buttonAdd.Size = new System.Drawing.Size(45, 22);
-            this.buttonAdd.TabIndex = 3;
-            this.buttonAdd.Text = "&Add";
-            this.buttonAdd.UseVisualStyleBackColor = true;
-            this.buttonAdd.Click += new System.EventHandler(this.buttonAdd_Click);
-            // 
-            // buttonClear
-            // 
-            this.buttonClear.Location = new System.Drawing.Point(196, 6);
-            this.buttonClear.Name = "buttonClear";
-            this.buttonClear.Size = new System.Drawing.Size(45, 22);
-            this.buttonClear.TabIndex = 2;
-            this.buttonClear.Text = "Clear";
-            this.buttonClear.UseVisualStyleBackColor = true;
-            this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
-            // 
-            // buttonRedo
-            // 
-            this.buttonRedo.Location = new System.Drawing.Point(50, 6);
-            this.buttonRedo.Name = "buttonRedo";
-            this.buttonRedo.Size = new System.Drawing.Size(45, 22);
-            this.buttonRedo.TabIndex = 1;
-            this.buttonRedo.Text = "Redo";
-            this.buttonRedo.UseVisualStyleBackColor = true;
-            this.buttonRedo.Click += new System.EventHandler(this.buttonRedo_Click);
-            // 
-            // buttonUndo
-            // 
-            this.buttonUndo.Location = new System.Drawing.Point(3, 6);
-            this.buttonUndo.Name = "buttonUndo";
-            this.buttonUndo.Size = new System.Drawing.Size(45, 22);
-            this.buttonUndo.TabIndex = 0;
-            this.buttonUndo.Text = "Undo";
-            this.buttonUndo.UseVisualStyleBackColor = true;
-            this.buttonUndo.Click += new System.EventHandler(this.buttonUndo_Click);
-            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
@@ -803,7 +710,7 @@
             this.reporsToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1349, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(1350, 24);
             this.menuStrip1.TabIndex = 12;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -987,14 +894,14 @@
             // citiesToolStripMenuItem
             // 
             this.citiesToolStripMenuItem.Name = "citiesToolStripMenuItem";
-            this.citiesToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.citiesToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.citiesToolStripMenuItem.Text = "&Cities";
             this.citiesToolStripMenuItem.Click += new System.EventHandler(this.citiesToolStripMenuItem_Click);
             // 
             // trucksToolStripMenuItem
             // 
             this.trucksToolStripMenuItem.Name = "trucksToolStripMenuItem";
-            this.trucksToolStripMenuItem.Size = new System.Drawing.Size(108, 22);
+            this.trucksToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
             this.trucksToolStripMenuItem.Text = "&Trucks";
             this.trucksToolStripMenuItem.Click += new System.EventHandler(this.trucksToolStripMenuItem_Click);
             // 
@@ -1159,14 +1066,14 @@
             // typeToolStripMenuItem
             // 
             this.typeToolStripMenuItem.Name = "typeToolStripMenuItem";
-            this.typeToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.typeToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.typeToolStripMenuItem.Text = "&Type";
             this.typeToolStripMenuItem.Click += new System.EventHandler(this.typeToolStripMenuItem_Click);
             // 
             // varietyToolStripMenuItem
             // 
             this.varietyToolStripMenuItem.Name = "varietyToolStripMenuItem";
-            this.varietyToolStripMenuItem.Size = new System.Drawing.Size(109, 22);
+            this.varietyToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
             this.varietyToolStripMenuItem.Text = "&Variety";
             this.varietyToolStripMenuItem.Click += new System.EventHandler(this.varietyToolStripMenuItem_Click);
             // 
@@ -1623,28 +1530,28 @@
             // productsToolStripMenuItem
             // 
             this.productsToolStripMenuItem.Name = "productsToolStripMenuItem";
-            this.productsToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.productsToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.productsToolStripMenuItem.Text = "&Products";
             this.productsToolStripMenuItem.Click += new System.EventHandler(this.productsToolStripMenuItem_Click);
             // 
             // testsToolStripMenuItem1
             // 
             this.testsToolStripMenuItem1.Name = "testsToolStripMenuItem1";
-            this.testsToolStripMenuItem1.Size = new System.Drawing.Size(140, 22);
+            this.testsToolStripMenuItem1.Size = new System.Drawing.Size(141, 22);
             this.testsToolStripMenuItem1.Text = "&Tests";
             this.testsToolStripMenuItem1.Click += new System.EventHandler(this.testsToolStripMenuItem_Maintenance_Click);
             // 
             // chemicalsToolStripMenuItem1
             // 
             this.chemicalsToolStripMenuItem1.Name = "chemicalsToolStripMenuItem1";
-            this.chemicalsToolStripMenuItem1.Size = new System.Drawing.Size(140, 22);
+            this.chemicalsToolStripMenuItem1.Size = new System.Drawing.Size(141, 22);
             this.chemicalsToolStripMenuItem1.Text = "&Chemicals";
             this.chemicalsToolStripMenuItem1.Click += new System.EventHandler(this.chemicalsToolStripMenuItem_Maintenance_Click);
             // 
             // otherValuesToolStripMenuItem
             // 
             this.otherValuesToolStripMenuItem.Name = "otherValuesToolStripMenuItem";
-            this.otherValuesToolStripMenuItem.Size = new System.Drawing.Size(140, 22);
+            this.otherValuesToolStripMenuItem.Size = new System.Drawing.Size(141, 22);
             this.otherValuesToolStripMenuItem.Text = "&Other Values";
             this.otherValuesToolStripMenuItem.Click += new System.EventHandler(this.otherValuesToolStripMenuItem_Click);
             // 
@@ -2000,10 +1907,10 @@
             this.tabControlMain.Controls.Add(this.tabPageReports);
             this.tabControlMain.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tabControlMain.ImageList = this.imageList1;
-            this.tabControlMain.Location = new System.Drawing.Point(206, 24);
+            this.tabControlMain.Location = new System.Drawing.Point(0, 24);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(910, 462);
+            this.tabControlMain.Size = new System.Drawing.Size(1122, 462);
             this.tabControlMain.TabIndex = 1;
             this.tabControlMain.SelectedIndexChanged += new System.EventHandler(this.tabControlMain_SelectedIndexChanged);
             // 
@@ -2014,136 +1921,10 @@
             this.tabPageHome.Location = new System.Drawing.Point(4, 31);
             this.tabPageHome.Name = "tabPageHome";
             this.tabPageHome.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageHome.Size = new System.Drawing.Size(902, 427);
+            this.tabPageHome.Size = new System.Drawing.Size(1114, 427);
             this.tabPageHome.TabIndex = 0;
             this.tabPageHome.Text = "Home";
             this.tabPageHome.UseVisualStyleBackColor = true;
-            // 
-            // tabPageSecurity
-            // 
-            this.tabPageSecurity.Controls.Add(this.gradientPanelSecurity);
-            this.tabPageSecurity.ImageIndex = 1;
-            this.tabPageSecurity.Location = new System.Drawing.Point(4, 31);
-            this.tabPageSecurity.Name = "tabPageSecurity";
-            this.tabPageSecurity.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSecurity.Size = new System.Drawing.Size(902, 422);
-            this.tabPageSecurity.TabIndex = 1;
-            this.tabPageSecurity.Text = "Security";
-            this.tabPageSecurity.UseVisualStyleBackColor = true;
-            // 
-            // tabPageCommon
-            // 
-            this.tabPageCommon.Controls.Add(this.gradientPanelCommon);
-            this.tabPageCommon.ImageIndex = 2;
-            this.tabPageCommon.Location = new System.Drawing.Point(4, 31);
-            this.tabPageCommon.Name = "tabPageCommon";
-            this.tabPageCommon.Size = new System.Drawing.Size(902, 422);
-            this.tabPageCommon.TabIndex = 2;
-            this.tabPageCommon.Text = "Common";
-            this.tabPageCommon.UseVisualStyleBackColor = true;
-            // 
-            // tabPageProcessFactory
-            // 
-            this.tabPageProcessFactory.Controls.Add(this.gradientPanelProcessFactory);
-            this.tabPageProcessFactory.ImageIndex = 3;
-            this.tabPageProcessFactory.Location = new System.Drawing.Point(4, 31);
-            this.tabPageProcessFactory.Name = "tabPageProcessFactory";
-            this.tabPageProcessFactory.Size = new System.Drawing.Size(902, 422);
-            this.tabPageProcessFactory.TabIndex = 3;
-            this.tabPageProcessFactory.Text = "Process Factory";
-            this.tabPageProcessFactory.UseVisualStyleBackColor = true;
-            // 
-            // tabPageDispatch
-            // 
-            this.tabPageDispatch.Controls.Add(this.gradientPanelDispatch);
-            this.tabPageDispatch.ImageIndex = 4;
-            this.tabPageDispatch.Location = new System.Drawing.Point(4, 31);
-            this.tabPageDispatch.Name = "tabPageDispatch";
-            this.tabPageDispatch.Size = new System.Drawing.Size(902, 422);
-            this.tabPageDispatch.TabIndex = 4;
-            this.tabPageDispatch.Text = "Dispatch";
-            this.tabPageDispatch.UseVisualStyleBackColor = true;
-            // 
-            // tabPageMaintenance
-            // 
-            this.tabPageMaintenance.Controls.Add(this.gradientPanelMaintenance);
-            this.tabPageMaintenance.ImageIndex = 5;
-            this.tabPageMaintenance.Location = new System.Drawing.Point(4, 31);
-            this.tabPageMaintenance.Name = "tabPageMaintenance";
-            this.tabPageMaintenance.Size = new System.Drawing.Size(902, 422);
-            this.tabPageMaintenance.TabIndex = 5;
-            this.tabPageMaintenance.Text = "PF - Maintenance";
-            this.tabPageMaintenance.UseVisualStyleBackColor = true;
-            // 
-            // tabPageAccounting
-            // 
-            this.tabPageAccounting.Controls.Add(this.gradientPanelAccounting);
-            this.tabPageAccounting.ImageIndex = 6;
-            this.tabPageAccounting.Location = new System.Drawing.Point(4, 31);
-            this.tabPageAccounting.Name = "tabPageAccounting";
-            this.tabPageAccounting.Size = new System.Drawing.Size(902, 422);
-            this.tabPageAccounting.TabIndex = 6;
-            this.tabPageAccounting.Text = "Accounting";
-            this.tabPageAccounting.UseVisualStyleBackColor = true;
-            // 
-            // tabPageConsumables
-            // 
-            this.tabPageConsumables.Controls.Add(this.gradientPanelConsumables);
-            this.tabPageConsumables.ImageIndex = 7;
-            this.tabPageConsumables.Location = new System.Drawing.Point(4, 31);
-            this.tabPageConsumables.Name = "tabPageConsumables";
-            this.tabPageConsumables.Size = new System.Drawing.Size(902, 422);
-            this.tabPageConsumables.TabIndex = 7;
-            this.tabPageConsumables.Text = "Consumables";
-            this.tabPageConsumables.UseVisualStyleBackColor = true;
-            // 
-            // tabPageExtra
-            // 
-            this.tabPageExtra.Controls.Add(this.gradientPanelExtra);
-            this.tabPageExtra.ImageIndex = 8;
-            this.tabPageExtra.Location = new System.Drawing.Point(4, 31);
-            this.tabPageExtra.Name = "tabPageExtra";
-            this.tabPageExtra.Size = new System.Drawing.Size(902, 422);
-            this.tabPageExtra.TabIndex = 8;
-            this.tabPageExtra.Text = "Extra";
-            this.tabPageExtra.UseVisualStyleBackColor = true;
-            // 
-            // tabPageReports
-            // 
-            this.tabPageReports.Controls.Add(this.gradientPanelReports);
-            this.tabPageReports.ImageIndex = 9;
-            this.tabPageReports.Location = new System.Drawing.Point(4, 31);
-            this.tabPageReports.Name = "tabPageReports";
-            this.tabPageReports.Size = new System.Drawing.Size(902, 422);
-            this.tabPageReports.TabIndex = 9;
-            this.tabPageReports.Text = "Reports";
-            this.tabPageReports.UseVisualStyleBackColor = true;
-            // 
-            // imageList1
-            // 
-            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
-            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
-            this.imageList1.Images.SetKeyName(0, "Home32.png");
-            this.imageList1.Images.SetKeyName(1, "Lock32.png");
-            this.imageList1.Images.SetKeyName(2, "Grower 24x24.png");
-            this.imageList1.Images.SetKeyName(3, "factory24x.png");
-            this.imageList1.Images.SetKeyName(4, "Carton 24x24.png");
-            this.imageList1.Images.SetKeyName(5, "tool24x.png");
-            this.imageList1.Images.SetKeyName(6, "Calculator32.png");
-            this.imageList1.Images.SetKeyName(7, "red apple 24x.png");
-            this.imageList1.Images.SetKeyName(8, "icons yellow excl 24x.png");
-            this.imageList1.Images.SetKeyName(9, "Run32.png");
-            this.imageList1.Images.SetKeyName(10, "UpdateIcon.png");
-            // 
-            // labelTabControlMainBottomStatus
-            // 
-            this.labelTabControlMainBottomStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.labelTabControlMainBottomStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTabControlMainBottomStatus.Location = new System.Drawing.Point(206, 486);
-            this.labelTabControlMainBottomStatus.Name = "labelTabControlMainBottomStatus";
-            this.labelTabControlMainBottomStatus.Size = new System.Drawing.Size(910, 19);
-            this.labelTabControlMainBottomStatus.TabIndex = 65;
-            this.labelTabControlMainBottomStatus.Text = ".";
             // 
             // gradientPanelHome
             // 
@@ -2156,7 +1937,7 @@
             this.gradientPanelHome.Name = "gradientPanelHome";
             this.gradientPanelHome.PageEndColor = System.Drawing.Color.Empty;
             this.gradientPanelHome.PageStartColor = System.Drawing.SystemColors.ActiveCaption;
-            this.gradientPanelHome.Size = new System.Drawing.Size(896, 421);
+            this.gradientPanelHome.Size = new System.Drawing.Size(1108, 421);
             this.gradientPanelHome.TabIndex = 96;
             // 
             // grouperHomeMessage
@@ -2180,6 +1961,7 @@
             this.grouperHomeMessage.ShadowThickness = 3;
             this.grouperHomeMessage.Size = new System.Drawing.Size(132, 91);
             this.grouperHomeMessage.TabIndex = 1;
+            this.grouperHomeMessage.Visible = false;
             // 
             // buttonHomeAddNewMessage
             // 
@@ -2229,6 +2011,18 @@
             this.buttonHomeHelp.UseVisualStyleBackColor = true;
             this.buttonHomeHelp.Click += new System.EventHandler(this.Home_Help_Help_Click);
             // 
+            // tabPageSecurity
+            // 
+            this.tabPageSecurity.Controls.Add(this.gradientPanelSecurity);
+            this.tabPageSecurity.ImageIndex = 1;
+            this.tabPageSecurity.Location = new System.Drawing.Point(4, 31);
+            this.tabPageSecurity.Name = "tabPageSecurity";
+            this.tabPageSecurity.Padding = new System.Windows.Forms.Padding(3);
+            this.tabPageSecurity.Size = new System.Drawing.Size(1109, 427);
+            this.tabPageSecurity.TabIndex = 1;
+            this.tabPageSecurity.Text = "Security";
+            this.tabPageSecurity.UseVisualStyleBackColor = true;
+            // 
             // gradientPanelSecurity
             // 
             this.gradientPanelSecurity.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gradientPanelSecurity.BackgroundImage")));
@@ -2241,7 +2035,7 @@
             this.gradientPanelSecurity.Name = "gradientPanelSecurity";
             this.gradientPanelSecurity.PageEndColor = System.Drawing.Color.Empty;
             this.gradientPanelSecurity.PageStartColor = System.Drawing.SystemColors.ActiveCaption;
-            this.gradientPanelSecurity.Size = new System.Drawing.Size(896, 416);
+            this.gradientPanelSecurity.Size = new System.Drawing.Size(1103, 421);
             this.gradientPanelSecurity.TabIndex = 97;
             // 
             // grouperSecurity_Server
@@ -2376,6 +2170,17 @@
             this.buttonSecurityMaintenanceGroup.UseVisualStyleBackColor = true;
             this.buttonSecurityMaintenanceGroup.Click += new System.EventHandler(this.Security_Maintenance_Group_Click);
             // 
+            // tabPageCommon
+            // 
+            this.tabPageCommon.Controls.Add(this.gradientPanelCommon);
+            this.tabPageCommon.ImageIndex = 2;
+            this.tabPageCommon.Location = new System.Drawing.Point(4, 31);
+            this.tabPageCommon.Name = "tabPageCommon";
+            this.tabPageCommon.Size = new System.Drawing.Size(1109, 427);
+            this.tabPageCommon.TabIndex = 2;
+            this.tabPageCommon.Text = "Common";
+            this.tabPageCommon.UseVisualStyleBackColor = true;
+            // 
             // gradientPanelCommon
             // 
             this.gradientPanelCommon.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gradientPanelCommon.BackgroundImage")));
@@ -2392,7 +2197,7 @@
             this.gradientPanelCommon.Name = "gradientPanelCommon";
             this.gradientPanelCommon.PageEndColor = System.Drawing.Color.Empty;
             this.gradientPanelCommon.PageStartColor = System.Drawing.SystemColors.ActiveCaption;
-            this.gradientPanelCommon.Size = new System.Drawing.Size(902, 422);
+            this.gradientPanelCommon.Size = new System.Drawing.Size(1109, 427);
             this.gradientPanelCommon.TabIndex = 103;
             // 
             // grouperCommonGrower
@@ -2729,6 +2534,17 @@
             this.groupedComboBoxCommonLocation.TabIndex = 2;
             this.groupedComboBoxCommonLocation.SelectedIndexChanged += new System.EventHandler(this.groupedComboBoxCommonLocation_SelectedIndexChanged);
             // 
+            // tabPageProcessFactory
+            // 
+            this.tabPageProcessFactory.Controls.Add(this.gradientPanelProcessFactory);
+            this.tabPageProcessFactory.ImageIndex = 3;
+            this.tabPageProcessFactory.Location = new System.Drawing.Point(4, 31);
+            this.tabPageProcessFactory.Name = "tabPageProcessFactory";
+            this.tabPageProcessFactory.Size = new System.Drawing.Size(1109, 427);
+            this.tabPageProcessFactory.TabIndex = 3;
+            this.tabPageProcessFactory.Text = "Process Factory";
+            this.tabPageProcessFactory.UseVisualStyleBackColor = true;
+            // 
             // gradientPanelProcessFactory
             // 
             this.gradientPanelProcessFactory.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gradientPanelProcessFactory.BackgroundImage")));
@@ -2742,7 +2558,7 @@
             this.gradientPanelProcessFactory.Name = "gradientPanelProcessFactory";
             this.gradientPanelProcessFactory.PageEndColor = System.Drawing.Color.Empty;
             this.gradientPanelProcessFactory.PageStartColor = System.Drawing.SystemColors.ActiveCaption;
-            this.gradientPanelProcessFactory.Size = new System.Drawing.Size(902, 422);
+            this.gradientPanelProcessFactory.Size = new System.Drawing.Size(1109, 427);
             this.gradientPanelProcessFactory.TabIndex = 112;
             // 
             // grouperProcessFactoryCompleteWorkOrders
@@ -3042,6 +2858,17 @@
             this.buttonProcessFactorySetupFactory.UseVisualStyleBackColor = true;
             this.buttonProcessFactorySetupFactory.Click += new System.EventHandler(this.ProcessFactory_Setup_Factory_Click);
             // 
+            // tabPageDispatch
+            // 
+            this.tabPageDispatch.Controls.Add(this.gradientPanelDispatch);
+            this.tabPageDispatch.ImageIndex = 4;
+            this.tabPageDispatch.Location = new System.Drawing.Point(4, 31);
+            this.tabPageDispatch.Name = "tabPageDispatch";
+            this.tabPageDispatch.Size = new System.Drawing.Size(1109, 427);
+            this.tabPageDispatch.TabIndex = 4;
+            this.tabPageDispatch.Text = "Dispatch";
+            this.tabPageDispatch.UseVisualStyleBackColor = true;
+            // 
             // gradientPanelDispatch
             // 
             this.gradientPanelDispatch.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gradientPanelDispatch.BackgroundImage")));
@@ -3056,7 +2883,7 @@
             this.gradientPanelDispatch.Name = "gradientPanelDispatch";
             this.gradientPanelDispatch.PageEndColor = System.Drawing.Color.Empty;
             this.gradientPanelDispatch.PageStartColor = System.Drawing.SystemColors.ActiveCaption;
-            this.gradientPanelDispatch.Size = new System.Drawing.Size(902, 422);
+            this.gradientPanelDispatch.Size = new System.Drawing.Size(1109, 427);
             this.gradientPanelDispatch.TabIndex = 110;
             // 
             // grouperDispatchOther
@@ -3342,6 +3169,17 @@
             this.buttonDispatchBaseLoadComplete.UseVisualStyleBackColor = true;
             this.buttonDispatchBaseLoadComplete.Click += new System.EventHandler(this.Dispatch_BaseLoad_Complete_Click);
             // 
+            // tabPageMaintenance
+            // 
+            this.tabPageMaintenance.Controls.Add(this.gradientPanelMaintenance);
+            this.tabPageMaintenance.ImageIndex = 5;
+            this.tabPageMaintenance.Location = new System.Drawing.Point(4, 31);
+            this.tabPageMaintenance.Name = "tabPageMaintenance";
+            this.tabPageMaintenance.Size = new System.Drawing.Size(1109, 427);
+            this.tabPageMaintenance.TabIndex = 5;
+            this.tabPageMaintenance.Text = "PF - Maintenance";
+            this.tabPageMaintenance.UseVisualStyleBackColor = true;
+            // 
             // gradientPanelMaintenance
             // 
             this.gradientPanelMaintenance.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gradientPanelMaintenance.BackgroundImage")));
@@ -3355,7 +3193,7 @@
             this.gradientPanelMaintenance.Name = "gradientPanelMaintenance";
             this.gradientPanelMaintenance.PageEndColor = System.Drawing.Color.Empty;
             this.gradientPanelMaintenance.PageStartColor = System.Drawing.SystemColors.ActiveCaption;
-            this.gradientPanelMaintenance.Size = new System.Drawing.Size(902, 422);
+            this.gradientPanelMaintenance.Size = new System.Drawing.Size(1109, 427);
             this.gradientPanelMaintenance.TabIndex = 98;
             // 
             // grouperPfMaintenanceStaff
@@ -3568,6 +3406,17 @@
             this.buttonPfMaintenanceLabLabResults.UseVisualStyleBackColor = true;
             this.buttonPfMaintenanceLabLabResults.Click += new System.EventHandler(this.Maintenance_Lab_LabResults_Click);
             // 
+            // tabPageAccounting
+            // 
+            this.tabPageAccounting.Controls.Add(this.gradientPanelAccounting);
+            this.tabPageAccounting.ImageIndex = 6;
+            this.tabPageAccounting.Location = new System.Drawing.Point(4, 31);
+            this.tabPageAccounting.Name = "tabPageAccounting";
+            this.tabPageAccounting.Size = new System.Drawing.Size(1109, 427);
+            this.tabPageAccounting.TabIndex = 6;
+            this.tabPageAccounting.Text = "Accounting";
+            this.tabPageAccounting.UseVisualStyleBackColor = true;
+            // 
             // gradientPanelAccounting
             // 
             this.gradientPanelAccounting.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gradientPanelAccounting.BackgroundImage")));
@@ -3581,7 +3430,7 @@
             this.gradientPanelAccounting.Name = "gradientPanelAccounting";
             this.gradientPanelAccounting.PageEndColor = System.Drawing.Color.Empty;
             this.gradientPanelAccounting.PageStartColor = System.Drawing.SystemColors.ActiveCaption;
-            this.gradientPanelAccounting.Size = new System.Drawing.Size(902, 422);
+            this.gradientPanelAccounting.Size = new System.Drawing.Size(1109, 427);
             this.gradientPanelAccounting.TabIndex = 98;
             // 
             // grouperAccountingIntent
@@ -3808,6 +3657,17 @@
             this.buttonAccountingCostsRates.UseVisualStyleBackColor = true;
             this.buttonAccountingCostsRates.Click += new System.EventHandler(this.Accounting_Costs_Rates_Click);
             // 
+            // tabPageConsumables
+            // 
+            this.tabPageConsumables.Controls.Add(this.gradientPanelConsumables);
+            this.tabPageConsumables.ImageIndex = 7;
+            this.tabPageConsumables.Location = new System.Drawing.Point(4, 31);
+            this.tabPageConsumables.Name = "tabPageConsumables";
+            this.tabPageConsumables.Size = new System.Drawing.Size(1109, 427);
+            this.tabPageConsumables.TabIndex = 7;
+            this.tabPageConsumables.Text = "Consumables";
+            this.tabPageConsumables.UseVisualStyleBackColor = true;
+            // 
             // gradientPanelConsumables
             // 
             this.gradientPanelConsumables.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gradientPanelConsumables.BackgroundImage")));
@@ -3818,7 +3678,7 @@
             this.gradientPanelConsumables.Name = "gradientPanelConsumables";
             this.gradientPanelConsumables.PageEndColor = System.Drawing.Color.Empty;
             this.gradientPanelConsumables.PageStartColor = System.Drawing.SystemColors.ActiveCaption;
-            this.gradientPanelConsumables.Size = new System.Drawing.Size(902, 422);
+            this.gradientPanelConsumables.Size = new System.Drawing.Size(1109, 427);
             this.gradientPanelConsumables.TabIndex = 98;
             // 
             // grouperConsumablesMaintenance
@@ -3884,6 +3744,17 @@
             this.buttonConsumablesMaintenanceHolding.UseVisualStyleBackColor = true;
             this.buttonConsumablesMaintenanceHolding.Click += new System.EventHandler(this.Consumables_Maintenance_Holding_Click);
             // 
+            // tabPageExtra
+            // 
+            this.tabPageExtra.Controls.Add(this.gradientPanelExtra);
+            this.tabPageExtra.ImageIndex = 8;
+            this.tabPageExtra.Location = new System.Drawing.Point(4, 31);
+            this.tabPageExtra.Name = "tabPageExtra";
+            this.tabPageExtra.Size = new System.Drawing.Size(1109, 427);
+            this.tabPageExtra.TabIndex = 8;
+            this.tabPageExtra.Text = "Extra";
+            this.tabPageExtra.UseVisualStyleBackColor = true;
+            // 
             // gradientPanelExtra
             // 
             this.gradientPanelExtra.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gradientPanelExtra.BackgroundImage")));
@@ -3896,7 +3767,7 @@
             this.gradientPanelExtra.Name = "gradientPanelExtra";
             this.gradientPanelExtra.PageEndColor = System.Drawing.Color.Empty;
             this.gradientPanelExtra.PageStartColor = System.Drawing.SystemColors.ActiveCaption;
-            this.gradientPanelExtra.Size = new System.Drawing.Size(902, 422);
+            this.gradientPanelExtra.Size = new System.Drawing.Size(1109, 427);
             this.gradientPanelExtra.TabIndex = 98;
             // 
             // grouperExtraHistory
@@ -4032,6 +3903,17 @@
             this.buttonExtraScanningPalletWeights.UseVisualStyleBackColor = true;
             this.buttonExtraScanningPalletWeights.Click += new System.EventHandler(this.Extra_Scanning_PalletWeights_Click);
             // 
+            // tabPageReports
+            // 
+            this.tabPageReports.Controls.Add(this.gradientPanelReports);
+            this.tabPageReports.ImageIndex = 9;
+            this.tabPageReports.Location = new System.Drawing.Point(4, 31);
+            this.tabPageReports.Name = "tabPageReports";
+            this.tabPageReports.Size = new System.Drawing.Size(1109, 427);
+            this.tabPageReports.TabIndex = 9;
+            this.tabPageReports.Text = "Reports";
+            this.tabPageReports.UseVisualStyleBackColor = true;
+            // 
             // gradientPanelReports
             // 
             this.gradientPanelReports.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gradientPanelReports.BackgroundImage")));
@@ -4043,7 +3925,7 @@
             this.gradientPanelReports.Name = "gradientPanelReports";
             this.gradientPanelReports.PageEndColor = System.Drawing.Color.Empty;
             this.gradientPanelReports.PageStartColor = System.Drawing.SystemColors.ActiveCaption;
-            this.gradientPanelReports.Size = new System.Drawing.Size(902, 422);
+            this.gradientPanelReports.Size = new System.Drawing.Size(1109, 427);
             this.gradientPanelReports.TabIndex = 98;
             // 
             // grouperReportsSSRS
@@ -4127,6 +4009,32 @@
             this.buttonReportsMaintenanceAddNewReport.UseVisualStyleBackColor = true;
             this.buttonReportsMaintenanceAddNewReport.Click += new System.EventHandler(this.Reports_Maintenance_AddNewReport_Click);
             // 
+            // imageList1
+            // 
+            this.imageList1.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("imageList1.ImageStream")));
+            this.imageList1.TransparentColor = System.Drawing.Color.Transparent;
+            this.imageList1.Images.SetKeyName(0, "Home32.png");
+            this.imageList1.Images.SetKeyName(1, "Lock32.png");
+            this.imageList1.Images.SetKeyName(2, "Grower 24x24.png");
+            this.imageList1.Images.SetKeyName(3, "factory24x.png");
+            this.imageList1.Images.SetKeyName(4, "Carton 24x24.png");
+            this.imageList1.Images.SetKeyName(5, "tool24x.png");
+            this.imageList1.Images.SetKeyName(6, "Calculator32.png");
+            this.imageList1.Images.SetKeyName(7, "red apple 24x.png");
+            this.imageList1.Images.SetKeyName(8, "icons yellow excl 24x.png");
+            this.imageList1.Images.SetKeyName(9, "Run32.png");
+            this.imageList1.Images.SetKeyName(10, "UpdateIcon.png");
+            // 
+            // labelTabControlMainBottomStatus
+            // 
+            this.labelTabControlMainBottomStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.labelTabControlMainBottomStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.labelTabControlMainBottomStatus.Location = new System.Drawing.Point(0, 486);
+            this.labelTabControlMainBottomStatus.Name = "labelTabControlMainBottomStatus";
+            this.labelTabControlMainBottomStatus.Size = new System.Drawing.Size(1122, 19);
+            this.labelTabControlMainBottomStatus.TabIndex = 65;
+            this.labelTabControlMainBottomStatus.Text = ".";
+            // 
             // collapsibleSplitterDebug
             // 
             this.collapsibleSplitterDebug.AnimationDelay = 20;
@@ -4136,55 +4044,23 @@
             this.collapsibleSplitterDebug.Cursor = System.Windows.Forms.Cursors.HSplit;
             this.collapsibleSplitterDebug.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.collapsibleSplitterDebug.ExpandParentForm = false;
-            this.collapsibleSplitterDebug.Location = new System.Drawing.Point(206, 505);
+            this.collapsibleSplitterDebug.Location = new System.Drawing.Point(0, 505);
             this.collapsibleSplitterDebug.Name = "collapsibleSplitterDebug";
             this.collapsibleSplitterDebug.TabIndex = 66;
             this.collapsibleSplitterDebug.TabStop = false;
             this.collapsibleSplitterDebug.UseAnimations = false;
             this.collapsibleSplitterDebug.VisualStyle = Tools.VisualStyles.XP;
             // 
-            // collapsibleSplitter1
-            // 
-            this.collapsibleSplitter1.AnimationDelay = 20;
-            this.collapsibleSplitter1.AnimationStep = 20;
-            this.collapsibleSplitter1.BorderStyle3D = System.Windows.Forms.Border3DStyle.Flat;
-            this.collapsibleSplitter1.ControlToHide = this.panelTreeView;
-            this.collapsibleSplitter1.ExpandParentForm = false;
-            this.collapsibleSplitter1.Location = new System.Drawing.Point(198, 24);
-            this.collapsibleSplitter1.Name = "collapsibleSplitter1";
-            this.collapsibleSplitter1.TabIndex = 11;
-            this.collapsibleSplitter1.TabStop = false;
-            this.collapsibleSplitter1.UseAnimations = false;
-            this.collapsibleSplitter1.VisualStyle = Tools.VisualStyles.XP;
-            // 
-            // collapsibleSplitterDebugPanel
-            // 
-            this.collapsibleSplitterDebugPanel.AnimationDelay = 20;
-            this.collapsibleSplitterDebugPanel.AnimationStep = 20;
-            this.collapsibleSplitterDebugPanel.BorderStyle3D = System.Windows.Forms.Border3DStyle.Flat;
-            this.collapsibleSplitterDebugPanel.ControlToHide = this.panelPropertyGridDebug;
-            this.collapsibleSplitterDebugPanel.Dock = System.Windows.Forms.DockStyle.Right;
-            this.collapsibleSplitterDebugPanel.ExpandParentForm = false;
-            this.collapsibleSplitterDebugPanel.Location = new System.Drawing.Point(1116, 24);
-            this.collapsibleSplitterDebugPanel.Name = "collapsibleSplitterDebug";
-            this.collapsibleSplitterDebugPanel.TabIndex = 7;
-            this.collapsibleSplitterDebugPanel.TabStop = false;
-            this.toolTipMainMenu.SetToolTip(this.collapsibleSplitterDebugPanel, "PropertyGrid");
-            this.collapsibleSplitterDebugPanel.UseAnimations = false;
-            this.collapsibleSplitterDebugPanel.VisualStyle = Tools.VisualStyles.XP;
-            // 
             // Main_Menu
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.ClientSize = new System.Drawing.Size(1349, 691);
+            this.ClientSize = new System.Drawing.Size(1350, 691);
             this.Controls.Add(this.tabControlMain);
             this.Controls.Add(this.labelTabControlMainBottomStatus);
             this.Controls.Add(this.collapsibleSplitterDebug);
             this.Controls.Add(this.richTextBoxDebug);
-            this.Controls.Add(this.collapsibleSplitter1);
-            this.Controls.Add(this.panelTreeView);
             this.Controls.Add(this.collapsibleSplitterDebugPanel);
             this.Controls.Add(this.panelPropertyGridDebug);
             this.Controls.Add(this.lbl_message);
@@ -4205,28 +4081,19 @@
             this.statusStrip1.ResumeLayout(false);
             this.statusStrip1.PerformLayout();
             this.panelPropertyGridDebug.ResumeLayout(false);
-            this.panelTreeView.ResumeLayout(false);
-            this.panelTreeViewSubPanel.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.tabControlMain.ResumeLayout(false);
             this.tabPageHome.ResumeLayout(false);
-            this.tabPageSecurity.ResumeLayout(false);
-            this.tabPageCommon.ResumeLayout(false);
-            this.tabPageProcessFactory.ResumeLayout(false);
-            this.tabPageDispatch.ResumeLayout(false);
-            this.tabPageMaintenance.ResumeLayout(false);
-            this.tabPageAccounting.ResumeLayout(false);
-            this.tabPageConsumables.ResumeLayout(false);
-            this.tabPageExtra.ResumeLayout(false);
-            this.tabPageReports.ResumeLayout(false);
             this.gradientPanelHome.ResumeLayout(false);
             this.grouperHomeMessage.ResumeLayout(false);
             this.grouperHomeHelp.ResumeLayout(false);
+            this.tabPageSecurity.ResumeLayout(false);
             this.gradientPanelSecurity.ResumeLayout(false);
             this.grouperSecurity_Server.ResumeLayout(false);
             this.grouperSecurityMenusSecurityTab.ResumeLayout(false);
             this.grouperSecurityMaintenance.ResumeLayout(false);
+            this.tabPageCommon.ResumeLayout(false);
             this.gradientPanelCommon.ResumeLayout(false);
             this.grouperCommonGrower.ResumeLayout(false);
             this.grouperCommonMaterial.ResumeLayout(false);
@@ -4236,33 +4103,40 @@
             this.grouperCommonTypes.ResumeLayout(false);
             this.grouperCommonGroups.ResumeLayout(false);
             this.grouperCommonLocation.ResumeLayout(false);
+            this.tabPageProcessFactory.ResumeLayout(false);
             this.gradientPanelProcessFactory.ResumeLayout(false);
             this.grouperProcessFactoryCompleteWorkOrders.ResumeLayout(false);
             this.grouperProcessFactoryWorkOrders.ResumeLayout(false);
             this.grouperProcessFactoryCleaning.ResumeLayout(false);
             this.grouperProcessFactorySetup.ResumeLayout(false);
+            this.tabPageDispatch.ResumeLayout(false);
             this.gradientPanelDispatch.ResumeLayout(false);
             this.grouperDispatchOther.ResumeLayout(false);
             this.grouperDispatchScanning.ResumeLayout(false);
             this.grouperDispatchPacking.ResumeLayout(false);
             this.grouperDispatchOrders.ResumeLayout(false);
             this.grouperDispatchBaseLoad.ResumeLayout(false);
+            this.tabPageMaintenance.ResumeLayout(false);
             this.gradientPanelMaintenance.ResumeLayout(false);
             this.grouperPfMaintenanceStaff.ResumeLayout(false);
             this.grouperPfMaintenanceCleaning.ResumeLayout(false);
             this.grouperPfMaintenanceTypes.ResumeLayout(false);
             this.grouperPfMaintenanceLab.ResumeLayout(false);
+            this.tabPageAccounting.ResumeLayout(false);
             this.gradientPanelAccounting.ResumeLayout(false);
             this.grouperAccountingIntent.ResumeLayout(false);
             this.grouperAccountingInvoicing.ResumeLayout(false);
             this.grouperAccountingSales.ResumeLayout(false);
             this.grouperAccountingCosts.ResumeLayout(false);
+            this.tabPageConsumables.ResumeLayout(false);
             this.gradientPanelConsumables.ResumeLayout(false);
             this.grouperConsumablesMaintenance.ResumeLayout(false);
+            this.tabPageExtra.ResumeLayout(false);
             this.gradientPanelExtra.ResumeLayout(false);
             this.grouperExtraHistory.ResumeLayout(false);
             this.grouperExtraGateHouse.ResumeLayout(false);
             this.grouperExtraScanning.ResumeLayout(false);
+            this.tabPageReports.ResumeLayout(false);
             this.gradientPanelReports.ResumeLayout(false);
             this.grouperReportsSSRS.ResumeLayout(false);
             this.grouperReportsMaintenance.ResumeLayout(false);
@@ -4446,16 +4320,6 @@
         private System.Windows.Forms.ToolStripMenuItem openLogcsvToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem deleteLogcsvToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem excelKeyboardShortcutsToolStripMenuItem;
-        private System.Windows.Forms.Panel panelTreeView;
-        private System.Windows.Forms.TreeView treeViewUndoRedo;
-        private System.Windows.Forms.Panel panelTreeViewSubPanel;
-        private System.Windows.Forms.Button buttonRedo;
-        private System.Windows.Forms.Button buttonUndo;
-        private Tools.CollapsibleSplitter collapsibleSplitter1;
-        private System.Windows.Forms.Label labelTreeViewUndoRedo;
-        private System.Windows.Forms.Button buttonClear;
-        private System.Windows.Forms.Button buttonAdd;
-        private System.Windows.Forms.Button buttonRemove;
         private System.Windows.Forms.ImageList imageListTreeView;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItemExitSeperator;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
