@@ -162,6 +162,14 @@ namespace FruPak.PF.PrintLayer
             }
             catch (Exception ex)
             {
+                //{"Sorry, we couldn’t find your file. Is it possible it was moved, renamed or deleted?\r 
+                // (C:\\FruPak\\...\\Temp\\COA2015000240-1.docx)"}
+                // --------------------------------------------------------------------------------------
+                // This exception is being caused by my using a virtual pdf printer for testing, which
+                // saves the documents with a completely different filename into a different location.
+                // A second exception is caused as a result of this:
+                // Attempt has been made to use a COM object that does not have a backing class factory.
+
                 logger.Log(LogLevel.Debug, ex.Message + " - " + ex.StackTrace);
                 //MessageBox.Show("OpenDoc: newDocument is null.", "OpenDoc", MessageBoxButtons.OK, MessageBoxIcon.Stop);
             }
@@ -301,31 +309,27 @@ namespace FruPak.PF.PrintLayer
                 {
                     int return_code = 0;
                     string default_printer = "";
+
+                    #region Notes (All comments)
                     //store current default printer - "Send To OneNote 2013"
 
                     // Changed to use the Phantom Settings class - The default behaviour prior to this was to use
                     // the default installed printer on the system. This gives more flexibility, but probably breaks
                     // MS Guidelines BN 2/02/2015
+                    #endregion
 
-                    // Initialize settings
-                    //#region Get "Application.StartupPath" folder
+                    #region Initialize settings
                     string path = Application.StartupPath;
-                    //#endregion
-
-
                     Settings = new PhantomCustomSettings();
                     Settings.SettingsPath = Path.Combine(path, "FruPak.Phantom.config");
                     Settings.EncryptionKey = "phantomKey";
-
-                    //if (!File.Exists(Settings.SettingsPath))
-                    //{
-                    //    Settings.Save();
-                    //    //logger.Log(LogLevel.Info, LogCode("Default Phantom Settings file created"));
-                    //}
-                    //// Load settings - Normally in Form_Load
                     Settings.Load();
                     default_printer = Settings.Printer_Name;
+                    wordApplication.ActivePrinter = default_printer;
 
+                    #endregion
+
+                    #region Comments on original code
                     // Reverted to the original, as it was causing problems on-site BN 4/02/2015
                     //default_printer = wordApplication.ActivePrinter;0
 
@@ -341,7 +345,9 @@ namespace FruPak.PF.PrintLayer
                     //    logger.Log(LogLevel.Debug, ex.Message + " - " + ex.StackTrace);
                     //}
 
+                    #endregion
 
+                    #region Get word version and filename
                     double version = Convert.ToDouble(wordApplication.Version, CultureInfo.InvariantCulture);
                     object oBackground = false;
 
@@ -352,16 +358,14 @@ namespace FruPak.PF.PrintLayer
                     object oMissing = System.Reflection.Missing.Value;
                     object oTrue = true;
 
+                    Console.WriteLine("FruPak.PF.PrintLayer.Word: Word version = " + version.ToString());
                     logger.Log(LogLevel.Info, LogCodeStatic("FruPak.PF.PrintLayer.Word: Word version = " + version.ToString()));
+                    #endregion
 
+                    #region Word 2007
                     //Word 2007
                     if (version == 12.0)
                     {
-                        // Found, Noted, but for now, do not touch - 12-01-2015 BN
-                        // Hang on, isn't that path illegal anyway? Network paths ALWAYS have to be double quoted(backslashed) to be valid. ??? - 12-01-2015 BN
-                        // Unless they are verbatim, which means that if you start with an at (@) symbol, the rest will be treated as a literal path:
-                        // @"c:\test\test.txt"; is equal to "c:\\test\\test.txt';
-
                         //trial for 2007 start
                         FilePath = @"\\FruPak-SBS\PublicDocs\\FruPak\Client\Printing\Saved";
                         FileName = "Dave1";
@@ -388,14 +392,49 @@ namespace FruPak.PF.PrintLayer
                         }
                         catch (Exception ex)
                         {
-                            logger.Log(LogLevel.Debug, ex.Message + " - " + ex.StackTrace);
+                            if (ex.InnerException != null)
+                            {
+                                Console.WriteLine("Inner Exception: " + ex.InnerException.Message);
+                                logger.Log(LogLevel.Debug, "Inner Exception: " + ex.InnerException.Message);
+                                if (ex.InnerException.InnerException != null)
+                                {
+                                    Console.WriteLine("Inner Inner Exception: " + ex.InnerException.InnerException.Message);
+                                    logger.Log(LogLevel.Debug, "Inner Inner Exception: " + ex.InnerException.InnerException.Message);
+                                }
+                            }
+                            Console.WriteLine("Exception: " + ex.Message);
+                            logger.Log(LogLevel.Debug, "Exception: " + ex.Message + " - " + ex.StackTrace);
+
+                            //logger.Log(LogLevel.Debug, ex.Message + " - " + ex.StackTrace);
                             return_code = 9;
                         }
 
                     }
+                    #endregion
 
-                    //reset Default Printer
-                    wordApplication.ActivePrinter = default_printer;
+                    #region Reset default printer for some reason
+                    try
+                    {
+                        //reset Default Printer
+                        // This only appears here. Why?
+                        // "Nitro PDF Creator (Pro 9)" "Brother HL-2040 series"
+                        //wordApplication.ActivePrinter = default_printer;
+                        Console.WriteLine("wordApplication.ActivePrinter: " + wordApplication.ActivePrinter);
+
+                    }
+                    catch (Exception ex)
+                    {
+                        if (ex.InnerException != null)
+                        {
+                            Console.WriteLine("Inner Exception: " + ex.InnerException.Message.ToString());
+                            if (ex.InnerException.InnerException != null)
+                            {
+                                Console.WriteLine("Inner Inner Exception: " + ex.InnerException.InnerException.Message.ToString());
+                            }
+                        }
+                        Console.WriteLine("Exception: " + ex.Message.ToString());
+                    }
+                    #endregion
 
                     return return_code;
                 }
@@ -404,14 +443,26 @@ namespace FruPak.PF.PrintLayer
                     logger.Log(LogLevel.Debug, "Print: wordApplication is null.");
                     //MessageBox.Show("Print: wordApplication is null.", "Print", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                     //return_code = 0;
-
                     return 0;
                 }
             }
             catch (COMException cex)
             {
                 {
-                    logger.Log(LogLevel.Debug, cex.Message + cex.InnerException.ToString());
+                    if (cex.InnerException != null)
+                    {
+                        Console.WriteLine("Inner Exception: " + cex.InnerException.Message);
+                        logger.Log(LogLevel.Debug, "Inner Exception: " + cex.InnerException.Message);
+
+                        if (cex.InnerException.InnerException != null)
+                        {
+                            Console.WriteLine("Inner Inner Exception: " + cex.InnerException.InnerException.Message);
+                            logger.Log(LogLevel.Debug, "Inner Inner Exception: " + cex.InnerException.InnerException.Message);
+                        }
+                    }
+                    Console.WriteLine("Exception: " + cex.Message.ToString());
+                    logger.Log(LogLevel.Debug, "Exception: " + cex.Message);
+
                     logger.Log(LogLevel.Debug, "wordApplication.ActivePrinter: " + wordApplication.ActivePrinter);
                     logger.Log(LogLevel.Debug, "default_printer: " + Settings.Printer_Name);
 
@@ -522,6 +573,12 @@ namespace FruPak.PF.PrintLayer
             }
             catch (Exception ex)
             {
+                //{ "Attempt has been made to use a COM object that does not have a backing class factory."}
+                // ------------------------------------------------------------------------------------------
+                // This exception is a follow-on from the previous exception, which just basically says
+                // can't find the file - I'm getting this coonsistantly, but I'm using a virtual pdf
+                // printer which is saving to a completely different filename and location
+                // I think this can probably be safely ignored.
                 newDocument.Close();
                 Console.WriteLine("SaveAsPdf: ExportFilePath: " + paramExportFilePath);
                 logger.Log(LogLevel.Debug, "SaveAsPdf: ExportFilePath: " + paramExportFilePath);

@@ -648,6 +648,7 @@ namespace FruPak.PF.Dispatch
                         Data = Data + ":" + dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
                         Data = Data + ":" + str_delivery_name;
                         Data = Data + ":" + FruPak.PF.Data.Outlook.Contacts.Contact_Business_Address.ToString();
+                        Data = Data + ":Print"; // Added 12/08/2015 BN - Was crashing due to index out of array bounds
 
                         Cursor = Cursors.WaitCursor;
                         //set printer

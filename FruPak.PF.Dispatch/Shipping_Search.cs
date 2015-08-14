@@ -447,7 +447,7 @@ namespace FruPak.PF.Dispatch
                 logger.Log(LogLevel.Info, DecorateString("FruPak.PF.Dispatch.Shipping Search", "create_address_label", Data));
 
                 //set printer
-                FruPak.PF.PrintLayer.Word.Printer = FruPak.PF.Common.Code.General.Get_Printer("Custom");
+                //FruPak.PF.PrintLayer.Word.Printer = FruPak.PF.Common.Code.General.Get_Printer("Custom");
                 FruPak.PF.PrintLayer.Word.FileName = "SL" + dataGridView1.CurrentRow.Cells[0].Value.ToString();
                 view_list.Add(FruPak.PF.PrintLayer.Word.FileName);
                 FruPak.PF.PrintLayer.Sticky_Address_Label.Print(Data, bol_print);
@@ -909,15 +909,18 @@ namespace FruPak.PF.Dispatch
 
         private void ShippingSearch_FormClosing(object sender, FormClosingEventArgs e)
         {
-            // Notes BN 27-4-2015
+            // All region comments I've added for clarity (BN 12/08/2015)
+
+            #region Old Notes BN 27-4-2015
             // Am wondering if the file variable is empty, what effect will a filename of ** have?
             // Is that a valid wildcard like *, or does it equate to something else?
             // 
             // Also, if a test to see if the file is already open returns true, is it possible to forcibly close it
             // with no confirmations
             // 
-            //
+            #endregion
 
+            #region Add files from the View List to the file list for eventual deletion
             foreach (string file in view_list)
             {
                 lst_filenames.AddRange(System.IO.Directory.GetFiles(FruPak.PF.PrintLayer.Word.FilePath, "*" + file + "*", System.IO.SearchOption.TopDirectoryOnly));
@@ -937,11 +940,15 @@ namespace FruPak.PF.Dispatch
             {
                 logger.Log(LogLevel.Debug, ex.Message);
             }
+            #endregion
+
+            #region Perform the deletion - forcibly close Word if unsuccessful and try again
             foreach (string filename in lst_filenames)
             {
                 // Crashes here if the file is still open
                 try
                 {
+                    #region Delete each file in the list
                     Console.WriteLine("Trying to delete: " + filename);
                     logger.Log(LogLevel.Info, "Trying to delete: " + filename);
 
@@ -958,13 +965,15 @@ namespace FruPak.PF.Dispatch
                         Console.WriteLine("Delete success: " + filename);
                         logger.Log(LogLevel.Info, "Delete success: " + filename);
                     }
+                    #endregion
                 }
                 catch (IOException ioe)
                 {
                     logger.Log(LogLevel.Error, ioe.Message + " - " + filename);
 
-                    MessageBox.Show(ioe.Message, "IOException", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show(ioe.Message, "IOException", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                    #region Kill the WINWORD process
                     List<Process> procs = Common.Code.FileUtil.WhoIsLocking(filename);
 
                     if (procs.Count > 0) // System.Diagnostics.Process (WINWORD)
@@ -993,13 +1002,16 @@ namespace FruPak.PF.Dispatch
                             logger.Log(LogLevel.Info, "Delete success: " + filename);
                         }
                     }
+                    #endregion
                 }
             }
-
+            #endregion
         }
 
         private void ClearOutTempFolder()
         {
+            // All region comments I've added for clarity (BN 12/08/2015)
+
             FruPak.PF.PrintLayer.Word.FilePath = FruPak.PF.Common.Code.General.Get_Path("PF-TPPath");
             DirectoryInfo di = new DirectoryInfo(FruPak.PF.PrintLayer.Word.FilePath);
             if (di.Exists)
@@ -1008,6 +1020,8 @@ namespace FruPak.PF.Dispatch
                 {
                     lst_filenames.Add(fi.FullName);
                 }
+
+                #region This code is to be enabled in ShippingSearch_FormClosing
                 //foreach (string file in view_list)
                 //{
                 //    lst_filenames.AddRange(System.IO.Directory.GetFiles(FruPak.PF.PrintLayer.Word.FilePath, "*" + file + "*", System.IO.SearchOption.TopDirectoryOnly));
@@ -1027,11 +1041,14 @@ namespace FruPak.PF.Dispatch
                 //{
                 //    logger.Log(LogLevel.Debug, ex.Message);
                 //}
+                #endregion
+
                 foreach (string filename in lst_filenames)
                 {
                     // Crashes here if the file is still open
                     try
                     {
+                        #region Delete each file in the list
                         Console.WriteLine("Trying to delete: " + filename);
                         logger.Log(LogLevel.Info, "Trying to delete: " + filename);
 
@@ -1048,13 +1065,16 @@ namespace FruPak.PF.Dispatch
                             Console.WriteLine("Delete success: " + filename);
                             logger.Log(LogLevel.Info, "Delete success: " + filename);
                         }
+
+                        #endregion
                     }
                     catch (IOException ioe)
                     {
                         logger.Log(LogLevel.Error, ioe.Message + " - " + filename);
 
-                        MessageBox.Show(ioe.Message, "IOException", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        //MessageBox.Show(ioe.Message, "IOException", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
+                        #region Kill the WINWORD process
                         List<Process> procs = Common.Code.FileUtil.WhoIsLocking(filename);
 
                         if (procs.Count > 0) // System.Diagnostics.Process (WINWORD)
@@ -1083,6 +1103,8 @@ namespace FruPak.PF.Dispatch
                                 logger.Log(LogLevel.Info, "Delete success: " + filename);
                             }
                         }
+
+                        #endregion                    }
                     }
                 }
             }

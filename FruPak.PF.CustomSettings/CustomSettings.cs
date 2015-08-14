@@ -29,12 +29,12 @@ namespace FruPak.PF.CustomSettings
             CopyDelayInMinutes = 60;
             MaxTreeFileSizeInMegabytes = "1";
 
-            UpdateAddress = "http://127.0.0.1:8099/FruPak-PF-Update.xml";
+            UpdateAddress = "http://192.168.80.69:8080/FruPak-Update/FruPak-PF-Update.xml";
             UpdateProxyUsername = "administrator";
             UpdateProxyPassword = "1234";
             UpdateProxyURI = "http://FruPak-Sql";
             UpdateProxyPort = "8090";
-            UpdateUseProxy = false;
+            UpdateUseProxy = true;
 
 
             #region FruPak Test Mode Database Connection Settings

@@ -100,60 +100,69 @@ namespace FruPak.PF.Utils.Scanning
                 }
                 else
                 {
-                    DataSet ds = null;
-                    DataRow dr;
-                    ds = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Current();
-                    int int_current_WO = 0;
-                    for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                    if (barcode1.BarcodeValue.Length <= 10)
                     {
-                        dr = ds.Tables[0].Rows[i];
-                        int_current_WO = Convert.ToInt32(dr["Work_Order_Id"].ToString());
-                    }
-                    ds.Dispose();
+                        // Max value of an int is 2,147,483,647
 
-                    // New trap for SystemOverflowException: Convert.ToInt32(barcode1.Get_Barcode.ToString() - BN 11/08/2015
-                    try
-                    {
-                        ds = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Pallet_barocde(int_current_WO, Convert.ToInt32(barcode1.BarcodeValue.ToString()));
-                        string str_Barcode = "";
+                        DataSet ds = null;
+                        DataRow dr;
+                        ds = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Current();
+                        int int_current_WO = 0;
                         for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                         {
                             dr = ds.Tables[0].Rows[i];
-                            str_Barcode = dr["Barcode"].ToString();
+                            int_current_WO = Convert.ToInt32(dr["Work_Order_Id"].ToString());
                         }
                         ds.Dispose();
 
-                        if (str_Barcode.Length > 0)
+                        // New trap for SystemOverflowException: Convert.ToInt32(barcode1.Get_Barcode.ToString() - BN 11/08/2015
+                        try
                         {
-                            try
+                            ds = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Pallet_barocde(int_current_WO, Convert.ToInt32(barcode1.BarcodeValue.ToString()));
+                            string str_Barcode = "";
+                            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                             {
-                                int_result = FruPak.PF.PrintLayer.WPC_Card.Print(str_Barcode, true, int_Current_User_Id);
+                                dr = ds.Tables[0].Rows[i];
+                                str_Barcode = dr["Barcode"].ToString();
                             }
-                            catch
+                            ds.Dispose();
+
+                            if (str_Barcode.Length > 0)
                             {
-                                string Data = "";
-                                Data = Data + barcode1.BarcodeValue.ToString();
-                                Data = Data + ":True";
+                                try
+                                {
+                                    int_result = FruPak.PF.PrintLayer.WPC_Card.Print(str_Barcode, true, int_Current_User_Id);
+                                }
+                                catch
+                                {
+                                    string Data = "";
+                                    Data = Data + barcode1.BarcodeValue.ToString();
+                                    Data = Data + ":True";
 
-                                //FruPak.PF.PrintLayer.Word.Printer = "Brother HL-2040 series";
-                                FruPak.PF.PrintLayer.Word.Printer = Settings.Printer_Name;  // 16/06/2015 Fixed - Jim worked out there was some hardcoded strings
+                                    //FruPak.PF.PrintLayer.Word.Printer = "Brother HL-2040 series";
+                                    FruPak.PF.PrintLayer.Word.Printer = Settings.Printer_Name;  // 16/06/2015 Fixed - Jim worked out there was some hardcoded strings
 
-                                // Phantom 18/12/2014
-                                //FruPak.PF.PrintLayer.Word.Printer = Settings.Printer_Name;   // Reverted 06-03-2015
+                                    // Phantom 18/12/2014
+                                    //FruPak.PF.PrintLayer.Word.Printer = Settings.Printer_Name;   // Reverted 06-03-2015
 
-                                FruPak.PF.PrintLayer.Word.Server_Print(Data, int_Current_User_Id);
+                                    FruPak.PF.PrintLayer.Word.Server_Print(Data, int_Current_User_Id);
+                                }
+                            }
+                            else
+                            {
+                                int_result = 3; // Added this 11/08/2015 BN
+                                                //lbl_message.Text = "Invalid Bin Number";
                             }
                         }
-                        else
+                        catch (Exception ex)
                         {
                             int_result = 3; // Added this 11/08/2015 BN
-                                            //lbl_message.Text = "Invalid Bin Number";
+                            MessageBox.Show(ex.Message, "Error converting number", MessageBoxButtons.OK, MessageBoxIcon.Error);
                         }
                     }
-                    catch (Exception ex)
+                    else
                     {
-                        int_result = 3; // Added this 11/08/2015 BN
-                        MessageBox.Show(ex.Message, "Error converting number", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        MessageBox.Show("Maximum possible value is 2,147,483,647", "The value is too large to convert to an integer", MessageBoxButtons.OK, MessageBoxIcon.Asterisk);
                     }
                 }
 
@@ -165,7 +174,14 @@ namespace FruPak.PF.Utils.Scanning
 
                     // BN 12-01-2015
                     //lst_filenames.AddRange(System.IO.Directory.GetFiles(@"\\FRUPAK-SBS\PublicDocs\FruPak\Server\Temp", "*" + barcode1.Get_Barcode.ToString() + "*", System.IO.SearchOption.TopDirectoryOnly));
-                    lst_filenames.AddRange(System.IO.Directory.GetFiles(filePath, "*" + barcode1.BarcodeValue.ToString() + "*", System.IO.SearchOption.TopDirectoryOnly));
+
+                    // An exception can occurr at this point (path not found):
+                    // "\\\\FRUPAK-SBS\\\\PublicDocs\\\\FruPak\\\\Server\\\\Temp"
+                    DirectoryInfo di = new DirectoryInfo(filePath);
+                    if (di.Exists)
+                    {
+                        lst_filenames.AddRange(System.IO.Directory.GetFiles(filePath, "*" + barcode1.BarcodeValue.ToString() + "*", System.IO.SearchOption.TopDirectoryOnly));
+                    }
 
                     foreach (string filename in lst_filenames)
                     {

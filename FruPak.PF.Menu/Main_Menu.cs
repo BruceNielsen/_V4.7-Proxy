@@ -42,6 +42,7 @@ using Tree.Printing;
 using TreeViewSerialization;
 using AutoUpdaterDotNET;
 using System.Reflection;
+using System.Drawing.Printing;
 
 #endregion Imports (23)
 
@@ -4041,10 +4042,25 @@ namespace FruPak.PF.Menu
 				this.selectPrinterToolStripMenuItem1.Text = printDialog1.PrinterSettings.PrinterName;
 				Settings.Printer_Name = printDialog1.PrinterSettings.PrinterName;
 				Settings.Save();
-			}
-		}
+            }
 
-		private void setCurrentToolStripMenuItem_Click(object sender, EventArgs e)
+            GetDefaultPrinter();
+        }
+
+        //using System.Drawing.Printing;
+        string GetDefaultPrinter()
+        {
+            PrinterSettings settings = new PrinterSettings();
+            foreach (string printer in PrinterSettings.InstalledPrinters)
+            {
+                settings.PrinterName = printer;
+                if (settings.IsDefaultPrinter)
+                    return printer;
+            }
+            return string.Empty;
+        }
+
+    private void setCurrentToolStripMenuItem_Click(object sender, EventArgs e)
 		{
 			//ribbonButton_ProcessFactory_WorkOrders_SetCurrent_Click(this.ribbonButton_ProcessFactory_WorkOrders_SetCurrent, EventArgs.Empty);
 			ProcessFactory_WorkOrders_SetCurrent_Click(this.buttonProcessFactoryWorkOrdersSetCurrent, EventArgs.Empty);
@@ -4490,19 +4506,21 @@ namespace FruPak.PF.Menu
 				logger.Log(LogLevel.Info, "Beginning check for update...");
 				Cursor.Current = Cursors.WaitCursor;
 
-				//string updateAddress = Settings.UpdateAddress;
-				//AutoUpdater.Start("http: //127.0.0.1:8099/FruPak-PF-Update.xml");
+                // BN - Added proxy settings 6/7/2015
+                // BN - Added temporary settings for Jim to test.
+                // BN - This isn't for anyone else to use.
+                // --------------------------------------------------------
+                //AutoUpdater.proxyPassword = Settings.UpdateProxyPassword;
+                //AutoUpdater.proxyUsername = Settings.UpdateProxyUsername;
+                //AutoUpdater.proxyURI = Settings.UpdateProxyURI;
+                //AutoUpdater.proxyPort = Settings.UpdateProxyPort;
+                //AutoUpdater.useProxy = Settings.UpdateUseProxy;
+                //AutoUpdater.Start(Settings.UpdateAddress);
 
-				// BN - Added proxy settings 6/7/2015
-				// BN - Added temporary settings for Jim to test.
-				// BN - This isn't for anyone else to use.
-				AutoUpdater.proxyPassword = Settings.UpdateProxyPassword;
-				AutoUpdater.proxyUsername = Settings.UpdateProxyUsername;
-				AutoUpdater.proxyURI = Settings.UpdateProxyURI;
-				AutoUpdater.proxyPort = Settings.UpdateProxyPort;
-				AutoUpdater.useProxy = Settings.UpdateUseProxy;
-
-				AutoUpdater.Start(Settings.UpdateAddress);
+                AutoUpdater.proxyURI = "http://FruPak-Sql";
+                AutoUpdater.proxyPort = "8090";
+                AutoUpdater.useProxy = true;
+                AutoUpdater.Start("http://192.168.80.69:8080/FruPak-Update/FruPak-PF-Update.xml");
 
 				logger.Log(LogLevel.Info, "Completed check for update.");
 				Cursor.Current = Cursors.Default;
@@ -4516,29 +4534,34 @@ namespace FruPak.PF.Menu
 
 		}
 
-		//public static string TrimStringFromEnd(this string input, string suffixToRemove)
-		//{
-		//    // Changed from
+        private void tabPageHome_Click(object sender, EventArgs e)
+        {
 
-		//    // TrimEnd() (and the other trim methods) accept characters to be
-		//    // trimmed, but not strings. If you really want a version that can
-		//    // trim whole strings then you could create an extension method.
-		//    // For example...
-		//    if (input != null && suffixToRemove != null
-		//      && input.EndsWith(suffixToRemove))
-		//    {
-		//        return input.Substring(0, input.Length - suffixToRemove.Length);
-		//    }
-		//    else return input;
-		//}
+        }
 
-	}
+        //public static string TrimStringFromEnd(this string input, string suffixToRemove)
+        //{
+        //    // Changed from
 
-   /// <summary>
-	/// Custom class to add Text and Values to an item without using a BindingSource - BN 11/05/2015
-	/// // Update 12/05/2015 add Object Tag property - BN
-	/// </summary>
-	public class ComboboxItem
+        //    // TrimEnd() (and the other trim methods) accept characters to be
+        //    // trimmed, but not strings. If you really want a version that can
+        //    // trim whole strings then you could create an extension method.
+        //    // For example...
+        //    if (input != null && suffixToRemove != null
+        //      && input.EndsWith(suffixToRemove))
+        //    {
+        //        return input.Substring(0, input.Length - suffixToRemove.Length);
+        //    }
+        //    else return input;
+        //}
+
+    }
+
+    /// <summary>
+    /// Custom class to add Text and Values to an item without using a BindingSource - BN 11/05/2015
+    /// // Update 12/05/2015 add Object Tag property - BN
+    /// </summary>
+    public class ComboboxItem
 	{
 		#region Properties of ComboboxItem (3)
 

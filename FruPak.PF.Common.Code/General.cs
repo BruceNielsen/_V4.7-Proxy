@@ -564,6 +564,9 @@ namespace FruPak.PF.Common.Code
         private static List<string> lst_paths = new List<string>();
         public static void Delete_After_Printing(string path, string filetype)
         {
+            // All region comments I've added for clarity (BN 12/08/2015)
+
+            #region Get the file path
             if (path == "")
             {
                 DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_System.Get_Info_Like("PF%");
@@ -588,7 +591,9 @@ namespace FruPak.PF.Common.Code
             {
                 lst_paths.Add(path);
             }
+            #endregion
 
+            #region If the path exists, add everything in there to the filename list, otherwise create the path
             foreach (string str_path in lst_paths)
             {
                 if (System.IO.Directory.Exists(str_path))
@@ -601,11 +606,17 @@ namespace FruPak.PF.Common.Code
                 }
             }
             lst_paths.Clear();
+            #endregion
+
+            #region Perform the deletion - forcibly close Word if unsuccessful and try again
+
             foreach (string filename in lst_filenames)
             {
                 // Crashes here if the file is still open
                 try
                 {
+                    #region Delete each file in the list
+
                     Console.WriteLine("Trying to delete: " + filename);
                     logger.Log(LogLevel.Info, "Trying to delete: " + filename);
 
@@ -622,12 +633,14 @@ namespace FruPak.PF.Common.Code
                         Console.WriteLine("Delete success: " + filename);
                         logger.Log(LogLevel.Info, "Delete success: " + filename);
                     }
+                    #endregion
                 }
                 catch (IOException ioe)
                 {
                     logger.Log(LogLevel.Error, ioe.Message + " - " + filename);
 
-                    MessageBox.Show(ioe.Message, "IOException", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    //MessageBox.Show(ioe.Message, "IOException", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    #region Kill the WINWORD process
 
                     List<Process> procs = Common.Code.FileUtil.WhoIsLocking(filename);
 
@@ -657,9 +670,11 @@ namespace FruPak.PF.Common.Code
                             logger.Log(LogLevel.Info, "Delete success: " + filename);
                         }
                     }
+                    #endregion
                 }
             }
             lst_filenames.Clear();
+            #endregion
         }
 
         public static void Report_Viewer(string str_report_name)
