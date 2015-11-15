@@ -81,7 +81,7 @@
             this.nud_weight_BinTipping.Size = new System.Drawing.Size(113, 26);
             this.nud_weight_BinTipping.TabIndex = 3;
             this.nud_weight_BinTipping.Value = new decimal(new int[] {
-            60,
+            65,
             0,
             0,
             0});
@@ -299,7 +299,7 @@
             this.nud_weight_BinTareWeights.Size = new System.Drawing.Size(113, 26);
             this.nud_weight_BinTareWeights.TabIndex = 10;
             this.nud_weight_BinTareWeights.Value = new decimal(new int[] {
-            60,
+            65,
             0,
             0,
             0});

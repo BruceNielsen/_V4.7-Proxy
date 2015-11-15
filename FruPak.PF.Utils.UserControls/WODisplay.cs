@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace FruPak.PF.Utils.UserControls
@@ -21,26 +16,31 @@ namespace FruPak.PF.Utils.UserControls
             get;
             set;
         }
+
         public int Product_Id
         {
             get;
             set;
         }
+
         public int FruitType_Id
         {
             get;
             set;
         }
+
         public int Variety_Id
         {
             get;
             set;
         }
+
         public string Process_Date
         {
             get;
             set;
         }
+
         public void populate()
         {
             DataSet ds_Get_Info;

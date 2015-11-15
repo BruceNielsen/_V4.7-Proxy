@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FruPak.Utils.Data;
 using System.Data;
-using System.Data.OleDb;
-using FruPak.Utils.Data;
 
 namespace FruPak.PF.Data.AccessLayer
 {
     /*Description
     -----------------
     CM_Block_Variety_Relationship Class.
-     * 
+     *
      * This Class is a data access layer to the CM_Block_Variety_Relationship table
      * Where possible the following standard method names are used and standard column names used.
      *  1. Variable names as input to a method are the same as the column names they refer to.
@@ -26,6 +22,7 @@ namespace FruPak.PF.Data.AccessLayer
     -------------------------------------------------------------------------------------------------------------------------------------------------
     01/09/2013  Dave       Creation
     */
+
     public class CM_Block_Variety_Relationship
     {
         public static DataSet Get_Max_ID()
@@ -33,21 +30,24 @@ namespace FruPak.PF.Data.AccessLayer
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(BlkVar_Relat_Id) as Current_Id FROM CM_Block_Variety_Relationship");
         }
+
         public static int Insert(int BlkVar_Relat_Id, int Block_Id, int Variety_Id, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO CM_Block_Variety_Relationship(BlkVar_Relat_Id, Block_Id, Variety_Id, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + BlkVar_Relat_Id + "," + Block_Id + "," + Variety_Id + ", GETDATE()," + Mod_User_Id + ")");
         }
+
         public static DataSet Get_Info(int Block_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT BlkVar_Relat_Id, BVR.Block_Id, B.Code as BLOCK, BVR.Variety_Id, FV.Code as Variety, FV.Description as Description, BVR.Mod_Date, BVR.Mod_User_Id " +
                                             "FROM CM_Block_Variety_Relationship BVR " +
                                             "INNER JOIN CM_Block B ON B.Block_Id = BVR.Block_Id " +
-                                            "INNER JOIN CM_Fruit_Variety FV ON FV.Variety_Id = BVR.Variety_Id "+
+                                            "INNER JOIN CM_Fruit_Variety FV ON FV.Variety_Id = BVR.Variety_Id " +
                                             "WHERE BVR.Block_Id = " + Block_Id);
         }
+
         public static DataSet Get_Info(int Block_Id, int Variety_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -57,6 +57,7 @@ namespace FruPak.PF.Data.AccessLayer
                                             "INNER JOIN CM_Fruit_Variety FV ON FV.Variety_Id = BVR.Variety_Id " +
                                             "WHERE BVR.Block_Id = " + Block_Id + " AND BVR.Variety_Id = " + Variety_Id);
         }
+
         public static DataSet Get_Info_Varieties(int Block_Id, int FruitType_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -65,16 +66,17 @@ namespace FruPak.PF.Data.AccessLayer
                                             "INNER JOIN dbo.CM_Fruit_Variety FV ON BVR.Variety_Id = FV.Variety_Id " +
                                             "WHERE BVR.Block_Id = " + Block_Id + " AND FV.FruitType_Id = " + FruitType_Id);
         }
+
         public static int Delete(int BlkVar_Relat_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM CM_Block_Variety_Relationship WHERE BlkVar_Relat_Id = " + BlkVar_Relat_Id);
         }
+
         public static int Delete_For_Block(int Block_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM CM_Block_Variety_Relationship WHERE Block_Id = " + Block_Id);
         }
-
     }
 }

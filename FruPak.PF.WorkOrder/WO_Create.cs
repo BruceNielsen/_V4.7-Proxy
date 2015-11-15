@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using NLog;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using System.IO;
-using NLog;
 
 namespace FruPak.PF.WorkOrder
 {
@@ -32,7 +26,6 @@ namespace FruPak.PF.WorkOrder
             FruPak.PF.Global.Global.bol_Testing = bol_temp;
 
             int_Current_User_Id = int_C_User_id;
-
 
             //check if testing or not
 
@@ -65,6 +58,7 @@ namespace FruPak.PF.WorkOrder
             }
 
             #region Log any interesting events from the UI to the CSV log file
+
             foreach (Control c in this.Controls)
             {
                 if (c.GetType() == typeof(Button))
@@ -95,15 +89,14 @@ namespace FruPak.PF.WorkOrder
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-
                 else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
                 {
                     FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
-            #endregion
 
+            #endregion Log any interesting events from the UI to the CSV log file
         }
 
         private void get_existing_Work_Order()
@@ -163,6 +156,7 @@ namespace FruPak.PF.WorkOrder
             }
             ds_Get_Info.Dispose();
         }
+
         private void set_btn_Current()
         {
             btn_Current.Enabled = bol_write_access;
@@ -175,6 +169,7 @@ namespace FruPak.PF.WorkOrder
                 btn_Current.Visible = true;
             }
         }
+
         private void populate_combobox()
         {
             DataSet ds_Get_Info;
@@ -226,7 +221,6 @@ namespace FruPak.PF.WorkOrder
             {
                 str_msg = str_msg + "Invalid Grower: Please select a valid Grower from the Drop Down List" + Environment.NewLine;
             }
-
 
             if (txt_batches.TextLength == 0)
             {
@@ -314,7 +308,6 @@ namespace FruPak.PF.WorkOrder
             }
         }
 
-
         private void btn_Current_Click(object sender, EventArgs e)
         {
             DataSet ds_Current = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Current();
@@ -337,13 +330,13 @@ namespace FruPak.PF.WorkOrder
                 lbl_message.ForeColor = System.Drawing.Color.Red;
                 lbl_message.Text = "Work Order: " + Convert.ToString(int_Work_Order_Id) + " FAILED to update the Current Status.";
             }
-
         }
 
         private void btn_Reset_Click(object sender, EventArgs e)
         {
             Reset();
         }
+
         private void Reset()
         {
             txt_WorkOrder.ResetText();
@@ -368,17 +361,21 @@ namespace FruPak.PF.WorkOrder
             int_Work_Order_Id = 0;
             set_btn_Current();
         }
+
         private void btn_Close_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
         private int int_FruitType_Id = 0;
+
         private void fruit1_FruitTypeChanged(object sender, EventArgs e)
         {
             int_FruitType_Id = (sender as FruPak.PF.Utils.UserControls.Fruit).FruitType_Id;
         }
+
         private int int_FruitVariety_Id = 0;
+
         private void fruit1_FruitVarietyChanged(object sender, EventArgs e)
         {
             int_FruitVariety_Id = (sender as FruPak.PF.Utils.UserControls.Fruit).FruitVariety_Id;
@@ -393,9 +390,10 @@ namespace FruPak.PF.WorkOrder
                 dr_system = ds_system.Tables[0].Rows[i];
                 switch (dr_system["Code"].ToString())
                 {
-                    case"PF-TPath":
+                    case "PF-TPath":
                         FruPak.PF.PrintLayer.Word.TemplatePath = dr_system["Value"].ToString();
                         break;
+
                     case "PF-TWorkO":
                         FruPak.PF.PrintLayer.Word.TemplateName = dr_system["Value"].ToString();
                         break;
@@ -405,6 +403,7 @@ namespace FruPak.PF.WorkOrder
         }
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
+
         /// <summary>
         /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
@@ -417,34 +416,39 @@ namespace FruPak.PF.WorkOrder
             {
                 Button b = (Button)sender;
                 logger.Log(LogLevel.Info, DecorateString(b.Name, b.Text, "Click"));
-
             }
         }
+
         private void Control_Validated(object sender, EventArgs e)
         {
             TextBox t = (TextBox)sender;
             logger.Log(LogLevel.Info, DecorateString(t.Name, t.Text, "Validated"));
         }
+
         private void Control_SelectedValueChanged(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Text, "SelectedValueChanged"));
         }
+
         private void Control_ValueChanged(object sender, EventArgs e)
         {
             DateTimePicker dtp = (DateTimePicker)sender;
             logger.Log(LogLevel.Info, DecorateString(dtp.Name, dtp.Text, "ValueChanged"));
         }
+
         private void Control_NudValueChanged(object sender, EventArgs e)
         {
             NumericUpDown nud = (NumericUpDown)sender;
             logger.Log(LogLevel.Info, DecorateString(nud.Name, nud.Text, "NudValueChanged"));
         }
+
         private void Control_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Checked.ToString(), "CheckedChanged"));
         }
+
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
             FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
@@ -452,8 +456,10 @@ namespace FruPak.PF.WorkOrder
         }
 
         #region Decorate String
+
         // DecorateString
         private string openPad = " --- [ ";
+
         private string closePad = " ] --- ";
         private string intro = "--->   { ";
         private string outro = " }   <---";
@@ -475,7 +481,8 @@ namespace FruPak.PF.WorkOrder
             output = intro + name + openPad + input + closePad + action + outro;
             return output;
         }
-        #endregion
+
+        #endregion Decorate String
 
         /// <summary>
         /// Close the form with the Esc key (Sel request 11-02-2015 BN)
@@ -491,7 +498,6 @@ namespace FruPak.PF.WorkOrder
             }
         }
 
-        #endregion
-
+        #endregion Methods to log UI events to the CSV file. BN 29/01/2015
     }
 }

@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data;
-using System.IO;
 
 namespace FruPak.PF.PrintLayer
 {
     public class Invoice_Sales
     {
-   //     private static int int_Current_User_Id = 0;
+        //     private static int int_Current_User_Id = 0;
         public static int Print(string Data, bool bol_print)
         {
             int return_code = 98;
@@ -19,11 +16,12 @@ namespace FruPak.PF.PrintLayer
             return_code = Print(Convert.ToInt32(DataParts[0]), DataParts[1], DataParts[2], DataParts[3], DataParts[4], Convert.ToDecimal(DataParts[5]), DataParts[6], bol_print);
             return return_code;
         }
+
         public static int Print(int Invoice_Id, string Invoice_Date, string Order_Num, string str_delivery_name, string str_save_filename, decimal dec_GST, string str_type, bool bol_print)
         {
             FruPak.PF.PrintLayer.General.view_list = new List<string>();
             int return_code = 97;
-            
+
             string str_Invoice_Date = "";
             string str_Invoice_Date_yyyymmdd = "";
 
@@ -48,7 +46,7 @@ namespace FruPak.PF.PrintLayer
 
                 int ip = 1;
                 for (int i = h * 8; i < ds_Get_Info.Tables[0].Rows.Count && i < (h * 8) + 8; i++)
-            //    for (int i = 0; i < ds_Get_Info.Tables[0].Rows.Count; i++)
+                //    for (int i = 0; i < ds_Get_Info.Tables[0].Rows.Count; i++)
                 {
                     dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
 
@@ -74,11 +72,13 @@ namespace FruPak.PF.PrintLayer
                                 str_Quantity = FruPak.PF.Common.Code.General.Calculate_Totals(dr_Get_Info["Code"].ToString().ToUpper(), str_WHERE);
                                 FruPak.PF.PrintLayer.Word.ReplaceText("Description" + Convert.ToString(ip), dr_Get_Info["R_Description"].ToString());
                                 break;
+
                             case "Freight-1":
                             case "Freight-2":
                                 str_Quantity = FruPak.PF.Common.Code.General.Calculate_Totals(dr_Get_Info["Code"].ToString().ToUpper().Substring(0, dr_Get_Info["Code"].ToString().IndexOf('-')), str_WHERE);
                                 FruPak.PF.PrintLayer.Word.ReplaceText("Description" + Convert.ToString(ip), dr_Get_Info["R_Description"].ToString());
                                 break;
+
                             default:
                                 str_Quantity = Convert.ToString(Math.Round(Convert.ToDecimal(dr_Get_Info["Quantity"].ToString()), 0));
                                 FruPak.PF.PrintLayer.Word.ReplaceText("Description" + Convert.ToString(ip), dr_Get_Info["G_Description"].ToString());
@@ -92,7 +92,6 @@ namespace FruPak.PF.PrintLayer
                         FruPak.PF.PrintLayer.Word.ReplaceText("Description" + Convert.ToString(ip), dr_Get_Info["G_Description"].ToString());
                         FruPak.PF.PrintLayer.Word.ReplaceText("COrder" + Convert.ToString(ip), dr_Get_Info["Customer_Order"].ToString());
                     }
-
 
                     FruPak.PF.PrintLayer.Word.ReplaceText("Quantity" + Convert.ToString(ip), String.Format("{0:#,###0}", str_Quantity));
                     FruPak.PF.PrintLayer.Word.ReplaceText("LTotal" + Convert.ToString(ip), String.Format("{0:#,###0.00}", Math.Round(Convert.ToDecimal(dr_Get_Info["Cost"].ToString()), 2)));
@@ -125,11 +124,9 @@ namespace FruPak.PF.PrintLayer
                     }
                 }
 
-                
                 return_code = FruPak.PF.PrintLayer.General.Print(str_type, str_save_filename + "-" + Convert.ToString(h), str_Invoice_Date_yyyymmdd);
                 FruPak.PF.PrintLayer.Word.CloseWord();
             }
-
 
             return return_code;
         }

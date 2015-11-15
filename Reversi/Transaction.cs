@@ -1,29 +1,25 @@
 ﻿/*
  * Copyright (C) Henrik Jonsson 2007
- * 
- * THIS WORK IS PROVIDED UNDER THE TERMS OF THIS CODE PROJECT OPEN LICENSE ("LICENSE"). 
- * THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK 
+ *
+ * THIS WORK IS PROVIDED UNDER THE TERMS OF THIS CODE PROJECT OPEN LICENSE ("LICENSE").
+ * THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK
  * OTHER THAN AS AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.
- * 
+ *
  * See licence.txt or http://thecodeproject.com/info/eula.aspx for full licence description.
- * 
+ *
  * This copyright notice must not be removed.
 */
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Reversible
 {
-    
-    
     /// <summary>
-    /// Represents a transaction enabling rollbacks, undoing and redoing of operations in an application. 
+    /// Represents a transaction enabling rollbacks, undoing and redoing of operations in an application.
     /// </summary>
     public class Transaction : Edit, IDisposable
     {
-
         protected static Transaction current;
 
         /// <summary>
@@ -60,15 +56,15 @@ namespace Reversible
         }
 
         /// <summary>
-        /// The parent transaction that this transaction will be added to when commited. 
+        /// The parent transaction that this transaction will be added to when commited.
         /// </summary>
         private readonly Transaction parent;
-        
+
         /// <summary>
         /// The list of edits added to the transaction
         /// </summary>
         protected readonly List<Edit> edits = new List<Edit>();
-        
+
         /// <summary>
         /// The index in edits list to add next edit to.
         /// </summary>
@@ -127,7 +123,7 @@ namespace Reversible
             }
         }
 
-        #endregion
+        #endregion IDisposable Members
 
         /// <summary>
         /// Adds a reversible operation to this transaction
@@ -141,9 +137,9 @@ namespace Reversible
                 throw new InvalidOperationException("Cannot add edits to a finished transaction");
             }
 
-            // Remove all from currentIndex, i.e. redone edits 
-            edits.RemoveRange(currentIndex, edits.Count - currentIndex); 
-            
+            // Remove all from currentIndex, i.e. redone edits
+            edits.RemoveRange(currentIndex, edits.Count - currentIndex);
+
             edits.Add(edit);
             currentIndex++;
         }
@@ -162,12 +158,11 @@ namespace Reversible
             if (childFinished == currentChild)
             {
                 currentChild = null;
-                
+
                 // Makes this (the parent) transaction the active one.
                 current = this;
             }
         }
-
 
         /// <summary>
         /// Reverses all reversible operations performed during this transaction and ends this transaction (making any parent
@@ -201,20 +196,17 @@ namespace Reversible
             // Clears parents current child.
             if (parent != null)
             {
-
                 parent.OnChildFinished(this);
             }
             else
             {
-                
                 // Makes none transaction active.
                 current = null;
             }
-            
         }
 
         /// <summary>
-        /// Mark this transaction as successfully completed. This transaction will be added as a reversible operation in the parent 
+        /// Mark this transaction as successfully completed. This transaction will be added as a reversible operation in the parent
         /// transaction (if any) which also will be the new current transaction.
         /// </summary>
         /// <remarks>
@@ -238,7 +230,6 @@ namespace Reversible
 
             if (parent != null)
             {
-
                 if (edits.Count > 0)
                 {
                     parent.AddEdit(this);
@@ -287,7 +278,7 @@ namespace Reversible
         }
 
         /// <summary>
-        /// Reverses all operation in this transaction (either undos or redos all operation depending on state). 
+        /// Reverses all operation in this transaction (either undos or redos all operation depending on state).
         /// </summary>
         /// <returns>Edit that represents the reverse operation</returns>
         public override Edit Reverse()
@@ -296,7 +287,6 @@ namespace Reversible
             {
                 for (int i = currentIndex - 1; i >= 0; i--)
                 {
-                   
                     edits[i] = edits[i].Reverse();
                 }
                 currentIndex = 0;
@@ -334,7 +324,7 @@ namespace Reversible
         /// <param name="instance">The instance whose property is changed</param>
         /// <param name="oldValue">The present value of the property</param>
         /// <param name="newValue">The new value to be assigned to the property</param>
-        public static void AddPropertyChange<TOwner,TProperty>(ReversiblePropertySetter<TOwner, TProperty> setter, TOwner instance, TProperty oldValue, TProperty newValue) where TOwner : class
+        public static void AddPropertyChange<TOwner, TProperty>(ReversiblePropertySetter<TOwner, TProperty> setter, TOwner instance, TProperty oldValue, TProperty newValue) where TOwner : class
         {
             Transaction txn = current;
             if (txn != null)

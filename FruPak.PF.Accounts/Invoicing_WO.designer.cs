@@ -50,6 +50,7 @@
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.lbl_freight_charge = new System.Windows.Forms.Label();
             this.nud_freight = new System.Windows.Forms.NumericUpDown();
+            this.buttonOpenPdfFileLocation = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_freight)).BeginInit();
@@ -268,11 +269,25 @@
             this.nud_freight.TabIndex = 4;
             this.nud_freight.Visible = false;
             // 
+            // buttonOpenPdfFileLocation
+            // 
+            this.buttonOpenPdfFileLocation.Image = ((System.Drawing.Image)(resources.GetObject("buttonOpenPdfFileLocation.Image")));
+            this.buttonOpenPdfFileLocation.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonOpenPdfFileLocation.Location = new System.Drawing.Point(758, 494);
+            this.buttonOpenPdfFileLocation.Name = "buttonOpenPdfFileLocation";
+            this.buttonOpenPdfFileLocation.Size = new System.Drawing.Size(238, 23);
+            this.buttonOpenPdfFileLocation.TabIndex = 71;
+            this.buttonOpenPdfFileLocation.Text = "&Open Pdf File Location";
+            this.buttonOpenPdfFileLocation.UseVisualStyleBackColor = true;
+            this.buttonOpenPdfFileLocation.Visible = false;
+            this.buttonOpenPdfFileLocation.Click += new System.EventHandler(this.buttonOpenPdfFileLocation_Click);
+            // 
             // Invoicing_WO
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1006, 549);
+            this.Controls.Add(this.buttonOpenPdfFileLocation);
             this.Controls.Add(this.lbl_freight_charge);
             this.Controls.Add(this.nud_freight);
             this.Controls.Add(this.dataGridView2);
@@ -332,6 +347,7 @@
         private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Label lbl_freight_charge;
         private System.Windows.Forms.NumericUpDown nud_freight;
+        private System.Windows.Forms.Button buttonOpenPdfFileLocation;
     }
 }
 

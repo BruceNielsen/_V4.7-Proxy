@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FruPak.Utils.Data;
 using System.Data;
-using System.Data.OleDb;
-using FruPak.Utils.Data;
+
 namespace FruPak.PF.Data.AccessLayer
 {
     /*Description
     -----------------
     CM_ESP Class.
-     * 
+     *
      * This Class is a data access layer to the CM_ESP table
      * Where possible the following standard method names are used and standard column names used.
      *  1. Variable names as input to a method are the same as the column names they refer to.
@@ -25,6 +22,7 @@ namespace FruPak.PF.Data.AccessLayer
     -------------------------------------------------------------------------------------------------------------------------------------------------
     01/09/2013  Dave       Creation
     */
+
     public class PF_BaseLoad
     {
         public static DataSet Get_Max_ID()
@@ -32,17 +30,20 @@ namespace FruPak.PF.Data.AccessLayer
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(BaseLoad_Id) as Current_Id FROM PF_BaseLoad");
         }
+
         public static DataSet Get_Info()
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_BaseLoad WHERE PF_Active_Ind = 1");
         }
+
         public static int Insert(int BaseLoad_Id, int Work_Order_Id, string Description, bool PF_Active_Ind, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO PF_BaseLoad(BaseLoad_Id, Work_Order_Id, Description, PF_Active_Ind, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + BaseLoad_Id + "," + Work_Order_Id + ",'" + Description + "','" + PF_Active_Ind + "', GETDATE() ," + Mod_User_Id + ")");
         }
+
         public static int Update(int BaseLoad_Id, int Work_Order_Id, string Description, bool PF_Active_Ind, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -53,7 +54,8 @@ namespace FruPak.PF.Data.AccessLayer
                                                                   "Mod_User_Id = " + Mod_User_Id +
                                               " WHERE BaseLoad_Id = " + BaseLoad_Id);
         }
-        public static int Complete (int BaseLoad_Id, bool PF_Active_Ind, int Mod_User_Id)
+
+        public static int Complete(int BaseLoad_Id, bool PF_Active_Ind, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_BaseLoad SET PF_Active_Ind = '" + PF_Active_Ind + "', " +

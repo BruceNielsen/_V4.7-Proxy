@@ -1,21 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using NLog;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
-using NLog;
+using System.Windows.Forms;
 
 namespace FruPak.PF.Utils.Scanning
 {
     public partial class Create_Small_Rejects : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static int int_Current_User_Id = 0;
+
         public Create_Small_Rejects(int int_C_User_id)
         {
             InitializeComponent();
@@ -30,6 +26,7 @@ namespace FruPak.PF.Utils.Scanning
             //}
 
             #region Log any interesting events from the UI to the CSV log file
+
             foreach (Control c in this.Controls)
             {
                 if (c.GetType() == typeof(Button))
@@ -60,15 +57,14 @@ namespace FruPak.PF.Utils.Scanning
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-
                 else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
                 {
                     FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
-            #endregion
 
+            #endregion Log any interesting events from the UI to the CSV log file
         }
 
         private void btn_Close_Click(object sender, EventArgs e)
@@ -89,9 +85,10 @@ namespace FruPak.PF.Utils.Scanning
                 string str_barcode = FruPak.PF.Common.Code.Barcode.Barcode_Num.ToString();
 
                 FruPak.PF.Data.AccessLayer.CM_Bins.InsertWorkOrder(int_Bin_Id, int_Current_WO_Id, str_barcode, 456, 1, 4, int_Current_User_Id);
-                Print(int_Bin_Id, nud_required.Value);                
+                Print(int_Bin_Id, nud_required.Value);
             }
         }
+
         /// <summary>
         /// Get the current Work Order being processed
         /// </summary>
@@ -102,7 +99,7 @@ namespace FruPak.PF.Utils.Scanning
 
             DataSet ds = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Current();
             DataRow dr;
-            for (int i = 0; i < ds.Tables[0].Rows.Count; i++) 
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 dr = ds.Tables[0].Rows[i];
                 int_WO_Id = Convert.ToInt32(dr["Work_Order_Id"].ToString());
@@ -110,6 +107,7 @@ namespace FruPak.PF.Utils.Scanning
             ds.Dispose();
             return int_WO_Id;
         }
+
         /// <summary>
         /// Gets the Trader ID from the current Work Order.
         /// </summary>
@@ -127,8 +125,8 @@ namespace FruPak.PF.Utils.Scanning
             }
             ds.Dispose();
             return int_Trader_Id;
-
         }
+
         private void Print(int int_Bin_Id, decimal total_required)
         {
             string Data = "W:";         //Bin or Submission indicator
@@ -155,7 +153,6 @@ namespace FruPak.PF.Utils.Scanning
                 }
             }
 
-
             try
             {
                 FruPak.PF.PrintLayer.Bin_Card.Print(Data, true);
@@ -165,8 +162,8 @@ namespace FruPak.PF.Utils.Scanning
                 FruPak.PF.Data.AccessLayer.SY_PrintRequest.Insert(FruPak.PF.Common.Code.General.int_max_user_id("SY_PrintRequest"), "Bincard", "PF-BinCard", "", Data, int_Current_User_Id);
             }
             myPrinters.SetDefaultPrinter(curent_printer);
-
         }
+
         private void btn_reprint_Click(object sender, EventArgs e)
         {
             DataSet ds = FruPak.PF.Data.AccessLayer.CM_Bins.Get_unused_Rejects(Get_Current_Work_Order_Id());
@@ -180,8 +177,9 @@ namespace FruPak.PF.Utils.Scanning
         }
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
+
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>
@@ -192,34 +190,39 @@ namespace FruPak.PF.Utils.Scanning
             {
                 Button b = (Button)sender;
                 logger.Log(LogLevel.Info, DecorateString(b.Name, b.Text, "Click"));
-
             }
         }
+
         private void Control_Validated(object sender, EventArgs e)
         {
             TextBox t = (TextBox)sender;
             logger.Log(LogLevel.Info, DecorateString(t.Name, t.Text, "Validated"));
         }
+
         private void Control_SelectedValueChanged(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Text, "SelectedValueChanged"));
         }
+
         private void Control_ValueChanged(object sender, EventArgs e)
         {
             DateTimePicker dtp = (DateTimePicker)sender;
             logger.Log(LogLevel.Info, DecorateString(dtp.Name, dtp.Text, "ValueChanged"));
         }
+
         private void Control_NudValueChanged(object sender, EventArgs e)
         {
             NumericUpDown nud = (NumericUpDown)sender;
             logger.Log(LogLevel.Info, DecorateString(nud.Name, nud.Text, "NudValueChanged"));
         }
+
         private void Control_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Checked.ToString(), "CheckedChanged"));
         }
+
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
             FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
@@ -227,8 +230,10 @@ namespace FruPak.PF.Utils.Scanning
         }
 
         #region Decorate String
+
         // DecorateString
         private string openPad = " --- [ ";
+
         private string closePad = " ] --- ";
         private string intro = "--->   { ";
         private string outro = " }   <---";
@@ -250,7 +255,8 @@ namespace FruPak.PF.Utils.Scanning
             output = intro + name + openPad + input + closePad + action + outro;
             return output;
         }
-        #endregion
+
+        #endregion Decorate String
 
         /// <summary>
         /// Close the form with the Esc key (Sel request 11-02-2015 BN)
@@ -266,9 +272,9 @@ namespace FruPak.PF.Utils.Scanning
             }
         }
 
-        #endregion
-
+        #endregion Methods to log UI events to the CSV file. BN 29/01/2015
     }
+
     public static class myPrinters
     {
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]

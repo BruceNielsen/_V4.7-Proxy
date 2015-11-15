@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace FruPak.PF.Utils.UserControls
@@ -16,41 +11,49 @@ namespace FruPak.PF.Utils.UserControls
             get;
             set;
         }
+
         public int selectedProductGroup
         {
             get;
             set;
         }
+
         public int selectedPackType
         {
             get;
             set;
         }
-        public int selectedBrand 
+
+        public int selectedBrand
         {
             get;
             set;
         }
+
         public decimal selectedWeight
         {
             get;
             set;
         }
+
         public int selectedGrade
         {
             get;
             set;
         }
+
         public int selectedTreatment
         {
             get;
             set;
         }
+
         public int selectedMaterial
         {
             get;
             set;
         }
+
         //public int selectedMaterial
         //{
         //    get
@@ -83,23 +86,28 @@ namespace FruPak.PF.Utils.UserControls
             get;
             set;
         }
+
         public int selectedGrowingMethod
         {
             get;
             set;
         }
+
         public int selectedSize
         {
             get;
             set;
         }
+
         public MaterialNumber()
         {
             InitializeComponent();
 
-     //       populate_comboboxs();
+            //       populate_comboboxs();
         }
+
         private DataView dv;
+
         public void populate()
         {
             DataSet ds_Get_Info;
@@ -187,7 +195,7 @@ namespace FruPak.PF.Utils.UserControls
             if (cmb_Product_Group.Items.Count == 1)
                 cmb_Product_Group.SelectedIndex = 0;
 
-            //pack Type            
+            //pack Type
             cmb_PackType.DataSource = dv.ToTable(true, "PT_Combined", "PackType_Id");
             cmb_PackType.DisplayMember = "PT_Combined";
             cmb_PackType.ValueMember = "PackType_Id";
@@ -195,7 +203,7 @@ namespace FruPak.PF.Utils.UserControls
             if (cmb_PackType.Items.Count == 1)
                 cmb_PackType.SelectedIndex = 0;
 
-            //Brand            
+            //Brand
             cmb_Brand.DataSource = dv.ToTable(true, "B_Combined", "Brand_Id");
             cmb_Brand.DisplayMember = "B_Combined";
             cmb_Brand.ValueMember = "Brand_Id";
@@ -235,7 +243,7 @@ namespace FruPak.PF.Utils.UserControls
             if (cmb_Size.Items.Count == 1)
                 cmb_Size.SelectedIndex = 0;
 
-            //Material          
+            //Material
             cmb_Material.DataSource = dv;
             cmb_Material.DisplayMember = "Material_Num";
             cmb_Material.ValueMember = "Material_Id";
@@ -243,8 +251,8 @@ namespace FruPak.PF.Utils.UserControls
             if (cmb_Material.Items.Count == 1)
                 cmb_Material.SelectedIndex = 0;
             ds_Get_Info.Dispose();
-
         }
+
         private void cmb_Trader_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if ((sender as ComboBox).SelectedValue != null)
@@ -254,6 +262,7 @@ namespace FruPak.PF.Utils.UserControls
                 populate();
             }
         }
+
         private void cmb_Product_Group_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if ((sender as ComboBox).SelectedValue != null)
@@ -263,6 +272,7 @@ namespace FruPak.PF.Utils.UserControls
                 populate();
             }
         }
+
         private void cmb_PackType_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if ((sender as ComboBox).SelectedValue != null)
@@ -272,6 +282,7 @@ namespace FruPak.PF.Utils.UserControls
                 populate();
             }
         }
+
         private void cmb_Brand_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if ((sender as ComboBox).SelectedValue != null)
@@ -281,6 +292,7 @@ namespace FruPak.PF.Utils.UserControls
                 populate();
             }
         }
+
         private void cmb_Weight_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if ((sender as ComboBox).SelectedValue != null)
@@ -290,6 +302,7 @@ namespace FruPak.PF.Utils.UserControls
                 populate();
             }
         }
+
         private void cmb_Grade_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if ((sender as ComboBox).SelectedValue != null)
@@ -299,6 +312,7 @@ namespace FruPak.PF.Utils.UserControls
                 populate();
             }
         }
+
         private void cmb_Treatment_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if ((sender as ComboBox).SelectedValue != null)
@@ -308,6 +322,7 @@ namespace FruPak.PF.Utils.UserControls
                 populate();
             }
         }
+
         private void cmb_Size_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if ((sender as ComboBox).SelectedValue != null)
@@ -317,6 +332,7 @@ namespace FruPak.PF.Utils.UserControls
                 populate();
             }
         }
+
         private void cmb_Material_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if ((sender as ComboBox).SelectedValue != null)
@@ -328,7 +344,7 @@ namespace FruPak.PF.Utils.UserControls
         }
 
         /// <summary>
-        /// Allows program to change the selected material and have everything update as if the user had selected a 
+        /// Allows program to change the selected material and have everything update as if the user had selected a
         /// material number.
         /// </summary>
         /// <param name="selectedMaterial"></param>
@@ -353,9 +369,9 @@ namespace FruPak.PF.Utils.UserControls
 
         public void setMaterial(int chosenMaterialId)
         {
-                selectedMaterial = chosenMaterialId;
-                dv.RowFilter = string.Format("Material_Num = {0}", chosenMaterialId);
-                populate();
+            selectedMaterial = chosenMaterialId;
+            dv.RowFilter = string.Format("Material_Num = {0}", chosenMaterialId);
+            populate();
         }
 
         // resets all combo boxes
@@ -372,7 +388,6 @@ namespace FruPak.PF.Utils.UserControls
             selectedSize = 0;
             populate();
         }
-
 
         // set and get for the Material number for the selected item.
         public int Material_Number

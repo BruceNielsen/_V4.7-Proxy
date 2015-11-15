@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
@@ -9,16 +8,16 @@ using System.Threading;
 namespace FileLockInfo
 {
     /* Usage:
-     * 
+     *
      * // Return a list of processes that hold open the given file.
-     * 
+     *
      * Console.WriteLine("C:\\Users\\Rupam\\Desktop\\Transaction Details.pdf");
        GetProcessesLockingFile("C:\\Users\\Rupam\\Desktop\\Transaction Details - PayPal.pdf");
        Console.Read();
-     * 
+     *
      * Grabbed from:
      * http://www.codeproject.com/Questions/531409/fileplusisplususedplusbyplusanotherplusprocessplus
-     * 
+     *
      * BN 12/05/2015
      */
 
@@ -36,7 +35,6 @@ namespace FileLockInfo
                 var files = GetFilesLockedBy(process);
                 if (files.Contains(filePath))
                 {
-
                     Console.WriteLine("--------------->" + process.ProcessName);
                     procs.Add(process);
                 }
@@ -80,9 +78,12 @@ namespace FileLockInfo
             return outp;
         }
 
-
         #region Inner Workings
-        private static void Ignore() { }
+
+        private static void Ignore()
+        {
+        }
+
         private static List<string> UnsafeGetFilesLockedBy(Process process)
         {
             try
@@ -104,7 +105,8 @@ namespace FileLockInfo
             }
         }
 
-        const int CNST_SYSTEM_HANDLE_INFORMATION = 16;
+        private const int CNST_SYSTEM_HANDLE_INFORMATION = 16;
+
         private static string GetFilePath(Win32API.SYSTEM_HANDLE_INFORMATION systemHandleInformation, Process process)
         {
             var ipProcessHwnd = Win32API.OpenProcess(Win32API.ProcessAccessFlags.All, false, process.Id);
@@ -180,7 +182,6 @@ namespace FileLockInfo
 
             if (ipTemp != IntPtr.Zero)
             {
-
                 var baTemp = new byte[nLength];
                 try
                 {
@@ -302,13 +303,16 @@ namespace FileLockInfo
 
             [DllImport("kernel32.dll")]
             public static extern IntPtr OpenProcess(ProcessAccessFlags dwDesiredAccess, [MarshalAs(UnmanagedType.Bool)] bool bInheritHandle, int dwProcessId);
+
             [DllImport("kernel32.dll")]
             public static extern int CloseHandle(IntPtr hObject);
+
             [DllImport("kernel32.dll", SetLastError = true)]
             [return: MarshalAs(UnmanagedType.Bool)]
             public static extern bool DuplicateHandle(IntPtr hSourceProcessHandle,
                ushort hSourceHandle, IntPtr hTargetProcessHandle, out IntPtr lpTargetHandle,
                uint dwDesiredAccess, [MarshalAs(UnmanagedType.Bool)] bool bInheritHandle, uint dwOptions);
+
             [DllImport("kernel32.dll")]
             public static extern IntPtr GetCurrentProcess();
 
@@ -419,6 +423,7 @@ namespace FileLockInfo
             public const int DUPLICATE_SAME_ACCESS = 0x2;
             public const uint FILE_SEQUENTIAL_ONLY = 0x00000004;
         }
-        #endregion
+
+        #endregion Inner Workings
     }
 }

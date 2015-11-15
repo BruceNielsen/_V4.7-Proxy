@@ -57,9 +57,12 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.buttonOpenPdfFileLocation = new System.Windows.Forms.Button();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+            this.numericUpDownQuantity = new System.Windows.Forms.NumericUpDown();
+            this.labelQuantity = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_freight)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownQuantity)).BeginInit();
             this.SuspendLayout();
             // 
             // btn_Close
@@ -84,7 +87,7 @@
             // 
             // btn_Add
             // 
-            this.btn_Add.Location = new System.Drawing.Point(674, 147);
+            this.btn_Add.Location = new System.Drawing.Point(552, 147);
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(143, 23);
             this.btn_Add.TabIndex = 8;
@@ -108,17 +111,17 @@
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.MenuBar;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(12, 255);
+            this.dataGridView1.Location = new System.Drawing.Point(12, 217);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(513, 224);
+            this.dataGridView1.Size = new System.Drawing.Size(982, 204);
             this.dataGridView1.TabIndex = 6;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellValueChanged);
             // 
             // btn_Save
             // 
-            this.btn_Save.Location = new System.Drawing.Point(622, 456);
+            this.btn_Save.Location = new System.Drawing.Point(575, 456);
             this.btn_Save.Name = "btn_Save";
             this.btn_Save.Size = new System.Drawing.Size(55, 23);
             this.btn_Save.TabIndex = 12;
@@ -128,10 +131,10 @@
             // 
             // txt_comments
             // 
-            this.txt_comments.Location = new System.Drawing.Point(622, 255);
+            this.txt_comments.Location = new System.Drawing.Point(12, 456);
             this.txt_comments.Multiline = true;
             this.txt_comments.Name = "txt_comments";
-            this.txt_comments.Size = new System.Drawing.Size(374, 166);
+            this.txt_comments.Size = new System.Drawing.Size(516, 81);
             this.txt_comments.TabIndex = 10;
             this.txt_comments.TextChanged += new System.EventHandler(this.txt_comments_TextChanged);
             this.txt_comments.Validated += new System.EventHandler(this.txt_comments_Validated);
@@ -139,7 +142,7 @@
             // lbl_comments
             // 
             this.lbl_comments.AutoSize = true;
-            this.lbl_comments.Location = new System.Drawing.Point(544, 255);
+            this.lbl_comments.Location = new System.Drawing.Point(12, 440);
             this.lbl_comments.Name = "lbl_comments";
             this.lbl_comments.Size = new System.Drawing.Size(59, 13);
             this.lbl_comments.TabIndex = 39;
@@ -147,9 +150,9 @@
             // 
             // btn_email
             // 
-            this.btn_email.Location = new System.Drawing.Point(683, 456);
+            this.btn_email.Location = new System.Drawing.Point(636, 456);
             this.btn_email.Name = "btn_email";
-            this.btn_email.Size = new System.Drawing.Size(67, 39);
+            this.btn_email.Size = new System.Drawing.Size(114, 23);
             this.btn_email.TabIndex = 13;
             this.btn_email.Text = "&Email to Customer";
             this.btn_email.UseVisualStyleBackColor = true;
@@ -170,7 +173,7 @@
             // lbl_Order
             // 
             this.lbl_Order.AutoSize = true;
-            this.lbl_Order.Location = new System.Drawing.Point(540, 217);
+            this.lbl_Order.Location = new System.Drawing.Point(770, 191);
             this.lbl_Order.Name = "lbl_Order";
             this.lbl_Order.Size = new System.Drawing.Size(76, 13);
             this.lbl_Order.TabIndex = 42;
@@ -178,7 +181,7 @@
             // 
             // txt_order_num
             // 
-            this.txt_order_num.Location = new System.Drawing.Point(622, 214);
+            this.txt_order_num.Location = new System.Drawing.Point(852, 188);
             this.txt_order_num.MaxLength = 20;
             this.txt_order_num.Name = "txt_order_num";
             this.txt_order_num.Size = new System.Drawing.Size(142, 20);
@@ -212,7 +215,7 @@
             // ckb_COA
             // 
             this.ckb_COA.AutoSize = true;
-            this.ckb_COA.Location = new System.Drawing.Point(622, 427);
+            this.ckb_COA.Location = new System.Drawing.Point(575, 427);
             this.ckb_COA.Name = "ckb_COA";
             this.ckb_COA.Size = new System.Drawing.Size(173, 17);
             this.ckb_COA.TabIndex = 11;
@@ -241,7 +244,7 @@
             // 
             // btn_Add_Rates
             // 
-            this.btn_Add_Rates.Location = new System.Drawing.Point(367, 188);
+            this.btn_Add_Rates.Location = new System.Drawing.Point(323, 188);
             this.btn_Add_Rates.Name = "btn_Add_Rates";
             this.btn_Add_Rates.Size = new System.Drawing.Size(158, 23);
             this.btn_Add_Rates.TabIndex = 4;
@@ -254,7 +257,7 @@
             this.cmb_Rates.FormattingEnabled = true;
             this.cmb_Rates.Location = new System.Drawing.Point(16, 190);
             this.cmb_Rates.Name = "cmb_Rates";
-            this.cmb_Rates.Size = new System.Drawing.Size(345, 21);
+            this.cmb_Rates.Size = new System.Drawing.Size(301, 21);
             this.cmb_Rates.TabIndex = 3;
             this.cmb_Rates.SelectedIndexChanged += new System.EventHandler(this.cmb_Rates_SelectedIndexChanged);
             this.cmb_Rates.SelectionChangeCommitted += new System.EventHandler(this.cmb_Rates_SelectionChangeCommitted);
@@ -262,33 +265,31 @@
             // nud_freight
             // 
             this.nud_freight.DecimalPlaces = 2;
-            this.nud_freight.Location = new System.Drawing.Point(241, 217);
+            this.nud_freight.Location = new System.Drawing.Point(581, 188);
             this.nud_freight.Maximum = new decimal(new int[] {
             999999999,
             0,
             0,
             0});
             this.nud_freight.Name = "nud_freight";
-            this.nud_freight.Size = new System.Drawing.Size(120, 20);
+            this.nud_freight.Size = new System.Drawing.Size(55, 20);
             this.nud_freight.TabIndex = 5;
-            this.nud_freight.Visible = false;
             this.nud_freight.ValueChanged += new System.EventHandler(this.nud_freight_ValueChanged);
             // 
             // lbl_freight_charge
             // 
             this.lbl_freight_charge.AutoSize = true;
-            this.lbl_freight_charge.Location = new System.Drawing.Point(159, 221);
+            this.lbl_freight_charge.Location = new System.Drawing.Point(504, 191);
             this.lbl_freight_charge.Name = "lbl_freight_charge";
-            this.lbl_freight_charge.Size = new System.Drawing.Size(79, 13);
+            this.lbl_freight_charge.Size = new System.Drawing.Size(71, 13);
             this.lbl_freight_charge.TabIndex = 65;
-            this.lbl_freight_charge.Text = "Freight Charge:";
-            this.lbl_freight_charge.Visible = false;
+            this.lbl_freight_charge.Text = "Extra Charge:";
             // 
             // btn_delete
             // 
-            this.btn_delete.Location = new System.Drawing.Point(12, 494);
+            this.btn_delete.Location = new System.Drawing.Point(636, 514);
             this.btn_delete.Name = "btn_delete";
-            this.btn_delete.Size = new System.Drawing.Size(513, 23);
+            this.btn_delete.Size = new System.Drawing.Size(84, 23);
             this.btn_delete.TabIndex = 66;
             this.btn_delete.TabStop = false;
             this.btn_delete.Text = "button1";
@@ -317,6 +318,7 @@
             this.buttonSendDebugInfo.Text = "Send &Debug Info";
             this.toolTip1.SetToolTip(this.buttonSendDebugInfo, "Sends an email with debug info and a screenshot to: processerrors@frupak.co.nz");
             this.buttonSendDebugInfo.UseVisualStyleBackColor = true;
+            this.buttonSendDebugInfo.Visible = false;
             this.buttonSendDebugInfo.Click += new System.EventHandler(this.buttonSendDebugInfo_Click);
             // 
             // openFileDialog1
@@ -333,13 +335,38 @@
             this.buttonOpenPdfFileLocation.TabIndex = 19;
             this.buttonOpenPdfFileLocation.Text = "&Open Pdf File Location";
             this.buttonOpenPdfFileLocation.UseVisualStyleBackColor = true;
+            this.buttonOpenPdfFileLocation.Visible = false;
             this.buttonOpenPdfFileLocation.Click += new System.EventHandler(this.buttonOpenPdfFileLocation_Click);
+            // 
+            // numericUpDownQuantity
+            // 
+            this.numericUpDownQuantity.Location = new System.Drawing.Point(709, 189);
+            this.numericUpDownQuantity.Maximum = new decimal(new int[] {
+            999999999,
+            0,
+            0,
+            0});
+            this.numericUpDownQuantity.Name = "numericUpDownQuantity";
+            this.numericUpDownQuantity.Size = new System.Drawing.Size(55, 20);
+            this.numericUpDownQuantity.TabIndex = 67;
+            this.numericUpDownQuantity.ValueChanged += new System.EventHandler(this.numericUpDownQuantity_ValueChanged);
+            // 
+            // labelQuantity
+            // 
+            this.labelQuantity.AutoSize = true;
+            this.labelQuantity.Location = new System.Drawing.Point(654, 191);
+            this.labelQuantity.Name = "labelQuantity";
+            this.labelQuantity.Size = new System.Drawing.Size(49, 13);
+            this.labelQuantity.TabIndex = 68;
+            this.labelQuantity.Text = "Quantity:";
             // 
             // Invoicing_Sales
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1006, 549);
+            this.Controls.Add(this.labelQuantity);
+            this.Controls.Add(this.numericUpDownQuantity);
             this.Controls.Add(this.buttonOpenPdfFileLocation);
             this.Controls.Add(this.buttonSendDebugInfo);
             this.Controls.Add(this.btn_delete);
@@ -376,6 +403,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_freight)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numericUpDownQuantity)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -410,6 +438,8 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
         private System.Windows.Forms.Button buttonOpenPdfFileLocation;
         private System.Windows.Forms.ToolTip toolTip1;
+        private System.Windows.Forms.NumericUpDown numericUpDownQuantity;
+        private System.Windows.Forms.Label labelQuantity;
     }
 }
 

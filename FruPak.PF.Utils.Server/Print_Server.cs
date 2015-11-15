@@ -1,18 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace FruPak.PF.Utils.Server
 {
     public partial class Print_Server : Form
     {
-        Timer Print_Timer;
+        private Timer Print_Timer;
+
         public Print_Server()
         {
             InitializeComponent();
@@ -45,7 +41,7 @@ namespace FruPak.PF.Utils.Server
         {
             DataSet ds = null;
             DataRow dr;
-            ds = FruPak.PF.Data.AccessLayer.SY_PrintRequest.Get_Info();      
+            ds = FruPak.PF.Data.AccessLayer.SY_PrintRequest.Get_Info();
 
             dataGridView1.DataSource = null;
             dataGridView1.DataSource = ds.Tables[0];
@@ -69,15 +65,17 @@ namespace FruPak.PF.Utils.Server
                     case "PF-Palletcard":
                         Return_code = FruPak.PF.PrintLayer.Pallet_Card.Print(dr["Data"].ToString(), Convert.ToInt32(dr["Mod_User_Id"].ToString()));
                         break;
+
                     case "PF-BinCard":
-                        Return_code = FruPak.PF.PrintLayer.Bin_Card.Print(dr["Data"].ToString(), true);                            
+                        Return_code = FruPak.PF.PrintLayer.Bin_Card.Print(dr["Data"].ToString(), true);
                         break;
+
                     case "PF-WPC":
                         Return_code = FruPak.PF.PrintLayer.WPC_Card.Print(dr["Data"].ToString(), Convert.ToInt32(dr["Mod_User_Id"].ToString()));
                         break;
                 }
 
-                myPrinters.SetDefaultPrinter(current_printer);                       
+                myPrinters.SetDefaultPrinter(current_printer);
 
                 if (Return_code == 0)
                 {
@@ -127,6 +125,7 @@ namespace FruPak.PF.Utils.Server
             }
         }
     }
+
     public static class myPrinters
     {
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]

@@ -1,10 +1,10 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.IO;
+using System.Net;
 using System.Net.Cache;
 using System.Windows.Forms;
-using System.Net;
-using System.IO;
-using System.Diagnostics;
 
 namespace AutoUpdaterDotNET
 {
@@ -47,7 +47,7 @@ namespace AutoUpdaterDotNET
         {
             if (!e.Cancelled)
             {
-                var processStartInfo = new ProcessStartInfo {FileName = _tempPath, UseShellExecute = true};
+                var processStartInfo = new ProcessStartInfo { FileName = _tempPath, UseShellExecute = true };
                 Process.Start(processStartInfo);
                 if (AutoUpdater.IsWinFormsApplication)
                 {
@@ -66,11 +66,11 @@ namespace AutoUpdaterDotNET
             var uri = new Uri(url);
             if (uri.Scheme.Equals(Uri.UriSchemeHttp) || uri.Scheme.Equals(Uri.UriSchemeHttps))
             {
-                var httpWebRequest = (HttpWebRequest) WebRequest.Create(uri);
+                var httpWebRequest = (HttpWebRequest)WebRequest.Create(uri);
                 httpWebRequest.CachePolicy = new HttpRequestCachePolicy(HttpRequestCacheLevel.NoCacheNoStore);
                 httpWebRequest.Method = "HEAD";
                 httpWebRequest.AllowAutoRedirect = false;
-                var httpWebResponse = (HttpWebResponse) httpWebRequest.GetResponse();
+                var httpWebResponse = (HttpWebResponse)httpWebRequest.GetResponse();
                 if (httpWebResponse.StatusCode.Equals(HttpStatusCode.Redirect) ||
                     httpWebResponse.StatusCode.Equals(HttpStatusCode.Moved) ||
                     httpWebResponse.StatusCode.Equals(HttpStatusCode.MovedPermanently))

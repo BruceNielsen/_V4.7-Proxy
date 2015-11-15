@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using NLog;
+using System;
 using System.ComponentModel;
 using System.Globalization;
 using System.IO;
@@ -8,8 +10,6 @@ using System.Reflection;
 using System.Threading;
 using System.Windows.Forms;
 using System.Xml;
-using Microsoft.Win32;
-using NLog;
 
 namespace AutoUpdaterDotNET
 {
@@ -157,8 +157,8 @@ namespace AutoUpdaterDotNET
 
             Assembly mainAssembly = Assembly.GetEntryAssembly();
             var companyAttribute =
-                (AssemblyCompanyAttribute) GetAttribute(mainAssembly, typeof (AssemblyCompanyAttribute));
-            var titleAttribute = (AssemblyTitleAttribute) GetAttribute(mainAssembly, typeof (AssemblyTitleAttribute));
+                (AssemblyCompanyAttribute)GetAttribute(mainAssembly, typeof(AssemblyCompanyAttribute));
+            var titleAttribute = (AssemblyTitleAttribute)GetAttribute(mainAssembly, typeof(AssemblyTitleAttribute));
             AppTitle = titleAttribute != null ? titleAttribute.Title : mainAssembly.GetName().Name;
             string appCompany = companyAttribute != null ? companyAttribute.Company : "";
 
@@ -203,13 +203,14 @@ namespace AutoUpdaterDotNET
             //myProxy.Credentials = new NetworkCredential("username", "password");
             //webRequest.Proxy = myProxy;
 
-            if(useProxy == true)
+            if (useProxy == true)
             {
                 WebProxy myProxy = new WebProxy();
                 myProxy.Address = new Uri(proxyURI + ":" + proxyPort);
-                myProxy.Credentials = new NetworkCredential(proxyUsername, proxyPassword);
+                //myProxy.Credentials = new NetworkCredential(proxyUsername, proxyPassword);
                 webRequest.Proxy = myProxy;
-
+                //webRequest.Headers.Add("Authorization", "Basic " + Convert.ToBase64String(Encoding.ASCII.GetBytes(proxyUsername + ":" + proxyPassword)));
+                //webRequest.UseDefaultCredentials = true;
             }
             //BN 07/07/2015 --------------------------------------------------------
 
@@ -220,6 +221,20 @@ namespace AutoUpdaterDotNET
             try
             {
                 webResponse = webRequest.GetResponse();
+            }
+            catch (WebException wee)
+            {
+                using (WebResponse response = wee.Response)
+                {
+                    HttpWebResponse httpResponse = (HttpWebResponse)response;
+                    Console.WriteLine("Error code: {0}", httpResponse.StatusCode);
+                    using (Stream data = response.GetResponseStream())
+                    {
+                        string text = new StreamReader(data).ReadToEnd();
+                        Console.WriteLine(text);
+                    }
+                }
+                return;
             }
             catch (Exception ex)
             {
@@ -283,7 +298,7 @@ namespace AutoUpdaterDotNET
 
                         var downloadURL64 = GetURL(webResponse.ResponseUri, appCastUrl64);
 
-                        if(!string.IsNullOrEmpty(downloadURL64))
+                        if (!string.IsNullOrEmpty(downloadURL64))
                         {
                             DownloadURL = downloadURL64;
                         }
@@ -311,7 +326,6 @@ namespace AutoUpdaterDotNET
                             updateKeyWrite.SetValue("version", CurrentVersion.ToString());
                             updateKeyWrite.SetValue("skip", 0);
                             logger.Log(LogLevel.Info, "Skipping update.");
-
                         }
                     }
                 }
@@ -348,7 +362,6 @@ namespace AutoUpdaterDotNET
                 logger.Log(LogLevel.Info, "No update is available.");
                 MessageBox.Show("No update is available", "Update Status", MessageBoxButtons
                     .OK, MessageBoxIcon.Information);
-
             }
 
             if (CheckForUpdateEvent != null)
@@ -357,7 +370,6 @@ namespace AutoUpdaterDotNET
             }
 
             logger.Log(LogLevel.Info, "BackgroundWorker finished.");
-
         }
 
         private static string GetURL(Uri baseUri, XmlNode xmlNode)
@@ -391,7 +403,7 @@ namespace AutoUpdaterDotNET
             {
                 return null;
             }
-            return (Attribute) attributes[0];
+            return (Attribute)attributes[0];
         }
 
         /// <summary>

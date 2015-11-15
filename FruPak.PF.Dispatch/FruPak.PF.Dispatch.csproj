@@ -16,7 +16,7 @@
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -44,7 +44,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="DataGridViewAutoFilter">
-      <HintPath>..\..\FruPak.ProcessFactory\FruPak.ProcessFactory\bin\Release\DataGridViewAutoFilter.dll</HintPath>
+      <HintPath>..\DataGridViewAutoFilter.dll</HintPath>
     </Reference>
     <Reference Include="NLog">
       <HintPath>..\packages\NLog.3.1.0.0\lib\net40\NLog.dll</HintPath>
@@ -133,6 +133,10 @@
     <ProjectReference Include="..\FruPak.PF.Common.Code\FruPak.PF.Common.Code.csproj">
       <Project>{7A894363-CA13-4FB8-9A82-ABB3F8FFAE50}</Project>
       <Name>FruPak.PF.Common.Code</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FruPak.PF.CustomSettings\FruPak.PF.CustomSettings.csproj">
+      <Project>{03ac6274-6499-478e-ae47-3680a8451cd3}</Project>
+      <Name>FruPak.PF.CustomSettings</Name>
     </ProjectReference>
     <ProjectReference Include="..\FruPak.PF.Data.AccessLayer\FruPak.PF.Data.Access_Layer.csproj">
       <Project>{3414FDC5-0AA3-46FA-BDCB-37954C6CE2F5}</Project>

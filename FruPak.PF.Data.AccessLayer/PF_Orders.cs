@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FruPak.Utils.Data;
 using System.Data;
-using System.Data.OleDb;
-using FruPak.Utils.Data;
 
 namespace FruPak.PF.Data.AccessLayer
 {
     /*Description
     -----------------
     PF_Orders Class.
-     * 
+     *
      * This Class is a data access layer to the PF_Orders table
      * Where possible the following standard method names are used and standard column names used.
      *  1. Variable names as input to a method are the same as the column names they refer to.
@@ -47,7 +43,7 @@ namespace FruPak.PF.Data.AccessLayer
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT O.Order_Id, P.Pallet_Id " +
-                                            "FROM PF_Orders O " + 
+                                            "FROM PF_Orders O " +
                                             "INNER JOIN dbo.PF_Pallet P on P.Hold_For_Order_Id = O.Order_Id " +
                                             "WHERE Invoice_Id = " + Invoice_Id);
         }
@@ -73,10 +69,10 @@ namespace FruPak.PF.Data.AccessLayer
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT DATEDIFF(MONTH, WO.Process_Date, O.Load_Date) as Storage_Time, SUM(PD.Quantity) as Total " +
-                                            "FROM dbo.PF_Orders O "+
-                                            "INNER JOIN dbo.PF_Pallet P ON P.Order_Id = O.Order_Id "+
-                                            "INNER JOIN dbo.PF_Pallet_Details PD on PD.Pallet_Id = P.Pallet_Id "+
-                                            "INNER JOIN dbo.PF_Work_Order WO on WO.Work_Order_Id = PD.Work_Order_Id "+
+                                            "FROM dbo.PF_Orders O " +
+                                            "INNER JOIN dbo.PF_Pallet P ON P.Order_Id = O.Order_Id " +
+                                            "INNER JOIN dbo.PF_Pallet_Details PD on PD.Pallet_Id = P.Pallet_Id " +
+                                            "INNER JOIN dbo.PF_Work_Order WO on WO.Work_Order_Id = PD.Work_Order_Id " +
                                             "WHERE O.Order_Id in " + WHERE + " AND DATEDIFF(MONTH, WO.Process_Date, O.Load_Date) > 0 " +
                                             "GROUP BY DATEDIFF(MONTH, WO.Process_Date, O.Load_Date)");
         }
@@ -126,38 +122,38 @@ namespace FruPak.PF.Data.AccessLayer
                                                                      "WHERE Invoice_Id = " + Invoice_Id);
         }
         #region ------------- PF_Orders -------------
-            #region ------------- Select -------------
-                public static DataSet Get_Info_Desc()
-                {
-                    FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
-                    return SQLAccessLayer.RunSP_Query("dbo.PF_Orders_Get_Info_Desc");
-                }
-                public static DataSet Get_Order_Info(bool bol_incld_all)
-                {
-                    FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
-                    return SQLAccessLayer.RunSP_Query("dbo.PF_Orders_Get_Order_Info", bol_incld_all);
-                }
-                public static DataSet Get_Order_Info_For_Cust(int Customer_Id, bool bol_incld_all)
-                {
-                    FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
-                    return SQLAccessLayer.RunSP_Query("dbo.PF_Orders_Get_Order_Info_For_Cust", Customer_Id, bol_incld_all);
-                }
-                public static DataSet Get_Overdue_Orders()
-                {
-                    FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
-                    return SQLAccessLayer.RunSP_Query("dbo.PF_Orders_Get_Overdue_Orders");
-                }
-                public static DataSet Get_UnInvoiced()
-                {
-                    FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
-                    return SQLAccessLayer.RunSP_Query("dbo.PF_Orders_Get_UnInvoiced");
-                }
-                public static DataSet Get_UnInvoiced(int Customer_Id)
-                {
-                    FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
-                    return SQLAccessLayer.RunSP_Query("dbo.PF_Orders_Get_UnInvoiced_For_Cust", Customer_Id);
-                }
-            #endregion
-        #endregion
+        #region ------------- Select -------------
+        public static DataSet Get_Info_Desc()
+        {
+            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            return SQLAccessLayer.RunSP_Query("dbo.PF_Orders_Get_Info_Desc");
+        }
+        public static DataSet Get_Order_Info(bool bol_incld_all)
+        {
+            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            return SQLAccessLayer.RunSP_Query("dbo.PF_Orders_Get_Order_Info", bol_incld_all);
+        }
+        public static DataSet Get_Order_Info_For_Cust(int Customer_Id, bool bol_incld_all)
+        {
+            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            return SQLAccessLayer.RunSP_Query("dbo.PF_Orders_Get_Order_Info_For_Cust", Customer_Id, bol_incld_all);
+        }
+        public static DataSet Get_Overdue_Orders()
+        {
+            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            return SQLAccessLayer.RunSP_Query("dbo.PF_Orders_Get_Overdue_Orders");
+        }
+        public static DataSet Get_UnInvoiced()
+        {
+            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            return SQLAccessLayer.RunSP_Query("dbo.PF_Orders_Get_UnInvoiced");
+        }
+        public static DataSet Get_UnInvoiced(int Customer_Id)
+        {
+            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            return SQLAccessLayer.RunSP_Query("dbo.PF_Orders_Get_UnInvoiced_For_Cust", Customer_Id);
+        }
+        #endregion ------------- Select -------------
+        #endregion ------------- PF_Orders -------------
     }
 }

@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using NLog;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using NLog;
 
 namespace FruPak.PF.Utils.Security
 {
@@ -22,6 +17,7 @@ namespace FruPak.PF.Utils.Security
     -------------------------------------------------------------------------------------------------------------------------------------------------
     01/09/2013  Dave       Creation
     */
+
     public partial class Menu_Maintenance : Form
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
@@ -45,6 +41,7 @@ namespace FruPak.PF.Utils.Security
             populate_check_boxList();
 
             #region Log any interesting events from the UI to the CSV log file
+
             foreach (Control c in this.Controls)
             {
                 if (c.GetType() == typeof(Button))
@@ -82,9 +79,10 @@ namespace FruPak.PF.Utils.Security
                 //    cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 //}
             }
-            #endregion
 
+            #endregion Log any interesting events from the UI to the CSV log file
         }
+
         private void AddColumnsProgrammatically()
         {
             var col1 = new DataGridViewTextBoxColumn();
@@ -134,6 +132,7 @@ namespace FruPak.PF.Utils.Security
             img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
         }
+
         private void populate_datagridview()
         {
             dataGridView1.Refresh();
@@ -211,6 +210,7 @@ namespace FruPak.PF.Utils.Security
                     case "&Add":
                         int_result = FruPak.PF.Data.AccessLayer.SC_Menu.Insert(FruPak.PF.Common.Code.General.int_max_user_id("SC_Menu"), txt_Menu_Name.Text, txt_Menu_Description.Text, int_Current_User_Id);
                         break;
+
                     case "&Update":
                         int_result = FruPak.PF.Data.AccessLayer.SC_Menu.Update(int_Menu_id, txt_Menu_Name.Text, txt_Menu_Description.Text, int_Current_User_Id);
                         break;
@@ -274,8 +274,8 @@ namespace FruPak.PF.Utils.Security
                 btn_Update_Relationships.Visible = true;
                 checkedListBox1.Visible = true;
             }
-
         }
+
         private void SizeAllColumns(Object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'moneyDataSet.List_TS_Work' table. You can move, or remove it, as needed.
@@ -286,9 +286,9 @@ namespace FruPak.PF.Utils.Security
             dataGridView1.AutoResizeColumn(5, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(6, DataGridViewAutoSizeColumnMode.AllCells);
         }
+
         private void populate_check_boxList()
         {
-
             DataSet ds_Get_UserGroup_Info = FruPak.PF.Data.AccessLayer.SC_User_Groups.Get_Info();
             DataRow dr_Get_UserGroup_Info;
 
@@ -299,6 +299,7 @@ namespace FruPak.PF.Utils.Security
             }
             ds_Get_UserGroup_Info.Dispose();
         }
+
         private void update_checkList()
         {
             DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.SC_Menu_Group_Relationship.Get_Info(int_Menu_id);
@@ -321,6 +322,7 @@ namespace FruPak.PF.Utils.Security
             }
             ds_Get_Info.Dispose();
         }
+
         private void Reset()
         {
             txt_Menu_Name.ResetText();
@@ -330,6 +332,7 @@ namespace FruPak.PF.Utils.Security
             btn_Update_Relationships.Visible = false;
             checkedListBox1.Visible = false;
         }
+
         private void btn_reset_Click(object sender, EventArgs e)
         {
             Reset();
@@ -363,6 +366,7 @@ namespace FruPak.PF.Utils.Security
         }
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
+
         /// <summary>
         /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
@@ -375,34 +379,39 @@ namespace FruPak.PF.Utils.Security
             {
                 Button b = (Button)sender;
                 logger.Log(LogLevel.Info, DecorateString(b.Name, b.Text, "Click"));
-
             }
         }
+
         private void Control_Validated(object sender, EventArgs e)
         {
             TextBox t = (TextBox)sender;
             logger.Log(LogLevel.Info, DecorateString(t.Name, t.Text, "Validated"));
         }
+
         private void Control_SelectedValueChanged(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Text, "SelectedValueChanged"));
         }
+
         private void Control_ValueChanged(object sender, EventArgs e)
         {
             DateTimePicker dtp = (DateTimePicker)sender;
             logger.Log(LogLevel.Info, DecorateString(dtp.Name, dtp.Text, "ValueChanged"));
         }
+
         private void Control_NudValueChanged(object sender, EventArgs e)
         {
             NumericUpDown nud = (NumericUpDown)sender;
             logger.Log(LogLevel.Info, DecorateString(nud.Name, nud.Text, "NudValueChanged"));
         }
+
         private void Control_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Checked.ToString(), "CheckedChanged"));
         }
+
         //private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         //{
         //    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
@@ -410,8 +419,10 @@ namespace FruPak.PF.Utils.Security
         //}
 
         #region Decorate String
+
         // DecorateString
         private string openPad = " --- [ ";
+
         private string closePad = " ] --- ";
         private string intro = "--->   { ";
         private string outro = " }   <---";
@@ -433,7 +444,8 @@ namespace FruPak.PF.Utils.Security
             output = intro + name + openPad + input + closePad + action + outro;
             return output;
         }
-        #endregion
+
+        #endregion Decorate String
 
         /// <summary>
         /// Close the form with the Esc key (Sel request 11-02-2015 BN)
@@ -449,7 +461,6 @@ namespace FruPak.PF.Utils.Security
             }
         }
 
-        #endregion
-
+        #endregion Methods to log UI events to the CSV file. BN 29/01/2015
     }
 }

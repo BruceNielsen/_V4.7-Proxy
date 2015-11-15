@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
+﻿using NLog;
+using System;
 using System.Windows.Forms;
-using NLog;
 
 namespace FruPak.PF.Utils.Security
 {
     /*Description
     -----------------
     Password Reset Class.
-        * 
+        *
         * This class is a form used change a users password.
         * It is executed by the user when they wish to change there password at logon.
 
@@ -21,18 +15,21 @@ namespace FruPak.PF.Utils.Security
     -------------------------------------------------------------------------------------------------------------------------------------------------
     01/09/2013  Dave       Creation
     */
+
     public partial class Password_Reset : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private string str_Logon1 = "";
         private int int_User_id = 0;
+
         public Password_Reset(string str_Logon)
         {
             InitializeComponent();
             str_Logon1 = str_Logon;
 
             #region Log any interesting events from the UI to the CSV log file
+
             foreach (Control c in this.Controls)
             {
                 if (c.GetType() == typeof(Button))
@@ -70,19 +67,16 @@ namespace FruPak.PF.Utils.Security
                 //    cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 //}
             }
-            #endregion
 
+            #endregion Log any interesting events from the UI to the CSV log file
         }
 
         private void btn_Update_Click(object sender, EventArgs e)
         {
             int_User_id = General.User_Id_Retrival(str_Logon1);
 
-            
             DialogResult DLR_MessageBox_Old = new DialogResult();
             DialogResult DLR_MessageBox_New = new DialogResult();
-
-            
 
             if (txt_Password_Old.TextLength == 0)
             {
@@ -90,14 +84,14 @@ namespace FruPak.PF.Utils.Security
             }
             else
             {
-                if (General.Password_Validate(str_Logon1,txt_Password_Old.Text) == false)
+                if (General.Password_Validate(str_Logon1, txt_Password_Old.Text) == false)
                 {
                     DLR_MessageBox_Old = MessageBox.Show("Old Password is Invalid- Please try again", "Security - Password Change/Reset", MessageBoxButtons.OK, MessageBoxIcon.Stop);
-                }                
+                }
             }
             if (DLR_MessageBox_Old != DialogResult.OK)
             {
-                if (txt_Password_1.TextLength == 0 )
+                if (txt_Password_1.TextLength == 0)
                 {
                     DLR_MessageBox_New = MessageBox.Show("Please Enter your New Password", "Security - Password Change/Reset", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
@@ -111,7 +105,7 @@ namespace FruPak.PF.Utils.Security
                     int int_result = 0;
 
                     int_result = FruPak.PF.Data.AccessLayer.SC_User.Update_User_Password(int_User_id, General.Password_Encryption(txt_Password_1.Text), int_User_id);
-                    
+
                     if (int_result > 0)
                     {
                         lbl_message.ForeColor = System.Drawing.Color.Blue;
@@ -127,6 +121,7 @@ namespace FruPak.PF.Utils.Security
             }
             FruPak.PF.Common.Code.General.write_log(int_User_id, "PWD - Updated", int_User_id);
         }
+
         private void Reset()
         {
             txt_Password_1.ResetText();
@@ -146,8 +141,9 @@ namespace FruPak.PF.Utils.Security
         }
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
+
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>
@@ -158,34 +154,39 @@ namespace FruPak.PF.Utils.Security
             {
                 Button b = (Button)sender;
                 logger.Log(LogLevel.Info, DecorateString(b.Name, b.Text, "Click"));
-
             }
         }
+
         private void Control_Validated(object sender, EventArgs e)
         {
             TextBox t = (TextBox)sender;
             logger.Log(LogLevel.Info, DecorateString(t.Name, t.Text, "Validated"));
         }
+
         private void Control_SelectedValueChanged(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Text, "SelectedValueChanged"));
         }
+
         private void Control_ValueChanged(object sender, EventArgs e)
         {
             DateTimePicker dtp = (DateTimePicker)sender;
             logger.Log(LogLevel.Info, DecorateString(dtp.Name, dtp.Text, "ValueChanged"));
         }
+
         private void Control_NudValueChanged(object sender, EventArgs e)
         {
             NumericUpDown nud = (NumericUpDown)sender;
             logger.Log(LogLevel.Info, DecorateString(nud.Name, nud.Text, "NudValueChanged"));
         }
+
         private void Control_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Checked.ToString(), "CheckedChanged"));
         }
+
         //private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         //{
         //    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
@@ -193,8 +194,10 @@ namespace FruPak.PF.Utils.Security
         //}
 
         #region Decorate String
+
         // DecorateString
         private string openPad = " --- [ ";
+
         private string closePad = " ] --- ";
         private string intro = "--->   { ";
         private string outro = " }   <---";
@@ -216,7 +219,8 @@ namespace FruPak.PF.Utils.Security
             output = intro + name + openPad + input + closePad + action + outro;
             return output;
         }
-        #endregion
+
+        #endregion Decorate String
 
         /// <summary>
         /// Close the form with the Esc key (Sel request 11-02-2015 BN)
@@ -232,7 +236,6 @@ namespace FruPak.PF.Utils.Security
             }
         }
 
-        #endregion
-
+        #endregion Methods to log UI events to the CSV file. BN 29/01/2015
     }
 }

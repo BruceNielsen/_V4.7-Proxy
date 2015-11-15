@@ -2,12 +2,7 @@
 
 using NLog;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 #endregion Imports (9)
@@ -17,17 +12,20 @@ namespace FruPak.PF.Utils.Common
     public partial class Common_Maintenance : Form
     {
         #region Members of Common_Maintenance (11)
+
         private static Logger logger = LogManager.GetCurrentClassLogger();
         private static string str_table = "";
         private static int int_Current_User_Id = 0;
         private static int int_DVG_Row_id = 0;
         private static bool bol_write_access;
         private static DataSet ds_Get_Info;
+
         ///  <summary>
         ///  validates the text fields on length
         ///  </summary>
         ///  <returns></returns>
         private DataSet ds_validate;
+
         private string openPad = " --- [ ";
         private string closePad = " ] --- ";
         private string intro = "--->   { ";
@@ -65,17 +63,18 @@ namespace FruPak.PF.Utils.Common
                     nud_Tare_Weight.Visible = true;
                     btn_Update_Relationship.Visible = true;
                     break;
+
                 default:
                     lbl_tare_weight.Visible = false;
                     nud_Tare_Weight.Visible = false;
                     btn_Update_Relationship.Visible = false;
                     break;
-
             }
 
             AddColumnsProgrammatically2();
 
             #region Log any interesting events from the UI to the CSV log file
+
             foreach (Control c in this.Controls)
             {
                 if (c.GetType() == typeof(Button))
@@ -106,15 +105,14 @@ namespace FruPak.PF.Utils.Common
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-
                 else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
                 {
                     FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
-            #endregion
 
+            #endregion Log any interesting events from the UI to the CSV log file
         }
 
         #endregion Constructors of Common_Maintenance (1)
@@ -142,119 +140,156 @@ namespace FruPak.PF.Utils.Common
                             case "CM_Brand":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Brand.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Brand"), txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Cities":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Cities.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Cities"), txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Count":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Count.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Count"), txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Defect":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Defect.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Defect"), txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Defect_Class":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Defect_Class.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Defect_Class"), txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_ESP":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_ESP.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_ESP"), txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Fruit_Type":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Fruit_Type.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Fruit_Type"), txt_code.Text, txt_Description.Text, int_Current_User_Id);
                                 break;
+
                             case "CM_Grade":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Grade.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Grade"), txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Growing_Method":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Growing_Method.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Growing_Method"), txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Market_Attribute":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Market_Attribute.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Market_Attribute"), txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Location":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Location.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Location"), txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Pack_Type":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Pack_Type.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Pack_Type"), txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Pallet_Type":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Pallet_Type.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Pallet_Type"), txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Product_Group":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Product_Group.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Product_Group"), txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Size":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Size.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Size"), txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Storage":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Storage.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Storage"), txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Treatment":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Treatment.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Treatment"), txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Truck":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Truck.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Truck"), txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "PF_Other_Work_Types":
                                 int_result = FruPak.PF.Data.AccessLayer.PF_Other_Work_Types.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Other_Work_Types"), txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
                         }
                         break;
+
                     case "&Update":
                         switch (str_table)
                         {
                             case "CM_Brand":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Brand.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Cities":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Cities.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Count":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Count.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Defect":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Defect.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Defect_Class":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Defect_Class.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_ESP":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_ESP.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Fruit_Type":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Fruit_Type.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, int_Current_User_Id);
                                 break;
+
                             case "CM_Grade":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Grade.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Growing_Method":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Growing_Method.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Market_Attribute":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Market_Attribute.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Location":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Location.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Pack_Type":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Pack_Type.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Pallet_Type":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Pallet_Type.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Product_Group":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Product_Group.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Size":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Size.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Storage":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Storage.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Treatment":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Treatment.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Truck":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Truck.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "PF_Other_Work_Types":
                                 int_result = FruPak.PF.Data.AccessLayer.PF_Other_Work_Types.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
@@ -338,7 +373,6 @@ namespace FruPak.PF.Utils.Common
             var col2 = new DataGridViewTextBoxColumn();
             var col3 = new DataGridViewTextBoxColumn();
 
-
             col0.HeaderText = "Id";
             col0.Name = "PackType_Weight_Id";
             col0.ReadOnly = true;
@@ -375,11 +409,6 @@ namespace FruPak.PF.Utils.Common
             //!+ Now it works
             //!++ Now it works
             //x Well
-
-
-
-
-
 
             // Set cursor as hourglass
             Cursor.Current = Cursors.WaitCursor;
@@ -420,6 +449,7 @@ namespace FruPak.PF.Utils.Common
                         }
                     }
                     break;
+
                 case "CM_Defect_Class":
                     FruPak.PF.Data.AccessLayer.CM_Defect_Defect_Class_Relationship.Delete_Class_From_Defect(int_DVG_Row_id);
                     for (int i = 0; i < checkedListBox1.Items.Count; i++)
@@ -435,6 +465,7 @@ namespace FruPak.PF.Utils.Common
                         }
                     }
                     break;
+
                 case "CM_Product_Product_Group_Relationship":
                     FruPak.PF.Data.AccessLayer.CM_Product_Product_Group_Relationship.Delete_Product_From_Group(int_DVG_Row_id);
                     for (int i = 0; i < checkedListBox1.Items.Count; i++)
@@ -450,6 +481,7 @@ namespace FruPak.PF.Utils.Common
                         }
                     }
                     break;
+
                 case "CM_Pack_Type":
                     if (nud_Tare_Weight.Visible == true)
                     {
@@ -473,7 +505,6 @@ namespace FruPak.PF.Utils.Common
                             FruPak.PF.Data.AccessLayer.CM_Pack_Type_Weight.Update(Convert.ToInt32(dataGridView2.CurrentRow.Cells["PackType_Weight_Id"].Value.ToString()), Convert.ToInt32(dataGridView2.CurrentRow.Cells["PackType_Id"].Value.ToString()),
                                 Convert.ToDecimal(dataGridView2.CurrentRow.Cells["Weight_Tare"].Value.ToString()), Convert.ToBoolean(dataGridView2.CurrentRow.Cells["PF_Active_Ind"].Value.ToString()), int_Current_User_Id);
                         }
-
                     }
                     break;
             }
@@ -511,7 +542,6 @@ namespace FruPak.PF.Utils.Common
             {
                 Button b = (Button)sender;
                 logger.Log(LogLevel.Info, DecorateString(b.Name, b.Text, "Click"));
-
             }
         }
 
@@ -583,23 +613,27 @@ namespace FruPak.PF.Utils.Common
                         btn_Update_Relationship.Visible = true;
                         btn_Update_Relationship.Enabled = bol_write_access;
                         break;
+
                     case "CM_Defect_Class":
                         populate_check_boxList();
                         checkedListBox1.Visible = true;
                         btn_Update_Relationship.Visible = true;
                         btn_Update_Relationship.Enabled = bol_write_access;
                         break;
+
                     case "CM_Product_Group":
                         populate_check_boxList();
                         checkedListBox1.Visible = true;
                         btn_Update_Relationship.Visible = true;
                         btn_Update_Relationship.Enabled = bol_write_access;
                         break;
+
                     default:
                         checkedListBox1.Visible = false;
                         btn_Update_Relationship.Visible = false;
                         btn_Update_Relationship.Enabled = bol_write_access;
                         break;
+
                     case "CM_Pack_Type":
                         populate_dataGridView2();
                         btn_Update_Relationship.Visible = true;
@@ -629,7 +663,6 @@ namespace FruPak.PF.Utils.Common
 
         private void Enter_KeyPress(object sender, KeyPressEventArgs e)
         {
-
             if (e.KeyChar == 13)
             {
                 Add_btn();
@@ -656,14 +689,15 @@ namespace FruPak.PF.Utils.Common
                 case "CM_Defect":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Defect_Class.Get_Info();
                     break;
+
                 case "CM_Defect_Class":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Defect.Get_Info();
                     break;
+
                 case "CM_Product_Group":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Product.Get_Info();
                     break;
             }
-
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {
@@ -673,14 +707,15 @@ namespace FruPak.PF.Utils.Common
                     case "CM_Defect":
                         checkedListBox1.Items.Add(dr_Get_Info["DefectClass_Id"].ToString() + " " + dr_Get_Info["Code"].ToString() + " " + dr_Get_Info["Description"].ToString());
                         break;
+
                     case "CM_Defect_Class":
                         checkedListBox1.Items.Add(dr_Get_Info["Defect_Id"].ToString() + " " + dr_Get_Info["Code"].ToString() + " " + dr_Get_Info["Description"].ToString());
                         break;
+
                     case "CM_Product_Group":
                         checkedListBox1.Items.Add(dr_Get_Info["Product_Id"].ToString() + " " + dr_Get_Info["Code"].ToString() + " " + dr_Get_Info["Description"].ToString());
                         break;
                 }
-
             }
             ds_Get_Info.Dispose();
 
@@ -690,9 +725,11 @@ namespace FruPak.PF.Utils.Common
                 case "CM_Defect":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Defect_Defect_Class_Relationship.Get_Info_By_Defect(int_DVG_Row_id);
                     break;
+
                 case "CM_Defect_Class":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Defect_Defect_Class_Relationship.Get_Info_By_DefectClass(int_DVG_Row_id);
                     break;
+
                 case "CM_Product_Group":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Product_Product_Group_Relationship.Get_Info_By_Group(int_DVG_Row_id);
                     break;
@@ -713,14 +750,15 @@ namespace FruPak.PF.Utils.Common
                         case "CM_Defect":
                             int_clb_id = Convert.ToInt32(dr_Get_Info["DefectClass_Id"].ToString());
                             break;
+
                         case "CM_Defect_Class":
                             int_clb_id = Convert.ToInt32(dr_Get_Info["Defect_Id"].ToString());
                             break;
+
                         case "CM_Product_Group":
                             int_clb_id = Convert.ToInt32(dr_Get_Info["Product_Id"].ToString());
                             break;
                     }
-
 
                     if (Convert.ToInt32(item.Substring(0, item.IndexOf(' '))) == int_clb_id)
                     {
@@ -729,7 +767,6 @@ namespace FruPak.PF.Utils.Common
                 }
             }
             ds_Get_Info.Dispose();
-
         }
 
         private void populate_datagridview()
@@ -742,57 +779,75 @@ namespace FruPak.PF.Utils.Common
                 case "CM_Brand":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Brand.Get_Info();
                     break;
+
                 case "CM_Cities":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Cities.Get_Info();
                     break;
+
                 case "CM_Count":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Count.Get_Info();
                     break;
+
                 case "CM_Defect":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Defect.Get_Info();
                     break;
+
                 case "CM_Defect_Class":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Defect_Class.Get_Info();
                     break;
+
                 case "CM_ESP":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_ESP.Get_Info();
                     break;
+
                 case "CM_Fruit_Type":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Fruit_Type.Get_Info();
                     break;
+
                 case "CM_Grade":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Grade.Get_Info();
                     break;
+
                 case "CM_Growing_Method":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Growing_Method.Get_Info();
                     break;
+
                 case "CM_Location":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Location.Get_Info();
                     break;
+
                 case "CM_Market_Attribute":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Market_Attribute.Get_Info();
                     break;
+
                 case "CM_Pack_Type":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Pack_Type.Get_Info();
                     break;
+
                 case "CM_Pallet_Type":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Pallet_Type.Get_Info();
                     break;
+
                 case "CM_Product_Group":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Product_Group.Get_Info();
                     break;
+
                 case "CM_Size":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Size.Get_Info();
                     break;
+
                 case "CM_Storage":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Storage.Get_Info();
                     break;
+
                 case "CM_Treatment":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Treatment.Get_Info();
                     break;
+
                 case "CM_Truck":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Truck.Get_Info();
                     break;
+
                 case "PF_Other_Work_Types":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Other_Work_Types.Get_Info();
                     break;
@@ -811,57 +866,75 @@ namespace FruPak.PF.Utils.Common
                     case "CM_Brand":
                         DGVC_User_Id.Value = dr_Get_Info["Brand_Id"].ToString();
                         break;
+
                     case "CM_Cities":
                         DGVC_User_Id.Value = dr_Get_Info["City_Id"].ToString();
                         break;
+
                     case "CM_Count":
                         DGVC_User_Id.Value = dr_Get_Info["Count_Id"].ToString();
                         break;
+
                     case "CM_Defect":
                         DGVC_User_Id.Value = dr_Get_Info["Defect_Id"].ToString();
                         break;
+
                     case "CM_Defect_Class":
                         DGVC_User_Id.Value = dr_Get_Info["DefectClass_Id"].ToString();
                         break;
+
                     case "CM_ESP":
                         DGVC_User_Id.Value = dr_Get_Info["ESP_Id"].ToString();
                         break;
+
                     case "CM_Fruit_Type":
                         DGVC_User_Id.Value = dr_Get_Info["FruitType_Id"].ToString();
                         break;
+
                     case "CM_Grade":
                         DGVC_User_Id.Value = dr_Get_Info["Grade_Id"].ToString();
                         break;
+
                     case "CM_Growing_Method":
                         DGVC_User_Id.Value = dr_Get_Info["Growing_Method_Id"].ToString();
                         break;
+
                     case "CM_Location":
                         DGVC_User_Id.Value = dr_Get_Info["Location_Id"].ToString();
                         break;
+
                     case "CM_Market_Attribute":
                         DGVC_User_Id.Value = dr_Get_Info["Market_Attribute_Id"].ToString();
                         break;
+
                     case "CM_Pack_Type":
                         DGVC_User_Id.Value = dr_Get_Info["PackType_Id"].ToString();
                         break;
+
                     case "CM_Pallet_Type":
                         DGVC_User_Id.Value = dr_Get_Info["PalletType_id"].ToString();
                         break;
+
                     case "CM_Product_Group":
                         DGVC_User_Id.Value = dr_Get_Info["ProductGroup_Id"].ToString();
                         break;
+
                     case "CM_Size":
                         DGVC_User_Id.Value = dr_Get_Info["Size_Id"].ToString();
                         break;
+
                     case "CM_Storage":
                         DGVC_User_Id.Value = dr_Get_Info["Storage_Id"].ToString();
                         break;
+
                     case "CM_Treatment":
                         DGVC_User_Id.Value = dr_Get_Info["Treatment_Id"].ToString();
                         break;
+
                     case "CM_Truck":
                         DGVC_User_Id.Value = dr_Get_Info["Truck_Id"].ToString();
                         break;
+
                     case "PF_Other_Work_Types":
                         DGVC_User_Id.Value = dr_Get_Info["Other_Work_Types_Id"].ToString();
                         break;
@@ -971,12 +1044,12 @@ namespace FruPak.PF.Utils.Common
                     nud_Tare_Weight.Visible = true;
                     btn_Update_Relationship.Visible = true;
                     break;
+
                 default:
                     lbl_tare_weight.Visible = false;
                     nud_Tare_Weight.Visible = false;
                     btn_Update_Relationship.Visible = false;
                     break;
-
             }
         }
 
@@ -988,7 +1061,6 @@ namespace FruPak.PF.Utils.Common
             dataGridView1.AutoResizeColumn(3, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(6, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(7, DataGridViewAutoSizeColumnMode.AllCells);
-
         }
 
         private string validate(string str_table, string str_btnText)
@@ -1006,57 +1078,75 @@ namespace FruPak.PF.Utils.Common
                     case "CM_Brand":
                         ds_validate = FruPak.PF.Data.AccessLayer.CM_Brand.Get_Info(txt_code.Text);
                         break;
+
                     case "CM_Cities":
                         ds_validate = FruPak.PF.Data.AccessLayer.CM_Cities.Get_Info(txt_code.Text);
                         break;
+
                     case "CM_Count":
                         ds_validate = FruPak.PF.Data.AccessLayer.CM_Count.Get_Info(txt_code.Text);
                         break;
+
                     case "CM_Defect":
                         ds_validate = FruPak.PF.Data.AccessLayer.CM_Defect.Get_Info(txt_code.Text);
                         break;
+
                     case "CM_Defect_Class":
                         ds_validate = FruPak.PF.Data.AccessLayer.CM_Defect_Class.Get_Info(txt_code.Text);
                         break;
+
                     case "CM_ESP":
                         ds_validate = FruPak.PF.Data.AccessLayer.CM_ESP.Get_Info(txt_code.Text);
                         break;
+
                     case "CM_Fruit_Type":
                         ds_validate = FruPak.PF.Data.AccessLayer.CM_Fruit_Type.Get_Info(txt_code.Text);
                         break;
+
                     case "CM_Grade":
                         ds_validate = FruPak.PF.Data.AccessLayer.CM_Grade.Get_Info(txt_code.Text);
                         break;
+
                     case "CM_Growing_Method":
                         ds_validate = FruPak.PF.Data.AccessLayer.CM_Growing_Method.Get_Info(txt_code.Text);
                         break;
+
                     case "CM_Location":
                         ds_validate = FruPak.PF.Data.AccessLayer.CM_Location.Get_Info(txt_code.Text);
                         break;
+
                     case "CM_Market_Attribute":
                         ds_validate = FruPak.PF.Data.AccessLayer.CM_Market_Attribute.Get_Info(txt_code.Text);
                         break;
+
                     case "CM_Pack_Type":
                         ds_validate = FruPak.PF.Data.AccessLayer.CM_Pack_Type.Get_Info(txt_code.Text);
                         break;
+
                     case "CM_Pallet_Type":
                         ds_validate = FruPak.PF.Data.AccessLayer.CM_Pallet_Type.Get_Info(txt_code.Text);
                         break;
+
                     case "CM_Product_Group":
                         ds_validate = FruPak.PF.Data.AccessLayer.CM_Product_Group.Get_Info(txt_code.Text);
                         break;
+
                     case "CM_Size":
                         ds_validate = FruPak.PF.Data.AccessLayer.CM_Size.Get_Info(txt_code.Text);
                         break;
+
                     case "CM_Storage":
                         ds_validate = FruPak.PF.Data.AccessLayer.CM_Storage.Get_Info(txt_code.Text);
                         break;
+
                     case "CM_Treatment":
                         ds_validate = FruPak.PF.Data.AccessLayer.CM_Treatment.Get_Info(txt_code.Text);
                         break;
+
                     case "CM_Truck":
                         ds_validate = FruPak.PF.Data.AccessLayer.CM_Truck.Get_Info(txt_code.Text);
                         break;
+
                     case "PF_Other_Work_Types":
                         ds_validate = FruPak.PF.Data.AccessLayer.PF_Other_Work_Types.Get_Info(txt_code.Text);
                         break;

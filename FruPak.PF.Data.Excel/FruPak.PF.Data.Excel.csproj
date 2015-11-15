@@ -36,11 +36,11 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="ExcelApi">
-      <HintPath>..\..\FruPak.ProcessFactory\FruPak.ProcessFactory\bin\Release\ExcelApi.dll</HintPath>
+      <HintPath>..\NetOffice\ExcelApi.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="NetOffice">
-      <HintPath>..\NetOffice.dll</HintPath>
+      <HintPath>..\NetOffice\NetOffice.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="NLog">
@@ -55,8 +55,8 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="VBIDEApi">
-      <HintPath>..\..\FruPak.ProcessFactory\FruPak.ProcessFactory\bin\Release\VBIDEApi.dll</HintPath>
-      <EmbedInteropTypes>False</EmbedInteropTypes>
+      <HintPath>..\NetOffice\VBIDEApi.dll</HintPath>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
     </Reference>
   </ItemGroup>
   <ItemGroup>

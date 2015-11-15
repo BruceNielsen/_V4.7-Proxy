@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FruPak.Utils.Data;
 using System.Data;
-using System.Data.OleDb;
-using FruPak.Utils.Data;
 
 namespace FruPak.PF.Data.AccessLayer
 {
@@ -21,6 +17,7 @@ namespace FruPak.PF.Data.AccessLayer
             return SQLAccessLayer.Run_NonQuery("INSERT INTO EX_Pipfruit_PCR(PCR_Id, RPIN, Variety, Mgmtarea, Growing_Method, Harvest_Date, Market) " +
                                                "VALUES ( " + PCR_Id + ", '" + RPIN + "' ,'" + Variety + "','" + Mgmtarea + "','" + Growing_Method + "','" + Harvest_Date + "','" + Market + "')");
         }
+
         public static int Delete()
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();

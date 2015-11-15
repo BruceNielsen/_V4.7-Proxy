@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FruPak.Utils.Data;
 using System.Data;
-using System.Data.OleDb;
-using FruPak.Utils.Data;
 
 namespace FruPak.PF.Data.AccessLayer
 {
@@ -23,6 +19,7 @@ namespace FruPak.PF.Data.AccessLayer
             " INSERT INTO EX_PipFruit_Register(Register_Id, Name, GrowerID, Register_Code, Register_Expirydate, Register_Regno) " +
                                                 "VALUES ( " + Register_Id + ",  @Value ,'" + GrowerID + "','" + Register_Code + "','" + Register_Expirydate + "','" + Register_Regno + "')");
         }
+
         public static int Delete()
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();

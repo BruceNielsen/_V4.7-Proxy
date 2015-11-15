@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data;
 
 namespace FruPak.PF.PrintLayer
@@ -9,6 +7,7 @@ namespace FruPak.PF.PrintLayer
     public class Bin_Card
     {
         private static int num_of_Bins = 0;
+
         public static int Print(string Data, bool bol_print)
         {
             int return_code = 98;
@@ -23,10 +22,11 @@ namespace FruPak.PF.PrintLayer
             return_code = Print(DataParts[0], Convert.ToInt32(DataParts[1]), Convert.ToBoolean(DataParts[2]), bol_print);
             return return_code;
         }
+
         private static string str_TempPath = "";
         private static string str_PF_BlkBCrd = "";
-       
-        public static int Print(string str_WS_Ind ,int int_sub_id, bool bol_reprint, bool bol_print)
+
+        public static int Print(string str_WS_Ind, int int_sub_id, bool bol_reprint, bool bol_print)
         {
             int return_code = 97;
 
@@ -40,33 +40,35 @@ namespace FruPak.PF.PrintLayer
                     case "PF-TPath":
                         FruPak.PF.PrintLayer.Word.TemplatePath = dr_default["Value"].ToString();
                         break;
+
                     case "PF-TBin":
                         FruPak.PF.PrintLayer.Word.TemplateName = dr_default["Value"].ToString();
                         break;
+
                     case "PF-TPPath":
                         str_TempPath = dr_default["Value"].ToString();
                         break;
+
                     case "PF-BlkBCrd":
                         str_PF_BlkBCrd = dr_default["Value"].ToString();
                         break;
-                        
                 }
             }
             ds_default.Dispose();
 
-
             DataSet ds_bincard = null;
-                
+
             switch (str_WS_Ind)
             {
                 case "S":
                     ds_bincard = FruPak.PF.Data.AccessLayer.Temp_submission.BinCard(int_sub_id);
                     break;
+
                 case "W":
                     //int_sub_id here is the Bin_Id
                     ds_bincard = FruPak.PF.Data.AccessLayer.CM_Bins.BinCard_Work_Order_In(int_sub_id);
                     break;
-            }               
+            }
             DataRow dr_bincard;
 
             for (int i = 0; i < ds_bincard.Tables[0].Rows.Count; i++)
@@ -74,7 +76,7 @@ namespace FruPak.PF.PrintLayer
                 FruPak.PF.PrintLayer.Word.StartWord();
                 FruPak.PF.PrintLayer.Word.OpenTemplate();
                 dr_bincard = ds_bincard.Tables[0].Rows[i];
-                //start word and replace bookmarks               
+                //start word and replace bookmarks
 
                 //create barcode1
                 string str_image_location = "";
@@ -98,28 +100,28 @@ namespace FruPak.PF.PrintLayer
                 FruPak.PF.PrintLayer.Word.BarcodeFull = str_image_location;
                 FruPak.PF.PrintLayer.Word.Add_Barcode("Barcode2");
 
-
                 DateTime dt = new DateTime();
                 switch (str_WS_Ind)
                 {
                     case "W":
                         FruPak.PF.PrintLayer.Word.ReplaceText("Fruit", "REJECT");
-                                                
+
                         dt = DateTime.Now;
                         FruPak.PF.PrintLayer.Word.ReplaceText("Date", dt.Day.ToString() + "/" + dt.Month.ToString() + "/" + dt.Year.ToString());
                         FruPak.PF.PrintLayer.Word.ReplaceText("NumBins", Convert.ToString(num_of_Bins));
-                        
+
                         break;
+
                     default:
                         FruPak.PF.PrintLayer.Word.ReplaceText("Submission", int_sub_id.ToString());
                         FruPak.PF.PrintLayer.Word.ReplaceText("Fruit", dr_bincard["Fruit"].ToString().ToUpper());
                         FruPak.PF.PrintLayer.Word.ReplaceText("Variety", dr_bincard["Variety"].ToString().ToUpper());
-                        
+
                         dt = Convert.ToDateTime(dr_bincard["Sub_Date"].ToString());
                         FruPak.PF.PrintLayer.Word.ReplaceText("Date", dt.Day.ToString() + "/" + dt.Month.ToString() + "/" + dt.Year.ToString());
 
                         FruPak.PF.PrintLayer.Word.ReplaceText("Rpin", dr_bincard["Rpin"].ToString());
-                
+
                         FruPak.PF.PrintLayer.Word.ReplaceText("Trader", dr_bincard["Trader"].ToString().ToUpper());
                         FruPak.PF.PrintLayer.Word.ReplaceText("Trader1", dr_bincard["Full_Trader"].ToString().ToUpper());
 
@@ -135,7 +137,7 @@ namespace FruPak.PF.PrintLayer
                         ds.Dispose();
                         FruPak.PF.PrintLayer.Word.ReplaceText("NumBins", Convert.ToString(num_of_Bins));
                         break;
-                }             
+                }
                 //check bool
                 bool bol_Print_ind = false;
                 try
@@ -171,6 +173,7 @@ namespace FruPak.PF.PrintLayer
 
             return return_code;
         }
+
         private static List<string> filetomerge = new List<string>();
     }
 }

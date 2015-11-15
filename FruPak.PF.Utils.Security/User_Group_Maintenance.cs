@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using NLog;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using NLog;
 
 namespace FruPak.PF.Utils.Security
 {
@@ -27,6 +22,7 @@ namespace FruPak.PF.Utils.Security
 
         private static int int_Current_User_Id = 0;
         private static bool bol_Write_access;
+
         public User_Group_Maintenance(int int_C_User_Id, bool bol_w_a)
         {
             int_Current_User_Id = int_C_User_Id;
@@ -43,6 +39,7 @@ namespace FruPak.PF.Utils.Security
             populate_check_boxList();
 
             #region Log any interesting events from the UI to the CSV log file
+
             foreach (Control c in this.Controls)
             {
                 if (c.GetType() == typeof(Button))
@@ -80,8 +77,8 @@ namespace FruPak.PF.Utils.Security
                 //    cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 //}
             }
-            #endregion
 
+            #endregion Log any interesting events from the UI to the CSV log file
         }
 
         private void AddColumnsProgrammatically()
@@ -132,9 +129,8 @@ namespace FruPak.PF.Utils.Security
             img_edit.Name = "Edit";
             img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
-
-
         }
+
         private void populate_datagridview()
         {
             dataGridView1.Refresh();
@@ -177,6 +173,7 @@ namespace FruPak.PF.Utils.Security
                 ds_Get_UserGroup_Info.Dispose();
             }
         }
+
         private void SizeAllColumns(Object sender, EventArgs e)
         {
             // TODO: This line of code loads data into the 'moneyDataSet.List_TS_Work' table. You can move, or remove it, as needed.
@@ -187,9 +184,9 @@ namespace FruPak.PF.Utils.Security
             dataGridView1.AutoResizeColumn(5, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(6, DataGridViewAutoSizeColumnMode.AllCells);
         }
+
         private void populate_check_boxList()
         {
-
             DataSet ds_Get_User_Info = FruPak.PF.Data.AccessLayer.SC_User.Get_Info();
             DataRow dr_Get_User_Info;
 
@@ -200,6 +197,7 @@ namespace FruPak.PF.Utils.Security
             }
             ds_Get_User_Info.Dispose();
         }
+
         private void btn_Add_Click(object sender, EventArgs e)
         {
             DialogResult DLR_MessageBox = new DialogResult();
@@ -233,6 +231,7 @@ namespace FruPak.PF.Utils.Security
                     case "&Add":
                         int_result = FruPak.PF.Data.AccessLayer.SC_User_Groups.Insert(FruPak.PF.Common.Code.General.int_max_user_id("SC_User_Groups"), txt_Group_Name.Text, txt_Group_Description.Text, int_Current_User_Id);
                         break;
+
                     case "&Update":
                         int_result = FruPak.PF.Data.AccessLayer.SC_User_Groups.Update(int_UserGroup_id, txt_Group_Name.Text, txt_Group_Description.Text, int_Current_User_Id);
                         break;
@@ -252,8 +251,8 @@ namespace FruPak.PF.Utils.Security
             }
 
             populate_datagridview();
-
         }
+
         private void Reset()
         {
             txt_Group_Name.ResetText();
@@ -268,12 +267,14 @@ namespace FruPak.PF.Utils.Security
         {
             Reset();
         }
+
         private void btn_Close_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
         private static int int_UserGroup_id = 0;
+
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             DialogResult DLR_Message = new DialogResult();
@@ -317,7 +318,6 @@ namespace FruPak.PF.Utils.Security
                 btn_Update_Relationships.Visible = true;
                 checkedListBox1.Visible = true;
             }
-
         }
 
         private void update_checkList()
@@ -325,7 +325,7 @@ namespace FruPak.PF.Utils.Security
             DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.SC_User_Group_Relationship.Get_Info_By_Group(int_UserGroup_id);
             DataRow dr_Get_Info;
 
-            for (int i = 0 ;i < Convert.ToInt32(checkedListBox1.Items.Count.ToString()); i ++ )
+            for (int i = 0; i < Convert.ToInt32(checkedListBox1.Items.Count.ToString()); i++)
             {
                 string item = checkedListBox1.Items[i].ToString();
                 int int_User_Id = Convert.ToInt32(item.Substring(0, item.IndexOf(' ')));
@@ -342,6 +342,7 @@ namespace FruPak.PF.Utils.Security
             }
             ds_Get_Info.Dispose();
         }
+
         private void button1_Click(object sender, EventArgs e)
         {
             FruPak.PF.Data.AccessLayer.SC_User_Group_Relationship.Delete_User_From_Group(int_UserGroup_id);
@@ -365,6 +366,7 @@ namespace FruPak.PF.Utils.Security
         }
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
+
         /// <summary>
         /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
@@ -377,34 +379,39 @@ namespace FruPak.PF.Utils.Security
             {
                 Button b = (Button)sender;
                 logger.Log(LogLevel.Info, DecorateString(b.Name, b.Text, "Click"));
-
             }
         }
+
         private void Control_Validated(object sender, EventArgs e)
         {
             TextBox t = (TextBox)sender;
             logger.Log(LogLevel.Info, DecorateString(t.Name, t.Text, "Validated"));
         }
+
         private void Control_SelectedValueChanged(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Text, "SelectedValueChanged"));
         }
+
         private void Control_ValueChanged(object sender, EventArgs e)
         {
             DateTimePicker dtp = (DateTimePicker)sender;
             logger.Log(LogLevel.Info, DecorateString(dtp.Name, dtp.Text, "ValueChanged"));
         }
+
         private void Control_NudValueChanged(object sender, EventArgs e)
         {
             NumericUpDown nud = (NumericUpDown)sender;
             logger.Log(LogLevel.Info, DecorateString(nud.Name, nud.Text, "NudValueChanged"));
         }
+
         private void Control_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Checked.ToString(), "CheckedChanged"));
         }
+
         //private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         //{
         //    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
@@ -412,8 +419,10 @@ namespace FruPak.PF.Utils.Security
         //}
 
         #region Decorate String
+
         // DecorateString
         private string openPad = " --- [ ";
+
         private string closePad = " ] --- ";
         private string intro = "--->   { ";
         private string outro = " }   <---";
@@ -435,7 +444,8 @@ namespace FruPak.PF.Utils.Security
             output = intro + name + openPad + input + closePad + action + outro;
             return output;
         }
-        #endregion
+
+        #endregion Decorate String
 
         /// <summary>
         /// Close the form with the Esc key (Sel request 11-02-2015 BN)
@@ -451,7 +461,6 @@ namespace FruPak.PF.Utils.Security
             }
         }
 
-        #endregion
-
+        #endregion Methods to log UI events to the CSV file. BN 29/01/2015
     }
 }

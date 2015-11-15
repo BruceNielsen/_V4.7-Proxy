@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Office.Interop.Outlook;
-using System.ComponentModel;
-using System.Data;
+﻿using Microsoft.Office.Interop.Outlook;
 using NLog;
-using System.Runtime.InteropServices;
+using System;
+using System.Collections.Generic;
+using System.Data;
 
 namespace FruPak.PF.Data.Outlook
 {
@@ -23,11 +19,11 @@ namespace FruPak.PF.Data.Outlook
     public class Contacts
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
-        
+
         /// <summary>
         /// Create a new Contact using the Outlook form.
         /// </summary>
-        /// 
+        ///
         public static void Create_Contact()
         {
             if (Outlook.Folder_Name_Locationfield != null)
@@ -75,9 +71,11 @@ namespace FruPak.PF.Data.Outlook
                         case 1:
                             oContact.Email1Address = email;
                             break;
+
                         case 2:
                             oContact.Email2Address = email;
                             break;
+
                         case 3:
                             oContact.Email3Address = email;
                             break;
@@ -106,86 +104,103 @@ namespace FruPak.PF.Data.Outlook
                 return null;
             }
         }
+
         public static string Contact_First_Name
         {
             get;
             set;
         }
+
         public static string Contact_Last_Name
         {
             get;
             set;
         }
+
         public static string Contact_Company_Name
         {
             get;
             set;
         }
+
         public static string Contact_Job_Title
         {
             get;
             set;
         }
+
         public static string Contact_Business_Telephone_Number
         {
             get;
             set;
         }
+
         public static string Contact_Business_Telephone_Number2
         {
             get;
             set;
         }
+
         public static string Contact_Business_Fax_Number
         {
             get;
             set;
         }
+
         public static string Contact_Mobile
         {
             get;
             set;
         }
+
         public static List<string> Contact_Email
         {
             get;
             set;
         }
+
         public static string Contact_Notes
         {
             get;
             set;
         }
+
         public static string Contact_Business_Address
         {
             get;
             set;
         }
+
         public static string Contact_Business_City
         {
             get;
             set;
         }
+
         public static string Contact_Business_Postal_Code
         {
             get;
             set;
         }
+
         public static string Contact_Other_Address
         {
             get;
             set;
         }
+
         public static string Contact_Other_City
         {
             get;
             set;
         }
+
         public static string Contact_Other_Postal_Code
         {
             get;
             set;
         }
+
         public static int Contact_Display(string EntryId)
         {
             int return_code = 0;
@@ -201,6 +216,7 @@ namespace FruPak.PF.Data.Outlook
             }
             return return_code;
         }
+
         public static string Contact_Get_Entry_ID(string str_FirstName, string str_LastName, string str_jobtitle)
         {
             string Entry_Id = "";
@@ -223,10 +239,8 @@ namespace FruPak.PF.Data.Outlook
                 str_LastName = str_LastName.Trim();
             }
 
-
             if (Outlook.Folder_Name_Locationfield != null)
             {
-
                 foreach (object obj in Outlook.Folder_Name_Locationfield.Items)
                 {
                     if (obj is _ContactItem)
@@ -254,6 +268,7 @@ namespace FruPak.PF.Data.Outlook
                 return null;
             }
         }
+
         public static void Contact_Delete(string Entry_Id)
         {
             if (Outlook.Folder_Name_Locationfield != null)
@@ -268,7 +283,6 @@ namespace FruPak.PF.Data.Outlook
                             if (contact.EntryID == Entry_Id)
                             {
                                 contact.Delete();
-
                             }
                         }
                         catch (System.Exception ex)
@@ -283,6 +297,7 @@ namespace FruPak.PF.Data.Outlook
                 logger.Log(LogLevel.Debug, "Outlook.Folder_Name_Locationfield == null");
             }
         }
+
         public static void Contact_Update(string Entry_Id)
         {
             if (Outlook.Folder_Name_Locationfield != null)
@@ -315,6 +330,7 @@ namespace FruPak.PF.Data.Outlook
                 logger.Log(LogLevel.Debug, "Outlook.Folder_Name_Locationfield == null");
             }
         }
+
         public static void Contact_Details(string str_Entry_Id)
         {
             try
@@ -460,6 +476,7 @@ namespace FruPak.PF.Data.Outlook
                 logger.Log(LogLevel.Debug, "Probable Microsoft.Office.Interop.Outlook.Exception - Usually caused by Outlook having been closed while the program is running. " + ex.Message);
             }
         }
+
         public static DataSet Contact_List_All()
         {
             DataSet ds_contacts = new DataSet();
@@ -522,8 +539,6 @@ namespace FruPak.PF.Data.Outlook
                     dr[5] = contact.EntryID.ToString();
                     dt_contacts.Rows.Add(dr);
                 }
-
-                
             }
 
             dt_contacts.DefaultView.Sort = "company";

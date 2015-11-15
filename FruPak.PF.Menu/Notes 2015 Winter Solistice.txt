@@ -1,8 +1,4 @@
-﻿Today is 22/06/2015 12:24 am. I am making notes from the (What I call)
-The Fortress of Solitude (Flat), preparing for the coming week.
-Jim has asked for this in case I get flattened by working under my van or
-hit by a truck or something. I quite agree.
-
+﻿Press F4 with the Client solution highlighted to get to the hidden settings for the installer
 -------------------------------------------------------------------
 Yesterday was the 2015 Winter Solistice. Yay!
 -------------------------------------------------------------------
@@ -22,7 +18,7 @@ SUPRISE!!! The original programmer (Dave) thought it would be a great idea
 to use predicates (if-that-then constructs) based on the text which appears
 on the button which was just pressed.
 
-...And then did shit like this:
+...And then did stuff like this:
 
 	(press Add button)
 	go do database lookup and change text on Add button to Update
@@ -36,7 +32,7 @@ straight into the stone age.
 
 ...But wait, there's more
 
-Further into the code you run across weird shit like:
+Further into the code you run across weird stuff like:
 case bttn_Add ('cause he thought reading weird shorthand was better than reading the word button')
 
 (Soapbox mode ON)

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.IO;
+﻿using System.IO;
 
 namespace FruPak.PF.PrintLayer
 {
@@ -13,11 +9,13 @@ namespace FruPak.PF.PrintLayer
             get;
             set;
         }
+
         public static string TemplateName
         {
             get;
             set;
         }
+
         /// <summary>
         /// This method is for print bin lables/cards
         /// </summary>

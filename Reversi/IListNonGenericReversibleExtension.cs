@@ -1,23 +1,20 @@
 ﻿/*
  * Copyright (C) Henrik Jonsson 2007
- * 
- * THIS WORK IS PROVIDED UNDER THE TERMS OF THIS CODE PROJECT OPEN LICENSE ("LICENSE"). 
- * THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK 
+ *
+ * THIS WORK IS PROVIDED UNDER THE TERMS OF THIS CODE PROJECT OPEN LICENSE ("LICENSE").
+ * THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK
  * OTHER THAN AS AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.
- * 
+ *
  * See licence.txt or http://thecodeproject.com/info/eula.aspx for full licence description.
- * 
+ *
  * This copyright notice must not be removed.
 */
+
 using System;
-using System.Linq;
-using System.Text;
-using Reversible;
 using System.Collections;
 
 namespace Reversible.Extensions.NonGeneric
 {
-
     public static class IListNonGenericReversibleExtension
     {
         /// <summary>
@@ -50,7 +47,7 @@ namespace Reversible.Extensions.NonGeneric
         public static int Add_Reversible(this IList list, object item)
         {
             Insert_Reversible(list, list.Count, item);
-            return list.Count-1;
+            return list.Count - 1;
         }
 
         /// <summary>
@@ -144,7 +141,6 @@ namespace Reversible.Extensions.NonGeneric
 
             public IListClearEdit(IList list)
             {
-                
                 this.list = list;
                 backupItems = new ArrayList(list);
             }
@@ -166,10 +162,8 @@ namespace Reversible.Extensions.NonGeneric
                 return this;
             }
         }
-
     }
 
-     
     /// <summary>
     /// Represents a reversible change in one of an IList's item.
     /// </summary>
@@ -197,10 +191,12 @@ namespace Reversible.Extensions.NonGeneric
                     list[index] = item;
                     item = backup;
                     break;
+
                 case ListEditAction.AddItem:
                     list.RemoveAt(index);
                     action = ListEditAction.RemoveItem;
                     break;
+
                 case ListEditAction.RemoveItem:
                     list.Insert(index, item);
                     action = ListEditAction.AddItem;
@@ -212,14 +208,12 @@ namespace Reversible.Extensions.NonGeneric
 
     internal class ReversibleIListWrapper : IList
     {
-        IList list;
+        private IList list;
 
         public ReversibleIListWrapper(IList listToWrap)
         {
             list = listToWrap;
         }
-
-
 
         #region IList Members
 
@@ -250,7 +244,7 @@ namespace Reversible.Extensions.NonGeneric
             }
         }
 
-        #endregion
+        #endregion IList Members
 
         #region ICollection Members
 
@@ -284,7 +278,7 @@ namespace Reversible.Extensions.NonGeneric
             list.Remove_Reversible(item);
         }
 
-        #endregion
+        #endregion ICollection Members
 
         #region IEnumerable Members
 
@@ -293,17 +287,16 @@ namespace Reversible.Extensions.NonGeneric
             return list.GetEnumerator();
         }
 
-        #endregion
+        #endregion IEnumerable Members
 
         #region IList Members
-
 
         public bool IsFixedSize
         {
             get { return list.IsFixedSize; }
         }
 
-        #endregion
+        #endregion IList Members
 
         #region ICollection Members
 
@@ -322,7 +315,6 @@ namespace Reversible.Extensions.NonGeneric
             get { return list.SyncRoot; }
         }
 
-        #endregion
+        #endregion ICollection Members
     }
-
 }

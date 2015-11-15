@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using NLog;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using NLog;
 
 namespace FruPak.PF.Utils.Common
 {
     public partial class Material : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static bool bol_write_access;
         private static int int_Current_User_Id = 0;
@@ -81,15 +76,13 @@ namespace FruPak.PF.Utils.Common
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-
                 else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
                 {
                     FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
-            #endregion
-
+            #endregion Log any interesting events from the UI to the CSV log file
         }
 
         public void populate_comboboxs()
@@ -121,7 +114,7 @@ namespace FruPak.PF.Utils.Common
             cmb_Grade.ValueMember = "Grade_Id";
             cmb_Grade.Text = null;
             ds_Get_Info.Dispose();
-            
+
             //Growing Method
             ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Growing_Method.Get_Info();
             cmb_GrowingMethod.DataSource = ds_Get_Info.Tables[0];
@@ -185,8 +178,8 @@ namespace FruPak.PF.Utils.Common
             cmb_Treatment.ValueMember = "Treatment_Id";
             cmb_Treatment.Text = null;
             ds_Get_Info.Dispose();
-
         }
+
         private void btn_Add_Click(object sender, EventArgs e)
         {
             if (Add_btn() > 0)
@@ -194,6 +187,7 @@ namespace FruPak.PF.Utils.Common
                 btn_Relationships();
             }
         }
+
         private int Add_btn()
         {
             DialogResult DLR_MessageBox = new DialogResult();
@@ -279,12 +273,11 @@ namespace FruPak.PF.Utils.Common
             }
             if (str_msg.Length > 0)
             {
-                DLR_MessageBox = MessageBox.Show(str_msg,"Common - Material Number",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                DLR_MessageBox = MessageBox.Show(str_msg, "Common - Material Number", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
 
             if (DLR_MessageBox != DialogResult.OK)
             {
-               
                 DataSet ds = FruPak.PF.Data.AccessLayer.CM_Material.Does_It_Exist(Convert.ToInt32(cmb_Brand.SelectedValue.ToString()), Convert.ToInt32(cmb_Count.SelectedValue.ToString()), int_FruitType_Id, Convert.ToInt32(cmb_Grade.SelectedValue.ToString()),
                     Convert.ToInt32(cmb_GrowingMethod.SelectedValue.ToString()), Convert.ToInt32(cmb_MarketAttrib.SelectedValue.ToString()), Convert.ToInt32(cmb_PackType.SelectedValue.ToString()), Convert.ToInt32(cmb_Pallet_Type.SelectedValue.ToString()),
                     Convert.ToInt32(cmb_Product_Group.SelectedValue.ToString()), Convert.ToInt32(cmb_Size.SelectedValue.ToString()), Convert.ToInt32(cmb_Treatment.SelectedValue.ToString()), int_FruitVariety_Id, Convert.ToInt32(cmb_Trader.SelectedValue.ToString()));
@@ -314,19 +307,21 @@ namespace FruPak.PF.Utils.Common
             if (int_result > 0)
             {
                 lbl_message.Text = "Material Number " + txt_Material_No.Text + " has been added";
-                lbl_message.ForeColor = System.Drawing.Color.Blue;    
+                lbl_message.ForeColor = System.Drawing.Color.Blue;
             }
             else
             {
-                lbl_message.Text = "Material Number " + txt_Material_No.Text + " failed to be added" ;
+                lbl_message.Text = "Material Number " + txt_Material_No.Text + " failed to be added";
                 lbl_message.ForeColor = System.Drawing.Color.Red;
             }
             return int_result;
         }
+
         private void btn_reset_Click(object sender, EventArgs e)
         {
-           Reset(); 
+            Reset();
         }
+
         private void Reset()
         {
             txt_Material_No.ResetText();
@@ -347,10 +342,12 @@ namespace FruPak.PF.Utils.Common
             fruit1.FruitVariety_Id = 0;
             btn_Add.Text = "&Add";
         }
+
         private void btn_Close_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
         private void btn_Refresh_Click(object sender, EventArgs e)
         {
             int int_cmb_Brand = 0;
@@ -364,7 +361,6 @@ namespace FruPak.PF.Utils.Common
             {
                 int_cmb_Count = Convert.ToInt32(cmb_Count.SelectedValue.ToString());
             }
-
 
             int int_cmb_Grade = 0;
             if (cmb_Grade.SelectedValue != null)
@@ -383,7 +379,7 @@ namespace FruPak.PF.Utils.Common
             {
                 int_cmb_MarketAttrib = Convert.ToInt32(cmb_MarketAttrib.SelectedValue.ToString());
             }
-            
+
             int int_cmb_PackType = 0;
             if (cmb_PackType.SelectedValue != null)
             {
@@ -433,15 +429,19 @@ namespace FruPak.PF.Utils.Common
             cmb_Trader.SelectedValue = int_cmb_Trader;
             cmb_Treatment.SelectedValue = int_cmb_Treatment;
         }
+
         private void btn_reltn_Click(object sender, EventArgs e)
         {
             btn_Relationships();
         }
+
         private void btn_Relationships()
         {
             Form frm = new Material_Relationship_Maint(int_Current_User_Id, bol_write_access);
-            frm.Show(); 
+            //frm.TopMost = true; // 21/10/2015 BN
+            frm.Show();
         }
+
         private void KeyDown_1(object sender, KeyEventArgs e)
         {
             if (e.KeyData == Keys.Enter)
@@ -450,9 +450,9 @@ namespace FruPak.PF.Utils.Common
                 SelectNextControl(ActiveControl, true, true, true, true);
             }
         }
+
         private void Enter_KeyPress(object sender, KeyPressEventArgs e)
         {
-
             if (e.KeyChar == 13)
             {
                 Add_btn();
@@ -479,7 +479,6 @@ namespace FruPak.PF.Utils.Common
                             {
                                 ds = FruPak.PF.Data.AccessLayer.CM_Brand.Get_Info(Convert.ToInt32(cmb_Brand.SelectedValue.ToString()));
                             }
-
                             catch (Exception ex)
                             {
                                 logger.Log(LogLevel.Debug, ex.Message);
@@ -497,7 +496,7 @@ namespace FruPak.PF.Utils.Common
                         logger.Log(LogLevel.Warn, "Avoided error due to cmb_Brand SelectedText being null");
                     }
                     break;
-                #endregion                
+                #endregion cmb_Brand
 
                 #region cmb_Grade
                 case "cmb_Grade":
@@ -523,8 +522,8 @@ namespace FruPak.PF.Utils.Common
                         logger.Log(LogLevel.Warn, "Avoided error due to cmb_Grade SelectedText being null");
                     }
                     break;
-                
-                #endregion
+
+                #endregion cmb_Grade
 
                 #region cmb_GrowingMethod
                 case "cmb_GrowingMethod":
@@ -550,8 +549,8 @@ namespace FruPak.PF.Utils.Common
                         logger.Log(LogLevel.Warn, "Avoided error due to cmb_GrowingMethod SelectedText being null");
                     }
                     break;
-                
-                #endregion
+
+                #endregion cmb_GrowingMethod
 
                 #region cmb_MarketAttrib
                 case "cmb_MarketAttrib":
@@ -577,8 +576,8 @@ namespace FruPak.PF.Utils.Common
                         logger.Log(LogLevel.Warn, "Avoided error due to cmb_MarketAttrib SelectedText being null");
                     }
                     break;
-                
-                #endregion        
+
+                #endregion cmb_MarketAttrib
 
                 #region cmb_PackType
                 case "cmb_PackType":
@@ -604,8 +603,8 @@ namespace FruPak.PF.Utils.Common
                         logger.Log(LogLevel.Warn, "Avoided error due to cmb_PackType SelectedText being null");
                     }
                     break;
-                
-                #endregion
+
+                #endregion cmb_PackType
 
                 #region cmb_Product_Group
                 case "cmb_Product_Group":
@@ -631,8 +630,8 @@ namespace FruPak.PF.Utils.Common
                         logger.Log(LogLevel.Warn, "Avoided error due to cmb_Product_Group SelectedText being null");
                     }
                     break;
-                
-                #endregion              
+
+                #endregion cmb_Product_Group
 
                 #region cmb_Size
                 case "cmb_Size":
@@ -658,8 +657,8 @@ namespace FruPak.PF.Utils.Common
                         logger.Log(LogLevel.Warn, "Avoided error due to cmb_Size SelectedText being null");
                     }
                     break;
-                
-                #endregion
+
+                #endregion cmb_Size
 
                 #region cmb_Trader
                 case "cmb_Trader":
@@ -685,8 +684,8 @@ namespace FruPak.PF.Utils.Common
                         logger.Log(LogLevel.Warn, "Avoided error due to cmb_Trader SelectedText being null");
                     }
                     break;
-                
-                #endregion
+
+                #endregion cmb_Trader
 
                 #region cmb_Treatment
                 case "cmb_Treatment":
@@ -712,9 +711,8 @@ namespace FruPak.PF.Utils.Common
                         logger.Log(LogLevel.Warn, "Avoided error due to cmb_Treatment SelectedText being null");
                     }
                     break;
-                
-                #endregion
 
+                    #endregion cmb_Treatment
             }
             try
             {
@@ -734,18 +732,22 @@ namespace FruPak.PF.Utils.Common
                                     case "GN":
                                         number.pos1 = 7;
                                         break;
+
                                     case "BA":
                                         number.pos1 = 6;
                                         break;
                                 }
                                 break;
+
                             case "cmb_Grade":
                                 description.grade_code = dr["Code"].ToString();
                                 number.grade_id = dr["Grade_Id"].ToString().PadLeft(2, '0');
                                 break;
+
                             case "cmb_GrowingMethod":
                                 description.growwing_method = dr["Code"].ToString();
                                 break;
+
                             case "cmb_MarketAttrib":
                                 description.market_attrib = dr["Code"].ToString();
                                 break;
@@ -807,7 +809,7 @@ namespace FruPak.PF.Utils.Common
                                         }
                                         ds_pg.Dispose();
                                         break;
-                                    #endregion
+                                    #endregion ---------- RND -------------
                                     #region ---------- PHB -----------------
                                     case "PHB":
                                         ds_pg = FruPak.PF.Data.AccessLayer.CM_Product_Group.Get_Info("PFP");
@@ -846,7 +848,7 @@ namespace FruPak.PF.Utils.Common
                                         }
                                         ds_pg.Dispose();
                                         break;
-                                    #endregion
+                                    #endregion ---------- PHB -----------------
                                     #region ----------- PHC -------------
                                     case "PHC":
                                         ds_pg = FruPak.PF.Data.AccessLayer.CM_Product_Group.Get_Info("PFP");
@@ -885,7 +887,7 @@ namespace FruPak.PF.Utils.Common
                                         }
                                         ds_pg.Dispose();
                                         break;
-                                    #endregion
+                                        #endregion ----------- PHC -------------
                                 }
                                 break;
                             #endregion
@@ -896,18 +898,22 @@ namespace FruPak.PF.Utils.Common
                                         number.pos1 = 5;
                                         number.product_id = dr["ProductGroup_Id"].ToString().PadLeft(2, '0');
                                         break;
+
                                     case "PFP":
                                         number.pos1 = 6;
                                         number.product_id = "00";
                                         break;
                                 }
                                 break;
+
                             case "cmb_Size":
                                 description.size = dr["Code"].ToString();
                                 break;
+
                             case "cmb_Trader":
                                 description.trader = dr["Code"].ToString();
                                 break;
+
                             case "cmb_Treatment":
                                 description.treatment = dr["Code"].ToString();
                                 break;
@@ -924,12 +930,12 @@ namespace FruPak.PF.Utils.Common
             catch (Exception ex)
             {
                 logger.Log(LogLevel.Debug, ex.Message);
-            }                    
-           
+            }
 
             txt_Description.Text = create_text();
             txt_Material_No.Text = create_number();
         }
+
         private void fruit1_FruitTypeChanged(object sender, EventArgs e)
         {
             string str_ft = "";
@@ -938,8 +944,8 @@ namespace FruPak.PF.Utils.Common
 
             txt_Description.Text = create_text();
             txt_Material_No.Text = create_number();
-            
         }
+
         private void fruit1_FruitVarietyChanged(object sender, EventArgs e)
         {
             DataSet ds = FruPak.PF.Data.AccessLayer.CM_Fruit_Variety.Get_Info_std(Convert.ToInt32(fruit1.FruitVariety_Id));
@@ -961,6 +967,7 @@ namespace FruPak.PF.Utils.Common
                        description.growwing_method + " " + description.grade_code + " " + description.market_attrib + description.treatment;
             return str_text;
         }
+
         private string create_number()
         {
             string str_text = "";
@@ -971,19 +978,18 @@ namespace FruPak.PF.Utils.Common
 
             DataSet ds = FruPak.PF.Data.AccessLayer.CM_Material.Get_Max_Material_Num(Convert.ToInt32(number.pos1.ToString() + number.product_id + number.fruittype + "000"), Convert.ToInt32(number.pos1.ToString() + number.product_id + number.fruittype + "999"));
             DataRow dr;
-                for (int i = 0; i < ds.Tables[0].Rows.Count; i ++)
+            for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+            {
+                dr = ds.Tables[0].Rows[i];
+                try
                 {
-                    dr = ds.Tables[0].Rows[i];
-                    try
-                    {
-                        str_text = Convert.ToString(Convert.ToInt32(dr["Max"].ToString()) + 1);
-                    }
-                    catch
-                    {
-                        str_text = number.pos1.ToString() + number.product_id + number.fruittype + "001";
-                    }
-                    
+                    str_text = Convert.ToString(Convert.ToInt32(dr["Max"].ToString()) + 1);
                 }
+                catch
+                {
+                    str_text = number.pos1.ToString() + number.product_id + number.fruittype + "001";
+                }
+            }
             return str_text;
         }
 
@@ -1011,7 +1017,7 @@ namespace FruPak.PF.Utils.Common
                     cmb_Product_Group.SelectedValue = Convert.ToInt32(dr["ProductGroup_Id"].ToString());
                     cmb_Size.SelectedValue = Convert.ToInt32(dr["Size_Id"].ToString());
                     cmb_Treatment.SelectedValue = Convert.ToInt32(dr["Treatment_Id"].ToString());
-                    nud_weight.Value = Convert.ToDecimal(dr["Weight"].ToString());                   
+                    nud_weight.Value = Convert.ToDecimal(dr["Weight"].ToString());
                 }
                 ds.Dispose();
 
@@ -1028,13 +1034,13 @@ namespace FruPak.PF.Utils.Common
 
                 //reset Material Number back to the one entered in the first place
                 txt_Material_No.Text = str_temp_material_Num;
-                
             }
         }
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
+
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>
@@ -1045,34 +1051,39 @@ namespace FruPak.PF.Utils.Common
             {
                 Button b = (Button)sender;
                 logger.Log(LogLevel.Info, DecorateString(b.Name, b.Text, "Click"));
-
             }
         }
+
         private void Control_Validated(object sender, EventArgs e)
         {
             TextBox t = (TextBox)sender;
             logger.Log(LogLevel.Info, DecorateString(t.Name, t.Text, "Validated"));
         }
+
         private void Control_SelectedValueChanged(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Text, "SelectedValueChanged"));
         }
+
         private void Control_ValueChanged(object sender, EventArgs e)
         {
             DateTimePicker dtp = (DateTimePicker)sender;
             logger.Log(LogLevel.Info, DecorateString(dtp.Name, dtp.Text, "ValueChanged"));
         }
+
         private void Control_NudValueChanged(object sender, EventArgs e)
         {
             NumericUpDown nud = (NumericUpDown)sender;
             logger.Log(LogLevel.Info, DecorateString(nud.Name, nud.Text, "NudValueChanged"));
         }
+
         private void Control_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Checked.ToString(), "CheckedChanged"));
         }
+
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
             FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
@@ -1080,8 +1091,10 @@ namespace FruPak.PF.Utils.Common
         }
 
         #region Decorate String
+
         // DecorateString
         private string openPad = " --- [ ";
+
         private string closePad = " ] --- ";
         private string intro = "--->   { ";
         private string outro = " }   <---";
@@ -1103,6 +1116,7 @@ namespace FruPak.PF.Utils.Common
             output = intro + name + openPad + input + closePad + action + outro;
             return output;
         }
+
         #endregion
 
         /// <summary>
@@ -1120,10 +1134,8 @@ namespace FruPak.PF.Utils.Common
         }
 
         #endregion
-
-
-
     }
+
     public class description
     {
         public static string brand { get; set; }
@@ -1131,18 +1143,18 @@ namespace FruPak.PF.Utils.Common
         public static string grade_code { get; set; }
         public static string growwing_method { get; set; }
         public static string market_attrib { get; set; }
-        public static string pack_type {get;set;}
+        public static string pack_type { get; set; }
         public static string size { get; set; }
         public static string trader { get; set; }
         public static string treatment { get; set; }
         public static string variety { get; set; }
- 
     }
+
     public class number
     {
         public static int pos1 { get; set; }
         public static string product_id { get; set; }
-        public static string grade_id { get; set; } 
-        public static string fruittype { get; set; }                
+        public static string grade_id { get; set; }
+        public static string fruittype { get; set; }
     }
 }

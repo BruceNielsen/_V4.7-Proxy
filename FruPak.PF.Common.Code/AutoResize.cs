@@ -1,20 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace FruPak.PF.Common.Code
 {
     public class AutoResize
     {
-        List<System.Drawing.Rectangle> _arr_control_storage = new List<System.Drawing.Rectangle>();
+        private List<System.Drawing.Rectangle> _arr_control_storage = new List<System.Drawing.Rectangle>();
         private bool showRowHeader = false;
+
         public AutoResize(Form _form_)
         {
             form = _form_;                  // The calling form
             _formSize = _form_.ClientSize;  // Save initial form size
-            _fontsize = _form_.Font.Size;   // Font size 
+            _fontsize = _form_.Font.Size;   // Font size
         }
 
         private float _fontsize { get; set; }
@@ -28,7 +28,7 @@ namespace FruPak.PF.Common.Code
             var _controls = _get_all_controls(form);        // Call the enumerator
             foreach (Control control in _controls)          // Loop through the controls
             {
-                _arr_control_storage.Add(control.Bounds);   // Saves control bounds/dimension            
+                _arr_control_storage.Add(control.Bounds);   // Saves control bounds/dimension
 
                 // If you have a datagridview
                 if (control.GetType() == typeof(DataGridView))
@@ -57,17 +57,15 @@ namespace FruPak.PF.Common.Code
                 control.Bounds = new System.Drawing.Rectangle(_controlposition, _controlSize); //Put together
 
                 // Assuming you have a datagridview inside a form()
-                // If you want to show the row header, replace the false statement of 
+                // If you want to show the row header, replace the false statement of
                 // showRowHeader on top/public declaration to true;
                 if (control.GetType() == typeof(DataGridView))
                     _dgv_Column_Adjust(((DataGridView)control), showRowHeader);
-
 
                 //Font AutoSize
                 control.Font = new System.Drawing.Font(form.Font.FontFamily,
                  (float)(((Convert.ToDouble(_fontsize) * _form_ratio_width) / 2) +
                   ((Convert.ToDouble(_fontsize) * _form_ratio_height) / 2)));
-
             }
         }
 

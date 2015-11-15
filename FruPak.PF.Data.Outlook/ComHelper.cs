@@ -26,7 +26,6 @@ namespace FruPak.PF.Data.Outlook.ComUtils
         /// <returns>A string containing the type name.</returns>
         public static string GetTypeName(object comObj)
         {
-
             if (comObj == null)
                 return String.Empty;
 
@@ -59,7 +58,7 @@ namespace FruPak.PF.Data.Outlook.ComUtils
 
                 try
                 {
-                    //retrieves the documentation string for the specified type description 
+                    //retrieves the documentation string for the specified type description
                     typeInfo.GetDocumentation(-1, out typeName, out documentation,
                         out helpContext, out helpFile);
                 }
@@ -89,7 +88,7 @@ namespace FruPak.PF.Data.Outlook.ComUtils
     [ComImport()]
     [Guid("00020400-0000-0000-C000-000000000046")]
     [InterfaceType(ComInterfaceType.InterfaceIsIUnknown)]
-    interface IDispatch
+    internal interface IDispatch
     {
         [PreserveSig]
         int GetTypeInfoCount(out int Count);

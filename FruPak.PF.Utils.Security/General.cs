@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data;
 
 namespace FruPak.PF.Utils.Security
@@ -15,7 +12,8 @@ namespace FruPak.PF.Utils.Security
     -------------------------------------------------------------------------------------------------------------------------------------------------
     01/09/2013  Dave       Creation
     */
-    class General
+
+    internal class General
     {
         //Encrypts the entered password so it can be matched against the stored password
         public static string Password_Encryption(string str_Password)
@@ -63,6 +61,7 @@ namespace FruPak.PF.Utils.Security
 
             return int_User_Id;
         }
+
         /// <summary>
         /// Validates User details
         /// </summary>
@@ -71,7 +70,7 @@ namespace FruPak.PF.Utils.Security
         /// <param name="str_Logon"></param>
         /// <param name="str_Password"></param>
         /// <returns></returns>
-        /// 
+        ///
         public static string User_Check(string str_First_Name, string str_Last_Name)
         {
             string str_msg = "";
@@ -86,6 +85,7 @@ namespace FruPak.PF.Utils.Security
             }
             return str_msg;
         }
+
         public static string User_Check(string str_First_Name, string str_Last_Name, string str_Logon, bool bol_check)
         {
             string str_msg = User_Check(str_First_Name, str_Last_Name);
@@ -106,6 +106,7 @@ namespace FruPak.PF.Utils.Security
             }
             return str_msg;
         }
+
         public static string User_Check(string str_First_Name, string str_Last_Name, string str_Logon, bool bol_check, string str_Password)
         {
             string str_msg = User_Check(str_First_Name, str_Last_Name, str_Logon, bol_check);
@@ -117,8 +118,5 @@ namespace FruPak.PF.Utils.Security
 
             return str_msg;
         }
-       
- 
-
     }
 }

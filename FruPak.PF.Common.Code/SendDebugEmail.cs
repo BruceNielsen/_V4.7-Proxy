@@ -1,11 +1,5 @@
 ﻿using NLog;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace FruPak.PF.Common.Code
@@ -13,6 +7,7 @@ namespace FruPak.PF.Common.Code
     public partial class SendDebugEmail : Form
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
+
         public SendDebugEmail()
         {
             InitializeComponent();
@@ -41,10 +36,22 @@ namespace FruPak.PF.Common.Code
         private void buttonOk_Click(object sender, EventArgs e)
         {
             logger.Log(LogLevel.Info, "Calling: SendDebugInfo");
+
+            // Hide the form so that it does not appear in the screenshot
+            this.Hide();
+
+            // Make sure this form is out of the way
+            System.Threading.Thread.Sleep(500);
+
+            // Do the capture
+            DebugCaptureScreen.CaptureScreen();
+
+            // Show the form again
+            this.Show();
+
+            // Fire off the bug report
             FruPak.PF.Common.Code.EmailDebugInfo.SendDebugInfo(this.textBoxBugReport.Text);
-            this.Close();
-
-
+            
         }
 
         private void buttonClear_Click(object sender, EventArgs e)

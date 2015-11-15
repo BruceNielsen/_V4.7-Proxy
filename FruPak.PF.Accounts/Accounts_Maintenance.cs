@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using NLog;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using NLog;
 
 namespace FruPak.PF.Accounts
 {
@@ -15,22 +10,23 @@ namespace FruPak.PF.Accounts
     Maintenance Class.
      * In order to keep things simple and as standard as possible. It was decided where possible to a standard table structure would be used.
      * This structure is: _id, Code, Description, Mod_date, Mod_User_Id
-     * 
+     *
      * This class is a form used to Add, Update, and Delete general Common items, where the tables have followed the standard structure.
 
     Date        Author     Desc
     -------------------------------------------------------------------------------------------------------------------------------------------------
     01/09/2013  Dave       Creation
     */
+
     public partial class Accounts_Maintenance : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static string str_table = "";
         private static int int_Current_User_Id = 0;
         private static int int_DVG_Row_id = 0;
         private static bool bol_write_access;
-       
+
         public Accounts_Maintenance(string str_type, int int_C_User_id, bool bol_w_a)
         {
             InitializeComponent();
@@ -57,13 +53,13 @@ namespace FruPak.PF.Accounts
                     lbl_Value.Visible = true;
                     txt_Value.Visible = true;
                     break;
-
             }
             populate_combobox();
             AddColumnsProgrammatically();
             populate_datagridview();
 
             #region Log any interesting events from the UI to the CSV log file
+
             foreach (Control c in this.Controls)
             {
                 if (c.GetType() == typeof(Button))
@@ -94,20 +90,21 @@ namespace FruPak.PF.Accounts
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-
                 else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
                 {
                     FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
-            #endregion
 
+            #endregion Log any interesting events from the UI to the CSV log file
         }
+
         private void populate_combobox()
-        {      
-            cmb_Code.Items.AddRange(new string[] { "Bags", "Berries", "Bins", "Boiler", "Boxs", "Clean", "Freight","HotFill", "Olives", "Pallets", "Power", "Rental", "Storage", "Wages"  });
+        {
+            cmb_Code.Items.AddRange(new string[] { "Bags", "Berries", "Bins", "Boiler", "Boxs", "Clean", "Freight", "HotFill", "Olives", "Pallets", "Power", "Rental", "Storage", "Wages" });
         }
+
         private void AddColumnsProgrammatically()
         {
             var col0 = new DataGridViewTextBoxColumn();
@@ -117,7 +114,6 @@ namespace FruPak.PF.Accounts
             var col4 = new DataGridViewTextBoxColumn();
             var col5 = new DataGridViewTextBoxColumn();
             var col6 = new DataGridViewTextBoxColumn();
-            
 
             col0.HeaderText = "Id";
             col0.Name = "Id";
@@ -169,7 +165,7 @@ namespace FruPak.PF.Accounts
             img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
         }
-        
+
         private void populate_datagridview()
         {
             DataSet ds_Get_Info = null;
@@ -182,7 +178,6 @@ namespace FruPak.PF.Accounts
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_A_Rates.Get_Info();
                     break;
             }
-
 
             DataRow dr_Get_Info;
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
@@ -198,7 +193,7 @@ namespace FruPak.PF.Accounts
                         DGVC_User_Id.Value = dr_Get_Info["Rates_Id"].ToString();
                         break;
                 }
-                
+
                 dataGridView1.Rows[i].Cells[0] = DGVC_User_Id;
 
                 DataGridViewCell DGVC_Name = new DataGridViewTextBoxCell();
@@ -216,7 +211,7 @@ namespace FruPak.PF.Accounts
                 DataGridViewCell DGVC_Active = new DataGridViewTextBoxCell();
                 DGVC_Active.Value = dr_Get_Info["PF_Active_Ind"].ToString();
                 dataGridView1.Rows[i].Cells[4] = DGVC_Active;
-                
+
                 DataGridViewCell DGVC_Mod_date = new DataGridViewTextBoxCell();
                 DGVC_Mod_date.Value = dr_Get_Info["Mod_date"].ToString();
                 dataGridView1.Rows[i].Cells[5] = DGVC_Mod_date;
@@ -229,10 +224,12 @@ namespace FruPak.PF.Accounts
                 ds_Get_Info.Dispose();
             }
         }
+
         private void SizeAllColumns(Object sender, EventArgs e)
         {
             Column_resize();
         }
+
         private void Column_resize()
         {
             // TODO: This line of code loads data into the 'moneyDataSet.List_TS_Work' table. You can move, or remove it, as needed.
@@ -245,6 +242,7 @@ namespace FruPak.PF.Accounts
             dataGridView1.AutoResizeColumn(7, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(8, DataGridViewAutoSizeColumnMode.AllCells);
         }
+
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             //Delete
@@ -269,19 +267,19 @@ namespace FruPak.PF.Accounts
             {
                 int_DVG_Row_id = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
                 cmb_Code.Text = dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString().Substring(0, dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString().IndexOf('-'));
-                nud_Code.Value = Convert.ToDecimal(dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString().Substring(dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString().IndexOf('-')+1));
+                nud_Code.Value = Convert.ToDecimal(dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString().Substring(dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString().IndexOf('-') + 1));
                 txt_Description.Text = dataGridView1.Rows[e.RowIndex].Cells[2].Value.ToString();
                 txt_Value.Text = dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString();
-                ckb_Active.Checked = Convert.ToBoolean(dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString());                
+                ckb_Active.Checked = Convert.ToBoolean(dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString());
                 btn_Add.Text = "&Update";
             }
         }
- 
 
         private void btn_Add_Click(object sender, EventArgs e)
         {
             Add_btn((sender as Button).Text);
         }
+
         private void Add_btn(string str_btnText)
         {
             DialogResult DLR_MessageBox = new DialogResult();
@@ -309,6 +307,7 @@ namespace FruPak.PF.Accounts
                                 break;
                         }
                         break;
+
                     case "&Update":
                         switch (str_table)
                         {
@@ -331,14 +330,15 @@ namespace FruPak.PF.Accounts
                 lbl_message.Text = str_code + " has NOT been saved";
             }
             populate_datagridview();
-
         }
+
         /// <summary>
         /// validates the text fields on length
         /// </summary>
         /// <returns></returns>
-        /// 
+        ///
         private DataSet ds_validate;
+
         private string validate(string str_table, string str_btnText)
         {
             string str_msg = "";
@@ -358,7 +358,7 @@ namespace FruPak.PF.Accounts
             }
             else
             {
-                str_code = str_code + "-" +nud_Code.Value.ToString();
+                str_code = str_code + "-" + nud_Code.Value.ToString();
             }
 
             switch (str_table)
@@ -375,10 +375,10 @@ namespace FruPak.PF.Accounts
                 }
                 ds_validate.Dispose();
             }
-            
+
             if (txt_Description.TextLength == 0)
             {
-                str_msg = str_msg + "Invalid Description: Please Enter a Description"+ Environment.NewLine;
+                str_msg = str_msg + "Invalid Description: Please Enter a Description" + Environment.NewLine;
             }
             if (txt_Value.TextLength == 0)
             {
@@ -395,10 +395,12 @@ namespace FruPak.PF.Accounts
 
             return str_msg;
         }
+
         private void btn_reset_Click(object sender, EventArgs e)
         {
             Reset();
         }
+
         private void Reset()
         {
             cmb_Code.Text = null;
@@ -407,10 +409,12 @@ namespace FruPak.PF.Accounts
             txt_Value.ResetText();
             btn_Add.Text = "&Add";
         }
+
         private void btn_Close_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
         private void KeyDown_1(object sender, KeyEventArgs e)
         {
             if (e.KeyData == Keys.Enter)
@@ -419,18 +423,19 @@ namespace FruPak.PF.Accounts
                 SelectNextControl(ActiveControl, true, true, true, true);
             }
         }
+
         private void Enter_KeyPress(object sender, KeyPressEventArgs e)
         {
-
             if (e.KeyChar == 13)
-            {                
+            {
                 Add_btn(btn_Add.Text);
             }
         }
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
+
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>
@@ -441,34 +446,39 @@ namespace FruPak.PF.Accounts
             {
                 Button b = (Button)sender;
                 logger.Log(LogLevel.Info, DecorateString(b.Name, b.Text, "Click"));
-
             }
         }
+
         private void Control_Validated(object sender, EventArgs e)
         {
             TextBox t = (TextBox)sender;
             logger.Log(LogLevel.Info, DecorateString(t.Name, t.Text, "Validated"));
         }
+
         private void Control_SelectedValueChanged(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Text, "SelectedValueChanged"));
         }
+
         private void Control_ValueChanged(object sender, EventArgs e)
         {
             DateTimePicker dtp = (DateTimePicker)sender;
             logger.Log(LogLevel.Info, DecorateString(dtp.Name, dtp.Text, "ValueChanged"));
         }
+
         private void Control_NudValueChanged(object sender, EventArgs e)
         {
             NumericUpDown nud = (NumericUpDown)sender;
             logger.Log(LogLevel.Info, DecorateString(nud.Name, nud.Text, "NudValueChanged"));
         }
+
         private void Control_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Checked.ToString(), "CheckedChanged"));
         }
+
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
             FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
@@ -476,8 +486,10 @@ namespace FruPak.PF.Accounts
         }
 
         #region Decorate String
+
         // DecorateString
         private string openPad = " --- [ ";
+
         private string closePad = " ] --- ";
         private string intro = "--->   { ";
         private string outro = " }   <---";
@@ -499,7 +511,8 @@ namespace FruPak.PF.Accounts
             output = intro + name + openPad + input + closePad + action + outro;
             return output;
         }
-        #endregion
+
+        #endregion Decorate String
 
         /// <summary>
         /// Close the form with the Esc key (Sel request 11-02-2015 BN)
@@ -515,7 +528,6 @@ namespace FruPak.PF.Accounts
             }
         }
 
-        #endregion
-
+        #endregion Methods to log UI events to the CSV file. BN 29/01/2015
     }
 }

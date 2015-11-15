@@ -1,13 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data;
+using FruPak.PF.CustomSettings;
+using System.Windows.Forms;
+using System.IO;
 
 namespace FruPak.PF.PrintLayer
 {
     public class Packing_Slip
     {
+        private static PhantomCustomSettings Settings;
+
         public static int Print(string Data, bool bol_print)
         {
             int return_code = 98;
@@ -17,6 +19,7 @@ namespace FruPak.PF.PrintLayer
             return_code = Print(Convert.ToDecimal(DataParts[0]), Convert.ToInt32(DataParts[1]), DataParts[2], DataParts[3], DataParts[4], bol_print);
             return return_code;
         }
+
         public static int Print(decimal loop_count, int int_Order_Id, string str_delivery_name, string str_Address, string str_type, bool bol_print)
         {
             int return_code = 97;
@@ -30,6 +33,7 @@ namespace FruPak.PF.PrintLayer
                     case "PF-TPath":
                         FruPak.PF.PrintLayer.Word.TemplatePath = dr_default["Value"].ToString();
                         break;
+
                     case "PF-TPack":
                         FruPak.PF.PrintLayer.Word.TemplateName = dr_default["Value"].ToString();
                         break;
@@ -47,18 +51,18 @@ namespace FruPak.PF.PrintLayer
                 for (int i_order = 0; i_order < ds_Order.Tables[0].Rows.Count; i_order++)
                 {
                     dr_Order = ds_Order.Tables[0].Rows[i_order];
-                    DateTime dt_Load_Date = Convert.ToDateTime(dr_Order["Load_Date"].ToString());                    
+                    DateTime dt_Load_Date = Convert.ToDateTime(dr_Order["Load_Date"].ToString());
                     FruPak.PF.PrintLayer.Word.ReplaceText("Date", dt_Load_Date.Date.ToString("dd/MM/yyyy"));
                     FruPak.PF.PrintLayer.Word.ReplaceText("Order_Num", dr_Order["Customer_Order"].ToString());
                     FruPak.PF.PrintLayer.Word.ReplaceText("Freight_Docket", dr_Order["Freight_Docket"].ToString());
-                }   
+                }
                 ds_Order.Dispose();
 
                 FruPak.PF.PrintLayer.Word.ReplaceText("Address", str_delivery_name + Environment.NewLine + str_Address);
 
                 //find the products and add them to the packing slip
                 DataSet ds_Get_Info2 = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Info_for_Packing_Slips(int_Order_Id);
-               // DataSet ds_Get_Info2A = ds_Get_Info2;                
+                // DataSet ds_Get_Info2A = ds_Get_Info2;
                 DataRow dr_Get_Info2;
                 int ip = 1;
 
@@ -77,9 +81,9 @@ namespace FruPak.PF.PrintLayer
                         desc = dr_Get_Info2["G_Description"].ToString() + " " + dr_Get_Info2["FT_Description"].ToString() + " " + dr_Get_Info2["FV_Description"].ToString() +
                             " " + dr_Get_Info2["GM_Description"].ToString() + " " + dr_Get_Info2["S_Description"].ToString();
                     }
-                        FruPak.PF.PrintLayer.Word.ReplaceText("Description" + Convert.ToString(ip), desc );
-                        FruPak.PF.PrintLayer.Word.ReplaceText("Quantity" + Convert.ToString(ip), Convert.ToString(dr_Get_Info2["Quantity"].ToString()));
-                        ip++;
+                    FruPak.PF.PrintLayer.Word.ReplaceText("Description" + Convert.ToString(ip), desc);
+                    FruPak.PF.PrintLayer.Word.ReplaceText("Quantity" + Convert.ToString(ip), Convert.ToString(dr_Get_Info2["Quantity"].ToString()));
+                    ip++;
                 }
                 ds_Get_Info2.Dispose();
             }
@@ -91,7 +95,9 @@ namespace FruPak.PF.PrintLayer
                     case "Print":
                         return_code = FruPak.PF.PrintLayer.Word.Print();
                         break;
+
                     case "Email":
+                        //return_code = FruPak.PF.PrintLayer.Word.SaveAS();
                         return_code = FruPak.PF.PrintLayer.Word.SaveAsPdf();
                         break;
                 }
@@ -99,10 +105,47 @@ namespace FruPak.PF.PrintLayer
             else
             {
                 return_code = FruPak.PF.PrintLayer.Word.SaveAS();
+                //return_code = FruPak.PF.PrintLayer.Word.SaveAsPdf();    // Added 21/10/2015 BN
+                //ViewAnyPdfsInTheTempFolder();
             }
 
             FruPak.PF.PrintLayer.Word.CloseWord();
             return return_code;
+        }
+
+        public static void ViewAnyPdfsInTheTempFolder()
+        {
+            // This is new, now that I've finally got the COA print to pdf working
+            string TempPath = string.Empty;
+
+            #region Pull the temp path from the database
+            string path = Application.StartupPath;
+            Settings = new PhantomCustomSettings();
+            Settings.SettingsPath = Path.Combine(path, "FruPak.Phantom.config");
+            Settings.EncryptionKey = "phantomKey";
+            Settings.Load();
+            TempPath = Settings.Path_Local_PDF_Files;
+
+            DirectoryInfo di = new DirectoryInfo(TempPath);
+            foreach (FileInfo fi in di.GetFiles())
+            {
+                if (fi.Name.StartsWith("PS"))
+                {
+                    if (fi.Extension == ".pdf")
+                    {
+                        //FruPak.PF.Common.Code.General.Report_Viewer(FruPak.PF.PrintLayer.Word.FilePath + "\\" + view_file);
+
+                        FruPak.PF.Common.Code.General.Report_Viewer(TempPath + "\\" + fi.Name);
+
+                        //SendToPrinter(TempPath, fi.Name);
+                        // Delete the file
+                        //fi.Delete();
+                    }
+                }
+            }
+
+            #endregion
+
         }
     }
 }

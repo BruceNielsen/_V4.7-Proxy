@@ -1,18 +1,16 @@
 ﻿/*
  * Copyright (C) Henrik Jonsson 2007
- * 
- * THIS WORK IS PROVIDED UNDER THE TERMS OF THIS CODE PROJECT OPEN LICENSE ("LICENSE"). 
- * THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK 
+ *
+ * THIS WORK IS PROVIDED UNDER THE TERMS OF THIS CODE PROJECT OPEN LICENSE ("LICENSE").
+ * THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK
  * OTHER THAN AS AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.
- * 
+ *
  * See licence.txt or http://thecodeproject.com/info/eula.aspx for full licence description.
- * 
+ *
  * This copyright notice must not be removed.
 */
+
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Reversible
 {
@@ -21,7 +19,7 @@ namespace Reversible
     /// </summary>
     public class UndoRedoSession : Transaction
     {
-        Transaction previous;
+        private Transaction previous;
 
         /// <summary>
         /// Creates a new undo redo session without making it active.
@@ -41,11 +39,11 @@ namespace Reversible
         }
 
         /// <summary>
-        /// Starts a new transaction in this undo-redo-session. 
+        /// Starts a new transaction in this undo-redo-session.
         /// </summary>
         /// <param name="operationName">Name of new Transaction.</param>
         /// <returns>A new Transaction</returns>
-        /// <remarks>In first version (1.0.0) this UndoSession remained active transaction when the returned transaction was 
+        /// <remarks>In first version (1.0.0) this UndoSession remained active transaction when the returned transaction was
         /// commited or rollbacked. This was changed in version (1.0.1) to avoid problems like the one reported by Fraysse.
         /// Now, instead, the Transaction active when calling this function becomes the active one when the new transaction ends.
         /// </remarks>
@@ -73,7 +71,7 @@ namespace Reversible
         }
 
         /// <summary>
-        /// Called when a child transaction is committed or rollbacked. 
+        /// Called when a child transaction is committed or rollbacked.
         /// </summary>
         /// <param name="childFinished">Child Transaction finished.</param>
         /// <remarks>This is overriden to restore the current transaction to the activated before UndoRedoSession.Begin(...) was called.</remarks>
@@ -90,7 +88,6 @@ namespace Reversible
             {
                 base.OnChildFinished(childFinished);
             }
-            
         }
 
         /// <summary>
@@ -206,7 +203,6 @@ namespace Reversible
                 // Restores the current operation.
                 current = currentTransaction;
             }
-
         }
 
         /// <summary>
@@ -277,6 +273,5 @@ namespace Reversible
             }
             return texts;
         }
-
     }
 }

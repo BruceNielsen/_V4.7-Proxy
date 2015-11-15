@@ -40,6 +40,7 @@
             this.cmb_Outlook = new System.Windows.Forms.ComboBox();
             this.ckb_Active = new System.Windows.Forms.CheckBox();
             this.panelUtils_Common_Customer = new System.Windows.Forms.Panel();
+            this.buttonAutoLink = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panelUtils_Common_Customer.SuspendLayout();
             this.SuspendLayout();
@@ -149,6 +150,7 @@
             // 
             // panelUtils_Common_Customer
             // 
+            this.panelUtils_Common_Customer.Controls.Add(this.buttonAutoLink);
             this.panelUtils_Common_Customer.Controls.Add(this.cmb_Outlook);
             this.panelUtils_Common_Customer.Controls.Add(this.ckb_Active);
             this.panelUtils_Common_Customer.Controls.Add(this.btn_Add);
@@ -162,6 +164,17 @@
             this.panelUtils_Common_Customer.Name = "panelUtils_Common_Customer";
             this.panelUtils_Common_Customer.Size = new System.Drawing.Size(997, 86);
             this.panelUtils_Common_Customer.TabIndex = 75;
+            // 
+            // buttonAutoLink
+            // 
+            this.buttonAutoLink.Location = new System.Drawing.Point(828, 3);
+            this.buttonAutoLink.Name = "buttonAutoLink";
+            this.buttonAutoLink.Size = new System.Drawing.Size(75, 21);
+            this.buttonAutoLink.TabIndex = 74;
+            this.buttonAutoLink.Text = "Auto-Link";
+            this.buttonAutoLink.UseVisualStyleBackColor = true;
+            this.buttonAutoLink.Visible = false;
+            this.buttonAutoLink.Click += new System.EventHandler(this.buttonAutoLink_Click);
             // 
             // PF_Customer
             // 
@@ -199,5 +212,6 @@
         private System.Windows.Forms.ComboBox cmb_Outlook;
         private System.Windows.Forms.CheckBox ckb_Active;
         private System.Windows.Forms.Panel panelUtils_Common_Customer;
+        private System.Windows.Forms.Button buttonAutoLink;
     }
 }

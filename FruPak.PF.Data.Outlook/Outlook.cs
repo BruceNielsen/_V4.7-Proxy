@@ -1,11 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Office.Interop.Outlook;
-using System.ComponentModel;
-using System.Data;
+﻿using Microsoft.Office.Interop.Outlook;
 using NLog;
+using System;
 
 namespace FruPak.PF.Data.Outlook
 {
@@ -20,7 +15,7 @@ namespace FruPak.PF.Data.Outlook
 
     public class Outlook
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static MAPIFolder mapifolder;
         public static Microsoft.Office.Interop.Outlook.Application OutLook_App = new Microsoft.Office.Interop.Outlook.Application();
@@ -33,7 +28,9 @@ namespace FruPak.PF.Data.Outlook
             get;
             set;
         }
+
         public static MAPIFolder Folder_Name_Locationfield;
+
         /// <summary>
         /// Get the MapiFolder Name and location to be used
         /// </summary>
@@ -48,12 +45,13 @@ namespace FruPak.PF.Data.Outlook
                 Folder_Name_Locationfield = Get_folder_Name();
             }
         }
+
         /// <summary>
         /// This will find the location within Outlook of the folder you are looking for.
         /// </summary>
         /// <param name="foldername"></param>
         /// <returns>MAPIFolder that is then used as the location for updating/inserting information</returns>
-        /// 
+        ///
         private static MAPIFolder Get_folder_Name()
         {
             MAPIFolder Folder_Name;
@@ -72,14 +70,15 @@ namespace FruPak.PF.Data.Outlook
 
             return Folder_Name = mapifolder;
         }
+
         private static void GetFolders(MAPIFolder folder)
         {
             if (folder.Folders.Count == 0)
             {
-              //Console.WriteLine(folder.FullFolderPath);
+                //Console.WriteLine(folder.FullFolderPath);
 
                 string djb = folder.FullFolderPath.ToString();
-                
+
                 //Console.WriteLine("djb: " + djb);
 
                 if (djb.Length > 4)
@@ -96,16 +95,17 @@ namespace FruPak.PF.Data.Outlook
                 foreach (MAPIFolder subFolder in folder.Folders)
                 {
                     GetFolders(subFolder);
-                    
+
                     //Console.WriteLine(subFolder.FullFolderPath);
                     // subFolder has a count of 16 items; the first two subtrees are ignored
-                                    }
+                }
             }
         }
 
         #region Log Code
+
         /// <summary>
-        /// Formats the output to the debug log so that the actual log contents stand out amongst the machine-generated stuff. 
+        /// Formats the output to the debug log so that the actual log contents stand out amongst the machine-generated stuff.
         /// Refers to machine-generated content, not calling specifics.
         /// </summary>
         /// <param name="input">The code function that we want to log.</param>
@@ -115,7 +115,7 @@ namespace FruPak.PF.Data.Outlook
             string Output = "___[ " + input + " ]___";
             return Output;
         }
-        #endregion
 
+        #endregion Log Code
     }
 }

@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FruPak.Utils.Data;
 using System.Data;
-using System.Data.OleDb;
-using FruPak.Utils.Data;
 
 namespace FruPak.PF.Data.AccessLayer
 {
     /*Description
     -----------------
     SY_Message Class.
-     * 
+     *
      * This Class is a data access layer to the SY_Message table
      * Where possible the following standard method names are used and standard column names used.
      *  1. Variable names as input to a method are the same as the column names they refer to.
@@ -26,6 +22,7 @@ namespace FruPak.PF.Data.AccessLayer
     -------------------------------------------------------------------------------------------------------------------------------------------------
     01/09/2013  Dave       Creation
     */
+
     public class SY_Message
     {
         public static DataSet Get_Max_ID()
@@ -33,11 +30,13 @@ namespace FruPak.PF.Data.AccessLayer
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(Message_Id) as Current_Id FROM SY_Message");
         }
+
         public static DataSet Get_Info()
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM dbo.SY_Message ORDER BY END_DATE");
         }
+
         public static DataSet Get_Info_Translated()
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -52,18 +51,21 @@ namespace FruPak.PF.Data.AccessLayer
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM  dbo.SY_Message WHERE Message_Id = " + Message_Id);
         }
+
         public static int Insert(int Message_Id, int User_Id, string Message, string End_Date, string Repeat_ind)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO SY_Message(Message_Id, User_Id, Message, End_Date, Repeat_ind) " +
                                                 "VALUES ( " + Message_Id + "," + User_Id + ",'" + Message + "','" + End_Date + "','" + Repeat_ind + "')");
         }
+
         public static int Update_End_Date(int Message_Id, string End_Date)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE SY_Message  SET End_Date = '" + End_Date + "' " +
                                               " WHERE Message_Id = " + Message_Id);
         }
+
         public static int Update(int Message_Id, int User_Id, string Message, string End_Date, string Repeat_ind)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();

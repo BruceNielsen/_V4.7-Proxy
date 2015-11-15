@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace FruPak.PF.Utils.UserControls
@@ -15,6 +10,7 @@ namespace FruPak.PF.Utils.UserControls
         // Events raised by this class to indicate when variety and fruit type combo boxes have changed.
         // In method that captures the combobox changed events need to raise these events.
         public event EventHandler OrchardistChanged;
+
         public event EventHandler GrowerChanged;
 
         public bool bol_test
@@ -22,7 +18,6 @@ namespace FruPak.PF.Utils.UserControls
             get;
             set;
         }
-
 
         public Grower()
         {
@@ -45,7 +40,6 @@ namespace FruPak.PF.Utils.UserControls
                 Console.WriteLine("FruPak.PF.Utils.UserControls.Grower - UsageMode = Runtime - Running populate()");
                 populate_Orchardist();
             }
-
         }
 
         private void populate_Orchardist()
@@ -74,8 +68,6 @@ namespace FruPak.PF.Utils.UserControls
                 populate_Grower_Box(0);
             else
                 populate_Grower_Box(Convert.ToInt32((cmb_Orchardist.SelectedItem as ComboboxValues).GetValue));
-
-
         }
 
         private void populate_Grower_Box(int Orchardist_Id)
@@ -122,7 +114,6 @@ namespace FruPak.PF.Utils.UserControls
             }
             populate_Grower_Box(orchardist_id);
 
-
             // passes on the orchardist changed event outside of this control.  Use OrchardistChanged property.
             EventHandler handler = OrchardistChanged;
             if (handler != null)
@@ -141,11 +132,10 @@ namespace FruPak.PF.Utils.UserControls
                 //{
                 //}
 
-
-                    if (cmb_Grower.SelectedItem != null)
-                    {
-                        return Convert.ToInt32((cmb_Grower.SelectedItem as ComboboxValues).GetValue);
-                    }
+                if (cmb_Grower.SelectedItem != null)
+                {
+                    return Convert.ToInt32((cmb_Grower.SelectedItem as ComboboxValues).GetValue);
+                }
 
                 return 0;
             }
@@ -226,11 +216,5 @@ namespace FruPak.PF.Utils.UserControls
                 handler(this, e);
             }
         }
-
-
-
-
     }
-
-
 }

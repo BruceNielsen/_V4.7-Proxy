@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using NLog;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
-using NLog;
+using System.Windows.Forms;
 
 namespace FruPak.PF.Temp
 {
@@ -17,6 +12,7 @@ namespace FruPak.PF.Temp
 
         private static bool bol_write_access;
         private static int int_Current_User_Id = 0;
+
         public Submission(int int_C_User_id, bool bol_w_a)
         {
             InitializeComponent();
@@ -27,7 +23,6 @@ namespace FruPak.PF.Temp
             btn_Add.Enabled = bol_w_a;
             //check if testing or not
             Console.WriteLine(FruPak.PF.Global.Global.bol_Testing);
-
 
             grower1.bol_test = FruPak.PF.Global.Global.bol_Testing;
             //if (FruPak.PF.Global.Global.bol_Testing == true)
@@ -44,6 +39,7 @@ namespace FruPak.PF.Temp
             populate_DataGridView1();
 
             #region Log any interesting events from the UI to the CSV log file
+
             foreach (Control c in this.Controls)
             {
                 if (c.GetType() == typeof(Button))
@@ -74,16 +70,16 @@ namespace FruPak.PF.Temp
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-
                 else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
                 {
                     FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
-            #endregion
 
+            #endregion Log any interesting events from the UI to the CSV log file
         }
+
         private void populate_combobox()
         {
             DataSet ds_Get_info;
@@ -93,13 +89,14 @@ namespace FruPak.PF.Temp
             cmb_Trader.ValueMember = "Trader_Id";
             cmb_Trader.Text = null;
             ds_Get_info.Dispose();
-
         }
+
         private void grower1_GrowerChanged(object sender, EventArgs e)
         {
             // when the grower changes we need to requery and reload the blocks available
             populate_block_combo(grower1.Grower_Id);
         }
+
         private void populate_block_combo(int grower_id)
         {
             if (grower_id == 0)
@@ -116,6 +113,7 @@ namespace FruPak.PF.Temp
                 ds_get_info.Dispose();
             }
         }
+
         private void AddColumnsProgrammatically()
         {
             var col0 = new DataGridViewTextBoxColumn();
@@ -199,15 +197,14 @@ namespace FruPak.PF.Temp
             img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
 
-
             DataGridViewImageColumn img_edit = new DataGridViewImageColumn();
             dataGridView1.Columns.Add(img_edit);
             img_edit.HeaderText = "Edit";
             img_edit.Name = "Edit";
             img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
-
         }
+
         private void populate_DataGridView1()
         {
             dataGridView1.Refresh();
@@ -215,7 +212,6 @@ namespace FruPak.PF.Temp
 
             DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.Temp_submission.Get_Info_Translated();
             DataRow dr_Get_Info;
-
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {
@@ -274,10 +270,12 @@ namespace FruPak.PF.Temp
             ColumnSize();
             ds_Get_Info.Dispose();
         }
+
         private void SizeAllColumns(Object sender, EventArgs e)
         {
             ColumnSize();
         }
+
         private void ColumnSize()
         {
             dataGridView1.AutoResizeColumn(0, DataGridViewAutoSizeColumnMode.AllCells);
@@ -295,7 +293,9 @@ namespace FruPak.PF.Temp
             dataGridView1.AutoResizeColumn(13, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(14, DataGridViewAutoSizeColumnMode.AllCells);
         }
+
         private int int_new_Sub_Id = 0;
+
         private void btn_Add_Click(object sender, EventArgs e)
         {
             DialogResult DLR_message = new DialogResult();
@@ -335,7 +335,6 @@ namespace FruPak.PF.Temp
                     break;
             }
 
-
             bool bol_bins_Add = true;
             if (DLR_message != System.Windows.Forms.DialogResult.OK)
             {
@@ -347,6 +346,7 @@ namespace FruPak.PF.Temp
                             txt_Comments.Text, int_Current_User_Id);
                         bol_bins_Add = true;
                         break;
+
                     case "&Update":
                         int_result = FruPak.PF.Data.AccessLayer.GH_Submission.Update(int_new_Sub_Id, Convert.ToInt32(cmb_Trader.SelectedValue.ToString()), grower1.Grower_Id,
                             Convert.ToInt32(cmb_Block.SelectedValue.ToString()), txt_Grower_Ref.Text, dtp_Sub_Date.Value.ToString("yyyy/MM/dd"), dtp_Harvest_Date.Value.ToString("yyyy/MM/dd"), Convert.ToInt32(nud_Pick_Num.Value.ToString()),
@@ -357,7 +357,6 @@ namespace FruPak.PF.Temp
                 if (int_result > 0)
                 {
                     DialogResult dlr_frm = new System.Windows.Forms.DialogResult();
-
 
                     Form frm = new Submission_Bins(int_new_Sub_Id, Convert.ToInt32(cmb_Trader.SelectedValue.ToString()), int_Current_User_Id, bol_write_access, bol_bins_Add);
                     dlr_frm = frm.ShowDialog();
@@ -381,10 +380,12 @@ namespace FruPak.PF.Temp
                 }
             }
         }
+
         private void btn_reset_Click(object sender, EventArgs e)
         {
             Reset();
         }
+
         private void Reset()
         {
             cmb_Trader.Text = null;
@@ -396,8 +397,8 @@ namespace FruPak.PF.Temp
             txt_Grower_Ref.ResetText();
             txt_Comments.ResetText();
             ckb_Print_all.Checked = false;
-
         }
+
         private void btn_Refresh_Click(object sender, EventArgs e)
         {
             int int_cmb_Trader = 0;
@@ -409,12 +410,13 @@ namespace FruPak.PF.Temp
 
             populate_combobox();
             cmb_Trader.SelectedValue = int_cmb_Trader;
-
         }
+
         private void btn_Close_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             DialogResult DLR_Message = new System.Windows.Forms.DialogResult();
@@ -422,11 +424,13 @@ namespace FruPak.PF.Temp
             int int_result = 0;
 
             //Print
+
             #region ------------- Print -------------
+
             if (e.ColumnIndex == 12)
             {
                 string Data = "";
-                Data = "S:" + dataGridView1.CurrentRow.Cells["Submission_Id"].Value.ToString() + ":" + Convert.ToBoolean(ckb_Print_all.Checked) ;
+                Data = "S:" + dataGridView1.CurrentRow.Cells["Submission_Id"].Value.ToString() + ":" + Convert.ToBoolean(ckb_Print_all.Checked);
 
                 string curent_printer = System.Printing.LocalPrintServer.GetDefaultPrintQueue().FullName.ToString();
                 string str_req_Printer = FruPak.PF.Common.Code.General.Get_Single_System_Code("PR-Bincrd");
@@ -448,10 +452,14 @@ namespace FruPak.PF.Temp
 
                 FruPak.PF.PrintLayer.Bin_Card.Print(Data, true);
                 myPrinters.SetDefaultPrinter(curent_printer);
-             }
-            #endregion
+            }
+
+            #endregion ------------- Print -------------
+
             //Delete
+
             #region ------------- Delete -------------
+
             else if (e.ColumnIndex == 13)
             {
                 str_msg = "You are about to delete Submission Number " + dataGridView1.Rows[e.RowIndex].Cells["Submission_Id"].Value.ToString() + Environment.NewLine;
@@ -475,43 +483,48 @@ namespace FruPak.PF.Temp
                     lbl_message.Text = "Submission Number " + dataGridView1.Rows[e.RowIndex].Cells["Submission_Id"].Value.ToString() + " failed to delete";
                 }
             }
-            #endregion
+
+            #endregion ------------- Delete -------------
+
             //Edit
+
             #region ------------- Edit -------------
+
             else if (e.ColumnIndex == 14)
             {
-                    int_new_Sub_Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["Submission_Id"].Value.ToString());
-                    cmb_Trader.SelectedValue = Convert.ToInt32(dataGridView1.CurrentRow.Cells["Trader_Id"].Value.ToString());
+                int_new_Sub_Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["Submission_Id"].Value.ToString());
+                cmb_Trader.SelectedValue = Convert.ToInt32(dataGridView1.CurrentRow.Cells["Trader_Id"].Value.ToString());
 
-                    //get orchardist Id
-                    DataSet ds = FruPak.PF.Data.AccessLayer.CM_Grower.Get_Orchardist(Convert.ToInt32(dataGridView1.CurrentRow.Cells["Grower_Id"].Value.ToString()));
-                    DataRow dr;
+                //get orchardist Id
+                DataSet ds = FruPak.PF.Data.AccessLayer.CM_Grower.Get_Orchardist(Convert.ToInt32(dataGridView1.CurrentRow.Cells["Grower_Id"].Value.ToString()));
+                DataRow dr;
 
-                    for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
-                    {
-                        dr = ds.Tables[0].Rows[i];
-                        grower1.Orchardist_Id = Convert.ToInt32(dr["Orchardist_Id"].ToString());
-                    }
+                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
+                {
+                    dr = ds.Tables[0].Rows[i];
+                    grower1.Orchardist_Id = Convert.ToInt32(dr["Orchardist_Id"].ToString());
+                }
 
-                    ds.Dispose();
+                ds.Dispose();
 
-                    grower1.Grower_Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["Grower_Id"].Value.ToString());
+                grower1.Grower_Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["Grower_Id"].Value.ToString());
 
+                cmb_Block.SelectedValue = Convert.ToInt32(dataGridView1.CurrentRow.Cells["Block_Id"].Value.ToString());
 
-                    cmb_Block.SelectedValue = Convert.ToInt32(dataGridView1.CurrentRow.Cells["Block_Id"].Value.ToString());
+                dtp_Sub_Date.Value = Convert.ToDateTime(dataGridView1.CurrentRow.Cells["Sub_Date"].Value.ToString());
+                dtp_Harvest_Date.Value = Convert.ToDateTime(dataGridView1.CurrentRow.Cells["Harvest_Date"].Value.ToString());
+                nud_Pick_Num.Value = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["Pick_Num"].Value.ToString());
+                txt_Comments.Text = dataGridView1.CurrentRow.Cells["Comments"].Value.ToString();
+                txt_Grower_Ref.Text = dataGridView1.CurrentRow.Cells["Grower_Reference"].Value.ToString();
 
-                    dtp_Sub_Date.Value = Convert.ToDateTime(dataGridView1.CurrentRow.Cells["Sub_Date"].Value.ToString());
-                    dtp_Harvest_Date.Value = Convert.ToDateTime(dataGridView1.CurrentRow.Cells["Harvest_Date"].Value.ToString());
-                    nud_Pick_Num.Value = Convert.ToDecimal(dataGridView1.CurrentRow.Cells["Pick_Num"].Value.ToString());
-                    txt_Comments.Text = dataGridView1.CurrentRow.Cells["Comments"].Value.ToString();
-                    txt_Grower_Ref.Text = dataGridView1.CurrentRow.Cells["Grower_Reference"].Value.ToString();
-
-                    btn_Add.Text = "&Update";
+                btn_Add.Text = "&Update";
             }
-            #endregion
+
+            #endregion ------------- Edit -------------
         }
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
+
         /// <summary>
         /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
@@ -524,34 +537,39 @@ namespace FruPak.PF.Temp
             {
                 Button b = (Button)sender;
                 logger.Log(LogLevel.Info, DecorateString(b.Name, b.Text, "Click"));
-
             }
         }
+
         private void Control_Validated(object sender, EventArgs e)
         {
             TextBox t = (TextBox)sender;
             logger.Log(LogLevel.Info, DecorateString(t.Name, t.Text, "Validated"));
         }
+
         private void Control_SelectedValueChanged(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Text, "SelectedValueChanged"));
         }
+
         private void Control_ValueChanged(object sender, EventArgs e)
         {
             DateTimePicker dtp = (DateTimePicker)sender;
             logger.Log(LogLevel.Info, DecorateString(dtp.Name, dtp.Text, "ValueChanged"));
         }
+
         private void Control_NudValueChanged(object sender, EventArgs e)
         {
             NumericUpDown nud = (NumericUpDown)sender;
             logger.Log(LogLevel.Info, DecorateString(nud.Name, nud.Text, "NudValueChanged"));
         }
+
         private void Control_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Checked.ToString(), "CheckedChanged"));
         }
+
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
             FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
@@ -559,8 +577,10 @@ namespace FruPak.PF.Temp
         }
 
         #region Decorate String
+
         // DecorateString
         private string openPad = " --- [ ";
+
         private string closePad = " ] --- ";
         private string intro = "--->   { ";
         private string outro = " }   <---";
@@ -582,7 +602,8 @@ namespace FruPak.PF.Temp
             output = intro + name + openPad + input + closePad + action + outro;
             return output;
         }
-        #endregion
+
+        #endregion Decorate String
 
         /// <summary>
         /// Close the form with the Esc key (Sel request 11-02-2015 BN)
@@ -598,9 +619,9 @@ namespace FruPak.PF.Temp
             }
         }
 
-        #endregion
-
+        #endregion Methods to log UI events to the CSV file. BN 29/01/2015
     }
+
     public static class myPrinters
     {
         [DllImport("winspool.drv", CharSet = CharSet.Auto, SetLastError = true)]

@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace FruPak.PF.Menu
@@ -13,7 +7,7 @@ namespace FruPak.PF.Menu
     {
         //public event EventHandler<ObjectEventArgs> NewObjectChanged;
         // Private field to hold the value that is passed around.
-        // Exposed by the NewObject property and passed in the NewObjectChanged event. 
+        // Exposed by the NewObject property and passed in the NewObjectChanged event.
         //private object newObject;
 
         //public event EventHandler<GeneralPurposeObjectEventArgs> GP_Changed;
@@ -31,9 +25,8 @@ namespace FruPak.PF.Menu
             // Have to change this to object
             //this.comboBoxDate.TextChanged += new EventHandler(comboBoxDate_ObjectChanged);
             //this.comboBoxDate. += new EventHandler(comboBoxDate_ObjectChanged);
-            
-            //textBoxMaterialNumber.TextChanged += new EventHandler(textBoxMaterialNumber_ObjectChanged);
 
+            //textBoxMaterialNumber.TextChanged += new EventHandler(textBoxMaterialNumber_ObjectChanged);
         }
 
         // textBox.TextChanged handler
@@ -82,7 +75,6 @@ namespace FruPak.PF.Menu
         private void buttonOK_Click(object sender, EventArgs e)
         {
             this.Close();
-
         }
 
         private void comboBoxDate_SelectedIndexChanged(object sender, EventArgs e)
@@ -94,7 +86,6 @@ namespace FruPak.PF.Menu
         private void comboBoxDate_SelectedValueChanged(object sender, EventArgs e)
         {
             comboBoxDate_ObjectChanged(this.comboBoxDate, EventArgs.Empty);
-
         }
     }
 }

@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FruPak.Utils.Data;
 using System.Data;
-using System.Data.OleDb;
-using FruPak.Utils.Data;
 
 namespace FruPak.PF.Data.AccessLayer
 {
     /*Description
     -----------------
     PF_Process_Setup Class.
-     * 
+     *
      * This Class is a data access layer to the PF_Process_Setup table
      * Where possible the following standard method names are used and standard column names used.
      *  1. Variable names as input to a method are the same as the column names they refer to.
@@ -26,6 +22,7 @@ namespace FruPak.PF.Data.AccessLayer
     -------------------------------------------------------------------------------------------------------------------------------------------------
     01/09/2013  Dave       Creation
     */
+
     public class PF_Process_Setup
     {
         public static DataSet Get_Max_ID()
@@ -33,11 +30,13 @@ namespace FruPak.PF.Data.AccessLayer
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(Processsetup_Id) as Current_Id FROM PF_Process_Setup");
         }
+
         public static DataSet Get_Info()
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Process_Setup WHERE PF_Active_Ind = 1 ");
         }
+
         public static DataSet Get_Info_Translated()
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -46,18 +45,20 @@ namespace FruPak.PF.Data.AccessLayer
                                             "INNER JOIN dbo.PF_Staff S ON S.Staff_Id = PS.Staff_Id " +
                                             "WHERE PS.PF_Active_Ind = 1");
         }
-        
+
         public static int Insert(int Processsetup_Id, int Staff_Id, string Start_Date, string Start_Time, string Finish_Date, string Finish_Time, string Comments, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO PF_Process_Setup(Processsetup_Id, Staff_Id, Start_Date, Start_Time, Finish_Date, Finish_Time, Comments, PF_Active_Ind, Mod_Date, Mod_User_Id) " +
-                                                "VALUES ( " + Processsetup_Id + "," + Staff_Id + ",'" + Start_Date + "','" + Start_Time + "','" + Finish_Date + "','" + Finish_Time + "','"+ Comments +"','true', GETDATE()," + Mod_User_Id + ")");
+                                                "VALUES ( " + Processsetup_Id + "," + Staff_Id + ",'" + Start_Date + "','" + Start_Time + "','" + Finish_Date + "','" + Finish_Time + "','" + Comments + "','true', GETDATE()," + Mod_User_Id + ")");
         }
+
         public static int Delete(int Processsetup_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_Process_Setup WHERE Processsetup_Id = " + Processsetup_Id);
         }
+
         public static int Update(int Processsetup_Id, int Staff_Id, string Start_Date, string Start_Time, string Finish_Date, string Finish_Time, string Comments, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -71,14 +72,13 @@ namespace FruPak.PF.Data.AccessLayer
                                                                   "Mod_User_Id = " + Mod_User_Id +
                                               " WHERE Processsetup_Id = " + Processsetup_Id);
         }
+
         public static int Update_Active(bool PF_Active_Ind, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_Process_Setup SET PF_Active_Ind = '" + PF_Active_Ind + "', " +
                                                                   "Mod_date = GETDATE(), " +
-                                                                  "Mod_User_Id = " + Mod_User_Id );
+                                                                  "Mod_User_Id = " + Mod_User_Id);
         }
     }
 }
-
-

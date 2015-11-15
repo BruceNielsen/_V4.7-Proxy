@@ -1,18 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using NLog;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
-using System.Security.Cryptography;
-using NLog;
-using FruPak.PF.CustomSettings;
-using System.IO;
 
 namespace FruPak.PF.Utils.Security
 {
-
     /*Description
     -----------------
     Logon Class.
@@ -22,6 +14,7 @@ namespace FruPak.PF.Utils.Security
     -------------------------------------------------------------------------------------------------------------------------------------------------
     01/09/2013  Dave       Creation
     */
+
     public partial class Logon : Form
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
@@ -30,21 +23,25 @@ namespace FruPak.PF.Utils.Security
         //private static PhantomCustomSettings Settings;
 
         private string str_Type = "";
+
         public Logon(string str_user_id, string str_type)
         {
             InitializeComponent();
 
-            logger.Log(LogLevel.Info, LogCode("Logon.cs: Form Loading."));
+            //logger.Log(LogLevel.Info, LogCode("Logon.cs: Form Loading."));
 
             #region Load CustomSettings (Disabled - Reasons why are given in Install.cs)
+
             #region Get "My Documents" folder
+
             //string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             //path = Path.Combine(path, "FruPak_Settings");
 
             //// Create folder if it doesn't already exist
             //if (!Directory.Exists(path))
             //    Directory.CreateDirectory(path);
-            #endregion
+
+            #endregion Get "My Documents" folder
 
             //// Initialize settings
             //Settings = new PhantomCustomSettings();
@@ -68,7 +65,7 @@ namespace FruPak.PF.Utils.Security
             // Save settings - Normally in Form_Closing
             //Settings.Save();
 
-            #endregion
+            #endregion Load CustomSettings (Disabled - Reasons why are given in Install.cs)
 
             // By using the global variables, I can avoid using the settings file in this form
             //if(FruPak.PF.Global.Global.Phantom_Dev_Mode == true)
@@ -93,6 +90,7 @@ namespace FruPak.PF.Utils.Security
             }
 
             #region Log any interesting events from the UI to the CSV log file
+
             foreach (Control c in this.Controls)
             {
                 if (c.GetType() == typeof(Button))
@@ -130,8 +128,8 @@ namespace FruPak.PF.Utils.Security
                 //    cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 //}
             }
-            #endregion
 
+            #endregion Log any interesting events from the UI to the CSV log file
         }
 
         //validate userid and password
@@ -140,6 +138,7 @@ namespace FruPak.PF.Utils.Security
             FruPak.PF.Global.Global.Phantom_Dev_Mode = FruPak.PF.Global.Global.bol_Testing;
             submit();
         }
+
         private void Enter_KeyPress(object sender, KeyPressEventArgs e)
         {
             // Enter key
@@ -149,8 +148,10 @@ namespace FruPak.PF.Utils.Security
                 submit();
             }
         }
+
         private static DialogResult DLR_MessageBox;
         private static int int_User_id = 0;
+
         private void submit()
         {
             DLR_MessageBox = new DialogResult();
@@ -170,7 +171,7 @@ namespace FruPak.PF.Utils.Security
             {
                 DataRow dr_Get_User_Info;
 
-                for (int i = 0 ;i < Convert.ToInt32(ds_Get_User_Info.Tables[0].Rows.Count.ToString()); i ++ )
+                for (int i = 0; i < Convert.ToInt32(ds_Get_User_Info.Tables[0].Rows.Count.ToString()); i++)
                 {
                     dr_Get_User_Info = ds_Get_User_Info.Tables[0].Rows[i];
                     int_User_id = Convert.ToInt32(dr_Get_User_Info["User_Id"].ToString());
@@ -186,18 +187,19 @@ namespace FruPak.PF.Utils.Security
                     DLR_MessageBox = DialogResult.Cancel;
                     this.Close();
                     break;
+
                 case DialogResult.Retry:
                     DLR_MessageBox = DialogResult.Retry;
                     break;
+
                 default:
                     DLR_MessageBox = DialogResult.Yes;
                     break;
             }
             FruPak.PF.Common.Code.General.write_log(int_User_id, str_Type, int_User_id);
-            logger.Log(LogLevel.Info, LogCode("Logon.cs: write_log:" + int_User_id.ToString() + ", " + str_Type + ", " + int_User_id.ToString()));
+            //logger.Log(LogLevel.Info, LogCode("Logon.cs: write_log:" + int_User_id.ToString() + ", " + str_Type + ", " + int_User_id.ToString()));
 
             FruPak.PF.Global.Global.LogonName = txt_User_Id.Text;
-
         }
 
         private void btn_Close_Click(object sender, EventArgs e)
@@ -207,6 +209,7 @@ namespace FruPak.PF.Utils.Security
             logger.Log(LogLevel.Info, LogCode("Logon.cs: btn_Close_Click:" + int_User_id.ToString() + ", Log off, " + int_User_id.ToString()));
             this.Close();
         }
+
         private void btn_Change_Password_Click(object sender, EventArgs e)
         {
             FruPak.PF.Common.Code.General.write_log(int_User_id, "Change pwd", int_User_id);
@@ -218,9 +221,8 @@ namespace FruPak.PF.Utils.Security
         {
             public DialogResult Result { get; set; }
             public int Field1 { get; set; }
-
-
         }
+
         public static ResultFromFrmMain Execute(string str_user_id, string str_Type)
         {
             using (var f = new Logon(str_user_id, str_Type))
@@ -230,19 +232,19 @@ namespace FruPak.PF.Utils.Security
 
                 var result = new ResultFromFrmMain();
 
-               while (DLR_MessageBox == DialogResult.Retry || DLR_MessageBox == DialogResult.None)
+                while (DLR_MessageBox == DialogResult.Retry || DLR_MessageBox == DialogResult.None)
 
                 {
                     result.Result = f.ShowDialog();
                 }
 
-               if (DLR_MessageBox == DialogResult.Cancel)
-               {
-                   result.Result = DialogResult.Cancel;
-               }
+                if (DLR_MessageBox == DialogResult.Cancel)
+                {
+                    result.Result = DialogResult.Cancel;
+                }
 
-               result.Field1 = int_User_id;
-               return result;
+                result.Field1 = int_User_id;
+                return result;
             }
         }
 
@@ -271,7 +273,6 @@ namespace FruPak.PF.Utils.Security
                     }
                     catch (Exception ex)
                     {
-
                         logger.Log(LogLevel.Info, LogCode("User: " + txt_User_Id.Text + " - was not found or not allowed for test function."));
                         //logger.Log(LogLevel.Info, LogCode("The following error just means that there's a problem with the users logon, as in it doesn't exist, bad password etc.");
                         //logger.Log(LogLevel.Error, ex.Message);
@@ -294,7 +295,7 @@ namespace FruPak.PF.Utils.Security
         private void rb_CheckedChanged(object sender, EventArgs e)
         {
             // Phantom 12/12/2014
-            var rad = (RadioButton) sender;
+            var rad = (RadioButton)sender;
             if (rad.Text == "&Test" && rad.Checked == true)
             {
                 FruPak.PF.Global.Global.bol_Testing = true;
@@ -340,10 +341,8 @@ namespace FruPak.PF.Utils.Security
 
         private void Logon_FormClosing(object sender, FormClosingEventArgs e)
         {
-
             //FruPak.PF.Global.Global.Phantom_Dev_Mode = FruPak.PF.Global.Global.bol_Testing;
-            logger.Log(LogLevel.Info, LogCode("Logon.cs: Logon_FormClosing."));
-
+            //logger.Log(LogLevel.Info, LogCode("Logon.cs: Logon_FormClosing."));
         }
 
         private void panelHack_Click(object sender, EventArgs e)
@@ -355,6 +354,7 @@ namespace FruPak.PF.Utils.Security
         }
 
         #region Log Code
+
         /// <summary>
         /// Formats the output to the debug log so that the actual log contents stand out amongst the machine-generated stuff.
         /// Refers to machine-generated content, not calling specifics.
@@ -366,9 +366,11 @@ namespace FruPak.PF.Utils.Security
             string Output = "___[ " + input + " ]___";
             return Output;
         }
-        #endregion
+
+        #endregion Log Code
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
+
         /// <summary>
         /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
@@ -380,36 +382,41 @@ namespace FruPak.PF.Utils.Security
             if (sender.GetType() == typeof(Button))
             {
                 Button b = (Button)sender;
-                logger.Log(LogLevel.Info, DecorateString(b.Name, b.Text, "Click"));
-
+                //logger.Log(LogLevel.Info, DecorateString(b.Name, b.Text, "Click"));
             }
         }
+
         private void Control_Validated(object sender, EventArgs e)
         {
             TextBox t = (TextBox)sender;
             // Switched off, as it's a huge security risk
             //logger.Log(LogLevel.Info, DecorateString(t.Name, t.Text, "Validated"));
         }
+
         private void Control_SelectedValueChanged(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Text, "SelectedValueChanged"));
         }
+
         private void Control_ValueChanged(object sender, EventArgs e)
         {
             DateTimePicker dtp = (DateTimePicker)sender;
             logger.Log(LogLevel.Info, DecorateString(dtp.Name, dtp.Text, "ValueChanged"));
         }
+
         private void Control_NudValueChanged(object sender, EventArgs e)
         {
             NumericUpDown nud = (NumericUpDown)sender;
             logger.Log(LogLevel.Info, DecorateString(nud.Name, nud.Text, "NudValueChanged"));
         }
+
         private void Control_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Checked.ToString(), "CheckedChanged"));
         }
+
         //private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         //{
         //    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
@@ -417,8 +424,10 @@ namespace FruPak.PF.Utils.Security
         //}
 
         #region Decorate String
+
         // DecorateString
         private string openPad = " --- [ ";
+
         private string closePad = " ] --- ";
         private string intro = "--->   { ";
         private string outro = " }   <---";
@@ -440,7 +449,8 @@ namespace FruPak.PF.Utils.Security
             output = intro + name + openPad + input + closePad + action + outro;
             return output;
         }
-        #endregion
+
+        #endregion Decorate String
 
         /// <summary>
         /// Close the form with the Esc key (Sel request 11-02-2015 BN)
@@ -456,7 +466,7 @@ namespace FruPak.PF.Utils.Security
             }
         }
 
-        #endregion
+        #endregion Methods to log UI events to the CSV file. BN 29/01/2015
 
         private void panelHackSelkuckG_Click(object sender, EventArgs e)
         {
@@ -464,7 +474,6 @@ namespace FruPak.PF.Utils.Security
             this.txt_User_Id.Text = "SelcukG";
             this.txt_Password.Focus();
             this.txt_Password.Text = "frupak2014";
-
         }
 
         private void panelHackGlenysP_Click(object sender, EventArgs e)
@@ -473,7 +482,6 @@ namespace FruPak.PF.Utils.Security
             this.txt_User_Id.Text = "GlenysP";
             this.txt_Password.Focus();
             this.txt_Password.Text = "piemix";
-
         }
     }
 }

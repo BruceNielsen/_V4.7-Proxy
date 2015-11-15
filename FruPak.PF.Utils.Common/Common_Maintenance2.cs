@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using NLog;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using NLog;
 
 namespace FruPak.PF.Utils.Common
 {
@@ -24,6 +19,7 @@ namespace FruPak.PF.Utils.Common
     -------------------------------------------------------------------------------------------------------------------------------------------------
     01/09/2013  Dave       Creation
     */
+
     public partial class Common_Maintenance2 : Form
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
@@ -32,6 +28,7 @@ namespace FruPak.PF.Utils.Common
         private static bool bol_write_access;
         private static int int_DVG_Row_id = 0;
         private static int int_Current_User_Id = 0;
+
         public Common_Maintenance2(string str_type, int int_C_User_id, bool bol_w_a)
         {
             InitializeComponent();
@@ -64,6 +61,7 @@ namespace FruPak.PF.Utils.Common
                     lbl_barcode.Visible = true;
                     txt_barcode.Visible = true;
                     break;
+
                 default:
                     lbl_barcode.Visible = false;
                     txt_barcode.Visible = false;
@@ -74,6 +72,7 @@ namespace FruPak.PF.Utils.Common
             populate_outlook_Combo();
 
             #region Log any interesting events from the UI to the CSV log file
+
             foreach (Control c in this.Controls)
             {
                 if (c.GetType() == typeof(Button))
@@ -104,16 +103,16 @@ namespace FruPak.PF.Utils.Common
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-
                 else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
                 {
                     FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
-            #endregion
 
+            #endregion Log any interesting events from the UI to the CSV log file
         }
+
         private void AddColumnsProgrammatically()
         {
             var col0 = new DataGridViewTextBoxColumn();
@@ -156,6 +155,7 @@ namespace FruPak.PF.Utils.Common
                 case "CM_Trader":
                     col5.Visible = true;
                     break;
+
                 default:
                     col5.Visible = false;
                     break;
@@ -187,14 +187,14 @@ namespace FruPak.PF.Utils.Common
             img_edit.Name = "Edit";
             img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
-
         }
+
         private static DataSet ds_Get_Info;
+
         private void populate_datagridview()
         {
             dataGridView1.Refresh();
             dataGridView1.Rows.Clear();
-
 
             DataRow dr_Get_Info;
 
@@ -203,6 +203,7 @@ namespace FruPak.PF.Utils.Common
                 case "CM_Trader":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Trader.Get_Info();
                     break;
+
                 case "CM_Orchardist":
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Orchardist.Get_Info();
                     break;
@@ -220,6 +221,7 @@ namespace FruPak.PF.Utils.Common
                     case "CM_Trader":
                         DGVC_Id.Value = dr_Get_Info["Trader_Id"].ToString();
                         break;
+
                     case "CM_Orchardist":
                         DGVC_Id.Value = dr_Get_Info["Orchardist_Id"].ToString();
                         break;
@@ -263,10 +265,12 @@ namespace FruPak.PF.Utils.Common
                 ds_Get_Info.Dispose();
             }
         }
+
         private void SizeAllColumns(Object sender, EventArgs e)
         {
             dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
+
         private void populate_outlook_Combo()
         {
             Cursor = Cursors.WaitCursor;
@@ -279,7 +283,9 @@ namespace FruPak.PF.Utils.Common
             cmb_Outlook.Text = null;
             Cursor = Cursors.Default;
         }
+
         private DataSet ds_validate;
+
         private string validate(string str_table, string str_btnText)
         {
             string str_msg = "";
@@ -294,6 +300,7 @@ namespace FruPak.PF.Utils.Common
                     case "CM_Trader":
                         ds_validate = FruPak.PF.Data.AccessLayer.CM_Trader.Get_Info(txt_code.Text);
                         break;
+
                     case "CM_Orchardist":
                         ds_validate = FruPak.PF.Data.AccessLayer.CM_Orchardist.Get_Info(txt_code.Text);
                         break;
@@ -339,6 +346,7 @@ namespace FruPak.PF.Utils.Common
             // Set cursor as default arrow
             Cursor.Current = Cursors.Default;
         }
+
         private void Add_btn()
         {
             DialogResult DLR_MessageBox = new DialogResult();
@@ -358,8 +366,6 @@ namespace FruPak.PF.Utils.Common
             }
             if (DLR_MessageBox != DialogResult.OK)
             {
-
-
                 switch (btn_Add.Text)
                 {
                     case "&Add":
@@ -368,17 +374,20 @@ namespace FruPak.PF.Utils.Common
                             case "CM_Trader":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Trader.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Trader"), txt_code.Text, txt_Description.Text, Convert.ToInt32(cmb_Outlook.SelectedValue.ToString()), txt_barcode.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Orchardist":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Orchardist.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Orchardist"), txt_code.Text, txt_Description.Text, Convert.ToInt32(cmb_Outlook.SelectedValue.ToString()), ckb_Active.Checked, int_Current_User_Id);
                                 break;
                         }
                         break;
+
                     case "&Update":
                         switch (str_table)
                         {
                             case "CM_Trader":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Trader.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, Convert.ToInt32(cmb_Outlook.SelectedValue.ToString()), txt_barcode.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
+
                             case "CM_Orchardist":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Orchardist.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, Convert.ToInt32(cmb_Outlook.SelectedValue.ToString()), ckb_Active.Checked, int_Current_User_Id);
                                 break;
@@ -400,6 +409,7 @@ namespace FruPak.PF.Utils.Common
             populate_datagridview();
             Reset();
         }
+
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             DialogResult DLR_Message = new DialogResult();
@@ -425,6 +435,7 @@ namespace FruPak.PF.Utils.Common
                         }
                         ds.Dispose();
                         break;
+
                     case "CM_Orchardist":
                         ds = FruPak.PF.Data.AccessLayer.CM_Orchardist.Check_Orchardist(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
 
@@ -438,7 +449,6 @@ namespace FruPak.PF.Utils.Common
                         break;
                 }
 
-
                 if (DLR_Message != System.Windows.Forms.DialogResult.OK)
                 {
                     str_msg = "You are about to delete " + Environment.NewLine;
@@ -450,6 +460,7 @@ namespace FruPak.PF.Utils.Common
                         case "CM_Trader":
                             DLR_Message = MessageBox.Show(str_msg, "Process Factory - Common (Trader Deletion)", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                             break;
+
                         case "CM_Orchardist":
                             DLR_Message = MessageBox.Show(str_msg, "Process Factory - Common (Orchardist Deletion)", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                             break;
@@ -462,6 +473,7 @@ namespace FruPak.PF.Utils.Common
                             case "CM_Trader":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Trader.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
                                 break;
+
                             case "CM_Orchardist":
                                 int_result = FruPak.PF.Data.AccessLayer.CM_Orchardist.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
                                 break;
@@ -513,14 +525,16 @@ namespace FruPak.PF.Utils.Common
 
                 if (int_return_Code > 0)
                 {
-                    MessageBox.Show("The Outlook Entry could not be found. You will need to select a New Outlook link for this person","Common - Outlook",MessageBoxButtons.OK,MessageBoxIcon.Error);
+                    MessageBox.Show("The Outlook Entry could not be found. You will need to select a New Outlook link for this person", "Common - Outlook", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
             }
         }
+
         private void btn_reset_Click(object sender, EventArgs e)
         {
             Reset();
         }
+
         private void Reset()
         {
             txt_code.ResetText();
@@ -529,10 +543,12 @@ namespace FruPak.PF.Utils.Common
             cmb_Outlook.Text = null;
             btn_Add.Text = "&Add";
         }
+
         private void btn_Close_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
         private void KeyDown_1(object sender, KeyEventArgs e)
         {
             if (e.KeyData == Keys.Enter)
@@ -541,9 +557,9 @@ namespace FruPak.PF.Utils.Common
                 SelectNextControl(ActiveControl, true, true, true, true);
             }
         }
+
         private void Enter_KeyPress(object sender, KeyPressEventArgs e)
         {
-
             if (e.KeyChar == 13)
             {
                 Add_btn();
@@ -551,6 +567,7 @@ namespace FruPak.PF.Utils.Common
         }
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
+
         /// <summary>
         /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
@@ -563,34 +580,39 @@ namespace FruPak.PF.Utils.Common
             {
                 Button b = (Button)sender;
                 logger.Log(LogLevel.Info, DecorateString(b.Name, b.Text, "Click"));
-
             }
         }
+
         private void Control_Validated(object sender, EventArgs e)
         {
             TextBox t = (TextBox)sender;
             logger.Log(LogLevel.Info, DecorateString(t.Name, t.Text, "Validated"));
         }
+
         private void Control_SelectedValueChanged(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Text, "SelectedValueChanged"));
         }
+
         private void Control_ValueChanged(object sender, EventArgs e)
         {
             DateTimePicker dtp = (DateTimePicker)sender;
             logger.Log(LogLevel.Info, DecorateString(dtp.Name, dtp.Text, "ValueChanged"));
         }
+
         private void Control_NudValueChanged(object sender, EventArgs e)
         {
             NumericUpDown nud = (NumericUpDown)sender;
             logger.Log(LogLevel.Info, DecorateString(nud.Name, nud.Text, "NudValueChanged"));
         }
+
         private void Control_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Checked.ToString(), "CheckedChanged"));
         }
+
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
             FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
@@ -598,8 +620,10 @@ namespace FruPak.PF.Utils.Common
         }
 
         #region Decorate String
+
         // DecorateString
         private string openPad = " --- [ ";
+
         private string closePad = " ] --- ";
         private string intro = "--->   { ";
         private string outro = " }   <---";
@@ -621,7 +645,8 @@ namespace FruPak.PF.Utils.Common
             output = intro + name + openPad + input + closePad + action + outro;
             return output;
         }
-        #endregion
+
+        #endregion Decorate String
 
         /// <summary>
         /// Close the form with the Esc key (Sel request 11-02-2015 BN)
@@ -637,7 +662,6 @@ namespace FruPak.PF.Utils.Common
             }
         }
 
-        #endregion
-
+        #endregion Methods to log UI events to the CSV file. BN 29/01/2015
     }
 }

@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using NLog;
+using System;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using NLog;
 
 namespace FruPak.PF.WorkOrder
 {
     public partial class Cleaning : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static bool bol_write_access;
         private static int int_Current_User_Id = 0;
@@ -33,7 +29,6 @@ namespace FruPak.PF.WorkOrder
             bol_write_access = bol_w_a;
             //check if testing or not
 
-
             //if (FruPak.PF.Global.Global.bol_Testing == true)
             //{
             //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
@@ -47,6 +42,7 @@ namespace FruPak.PF.WorkOrder
             tabpage_visibility();
 
             #region Log any interesting events from the UI to the CSV log file
+
             foreach (Control c in this.Controls)
             {
                 if (c.GetType() == typeof(Button))
@@ -77,19 +73,18 @@ namespace FruPak.PF.WorkOrder
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-
                 else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
                 {
                     FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
-            #endregion
 
+            #endregion Log any interesting events from the UI to the CSV log file
         }
+
         private void AddTabPages()
         {
-            
             DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area.Get_Info();
             DataRow dr_Get_Info;
 
@@ -99,8 +94,8 @@ namespace FruPak.PF.WorkOrder
                 TabPage new_tab_page = new TabPage(dr_Get_Info["Code"].ToString());
                 new_tab_page.Name = dr_Get_Info["Code"].ToString();
                 new_tab_page.Tag = dr_Get_Info["CleanArea_Id"].ToString();
- 
-                tbc_Cleaning.TabPages.Add(new_tab_page);                
+
+                tbc_Cleaning.TabPages.Add(new_tab_page);
 
                 //Staff
                 Label lbl_staff = new Label();
@@ -121,12 +116,12 @@ namespace FruPak.PF.WorkOrder
                 cmb_Staff.DataSource = ds_Get_Info2.Tables[0];
                 cmb_Staff.DisplayMember = "Name";
                 cmb_Staff.ValueMember = "Staff_Id";
-                cmb_Staff.SelectedValueChanged += new EventHandler(cmb_Staff_SelectedValueChanged); 
+                cmb_Staff.SelectedValueChanged += new EventHandler(cmb_Staff_SelectedValueChanged);
                 cmb_Staff.Text = null;
                 ds_Get_Info2.Dispose();
-                tbc_Cleaning.TabPages[dr_Get_Info["Code"].ToString()].Controls.Add(cmb_Staff);               
+                tbc_Cleaning.TabPages[dr_Get_Info["Code"].ToString()].Controls.Add(cmb_Staff);
 
-                //start time 
+                //start time
                 Label lbl_start = new Label();
                 lbl_start.Name = "lbl_start";
                 lbl_start.Text = "Start:";
@@ -141,10 +136,10 @@ namespace FruPak.PF.WorkOrder
                 dtp_start_Time.Value = DateTime.Now;
                 dtp_start_Time.Size = new System.Drawing.Size(100, 20);
                 dtp_start_Time.Location = new System.Drawing.Point(265, 12);
-                dtp_start_Time.ValueChanged += new EventHandler(dtp_start_Time_ValueChanged); 
+                dtp_start_Time.ValueChanged += new EventHandler(dtp_start_Time_ValueChanged);
                 tbc_Cleaning.TabPages[dr_Get_Info["Code"].ToString()].Controls.Add(dtp_start_Time);
 
-                //finish time 
+                //finish time
                 Label lbl_finish = new Label();
                 lbl_finish.Name = "lbl_finish";
                 lbl_finish.Text = "Finish:";
@@ -159,7 +154,7 @@ namespace FruPak.PF.WorkOrder
                 dtp_finish_Time.Value = DateTime.Now;
                 dtp_finish_Time.Size = new System.Drawing.Size(100, 20);
                 dtp_finish_Time.Location = new System.Drawing.Point(440, 12);
-                dtp_finish_Time.ValueChanged += new EventHandler(dtp_finish_Time_ValueChanged); 
+                dtp_finish_Time.ValueChanged += new EventHandler(dtp_finish_Time_ValueChanged);
                 tbc_Cleaning.TabPages[dr_Get_Info["Code"].ToString()].Controls.Add(dtp_finish_Time);
 
                 Button btn_Base = new Button();
@@ -194,7 +189,7 @@ namespace FruPak.PF.WorkOrder
 
                     y += 25;
                     if (count == 5)
-                    {                       
+                    {
                         x += 200;
                         y = 50;
                         count = 0;
@@ -220,7 +215,6 @@ namespace FruPak.PF.WorkOrder
 
                 //add image to tab
                 tab_image_load();
-
             }
             ds_Get_Info.Dispose();
         }
@@ -231,7 +225,6 @@ namespace FruPak.PF.WorkOrder
             DataRow dr_Get_Info2;
             //add image to tab
             ds_Get_Info2 = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Cleaning(dtp_Completed.Value.ToString("yyyy/MM/dd"));
-
 
             foreach (TabPage tbp in tbc_Cleaning.TabPages)
             {
@@ -253,7 +246,7 @@ namespace FruPak.PF.WorkOrder
                     catch (Exception ex)
                     {
                         logger.Log(LogLevel.Debug, ex.Message);
-                    }                    
+                    }
 
                     //check that all checkboxes have been ticked
                     Load_Tab_Images();
@@ -261,6 +254,7 @@ namespace FruPak.PF.WorkOrder
             }
             ds_Get_Info2.Dispose();
         }
+
         private void btn_Base_Click(Object sender, EventArgs e)
         {
             DialogResult DLR_MessageBox = new DialogResult();
@@ -292,15 +286,16 @@ namespace FruPak.PF.WorkOrder
                     case "&Add":
                         int_result = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Completed.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Cleaning_Area_Completed"), dtp_Completed.Value.ToString("yyyy/MM/dd"), Convert.ToInt32(tbc_Cleaning.SelectedTab.Tag), int_cmb_Staff_SelectedValue, str_dtp_start_Time_ValueChanged, str_dtp_finish_Time_ValueChanged, str_txt_comments_TextChanged, int_Current_User_Id);
                         break;
+
                     case "&Update":
                         int_result = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Completed.Update(int_CleanAreaCmp_Id, dtp_Completed.Value.ToString("yyyy/MM/dd"), int_cmb_Staff_SelectedValue, str_dtp_start_Time_ValueChanged, str_dtp_finish_Time_ValueChanged, str_txt_comments_TextChanged, int_Current_User_Id);
                         break;
                 }
-                
             }
             update_checked_Status();
             tabpage_visibility();
-        }        
+        }
+
         private void cmb_Staff_SelectedValueChanged(Object sender, EventArgs e)
         {
             try
@@ -320,54 +315,54 @@ namespace FruPak.PF.WorkOrder
                 logger.Log(LogLevel.Debug, ex.Message);
             }
         }
+
         private void dtp_start_Time_ValueChanged(Object sender, EventArgs e)
         {
-            str_dtp_start_Time_ValueChanged = (sender as DateTimePicker).Value.ToString("HH:mm");            
+            str_dtp_start_Time_ValueChanged = (sender as DateTimePicker).Value.ToString("HH:mm");
         }
+
         private void dtp_finish_Time_ValueChanged(Object sender, EventArgs e)
         {
             str_dtp_finish_Time_ValueChanged = (sender as DateTimePicker).Value.ToString("HH:mm");
         }
+
         private void txt_comments_TextChanged(Object sender, EventArgs e)
         {
             str_txt_comments_TextChanged = (sender as TextBox).Text.ToString();
         }
+
         private void check_CheckedChanged(Object sender, EventArgs e)
         {
-                DataSet ds_Get_Info;
-                DataRow dr_Get_Info;
-                ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Completed.Get_Info(int_selected_CleaningArea_Id, dtp_Completed.Value.ToString("yyyy/MM/dd"));
+            DataSet ds_Get_Info;
+            DataRow dr_Get_Info;
+            ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Completed.Get_Info(int_selected_CleaningArea_Id, dtp_Completed.Value.ToString("yyyy/MM/dd"));
 
-                if (Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()) > 0)
+            if (Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()) > 0)
+            {
+                for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
                 {
-                   
-                    for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
-                    {
-                        dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
-                        int_CleanAreaCmp_Id = Convert.ToInt32(dr_Get_Info["CleanAreaCmp_Id"].ToString());                       
-                    }
+                    dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
+                    int_CleanAreaCmp_Id = Convert.ToInt32(dr_Get_Info["CleanAreaCmp_Id"].ToString());
                 }
-                ds_Get_Info.Dispose();
-                ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Parts_Completed.Get_Info(int_CleanAreaCmp_Id, Convert.ToInt32((sender as CheckBox).Tag.ToString()), dtp_Completed.Value.ToString("yyyy-MM-dd"));
+            }
+            ds_Get_Info.Dispose();
+            ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Parts_Completed.Get_Info(int_CleanAreaCmp_Id, Convert.ToInt32((sender as CheckBox).Tag.ToString()), dtp_Completed.Value.ToString("yyyy-MM-dd"));
 
-                if (Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()) > 0)
+            if (Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()) > 0)
+            {
+                for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
                 {
-
-                    for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
-                    {
-                        dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
-                        FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Parts_Completed.Delete(Convert.ToInt32(dr_Get_Info["CleanAreaPartCmp_Id"].ToString()));
-                    }
-                    
-
+                    dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
+                    FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Parts_Completed.Delete(Convert.ToInt32(dr_Get_Info["CleanAreaPartCmp_Id"].ToString()));
                 }
-                else
+            }
+            else
+            {
+                if ((sender as CheckBox).Checked == true && bol_djb == false)
                 {
-                    if ((sender as CheckBox).Checked == true && bol_djb == false)
-                    {
-                        FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Parts_Completed.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Cleaning_Area_Parts_Completed"), int_CleanAreaCmp_Id, Convert.ToInt32((sender as CheckBox).Tag.ToString()), int_Current_User_Id);
-                    }
+                    FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Parts_Completed.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Cleaning_Area_Parts_Completed"), int_CleanAreaCmp_Id, Convert.ToInt32((sender as CheckBox).Tag.ToString()), int_Current_User_Id);
                 }
+            }
             //check that all checkboxes have been ticked
             Load_Tab_Images();
         }
@@ -385,6 +380,7 @@ namespace FruPak.PF.WorkOrder
                         case true:
                             int_ckb_count = int_ckb_count + 0;
                             break;
+
                         case false:
                             int_ckb_count = int_ckb_count + 1;
                             break;
@@ -406,18 +402,20 @@ namespace FruPak.PF.WorkOrder
             //first tab does NOT require an image
             tbc_Cleaning.TabPages[0].ImageIndex = -1;
         }
+
         private void tbc_Cleaning_SelectedIndexChanged(object sender, EventArgs e)
         {
             int_selected_CleaningArea_Id = Convert.ToInt32(tbc_Cleaning.SelectedTab.Tag);
             update_checked_Status();
             tabpage_visibility();
-        }        
+        }
+
         private void tabpage_visibility()
         {
             try
             {
                 DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Completed.Get_Info(int_selected_CleaningArea_Id, dtp_Completed.Value.ToString("yyyy/MM/dd"));
-                
+
                 if (Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()) > 0)
                 {
                     DataRow dr_Get_Info;
@@ -434,6 +432,7 @@ namespace FruPak.PF.WorkOrder
                                     control.Text = "Update";
                                     str_btn_Base_text = "Update";
                                     break;
+
                                 case "cmb_Staff":
                                     DataSet ds_Get_Info2 = FruPak.PF.Data.AccessLayer.PF_Staff.Get_Info(Convert.ToInt32(dr_Get_Info["Staff_Id"].ToString()));
                                     DataRow dr_Get_Info2;
@@ -442,17 +441,21 @@ namespace FruPak.PF.WorkOrder
                                         dr_Get_Info2 = ds_Get_Info2.Tables[0].Rows[i2];
                                         control.Text = dr_Get_Info2["Name"].ToString();
                                     }
-                                    ds_Get_Info2.Dispose();                                    
+                                    ds_Get_Info2.Dispose();
                                     break;
+
                                 case "dtp_start_Time":
                                     control.Text = dr_Get_Info["Start_Time"].ToString();
                                     break;
+
                                 case "dtp_finish_Time":
                                     control.Text = dr_Get_Info["Finish_Time"].ToString();
                                     break;
+
                                 case "txt_comments":
                                     control.Text = dr_Get_Info["Comments"].ToString();
                                     break;
+
                                 default:
                                     control.Visible = true;
                                     break;
@@ -471,7 +474,8 @@ namespace FruPak.PF.WorkOrder
                                 str_btn_Base_text = "Add";
                                 control.Visible = true;
                                 break;
-                            case "lbl_staff":                           
+
+                            case "lbl_staff":
                             case "lbl_start":
                             case "dtp_start_Time":
                             case "lbl_finish":
@@ -480,9 +484,11 @@ namespace FruPak.PF.WorkOrder
                             case "pic_Cleaner":
                                 control.Visible = true;
                                 break;
+
                             case "txt_comments":
                                 control.Text = null;
                                 break;
+
                             case "cmb_Staff":
                                 control.Text = null;
                                 (control as ComboBox).Text = null;
@@ -491,6 +497,7 @@ namespace FruPak.PF.WorkOrder
                                 (control as ComboBox).SelectedValue = -1;
                                 (control as ComboBox).SelectedText = null;
                                 break;
+
                             default:
                                 control.Visible = false;
                                 break;
@@ -503,25 +510,27 @@ namespace FruPak.PF.WorkOrder
                 logger.Log(LogLevel.Debug, ex.Message);
             }
         }
+
         private void btn_Close_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
         private void dtp_Completed_ValueChanged(object sender, EventArgs e)
         {
             update_checked_Status();
             tabpage_visibility();
             tab_image_load();
         }
+
         private static bool bol_djb = false;
+
         private void update_checked_Status()
         {
             foreach (Control control in tbc_Cleaning.TabPages[tbc_Cleaning.SelectedTab.Name].Controls)
             {
-
                 if (control.GetType().ToString() == "System.Windows.Forms.CheckBox")
                 {
-
                     DataSet ds_Get_Info3 = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Parts_Completed.Get_Info(Convert.ToInt32(tbc_Cleaning.SelectedTab.Tag.ToString()), Convert.ToInt32(control.Tag.ToString()), dtp_Completed.Value.Date.ToString("yyyy-MM-dd"));
                     if (Convert.ToInt32(ds_Get_Info3.Tables[0].Rows.Count.ToString()) > 0)
                     {
@@ -531,14 +540,12 @@ namespace FruPak.PF.WorkOrder
                             dr_Get_Info3 = ds_Get_Info3.Tables[0].Rows[i3];
                             bol_djb = true;
                             (control as CheckBox).Checked = true;
-                            
                         }
                     }
                     else
                     {
                         bol_djb = false;
                         (control as CheckBox).Checked = false;
-                        
                     }
                     ds_Get_Info3.Dispose();
                 }
@@ -546,8 +553,9 @@ namespace FruPak.PF.WorkOrder
         }
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
+
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>
@@ -558,34 +566,39 @@ namespace FruPak.PF.WorkOrder
             {
                 Button b = (Button)sender;
                 logger.Log(LogLevel.Info, DecorateString(b.Name, b.Text, "Click"));
-
             }
         }
+
         private void Control_Validated(object sender, EventArgs e)
         {
             TextBox t = (TextBox)sender;
             logger.Log(LogLevel.Info, DecorateString(t.Name, t.Text, "Validated"));
         }
+
         private void Control_SelectedValueChanged(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Text, "SelectedValueChanged"));
         }
+
         private void Control_ValueChanged(object sender, EventArgs e)
         {
             DateTimePicker dtp = (DateTimePicker)sender;
             logger.Log(LogLevel.Info, DecorateString(dtp.Name, dtp.Text, "ValueChanged"));
         }
+
         private void Control_NudValueChanged(object sender, EventArgs e)
         {
             NumericUpDown nud = (NumericUpDown)sender;
             logger.Log(LogLevel.Info, DecorateString(nud.Name, nud.Text, "NudValueChanged"));
         }
+
         private void Control_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Checked.ToString(), "CheckedChanged"));
         }
+
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
             FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
@@ -593,8 +606,10 @@ namespace FruPak.PF.WorkOrder
         }
 
         #region Decorate String
+
         // DecorateString
         private string openPad = " --- [ ";
+
         private string closePad = " ] --- ";
         private string intro = "--->   { ";
         private string outro = " }   <---";
@@ -616,7 +631,8 @@ namespace FruPak.PF.WorkOrder
             output = intro + name + openPad + input + closePad + action + outro;
             return output;
         }
-        #endregion
+
+        #endregion Decorate String
 
         /// <summary>
         /// Close the form with the Esc key (Sel request 11-02-2015 BN)
@@ -632,7 +648,6 @@ namespace FruPak.PF.WorkOrder
             }
         }
 
-        #endregion
-
+        #endregion Methods to log UI events to the CSV file. BN 29/01/2015
     }
 }

@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FruPak.Utils.Data;
 using System.Data;
-using System.Data.OleDb;
-using FruPak.Utils.Data;
+
 namespace FruPak.PF.Data.AccessLayer
 {
     /*Description
     -----------------
     CM_ESP Class.
-     * 
+     *
      * This Class is a data access layer to the CM_ESP table
      * Where possible the following standard method names are used and standard column names used.
      *  1. Variable names as input to a method are the same as the column names they refer to.
@@ -25,6 +22,7 @@ namespace FruPak.PF.Data.AccessLayer
     -------------------------------------------------------------------------------------------------------------------------------------------------
     01/09/2013  Dave       Creation
     */
+
     public class PF_Work_Order
     {
         public static DataSet Get_Max_ID()
@@ -32,11 +30,13 @@ namespace FruPak.PF.Data.AccessLayer
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(Work_Order_Id) as Current_Id FROM PF_Work_Order");
         }
+
         public static DataSet Get_Info()
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Work_Order");
         }
+
         public static DataSet Get_Info(int Work_Order_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -46,6 +46,7 @@ namespace FruPak.PF.Data.AccessLayer
                                             "INNER JOIN dbo.CM_Trader T ON T.Trader_Id = WO.Trader_Id " +
                                             "WHERE Work_Order_Id = " + Work_Order_Id);
         }
+
         public static DataSet Check_Grower(int Grower_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -64,6 +65,7 @@ namespace FruPak.PF.Data.AccessLayer
                                             str_join + " " +
                                             str_where + " Order BY WO.Work_Order_Id DESC");
         }
+
         public static DataSet Get_Info_translated(int Work_Order_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -75,23 +77,25 @@ namespace FruPak.PF.Data.AccessLayer
                                             "INNER JOIN dbo.CM_Fruit_Variety FV ON FV.Variety_Id = WO.Fruit_Variety_Id " +
                                             "WHERE Work_Order_Id = " + Work_Order_Id);
         }
+
         public static DataSet Get_Info_Exclude_Current(int Season)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
-            return SQLAccessLayer.Run_Query("SELECT * FROM PF_Work_Order WO WHERE WO.Work_Order_Id NOT IN (SELECT BL.Work_Order_Id FROM dbo.PF_BaseLoad BL) AND Current_Ind = 0 AND WO.Season = "+Season+" ORDER BY Work_Order_Id DESC");
+            return SQLAccessLayer.Run_Query("SELECT * FROM PF_Work_Order WO WHERE WO.Work_Order_Id NOT IN (SELECT BL.Work_Order_Id FROM dbo.PF_BaseLoad BL) AND Current_Ind = 0 AND WO.Season = " + Season + " ORDER BY Work_Order_Id DESC");
         }
 
-        public static int Insert(int Work_Order_Id, decimal Season, string Process_Date, string Start_Time, string Finish_Time, int Trader_Id, int Product_Id, 
+        public static int Insert(int Work_Order_Id, decimal Season, string Process_Date, string Start_Time, string Finish_Time, int Trader_Id, int Product_Id,
                                  int Orchardist_Id, int Grower_Id, int Growing_Method_Id, int Fruit_Type_Id, int Fruit_Variety_Id, decimal Num_Batches, string Comments, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO PF_Work_Order(Work_Order_Id, Season, Process_Date, Start_Time, Finish_Time,Trader_Id, " +
                                                                   "Product_Id, Orchardist_Id, Grower_Id, Growing_Method_Id, Fruit_Type_Id, Fruit_Variety_Id, " +
                                                                   "Num_Batches, Current_Ind, Comments, Mod_Date, Mod_User_Id) " +
-                                                "VALUES ( " + Work_Order_Id + "," + Season + ",'" + Process_Date + "','" + Start_Time + "','" +Finish_Time + "'," +Trader_Id + "," +
-                                                              Product_Id + "," + Orchardist_Id + "," + Grower_Id + "," + Growing_Method_Id + "," + Fruit_Type_Id + "," + Fruit_Variety_Id + "," + 
+                                                "VALUES ( " + Work_Order_Id + "," + Season + ",'" + Process_Date + "','" + Start_Time + "','" + Finish_Time + "'," + Trader_Id + "," +
+                                                              Product_Id + "," + Orchardist_Id + "," + Grower_Id + "," + Growing_Method_Id + "," + Fruit_Type_Id + "," + Fruit_Variety_Id + "," +
                                                               Num_Batches + ",'false','" + Comments + "', GETDATE() ," + Mod_User_Id + ")");
         }
+
         public static int Update_Completed(int Work_Order_Id, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -99,6 +103,7 @@ namespace FruPak.PF.Data.AccessLayer
                                                                         "Mod_User_Id = " + Mod_User_Id +
                                                "WHERE Work_Order_Id = " + Work_Order_Id);
         }
+
         public static int Update_UnCompleted(int Work_Order_Id, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -106,60 +111,71 @@ namespace FruPak.PF.Data.AccessLayer
                                                                         "Mod_User_Id = " + Mod_User_Id +
                                                "WHERE Work_Order_Id = " + Work_Order_Id);
         }
+
         public static int Update_Current_Ind(int Work_Order_Id, bool Current_Ind, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
-            return SQLAccessLayer.Run_NonQuery("UPDATE PF_Work_Order SET Current_Ind = '" + Current_Ind + "', " + 
+            return SQLAccessLayer.Run_NonQuery("UPDATE PF_Work_Order SET Current_Ind = '" + Current_Ind + "', " +
                                                                         "Mod_Date = GETDATE(), " +
                                                                         "Mod_User_Id = " + Mod_User_Id +
                                                "WHERE Work_Order_Id = " + Work_Order_Id);
         }
+
         public static int Delete(int Work_Order_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE PF_Work_Order WHERE Work_Order_Id = " + Work_Order_Id);
         }
+
         public static DataSet Get_Combo_Prod_by_Date(string Processs_Date)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT DISTINCT P.Product_Id, P.Code FROM PF_Work_Order WO INNER JOIN PF_Product P ON P.Product_Id = WO.Product_Id " +
                                             "WHERE WO.Process_Date = '" + Processs_Date + "'");
         }
+
         public static DataSet Get_Combo()
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Work_Order WO WHERE  WO.Completed_Date IS NULL ORDER BY Current_Ind Desc, Work_Order_Id DESC");
         }
+
         public static DataSet Get_Combo_Date()
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT DISTINCT Process_Date FROM PF_Work_Order WO WHERE WO.Completed_Date IS NULL ORDER BY Process_Date DESC");
         }
+
         public static DataSet Get_Combo_Date(int Product_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT DISTINCT Process_Date FROM PF_Work_Order WO WHERE WO.Completed_Date IS NULL AND Product_Id = " + Product_Id + "ORDER BY Process_Date DESC");
         }
+
         public static DataSet Get_Combo_Work_Order()
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Work_Order WO WHERE WO.Completed_Date IS NULL AND WO.Work_Order_Id NOT IN (SELECT BL.Work_Order_Id FROM dbo.PF_BaseLoad BL) ORDER BY Work_Order_Id DESC");
         }
+
         public static DataSet Get_Combo_Work_Order(string Process_Date)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Work_Order WO WHERE WO.Completed_Date IS NULL AND WO.Work_Order_Id NOT IN (SELECT BL.Work_Order_Id FROM dbo.PF_BaseLoad BL) AND Process_Date = '" + Process_Date + "' ORDER BY Work_Order_Id DESC");
         }
+
         public static DataSet Get_Combo_Work_Order(int Product_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Work_Order WO WHERE WO.Completed_Date IS NULL AND WO.Work_Order_Id NOT IN (SELECT BL.Work_Order_Id FROM dbo.PF_BaseLoad BL) AND Product_Id = " + Product_Id + " ORDER BY Work_Order_Id DESC");
         }
+
         public static DataSet Get_Combo_Work_Order(string Process_Date, int Product_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Work_Order WO WHERE WO.Completed_Date IS NULL AND WO.Work_Order_Id NOT IN (SELECT BL.Work_Order_Id FROM dbo.PF_BaseLoad BL) AND Process_Date = '" + Process_Date + "' AND Product_Id = " + Product_Id + " ORDER BY Work_Order_Id DESC");
         }
+
         public static int Update(int Work_Order_Id, decimal Season, string Process_Date, string Start_Time, string Finish_Time, int Trader_Id, int Product_Id,
                                  int Orchardist_Id, int Grower_Id, int Growing_Method_Id, int Fruit_Type_Id, int Fruit_Variety_Id, decimal Num_Batches, string Comments, int Mod_User_Id)
         {
@@ -170,46 +186,51 @@ namespace FruPak.PF.Data.AccessLayer
                                                                         "Finish_Time = '" + Finish_Time + "', " +
                                                                         "Trader_Id = " + Trader_Id + ", " +
                                                                         "Product_Id = " + Product_Id + ", " +
-                                                                        "Orchardist_Id = " + Orchardist_Id + ", "+
-                                                                        "Grower_Id = " + Grower_Id + ", " + 
-                                                                        "Growing_Method_Id = " + Growing_Method_Id + ", " + 
-                                                                        "Fruit_Type_Id = " + Fruit_Type_Id + ", " + 
+                                                                        "Orchardist_Id = " + Orchardist_Id + ", " +
+                                                                        "Grower_Id = " + Grower_Id + ", " +
+                                                                        "Growing_Method_Id = " + Growing_Method_Id + ", " +
+                                                                        "Fruit_Type_Id = " + Fruit_Type_Id + ", " +
                                                                         "Fruit_Variety_Id = " + Fruit_Variety_Id + ", " +
-                                                                        "Num_Batches = " + Num_Batches + ", " + 
-                                                                        "Comments = '" + Comments + "', " + 
+                                                                        "Num_Batches = " + Num_Batches + ", " +
+                                                                        "Comments = '" + Comments + "', " +
                                                                         "Mod_Date = GETDATE() ," +
                                                                         "Mod_User_Id = " + Mod_User_Id + " " +
                                                   "WHERE Work_Order_Id = " + Work_Order_Id);
         }
+
         public static DataSet Get_Cleaning(string Process_Date)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT DISTINCT WO.Product_Id, P.Code as P_Code, P.Description as P_Description, PCAR.CleanArea_Id, CA.Code as CA_Code, CA.Description as CA_Description " +
-                                            "FROM dbo.PF_Work_Order WO "+
+                                            "FROM dbo.PF_Work_Order WO " +
                                             "INNER JOIN dbo.PF_Product P ON P.Product_Id = WO.Product_Id " +
                                             "INNER JOIN dbo.PF_Product_Cleaning_Area_Relationship PCAR ON PCAR.Product_Id = WO.Product_Id " +
                                             "INNER JOIN dbo.PF_Cleaning_Area CA ON CA.CleanArea_Id = PCAR.CleanArea_Id " +
                                             "WHERE WO.Process_Date = '" + Process_Date + "'");
         }
+
         public static DataSet Get_UnInvoiced()
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Work_Order WHERE Invoice_Id IS NULL ");
         }
+
         public static DataSet Get_Invoiced(int Invoice_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
-            return SQLAccessLayer.Run_Query("SELECT *  FROM PF_Work_Order WO WHERE Invoice_Id = " + Invoice_Id );
+            return SQLAccessLayer.Run_Query("SELECT *  FROM PF_Work_Order WO WHERE Invoice_Id = " + Invoice_Id);
         }
+
         public static DataSet Get_UnInvoiced_for_Trader(int Trader_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT *, P.Code as P_Code, P.Description as P_Description, FT.Code as FT_Code, FT.Description as FT_Description " +
-                                            "FROM PF_Work_Order WO "+
-                                            "INNER JOIN dbo.PF_Product P ON P.Product_Id = WO.Product_Id "+
-                                            "INNER JOIN dbo.CM_Fruit_Type FT ON FT.FruitType_Id = WO.Fruit_Type_Id "+ 
+                                            "FROM PF_Work_Order WO " +
+                                            "INNER JOIN dbo.PF_Product P ON P.Product_Id = WO.Product_Id " +
+                                            "INNER JOIN dbo.CM_Fruit_Type FT ON FT.FruitType_Id = WO.Fruit_Type_Id " +
                                             "WHERE Trader_Id = " + Trader_Id + " AND Invoice_Id IS NULL ");
         }
+
         public static DataSet Get_Invoice_Rate(string WHERE)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -220,15 +241,17 @@ namespace FruPak.PF.Data.AccessLayer
                                             "LEFT OUTER JOIN dbo.PF_A_Rates R ON R.Rates_Id = MRR.Rates_Id " +
                                             "WHERE WO.Work_Order_Id in " + WHERE);
         }
+
         public static DataSet Get_Staff_for_Work_Order(string WHERE)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT *, DATEDIFF(MINUTE,WO.Start_Time, WO.Finish_Time) + Extra_Hours * 60 as mins  " +
-                                            "FROM dbo.PF_Work_Order WO "+
-                                            "INNER JOIN dbo.PF_Work_Order_Staff_Relationship WOSR on WOSR.Work_Order_Id = WO.Work_Order_Id "+
-                                            "INNER JOIN dbo.PF_Staff S ON S.Staff_Id = WOSR.Staff_Id "+
+                                            "FROM dbo.PF_Work_Order WO " +
+                                            "INNER JOIN dbo.PF_Work_Order_Staff_Relationship WOSR on WOSR.Work_Order_Id = WO.Work_Order_Id " +
+                                            "INNER JOIN dbo.PF_Staff S ON S.Staff_Id = WOSR.Staff_Id " +
                                             "WHERE WO.Work_Order_Id in " + WHERE);
         }
+
         public static DataSet Get_Invoice_Rate(string WHERE, string CODE)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -239,6 +262,7 @@ namespace FruPak.PF.Data.AccessLayer
                                             "INNER JOIN dbo.PF_A_Rates R ON R.Rates_Id = MRR.Rates_Id " +
                                             "WHERE WO.Work_Order_Id in " + WHERE + " AND R.Code like '" + CODE + "%'");
         }
+
         public static int Update_Invoiced(int Work_Order_Id, int Invoice_Id, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -247,15 +271,19 @@ namespace FruPak.PF.Data.AccessLayer
                                                                         "Mod_User_Id = " + Mod_User_Id + " " +
                                                                         "WHERE Work_Order_Id = " + Work_Order_Id);
         }
+
         #region ------------- Stored Procedures -------------
-            #region ------------- Select -------------
-                public static DataSet Get_Current()
-                {
-                    FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
-                    return SQLAccessLayer.RunSP_Query("dbo.PF_Work_Order_Get_Current");
-                }
-            #endregion
-        #endregion
+
+        #region ------------- Select -------------
+
+        public static DataSet Get_Current()
+        {
+            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            return SQLAccessLayer.RunSP_Query("dbo.PF_Work_Order_Get_Current");
+        }
+
+        #endregion ------------- Select -------------
+
+        #endregion ------------- Stored Procedures -------------
     }
 }
-

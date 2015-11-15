@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FruPak.Utils.Data;
+using System;
 using System.Data;
-using System.Data.OleDb;
-using FruPak.Utils.Data;
 
 namespace FruPak.PF.Data.AccessLayer
 {
     /*Description
     -----------------
     PF_Pallet Class.
-     * 
+     *
      * This Class is a data access layer to the PF_Pallet table
      * Where possible the following standard method names are used and standard column names used.
      *  1. Variable names as input to a method are the same as the column names they refer to.
@@ -26,6 +23,7 @@ namespace FruPak.PF.Data.AccessLayer
     -------------------------------------------------------------------------------------------------------------------------------------------------
     01/09/2013  Dave       Creation
     */
+
     public class PF_Pallet
     {
         public static DataSet Get_Max_ID()
@@ -33,6 +31,7 @@ namespace FruPak.PF.Data.AccessLayer
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(Pallet_Id) as Current_Id FROM dbo.PF_Pallet");
         }
+
         public static DataSet Get_Info()
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -44,6 +43,7 @@ namespace FruPak.PF.Data.AccessLayer
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM dbo.PF_Pallet WHERE Order_Id = " + Order_Id);
         }
+
         public static DataSet Get_Info_Translated(int Work_Order_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -75,14 +75,16 @@ namespace FruPak.PF.Data.AccessLayer
                                             "WHERE P.Order_Id = " + Order_Id + " " +
                                             "GROUP BY P.Order_Id,M.Material_Num, G.Description,FT.Description,FV.Description,GM.Growing_Method_Id,GM.Description,S.Description");
         }
+
         public static DataSet Get_Info_for_Order(int Order_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT  P.Barcode, P.PCardPrinted_Ind " +
                                             "FROM dbo.PF_Pallet P " +
-                                            "WHERE P.Order_Id = " + Order_Id );
+                                            "WHERE P.Order_Id = " + Order_Id);
         }
-        public static DataSet Get_Info_for_Order(int Order_Id, int Product_Id, int FruitType_id, int Variety_id )
+
+        public static DataSet Get_Info_for_Order(int Order_Id, int Product_Id, int FruitType_id, int Variety_id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT P.*,PD.Batch_Num, PD.Quantity as Quantity, Pr.Code as Product_Code, Pr.Description as Product, WO.Fruit_Type_Id, WO.Fruit_Variety_Id " +
@@ -90,9 +92,10 @@ namespace FruPak.PF.Data.AccessLayer
                                             "INNER JOIN dbo.PF_Pallet_Details PD ON PD.Pallet_Id = P.Pallet_Id " +
                                             "INNER JOIN dbo.PF_Work_Order WO ON WO.Work_Order_Id = PD.Work_Order_Id " +
                                             "INNER JOIN dbo.PF_Product Pr ON Pr.Product_Id = WO.Product_Id " +
-                                            "WHERE P.Order_Id = " + Order_Id + " AND Pr.Product_Id =" + Product_Id + " AND WO.Fruit_Type_Id = " + FruitType_id + 
+                                            "WHERE P.Order_Id = " + Order_Id + " AND Pr.Product_Id =" + Product_Id + " AND WO.Fruit_Type_Id = " + FruitType_id +
                                             " AND WO.Fruit_Variety_Id = " + Variety_id + " AND PD.Quantity > 0");
         }
+
         public static DataSet Get_Info_for_Order(int Order_Id, int Pallet_Id, int Product_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -103,6 +106,7 @@ namespace FruPak.PF.Data.AccessLayer
                                             "INNER JOIN dbo.PF_Product Pr ON Pr.Product_Id = WO.Product_Id " +
                                             "WHERE P.Order_Id = " + Order_Id + " AND P.Pallet_id = " + Pallet_Id + " AND Pr.Product_Id =" + Product_Id);
         }
+
         public static DataSet Get_Info_for_Order(string str_WHERE)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -113,6 +117,7 @@ namespace FruPak.PF.Data.AccessLayer
                                             "WHERE P.Order_Id in " + str_WHERE + " " +
                                             "GROUP BY M.Material_Id, M.Material_Num, M.Description ");
         }
+
         public static DataSet Get_Info_for_Order_Pallet(int Order_Id, int Pallet_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -125,6 +130,7 @@ namespace FruPak.PF.Data.AccessLayer
                                             "INNER JOIN dbo.CM_Fruit_Variety FV ON FV.Variety_Id = WO.Fruit_Variety_Id " +
                                             "WHERE P.Order_Id = " + Order_Id + " AND P.Pallet_Id =" + Pallet_Id);
         }
+
         public static DataSet Get_Info_for_Order_prod(int Order_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -139,44 +145,51 @@ namespace FruPak.PF.Data.AccessLayer
                                             "INNER JOIN dbo.CM_Size S ON S.Size_Id = M.Size_Id " +
                                             "WHERE P.Order_Id = " + Order_Id);
         }
+
         public static int Insert(int Pallet_Id, int PalletType_Id, string Barcode, int Location_Id, int Trader_Id, bool PF_Active_Ind, int Season, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO  dbo.PF_Pallet(Pallet_Id, PalletType_Id, Barcode, Location_Id, Trader_Id, PF_Active_Ind, Season, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + Pallet_Id + "," + PalletType_Id + ",'" + Barcode + "'," + Location_Id + "," + Trader_Id + ",'" + PF_Active_Ind + "'," + Season + ", GETDATE()," + Mod_User_Id + ")");
         }
+
         public static int Insert(int Pallet_Id, int PalletType_Id, string Barcode, int Location_Id, int Trader_Id, int Order_Id, bool PF_Active_Ind, int Season, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO  dbo.PF_Pallet(Pallet_Id, PalletType_Id, Barcode, Location_Id, Trader_Id, Order_Id,   PF_Active_Ind, Season, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + Pallet_Id + "," + PalletType_Id + ",'" + Barcode + "'," + Location_Id + "," + Trader_Id + "," + Order_Id + ",'" + PF_Active_Ind + "'," + Season + ", GETDATE()," + Mod_User_Id + ")");
         }
+
         public static int Insert_On_Hold(int Pallet_Id, int PalletType_Id, string Barcode, int Location_Id, int Trader_Id, int Hold_For_Order_Id, bool PF_Active_Ind, int Season, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO  dbo.PF_Pallet(Pallet_Id, PalletType_Id, Barcode, Location_Id, Trader_Id, Hold_For_Order_Id,   PF_Active_Ind, Season, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + Pallet_Id + "," + PalletType_Id + ",'" + Barcode + "'," + Location_Id + "," + Trader_Id + "," + Hold_For_Order_Id + ",'" + PF_Active_Ind + "'," + Season + ", GETDATE()," + Mod_User_Id + ")");
         }
+
         public static int Insert(int Pallet_Id, int PalletType_Id, string Barcode, int Location_Id, int Trader_Id, bool PF_Active_Ind, int Season, int Mod_User_Id, int Pallet_Number, decimal Weight_Gross, decimal Weight_Tare)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO  dbo.PF_Pallet(Pallet_Id, PalletType_Id, Barcode, Location_Id, Trader_Id, PF_Active_Ind, Season, Mod_Date, Mod_User_Id, Pallet_Number, Weight_Gross, Weight_Tare) " +
                                                 "VALUES ( " + Pallet_Id + "," + PalletType_Id + ",'" + Barcode + "'," + Location_Id + "," + Trader_Id + ",'" + PF_Active_Ind + "'," + Season + ", GETDATE()," + Mod_User_Id + ", " + Pallet_Number + ", " + Weight_Gross + ", " + Weight_Tare + ")");
         }
+
         public static int Delete(int Pallet_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM  dbo.PF_Pallet WHERE Pallet_Id = " + Pallet_Id);
         }
+
         public static int Update(int Pallet_Id, int PalletType_Id, int Location_Id, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE  dbo.PF_Pallet SET PalletType_Id = " + PalletType_Id + ", " +
-                                                                  "Location_Id = " + Location_Id + ", " +                                                                  
+                                                                  "Location_Id = " + Location_Id + ", " +
                                                                   "Mod_date = GETDATE(), " +
                                                                   "Mod_User_Id = " + Mod_User_Id +
                                               " WHERE Pallet_Id = " + Pallet_Id);
         }
+
         public static int Update_remove_from_Order(int Pallet_Id, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -186,6 +199,7 @@ namespace FruPak.PF.Data.AccessLayer
                                                                   "Mod_User_Id = " + Mod_User_Id +
                                               " WHERE Pallet_Id = " + Pallet_Id);
         }
+
         public static int Update_For_PCard(int Pallet_Id, bool PCardPrinted_Ind, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -194,14 +208,16 @@ namespace FruPak.PF.Data.AccessLayer
                                                                   "Mod_User_Id = " + Mod_User_Id +
                                               " WHERE Pallet_Id = " + Pallet_Id);
         }
+
         public static int Update_Active_status(int Pallet_Id, bool PF_Active_Ind, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
-            return SQLAccessLayer.Run_NonQuery("UPDATE  dbo.PF_Pallet SET PF_Active_Ind = '" + PF_Active_Ind+ "', " +
+            return SQLAccessLayer.Run_NonQuery("UPDATE  dbo.PF_Pallet SET PF_Active_Ind = '" + PF_Active_Ind + "', " +
                                                                   "Mod_date = GETDATE(), " +
                                                                   "Mod_User_Id = " + Mod_User_Id +
                                               " WHERE Pallet_Id = " + Pallet_Id);
         }
+
         public static int Update_For_PalletType(int Pallet_Id, int PalletType_Id, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -210,15 +226,17 @@ namespace FruPak.PF.Data.AccessLayer
                                                                   "Mod_User_Id = " + Mod_User_Id +
                                               " WHERE Pallet_Id = " + Pallet_Id);
         }
+
         public static int Update_Gross_Weight(int Pallet_Id, decimal Weight_Gross, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE	dbo.PF_Pallet " +
-	                                            "SET Weight_Gross = " + Weight_Gross + " ," +
-		                                            "Mod_date = GETDATE(), " +
-		                                            "Mod_User_Id = " + Mod_User_Id + 
-	                                            "WHERE Pallet_Id = " +Pallet_Id);
+                                                "SET Weight_Gross = " + Weight_Gross + " ," +
+                                                    "Mod_date = GETDATE(), " +
+                                                    "Mod_User_Id = " + Mod_User_Id +
+                                                "WHERE Pallet_Id = " + Pallet_Id);
         }
+
         public static int Update_Tare_Weight(int Pallet_Id, decimal Weight_Tare, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -228,6 +246,7 @@ namespace FruPak.PF.Data.AccessLayer
                                                     "Mod_User_Id = " + Mod_User_Id +
                                                 "WHERE Pallet_Id = " + Pallet_Id);
         }
+
         public static int Update_Old_Pallet_Id(int Pallet_Id, int Old_Pallet_Id, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -236,6 +255,7 @@ namespace FruPak.PF.Data.AccessLayer
                                                                   "Mod_User_Id = " + Mod_User_Id +
                                               " WHERE Pallet_Id = " + Pallet_Id);
         }
+
         public static DataSet Get_Invoiced(int Invoice_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -246,9 +266,10 @@ namespace FruPak.PF.Data.AccessLayer
                                             "INNER JOIN dbo.CM_Material M ON M.Material_Id = AID.Material_Id " +
                                             "INNER JOIN dbo.CM_Grade G ON G.Grade_Id = M.Grade_Id " +
                                             "INNER JOIN dbo.CM_Fruit_Type FT ON FT.FruitType_Id = M.FruitType_Id " +
-                                            "left outer join dbo.PF_A_Rates R on R.Rates_Id = AID.Rates_Id "+
-                                            "WHERE AI.Invoice_Id = " + Invoice_Id );
+                                            "left outer join dbo.PF_A_Rates R on R.Rates_Id = AID.Rates_Id " +
+                                            "WHERE AI.Invoice_Id = " + Invoice_Id);
         }
+
         public static DataSet Get_PalletCard(string Barcode)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -258,6 +279,7 @@ namespace FruPak.PF.Data.AccessLayer
                                             "INNER JOIN dbo.PF_Work_Order WO ON WO.Work_Order_Id = PD.Work_Order_Id " +
                                             "WHERE P.Barcode = '" + Barcode + "'");
         }
+
         public static DataSet Get_Max_Pallet_Numberd(int Work_Order_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -266,6 +288,7 @@ namespace FruPak.PF.Data.AccessLayer
                                             "INNER JOIN dbo.PF_Pallet_Details PD on PD.Pallet_Id = P.Pallet_Id " +
                                             "WHERE PD.Work_Order_Id = " + Work_Order_Id);
         }
+
         public static DataSet Get_Pallet_barocde(int Work_Order_Id, int Pallet_Number)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -274,6 +297,7 @@ namespace FruPak.PF.Data.AccessLayer
                                             "INNER JOIN dbo.PF_Pallet_Details PD on PD.Pallet_Id = P.Pallet_Id " +
                                             "WHERE PD.Work_Order_Id = " + Work_Order_Id + " AND P.Pallet_Number = " + Pallet_Number);
         }
+
         public static DataSet Get_WPCCard(string Barcode)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -283,13 +307,13 @@ namespace FruPak.PF.Data.AccessLayer
                                                      "FROM dbo.PF_Pallet P " +
                                                      "INNER JOIN dbo.PF_Pallet_Details PD ON PD.Pallet_Id = P.Pallet_Id " +
                                                      "WHERE PD.Work_Order_Id = ( SELECT PD.Work_Order_Id " +
-							                                                    "FROM dbo.PF_Pallet P " +
-							                                                    "INNER JOIN dbo.PF_Pallet_Details PD ON PD.Pallet_Id = P.Pallet_Id " +
-							                                                    "WHERE P.Barcode = '" + Barcode + "') " +
+                                                                                "FROM dbo.PF_Pallet P " +
+                                                                                "INNER JOIN dbo.PF_Pallet_Details PD ON PD.Pallet_Id = P.Pallet_Id " +
+                                                                                "WHERE P.Barcode = '" + Barcode + "') " +
                                                      "AND P.Pallet_Number = ( SELECT P.Pallet_Number-1 " +
-							                                                 "FROM dbo.PF_Pallet P " +
-							                                                 "INNER JOIN dbo.PF_Pallet_Details PD ON PD.Pallet_Id = P.Pallet_Id " +
-							                                                 "WHERE P.Barcode = '" + Barcode + "') " +
+                                                                             "FROM dbo.PF_Pallet P " +
+                                                                             "INNER JOIN dbo.PF_Pallet_Details PD ON PD.Pallet_Id = P.Pallet_Id " +
+                                                                             "WHERE P.Barcode = '" + Barcode + "') " +
                                                      ") as Start_Time, WO.Start_Time as WO_Start_Time " +
                                             "FROM dbo.PF_Pallet P " +
                                             "INNER JOIN dbo.PF_Pallet_Details PD ON PD.Pallet_Id = P.Pallet_Id " +
@@ -298,71 +322,83 @@ namespace FruPak.PF.Data.AccessLayer
                                             "INNER JOIN dbo.CM_Fruit_Variety FV ON FV.Variety_Id = WO.Fruit_Variety_Id " +
                                             "WHERE P.Barcode = '" + Barcode + "'");
         }
+
         #region ------------- Stored Procedures -------------
-            #region ------------- Select -------------
-                public static DataSet Get_Barcode_For_Order(int Order_Id)
-                {
-                    FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
-                    return SQLAccessLayer.RunSP_Query("dbo.PF_Pallet_Get_Barcode_For_Order", Order_Id);
-                }
-                public static DataSet Get_Info_for_Barcode(string barcode)
-                {
-                    FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
-                    return SQLAccessLayer.RunSP_Query("dbo.PF_Pallet_Get_Info_for_Barcode", barcode);
-                }
-                public static DataSet Get_Info_For_Pallet_Id(int Pallet_Id)
-                {
-                    FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
-                    return SQLAccessLayer.RunSP_Query("dbo.PF_Pallet_Get_Info_For_Pallet_Id", Pallet_Id);
-                }
-                public static DataSet Get_Pallet_Id_From_Baracode(string Barcode)
-                {
-                    FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
-                    return SQLAccessLayer.RunSP_Query("dbo.PF_Pallet_Get_Pallet_Id_From_Baracode", Barcode);
-                }
-                public static DataSet Get_Details_For_Barcode_BatchNum(string Barcode, int Batch_Num, int Quantity)
-                {
-                    FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
-                    return SQLAccessLayer.RunSP_Query("dbo.PF_Pallet_Get_Details_For_Barcode_BatchNum", Barcode, Batch_Num, Quantity);
-                }
-                public static DataSet Get_Material_info(string Barcode)
-                {
-                    FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
-                    return SQLAccessLayer.RunSP_Query("dbo.PF_Pallet_Get_Material_info", Barcode);
-                }
-            #endregion
-            #region ------------- Updates -------------
-                public static int Update_Order_Id(int Pallet_Id, int Order_Id, int Mod_User_Id)
-                {
-                    FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
-                    object ret_val;
 
-                    SQLAccessLayer.RunSP_NonQuery("dbo.PF_Pallet_Update_Order_Id", out ret_val, Pallet_Id, Order_Id, Mod_User_Id);
+        #region ------------- Select -------------
 
-                    //get the return value
-                    var nameOfProperty = "Value";
-                    var propertyInfo = ret_val.GetType().GetProperty(nameOfProperty);
-                    var return_value = propertyInfo.GetValue(ret_val, null);
+        public static DataSet Get_Barcode_For_Order(int Order_Id)
+        {
+            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            return SQLAccessLayer.RunSP_Query("dbo.PF_Pallet_Get_Barcode_For_Order", Order_Id);
+        }
 
-                    return Convert.ToInt32(return_value.ToString());
-                }
-                public static int Update__Hold_Order_Id(int Pallet_Id, int Order_Id, int Mod_User_Id)
-                {
-                    FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
-                    object ret_val;
+        public static DataSet Get_Info_for_Barcode(string barcode)
+        {
+            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            return SQLAccessLayer.RunSP_Query("dbo.PF_Pallet_Get_Info_for_Barcode", barcode);
+        }
 
-                    SQLAccessLayer.RunSP_NonQuery("dbo.PF_Pallet_Update_Hold_Order_Id", out ret_val, Pallet_Id, Order_Id, Mod_User_Id);
+        public static DataSet Get_Info_For_Pallet_Id(int Pallet_Id)
+        {
+            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            return SQLAccessLayer.RunSP_Query("dbo.PF_Pallet_Get_Info_For_Pallet_Id", Pallet_Id);
+        }
 
-                    //get the return value
-                    var nameOfProperty = "Value";
-                    var propertyInfo = ret_val.GetType().GetProperty(nameOfProperty);
-                    var return_value = propertyInfo.GetValue(ret_val, null);
+        public static DataSet Get_Pallet_Id_From_Baracode(string Barcode)
+        {
+            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            return SQLAccessLayer.RunSP_Query("dbo.PF_Pallet_Get_Pallet_Id_From_Baracode", Barcode);
+        }
 
-                    return Convert.ToInt32(return_value.ToString());
-                }
+        public static DataSet Get_Details_For_Barcode_BatchNum(string Barcode, int Batch_Num, int Quantity)
+        {
+            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            return SQLAccessLayer.RunSP_Query("dbo.PF_Pallet_Get_Details_For_Barcode_BatchNum", Barcode, Batch_Num, Quantity);
+        }
 
+        public static DataSet Get_Material_info(string Barcode)
+        {
+            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            return SQLAccessLayer.RunSP_Query("dbo.PF_Pallet_Get_Material_info", Barcode);
+        }
 
-            #endregion
-        #endregion
+        #endregion ------------- Select -------------
+
+        #region ------------- Updates -------------
+
+        public static int Update_Order_Id(int Pallet_Id, int Order_Id, int Mod_User_Id)
+        {
+            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            object ret_val;
+
+            SQLAccessLayer.RunSP_NonQuery("dbo.PF_Pallet_Update_Order_Id", out ret_val, Pallet_Id, Order_Id, Mod_User_Id);
+
+            //get the return value
+            var nameOfProperty = "Value";
+            var propertyInfo = ret_val.GetType().GetProperty(nameOfProperty);
+            var return_value = propertyInfo.GetValue(ret_val, null);
+
+            return Convert.ToInt32(return_value.ToString());
+        }
+
+        public static int Update__Hold_Order_Id(int Pallet_Id, int Order_Id, int Mod_User_Id)
+        {
+            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            object ret_val;
+
+            SQLAccessLayer.RunSP_NonQuery("dbo.PF_Pallet_Update_Hold_Order_Id", out ret_val, Pallet_Id, Order_Id, Mod_User_Id);
+
+            //get the return value
+            var nameOfProperty = "Value";
+            var propertyInfo = ret_val.GetType().GetProperty(nameOfProperty);
+            var return_value = propertyInfo.GetValue(ret_val, null);
+
+            return Convert.ToInt32(return_value.ToString());
+        }
+
+        #endregion ------------- Updates -------------
+
+        #endregion ------------- Stored Procedures -------------
     }
 }

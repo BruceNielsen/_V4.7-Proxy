@@ -1,12 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace FruPak.PF.WorkOrder
 {
-    class Marquee_Label : Label
+    internal class Marquee_Label : Label
     {
         private int CurrentPosition { get; set; }
         private Timer Timer { get; set; }
@@ -20,7 +17,7 @@ namespace FruPak.PF.WorkOrder
             Timer.Start();
         }
 
-        void Timer_Tick(object sender, EventArgs e)
+        private void Timer_Tick(object sender, EventArgs e)
         {
             //scrolls right to left
             if ((CurrentPosition * -1) > Width)

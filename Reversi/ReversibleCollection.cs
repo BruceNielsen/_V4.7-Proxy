@@ -1,17 +1,17 @@
 ﻿/*
  * Copyright (C) Henrik Jonsson 2007
- * 
- * THIS WORK IS PROVIDED UNDER THE TERMS OF THIS CODE PROJECT OPEN LICENSE ("LICENSE"). 
- * THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK 
+ *
+ * THIS WORK IS PROVIDED UNDER THE TERMS OF THIS CODE PROJECT OPEN LICENSE ("LICENSE").
+ * THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK
  * OTHER THAN AS AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.
- * 
+ *
  * See licence.txt or http://thecodeproject.com/info/eula.aspx for full licence description.
- * 
+ *
  * This copyright notice must not be removed.
 */
-using System;
-using System.Collections.Generic;
+
 using Reversible.Extensions;
+using System.Collections.Generic;
 
 namespace Reversible
 {
@@ -21,7 +21,7 @@ namespace Reversible
     /// <typeparam name="T">Type of items in the collection</typeparam>
     public class ReversibleCollection<T> : ICollection<T>
     {
-        ICollection<T> collection;
+        private ICollection<T> collection;
 
         /// <summary>
         /// Creates a new empty reversible collection
@@ -77,7 +77,7 @@ namespace Reversible
             return collection.Remove_Reversible(item);
         }
 
-        #endregion
+        #endregion ICollection<T> Members
 
         #region IEnumerable<T> Members
 
@@ -86,7 +86,7 @@ namespace Reversible
             return collection.GetEnumerator();
         }
 
-        #endregion
+        #endregion IEnumerable<T> Members
 
         #region IEnumerable Members
 
@@ -95,7 +95,6 @@ namespace Reversible
             return collection.GetEnumerator();
         }
 
-        #endregion
+        #endregion IEnumerable Members
     }
-
 }

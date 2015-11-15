@@ -1,29 +1,26 @@
 ﻿/*
  * Copyright (C) Henrik Jonsson 2007
- * 
- * THIS WORK IS PROVIDED UNDER THE TERMS OF THIS CODE PROJECT OPEN LICENSE ("LICENSE"). 
- * THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK 
+ *
+ * THIS WORK IS PROVIDED UNDER THE TERMS OF THIS CODE PROJECT OPEN LICENSE ("LICENSE").
+ * THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK
  * OTHER THAN AS AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.
- * 
+ *
  * See licence.txt or http://thecodeproject.com/info/eula.aspx for full licence description.
- * 
+ *
  * This copyright notice must not be removed.
 */
-using System;
+
 using System.Collections.Generic;
-using System.Text;
-using Reversible;
 
 namespace Reversible.Extensions
 {
-        
     /// <summary>
     /// Contains reversible extension methods for type-safe ICollections
     /// </summary>
     public static class ICollectionReversibleExtension
     {
         /// <summary>
-        /// Adds an item reversible 
+        /// Adds an item reversible
         /// </summary>
         /// <typeparam name="T">Type of item to add</typeparam>
         /// <param name="collection">Collection to add item to</param>
@@ -108,6 +105,7 @@ namespace Reversible.Extensions
                         collection.Remove(item);
                         action = ICollectionEditAction.RemoveItem;
                         break;
+
                     case ICollectionEditAction.RemoveItem:
                         collection.Add(item);
                         action = ICollectionEditAction.AddItem;
@@ -146,5 +144,4 @@ namespace Reversible.Extensions
             }
         }
     }
-
 }

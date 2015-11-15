@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Diagnostics;
-using System.Data;
-using System.Xml;
-using System.IO;
-using System.Drawing;
-using System.Drawing.Printing;
+﻿using FruPak.PF.CustomSettings;
 using NLog;
-using FruPak.PF.CustomSettings;
+using System;
+using System.Diagnostics;
+using System.IO;
 using System.Windows.Forms;
 
 namespace FruPak.PF.PrintLayer
@@ -25,7 +18,7 @@ namespace FruPak.PF.PrintLayer
             //Declare and instantiate a new process component.
             try
             {
-                            // Initialize settings
+                // Initialize settings
                 PhantomCustomSettings Settings = new PhantomCustomSettings();
 
                 ProcessStartInfo startInfo = new ProcessStartInfo();
@@ -34,9 +27,12 @@ namespace FruPak.PF.PrintLayer
                 //startInfo.FileName = @"\\FruPak-SBS\PublicDocs\FruPak\Client\acrowrap.exe" + @" ";
 
                 #region Load CustomSettings
+
                 #region Get "Application.StartupPath" folder
+
                 string path = Application.StartupPath;
-                #endregion
+
+                #endregion Get "Application.StartupPath" folder
 
                 // Initialize settings
                 Settings = new PhantomCustomSettings();
@@ -53,7 +49,8 @@ namespace FruPak.PF.PrintLayer
 
                 logger.Log(LogLevel.Info, LogCodeStatic("Settings file opened."));
 
-                #endregion
+                #endregion Load CustomSettings
+
                 Settings.Load();
 
                 string folderPath = Settings.Path_AcroWrap_Path;
@@ -66,7 +63,6 @@ namespace FruPak.PF.PrintLayer
                 startInfo.WindowStyle = ProcessWindowStyle.Hidden;
                 Process p = Process.Start(startInfo);
 
-
                 //Wait for the window to finish loading.
                 p.WaitForInputIdle();
 
@@ -77,10 +73,14 @@ namespace FruPak.PF.PrintLayer
             {
                 //string log_file = @"\\FruPak-SBS\PublicDocs\FruPak\Client\Logs\PDFPrint.txt";
                 PhantomCustomSettings Settings = new PhantomCustomSettings();
+
                 #region Load CustomSettings
+
                 #region Get "Application.StartupPath" folder
+
                 string path = Application.StartupPath;
-                #endregion
+
+                #endregion Get "Application.StartupPath" folder
 
                 // Initialize settings
                 Settings = new PhantomCustomSettings();
@@ -97,19 +97,23 @@ namespace FruPak.PF.PrintLayer
 
                 logger.Log(LogLevel.Info, LogCodeStatic("Settings file opened."));
 
-                #endregion
+                #endregion Load CustomSettings
+
                 Settings.Load();
 
                 string folderPath = Settings.Path_AcroWrap_Path;
                 string log_file = folderPath + "\\PDFPrint.txt"; // Took out the Logs folder 12-01-2015 BN (The log file is pointless anyway)
                 General.Write_Log(log_file, ex.Message);
-                logger.Log(LogLevel.Debug, ex.Message);
+                //logger.Log(LogLevel.Debug, ex.Message);
+
+                Common.Code.DebugStacktrace.StackTrace(ex);
             }
         }
 
         #region Log Code Static
+
         /// <summary>
-        /// Formats the output to the debug log so that the actual log contents stand out amongst the machine-generated stuff. 
+        /// Formats the output to the debug log so that the actual log contents stand out amongst the machine-generated stuff.
         /// Refers to machine-generated content, not calling specifics.
         /// </summary>
         /// <param name="input">The code function that we want to log.</param>
@@ -119,7 +123,9 @@ namespace FruPak.PF.PrintLayer
             string Output = "___[ " + input + " ]___";
             return Output;
         }
-        #endregion
+
+        #endregion Log Code Static
+
 
     }
 }

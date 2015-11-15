@@ -1,14 +1,10 @@
-﻿using System;
+﻿using FruPak.PF.CustomSettings;
+using NLog;
+using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.IO;
 using System.Windows.Forms;
-using NLog;
-using FruPak.PF.CustomSettings;
 
 namespace FruPak.PF.WorkOrder
 {
@@ -38,7 +34,9 @@ namespace FruPak.PF.WorkOrder
         public WO_Labels()
         {
             #region Load CustomSettings
+
             #region Get "My Documents" folder
+
             string path = Application.StartupPath;
             // string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
             //path = Path.Combine(path, "FruPak_Settings"); // Creates a subfolder
@@ -46,7 +44,8 @@ namespace FruPak.PF.WorkOrder
             // Create folder if it doesn't already exist
             //if (!Directory.Exists(path))
             //    Directory.CreateDirectory(path);
-            #endregion
+
+            #endregion Get "My Documents" folder
 
             // Initialize settings
             Settings = new PhantomCustomSettings();
@@ -70,9 +69,10 @@ namespace FruPak.PF.WorkOrder
             // Save settings - Normally in Form_Closing
             //Settings.Save();
 
-            #endregion
+            #endregion Load CustomSettings
 
             #region Log any interesting events from the UI to the CSV log file
+
             foreach (Control c in this.Controls)
             {
                 if (c.GetType() == typeof(Button))
@@ -103,15 +103,14 @@ namespace FruPak.PF.WorkOrder
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-
                 else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
                 {
                     FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
-            #endregion
 
+            #endregion Log any interesting events from the UI to the CSV log file
         }
 
         public WO_Labels(int int_wo_Id, int int_C_User_id, bool bol_w_a)
@@ -166,8 +165,6 @@ namespace FruPak.PF.WorkOrder
             AddColumnsProgrammatically();
             populate_datagridview();
             hide_when_hotfill();
-
-
         }
 
         private void Get_Product_code()
@@ -181,6 +178,7 @@ namespace FruPak.PF.WorkOrder
                 str_product_code = dr["Code"].ToString();
             }
         }
+
         private void hide_when_hotfill()
         {
             switch (str_product_code)
@@ -196,6 +194,7 @@ namespace FruPak.PF.WorkOrder
                     rb_EOR3.Visible = false;
                     nud_Quantity1.Value = 1;
                     break;
+
                 case "HotFill":
                     cmb_Batch2.Visible = false;
                     cmb_Batch3.Visible = false;
@@ -205,6 +204,7 @@ namespace FruPak.PF.WorkOrder
                     rb_EOR2.Visible = false;
                     rb_EOR3.Visible = false;
                     break;
+
                 case "Juice":
                     cmb_Batch2.Visible = false;
                     cmb_Batch3.Visible = false;
@@ -214,6 +214,7 @@ namespace FruPak.PF.WorkOrder
                     rb_EOR2.Visible = false;
                     rb_EOR3.Visible = false;
                     break;
+
                 default:
                     cmb_Batch2.Visible = true;
                     cmb_Batch3.Visible = true;
@@ -225,10 +226,11 @@ namespace FruPak.PF.WorkOrder
                     break;
             }
         }
+
         private static string str_Trader_Desc = "";
+
         public void populate_Combobox()
         {
-
             DataSet ds_Get_Info;
             //batch numbers
             ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Info(int_Work_Order_Id);
@@ -259,7 +261,6 @@ namespace FruPak.PF.WorkOrder
                     }
                 }
                 ds.Dispose();
-
 
                 // the number of batches already created = the total number allowed, then reset so all are displayed
                 if (int_j == Convert.ToInt32(dr_Get_Info["Num_Batches"].ToString()))
@@ -317,10 +318,13 @@ namespace FruPak.PF.WorkOrder
             cmb_Orders.Text = null;
             ds_Get_Info.Dispose();
         }
+
         private void AddColumnsProgrammatically()
         {
             //DataGridView 1
+
             #region ------------- DataGridView 1 -------------
+
             var col10 = new DataGridViewTextBoxColumn();
             var col11 = new DataGridViewTextBoxColumn();
             var col12 = new DataGridViewTextBoxColumn();
@@ -389,9 +393,13 @@ namespace FruPak.PF.WorkOrder
             img_edit1.Name = "Edit";
             img_edit1.Image = FruPak.PF.Global.Properties.Resources.edit;
             img_edit1.ReadOnly = true;
-            #endregion
+
+            #endregion ------------- DataGridView 1 -------------
+
             //DataGridView 2
+
             #region ------------- DataGridView 2 -------------
+
             var col20 = new DataGridViewTextBoxColumn();
             var col21 = new DataGridViewTextBoxColumn();
             var col22 = new DataGridViewTextBoxColumn();
@@ -426,7 +434,7 @@ namespace FruPak.PF.WorkOrder
             col25.Name = "Quantity";
             col25.ReadOnly = true;
 
-            dataGridView2.Columns.AddRange(new DataGridViewColumn[] {col20, col21, col22, col23, col24, col25 });
+            dataGridView2.Columns.AddRange(new DataGridViewColumn[] { col20, col21, col22, col23, col24, col25 });
 
             DataGridViewImageColumn img_delete = new DataGridViewImageColumn();
             dataGridView2.Columns.Add(img_delete);
@@ -441,13 +449,16 @@ namespace FruPak.PF.WorkOrder
             img_edit.Name = "Edit";
             img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
-            #endregion
+
+            #endregion ------------- DataGridView 2 -------------
         }
+
         private void SizeAllColumns(Object sender, EventArgs e)
         {
             dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
             dataGridView2.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
+
         private void populate_datagridview()
         {
             DataSet ds_Get_Info;
@@ -502,6 +513,7 @@ namespace FruPak.PF.WorkOrder
             dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
             ds_Get_Info.Dispose();
         }
+
         private void populate_datagridview2()
         {
             DataSet ds_Get_Info;
@@ -565,6 +577,7 @@ namespace FruPak.PF.WorkOrder
             }
             return str_msg;
         }
+
         private string Create_New_Pallet_Details()
         {
             string str_msg = "";
@@ -593,7 +606,7 @@ namespace FruPak.PF.WorkOrder
                 rb_EOR2.Checked == true ||
                 rb_EOR3.Checked == true)
             {
-                if (nud_EOR_Weight.Value == 0 )
+                if (nud_EOR_Weight.Value == 0)
                 {
                     str_msg = str_msg + "Invalid End of Run Weight. You need to enter an End of Run Weight." + Environment.NewLine;
                 }
@@ -622,8 +635,10 @@ namespace FruPak.PF.WorkOrder
             }
             return str_msg;
         }
+
         private static string str_barcode = "";
         private static int int_Season = 0;
+
         private void btn_Add_Click(object sender, EventArgs e)
         {
             int return_code = 0;
@@ -631,23 +646,23 @@ namespace FruPak.PF.WorkOrder
 
             //if (return_code >= 0)
             //{
-
-                if (ckb_plc_on_order.Checked == true)
-                {
-                    Place_On_Order();
-                }
-                if (ckb_Auto_Reset.Checked == true)
-                {
-                    Reset_Part();
-                    hide_when_hotfill();
-                }
-                else
-                {
-                    Reset_Full();
-                    hide_when_hotfill();
-                }
+            if (ckb_plc_on_order.Checked == true)
+            {
+                Place_On_Order();
+            }
+            if (ckb_Auto_Reset.Checked == true)
+            {
+                Reset_Part();
+                hide_when_hotfill();
+            }
+            else
+            {
+                Reset_Full();
+                hide_when_hotfill();
+            }
             //}
         }
+
         /// <summary>
         /// This method will place the newly created pallet directly on to an a valid order
         /// This is used for some product that is being produced for a customer
@@ -678,6 +693,7 @@ namespace FruPak.PF.WorkOrder
             }
             marqueeLabel1.Text = marqueeLabel1.Text + " Pallet has been place on Order " + cmb_Orders.SelectedValue.ToString();
         }
+
         private int Submit()
         {
             DialogResult DLR_MessageBox = new DialogResult();
@@ -691,6 +707,7 @@ namespace FruPak.PF.WorkOrder
                     str_msg = str_msg + Create_New_Pallet();
                     str_msg = str_msg + Create_New_Pallet_Details();
                     break;
+
                 case "&Update":
                     str_msg = str_msg + Create_New_Pallet();
                     if (cmb_Batch1.SelectedItem != null || cmb_Batch2.SelectedItem != null || cmb_Batch3.SelectedItem != null)
@@ -698,6 +715,7 @@ namespace FruPak.PF.WorkOrder
                         str_msg = str_msg + Create_New_Pallet_Details();
                     }
                     break;
+
                 case "Update &Batch":
                     str_msg = str_msg + Create_New_Pallet_Details();
                     break;
@@ -782,27 +800,30 @@ namespace FruPak.PF.WorkOrder
                         int_result = Process_Pallet_Details(int_Pallet_Id, nud_Quantity1.Value);
 
                         break;
-                        case "Add &SML/Rej":
-                        for (int i = 0; i< Convert.ToInt32(nud_Quantity1.Value);i++)
-                            {
-                                int_Pallet_Id = FruPak.PF.Common.Code.General.int_max_user_id("CM_Bins");
 
-                                FruPak.PF.Common.Code.Barcode.Barcode_Trader = int_W_Trader_Id;
-                                FruPak.PF.Common.Code.Barcode.Barcode_Create(int_Pallet_Id);
-                                str_barcode = FruPak.PF.Common.Code.Barcode.Barcode_Num.ToString();
+                    case "Add &SML/Rej":
+                        for (int i = 0; i < Convert.ToInt32(nud_Quantity1.Value); i++)
+                        {
+                            int_Pallet_Id = FruPak.PF.Common.Code.General.int_max_user_id("CM_Bins");
 
-                                int_result = FruPak.PF.Data.AccessLayer.CM_Bins.InsertWorkOrder(int_Pallet_Id,woDisplay1.Work_Order_Id,str_barcode,Convert.ToInt32(cmb_Location.SelectedValue.ToString()),Convert.ToInt32(cmb_Material.SelectedValue.ToString()),1,4,int_Current_User_Id);
-                                Print_Bin_Cards();
-                            }
+                            FruPak.PF.Common.Code.Barcode.Barcode_Trader = int_W_Trader_Id;
+                            FruPak.PF.Common.Code.Barcode.Barcode_Create(int_Pallet_Id);
+                            str_barcode = FruPak.PF.Common.Code.Barcode.Barcode_Num.ToString();
+
+                            int_result = FruPak.PF.Data.AccessLayer.CM_Bins.InsertWorkOrder(int_Pallet_Id, woDisplay1.Work_Order_Id, str_barcode, Convert.ToInt32(cmb_Location.SelectedValue.ToString()), Convert.ToInt32(cmb_Material.SelectedValue.ToString()), 1, 4, int_Current_User_Id);
+                            Print_Bin_Cards();
+                        }
                         break;
+
                     case "&Update":
                         int_result = FruPak.PF.Data.AccessLayer.PF_Pallet.Update(int_DVG_Row_id, Convert.ToInt32(cmb_Pallet_Type.SelectedValue.ToString()), Convert.ToInt32(cmb_Location.SelectedValue.ToString()), int_Current_User_Id);
                         int_result = Process_Pallet_Details(int_DVG_Row_id, nud_Quantity1.Value);
                         break;
+
                     case "Update &Batch":
                         string str_batch = "";
                         str_batch = woDisplay1.Process_Date.Substring(0, 4) + woDisplay1.Process_Date.Substring(5, 2) + woDisplay1.Process_Date.Substring(8, 2);
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Update(int_DVG_Row_id,Convert.ToInt32(str_batch + cmb_Batch1.SelectedItem.ToString()), Convert.ToInt32(cmb_Material.SelectedValue.ToString()),
+                        int_result = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Update(int_DVG_Row_id, Convert.ToInt32(str_batch + cmb_Batch1.SelectedItem.ToString()), Convert.ToInt32(cmb_Material.SelectedValue.ToString()),
                                                                                         nud_Quantity1.Value, int_Current_User_Id);
                         break;
                 }
@@ -813,7 +834,7 @@ namespace FruPak.PF.WorkOrder
                 marqueeLabel1.ForeColor = System.Drawing.Color.Blue;
                 populate_datagridview();
                 //auto print
-                if (ckb_AutoPrint.Checked == true )
+                if (ckb_AutoPrint.Checked == true)
                 {
                     print_Palletcard(0);
                     if (ckb_dup.Checked == true)
@@ -829,6 +850,7 @@ namespace FruPak.PF.WorkOrder
             }
             return int_result;
         }
+
         private int Process_Pallet_Details(int int_Pallet_Id, decimal dec_quantity1)
         {
             int int_result = 0;
@@ -971,7 +993,7 @@ namespace FruPak.PF.WorkOrder
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 dr = ds.Tables[0].Rows[i];
-                dec_total = dec_quantity1  * Convert.ToDecimal(dr["Multiplier"].ToString());
+                dec_total = dec_quantity1 * Convert.ToDecimal(dr["Multiplier"].ToString());
                 int_result = int_result + FruPak.PF.Data.AccessLayer.PF_Stock_Used.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Stock_Used"), Convert.ToInt32(dr["Stock_Item_Id"].ToString()), int_Season, Convert.ToInt32(dec_total), int_Current_User_Id);
             }
 
@@ -980,6 +1002,7 @@ namespace FruPak.PF.WorkOrder
 
             return int_result;
         }
+
         private void btn_reset_Click(object sender, EventArgs e)
         {
             if (ckb_Auto_Reset.Checked == true)
@@ -991,6 +1014,7 @@ namespace FruPak.PF.WorkOrder
                 Reset_Full();
             }
         }
+
         private void Reset_Full()
         {
             Reset_Part();
@@ -1008,6 +1032,7 @@ namespace FruPak.PF.WorkOrder
             ckb_plc_on_order.Checked = false;
             ckb_dup.Checked = false;
         }
+
         private void Reset_Part()
         {
             cmb_Batch2.ResetText();
@@ -1046,20 +1071,24 @@ namespace FruPak.PF.WorkOrder
                     cmb_Batch3.Visible = false;
                     rb_EOR1.Visible = false;
                     break;
+
                 case "Juice":
                 case "WPC":
                 case "FDA":
                     break;
+
                 default:
                     cmb_Batch1.ResetText();
                     cmb_Batch1.SelectedItem = null;
                     break;
             }
         }
+
         private void btn_Close_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
             if ((sender as DataGridView).Rows[Convert.ToInt32((sender as DataGridView).CurrentCell.RowIndex.ToString())].Cells[0].Value != null)
@@ -1068,11 +1097,14 @@ namespace FruPak.PF.WorkOrder
             }
             populate_datagridview2();
         }
+
         private void dataGridView1_RowsAdded(object sender, DataGridViewRowsAddedEventArgs e)
         {
             int_DVG_Pallet_Id = FruPak.PF.Common.Code.General.int_max_user_id("PF_Pallet") - 1;
         }
+
         private List<string> lst_filenames = new List<string>();
+
         private void print_Palletcard(int rowindex)
         {
             Cursor = Cursors.WaitCursor;
@@ -1121,6 +1153,7 @@ namespace FruPak.PF.WorkOrder
                                 case "PF-TPath":
                                     FruPak.PF.PrintLayer.Word.TemplatePath = dr_Get_Info["Value"].ToString();
                                     break;
+
                                 case "PF-TWPC":
                                     FruPak.PF.PrintLayer.Word.TemplateName = dr_Get_Info["Value"].ToString();
                                     break;
@@ -1130,6 +1163,7 @@ namespace FruPak.PF.WorkOrder
                         FruPak.PF.PrintLayer.Word.Server_Print(Data, int_Current_User_Id);
                     }
                     break;
+
                 default:
                     if (FruPak.PF.PrintLayer.Word.Test_for_Word() == true)
                     {
@@ -1164,6 +1198,7 @@ namespace FruPak.PF.WorkOrder
                                 case "PF-TPath":
                                     FruPak.PF.PrintLayer.Word.TemplatePath = dr_Get_Info["Value"].ToString();
                                     break;
+
                                 case "PF-TPallet":
                                     FruPak.PF.PrintLayer.Word.TemplateName = dr_Get_Info["Value"].ToString();
                                     break;
@@ -1206,13 +1241,16 @@ namespace FruPak.PF.WorkOrder
                 File.Delete(filename);
             }
         }
+
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             DialogResult DLR_Message = new DialogResult();
             int int_result = 0;
 
             //Print
+
             #region ------------- Print -------------
+
             if (e.ColumnIndex == 8)
             {
                 print_Palletcard(e.RowIndex);
@@ -1221,9 +1259,13 @@ namespace FruPak.PF.WorkOrder
                     print_Palletcard(e.RowIndex);
                 }
             }
-            #endregion
+
+            #endregion ------------- Print -------------
+
             //Delete
+
             #region ------------- Delete -------------
+
             else if (e.ColumnIndex == 9)
             {
                 string str_msg;
@@ -1266,9 +1308,13 @@ namespace FruPak.PF.WorkOrder
                 }
                 populate_datagridview();
             }
-            #endregion
+
+            #endregion ------------- Delete -------------
+
             //Edit
+
             #region ------------- Edit -------------
+
             else if (e.ColumnIndex == 10)
             {
                 int_DVG_Row_id = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Pallet_Id"].Value.ToString());
@@ -1276,14 +1322,18 @@ namespace FruPak.PF.WorkOrder
                 cmb_Location.SelectedValue = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Location_Id"].Value.ToString());
                 btn_Add.Text = "&Update";
             }
-            #endregion
+
+            #endregion ------------- Edit -------------
         }
+
         private void dataGridView2_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             DialogResult DLR_Message = new DialogResult();
             int int_result = 0;
             //Delete
+
             #region ------------- Delete -------------
+
             if (e.ColumnIndex == 6)
             {
                 string str_msg;
@@ -1311,9 +1361,13 @@ namespace FruPak.PF.WorkOrder
                 }
                 populate_datagridview2();
             }
-            #endregion
+
+            #endregion ------------- Delete -------------
+
             //Edit
+
             #region ------------- Edit -------------
+
             else if (e.ColumnIndex == 7)
             {
                 int_DVG_Row_id = Convert.ToInt32(dataGridView2.Rows[e.RowIndex].Cells["PalletDetails_Id"].Value.ToString());
@@ -1333,8 +1387,10 @@ namespace FruPak.PF.WorkOrder
 
                 btn_Add.Text = "&Update Batch";
             }
-            #endregion
+
+            #endregion ------------- Edit -------------
         }
+
         private void cmb_Batch1_SelectionChangeCommitted(object sender, EventArgs e)
         {
             if (Convert.ToInt32((sender as ComboBox).SelectedItem.ToString()) == 0)
@@ -1355,6 +1411,7 @@ namespace FruPak.PF.WorkOrder
                 hide_when_hotfill();
             }
         }
+
         private void Print_Bin_Cards()
         {
             DataSet ds_Get_Info;
@@ -1375,6 +1432,7 @@ namespace FruPak.PF.WorkOrder
                     case "PF-TPath":
                         FruPak.PF.PrintLayer.Labels.TemplatePath = dr_Get_Info["Value"].ToString();
                         break;
+
                     case "PF-TBin":
                         FruPak.PF.PrintLayer.Labels.TemplateName = dr_Get_Info["Value"].ToString();
                         break;
@@ -1384,6 +1442,7 @@ namespace FruPak.PF.WorkOrder
 
             FruPak.PF.PrintLayer.Labels.Bin_Labels(str_barcode, cmb_Material.Text.Substring(0, cmb_Material.Text.IndexOf('-') - 1), str_Trader_Desc, str_Variety_desc, "", "", woDisplay1.Process_Date.ToString().Substring(8, 2) + "/" + woDisplay1.Process_Date.ToString().Substring(5, 2) + "/" + woDisplay1.Process_Date.ToString().Substring(0, 4), false);
         }
+
         private void cmb_Material_SelectionChangeCommitted(object sender, EventArgs e)
         {
             DataSet ds_Get_info = FruPak.PF.Data.AccessLayer.CM_Material.Get_Info(Convert.ToInt32((sender as ComboBox).SelectedValue.ToString()));
@@ -1403,6 +1462,7 @@ namespace FruPak.PF.WorkOrder
                 }
             }
         }
+
         private void Enter_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == 13)
@@ -1410,6 +1470,7 @@ namespace FruPak.PF.WorkOrder
                 Submit();
             }
         }
+
         private void rb_EORCheckedChanged(object sender, EventArgs e)
         {
             nud_EOR_Weight.Visible = (sender as RadioButton).Checked;
@@ -1442,22 +1503,25 @@ namespace FruPak.PF.WorkOrder
                 nud_Quantity3.Enabled = false;
             }
         }
+
         private void cmb_Batch_SelectedIndexChanged(object sender, EventArgs e)
         {
             if ((sender as ComboBox).SelectedIndex >= 0)
             {
-                switch((sender as ComboBox).Name)
+                switch ((sender as ComboBox).Name)
                 {
                     case "cmb_Batch1":
                         rb_EOR1.Visible = true;
                         rb_EOR2.Visible = false;
                         rb_EOR3.Visible = false;
                         break;
+
                     case "cmb_Batch2":
                         rb_EOR1.Visible = false;
                         rb_EOR2.Visible = true;
                         rb_EOR3.Visible = false;
                         break;
+
                     case "cmb_Batch3":
                         rb_EOR1.Visible = false;
                         rb_EOR2.Visible = false;
@@ -1466,11 +1530,13 @@ namespace FruPak.PF.WorkOrder
                 }
             }
         }
+
         private void ckb_plc_on_order_CheckedChanged(object sender, EventArgs e)
         {
             lbl_order.Visible = ckb_plc_on_order.Checked;
             cmb_Orders.Visible = ckb_plc_on_order.Checked;
         }
+
         private void nud_Quantity_KeyUp(object sender, KeyEventArgs e)
         {
             if (IsKeyADigit(e.KeyCode) == true)
@@ -1478,20 +1544,24 @@ namespace FruPak.PF.WorkOrder
                 add_totals();
             }
         }
+
         private void nud_Quantity_ValueChanged(object sender, EventArgs e)
         {
             add_totals();
         }
+
         private void add_totals()
         {
             txt_Pallet_Total.Text = Convert.ToString(nud_Quantity1.Value + nud_Quantity2.Value + nud_Quantity3.Value);
         }
+
         public static bool IsKeyADigit(Keys key)
         {
             return (key >= Keys.D0 && key <= Keys.D9) || (key >= Keys.NumPad0 && key <= Keys.NumPad9);
         }
 
         #region Log Code
+
         /// <summary>
         /// Formats the output to the debug log so that the actual log contents stand out amongst the machine-generated stuff.
         /// Refers to machine-generated content, not calling specifics.
@@ -1503,9 +1573,11 @@ namespace FruPak.PF.WorkOrder
             string Output = "___[ " + input + " ]___";
             return Output;
         }
-        #endregion
+
+        #endregion Log Code
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
+
         /// <summary>
         /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
@@ -1518,34 +1590,39 @@ namespace FruPak.PF.WorkOrder
             {
                 Button b = (Button)sender;
                 logger.Log(LogLevel.Info, DecorateString(b.Name, b.Text, "Click"));
-
             }
         }
+
         private void Control_Validated(object sender, EventArgs e)
         {
             TextBox t = (TextBox)sender;
             logger.Log(LogLevel.Info, DecorateString(t.Name, t.Text, "Validated"));
         }
+
         private void Control_SelectedValueChanged(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Text, "SelectedValueChanged"));
         }
+
         private void Control_ValueChanged(object sender, EventArgs e)
         {
             DateTimePicker dtp = (DateTimePicker)sender;
             logger.Log(LogLevel.Info, DecorateString(dtp.Name, dtp.Text, "ValueChanged"));
         }
+
         private void Control_NudValueChanged(object sender, EventArgs e)
         {
             NumericUpDown nud = (NumericUpDown)sender;
             logger.Log(LogLevel.Info, DecorateString(nud.Name, nud.Text, "NudValueChanged"));
         }
+
         private void Control_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Checked.ToString(), "CheckedChanged"));
         }
+
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
             FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
@@ -1553,8 +1630,10 @@ namespace FruPak.PF.WorkOrder
         }
 
         #region Decorate String
+
         // DecorateString
         private string openPad = " --- [ ";
+
         private string closePad = " ] --- ";
         private string intro = "--->   { ";
         private string outro = " }   <---";
@@ -1576,7 +1655,8 @@ namespace FruPak.PF.WorkOrder
             output = intro + name + openPad + input + closePad + action + outro;
             return output;
         }
-        #endregion
+
+        #endregion Decorate String
 
         /// <summary>
         /// Close the form with the Esc key (Sel request 11-02-2015 BN)
@@ -1592,7 +1672,6 @@ namespace FruPak.PF.WorkOrder
             }
         }
 
-        #endregion
-
+        #endregion Methods to log UI events to the CSV file. BN 29/01/2015
     }
 }

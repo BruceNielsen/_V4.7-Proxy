@@ -42,7 +42,6 @@
             this.lbl_message = new System.Windows.Forms.Label();
             this.btn_View = new System.Windows.Forms.Button();
             this.btn_Email = new System.Windows.Forms.Button();
-            this.customer1 = new FruPak.PF.Utils.UserControls.Customer();
             this.rdb_list_curr = new System.Windows.Forms.RadioButton();
             this.rdb_List_All = new System.Windows.Forms.RadioButton();
             this.label8 = new System.Windows.Forms.Label();
@@ -50,6 +49,11 @@
             this.label3 = new System.Windows.Forms.Label();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.panelShipping_Search = new System.Windows.Forms.Panel();
+            this.buttonCheckFilesInTheTempFolder = new System.Windows.Forms.Button();
+            this.buttonTest = new System.Windows.Forms.Button();
+            this.buttonNewView = new System.Windows.Forms.Button();
+            this.customer1 = new FruPak.PF.Utils.UserControls.Customer();
+            this.buttonDeleteFiles = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panelShipping_Search.SuspendLayout();
             this.SuspendLayout();
@@ -184,12 +188,13 @@
             // 
             // btn_View
             // 
-            this.btn_View.Location = new System.Drawing.Point(838, 5);
+            this.btn_View.Location = new System.Drawing.Point(603, 5);
             this.btn_View.Name = "btn_View";
             this.btn_View.Size = new System.Drawing.Size(75, 32);
             this.btn_View.TabIndex = 12;
-            this.btn_View.Text = "&View";
+            this.btn_View.Text = "OldView";
             this.btn_View.UseVisualStyleBackColor = true;
+            this.btn_View.Visible = false;
             this.btn_View.Click += new System.EventHandler(this.btn_View_Click);
             // 
             // btn_Email
@@ -201,16 +206,6 @@
             this.btn_Email.Text = "&Email";
             this.btn_Email.UseVisualStyleBackColor = true;
             this.btn_Email.Click += new System.EventHandler(this.btn_Email_Click);
-            // 
-            // customer1
-            // 
-            this.customer1.CFocused = false;
-            this.customer1.Customer_Id = 0;
-            this.customer1.Location = new System.Drawing.Point(15, 48);
-            this.customer1.Name = "customer1";
-            this.customer1.Size = new System.Drawing.Size(294, 28);
-            this.customer1.TabIndex = 1;
-            this.customer1.CustomerChanged += new System.EventHandler(this.cmb_Customers_SelectedIndexChanged);
             // 
             // rdb_list_curr
             // 
@@ -274,6 +269,10 @@
             // 
             // panelShipping_Search
             // 
+            this.panelShipping_Search.Controls.Add(this.buttonDeleteFiles);
+            this.panelShipping_Search.Controls.Add(this.buttonCheckFilesInTheTempFolder);
+            this.panelShipping_Search.Controls.Add(this.buttonTest);
+            this.panelShipping_Search.Controls.Add(this.buttonNewView);
             this.panelShipping_Search.Controls.Add(this.chb_All);
             this.panelShipping_Search.Controls.Add(this.label8);
             this.panelShipping_Search.Controls.Add(this.chb_PS);
@@ -292,6 +291,58 @@
             this.panelShipping_Search.Name = "panelShipping_Search";
             this.panelShipping_Search.Size = new System.Drawing.Size(1006, 67);
             this.panelShipping_Search.TabIndex = 75;
+            // 
+            // buttonCheckFilesInTheTempFolder
+            // 
+            this.buttonCheckFilesInTheTempFolder.Location = new System.Drawing.Point(757, 39);
+            this.buttonCheckFilesInTheTempFolder.Name = "buttonCheckFilesInTheTempFolder";
+            this.buttonCheckFilesInTheTempFolder.Size = new System.Drawing.Size(75, 23);
+            this.buttonCheckFilesInTheTempFolder.TabIndex = 77;
+            this.buttonCheckFilesInTheTempFolder.Text = "Check Files";
+            this.buttonCheckFilesInTheTempFolder.UseVisualStyleBackColor = true;
+            this.buttonCheckFilesInTheTempFolder.Click += new System.EventHandler(this.buttonCheckFilesInTheTempFolder_Click);
+            // 
+            // buttonTest
+            // 
+            this.buttonTest.Location = new System.Drawing.Point(522, 5);
+            this.buttonTest.Name = "buttonTest";
+            this.buttonTest.Size = new System.Drawing.Size(75, 32);
+            this.buttonTest.TabIndex = 76;
+            this.buttonTest.Text = "Test";
+            this.buttonTest.UseVisualStyleBackColor = true;
+            this.buttonTest.Visible = false;
+            this.buttonTest.Click += new System.EventHandler(this.buttonTest_Click);
+            // 
+            // buttonNewView
+            // 
+            this.buttonNewView.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonNewView.Location = new System.Drawing.Point(838, 5);
+            this.buttonNewView.Name = "buttonNewView";
+            this.buttonNewView.Size = new System.Drawing.Size(75, 32);
+            this.buttonNewView.TabIndex = 75;
+            this.buttonNewView.Text = "&View";
+            this.buttonNewView.UseVisualStyleBackColor = true;
+            this.buttonNewView.Click += new System.EventHandler(this.buttonNewView_Click);
+            // 
+            // customer1
+            // 
+            this.customer1.CFocused = false;
+            this.customer1.Customer_Id = 0;
+            this.customer1.Location = new System.Drawing.Point(15, 48);
+            this.customer1.Name = "customer1";
+            this.customer1.Size = new System.Drawing.Size(294, 28);
+            this.customer1.TabIndex = 1;
+            this.customer1.CustomerChanged += new System.EventHandler(this.cmb_Customers_SelectedIndexChanged);
+            // 
+            // buttonDeleteFiles
+            // 
+            this.buttonDeleteFiles.Location = new System.Drawing.Point(838, 39);
+            this.buttonDeleteFiles.Name = "buttonDeleteFiles";
+            this.buttonDeleteFiles.Size = new System.Drawing.Size(75, 23);
+            this.buttonDeleteFiles.TabIndex = 78;
+            this.buttonDeleteFiles.Text = "Delete Files";
+            this.buttonDeleteFiles.UseVisualStyleBackColor = true;
+            this.buttonDeleteFiles.Click += new System.EventHandler(this.buttonDeleteFiles_Click);
             // 
             // Shipping_Search
             // 
@@ -345,5 +396,9 @@
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Panel panelShipping_Search;
+        private System.Windows.Forms.Button buttonNewView;
+        private System.Windows.Forms.Button buttonTest;
+        private System.Windows.Forms.Button buttonCheckFilesInTheTempFolder;
+        private System.Windows.Forms.Button buttonDeleteFiles;
     }
 }

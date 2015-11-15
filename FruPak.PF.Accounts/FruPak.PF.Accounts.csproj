@@ -183,6 +183,10 @@
       <Project>{7A894363-CA13-4FB8-9A82-ABB3F8FFAE50}</Project>
       <Name>FruPak.PF.Common.Code</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FruPak.PF.CustomSettings\FruPak.PF.CustomSettings.csproj">
+      <Project>{03ac6274-6499-478e-ae47-3680a8451cd3}</Project>
+      <Name>FruPak.PF.CustomSettings</Name>
+    </ProjectReference>
     <ProjectReference Include="..\FruPak.PF.Data.AccessLayer\FruPak.PF.Data.Access_Layer.csproj">
       <Project>{3414FDC5-0AA3-46FA-BDCB-37954C6CE2F5}</Project>
       <Name>FruPak.PF.Data.Access_Layer</Name>

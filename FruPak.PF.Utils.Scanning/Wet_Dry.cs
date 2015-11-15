@@ -1,20 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using NLog;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using NLog;
 
 namespace FruPak.PF.Utils.Scanning
 {
     public partial class Wet_Dry : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static int int_Current_User_Id = 0;
+
         public Wet_Dry(int int_C_User_id)
         {
             InitializeComponent();
@@ -30,6 +26,7 @@ namespace FruPak.PF.Utils.Scanning
             //}
 
             #region Log any interesting events from the UI to the CSV log file
+
             foreach (Control c in this.Controls)
             {
                 if (c.GetType() == typeof(Button))
@@ -60,15 +57,14 @@ namespace FruPak.PF.Utils.Scanning
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-
                 else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
                 {
                     FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
-            #endregion
 
+            #endregion Log any interesting events from the UI to the CSV log file
         }
 
         private void btn_Close_Click(object sender, EventArgs e)
@@ -83,7 +79,7 @@ namespace FruPak.PF.Utils.Scanning
                 lbl_message.Text = "Invalid Barcode";
                 lbl_message.ForeColor = System.Drawing.Color.Red;
             }
-            else               
+            else
             {
                 int int_Bins_Id = 0;
                 DataSet ds = null;
@@ -96,18 +92,17 @@ namespace FruPak.PF.Utils.Scanning
                     ds = FruPak.PF.Data.AccessLayer.CM_Bins.Get_All_For_GDIBarcode(barcode1.BarcodeValue.ToString());
                 }
                 DataRow dr;
-                for (int i =0; i < ds.Tables[0].Rows.Count; i ++)
+                for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
-                    dr =ds.Tables[0].Rows[i];
+                    dr = ds.Tables[0].Rows[i];
                     int_Bins_Id = Convert.ToInt32(dr["Bins_Id"].ToString());
                 }
-                ds.Dispose();                    
+                ds.Dispose();
                 if (rbn_Wet.Checked == true)
                 {
                     FruPak.PF.Data.AccessLayer.CM_Bins.Update_Dump_Ind(int_Bins_Id, "W", int_Current_User_Id);
                     lbl_message.Text = "Updated to WET";
                     lbl_message.ForeColor = System.Drawing.Color.Blue;
-
                 }
                 else if (rbn_Dry.Checked == true)
                 {
@@ -119,8 +114,9 @@ namespace FruPak.PF.Utils.Scanning
         }
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
+
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>
@@ -131,34 +127,39 @@ namespace FruPak.PF.Utils.Scanning
             {
                 Button b = (Button)sender;
                 logger.Log(LogLevel.Info, DecorateString(b.Name, b.Text, "Click"));
-
             }
         }
+
         private void Control_Validated(object sender, EventArgs e)
         {
             TextBox t = (TextBox)sender;
             logger.Log(LogLevel.Info, DecorateString(t.Name, t.Text, "Validated"));
         }
+
         private void Control_SelectedValueChanged(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Text, "SelectedValueChanged"));
         }
+
         private void Control_ValueChanged(object sender, EventArgs e)
         {
             DateTimePicker dtp = (DateTimePicker)sender;
             logger.Log(LogLevel.Info, DecorateString(dtp.Name, dtp.Text, "ValueChanged"));
         }
+
         private void Control_NudValueChanged(object sender, EventArgs e)
         {
             NumericUpDown nud = (NumericUpDown)sender;
             logger.Log(LogLevel.Info, DecorateString(nud.Name, nud.Text, "NudValueChanged"));
         }
+
         private void Control_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Checked.ToString(), "CheckedChanged"));
         }
+
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
             FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
@@ -166,8 +167,10 @@ namespace FruPak.PF.Utils.Scanning
         }
 
         #region Decorate String
+
         // DecorateString
         private string openPad = " --- [ ";
+
         private string closePad = " ] --- ";
         private string intro = "--->   { ";
         private string outro = " }   <---";
@@ -189,7 +192,8 @@ namespace FruPak.PF.Utils.Scanning
             output = intro + name + openPad + input + closePad + action + outro;
             return output;
         }
-        #endregion
+
+        #endregion Decorate String
 
         /// <summary>
         /// Close the form with the Esc key (Sel request 11-02-2015 BN)
@@ -205,7 +209,6 @@ namespace FruPak.PF.Utils.Scanning
             }
         }
 
-        #endregion
-
+        #endregion Methods to log UI events to the CSV file. BN 29/01/2015
     }
 }

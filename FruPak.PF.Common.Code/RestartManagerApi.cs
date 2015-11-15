@@ -1,10 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Runtime.InteropServices;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FruPak.PF.Common.Code
 {
@@ -16,17 +13,17 @@ namespace FruPak.PF.Common.Code
     static public class FileUtil
     {
         [StructLayout(LayoutKind.Sequential)]
-        struct RM_UNIQUE_PROCESS
+        private struct RM_UNIQUE_PROCESS
         {
             public int dwProcessId;
             public System.Runtime.InteropServices.ComTypes.FILETIME ProcessStartTime;
         }
 
-        const int RmRebootReasonNone = 0;
-        const int CCH_RM_MAX_APP_NAME = 255;
-        const int CCH_RM_MAX_SVC_NAME = 63;
+        private const int RmRebootReasonNone = 0;
+        private const int CCH_RM_MAX_APP_NAME = 255;
+        private const int CCH_RM_MAX_SVC_NAME = 63;
 
-        enum RM_APP_TYPE
+        private enum RM_APP_TYPE
         {
             RmUnknownApp = 0,
             RmMainWindow = 1,
@@ -38,7 +35,7 @@ namespace FruPak.PF.Common.Code
         }
 
         [StructLayout(LayoutKind.Sequential, CharSet = CharSet.Unicode)]
-        struct RM_PROCESS_INFO
+        private struct RM_PROCESS_INFO
         {
             public RM_UNIQUE_PROCESS Process;
 
@@ -51,12 +48,13 @@ namespace FruPak.PF.Common.Code
             public RM_APP_TYPE ApplicationType;
             public uint AppStatus;
             public uint TSSessionId;
+
             [MarshalAs(UnmanagedType.Bool)]
             public bool bRestartable;
         }
 
         [DllImport("rstrtmgr.dll", CharSet = CharSet.Unicode)]
-        static extern int RmRegisterResources(uint pSessionHandle,
+        private static extern int RmRegisterResources(uint pSessionHandle,
                                               UInt32 nFiles,
                                               string[] rgsFilenames,
                                               UInt32 nApplications,
@@ -65,13 +63,13 @@ namespace FruPak.PF.Common.Code
                                               string[] rgsServiceNames);
 
         [DllImport("rstrtmgr.dll", CharSet = CharSet.Auto)]
-        static extern int RmStartSession(out uint pSessionHandle, int dwSessionFlags, string strSessionKey);
+        private static extern int RmStartSession(out uint pSessionHandle, int dwSessionFlags, string strSessionKey);
 
         [DllImport("rstrtmgr.dll")]
-        static extern int RmEndSession(uint pSessionHandle);
+        private static extern int RmEndSession(uint pSessionHandle);
 
         [DllImport("rstrtmgr.dll")]
-        static extern int RmGetList(uint dwSessionHandle,
+        private static extern int RmGetList(uint dwSessionHandle,
                                     out uint pnProcInfoNeeded,
                                     ref uint pnProcInfo,
                                     [In, Out] RM_PROCESS_INFO[] rgAffectedApps,
@@ -85,7 +83,7 @@ namespace FruPak.PF.Common.Code
         /// <remarks>See also:
         /// http://msdn.microsoft.com/en-us/library/windows/desktop/aa373661(v=vs.85).aspx
         /// http://wyupdate.googlecode.com/svn-history/r401/trunk/frmFilesInUse.cs (no copyright in code at time of viewing)
-        /// 
+        ///
         /// </remarks>
         static public List<Process> WhoIsLocking(string path)
         {
@@ -126,7 +124,7 @@ namespace FruPak.PF.Common.Code
                     {
                         processes = new List<Process>((int)pnProcInfo);
 
-                        // Enumerate all of the results and add them to the 
+                        // Enumerate all of the results and add them to the
                         // list to be returned
                         for (int i = 0; i < pnProcInfo; i++)
                         {

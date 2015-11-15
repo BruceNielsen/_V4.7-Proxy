@@ -1,9 +1,9 @@
 ﻿//Use it as you want :)
 
 using System;
-using System.Windows.Forms;
-using System.Drawing;
 using System.ComponentModel;
+using System.Drawing;
+using System.Windows.Forms;
 
 namespace Tools
 {
@@ -17,7 +17,7 @@ namespace Tools
         protected Color _waterMarkColor; //Color of the watermark when the control does not have focus
         protected Color _waterMarkActiveColor; //Color of the watermark when the control has focus
 
-        #endregion
+        #endregion Protected Fields
 
         #region Private Fields
 
@@ -25,9 +25,9 @@ namespace Tools
         private Font waterMarkFont; //Font of the watermark
         private SolidBrush waterMarkBrush; //Brush for the watermark
 
-        #endregion
+        #endregion Private Fields
 
-        #endregion
+        #endregion Fields
 
         #region Constructors
 
@@ -36,7 +36,7 @@ namespace Tools
             Initialize();
         }
 
-        #endregion
+        #endregion Constructors
 
         #region Private Methods
 
@@ -55,7 +55,7 @@ namespace Tools
             //Draw the watermark, so we can see it in design time
             DrawWaterMark();
 
-            //Eventhandlers which contains function calls. 
+            //Eventhandlers which contains function calls.
             //Either to draw or to remove the watermark
             this.Enter += new EventHandler(ThisHasFocus);
             this.Leave += new EventHandler(ThisWasLeaved);
@@ -89,7 +89,7 @@ namespace Tools
             }
         }
 
-        #endregion
+        #endregion Private Methods
 
         #region Eventhandlers
 
@@ -108,29 +108,25 @@ namespace Tools
             waterMarkContainer.Width = this.Width; // same goes for width and the parent
             waterMarkContainer.Anchor = AnchorStyles.Left | AnchorStyles.Right; // makes sure that it resizes with the parent control
 
-
-
             if (this.ContainsFocus)
             {
                 //if focused use normal color
                 waterMarkBrush = new SolidBrush(this._waterMarkActiveColor);
             }
-
             else
             {
                 //if not focused use not active color
                 waterMarkBrush = new SolidBrush(this._waterMarkColor);
             }
 
-            //Drawing the string into the panel 
+            //Drawing the string into the panel
             Graphics g = e.Graphics;
             g.DrawString(this._waterMarkText, waterMarkFont, waterMarkBrush, new PointF(-2f, 1f));//Take a look at that point
             //The reason I'm using the panel at all, is because of this feature, that it has no limits
-            //I started out with a label but that looked very very bad because of its paddings 
-
+            //I started out with a label but that looked very very bad because of its paddings
         }
 
-        #endregion
+        #endregion WaterMark Events
 
         #region CTextBox Events
 
@@ -195,13 +191,14 @@ namespace Tools
                 waterMarkContainer.Invalidate();
         }
 
-        #endregion
+        #endregion Overrided Events
 
-        #endregion
+        #endregion CTextBox Events
 
-        #endregion
+        #endregion Eventhandlers
 
         #region Properties
+
         [Category("Watermark attribtues")]
         [Description("Sets the text of the watermark")]
         public string WaterMark
@@ -256,6 +253,6 @@ namespace Tools
             }
         }
 
-        #endregion
+        #endregion Properties
     }
 }

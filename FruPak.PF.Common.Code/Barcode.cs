@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data;
-
+using System.Linq;
 
 namespace FruPak.PF.Common.Code
 {
@@ -19,7 +16,6 @@ namespace FruPak.PF.Common.Code
             get;
             set;
         }
-
 
         private static string str_BarPre = "";
         private static int str_BarBin = 0;
@@ -38,12 +34,15 @@ namespace FruPak.PF.Common.Code
                     case "BarPre":
                         str_BarPre = dr_Get_Info["Value"].ToString();
                         break;
+
                     case "BarBin":
                         str_BarBin = Convert.ToInt32(dr_Get_Info["Value"].ToString());
                         break;
+
                     case "BarPal":
                         str_BarPal = dr_Get_Info["Value"].ToString();
                         break;
+
                     case "BarPal2":
                         str_BarPal2 = Convert.ToInt32(dr_Get_Info["Value"].ToString());
                         break;
@@ -56,14 +55,13 @@ namespace FruPak.PF.Common.Code
                 ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Trader.Get_Info(Barcode_Trader);
                 string traderBarCode = ds_Get_Info.Tables[0].Rows[0]["Barcode_Num"].ToString();
                 Barcode_Num = str_BarPre + traderBarCode + Convert.ToString(str_BarBin + id);
-                Barcode_Num =  Barcode_Num + Convert.ToString(Barcode_Check_Digit());
+                Barcode_Num = Barcode_Num + Convert.ToString(Barcode_Check_Digit());
             }
             else
             {
                 Barcode_Num = str_BarPre + str_BarPal + Convert.ToString(str_BarPal2 + id);
                 Barcode_Num = Barcode_Num + Convert.ToString(Barcode_Check_Digit());
-            }           
-
+            }
         }
         private static int Barcode_Check_Digit()
         {

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Configuration;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace FruPak.PF.CustomSettings
 {
@@ -18,6 +12,7 @@ namespace FruPak.PF.CustomSettings
         {
             // One-time only setup to be commented out once the very first settings file has been generated.
             Path_Local_Path = @"C:\FruPak";
+            Path_Local_PDF_Files = @"C:\FruPak\Client\Printing\Temp";
             Path_Remote_Path = @"P:\FruPak";
             Path_AcroWrap_Path = @"C:\FruPak\Client";
             Path_Printer_Temp = @"\\FRUPAK-SBS\\PublicDocs\\FruPak\\Server\\Temp";
@@ -27,7 +22,10 @@ namespace FruPak.PF.CustomSettings
             Printer_Name = "Brother HL-2040 series";
             CopyAtStartup = false;
             CopyDelayInMinutes = 60;
-            MaxTreeFileSizeInMegabytes = "1";
+            //MaxTreeFileSizeInMegabytes = "1";
+            CcToAddress = "suel@FruPak.co.nz";
+
+            ShowWordWarningMessage = true;
 
             UpdateAddress = "http://192.168.80.69:8080/FruPak-Update/FruPak-PF-Update.xml";
             UpdateProxyUsername = "administrator";
@@ -36,44 +34,53 @@ namespace FruPak.PF.CustomSettings
             UpdateProxyPort = "8090";
             UpdateUseProxy = true;
 
-
             #region FruPak Test Mode Database Connection Settings
+
             TestMode_Server = "FRUPAK-SQL";
             TestMode_Database = "Process_Factory_Test";
             TestMode_User_Id = "jobs";
             TestMode_Password = "jobs";
-            #endregion
+
+            #endregion FruPak Test Mode Database Connection Settings
 
             #region FruPak Production Mode Database Connection Settings
+
             ProductionMode_Server = "FRUPAK-SQL";
             ProductionMode_Database = "Process_Factory";
             ProductionMode_User_Id = "jobs";
             ProductionMode_Password = "jobs";
-            #endregion
+
+            #endregion FruPak Production Mode Database Connection Settings
 
             #region Phantom Test Mode Database Connection Settings
+
             Phantom_Dev_TestMode_Server = @"-\SQLEXPRESS";
             Phantom_Dev_TestMode_Database = "Process_Factory_Test";
             Phantom_Dev_TestMode_User_Id = "jobs";
             Phantom_Dev_TestMode_Password = "jobs";
-            #endregion
+
+            #endregion Phantom Test Mode Database Connection Settings
 
             #region Phantom Production Mode Database Connection Settings
+
             Phantom_Dev_ProductionMode_Server = @"-\SQLEXPRESS";
             Phantom_Dev_ProductionMode_Database = "Process_Factory";
             Phantom_Dev_ProductionMode_User_Id = "jobs";
             Phantom_Dev_ProductionMode_Password = "jobs";
-            #endregion
+
+            #endregion Phantom Production Mode Database Connection Settings
 
             Phantom_Dev_Mode = true;
+            Phantom_Dev_Use_FruPak_SQL = true;
             //Phantom_Dev_Test_Mode = true;
             //Phantom_Dev_EnableResize = true;
             //EncryptionKey = "phantomKey"; // The key has already been set over in Install.cs
-
         }
 
         // Declare application settings
+
         #region Phantom Settings
+
         [DisplayName("Developer Mode")]
         [Description("Allows form resize, minimise/maximise etc..")]
         [Category("Phantom Technologies")]
@@ -135,6 +142,10 @@ namespace FruPak.PF.CustomSettings
         [Category("Update Settings")]
         public bool UpdateUseProxy { get; set; }
 
+        [DisplayName("Show Word warning message")]
+        [Description("Warn the user that any open Word documents will be closed without warning.")]
+        [Category("Phantom Technologies")]
+        public bool ShowWordWarningMessage { get; set; }
 
         //[DisplayName("Developer Size Mode")]
         //[Description("Allows or Disallows resizing the Main Menu Form.")]
@@ -143,57 +154,67 @@ namespace FruPak.PF.CustomSettings
         //public bool Phantom_Dev_EnableResize { get; set; }
 
         #region Local Path
+
         [DisplayName("Local Path")]
         [Description("Local path to the FruPak directory.")]
         [Category("Path Settings")]
-
         public string Path_Local_Path { get; set; }
-        #endregion
 
+        #endregion Local Path
+
+        #region Path_Local_PDF_Files
+
+        [DisplayName("Local PDF Path")]
+        [Description("Local path to the PDF directory.")]
+        [Category("Path Settings")]
+        public string Path_Local_PDF_Files { get; set; }
+
+        #endregion Local PDF Path
+        
         #region Remote Path
+
         [DisplayName("Remote Path")]
         [Description("Remote path to the FruPak directory.\r\nCurrently, the app will crash if it can't find the folder.\r\nOn my list of things to fix.")]
         [Category("Path Settings")]
-
         public string Path_Remote_Path { get; set; }
 
-        #endregion
+        #endregion Remote Path
 
         #region AcroWrap Path
+
         [DisplayName("AcroWrap Path")]
         [Description("Remote path to the AcroWrap Executable directory.")]
         [Category("Path Settings")]
-
         public string Path_AcroWrap_Path { get; set; }
 
-        #endregion
+        #endregion AcroWrap Path
 
         #region Printer Temp Path
+
         [DisplayName("Printer Temp Path")]
         [Description("Path to the Printer Temp directory.")]
         [Category("Path Settings")]
-
         public string Path_Printer_Temp { get; set; }
 
-        #endregion
+        #endregion Printer Temp Path
 
         #region Helpfile Path
+
         [DisplayName("Helpfile Path")]
         [Description("Path to the Helpfile (.chm).")]
         [Category("Path Settings")]
-
         public string Path_Helpfile_Path { get; set; }
 
-        #endregion
+        #endregion Helpfile Path
 
         #region SMTP Host
+
         [DisplayName("SMTP Host")]
         [Description("SMTP Host name")]
         [Category("Path Settings")]
-
         public string Path_SMTP_Host { get; set; }
 
-        #endregion
+        #endregion SMTP Host
 
         // Path_Printer_Temp_Folder
 
@@ -206,7 +227,6 @@ namespace FruPak.PF.CustomSettings
         [DisplayName("Printer Name")]
         [Description("Pallet Card Printer.\r\nAll 3 hardcoded references have now been removed,\r\nso now change to a new printer at will.")]
         [Category("General Settings")]
-
         public string Printer_Name { get; set; }
 
         // This must be in sync across: 1. Logon.cs, 2. Install.cs and 3. Main_menu.cs - on the list of things to get to... (BN)
@@ -216,126 +236,120 @@ namespace FruPak.PF.CustomSettings
 
         //public new string EncryptionKey { get; set; }   // Using the new keyword to hide the other one deep down in the UserSettings class
 
-
         // Most of this is duplicated, but coded for ultimate flexibility
 
         #region FruPak Test Mode Database Connection Settings
+
         [DisplayName("1. Test Server")]
         [Description("FruPak Server Name.")]
         [Category("FruPak DB Test")]
-
         public string TestMode_Server { get; set; }
 
         [DisplayName("2. Test Database")]
         [Description("FruPak Database Name.")]
         [Category("FruPak DB Test")]
-
         public string TestMode_Database { get; set; }
 
         [DisplayName("3. Test User ID")]
         [Description("FruPak Server User ID.")]
         [Category("FruPak DB Test")]
-
         public string TestMode_User_Id { get; set; }
 
         [DisplayName("4. Test Password")]
         [Description("Decrypted password. Is stored encrypted in the XML file.")]
         [Category("FruPak DB Test")]
-
         public string TestMode_Password { get; set; }
 
-        #endregion
+        #endregion FruPak Test Mode Database Connection Settings
 
         #region FruPak Production Mode Database Connection Settings
+
         [DisplayName("1. Production Server")]
         [Description("FruPak Server Name.")]
         [Category("FruPak DB Production")]
-
         public string ProductionMode_Server { get; set; }
 
         [DisplayName("2. Production Database")]
         [Description("FruPak Database Name.")]
         [Category("FruPak DB Production")]
-
         public string ProductionMode_Database { get; set; }
 
         [DisplayName("3. Production User ID")]
         [Description("FruPak Server User ID.")]
         [Category("FruPak DB Production")]
-
         public string ProductionMode_User_Id { get; set; }
 
         [DisplayName("4. Production Password")]
         [Description("Decrypted password. Is stored encrypted in the XML file.")]
         [Category("FruPak DB Production")]
-
         public string ProductionMode_Password { get; set; }
 
-        #endregion
+        #endregion FruPak Production Mode Database Connection Settings
 
         #region Phantom Test Mode Database Connection Settings
+
         [DisplayName("1. Test Server")]
         [Description("Phantom Server Name.")]
         [Category("Phantom DB Test")]
-
         public string Phantom_Dev_TestMode_Server { get; set; }
 
         [DisplayName("2. Test Database")]
         [Description("Phantom Database Name.")]
         [Category("Phantom DB Test")]
-
         public string Phantom_Dev_TestMode_Database { get; set; }
 
         [DisplayName("3. Test User ID")]
         [Description("Phantom Server User ID.")]
         [Category("Phantom DB Test")]
-
         public string Phantom_Dev_TestMode_User_Id { get; set; }
 
         [DisplayName("4. Test Password")]
         [Description("Decrypted password. Is stored encrypted in the XML file.")]
         [Category("Phantom DB Test")]
-
         public string Phantom_Dev_TestMode_Password { get; set; }
 
-        #endregion
+        #endregion Phantom Test Mode Database Connection Settings
 
         #region Phantom Production Mode Database Connection Settings
 
         [DisplayName("1. Production Server")]
         [Description("Phantom Server Name.")]
         [Category("Phantom DB Production")]
-
         public string Phantom_Dev_ProductionMode_Server { get; set; }
 
         [DisplayName("2. Production Database")]
         [Description("Phantom Database Name.")]
         [Category("Phantom DB Production")]
-
         public string Phantom_Dev_ProductionMode_Database { get; set; }
 
         [DisplayName("3. Production User ID")]
         [Description("Phantom Server User ID.")]
         [Category("Phantom DB Production")]
-
         public string Phantom_Dev_ProductionMode_User_Id { get; set; }
 
         [DisplayName("4. Production Password")]
         [Description("Decrypted password. Is stored encrypted in the XML file.")]
         [Category("Phantom DB Production")]
-
         public string Phantom_Dev_ProductionMode_Password { get; set; }
 
-        #endregion
+        #endregion Phantom Production Mode Database Connection Settings
 
+        [DisplayName("CC To Address")]
+        [Description("CC To Address.")]
+        [Category("Email")]
+        public string CcToAddress { get; set; }
 
-        #endregion
+        #endregion Phantom Settings
 
         // Must override WriteSettings() to write values
         public override void WriteSettings(UserSettingsWriter writer)
         {
             #region Local, Remote, AcroWrap and Printer etc
+
             writer.Write("Local_Path", Path_Local_Path);
+            writer.Write("Local_PDF_Path", Path_Local_PDF_Files);
+            
+
             writer.Write("Remote_Path", Path_Remote_Path);
             writer.Write("AcroWrap_Path", Path_AcroWrap_Path);
             writer.Write("Printer_Temp_Path", Path_Printer_Temp);
@@ -344,35 +358,45 @@ namespace FruPak.PF.CustomSettings
 
             //writer.Write("Path_To_Settings", Path_To_Settings);
             writer.Write("Printer_Name", Printer_Name);
-            #endregion
+            writer.Write("Cc_To_Address", CcToAddress);
+
+            #endregion Local, Remote, AcroWrap and Printer etc
 
             #region FruPak Test Mode Database Connection Settings
+
             writer.Write("TestMode_Server", TestMode_Server);
             writer.Write("TestMode_Database", TestMode_Database);
             writer.Write("TestMode_User_Id", TestMode_User_Id);
             writer.WriteEncrypted("TestMode_Password", TestMode_Password);
-            #endregion
+
+            #endregion FruPak Test Mode Database Connection Settings
 
             #region FruPak Production Mode Database Connection Settings
+
             writer.Write("ProductionMode_Server", ProductionMode_Server);
             writer.Write("ProductionMode_Database", ProductionMode_Database);
             writer.Write("ProductionMode_User_Id", ProductionMode_User_Id);
             writer.WriteEncrypted("ProductionMode_Password", ProductionMode_Password);
-            #endregion
+
+            #endregion FruPak Production Mode Database Connection Settings
 
             #region Phantom Test Mode Database Connection Settings
+
             writer.Write("Phantom_Dev_TestMode_Server", Phantom_Dev_TestMode_Server);
             writer.Write("Phantom_Dev_TestMode_Database", Phantom_Dev_TestMode_Database);
             writer.Write("Phantom_Dev_TestMode_User_Id", Phantom_Dev_TestMode_User_Id);
             writer.WriteEncrypted("Phantom_Dev_TestMode_Password", Phantom_Dev_TestMode_Password);
-            #endregion
+
+            #endregion Phantom Test Mode Database Connection Settings
 
             #region Phantom Production Mode Database Connection Settings
+
             writer.Write("Phantom_Dev_ProductionMode_Server", Phantom_Dev_ProductionMode_Server);
             writer.Write("Phantom_Dev_ProductionMode_Database", Phantom_Dev_ProductionMode_Database);
             writer.Write("Phantom_Dev_ProductionMode_User_Id", Phantom_Dev_ProductionMode_User_Id);
             writer.WriteEncrypted("Phantom_Dev_ProductionMode_Password", Phantom_Dev_ProductionMode_Password);
-            #endregion
+
+            #endregion Phantom Production Mode Database Connection Settings
 
             // Booleans
             writer.Write("Phantom_Dev_Mode", Phantom_Dev_Mode);
@@ -389,16 +413,21 @@ namespace FruPak.PF.CustomSettings
             writer.Write("Update_Proxy_Port", UpdateProxyPort);
             writer.Write("Update_Use_Proxy", UpdateUseProxy);
 
+            writer.Write("Show_Word_Warning", ShowWordWarningMessage);
+
+            
 
             //writer.Write("Phantom_Dev_EnableResize", Phantom_Dev_EnableResize);
-
         }
 
         // Must override ReadSettings() to read values
         public override void ReadSettings(UserSettingsReader reader)
         {
             #region Local, Remote, Path_To_Settings and Printer
+
             Path_Local_Path = reader.Read("Local_Path", "");
+            Path_Local_PDF_Files = reader.Read("Local_PDF_Path", "");
+
             Path_Remote_Path = reader.Read("Remote_Path", "");
             Path_AcroWrap_Path = reader.Read("AcroWrap_Path", "");
             Path_Printer_Temp = reader.Read("Printer_Temp_Path", "");
@@ -409,35 +438,45 @@ namespace FruPak.PF.CustomSettings
 
             //Path_To_Settings = reader.Read("Path_To_Settings", "");
             Printer_Name = reader.Read("Printer_Name", "");
-            #endregion
+            CcToAddress = reader.Read("Cc_To_Address", "");
+
+            #endregion Local, Remote, Path_To_Settings and Printer
 
             #region FruPak Test Mode Database Connection Settings
+
             TestMode_Server = reader.Read("TestMode_Server", "");
             TestMode_Database = reader.Read("TestMode_Database", "");
             TestMode_User_Id = reader.Read("TestMode_User_Id", "");
             TestMode_Password = reader.ReadEncrypted("TestMode_Password", "");
-            #endregion
+
+            #endregion FruPak Test Mode Database Connection Settings
 
             #region FruPak Production Mode Database Connection Settings
+
             ProductionMode_Server = reader.Read("ProductionMode_Server", "");
             ProductionMode_Database = reader.Read("ProductionMode_Database", "");
             ProductionMode_User_Id = reader.Read("ProductionMode_User_Id", "");
             ProductionMode_Password = reader.ReadEncrypted("ProductionMode_Password", "");
-            #endregion
+
+            #endregion FruPak Production Mode Database Connection Settings
 
             #region Phantom Test Mode Database Connection Settings
+
             Phantom_Dev_TestMode_Server = reader.Read("Phantom_Dev_TestMode_Server", "");
             Phantom_Dev_TestMode_Database = reader.Read("Phantom_Dev_TestMode_Database", "");
             Phantom_Dev_TestMode_User_Id = reader.Read("Phantom_Dev_TestMode_User_Id", "");
             Phantom_Dev_TestMode_Password = reader.ReadEncrypted("Phantom_Dev_TestMode_Password", "");
-            #endregion
+
+            #endregion Phantom Test Mode Database Connection Settings
 
             #region Phantom Production Mode Database Connection Settings
+
             Phantom_Dev_ProductionMode_Server = reader.Read("Phantom_Dev_ProductionMode_Server", "");
             Phantom_Dev_ProductionMode_Database = reader.Read("Phantom_Dev_ProductionMode_Database", "");
             Phantom_Dev_ProductionMode_User_Id = reader.Read("Phantom_Dev_ProductionMode_User_Id", "");
             Phantom_Dev_ProductionMode_Password = reader.ReadEncrypted("Phantom_Dev_ProductionMode_Password", "");
-            #endregion
+
+            #endregion Phantom Production Mode Database Connection Settings
 
             Phantom_Dev_Mode = reader.Read("Phantom_Dev_Mode", Phantom_Dev_Mode);
             Phantom_Dev_Use_FruPak_SQL = reader.Read("Use_FruPak-SQL", Phantom_Dev_Use_FruPak_SQL);
@@ -452,9 +491,9 @@ namespace FruPak.PF.CustomSettings
             UpdateProxyPort = reader.Read("Update_Proxy_Port", UpdateProxyPort);
             UpdateUseProxy = reader.Read("Update_Use_Proxy", UpdateUseProxy);
 
+            ShowWordWarningMessage = reader.Read("Show_Word_Warning", ShowWordWarningMessage);
 
             //Phantom_Dev_EnableResize = reader.Read("Phantom_Dev_EnableResize", Phantom_Dev_EnableResize);
-
         }
     }
 }

@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace FruPak.PF.Menu
@@ -12,10 +6,11 @@ namespace FruPak.PF.Menu
     public partial class InputMaterialNumber : Form
     {
         public event EventHandler<TextEventArgs> NewTextChanged;
+
         // Private field to hold the value that is passed around.
-        // Exposed by the NewText property and passed in the NewTextChanged event. 
+        // Exposed by the NewText property and passed in the NewTextChanged event.
         private string newText;
-        
+
         // Experimental
         //public event EventHandler<GeneralPurposeObjectEventArgs> NewGeneralPurposeObjectChanged;
         //private string newGeneralPurposeObject;
@@ -53,6 +48,7 @@ namespace FruPak.PF.Menu
                 }
             }
         }
+
         // Standard event raising pattern.
         protected virtual void OnNewTextChanged(TextEventArgs e)
         {
@@ -65,6 +61,7 @@ namespace FruPak.PF.Menu
         }
 
         #region Button Handlers
+
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             this.textBoxMaterialNumber.Text = string.Empty;
@@ -75,6 +72,7 @@ namespace FruPak.PF.Menu
         {
             this.Close();
         }
-        #endregion
+
+        #endregion Button Handlers
     }
 }

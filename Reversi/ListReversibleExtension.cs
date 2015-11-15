@@ -1,18 +1,17 @@
 ﻿/*
  * Copyright (C) Henrik Jonsson 2007
- * 
- * THIS WORK IS PROVIDED UNDER THE TERMS OF THIS CODE PROJECT OPEN LICENSE ("LICENSE"). 
- * THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK 
+ *
+ * THIS WORK IS PROVIDED UNDER THE TERMS OF THIS CODE PROJECT OPEN LICENSE ("LICENSE").
+ * THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK
  * OTHER THAN AS AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.
- * 
+ *
  * See licence.txt or http://thecodeproject.com/info/eula.aspx for full licence description.
- * 
+ *
  * This copyright notice must not be removed.
 */
+
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
 namespace Reversible.Extensions
 {
@@ -47,10 +46,12 @@ namespace Reversible.Extensions
                         list[i + startIndex] = backup;
                     }
                     break;
+
                 case ListEditAction.AddItem:
                     list.RemoveRange(startIndex, items.Count);
                     action = ListEditAction.RemoveItem;
                     break;
+
                 case ListEditAction.RemoveItem:
                     list.InsertRange(startIndex, items);
                     action = ListEditAction.AddItem;
@@ -59,7 +60,7 @@ namespace Reversible.Extensions
             return this;
         }
     }
-    
+
     public static class ListReversibleExtension
     {
         /// <summary>
@@ -139,7 +140,6 @@ namespace Reversible.Extensions
             }
         }
 
-
         /// <summary>
         /// Sorts the list in default order (reversible).
         /// </summary>
@@ -176,7 +176,6 @@ namespace Reversible.Extensions
             }
         }
 
-
         /// <summary>
         /// Sorts a subset of the list (reversible).
         /// </summary>
@@ -207,7 +206,6 @@ namespace Reversible.Extensions
         public static ReversibleList<T> AsReversible<T>(this List<T> list)
         {
             return ReversibleList<T>.CreateReversibleWrapper(list);
-        } 
+        }
     }
-   
 }

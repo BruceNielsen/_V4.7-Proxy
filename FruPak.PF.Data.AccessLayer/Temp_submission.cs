@@ -1,24 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FruPak.Utils.Data;
 using System.Data;
-using System.Data.OleDb;
-using FruPak.Utils.Data;
 
 namespace FruPak.PF.Data.AccessLayer
 {
     /*Description
     -----------------
     Temp_submission Class.
-     * 
+     *
      * This Class is a data access layer with anything to do with submissions, that has been considered temperory
      * At some point in time all this should be replaced/moved to the correct class.
-     * 
+     *
 
     Date        Author     Desc
     -------------------------------------------------------------------------------------------------------------------------------------------------
     02/10/2013  Alison       Creation
     */
+
     public class Temp_submission
     {
         public static DataSet Get_Info_Translated()
@@ -33,6 +30,7 @@ namespace FruPak.PF.Data.AccessLayer
                                             "INNER JOIN dbo.CM_Block B ON B.Block_Id = S.Block_Id " +
                                             "ORDER BY S.Submission_Id DESC");
         }
+
         public static DataSet BinCard(int Submission_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -47,6 +45,7 @@ namespace FruPak.PF.Data.AccessLayer
                                             "INNER JOIN dbo.CM_Trader T ON T.Trader_Id = S.Trader_Id " +
                                             "WHERE S.Submission_Id = " + Submission_Id);
         }
+
         public static int Update_GDIBarcode(int Bins_Id, string GDIBarcode, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();

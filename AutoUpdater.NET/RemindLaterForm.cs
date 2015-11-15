@@ -30,26 +30,32 @@ namespace AutoUpdaterDotNET
                         RemindLaterFormat = RemindLaterFormat.Minutes;
                         RemindLaterAt = 30;
                         break;
+
                     case 1:
                         RemindLaterFormat = RemindLaterFormat.Hours;
                         RemindLaterAt = 12;
                         break;
+
                     case 2:
                         RemindLaterFormat = RemindLaterFormat.Days;
                         RemindLaterAt = 1;
                         break;
+
                     case 3:
                         RemindLaterFormat = RemindLaterFormat.Days;
                         RemindLaterAt = 2;
                         break;
+
                     case 4:
                         RemindLaterFormat = RemindLaterFormat.Days;
                         RemindLaterAt = 4;
                         break;
+
                     case 5:
                         RemindLaterFormat = RemindLaterFormat.Days;
                         RemindLaterAt = 8;
                         break;
+
                     case 6:
                         RemindLaterFormat = RemindLaterFormat.Days;
                         RemindLaterAt = 10;

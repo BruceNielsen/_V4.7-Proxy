@@ -1,10 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace FruPak.PF.Utils.UserControls
@@ -12,6 +6,7 @@ namespace FruPak.PF.Utils.UserControls
     public partial class Barcode : UserControl
     {
         public event EventHandler txtChanged;
+
         public Barcode()
         {
             InitializeComponent();
@@ -33,6 +28,7 @@ namespace FruPak.PF.Utils.UserControls
                 txt_Barcode.Focus();
             }
         }
+
         public string Set_Label
         {
             get

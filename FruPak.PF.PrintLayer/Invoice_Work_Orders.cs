@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data;
-using System.IO;
 
 namespace FruPak.PF.PrintLayer
 {
     public class Invoice_Work_Orders
     {
-
         public static int Print(string Data, bool bol_print)
         {
             int return_code = 98;
@@ -19,9 +15,10 @@ namespace FruPak.PF.PrintLayer
             return_code = Print(Convert.ToInt32(DataParts[0]), Convert.ToInt32(DataParts[1]), DataParts[2], DataParts[3], DataParts[4], DataParts[5], Convert.ToDecimal(DataParts[6]), DataParts[7]);
             return return_code;
         }
+
         public static int Print(int Invoice_Id, int int_Trader_Id, string Invoice_Date, string Order_Num, string str_delivery_name, string str_save_filename, decimal dec_GST, string str_type)
         {
-            int return_code = 97;            
+            int return_code = 97;
 
             string str_Invoice_Date = "";
             string str_Invoice_Date_yyyymmdd = "";
@@ -36,7 +33,6 @@ namespace FruPak.PF.PrintLayer
             FruPak.PF.PrintLayer.Word.ReplaceText("CustomerNum", Convert.ToString(int_Trader_Id));  //Trader_Id
             FruPak.PF.PrintLayer.Word.ReplaceText("InvoiceNum", Convert.ToString(Invoice_Id));  //Invoice Number / Invoice_Id
             FruPak.PF.PrintLayer.Word.ReplaceText("OrderNum", Order_Num);  //Order Number
-
 
             int ip = 1;
             decimal dec_tot_xgst = 0;
@@ -54,7 +50,6 @@ namespace FruPak.PF.PrintLayer
                 dr_Get_Info = ds_Get_Info.Tables[0].Rows[i_wo];
                 str_get_wo = str_get_wo + dr_Get_Info["Work_Order_Id"] + ",";
                 int_wo_id.Add(Convert.ToInt32(dr_Get_Info["Work_Order_Id"].ToString()));
-
             }
             ds_Get_Info.Dispose();
             str_get_wo = str_get_wo + ")";
@@ -72,18 +67,19 @@ namespace FruPak.PF.PrintLayer
 
                 switch (dr_Get_Info["Code"].ToString().ToUpper().Substring(0, dr_Get_Info["Code"].ToString().IndexOf('-')))
                 {
-                    
-                        //str_total_item = FruPak.PF.Common.Code.General.Calculate_Totals(dr_Rates["Code"].ToString().ToUpper().Substring(0, dr_Rates["Code"].ToString().IndexOf('-')), str_WHERE);
+                    //str_total_item = FruPak.PF.Common.Code.General.Calculate_Totals(dr_Rates["Code"].ToString().ToUpper().Substring(0, dr_Rates["Code"].ToString().IndexOf('-')), str_WHERE);
                     case "STORAGE":
                         str_Quantity = FruPak.PF.Common.Code.General.Calculate_Totals(dr_Get_Info["Code"].ToString().ToUpper(), str_WHERE);
                         break;
+
                     case "BAGS":
                     case "FREIGHT":
                     case "HOTFILL":
                         str_Quantity = FruPak.PF.Common.Code.General.Calculate_Totals(dr_Get_Info["Code"].ToString().ToUpper().Substring(0, dr_Get_Info["Code"].ToString().IndexOf('-')), str_WHERE);
                         break;
+
                     default:
-                        ds = FruPak.PF.Data.AccessLayer.CM_Bins.Get_NET_Bin_Weight_by_Work_Order(int_wo_id[i]);                        
+                        ds = FruPak.PF.Data.AccessLayer.CM_Bins.Get_NET_Bin_Weight_by_Work_Order(int_wo_id[i]);
                         for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
                         {
                             dr = ds.Tables[j].Rows[j];
@@ -91,7 +87,7 @@ namespace FruPak.PF.PrintLayer
                         }
                         ds.Dispose();
                         break;
-                }                
+                }
                 string str_desc = "";
                 str_desc = dr_Get_Info["Description"].ToString();
 

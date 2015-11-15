@@ -1,52 +1,57 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using NLog;
+using System;
+using System.Security.Permissions;
 using System.Threading;
 using System.Windows.Forms;
-using NLog;
 
 namespace FruPak.PF.Menu
 {
-    static class Program
+    internal static class Program
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
         [STAThread]
-        static void Main()
+        [SecurityPermission(SecurityAction.Demand, Flags = SecurityPermissionFlag.ControlAppDomain)]
+        private static void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
             #region ThreadException and UnhandledException Handlers - Register Handlers - Phantom 9/12/2014
-            Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-            #endregion
 
+            Application.ThreadException += new ThreadExceptionEventHandler(Application_ThreadException);
+            Application.SetUnhandledExceptionMode(UnhandledExceptionMode.CatchException);
+
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+
+            #endregion ThreadException and UnhandledException Handlers - Register Handlers - Phantom 9/12/2014
 
             Application.Run(new Main_Menu());
         }
 
         #region Application_ThreadException - Handler Method - Phantom 9/12/2014
 
-        static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
+        private static void Application_ThreadException(object sender, ThreadExceptionEventArgs e)
         {
-            //MessageBox.Show(e.Exception.Message, "Unhandled Thread Exception");
+            MessageBox.Show(e.Exception.Message, "Bruce - ProcessFactory: Unhandled Thread Exception");
             // here you can log the exception ...
             logger.Log(LogLevel.Debug, e.Exception.Message);
-
         }
-        #endregion
+
+        #endregion Application_ThreadException - Handler Method - Phantom 9/12/2014
 
         #region CurrentDomain_UnhandledException - Handler Method - Phantom 9/12/2014
-        static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
+
+        private static void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
-            //MessageBox.Show((e.ExceptionObject as Exception).Message, "Unhandled UI Exception");
+            MessageBox.Show((e.ExceptionObject as Exception).Message, "Bruce - ProcessFactory: Unhandled UI Exception");
             // here you can log the exception ...
             logger.Log(LogLevel.Debug, (e.ExceptionObject as Exception).Message);
         }
-        #endregion
+
+        #endregion CurrentDomain_UnhandledException - Handler Method - Phantom 9/12/2014
     }
 }

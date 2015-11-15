@@ -1,26 +1,23 @@
 ﻿/*
  * Copyright (C) Henrik Jonsson 2007
- * 
- * THIS WORK IS PROVIDED UNDER THE TERMS OF THIS CODE PROJECT OPEN LICENSE ("LICENSE"). 
- * THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK 
+ *
+ * THIS WORK IS PROVIDED UNDER THE TERMS OF THIS CODE PROJECT OPEN LICENSE ("LICENSE").
+ * THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK
  * OTHER THAN AS AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.
- * 
+ *
  * See licence.txt or http://thecodeproject.com/info/eula.aspx for full licence description.
- * 
+ *
  * This copyright notice must not be removed.
 */
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Reversible;
-using System.Collections.ObjectModel;
-using System.Collections;
+
 using Reversible.Extensions;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace Reversible
 {
-
     /// <summary>
     /// Enumerates possible actions in an ListEdit and IListEdit.
     /// </summary>
@@ -30,7 +27,7 @@ namespace Reversible
         AddItem,
         RemoveItem
     }
-    
+
     /// <summary>
     /// Represents a reversible change in a range of items in a list.
     /// </summary>
@@ -62,10 +59,12 @@ namespace Reversible
                         list[i + startIndex] = backup;
                     }
                     break;
+
                 case ListEditAction.AddItem:
                     list.RemoveRange(startIndex, items.Count);
                     action = ListEditAction.RemoveItem;
                     break;
+
                 case ListEditAction.RemoveItem:
                     list.InsertRange(startIndex, items);
                     action = ListEditAction.AddItem;
@@ -74,15 +73,14 @@ namespace Reversible
             return this;
         }
     }
-    
+
     /// <summary>
     /// A reversible version of the generic List class.
     /// </summary>
     /// <typeparam name="T">Type of items in the list</typeparam>
     public class ReversibleList<T> : IList<T>, IList
     {
-        
-        List<T> list;
+        private List<T> list;
 
         /// <summary>
         /// Creates a new ReversibleList instance.
@@ -288,7 +286,7 @@ namespace Reversible
         /// </summary>
         /// <param name="match">A Predicate to use for matching</param>
         /// <returns>The item found.</returns>
-        public T Find (Predicate<T> match)
+        public T Find(Predicate<T> match)
         {
             return list.Find(match);
         }
@@ -351,7 +349,6 @@ namespace Reversible
         public void RemoveAt(int index)
         {
             list.RemoveAt_Reversible(index);
-            
         }
 
         /// <summary>
@@ -371,7 +368,7 @@ namespace Reversible
             }
         }
 
-        #endregion
+        #endregion IList<T> Members
 
         #region ICollection<T> Members
 
@@ -449,7 +446,7 @@ namespace Reversible
             return list.Remove_Reversible(item);
         }
 
-        #endregion
+        #endregion ICollection<T> Members
 
         #region IEnumerable<T> Members
 
@@ -458,7 +455,7 @@ namespace Reversible
             return list.GetEnumerator();
         }
 
-        #endregion
+        #endregion IEnumerable<T> Members
 
         #region IEnumerable Members
 
@@ -467,7 +464,7 @@ namespace Reversible
             return list.GetEnumerator();
         }
 
-        #endregion
+        #endregion IEnumerable Members
 
         #region IList Members
 
@@ -499,7 +496,7 @@ namespace Reversible
 
         bool IList.IsFixedSize
         {
-            get { return false;  }
+            get { return false; }
         }
 
         bool IList.IsReadOnly
@@ -529,7 +526,7 @@ namespace Reversible
             }
         }
 
-        #endregion
+        #endregion IList Members
 
         #region ICollection Members
 
@@ -553,7 +550,6 @@ namespace Reversible
             get { return ((IList)list).SyncRoot; }
         }
 
-        #endregion
+        #endregion ICollection Members
     }
 }
-

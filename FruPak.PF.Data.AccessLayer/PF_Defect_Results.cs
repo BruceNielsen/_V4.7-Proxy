@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FruPak.Utils.Data;
 using System.Data;
-using System.Data.OleDb;
-using FruPak.Utils.Data;
 
 namespace FruPak.PF.Data.AccessLayer
 {
     /*Description
     -----------------
     PF_Defect_Results Class.
-     * 
+     *
      * This Class is a data access layer to the PF_Defect_Results table
      * Where possible the following standard method names are used and standard column names used.
      *  1. Variable names as input to a method are the same as the column names they refer to.
@@ -26,6 +22,7 @@ namespace FruPak.PF.Data.AccessLayer
     -------------------------------------------------------------------------------------------------------------------------------------------------
     01/09/2013  Dave       Creation
     */
+
     public class PF_Defect_Results
     {
         public static DataSet Get_Max_ID()
@@ -44,12 +41,14 @@ namespace FruPak.PF.Data.AccessLayer
                                             "INNER JOIN dbo.CM_Defect D ON D.Defect_Id = DR.Defect_Id " +
                                             "WHERE DR.Work_Order_Id = " + Work_Order_Id);
         }
+
         public static int Insert(int DefectResult_Id, int Work_Order_Id, int Defect_Id, decimal num_found, string Comments, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO PF_Defect_Results(DefectResult_Id, Work_Order_Id, Defect_Id, num_found, Comments, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + DefectResult_Id + "," + Work_Order_Id + "," + Defect_Id + "," + num_found + ",'" + Comments + "', GETDATE()," + Mod_User_Id + ")");
         }
+
         public static int Update(int DefectResult_Id, int Work_Order_Id, int Defect_Id, decimal num_found, string Comments, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -61,6 +60,7 @@ namespace FruPak.PF.Data.AccessLayer
                                                                   "Mod_User_Id = " + Mod_User_Id +
                                               " WHERE DefectResult_Id = " + DefectResult_Id);
         }
+
         public static int Delete(int DefectResult_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();

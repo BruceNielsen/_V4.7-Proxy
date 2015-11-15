@@ -41,7 +41,7 @@
             // 
             // buttonCancel
             // 
-            this.buttonCancel.Location = new System.Drawing.Point(291, 166);
+            this.buttonCancel.Location = new System.Drawing.Point(290, 220);
             this.buttonCancel.Name = "buttonCancel";
             this.buttonCancel.Size = new System.Drawing.Size(75, 23);
             this.buttonCancel.TabIndex = 3;
@@ -52,11 +52,11 @@
             // buttonOk
             // 
             this.buttonOk.Enabled = false;
-            this.buttonOk.Location = new System.Drawing.Point(372, 166);
+            this.buttonOk.Location = new System.Drawing.Point(371, 220);
             this.buttonOk.Name = "buttonOk";
             this.buttonOk.Size = new System.Drawing.Size(75, 23);
             this.buttonOk.TabIndex = 4;
-            this.buttonOk.Text = "&Ok";
+            this.buttonOk.Text = "&Send";
             this.buttonOk.UseVisualStyleBackColor = true;
             this.buttonOk.Click += new System.EventHandler(this.buttonOk_Click);
             // 
@@ -66,7 +66,7 @@
             this.textBoxBugReport.Multiline = true;
             this.textBoxBugReport.Name = "textBoxBugReport";
             this.textBoxBugReport.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.textBoxBugReport.Size = new System.Drawing.Size(432, 96);
+            this.textBoxBugReport.Size = new System.Drawing.Size(432, 150);
             this.textBoxBugReport.TabIndex = 1;
             this.textBoxBugReport.TextChanged += new System.EventHandler(this.textBoxBugReport_TextChanged);
             // 
@@ -86,12 +86,12 @@
             this.labelBugReport.Name = "labelBugReport";
             this.labelBugReport.Size = new System.Drawing.Size(397, 32);
             this.labelBugReport.TabIndex = 6;
-            this.labelBugReport.Text = "You are about to send a bug report. Please enter a brief description of the probl" +
-    "em. Thanks.";
+            this.labelBugReport.Text = "This will send a screenshot and the debug log to: processerrors@frupak.co.nz. You" +
+    " can add in extra information if you want to.";
             // 
             // buttonTest
             // 
-            this.buttonTest.Location = new System.Drawing.Point(96, 166);
+            this.buttonTest.Location = new System.Drawing.Point(95, 220);
             this.buttonTest.Name = "buttonTest";
             this.buttonTest.Size = new System.Drawing.Size(75, 23);
             this.buttonTest.TabIndex = 7;
@@ -103,19 +103,20 @@
             // 
             // buttonClear
             // 
-            this.buttonClear.Location = new System.Drawing.Point(15, 166);
+            this.buttonClear.Location = new System.Drawing.Point(14, 220);
             this.buttonClear.Name = "buttonClear";
             this.buttonClear.Size = new System.Drawing.Size(75, 23);
             this.buttonClear.TabIndex = 2;
             this.buttonClear.Text = "Clea&r";
             this.buttonClear.UseVisualStyleBackColor = true;
+            this.buttonClear.Visible = false;
             this.buttonClear.Click += new System.EventHandler(this.buttonClear_Click);
             // 
             // SendDebugEmail
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(463, 199);
+            this.ClientSize = new System.Drawing.Size(463, 255);
             this.Controls.Add(this.buttonClear);
             this.Controls.Add(this.buttonTest);
             this.Controls.Add(this.labelBugReport);
@@ -138,10 +139,10 @@
 
         private System.Windows.Forms.Button buttonCancel;
         private System.Windows.Forms.Button buttonOk;
-        private System.Windows.Forms.TextBox textBoxBugReport;
         private System.Windows.Forms.PictureBox pictureBoxBugReport;
         private System.Windows.Forms.Label labelBugReport;
         private System.Windows.Forms.Button buttonTest;
         private System.Windows.Forms.Button buttonClear;
+        public System.Windows.Forms.TextBox textBoxBugReport;
     }
 }

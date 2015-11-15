@@ -1,35 +1,33 @@
+using NLog;
 using System;
-using System.Collections;
 using System.Data;
 using System.Data.OleDb;
-using NLog;
 using System.Windows.Forms;
-using System.Reflection;
 
 namespace FruPak.Utils.Data
 {
     /// <summary>
-    /// SQL Access Layer. 
-    /// 
-    /// A Basic - Database Access Layer for SQL. 
-    /// June 2004 - Implements 3 basic SQL Command structures for Calling Stored Procs (Eujin). 
-    /// 
-    /// 22 Sept 2004 - Adding Transactional SQL capability. 
-    /// 
-    /// 27 Sept 2004 - Created Instance Capability. 
-    /// 
+    /// SQL Access Layer.
+    ///
+    /// A Basic - Database Access Layer for SQL.
+    /// June 2004 - Implements 3 basic SQL Command structures for Calling Stored Procs (Eujin).
+    ///
+    /// 22 Sept 2004 - Adding Transactional SQL capability.
+    ///
+    /// 27 Sept 2004 - Created Instance Capability.
+    ///
     /// </summary>
     public class SQLAccessLayer
     {
-
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static SQLAccessLayer2 instance;
+
         public static SQLAccessLayer2 Instance
         {
             get
             {
-                if(instance == null)
+                if (instance == null)
                     instance = new SQLAccessLayer2();
 
                 return instance;
@@ -42,13 +40,11 @@ namespace FruPak.Utils.Data
             //			 sqlConnection = null;
         }
 
-
         public static string ConnectionString
         {
             get
             {
                 return Instance.ConnectionString;
-                
             }
             set
             {
@@ -59,26 +55,25 @@ namespace FruPak.Utils.Data
         public static OleDbConnection Connection
 
         {
-            get 
+            get
             {
                 return Instance.Connection;
             }
         }
 
-
         public static object RunSP_Scalar(string spName, out object outputParam, params object[] parameters)
         {
             //logger.Log(LogLevel.Info, LogCodeStatic("RunSP_Scalar: " + spName, parameters));
-            
+
             return Instance.RunSP_Scalar(spName, out outputParam, parameters);
         }
-               
+
         public static object RunSP_Scalar(string spName, params object[] parameters)
         {
-            try 
+            try
             {
                 //logger.Log(LogLevel.Info, LogCodeStatic("RunSP_Scalar: " + spName, parameters));
-                
+
                 object outputParam = new object();
                 return RunSP_Scalar(spName, out outputParam, parameters);
             }
@@ -89,18 +84,17 @@ namespace FruPak.Utils.Data
                 return null;
                 //throw ex;
             }
-
         }
 
         public static object RunSP_Scalar(string spName, out object outputParam)
         {
-            try 
+            try
             {
                 //logger.Log(LogLevel.Info, LogCodeStatic("RunSP_Scalar: " + spName, null));
-                
+
                 return RunSP_Scalar(spName, out outputParam, null);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.Log(LogLevel.Debug, spName + " (return null) - " + ex.Message);
                 MessageBox.Show(spName + " - " + ex.Message, "RunSP_Scalar", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -110,15 +104,16 @@ namespace FruPak.Utils.Data
                 //throw ex;
             }
         }
+
         public static object RunSP_Scalar(string spName)
         {
-            try 
+            try
             {
                 //logger.Log(LogLevel.Info, LogCodeStatic("RunSP_Scalar: " + spName, null));
-                
+
                 return RunSP_Scalar(spName, null);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.Log(LogLevel.Debug, spName + " (return null) - " + ex.Message);
                 MessageBox.Show(spName + " - " + ex.Message, "RunSP_Scalar", MessageBoxButtons.OK, MessageBoxIcon.Stop);
@@ -127,20 +122,19 @@ namespace FruPak.Utils.Data
             }
         }
 
-
         public static int RunSP_NonQuery(string spName, out object outputParam, params object[] parameters)
         {
             //logger.Log(LogLevel.Info, LogCodeStatic("RunSP_NonQuery: " + spName, parameters));
-            
+
             return Instance.RunSP_NonQuery(spName, out outputParam, parameters);
         }
 
         public static int RunSP_NonQuery(string spName, params object[] parameters)
         {
-            try 
+            try
             {
                 //logger.Log(LogLevel.Info, LogCodeStatic("RunSP_NonQuery: " + spName, parameters));
-                
+
                 object outputParam = new object();
                 return RunSP_NonQuery(spName, out outputParam, parameters);
             }
@@ -157,31 +151,30 @@ namespace FruPak.Utils.Data
         public static int RunSP_NonQuery(string spName, out object outputParam)
         {
             //logger.Log(LogLevel.Info, LogCodeStatic("RunSP_NonQuery: " + spName, null));
-            
+
             return RunSP_NonQuery(spName, out outputParam, null);
         }
 
         public static int RunSP_NonQuery(string spName)
         {
             //logger.Log(LogLevel.Info, LogCodeStatic("RunSP_NonQuery: " + spName, null));
-            
+
             return RunSP_NonQuery(spName, null);
         }
-
 
         public static DataSet RunSP_Query(string spName, out object outputParam, params object[] parameters)
         {
             //logger.Log(LogLevel.Info, LogCodeStatic("RunSP_NonQuery: " + spName, parameters));
-            
+
             return Instance.RunSP_Query(spName, out outputParam, parameters);
         }
 
         public static DataSet RunSP_Query(string spName, params object[] parameters)
         {
-            try 
+            try
             {
                 //logger.Log(LogLevel.Info, LogCodeStatic("RunSP_Query: " + spName, parameters));
-                
+
                 object outputParam = new object();
                 return RunSP_Query(spName, out outputParam, parameters);
             }
@@ -194,13 +187,13 @@ namespace FruPak.Utils.Data
                 //throw ex;
             }
         }
-        
+
         public static DataSet RunSP_Query(string spName, out object outputParam)
         {
-            try 
+            try
             {
                 //logger.Log(LogLevel.Info, LogCodeStatic("RunSP_Query: " + spName, null));
-                
+
                 return RunSP_Query(spName, out outputParam, null);
             }
             catch (Exception ex)
@@ -215,16 +208,16 @@ namespace FruPak.Utils.Data
 
         public static DataSet RunSP_Query(string spName)
         {
-            try 
+            try
             {
                 //logger.Log(LogLevel.Info, LogCodeStatic("RunSP_Query: " + spName, null));
-                
+
                 return RunSP_Query(spName, null);
             }
             catch (Exception ex)
             {
                 logger.Log(LogLevel.Debug, spName + " (return null) - " + ex.Message);
-                
+
                 // Disabled 28/01/2015 BN - It was getting annoying as I've now handled a null result in the calling method.
                 //MessageBox.Show(spName + " - " + ex.Message, "RunSP_Query", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 return null;    //  BN 31/21/2014
@@ -232,19 +225,18 @@ namespace FruPak.Utils.Data
             }
         }
 
-
         public static DataSet Run_Query(string CommandText, params OleDbParameter[] parameters)
         {
             // Suppress this ridiculously long Select statement, as it screws up the entire CSV
-            // 6/01/2015	53:03.2	Info	
-            // Run_Query: SELECT DISTINCT M.Menu_Id, M.Name AS MENU ,MP.MenuPan_Id, 
-            // MP.Name AS SUBMENU, MPGR.Write_Access FROM  dbo.SC_User U INNER JOIN  
-            // dbo.SC_User_Group_Relationship UGR ON U.User_Id = UGR.User_Id INNER JOIN  
-            // dbo.SC_Menu_Group_Relationship MGR ON MGR.UserGroup_Id = UGR.UserGroup_Id INNER JOIN  
-            // dbo.SC_Menu_Panel_Group_Relationship MPGR ON MPGR.UserGroup_Id = UGR.UserGroup_Id 
-            // INNER JOIN  dbo.SC_Menu_Panel MP ON MP.MenuPan_Id = MPGR.MenuPan_Id 
-            // INNER JOIN  dbo.SC_Menu M ON M.Menu_Id = MGR.Menu_Id AND M.Menu_Id = MP.Menu_Id 
-            // WHERE U.User_Id = 3	FruPak.Utils.Data.SQLAccessLayer	
+            // 6/01/2015	53:03.2	Info
+            // Run_Query: SELECT DISTINCT M.Menu_Id, M.Name AS MENU ,MP.MenuPan_Id,
+            // MP.Name AS SUBMENU, MPGR.Write_Access FROM  dbo.SC_User U INNER JOIN
+            // dbo.SC_User_Group_Relationship UGR ON U.User_Id = UGR.User_Id INNER JOIN
+            // dbo.SC_Menu_Group_Relationship MGR ON MGR.UserGroup_Id = UGR.UserGroup_Id INNER JOIN
+            // dbo.SC_Menu_Panel_Group_Relationship MPGR ON MPGR.UserGroup_Id = UGR.UserGroup_Id
+            // INNER JOIN  dbo.SC_Menu_Panel MP ON MP.MenuPan_Id = MPGR.MenuPan_Id
+            // INNER JOIN  dbo.SC_Menu M ON M.Menu_Id = MGR.Menu_Id AND M.Menu_Id = MP.Menu_Id
+            // WHERE U.User_Id = 3	FruPak.Utils.Data.SQLAccessLayer
             // Run_Query	FruPak.Utils.Data.SQLAccessLayer.Run_Query(SQLAccessLayer.cs:236)	BRUCE-LAPTOP
 
             //if (CommandText.StartsWith("SELECT DISTINCT M.Menu_Id, M.Name AS MENU") == true)
@@ -253,7 +245,7 @@ namespace FruPak.Utils.Data
             //}
             //else
             //{
-                //logger.Log(LogLevel.Info, LogCodeStatic("Run_Query: " + CommandText, parameters));
+            //logger.Log(LogLevel.Info, LogCodeStatic("Run_Query: " + CommandText, parameters));
             //}
             return Instance.Run_Query(CommandText, parameters);
         }
@@ -261,14 +253,13 @@ namespace FruPak.Utils.Data
         public static int Run_NonQuery(string CommandText, params OleDbParameter[] parameters)
         {
             //logger.Log(LogLevel.Info, LogCodeStatic("Run_NonQuery: " + CommandText, parameters));
-            
+
             return Instance.Run_NonQuery(CommandText, parameters);
         }
 
-        
         internal static void CreateParams(OleDbCommand cmd, OleDbParameter[] parameters)
         {
-            for (int i = 0; i < parameters.Length; i++) 
+            for (int i = 0; i < parameters.Length; i++)
             {
                 cmd.Parameters.Add(parameters[i]);
             }
@@ -276,13 +267,13 @@ namespace FruPak.Utils.Data
 
         internal static void PopulateParams(OleDbCommand cmd, Object[] parameters)
         {
-            for (int i = 1; i < parameters.Length + 1; i++) 
+            for (int i = 1; i < parameters.Length + 1; i++)
             {
-                if(i < cmd.Parameters.Count)
+                if (i < cmd.Parameters.Count)
                     cmd.Parameters[i].Value = parameters[i - 1];
             }
         }
-        
+
         public static void TSQL_Begin()
         {
             Instance.TSQL_Begin();
@@ -298,25 +289,24 @@ namespace FruPak.Utils.Data
             Instance.TSQL_Rollback();
         }
 
-        
         /// <summary>
         /// Workaround for deriving parameters for Transactional SQL Procedures
         /// </summary>
         /// <param name="spName">Name of Stored Proc</param>
         /// <param name="cmd">SqlCommand to populate with derived parameters</param>
-        internal static void TSQL_DeriveParameters(string spName, OleDbCommand cmd,string connString)
-        {	
+        internal static void TSQL_DeriveParameters(string spName, OleDbCommand cmd, string connString)
+        {
             // Open a Secondary SQL Connection
             OleDbConnection tempConn = new OleDbConnection(connString);
-            try 
+            try
             {
                 tempConn.Open();
                 OleDbCommand tempCmd = new OleDbCommand(spName, tempConn);
                 tempCmd.CommandType = CommandType.StoredProcedure;
                 OleDbCommandBuilder.DeriveParameters(tempCmd);
-            
+
                 // Now Clone each of the Parameters from tempCmd
-                foreach(OleDbParameter p in tempCmd.Parameters)
+                foreach (OleDbParameter p in tempCmd.Parameters)
                 {
                     OleDbParameter newp = new OleDbParameter(p.ParameterName, p.OleDbType, p.Size, p.Direction, p.IsNullable, p.Precision, p.Scale, p.SourceColumn, p.SourceVersion, p.Value);
                     cmd.Parameters.Add(newp);
@@ -334,8 +324,9 @@ namespace FruPak.Utils.Data
         }
 
         #region Log Code
+
         /// <summary>
-        /// Formats the output to the debug log so that the actual log contents stand out amongst the machine-generated stuff. 
+        /// Formats the output to the debug log so that the actual log contents stand out amongst the machine-generated stuff.
         /// Refers to machine-generated content, not calling specifics.
         /// </summary>
         /// <param name="input">The code function that we want to log.</param>
@@ -345,10 +336,13 @@ namespace FruPak.Utils.Data
             string Output = "___[ " + input + " ]___";
             return Output;
         }
-        #endregion
+
+        #endregion Log Code
+
         #region Log Code Static
+
         /// <summary>
-        /// Formats the output to the debug log so that the actual log contents stand out amongst the machine-generated stuff. 
+        /// Formats the output to the debug log so that the actual log contents stand out amongst the machine-generated stuff.
         /// Refers to machine-generated content, not calling specifics.
         /// </summary>
         /// <param name="input">The code function that we want to log.</param>
@@ -381,13 +375,13 @@ namespace FruPak.Utils.Data
 
             return Output;
         }
-        #endregion
 
+        #endregion Log Code Static
     }
 
     public class SQLAccessLayer2
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private string connectionString;
         private OleDbConnection sqlConnection;
@@ -401,9 +395,9 @@ namespace FruPak.Utils.Data
             }
             set
             {
-                if(transaction == null)
+                if (transaction == null)
                 {
-                    if(sqlConnection != null)
+                    if (sqlConnection != null)
                     {
                         sqlConnection.Close();
                         sqlConnection.Dispose();
@@ -419,13 +413,13 @@ namespace FruPak.Utils.Data
             }
         }
 
-        public OleDbConnection Connection 
+        public OleDbConnection Connection
         {
             get
             {
-                if(sqlConnection == null)
+                if (sqlConnection == null)
                 {
-                    if(!connectionString.Equals(string.Empty))
+                    if (!connectionString.Equals(string.Empty))
                     {
                         sqlConnection = new OleDbConnection(connectionString);
                         try
@@ -436,7 +430,7 @@ namespace FruPak.Utils.Data
                         catch (System.Data.OleDb.OleDbException olex)
                         {
                             // The network is down
-                            MessageBox.Show("Either the Network is down, or the SQL server cannot be found.\r\n\r\n" + 
+                            MessageBox.Show("Either the Network is down, or the SQL server cannot be found.\r\n\r\n" +
                                 "This application will Exit when you press the OK button.\r\n\r\n" + olex.Message, "Fatal Error", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                             System.Diagnostics.Process proc = System.Diagnostics.Process.GetCurrentProcess();
                             proc.Kill();
@@ -444,13 +438,13 @@ namespace FruPak.Utils.Data
                             return null;
                         }
                     }
-                    else 
+                    else
                     {
                         logger.Log(LogLevel.Debug, "Invalid Connection String: " + connectionString);
                         throw new Exception("Invalid Connection String");
                     }
                 }
-                else 
+                else
                 {
                     try
                     {
@@ -480,12 +474,14 @@ namespace FruPak.Utils.Data
                 transaction = value;
             }
         }
+
         public SQLAccessLayer2()
         {
             connectionString = string.Empty;
             sqlConnection = null;
             transaction = null;
         }
+
         public object RunSP_Scalar(string spName, out object outputParam, params object[] parameters)
         {
             try
@@ -493,18 +489,18 @@ namespace FruPak.Utils.Data
                 //logger.Log(LogLevel.Info, LogCode("RunSP_Scalar: " + spName));
                 //logger.Log(LogLevel.Info, LogCodeStatic("RunSP_Scalar: " + spName, parameters));
 
-                OleDbCommand cmd = new OleDbCommand(spName, Connection);				
+                OleDbCommand cmd = new OleDbCommand(spName, Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
-                
-                if(transaction == null)
+
+                if (transaction == null)
                     OleDbCommandBuilder.DeriveParameters(cmd);
                 else
                 {
-                    SQLAccessLayer.TSQL_DeriveParameters(spName,cmd,this.connectionString);		
+                    SQLAccessLayer.TSQL_DeriveParameters(spName, cmd, this.connectionString);
                     cmd.Transaction = transaction;
                 }
-                
-                if(parameters != null)
+
+                if (parameters != null)
                 {
                     SQLAccessLayer.PopulateParams(cmd, parameters);
                 }
@@ -512,22 +508,21 @@ namespace FruPak.Utils.Data
                 outputParam = cmd.Parameters[0];
                 return retVal;
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 logger.Log(LogLevel.Debug, ex.Message);
                 throw ex;   // Will generate an unhandled exception
             }
-            finally 
+            finally
             {
-                if(transaction == null)
+                if (transaction == null)
                     Connection.Close();
             }
         }
-               
+
         public object RunSP_Scalar(string spName, params object[] parameters)
         {
-
-            try 
+            try
             {
                 //logger.Log(LogLevel.Info, LogCode("RunSP_Scalar: " + spName));
                 //logger.Log(LogLevel.Info, LogCodeStatic("RunSP_Scalar: " + spName, parameters));
@@ -544,25 +539,26 @@ namespace FruPak.Utils.Data
 
         public object RunSP_Scalar(string spName, out object outputParam)
         {
-            try 
+            try
             {
                 //logger.Log(LogLevel.Info, LogCode("RunSP_Scalar: " + spName));
                 return RunSP_Scalar(spName, out outputParam, null);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.Log(LogLevel.Debug, ex.Message);
                 throw ex;   // Will generate an unhandled exception
             }
         }
+
         public object RunSP_Scalar(string spName)
         {
-            try 
+            try
             {
                 //logger.Log(LogLevel.Info, LogCode("RunSP_Scalar: " + spName));
                 return RunSP_Scalar(spName, null);
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 logger.Log(LogLevel.Debug, ex.Message);
                 throw ex;   // Will generate an unhandled exception
@@ -571,7 +567,7 @@ namespace FruPak.Utils.Data
 
         public int RunSP_NonQuery(string spName, out object outputParam, params object[] parameters)
         {
-            try 
+            try
             {
                 //logger.Log(LogLevel.Info, LogCode("RunSP_NonQuery: " + spName));
                 //logger.Log(LogLevel.Info, LogCodeStatic("RunSP_NonQuery: " + spName, parameters));
@@ -579,15 +575,15 @@ namespace FruPak.Utils.Data
                 OleDbCommand cmd = new OleDbCommand(spName, Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
 
-                if(transaction == null)
+                if (transaction == null)
                     OleDbCommandBuilder.DeriveParameters(cmd);
                 else
                 {
                     SQLAccessLayer.TSQL_DeriveParameters(spName, cmd, this.connectionString);
                     cmd.Transaction = transaction;
                 }
-                
-                if(parameters != null)
+
+                if (parameters != null)
                 {
                     SQLAccessLayer.PopulateParams(cmd, parameters);
                 }
@@ -596,22 +592,22 @@ namespace FruPak.Utils.Data
                 outputParam = cmd.Parameters[0];
                 return retVal;
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 // Log Error
                 logger.Log(LogLevel.Debug, ex.Message);
                 throw ex;   // Will generate an unhandled exception
             }
-            finally 
+            finally
             {
-                if(transaction == null)
+                if (transaction == null)
                     Connection.Close();
             }
         }
 
         public int RunSP_NonQuery(string spName, params object[] parameters)
         {
-            try 
+            try
             {
                 //logger.Log(LogLevel.Info, LogCode("RunSP_NonQuery: " + spName));
                 //logger.Log(LogLevel.Info, LogCodeStatic("RunSP_NonQuery: " + spName, parameters));
@@ -629,20 +625,20 @@ namespace FruPak.Utils.Data
         public int RunSP_NonQuery(string spName, out object outputParam)
         {
             //logger.Log(LogLevel.Info, LogCode("RunSP_NonQuery: " + spName));
-            
+
             return RunSP_NonQuery(spName, out outputParam, null);
         }
 
         public int RunSP_NonQuery(string spName)
         {
             //logger.Log(LogLevel.Info, LogCode("RunSP_NonQuery: " + spName));
-            
+
             return RunSP_NonQuery(spName, null);
         }
 
         public DataSet RunSP_Query(string spName, out object outputParam, params object[] parameters)
         {
-            try 
+            try
             {
                 //logger.Log(LogLevel.Info, LogCodeStatic("RunSP_Query: " + spName, parameters));
 
@@ -658,16 +654,16 @@ namespace FruPak.Utils.Data
 
                 OleDbCommand cmd = new OleDbCommand(spName, Connection);
                 cmd.CommandType = CommandType.StoredProcedure;
-                
-                if(transaction == null)
+
+                if (transaction == null)
                     OleDbCommandBuilder.DeriveParameters(cmd);
                 else
                 {
                     SQLAccessLayer.TSQL_DeriveParameters(spName, cmd, this.connectionString);
                     cmd.Transaction = transaction;
                 }
-                
-                if(parameters != null)
+
+                if (parameters != null)
                 {
                     SQLAccessLayer.PopulateParams(cmd, parameters);
                 }
@@ -676,11 +672,11 @@ namespace FruPak.Utils.Data
                 OleDbDataAdapter oSqlDataAdapter = new OleDbDataAdapter(cmd);
                 oSqlDataAdapter.Fill(oDataSet);
 
-                // Grab Output Parameters 
+                // Grab Output Parameters
                 outputParam = cmd.Parameters[0];
 
-
                 #region Right here is the dataset, which has all the column headers available (BN 3/02/2015)
+
                 string sColName = string.Empty;
                 foreach (DataColumn column in oDataSet.Tables[0].Columns)
                 {
@@ -691,19 +687,21 @@ namespace FruPak.Utils.Data
                 sColName = sColName.TrimEnd(' ');
                 sColName = sColName.TrimEnd(',');
 
-                if (parameters != null)
-                {
-                    logger.Log(LogLevel.Info, LogCodeStatic("RunSP_Query: " + spName + " [ Columns: " + sColName + " ] ", parameters));
-                }
-                else
-                {
-                    logger.Log(LogLevel.Info, LogCodeStatic("RunSP_Query: " + spName + " [ Columns: " + sColName + " ] (parameters = null)", parameters));
-                }
-                #endregion
+                // This generates a ton of logging, but will be handy for debugging SQL
+                //if (parameters != null)
+                //{
+                //    logger.Log(LogLevel.Info, LogCodeStatic("RunSP_Query: " + spName + " [ Columns: " + sColName + " ] ", parameters));
+                //}
+                //else
+                //{
+                //    logger.Log(LogLevel.Info, LogCodeStatic("RunSP_Query: " + spName + " [ Columns: " + sColName + " ] (parameters = null)", parameters));
+                //}
+
+                #endregion Right here is the dataset, which has all the column headers available (BN 3/02/2015)
 
                 return oDataSet;
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
                 // Log Error
                 //logger.Log(LogLevel.Info, LogCodeStatic("RunSP_NonQuery: " + spName, parameters));
@@ -721,16 +719,16 @@ namespace FruPak.Utils.Data
                 return null;
                 //throw ex;
             }
-            finally 
+            finally
             {
-                if(transaction == null)
+                if (transaction == null)
                     Connection.Close();
             }
         }
 
         public DataSet RunSP_Query(string spName, params object[] parameters)
         {
-            try 
+            try
             {
                 //logger.Log(LogLevel.Info, LogCode("RunSP_Query: " + spName));
                 //logger.Log(LogLevel.Info, LogCodeStatic("RunSP_Query: " + spName, parameters));
@@ -746,10 +744,10 @@ namespace FruPak.Utils.Data
                 //throw ex;
             }
         }
-        
+
         public DataSet RunSP_Query(string spName, out object outputParam)
         {
-            try 
+            try
             {
                 //logger.Log(LogLevel.Info, LogCode("RunSP_Query: " + spName));
 
@@ -767,7 +765,7 @@ namespace FruPak.Utils.Data
 
         public DataSet RunSP_Query(string spName)
         {
-            try 
+            try
             {
                 //logger.Log(LogLevel.Info, LogCode("RunSP_Query: " + spName));
 
@@ -805,13 +803,14 @@ namespace FruPak.Utils.Data
                 DataSet ds = new DataSet();
                 OleDbDataAdapter OleDbDataAdapter = new OleDbDataAdapter(cmd);
                 OleDbDataAdapter.Fill(ds);
-                
+
                 // Restrict the output somewhat
                 if (CommandText.Contains("WHERE Invoice_Id = ") || CommandText.Contains("WHERE Customer_Id = ") || CommandText.Contains("WHERE Trader_Id = "))
                 {
-
                     // This dataset returns various tables. I'll log it anyway. BN 3/02/2015
+
                     #region Right here is the dataset, which has all the column headers available (BN 3/02/2015)
+
                     string sColName = string.Empty;
                     //string sDataRow = string.Empty;
                     string sReadable = string.Empty;
@@ -819,7 +818,6 @@ namespace FruPak.Utils.Data
 
                     //object[] objColumnArray = null;
                     //object[] objValueArray = null;
-
 
                     // Concatenate a string with the column names
                     foreach (DataColumn column in ds.Tables[0].Columns)
@@ -854,12 +852,10 @@ namespace FruPak.Utils.Data
                     //    logger.Log(LogLevel.Info, LogCodeStatic("RunSP_Query: " + CommandText + " [ Columns: " + sColName + " ] (parameters = null)", parameters));
                     //}
 
-
                     //foreach (DataColumn dc in ds.Tables[0].Columns)
                     //{
                     //    foreach (DataRow row in ds.Tables[0].Rows)
                     //    {
-
                     //        objValueArray = row.ItemArray;
                     //        for (int i = 0; i < objValueArray.Length; i++)
                     //        {
@@ -895,18 +891,16 @@ namespace FruPak.Utils.Data
 
                     //        //logger.Log(LogLevel.Info, LogCodeStatic("DataRow Values: " + sDataRow, null));
                     //    }
-                    
+
                     //Console.WriteLine("RowCount: " + ds.Tables[0].Rows.Count.ToString());
 
                     Console.WriteLine("\r\n");  // Newline
-
 
                     foreach (DataRow row in ds.Tables[0].Rows)
                     {
                         objValueArray = row.ItemArray;
                         for (int i = 0; i < objValueArray.Length; i++)
                         {
-
                             if (objValueArray[i] != null && objValueArray[i] != DBNull.Value)
                             {
                                 // Ignore this recommendation regarding casting the left-hand side to string; it breaks if you 'Fix' it
@@ -941,10 +935,9 @@ namespace FruPak.Utils.Data
                     }
 
                     //}
-
                 }
 
-                #endregion
+                #endregion Right here is the dataset, which has all the column headers available (BN 3/02/2015)
 
                 return ds;
             }
@@ -964,7 +957,7 @@ namespace FruPak.Utils.Data
             }
             finally
             {
-                if(transaction == null)
+                if (transaction == null)
                     if (Connection != null)
                     {
                         Connection.Close();
@@ -976,7 +969,7 @@ namespace FruPak.Utils.Data
 
         public int Run_NonQuery(string CommandText, params OleDbParameter[] parameters)
         {
-            try 
+            try
             {
                 //logger.Log(LogLevel.Info, LogCode("Run_NonQuery: " + CommandText));
                 //logger.Log(LogLevel.Info, LogCodeStatic("Run_NonQuery: " + CommandText, parameters));
@@ -985,15 +978,15 @@ namespace FruPak.Utils.Data
                 cmd.Connection = Connection;
                 cmd.CommandType = CommandType.Text;
                 cmd.CommandText = CommandText;
-                
-                if(parameters != null)
+
+                if (parameters != null)
                 {
                     SQLAccessLayer.CreateParams(cmd, parameters);
                 }
 
-                if(Connection.State != ConnectionState.Open)
+                if (Connection.State != ConnectionState.Open)
                     Connection.Open();
-                
+
                 return cmd.ExecuteNonQuery(); // Returns the number of rows affected - BN 3/02/2015
             }
             catch (Exception ex)
@@ -1005,13 +998,13 @@ namespace FruPak.Utils.Data
             }
             finally
             {
-                if(transaction == null)
+                if (transaction == null)
                     Connection.Close();
             }
         }
 
-
         #region Transactions
+
         public void TSQL_Begin()
         {
             if (transaction != null)
@@ -1039,12 +1032,14 @@ namespace FruPak.Utils.Data
             logger.Log(LogLevel.Info, LogCode("TSQL_Rollback"));
             transaction = null;
             sqlConnection.Close();
-        } 
-        #endregion
+        }
+
+        #endregion Transactions
 
         #region Log Code
+
         /// <summary>
-        /// Formats the output to the debug log so that the actual log contents stand out amongst the machine-generated stuff. 
+        /// Formats the output to the debug log so that the actual log contents stand out amongst the machine-generated stuff.
         /// Refers to machine-generated content, not calling specifics.
         /// </summary>
         /// <param name="input">The code function that we want to log.</param>
@@ -1054,10 +1049,13 @@ namespace FruPak.Utils.Data
             string Output = "___[ " + input + " ]___";
             return Output;
         }
-        #endregion
+
+        #endregion Log Code
+
         #region Log Code Static
+
         /// <summary>
-        /// Formats the output to the debug log so that the actual log contents stand out amongst the machine-generated stuff. 
+        /// Formats the output to the debug log so that the actual log contents stand out amongst the machine-generated stuff.
         /// Refers to machine-generated content, not calling specifics.
         /// </summary>
         /// <param name="input">The code function that we want to log.</param>
@@ -1090,7 +1088,7 @@ namespace FruPak.Utils.Data
 
             return Output;
         }
-        #endregion
 
+        #endregion Log Code Static
     }
 }

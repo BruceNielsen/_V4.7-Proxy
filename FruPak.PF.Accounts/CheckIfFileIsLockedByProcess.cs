@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading;
 
-namespace FileLockInfo
+namespace Tools.Debugging
 {
     /* Usage:
      * 
@@ -22,7 +22,7 @@ namespace FileLockInfo
      * BN 12/05/2015
      */
 
-    public static class CheckIfFileIsLockedByProcess
+    public class CheckIfFileIsLockedByProcess
     {
         public static List<Process> GetProcessesLockingFile(string filePath)
         {

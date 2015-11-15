@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using NLog;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using NLog;
 
 namespace FruPak.PF.Dispatch
 {
     public partial class Other_Work : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static bool bol_write_access;
         private static int int_Current_User_Id = 0;
         private static int int_Other_Work_Id;
+
         public Other_Work(int int_C_User_id, bool bol_w_a)
         {
             InitializeComponent();
@@ -42,12 +38,12 @@ namespace FruPak.PF.Dispatch
             dtp_Finish.Format = DateTimePickerFormat.Custom;
             dtp_Finish.CustomFormat = "dd-MMM-yyyy  HH:mm:ss";
 
-
             populate_combobox();
             AddColumnsProgrammatically();
             populate_DataGridView1();
 
             #region Log any interesting events from the UI to the CSV log file
+
             foreach (Control c in this.Controls)
             {
                 if (c.GetType() == typeof(Button))
@@ -78,15 +74,14 @@ namespace FruPak.PF.Dispatch
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-
                 else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
                 {
                     FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
-            #endregion
 
+            #endregion Log any interesting events from the UI to the CSV log file
         }
 
         private void populate_combobox()
@@ -109,6 +104,7 @@ namespace FruPak.PF.Dispatch
             cmb_Staff.Text = null;
             ds_Get_Info.Dispose();
         }
+
         private void AddColumnsProgrammatically()
         {
             var col0 = new DataGridViewTextBoxColumn();
@@ -142,7 +138,7 @@ namespace FruPak.PF.Dispatch
             col4.HeaderText = "Staff";
             col4.Name = "Staff";
             col4.ReadOnly = true;
-            
+
             col5.HeaderText = "Start Date/Time";
             col5.Name = "Start_DateTime";
             col5.ReadOnly = true;
@@ -171,12 +167,13 @@ namespace FruPak.PF.Dispatch
             img_edit.Name = "Edit";
             img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
-
         }
+
         private void SizeAllColumns(Object sender, EventArgs e)
         {
             columnSize();
         }
+
         private void columnSize()
         {
             dataGridView1.AutoResizeColumn(0, DataGridViewAutoSizeColumnMode.AllCells);
@@ -189,6 +186,7 @@ namespace FruPak.PF.Dispatch
             dataGridView1.AutoResizeColumn(8, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(9, DataGridViewAutoSizeColumnMode.AllCells);
         }
+
         private void populate_DataGridView1()
         {
             dataGridView1.Refresh();
@@ -234,11 +232,11 @@ namespace FruPak.PF.Dispatch
                 DataGridViewCell DGVC_Cell7 = new DataGridViewTextBoxCell();
                 DGVC_Cell7.Value = dr_Get_Info["Description"].ToString();
                 dataGridView1.Rows[i].Cells["Description"] = DGVC_Cell7;
-
             }
             columnSize();
             ds_Get_Info.Dispose();
         }
+
         private void btn_Add_Click(object sender, EventArgs e)
         {
             DialogResult DLR_message = new DialogResult();
@@ -264,7 +262,7 @@ namespace FruPak.PF.Dispatch
                 str_msg = str_msg + "Invalid Date Time. You can not finish before you start." + Environment.NewLine;
             }
             //start date > finish date
-            else if (Convert.ToDateTime(dtp_Start.Value.ToShortDateString()) > Convert.ToDateTime(dtp_Finish.Value.ToShortDateString()) )
+            else if (Convert.ToDateTime(dtp_Start.Value.ToShortDateString()) > Convert.ToDateTime(dtp_Finish.Value.ToShortDateString()))
             {
                 str_msg = str_msg + "Invalid Date Time. You can not finish before you start." + Environment.NewLine;
             }
@@ -280,10 +278,11 @@ namespace FruPak.PF.Dispatch
                 {
                     case "&Add":
                         int_result = FruPak.PF.Data.AccessLayer.PF_Other_Work.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Other_Work"), Convert.ToInt32(cmb_Work_Type.SelectedValue.ToString()), Convert.ToInt32(cmb_Staff.SelectedValue.ToString()),
-                            dtp_Start.Value.ToShortDateString() + " " + dtp_Start.Value.Hour.ToString() +":"+ dtp_Start.Value.Minute +":" + dtp_Start.Value.Second.ToString(),
+                            dtp_Start.Value.ToShortDateString() + " " + dtp_Start.Value.Hour.ToString() + ":" + dtp_Start.Value.Minute + ":" + dtp_Start.Value.Second.ToString(),
                             dtp_Finish.Value.ToShortDateString() + " " + dtp_Finish.Value.Hour.ToString() + ":" + dtp_Finish.Value.Minute.ToString() + ":" + dtp_Finish.Value.Second.ToString(),
                             txt_Description.Text, int_Current_User_Id);
                         break;
+
                     case "&Update":
                         int_result = FruPak.PF.Data.AccessLayer.PF_Other_Work.Update(int_Other_Work_Id, Convert.ToInt32(cmb_Work_Type.SelectedValue.ToString()), Convert.ToInt32(cmb_Staff.SelectedValue.ToString()),
                             dtp_Start.Value.ToShortDateString() + " " + dtp_Start.Value.Hour.ToString() + ":" + dtp_Start.Value.Minute + ":" + dtp_Start.Value.Second.ToString(),
@@ -305,10 +304,12 @@ namespace FruPak.PF.Dispatch
                 lbl_message.Text = "Other Work has NOT been saved";
             }
         }
+
         private void btn_reset_Click(object sender, EventArgs e)
         {
             Reset();
         }
+
         private void Reset()
         {
             dtp_Start.Value = DateTime.Now;
@@ -317,6 +318,7 @@ namespace FruPak.PF.Dispatch
             cmb_Work_Type.Text = null;
             txt_Description.ResetText();
         }
+
         private void btn_Refresh_Click(object sender, EventArgs e)
         {
             int int_Work_type_Id = 0;
@@ -335,10 +337,12 @@ namespace FruPak.PF.Dispatch
             cmb_Work_Type.SelectedValue = int_Work_type_Id;
             cmb_Staff.SelectedValue = int_Staff_Id;
         }
+
         private void btn_Close_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             lbl_message.ResetText();
@@ -346,7 +350,7 @@ namespace FruPak.PF.Dispatch
             //Delete
             if (e.ColumnIndex == 8)
             {
-                int int_result = FruPak.PF.Common.Code.General.Delete_Record("PF_Other_Work", dataGridView1.Rows[e.RowIndex].Cells["Other_Work_Id"].Value.ToString(), 
+                int int_result = FruPak.PF.Common.Code.General.Delete_Record("PF_Other_Work", dataGridView1.Rows[e.RowIndex].Cells["Other_Work_Id"].Value.ToString(),
                                                                         " Other Work entry for " + dataGridView1.Rows[e.RowIndex].Cells["Staff"].Value.ToString());
                 if (int_result > 0)
                 {
@@ -372,8 +376,9 @@ namespace FruPak.PF.Dispatch
         }
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
+
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>
@@ -384,34 +389,39 @@ namespace FruPak.PF.Dispatch
             {
                 Button b = (Button)sender;
                 logger.Log(LogLevel.Info, DecorateString(b.Name, b.Text, "Click"));
-
             }
         }
+
         private void Control_Validated(object sender, EventArgs e)
         {
             TextBox t = (TextBox)sender;
             logger.Log(LogLevel.Info, DecorateString(t.Name, t.Text, "Validated"));
         }
+
         private void Control_SelectedValueChanged(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Text, "SelectedValueChanged"));
         }
+
         private void Control_ValueChanged(object sender, EventArgs e)
         {
             DateTimePicker dtp = (DateTimePicker)sender;
             logger.Log(LogLevel.Info, DecorateString(dtp.Name, dtp.Text, "ValueChanged"));
         }
+
         private void Control_NudValueChanged(object sender, EventArgs e)
         {
             NumericUpDown nud = (NumericUpDown)sender;
             logger.Log(LogLevel.Info, DecorateString(nud.Name, nud.Text, "NudValueChanged"));
         }
+
         private void Control_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Checked.ToString(), "CheckedChanged"));
         }
+
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
             FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
@@ -419,8 +429,10 @@ namespace FruPak.PF.Dispatch
         }
 
         #region Decorate String
+
         // DecorateString
         private string openPad = " --- [ ";
+
         private string closePad = " ] --- ";
         private string intro = "--->   { ";
         private string outro = " }   <---";
@@ -442,7 +454,8 @@ namespace FruPak.PF.Dispatch
             output = intro + name + openPad + input + closePad + action + outro;
             return output;
         }
-        #endregion
+
+        #endregion Decorate String
 
         /// <summary>
         /// Close the form with the Esc key (Sel request 11-02-2015 BN)
@@ -458,7 +471,6 @@ namespace FruPak.PF.Dispatch
             }
         }
 
-        #endregion
-
+        #endregion Methods to log UI events to the CSV file. BN 29/01/2015
     }
 }

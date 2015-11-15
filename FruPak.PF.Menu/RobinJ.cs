@@ -1,23 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using NLog;
+﻿using NLog;
+using System;
 using System.Diagnostics;
+using System.Windows.Forms;
 
 namespace FruPak.PF.Menu
 {
     public partial class RobinJ : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         public static DateTime startTime;
         public static string str_Name;
-        Timer Clock;
+        private Timer Clock;
+
         public RobinJ(string Name_in, string startTime_in)
         {
             startTime = Convert.ToDateTime(startTime_in);
@@ -28,7 +23,7 @@ namespace FruPak.PF.Menu
             Clock.Start();
             Clock.Tick += new EventHandler(Timer_Tick);
         }
-        
+
         public string GetTime()
         {
             string TimeInString = "";
@@ -47,9 +42,8 @@ namespace FruPak.PF.Menu
         {
             lbl_month.Text = "";
             lbl_month.Text = str_Name;
-            if (sender == Clock) 
+            if (sender == Clock)
             {
-               
                 double dbl_month = Math.Floor(((startTime - DateTime.Now).TotalDays / 365.25 * 12));
                 double dbl_days = Math.Floor((startTime - DateTime.Now).TotalDays - (dbl_month / 12 * 365.25));
                 try
@@ -60,7 +54,7 @@ namespace FruPak.PF.Menu
                     }
                     if (dbl_days > 0)
                     {
-                        lbl_month.Text = lbl_month.Text + Convert.ToString(dbl_days) + " Days "; 
+                        lbl_month.Text = lbl_month.Text + Convert.ToString(dbl_days) + " Days ";
                     }
                     lbl_month.Text = lbl_month.Text + ((startTime - DateTime.Now)).ToString("hh\\:mm\\:ss");
                     lbl_month.Text = lbl_month.Text + " and Counting Down";
@@ -97,6 +91,6 @@ namespace FruPak.PF.Menu
             {
                 this.Close();
             }
-        } 
+        }
     }
-}  
+}

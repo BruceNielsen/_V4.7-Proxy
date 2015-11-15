@@ -1,13 +1,13 @@
 // ------------------------------------------------------------------------
 // <copyright file="PrintHelper.cs" company="Mark Pitman">
 //    Copyright 2007 - 2013 Mark Pitman
-//    
+//
 //    Licensed under the Apache License, Version 2.0 (the "License");
 //    you may not use this file except in compliance with the License.
 //    You may obtain a copy of the License at
-// 
+//
 //      http://www.apache.org/licenses/LICENSE-2.0
-// 
+//
 //    Unless required by applicable law or agreed to in writing, software
 //    distributed under the License is distributed on an "AS IS" BASIS,
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,7 +15,7 @@
 //    limitations under the License.
 // </copyright>
 // ------------------------------------------------------------------------
-// 
+//
 
 namespace Tree.Printing
 {
@@ -48,7 +48,7 @@ namespace Tree.Printing
 
         private string title = string.Empty;
 
-        #endregion
+        #endregion Fields
 
         #region Constructors and Destructors
 
@@ -61,7 +61,7 @@ namespace Tree.Printing
             this.printDoc.EndPrint += this.PrintDocEndPrint;
         }
 
-        #endregion
+        #endregion Constructors and Destructors
 
         #region Enums
 
@@ -72,7 +72,7 @@ namespace Tree.Printing
             Vertical
         }
 
-        #endregion
+        #endregion Enums
 
         #region Public Methods and Operators
 
@@ -105,7 +105,7 @@ namespace Tree.Printing
             }
         }
 
-        #endregion
+        #endregion Public Methods and Operators
 
         #region Methods
 
@@ -194,10 +194,10 @@ namespace Tree.Printing
 
         private void PrintDocEndPrint(object sender, PrintEventArgs e)
         {
-            // For some reasons, it seems that the end print event is raised too 
-            // fast, so the _controlImage.Dispose(); is launched before the 
-            // print even begins, and thats why we get this error.... 
-            // try removing that line in the _printDoc_EndPrint method. It worked for me. 
+            // For some reasons, it seems that the end print event is raised too
+            // fast, so the _controlImage.Dispose(); is launched before the
+            // print even begins, and thats why we get this error....
+            // try removing that line in the _printDoc_EndPrint method. It worked for me.
 
             //this.controlImage.Dispose();
         }
@@ -273,7 +273,7 @@ namespace Tree.Printing
             }
         }
 
-        #endregion
+        #endregion Methods
 
         //External function declarations
     }

@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace FruPak.PF.Utils.UserControls
@@ -16,6 +11,7 @@ namespace FruPak.PF.Utils.UserControls
             get;
             set;
         }
+
         public BatchNum()
         {
             InitializeComponent();
@@ -30,6 +26,7 @@ namespace FruPak.PF.Utils.UserControls
                 populate();
             }
         }
+
         public void populate()
         {
             DataSet ds_Get_Info;
@@ -49,6 +46,7 @@ namespace FruPak.PF.Utils.UserControls
             cmb_Batch.Text = null;
             ds_Get_Info.Dispose();
         }
+
         // set and get for the batch number for the selected item.
         public int Batch_Num
         {
@@ -56,7 +54,7 @@ namespace FruPak.PF.Utils.UserControls
             {
                 if (cmb_Batch.SelectedItem != null)
                 {
-                   // return Convert.ToInt32((cmb_Batch.SelectedItem as ComboboxValues).GetValue);
+                    // return Convert.ToInt32((cmb_Batch.SelectedItem as ComboboxValues).GetValue);
                     return Convert.ToInt32(cmb_Batch.SelectedItem);
                 }
                 return 0;

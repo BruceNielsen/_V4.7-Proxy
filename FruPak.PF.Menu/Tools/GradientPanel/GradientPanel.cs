@@ -1,20 +1,14 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Text;
 using System.Windows.Forms;
 
 namespace Tools.GradientPanel
 {
-    public partial class GradientPanel : System.Windows.Forms.Panel  
+    public partial class GradientPanel : System.Windows.Forms.Panel
     {
-
         // member variables
-        System.Drawing.Color mStartColor;
-        System.Drawing.Color mEndColor;
+        private System.Drawing.Color mStartColor;
+
+        private System.Drawing.Color mEndColor;
 
         public GradientPanel()
         {
@@ -30,7 +24,6 @@ namespace Tools.GradientPanel
             base.OnPaint(pe);
         }
 
-
         public System.Drawing.Color PageStartColor
         {
             get
@@ -43,7 +36,6 @@ namespace Tools.GradientPanel
                 PaintGradient();
             }
         }
-
 
         public System.Drawing.Color PageEndColor
         {
@@ -58,7 +50,6 @@ namespace Tools.GradientPanel
             }
         }
 
-
         private void PaintGradient()
         {
             System.Drawing.Drawing2D.LinearGradientBrush gradBrush;
@@ -72,6 +63,5 @@ namespace Tools.GradientPanel
             this.BackgroundImage = bmp;
             this.BackgroundImageLayout = ImageLayout.Stretch;
         }
-
     }
 }

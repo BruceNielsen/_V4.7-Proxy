@@ -40,16 +40,15 @@
       <HintPath>..\..\FruPak.ProcessFactory\FruPak.ProcessFactory\bin\Release\BarcodeLib.dll</HintPath>
     </Reference>
     <Reference Include="NetOffice">
-      <HintPath>..\..\FruPak.ProcessFactory\FruPak.ProcessFactory\bin\Release\NetOffice.dll</HintPath>
+      <HintPath>..\NetOffice\NetOffice.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
     <Reference Include="NLog">
       <HintPath>..\packages\NLog.3.1.0.0\lib\net40\NLog.dll</HintPath>
     </Reference>
-    <Reference Include="OfficeApi, Version=1.6.0.0, Culture=neutral, PublicKeyToken=a39beb0835c43c8e, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
+    <Reference Include="OfficeApi">
+      <HintPath>..\NetOffice\OfficeApi.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
-      <HintPath>..\..\FruPak.ProcessFactory\FruPak.ProcessFactory\bin\Release\OfficeApi.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -61,7 +60,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="WordApi">
-      <HintPath>..\..\FruPak.ProcessFactory\FruPak.ProcessFactory\bin\Release\WordApi.dll</HintPath>
+      <HintPath>..\NetOffice\WordApi.dll</HintPath>
       <EmbedInteropTypes>False</EmbedInteropTypes>
     </Reference>
   </ItemGroup>

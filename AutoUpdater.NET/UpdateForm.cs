@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Microsoft.Win32;
+using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.Windows.Forms;
-using Microsoft.Win32;
 
 namespace AutoUpdaterDotNET
 {
@@ -62,18 +62,18 @@ namespace AutoUpdaterDotNET
 
         private void ButtonRemindLaterClick(object sender, EventArgs e)
         {
-            if(AutoUpdater.LetUserSelectRemindLater)
+            if (AutoUpdater.LetUserSelectRemindLater)
             {
                 var remindLaterForm = new RemindLaterForm();
 
                 var dialogResult = remindLaterForm.ShowDialog();
 
-                if(dialogResult.Equals(DialogResult.OK))
+                if (dialogResult.Equals(DialogResult.OK))
                 {
                     AutoUpdater.RemindLaterTimeSpan = remindLaterForm.RemindLaterFormat;
                     AutoUpdater.RemindLaterAt = remindLaterForm.RemindLaterAt;
                 }
-                else if(dialogResult.Equals(DialogResult.Abort))
+                else if (dialogResult.Equals(DialogResult.Abort))
                 {
                     AutoUpdater.DownloadUpdate();
                     return;
@@ -96,13 +96,14 @@ namespace AutoUpdaterDotNET
                     case RemindLaterFormat.Days:
                         remindLaterDateTime = DateTime.Now + TimeSpan.FromDays(AutoUpdater.RemindLaterAt);
                         break;
+
                     case RemindLaterFormat.Hours:
                         remindLaterDateTime = DateTime.Now + TimeSpan.FromHours(AutoUpdater.RemindLaterAt);
                         break;
+
                     case RemindLaterFormat.Minutes:
                         remindLaterDateTime = DateTime.Now + TimeSpan.FromMinutes(AutoUpdater.RemindLaterAt);
                         break;
-
                 }
                 updateKey.SetValue("remindlater", remindLaterDateTime.ToString(CultureInfo.CreateSpecificCulture("en-US")));
                 SetTimer(remindLaterDateTime);
@@ -114,9 +115,9 @@ namespace AutoUpdaterDotNET
         {
             TimeSpan timeSpan = remindLater - DateTime.Now;
             _timer = new System.Timers.Timer
-                {
-                    Interval = (int) timeSpan.TotalMilliseconds
-                };
+            {
+                Interval = (int)timeSpan.TotalMilliseconds
+            };
             _timer.Elapsed += TimerElapsed;
             _timer.Start();
         }

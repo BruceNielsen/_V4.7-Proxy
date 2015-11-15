@@ -43,6 +43,7 @@
             this.ckb_COA = new System.Windows.Forms.CheckBox();
             this.customer1 = new FruPak.PF.Utils.UserControls.Customer();
             this.panelInvoice_Search = new System.Windows.Forms.Panel();
+            this.buttonOpenPdfFileLocation = new System.Windows.Forms.Button();
             this.buttonSendDebugInfo = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -77,9 +78,9 @@
             // 
             // btn_Close
             // 
-            this.btn_Close.Location = new System.Drawing.Point(660, 45);
+            this.btn_Close.Location = new System.Drawing.Point(660, 61);
             this.btn_Close.Name = "btn_Close";
-            this.btn_Close.Size = new System.Drawing.Size(75, 34);
+            this.btn_Close.Size = new System.Drawing.Size(75, 27);
             this.btn_Close.TabIndex = 10;
             this.btn_Close.Text = "&Close";
             this.toolTip1.SetToolTip(this.btn_Close, "Closes the form");
@@ -123,7 +124,7 @@
             this.btn_Email_Customer.Size = new System.Drawing.Size(170, 38);
             this.btn_Email_Customer.TabIndex = 8;
             this.btn_Email_Customer.Text = "&Email to Customer";
-            this.toolTip1.SetToolTip(this.btn_Email_Customer, "Send a copy of the invoice to the customerA copy is also emailed to the office.");
+            this.toolTip1.SetToolTip(this.btn_Email_Customer, "Send a copy of the invoice to the customer. A copy is also emailed to the office.");
             this.btn_Email_Customer.UseVisualStyleBackColor = true;
             this.btn_Email_Customer.Click += new System.EventHandler(this.btn_Email_Customer_Click);
             // 
@@ -196,6 +197,7 @@
             // 
             // panelInvoice_Search
             // 
+            this.panelInvoice_Search.Controls.Add(this.buttonOpenPdfFileLocation);
             this.panelInvoice_Search.Controls.Add(this.buttonSendDebugInfo);
             this.panelInvoice_Search.Controls.Add(this.groupBox3);
             this.panelInvoice_Search.Controls.Add(this.groupBox2);
@@ -207,6 +209,19 @@
             this.panelInvoice_Search.Size = new System.Drawing.Size(747, 91);
             this.panelInvoice_Search.TabIndex = 61;
             // 
+            // buttonOpenPdfFileLocation
+            // 
+            this.buttonOpenPdfFileLocation.Image = ((System.Drawing.Image)(resources.GetObject("buttonOpenPdfFileLocation.Image")));
+            this.buttonOpenPdfFileLocation.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.buttonOpenPdfFileLocation.Location = new System.Drawing.Point(554, 32);
+            this.buttonOpenPdfFileLocation.Name = "buttonOpenPdfFileLocation";
+            this.buttonOpenPdfFileLocation.Size = new System.Drawing.Size(181, 23);
+            this.buttonOpenPdfFileLocation.TabIndex = 20;
+            this.buttonOpenPdfFileLocation.Text = "&Open Pdf File Location";
+            this.buttonOpenPdfFileLocation.UseVisualStyleBackColor = true;
+            this.buttonOpenPdfFileLocation.Visible = false;
+            this.buttonOpenPdfFileLocation.Click += new System.EventHandler(this.buttonOpenPdfFileLocation_Click);
+            // 
             // buttonSendDebugInfo
             // 
             this.buttonSendDebugInfo.Location = new System.Drawing.Point(554, 3);
@@ -215,6 +230,7 @@
             this.buttonSendDebugInfo.TabIndex = 9;
             this.buttonSendDebugInfo.Text = "&Send Debug Info";
             this.buttonSendDebugInfo.UseVisualStyleBackColor = true;
+            this.buttonSendDebugInfo.Visible = false;
             this.buttonSendDebugInfo.Click += new System.EventHandler(this.buttonSendDebugInfo_Click);
             // 
             // groupBox3
@@ -306,5 +322,6 @@
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.ErrorProvider errorProvider1;
         private System.Windows.Forms.Button buttonSendDebugInfo;
+        private System.Windows.Forms.Button buttonOpenPdfFileLocation;
     }
 }

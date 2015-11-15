@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace FruPak.PF.Menu
@@ -19,6 +14,7 @@ namespace FruPak.PF.Menu
             populate_datagridview();
             populate_combox();
         }
+
         private void populate_combox()
         {
             DataSet ds = FruPak.PF.Data.AccessLayer.SC_User.Get_For_Combo();
@@ -36,9 +32,9 @@ namespace FruPak.PF.Menu
             cmb_User.Text = null;
             ds.Dispose();
 
-            cmb_Repeat_Type.Items.AddRange(new string[] { "One Off","Annual", "Months", "Days" });
-
+            cmb_Repeat_Type.Items.AddRange(new string[] { "One Off", "Annual", "Months", "Days" });
         }
+
         private void AddColumnsProgrammatically()
         {
             var col0 = new DataGridViewTextBoxColumn();
@@ -97,6 +93,7 @@ namespace FruPak.PF.Menu
             img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
         }
+
         private void populate_datagridview()
         {
             dataGridView1.Refresh();
@@ -123,13 +120,12 @@ namespace FruPak.PF.Menu
                 dataGridView1.Rows[i].Cells["Name"] = DGVC_Cell1a;
 
                 DataGridViewCell DGVC_Cell2 = new DataGridViewTextBoxCell();
-                DGVC_Cell2.Value = dr_Get_Info["Message"].ToString().Replace('%',' ').Trim();
+                DGVC_Cell2.Value = dr_Get_Info["Message"].ToString().Replace('%', ' ').Trim();
                 dataGridView1.Rows[i].Cells["Message"] = DGVC_Cell2;
 
                 DataGridViewCell DGVC_Cell2a = new DataGridViewTextBoxCell();
                 DGVC_Cell2a.Value = dr_Get_Info["Message"].ToString().IndexOf('%') + "," + dr_Get_Info["Message"].ToString().Length;
                 dataGridView1.Rows[i].Cells["countdown_ind"] = DGVC_Cell2a;
-
 
                 DataGridViewCell DGVC_Cell3 = new DataGridViewTextBoxCell();
                 DGVC_Cell3.Value = dr_Get_Info["End_Date"].ToString();
@@ -143,10 +139,12 @@ namespace FruPak.PF.Menu
                 ds_Get_Info.Dispose();
             }
         }
+
         private void Fun_Messages_Load(object sender, EventArgs e)
         {
             Column_Size();
         }
+
         private void Column_Size()
         {
             //dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
@@ -160,14 +158,17 @@ namespace FruPak.PF.Menu
             dataGridView1.AutoResizeColumn(7, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(8, DataGridViewAutoSizeColumnMode.AllCells);
         }
+
         private void btn_Close_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
         private void cmb_Repeat_Type_SelectionChangeCommitted(object sender, EventArgs e)
         {
             cmb_Repeat_Type_SelectionChange(cmb_Repeat_Type.SelectedItem.ToString().Substring(0, 1).ToUpper());
         }
+
         private void cmb_Repeat_Type_SelectionChange(string Repeat_type)
         {
             switch (Repeat_type)
@@ -177,6 +178,7 @@ namespace FruPak.PF.Menu
                     cmb_Repeat_interval.Items.Clear();
                     cmb_Repeat_interval.Visible = false;
                     break;
+
                 case "M":
                     cmb_Repeat_interval.Items.Clear();
                     for (int i = 1; i < 13; i++)
@@ -185,9 +187,10 @@ namespace FruPak.PF.Menu
                     }
                     cmb_Repeat_interval.Visible = true;
                     break;
+
                 case "D":
                     cmb_Repeat_interval.Items.Clear();
-                    for (int i = 1; i < 32; i ++)
+                    for (int i = 1; i < 32; i++)
                     {
                         cmb_Repeat_interval.Items.Add(i);
                     }
@@ -195,10 +198,12 @@ namespace FruPak.PF.Menu
                     break;
             }
         }
+
         private void btn_reset_Click(object sender, EventArgs e)
         {
             Reset();
         }
+
         private void Reset()
         {
             cmb_User.Text = null;
@@ -230,7 +235,7 @@ namespace FruPak.PF.Menu
                 int_User_Id = Convert.ToInt32(cmb_User.SelectedValue.ToString());
             }
 
-            string str_Display="";
+            string str_Display = "";
             if (rdb_Message_Start.Checked == true)
             {
                 str_Display = "% " + txt_Display_Message.Text;
@@ -247,7 +252,7 @@ namespace FruPak.PF.Menu
             string str_End_Date = dtp_End_Date.Value.Year.ToString() + "/" + dtp_End_Date.Value.Month.ToString() + "/" + dtp_End_Date.Value.Day.ToString() + " " +
                                   dtp_End_Time.Value.Hour.ToString() + ":" + dtp_End_Time.Value.Minute.ToString() + ":" + dtp_End_Time.Value.Second.ToString();
 
-            string str_repeat="";
+            string str_repeat = "";
 
             if (cmb_Repeat_Type.SelectedIndex == -1)
             {
@@ -255,12 +260,12 @@ namespace FruPak.PF.Menu
             }
             else
             {
-
                 switch (cmb_Repeat_Type.SelectedItem.ToString().Substring(0, 1).ToUpper())
                 {
                     case "A":
                         str_repeat = "A";
                         break;
+
                     case "M":
                         str_repeat = "M";
                         if (cmb_Repeat_interval.SelectedIndex == -1)
@@ -272,6 +277,7 @@ namespace FruPak.PF.Menu
                             str_repeat = str_repeat + cmb_Repeat_interval.SelectedItem.ToString();
                         }
                         break;
+
                     case "D":
                         str_repeat = "D";
                         if (cmb_Repeat_interval.SelectedIndex == -1)
@@ -283,6 +289,7 @@ namespace FruPak.PF.Menu
                             str_repeat = str_repeat + cmb_Repeat_interval.SelectedItem.ToString();
                         }
                         break;
+
                     default:
                         str_repeat = null;
                         break;
@@ -301,14 +308,13 @@ namespace FruPak.PF.Menu
                     case "&Add":
                         int_result = int_result + FruPak.PF.Data.AccessLayer.SY_Message.Insert(FruPak.PF.Common.Code.General.int_max_user_id("SY_Message"), int_User_Id, str_Display, str_End_Date, str_repeat);
                         break;
+
                     case "&Update":
                         int_result = int_result + FruPak.PF.Data.AccessLayer.SY_Message.Update(int_Message_Id, int_User_Id, str_Display, str_End_Date, str_repeat);
                         break;
                 }
-
-
             }
-            if (int_result > 0 )
+            if (int_result > 0)
             {
                 lbl_message.Text = "Item has been added/Updated.";
                 lbl_message.ForeColor = System.Drawing.Color.Blue;
@@ -316,13 +322,16 @@ namespace FruPak.PF.Menu
                 Reset();
             }
         }
+
         private int int_Message_Id = 0;
+
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             DialogResult DLR_Message = new DialogResult();
             int int_result = 0;
 
             #region ---------- DELETE -------------
+
             if (e.ColumnIndex == 7)
             {
                 string str_msg;
@@ -348,8 +357,11 @@ namespace FruPak.PF.Menu
                 }
                 populate_datagridview();
             }
-            #endregion
+
+            #endregion ---------- DELETE -------------
+
             #region ---------- EDIT -------------
+
             if (e.ColumnIndex == 8)
             {
                 int_Message_Id = Convert.ToInt32(dataGridView1.CurrentRow.Cells["Id"].Value.ToString());
@@ -365,13 +377,16 @@ namespace FruPak.PF.Menu
                         case "O":
                             cmb_Repeat_Type.SelectedItem = "One Off";
                             break;
+
                         case "A":
                             cmb_Repeat_Type.SelectedItem = "Annual";
                             break;
+
                         case "M":
                             cmb_Repeat_Type.SelectedItem = "Months";
                             cmb_Repeat_interval.SelectedItem = dataGridView1.CurrentRow.Cells["Repeat_Ind"].Value.ToString().Substring(1);
                             break;
+
                         case "D":
                             cmb_Repeat_Type.SelectedItem = "Days";
                             cmb_Repeat_interval.SelectedItem = Convert.ToInt32(dataGridView1.CurrentRow.Cells["Repeat_Ind"].Value.ToString().Substring(1));
@@ -391,7 +406,7 @@ namespace FruPak.PF.Menu
                     {
                         rdb_Message_Start.Checked = true;
                     }
-                    else if (Convert.ToInt32(DataParts[0]) == Convert.ToInt32(DataParts[1])-1 )
+                    else if (Convert.ToInt32(DataParts[0]) == Convert.ToInt32(DataParts[1]) - 1)
                     {
                         rdb_Message_End.Checked = true;
                     }
@@ -406,7 +421,8 @@ namespace FruPak.PF.Menu
                 }
                 btn_Add.Text = "&Update";
             }
-            #endregion
+
+            #endregion ---------- EDIT -------------
         }
 
         /// <summary>

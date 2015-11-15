@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Data;
-using System.Data.OleDb;
-using FruPak.Utils.Data;
+﻿using FruPak.Utils.Data;
 
 namespace FruPak.PF.Data.AccessLayer
 {

@@ -1,10 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Microsoft.Office.Interop.Outlook;
+﻿using Microsoft.Office.Interop.Outlook;
+using System;
 using System.ComponentModel;
-using System.Data;
 
 namespace FruPak.PF.Data.Outlook
 {
@@ -16,6 +12,7 @@ namespace FruPak.PF.Data.Outlook
     -------------------------------------------------------------------------------------------------------------------------------------------------
     01/09/2013  Dave       Creation
     */
+
     public class Appointment
     {
         /// <summary>
@@ -27,6 +24,7 @@ namespace FruPak.PF.Data.Outlook
             _AppointmentItem oCalender = (_AppointmentItem)oItems.Add("IPM.Appointment");
             oCalender.Display(true);
         }
+
         /// <summary>
         /// Gets or Sets the Body Text
         /// </summary>
@@ -35,6 +33,7 @@ namespace FruPak.PF.Data.Outlook
             get;
             set;
         }
+
         /// <summary>
         /// Gets or Sets if the Appointment is an AllDay Event
         /// </summary>
@@ -44,6 +43,7 @@ namespace FruPak.PF.Data.Outlook
             get;
             set;
         }
+
         /// <summary>
         /// Gets or Sets if the Categories
         /// </summary>
@@ -52,6 +52,7 @@ namespace FruPak.PF.Data.Outlook
             get;
             set;
         }
+
         /// <summary>
         /// Gets or Sets if the Subject
         /// </summary>
@@ -60,22 +61,26 @@ namespace FruPak.PF.Data.Outlook
             get;
             set;
         }
+
         public static string Appointment_Location
         {
             get;
             set;
         }
+
         [DefaultValue(0)]
         public static int Appointment_ReminderMinutesBeforeStart
         {
             get;
             set;
         }
+
         /// <summary>
         /// Gets or Sets if the StartTime
         /// </summary>
-        /// 
+        ///
         private static DateTime Appointment_Start_Time_field = DateTime.Now;
+
         public static DateTime Appointment_Start_Time
         {
             get
@@ -87,11 +92,13 @@ namespace FruPak.PF.Data.Outlook
                 Appointment_Start_Time_field = value;
             }
         }
+
         /// <summary>
         /// Gets or Sets if the EndTime
         /// </summary>
-        /// 
+        ///
         private static DateTime Appointment_End_Time_field = DateTime.Now;
+
         public static DateTime Appointment_End_Time
         {
             get
@@ -103,18 +110,22 @@ namespace FruPak.PF.Data.Outlook
                 Appointment_End_Time_field = value;
             }
         }
+
         public static bool Appointment_Reminder_Set
         {
             get;
             set;
         }
+
         [DefaultValue(false)]
         public static bool Appointment_Display
         {
             get;
             set;
         }
+
         private static bool Appointment_Save_field = true;
+
         public static bool Appointment_Save
         {
             get
@@ -126,6 +137,7 @@ namespace FruPak.PF.Data.Outlook
                 Appointment_Save_field = value;
             }
         }
+
         public static void Create_Appointment2()
         {
             _Items oItems = Outlook.Folder_Name_Locationfield.Items;
@@ -153,6 +165,5 @@ namespace FruPak.PF.Data.Outlook
                 oCalender2.Save();
             }
         }
-
     }
 }

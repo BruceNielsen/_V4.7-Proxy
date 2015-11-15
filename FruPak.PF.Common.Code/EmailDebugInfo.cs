@@ -1,11 +1,9 @@
-﻿using System;
+﻿using NLog;
+using System;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using NLog;
 
 namespace FruPak.PF.Common.Code
 {
@@ -14,29 +12,34 @@ namespace FruPak.PF.Common.Code
     /// </summary>
     public static class EmailDebugInfo
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static string savePath = Application.StartupPath;
-        private static void CaptureScreen()
-        {
 
-            Rectangle bounds = Screen.GetBounds(Point.Empty);
-            using (Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height))
-            {
-                using (Graphics g = Graphics.FromImage(bitmap))
-                {
-                    g.CopyFromScreen(Point.Empty, Point.Empty, bounds.Size);
-                }
-                bitmap.Save(savePath + "\\logs\\Screenshot.jpg", ImageFormat.Jpeg);
-            }
-        }
+        //public static void CaptureScreen()
+        //{
+        //    try
+        //    {
+        //        Rectangle bounds = Screen.GetBounds(Point.Empty);
+        //        using (Bitmap bitmap = new Bitmap(bounds.Width, bounds.Height))
+        //        {
+        //            using (Graphics g = Graphics.FromImage(bitmap))
+        //            {
+        //                g.CopyFromScreen(Point.Empty, Point.Empty, bounds.Size);
+        //            }
+        //            bitmap.Save(savePath + "\\logs\\Screenshot.jpg", ImageFormat.Jpeg);
+        //        }
+        //    }
+        //    catch(Exception ex)
+        //    {
+        //        Common.Code.DebugStacktrace.StackTrace(ex);
+        //    }
+        //}
 
         public static void SendDebugInfo(string ReasonMessage)
         {
             try
             {
-
-                CaptureScreen();
 
                 FruPak.PF.Common.Code.SendEmail.Recipient = new List<string>();
                 FruPak.PF.Common.Code.SendEmail.Recipient.Add("processerrors@frupak.co.nz");
@@ -49,15 +52,14 @@ namespace FruPak.PF.Common.Code
                 FruPak.PF.Common.Code.SendEmail.attachment.Add(savePath + "\\logs\\log.csv");
 
                 FruPak.PF.Common.Code.SendEmail.Subject = "Debug Info: " + DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToShortTimeString();
-                FruPak.PF.Common.Code.SendEmail.message = "For your consideration...";
-                //FruPak.PF.Common.Code.SendEmail.message = ReasonMessage;
+                //FruPak.PF.Common.Code.SendEmail.message = "For your consideration...";
+                FruPak.PF.Common.Code.SendEmail.message = ReasonMessage;
                 FruPak.PF.Common.Code.SendEmail.From_Email_Address = "FruPak.PF." + Environment.UserName + "@frupak.co.nz";
                 FruPak.PF.Common.Code.SendEmail.Network_UserId = "services";
                 FruPak.PF.Common.Code.SendEmail.Network_Password = "Pentium3";
 
                 // Send the email
                 string result = FruPak.PF.Common.Code.SendEmail.send_mail();
-
 
                 if (result.Length == 0)
                 {
@@ -82,7 +84,8 @@ namespace FruPak.PF.Common.Code
             }
             catch (Exception ex)
             {
-                logger.Log(LogLevel.Trace, ex.Message);
+                Common.Code.DebugStacktrace.StackTrace(ex);
+                // logger.Log(LogLevel.Trace, ex.Message);
                 MessageBox.Show(ex.Message);
             }
         }

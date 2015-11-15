@@ -1,14 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace FruPak.PF.Menu
 {
     //public class EventClass
     //{
-
     //}
     public class Global_EventArgs : System.EventArgs
     {
@@ -68,7 +63,7 @@ namespace FruPak.PF.Menu
     public class GeneralPurposeObjectEventArgs : EventArgs
     {
         // Private fields exposed by the GeneralPurpose properties
-        
+
         private string _generalPurposeDescription;  // Might be handy
         private object _generalPurposeObject;       // Object for casting later
         private string _generalPurposeText;         // Name, probably
@@ -84,18 +79,16 @@ namespace FruPak.PF.Menu
         public string GP_Description
         {
             get { return _generalPurposeDescription; }
-        }        
-        
+        }
+
         public object GP_Object
         {
             get { return _generalPurposeObject; }
-        }        
-        
+        }
+
         public string GP_Text
         {
             get { return _generalPurposeText; }
-        }        
-        
-
+        }
     }
 }

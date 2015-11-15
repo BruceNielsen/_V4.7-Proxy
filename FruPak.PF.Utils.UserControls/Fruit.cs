@@ -1,11 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections;
-using System.ComponentModel;
-using System.Drawing;
 using System.Data;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 
 namespace FruPak.PF.Utils.UserControls
@@ -15,11 +10,11 @@ namespace FruPak.PF.Utils.UserControls
         // Events raised by this class to indicate when variety and fruit type combo boxes have changed.
         // In method that captures the combobox changed events need to raise these events.
         public event EventHandler FruitVarietyChanged;
+
         public event EventHandler FruitTypeChanged;
 
-
         private int int_Block_Id = 0;
-        
+
         public Fruit()
         {
             InitializeComponent();
@@ -61,7 +56,6 @@ namespace FruPak.PF.Utils.UserControls
 
                 //populate_Combos();
             }
-            
         }
 
         private void populate_Combos()
@@ -86,16 +80,13 @@ namespace FruPak.PF.Utils.UserControls
                 dr_get_info = ds_get_info.Tables[0].Rows[i];
                 FruitTypes.Add(new ComboboxValues(dr_get_info["FruitType_Id"].ToString(), dr_get_info["Description"].ToString()));
             }
-            
+
             cmb_Fruit_Type.DisplayMember = "GetDescription";
             cmb_Fruit_Type.ValueMember = "GetValue";
             cmb_Fruit_Type.DataSource = FruitTypes;
-      
 
             // populate variety combo box using block info if have it.
             populate_Variety_Box(Convert.ToInt32((cmb_Fruit_Type.SelectedItem as ComboboxValues).GetValue));
-
-
         }
 
         private void populate_Variety_Box(int fruittype)
@@ -141,18 +132,18 @@ namespace FruPak.PF.Utils.UserControls
             cmb_Variety.Text = null;
         }
 
- 
         private void cmb_Fruit_Type_SelectedIndexChanged(object sender, EventArgs e)
         {
             int fruittype;
             if ((sender as ComboBox).SelectedItem == null)
             {
                 fruittype = 0;
-            } else {
+            }
+            else
+            {
                 fruittype = Convert.ToInt32(((sender as ComboBox).SelectedItem as ComboboxValues).GetValue);
             }
             populate_Variety_Box(fruittype);
-
 
             // passes on the fruittype changed event outside of this control.  Use FruitTypeChanged property.
             EventHandler handler = FruitTypeChanged;
@@ -212,7 +203,7 @@ namespace FruPak.PF.Utils.UserControls
                 if (value == 0)
                 {
                     cmb_Fruit_Type.SelectedIndex = -1;
-                } 
+                }
                 else
                 {
                     if (cmb_Fruit_Type.Items.Count > 0)
@@ -247,10 +238,7 @@ namespace FruPak.PF.Utils.UserControls
         }
     }
 
-
-
-
-    // Class to hold a value_member and a description_member for each combobox.  
+    // Class to hold a value_member and a description_member for each combobox.
     // Enables the description to be displayed in the drop down box and a different value to be returned when an item is selected.
     public class ComboboxValues
     {
@@ -259,7 +247,6 @@ namespace FruPak.PF.Utils.UserControls
 
         public ComboboxValues(string strValue, string strDescription)
         {
-
             this.myValue = strValue;
             this.myDescription = strDescription;
         }
@@ -278,7 +265,6 @@ namespace FruPak.PF.Utils.UserControls
 
         public string GetDescription
         {
-
             get
             {
                 return myDescription;
@@ -288,6 +274,5 @@ namespace FruPak.PF.Utils.UserControls
                 myDescription = value;
             }
         }
-
     }
 }

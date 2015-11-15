@@ -5,157 +5,157 @@ Created by:			05/15/2004, Zuoliu Ding
 Note:				For a Combo box with Separators
 ****************************************************************************************************************/
 
-using System;
-using System.Windows.Forms;
-using System.Drawing;
-using System.Drawing.Drawing2D;
 using System.Collections;
 using System.ComponentModel;
-using System.Diagnostics;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 
 namespace FruPak.PF.Utils.UserControls
 {
-	public class SeparatorComboBox : ComboBox
-	{
-		#region Constructor
-		public SeparatorComboBox()
-		{
-			DrawMode		= DrawMode.OwnerDrawVariable;
-			_separatorStyle = DashStyle.Solid;
-			_separators		= new ArrayList();
+    public class SeparatorComboBox : ComboBox
+    {
+        #region Constructor
 
-			_separatorStyle		= DashStyle.Solid;
-			_separatorColor		= Color.Black;
-			_separatorMargin	= 1;
-			_separatorWidth		= 1;
-			_autoAdjustItemHeight = false;
-		}
-		#endregion
+        public SeparatorComboBox()
+        {
+            DrawMode = DrawMode.OwnerDrawVariable;
+            _separatorStyle = DashStyle.Solid;
+            _separators = new ArrayList();
 
-		#region Medthods
+            _separatorStyle = DashStyle.Solid;
+            _separatorColor = Color.Black;
+            _separatorMargin = 1;
+            _separatorWidth = 1;
+            _autoAdjustItemHeight = false;
+        }
 
-		public void AddString(string s)
-		{
-			Items.Add(s);
-		}
+        #endregion Constructor
 
-		public void AddStringWithSeparator(string s)
-		{
-			Items.Add(s);
-			_separators.Add(s);
-		}
+        #region Medthods
 
-		public void SetSeparator(int pos)
-		{
-			_separators.Add(pos);
-		}
+        public void AddString(string s)
+        {
+            Items.Add(s);
+        }
 
-		#endregion
+        public void AddStringWithSeparator(string s)
+        {
+            Items.Add(s);
+            _separators.Add(s);
+        }
 
-		#region Properties
+        public void SetSeparator(int pos)
+        {
+            _separators.Add(pos);
+        }
 
-		[Description("Gets or sets the Separator Style"), Category("Separator")]
-		public DashStyle SeparatorStyle
-		{
-			get{ return _separatorStyle; }
-			set{ _separatorStyle = value; }
-		}
+        #endregion Medthods
 
-		[Description("Gets or sets the Separator Color"), Category("Separator")]
-		public Color SeparatorColor
-		{
-			get{ return _separatorColor; }
-			set{ _separatorColor = value; }
-		}
+        #region Properties
 
-		[Description("Gets or sets the Separator Width"), Category("Separator")]
-		public int SeparatorWidth
-		{
-			get{ return _separatorWidth; }
-			set{ _separatorWidth = value; }
-		}
+        [Description("Gets or sets the Separator Style"), Category("Separator")]
+        public DashStyle SeparatorStyle
+        {
+            get { return _separatorStyle; }
+            set { _separatorStyle = value; }
+        }
 
-		[Description("Gets or sets the Separator Margin"), Category("Separator")]
-		public int SeparatorMargin
-		{
-			get{ return _separatorMargin; }
-			set{ _separatorMargin = value; }
-		}
+        [Description("Gets or sets the Separator Color"), Category("Separator")]
+        public Color SeparatorColor
+        {
+            get { return _separatorColor; }
+            set { _separatorColor = value; }
+        }
 
-		[Description("Gets or sets Auto Adjust Item Height"), Category("Separator")]
-		public bool AutoAdjustItemHeight
-		{
-			get{ return _autoAdjustItemHeight; }
-			set{ _autoAdjustItemHeight = value; }
-		}
+        [Description("Gets or sets the Separator Width"), Category("Separator")]
+        public int SeparatorWidth
+        {
+            get { return _separatorWidth; }
+            set { _separatorWidth = value; }
+        }
 
-		#endregion
+        [Description("Gets or sets the Separator Margin"), Category("Separator")]
+        public int SeparatorMargin
+        {
+            get { return _separatorMargin; }
+            set { _separatorMargin = value; }
+        }
 
-		#region Overrides
+        [Description("Gets or sets Auto Adjust Item Height"), Category("Separator")]
+        public bool AutoAdjustItemHeight
+        {
+            get { return _autoAdjustItemHeight; }
+            set { _autoAdjustItemHeight = value; }
+        }
 
-		protected override void OnMeasureItem(MeasureItemEventArgs e)
-		{
-			if (_autoAdjustItemHeight)
-				e.ItemHeight += _separatorWidth;
+        #endregion Properties
 
-			base.OnMeasureItem(e);
-		}
+        #region Overrides
 
-		protected override void OnDrawItem(DrawItemEventArgs e)
-		{
-			if (-1 == e.Index) return;
- 
-			bool sep = false;
-			object o;
-			for (int i=0; !sep && i<_separators.Count; i++)
-			{ 
-				o = _separators[i];
+        protected override void OnMeasureItem(MeasureItemEventArgs e)
+        {
+            if (_autoAdjustItemHeight)
+                e.ItemHeight += _separatorWidth;
 
-				if (o is string)
-				{
-					if ((string)this.Items[e.Index] == o as string) 
-						sep = true;
-				}
-				else 
-				{
-					int pos = (int)o;
-					if (pos<0) pos += Items.Count;
+            base.OnMeasureItem(e);
+        }
 
-					if (e.Index == pos) sep = true;
-				}
-			}
+        protected override void OnDrawItem(DrawItemEventArgs e)
+        {
+            if (-1 == e.Index) return;
 
-			e.DrawBackground();
-			Graphics g = e.Graphics;
-			int y = e.Bounds.Location.Y +_separatorWidth-1;	
+            bool sep = false;
+            object o;
+            for (int i = 0; !sep && i < _separators.Count; i++)
+            {
+                o = _separators[i];
 
-			if (sep)
-			{
-				Pen pen = new Pen(_separatorColor, _separatorWidth);
-				pen.DashStyle = _separatorStyle;
+                if (o is string)
+                {
+                    if ((string)this.Items[e.Index] == o as string)
+                        sep = true;
+                }
+                else
+                {
+                    int pos = (int)o;
+                    if (pos < 0) pos += Items.Count;
 
-				g.DrawLine(pen, e.Bounds.Location.X+_separatorMargin, y, e.Bounds.Location.X+e.Bounds.Width-_separatorMargin, y);
-				y++;
-			}
+                    if (e.Index == pos) sep = true;
+                }
+            }
 
-			Brush br = DrawItemState.Selected == (DrawItemState.Selected & e.State)? SystemBrushes.HighlightText: new SolidBrush(e.ForeColor);
-			g.DrawString((string)Items[e.Index], e.Font, br, e.Bounds.Left, y+1);	
-			//			e.DrawFocusRectangle();
+            e.DrawBackground();
+            Graphics g = e.Graphics;
+            int y = e.Bounds.Location.Y + _separatorWidth - 1;
 
-			base.OnDrawItem(e);
-		}
+            if (sep)
+            {
+                Pen pen = new Pen(_separatorColor, _separatorWidth);
+                pen.DashStyle = _separatorStyle;
 
-		#endregion
+                g.DrawLine(pen, e.Bounds.Location.X + _separatorMargin, y, e.Bounds.Location.X + e.Bounds.Width - _separatorMargin, y);
+                y++;
+            }
 
-		#region Data members
+            Brush br = DrawItemState.Selected == (DrawItemState.Selected & e.State) ? SystemBrushes.HighlightText : new SolidBrush(e.ForeColor);
+            g.DrawString((string)Items[e.Index], e.Font, br, e.Bounds.Left, y + 1);
+            //			e.DrawFocusRectangle();
 
-		ArrayList	_separators;
-		DashStyle	_separatorStyle;
-		Color		_separatorColor;
-		int			_separatorWidth;
-		int			_separatorMargin;
-		bool		_autoAdjustItemHeight;
+            base.OnDrawItem(e);
+        }
 
-		#endregion
-	}
+        #endregion Overrides
+
+        #region Data members
+
+        private ArrayList _separators;
+        private DashStyle _separatorStyle;
+        private Color _separatorColor;
+        private int _separatorWidth;
+        private int _separatorMargin;
+        private bool _autoAdjustItemHeight;
+
+        #endregion Data members
+    }
 }

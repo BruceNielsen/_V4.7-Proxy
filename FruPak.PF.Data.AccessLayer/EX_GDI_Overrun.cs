@@ -1,9 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FruPak.Utils.Data;
 using System.Data;
-using System.Data.OleDb;
-using FruPak.Utils.Data;
 
 namespace FruPak.PF.Data.AccessLayer
 {
@@ -14,17 +10,19 @@ namespace FruPak.PF.Data.AccessLayer
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM EX_GDI_Overrun WHERE GDIBarcode = " + Barcode + " AND PF_Active_Ind = 1");
         }
+
         public static int Update_Active(string Barcode, bool PF_Active_Ind)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE EX_GDI_Overrun SET PF_Active_Ind = '" + PF_Active_Ind + "' " +
-                                              " WHERE GDIBarcode = " + Barcode );
+                                              " WHERE GDIBarcode = " + Barcode);
         }
+
         public static int Update_Weight(string Barcode, decimal weight)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE EX_GDI_Overrun SET Weight_Gross =" + weight + " " +
-                                              " WHERE GDIBarcode = " + Barcode );
+                                              " WHERE GDIBarcode = " + Barcode);
         }
     }
 }

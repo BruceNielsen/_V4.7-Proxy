@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Data;
 
 namespace FruPak.PF.Global
 {
@@ -12,6 +8,7 @@ namespace FruPak.PF.Global
     public class Global
     {
         private static bool _Phantom_Dev_Mode = true;
+
         public static bool Phantom_Dev_Mode
         {
             get { return _Phantom_Dev_Mode; }
@@ -19,13 +16,15 @@ namespace FruPak.PF.Global
         }
 
         private static bool _bol_Testing = true;
+
         public static bool bol_Testing
         {
-            get {return _bol_Testing;}
+            get { return _bol_Testing; }
             set { _bol_Testing = value; }
         }
 
         private static bool _bol_Timer_Msg = true;
+
         public static bool bol_Timer_Msg
         {
             get { return _bol_Timer_Msg; }
@@ -37,7 +36,7 @@ namespace FruPak.PF.Global
         /// </summary>
         /// <param name="Comment">String value to be cleaned</param>
         /// <returns>Cleaned string value</returns>
-        public static string CleanSqlComment (string Comment)
+        public static string CleanSqlComment(string Comment)
         {
             string CleanedSqlComment = string.Empty;
             try
@@ -57,6 +56,7 @@ namespace FruPak.PF.Global
         }
 
         private static string _LogonName;
+
         public static string LogonName
         {
             get { return _LogonName; }

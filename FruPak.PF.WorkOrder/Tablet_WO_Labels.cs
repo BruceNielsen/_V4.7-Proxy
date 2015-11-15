@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
+﻿using NLog;
+using System;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using NLog;
 
 // Most of the logging here is not needed, but whatever.
 
@@ -14,7 +9,7 @@ namespace FruPak.PF.WorkOrder
 {
     public partial class Tablet_WO_Labels : WO_Labels
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         /// <summary>
         /// Parameterless constructor to avoid designer error - Phantom 12/12/2014
@@ -22,7 +17,8 @@ namespace FruPak.PF.WorkOrder
         public Tablet_WO_Labels()
         {
         }
-        public Tablet_WO_Labels(int int_wo_Id, int int_C_User_id, bool bol_w_a) :base (int_wo_Id, int_C_User_id, bol_w_a)
+
+        public Tablet_WO_Labels(int int_wo_Id, int int_C_User_id, bool bol_w_a) : base(int_wo_Id, int_C_User_id, bol_w_a)
         {
             InitializeComponent();
 
@@ -66,7 +62,7 @@ namespace FruPak.PF.WorkOrder
             ckb_plc_on_order.Location = new Point(545, 140);
             ckb_plc_on_order.Font = new Font(ckb_plc_on_order.Font.FontFamily, 12);
 
-            lbl_batch.Location = new Point(150,180);
+            lbl_batch.Location = new Point(150, 180);
             lbl_qunatity.Location = new Point(195, 180);
             lbl_total.Location = new Point(282, 180);
 
@@ -122,6 +118,7 @@ namespace FruPak.PF.WorkOrder
             btn_Close.Size = new System.Drawing.Size(75, 46);
 
             #region Log any interesting events from the UI to the CSV log file
+
             foreach (Control c in this.Controls)
             {
                 if (c.GetType() == typeof(Button))
@@ -152,20 +149,20 @@ namespace FruPak.PF.WorkOrder
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-
                 else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
                 {
                     FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
-            #endregion
 
+            #endregion Log any interesting events from the UI to the CSV log file
         }
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
+
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>
@@ -176,34 +173,39 @@ namespace FruPak.PF.WorkOrder
             {
                 Button b = (Button)sender;
                 logger.Log(LogLevel.Info, DecorateString(b.Name, b.Text, "Click"));
-
             }
         }
+
         private void Control_Validated(object sender, EventArgs e)
         {
             TextBox t = (TextBox)sender;
             logger.Log(LogLevel.Info, DecorateString(t.Name, t.Text, "Validated"));
         }
+
         private void Control_SelectedValueChanged(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Text, "SelectedValueChanged"));
         }
+
         private void Control_ValueChanged(object sender, EventArgs e)
         {
             DateTimePicker dtp = (DateTimePicker)sender;
             logger.Log(LogLevel.Info, DecorateString(dtp.Name, dtp.Text, "ValueChanged"));
         }
+
         private void Control_NudValueChanged(object sender, EventArgs e)
         {
             NumericUpDown nud = (NumericUpDown)sender;
             logger.Log(LogLevel.Info, DecorateString(nud.Name, nud.Text, "NudValueChanged"));
         }
+
         private void Control_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Checked.ToString(), "CheckedChanged"));
         }
+
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
             FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
@@ -211,8 +213,10 @@ namespace FruPak.PF.WorkOrder
         }
 
         #region Decorate String
+
         // DecorateString
         private string openPad = " --- [ ";
+
         private string closePad = " ] --- ";
         private string intro = "--->   { ";
         private string outro = " }   <---";
@@ -234,7 +238,8 @@ namespace FruPak.PF.WorkOrder
             output = intro + name + openPad + input + closePad + action + outro;
             return output;
         }
-        #endregion
+
+        #endregion Decorate String
 
         /// <summary>
         /// Close the form with the Esc key (Sel request 11-02-2015 BN)
@@ -250,7 +255,6 @@ namespace FruPak.PF.WorkOrder
             }
         }
 
-        #endregion
-
+        #endregion Methods to log UI events to the CSV file. BN 29/01/2015
     }
 }

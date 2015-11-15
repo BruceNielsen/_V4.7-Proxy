@@ -1,23 +1,19 @@
 ﻿/*
  * Copyright (C) Henrik Jonsson 2007
- * 
- * THIS WORK IS PROVIDED UNDER THE TERMS OF THIS CODE PROJECT OPEN LICENSE ("LICENSE"). 
- * THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK 
+ *
+ * THIS WORK IS PROVIDED UNDER THE TERMS OF THIS CODE PROJECT OPEN LICENSE ("LICENSE").
+ * THE WORK IS PROTECTED BY COPYRIGHT AND/OR OTHER APPLICABLE LAW. ANY USE OF THE WORK
  * OTHER THAN AS AUTHORIZED UNDER THIS LICENSE OR COPYRIGHT LAW IS PROHIBITED.
- * 
+ *
  * See licence.txt or http://thecodeproject.com/info/eula.aspx for full licence description.
- * 
+ *
  * This copyright notice must not be removed.
 */
-using System;
+
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Reversible;
 
 namespace Reversible.Extensions
 {
-
     /// <summary>
     /// Enumerates possible actions in an ListEdit and IListEdit.
     /// </summary>
@@ -136,10 +132,8 @@ namespace Reversible.Extensions
         {
             return new ReversibleIListWrapper<T>(list);
         }
-
     }
 
-     
     /// <summary>
     /// Represents a reversible change in one of an IList's item.
     /// </summary>
@@ -168,10 +162,12 @@ namespace Reversible.Extensions
                     list[index] = item;
                     item = backup;
                     break;
+
                 case ListEditAction.AddItem:
                     list.RemoveAt(index);
                     action = ListEditAction.RemoveItem;
                     break;
+
                 case ListEditAction.RemoveItem:
                     list.Insert(index, item);
                     action = ListEditAction.AddItem;
@@ -183,14 +179,12 @@ namespace Reversible.Extensions
 
     internal class ReversibleIListWrapper<T> : IList<T>
     {
-        IList<T> list;
+        private IList<T> list;
 
         public ReversibleIListWrapper(IList<T> listToWrap)
         {
             list = listToWrap;
         }
-
-
 
         #region IList<T> Members
 
@@ -221,7 +215,7 @@ namespace Reversible.Extensions
             }
         }
 
-        #endregion
+        #endregion IList<T> Members
 
         #region ICollection<T> Members
 
@@ -260,7 +254,7 @@ namespace Reversible.Extensions
             return list.Remove_Reversible(item);
         }
 
-        #endregion
+        #endregion ICollection<T> Members
 
         #region IEnumerable<T> Members
 
@@ -269,7 +263,7 @@ namespace Reversible.Extensions
             return list.GetEnumerator();
         }
 
-        #endregion
+        #endregion IEnumerable<T> Members
 
         #region IEnumerable Members
 
@@ -278,7 +272,6 @@ namespace Reversible.Extensions
             return list.GetEnumerator();
         }
 
-        #endregion
+        #endregion IEnumerable Members
     }
-
 }

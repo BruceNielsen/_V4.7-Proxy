@@ -52,8 +52,12 @@
   <ItemGroup>
     <Compile Include="AutoResize.cs" />
     <Compile Include="Barcode.cs" />
+    <Compile Include="DebugCaptureScreen.cs" />
+    <Compile Include="DebugStacktrace.cs" />
+    <Compile Include="KillAllWordInstances.cs" />
     <Compile Include="EmailDebugInfo.cs" />
     <Compile Include="General.cs" />
+    <Compile Include="OpenSavedPdfFileLocation.cs" />
     <Compile Include="Outlook.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Resources.Designer.cs">

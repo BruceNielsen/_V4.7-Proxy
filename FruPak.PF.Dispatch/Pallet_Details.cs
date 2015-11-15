@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using NLog;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using NLog;
 
 namespace FruPak.PF.Dispatch
 {
     public partial class Pallet_Details : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static bool bol_write_access;
         private static int int_Current_User_Id = 0;
         private int int_order_id;
+
         public Pallet_Details(int order_num, int int_C_User_id, bool bol_w_a)
         {
             InitializeComponent();
@@ -25,7 +21,7 @@ namespace FruPak.PF.Dispatch
 
             //restrict access
             bol_write_access = bol_w_a;
-        
+
             //check if testing or not
 
             //if (FruPak.PF.Global.Global.bol_Testing == true)
@@ -43,6 +39,7 @@ namespace FruPak.PF.Dispatch
             AddColumnsProgrammatically2();
 
             #region Log any interesting events from the UI to the CSV log file
+
             foreach (Control c in this.Controls)
             {
                 if (c.GetType() == typeof(Button))
@@ -73,16 +70,16 @@ namespace FruPak.PF.Dispatch
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-
                 else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
                 {
                     FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
-            #endregion
 
+            #endregion Log any interesting events from the UI to the CSV log file
         }
+
         private void AddColumnsProgrammatically()
         {
             var col0 = new DataGridViewTextBoxColumn();
@@ -91,12 +88,12 @@ namespace FruPak.PF.Dispatch
             col0.HeaderText = "Pallet";
             col0.Name = "Pallet_Id";
             col0.ReadOnly = true;
- 
+
             col1.HeaderText = "Barcode";
             col1.Name = "Barcode";
             col1.ReadOnly = true;
 
-            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { col0, col1});
+            dataGridView1.Columns.AddRange(new DataGridViewColumn[] { col0, col1 });
 
             DataGridViewImageColumn img_delete = new DataGridViewImageColumn();
             dataGridView1.Columns.Add(img_delete);
@@ -105,6 +102,7 @@ namespace FruPak.PF.Dispatch
             img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
         }
+
         private void AddColumnsProgrammatically2()
         {
             var col0 = new DataGridViewTextBoxColumn();
@@ -147,6 +145,7 @@ namespace FruPak.PF.Dispatch
 
             dataGridView2.Columns.AddRange(new DataGridViewColumn[] { col0, col1, col2, col3, col3a, col4, col5 });
         }
+
         private void populate_DataGridView1()
         {
             dataGridView1.Refresh();
@@ -170,8 +169,9 @@ namespace FruPak.PF.Dispatch
                 dataGridView1.Rows[i].Cells["Barcode"] = DGVC_Cell1;
             }
             Column_Size();
-            ds_Get_Info.Dispose();          
+            ds_Get_Info.Dispose();
         }
+
         private void populate_DataGridView2(int int_Pallet_ID)
         {
             dataGridView2.Refresh();
@@ -213,16 +213,16 @@ namespace FruPak.PF.Dispatch
                 DataGridViewCell DGVC_Cell5 = new DataGridViewTextBoxCell();
                 DGVC_Cell5.Value = dr_Get_Info["Quantity"].ToString();
                 dataGridView2.Rows[i].Cells["Quantity"] = DGVC_Cell5;
-
             }
             Column_Size();
             ds_Get_Info.Dispose();
-           
         }
+
         private void SizeAllColumns(Object sender, EventArgs e)
         {
             Column_Size();
         }
+
         private void Column_Size()
         {
             dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
@@ -259,7 +259,6 @@ namespace FruPak.PF.Dispatch
                     if (DLR_Message == DialogResult.Yes)
                     {
                         int_result = FruPak.PF.Data.AccessLayer.PF_Pallet.Update_remove_from_Order(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Pallet_Id"].Value.ToString()), int_Current_User_Id);
-
                     }
 
                     if (int_result > 0)
@@ -296,8 +295,9 @@ namespace FruPak.PF.Dispatch
         }
 
         #region Log Code
+
         /// <summary>
-        /// Formats the output to the debug log so that the actual log contents stand out amongst the machine-generated stuff. 
+        /// Formats the output to the debug log so that the actual log contents stand out amongst the machine-generated stuff.
         /// Refers to machine-generated content, not calling specifics.
         /// </summary>
         /// <param name="input">The code function that we want to log.</param>
@@ -307,11 +307,13 @@ namespace FruPak.PF.Dispatch
             string Output = "___[ " + input + " ]___";
             return Output;
         }
-        #endregion
+
+        #endregion Log Code
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
+
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>
@@ -322,34 +324,39 @@ namespace FruPak.PF.Dispatch
             {
                 Button b = (Button)sender;
                 logger.Log(LogLevel.Info, DecorateString(b.Name, b.Text, "Click"));
-
             }
         }
+
         private void Control_Validated(object sender, EventArgs e)
         {
             TextBox t = (TextBox)sender;
             logger.Log(LogLevel.Info, DecorateString(t.Name, t.Text, "Validated"));
         }
+
         private void Control_SelectedValueChanged(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Text, "SelectedValueChanged"));
         }
+
         private void Control_ValueChanged(object sender, EventArgs e)
         {
             DateTimePicker dtp = (DateTimePicker)sender;
             logger.Log(LogLevel.Info, DecorateString(dtp.Name, dtp.Text, "ValueChanged"));
         }
+
         private void Control_NudValueChanged(object sender, EventArgs e)
         {
             NumericUpDown nud = (NumericUpDown)sender;
             logger.Log(LogLevel.Info, DecorateString(nud.Name, nud.Text, "NudValueChanged"));
         }
+
         private void Control_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Checked.ToString(), "CheckedChanged"));
         }
+
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
             FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
@@ -357,8 +364,10 @@ namespace FruPak.PF.Dispatch
         }
 
         #region Decorate String
+
         // DecorateString
         private string openPad = " --- [ ";
+
         private string closePad = " ] --- ";
         private string intro = "--->   { ";
         private string outro = " }   <---";
@@ -380,7 +389,8 @@ namespace FruPak.PF.Dispatch
             output = intro + name + openPad + input + closePad + action + outro;
             return output;
         }
-        #endregion
+
+        #endregion Decorate String
 
         /// <summary>
         /// Close the form with the Esc key (Sel request 11-02-2015 BN)
@@ -396,7 +406,6 @@ namespace FruPak.PF.Dispatch
             }
         }
 
-        #endregion
-
+        #endregion Methods to log UI events to the CSV file. BN 29/01/2015
     }
 }

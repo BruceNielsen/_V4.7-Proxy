@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using NLog;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using NLog;
 
 namespace FruPak.PF.Utils.Common
 {
@@ -48,6 +43,7 @@ namespace FruPak.PF.Utils.Common
             populate_combobox();
 
             #region Log any interesting events from the UI to the CSV log file
+
             foreach (Control c in this.Controls)
             {
                 if (c.GetType() == typeof(Button))
@@ -78,15 +74,14 @@ namespace FruPak.PF.Utils.Common
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-
                 else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
                 {
                     FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
-            #endregion
 
+            #endregion Log any interesting events from the UI to the CSV log file
         }
 
         private void AddColumnsProgrammatically()
@@ -145,8 +140,8 @@ namespace FruPak.PF.Utils.Common
             img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
             img_delete.Visible = bol_write_access;
-
         }
+
         private void populate_datagridview1()
         {
             dataGridView1.Refresh();
@@ -196,39 +191,42 @@ namespace FruPak.PF.Utils.Common
                 ds_Get_Info.Dispose();
             }
         }
+
         private void SizeAllColumns(Object sender, EventArgs e)
         {
             dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
         }
+
         private void populate_combobox()
         {
             DataSet ds_Get_Variety;
             DataRow dr_Get_Variety;
             ds_Get_Variety = FruPak.PF.Data.AccessLayer.EX_Pipfruit_Orchard.Get_Variety(txt_rpin.Text, txt_Block.Text.Substring(0, 1), txt_Block.Text.Substring(1, 1));
 
-
             for (int i = 0; i < Convert.ToInt32(ds_Get_Variety.Tables[0].Rows.Count.ToString()); i++)
             {
                 dr_Get_Variety = ds_Get_Variety.Tables[0].Rows[i];
-                cmb_variety.Items.Add(dr_Get_Variety["Variety_code"].ToString() + ": " + dr_Get_Variety["Description"].ToString() + " : " +dr_Get_Variety["Code"].ToString());
+                cmb_variety.Items.Add(dr_Get_Variety["Variety_code"].ToString() + ": " + dr_Get_Variety["Description"].ToString() + " : " + dr_Get_Variety["Code"].ToString());
             }
             ds_Get_Variety.Dispose();
 
             ds_Get_Variety = FruPak.PF.Data.AccessLayer.CM_Fruit_Variety.Get_non_pipfruit();
 
-
             for (int i = 0; i < Convert.ToInt32(ds_Get_Variety.Tables[0].Rows.Count.ToString()); i++)
             {
                 dr_Get_Variety = ds_Get_Variety.Tables[0].Rows[i];
-                cmb_variety.Items.Add(dr_Get_Variety["fvcode"].ToString() + ": " + dr_Get_Variety["Description"].ToString() + " : " +dr_Get_Variety["ftcode"].ToString());
+                cmb_variety.Items.Add(dr_Get_Variety["fvcode"].ToString() + ": " + dr_Get_Variety["Description"].ToString() + " : " + dr_Get_Variety["ftcode"].ToString());
             }
             ds_Get_Variety.Dispose();
         }
+
         private static DataSet ds_Get_Info;
+
         private void btn_Add_Click(object sender, EventArgs e)
         {
             Add_btn();
         }
+
         private void Add_btn()
         {
             DialogResult DLR_MessageBox = new DialogResult();
@@ -280,6 +278,7 @@ namespace FruPak.PF.Utils.Common
             }
             populate_datagridview1();
         }
+
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             DialogResult DLR_Message = new DialogResult();
@@ -291,7 +290,7 @@ namespace FruPak.PF.Utils.Common
                 string str_msg;
 
                 str_msg = "You are about to delete " + Environment.NewLine;
-                str_msg = str_msg + "Variety: " + dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString() +" "+ dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString() + Environment.NewLine;
+                str_msg = str_msg + "Variety: " + dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString() + " " + dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString() + Environment.NewLine;
                 str_msg = str_msg + "Do you want to continue?";
                 DLR_Message = MessageBox.Show(str_msg, "Common - Grower Deletion", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
 
@@ -313,18 +312,22 @@ namespace FruPak.PF.Utils.Common
             }
             populate_datagridview1();
         }
+
         private void btn_reset_Click(object sender, EventArgs e)
         {
             Reset();
         }
+
         private void Reset()
         {
             btn_Add.Text = "&Add";
         }
+
         private void btn_Close_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
         private void KeyDown_1(object sender, KeyEventArgs e)
         {
             if (e.KeyData == Keys.Enter)
@@ -333,9 +336,9 @@ namespace FruPak.PF.Utils.Common
                 SelectNextControl(ActiveControl, true, true, true, true);
             }
         }
+
         private void Enter_KeyPress(object sender, KeyPressEventArgs e)
         {
-
             if (e.KeyChar == 13)
             {
                 Add_btn();
@@ -343,6 +346,7 @@ namespace FruPak.PF.Utils.Common
         }
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
+
         /// <summary>
         /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
@@ -355,34 +359,39 @@ namespace FruPak.PF.Utils.Common
             {
                 Button b = (Button)sender;
                 logger.Log(LogLevel.Info, DecorateString(b.Name, b.Text, "Click"));
-
             }
         }
+
         private void Control_Validated(object sender, EventArgs e)
         {
             TextBox t = (TextBox)sender;
             logger.Log(LogLevel.Info, DecorateString(t.Name, t.Text, "Validated"));
         }
+
         private void Control_SelectedValueChanged(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Text, "SelectedValueChanged"));
         }
+
         private void Control_ValueChanged(object sender, EventArgs e)
         {
             DateTimePicker dtp = (DateTimePicker)sender;
             logger.Log(LogLevel.Info, DecorateString(dtp.Name, dtp.Text, "ValueChanged"));
         }
+
         private void Control_NudValueChanged(object sender, EventArgs e)
         {
             NumericUpDown nud = (NumericUpDown)sender;
             logger.Log(LogLevel.Info, DecorateString(nud.Name, nud.Text, "NudValueChanged"));
         }
+
         private void Control_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Checked.ToString(), "CheckedChanged"));
         }
+
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
             FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
@@ -390,8 +399,10 @@ namespace FruPak.PF.Utils.Common
         }
 
         #region Decorate String
+
         // DecorateString
         private string openPad = " --- [ ";
+
         private string closePad = " ] --- ";
         private string intro = "--->   { ";
         private string outro = " }   <---";
@@ -413,7 +424,8 @@ namespace FruPak.PF.Utils.Common
             output = intro + name + openPad + input + closePad + action + outro;
             return output;
         }
-        #endregion
+
+        #endregion Decorate String
 
         /// <summary>
         /// Close the form with the Esc key (Sel request 11-02-2015 BN)
@@ -429,7 +441,6 @@ namespace FruPak.PF.Utils.Common
             }
         }
 
-        #endregion
-
+        #endregion Methods to log UI events to the CSV file. BN 29/01/2015
     }
 }

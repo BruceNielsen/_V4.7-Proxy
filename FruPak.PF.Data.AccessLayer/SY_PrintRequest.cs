@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FruPak.Utils.Data;
 using System.Data;
-using System.Data.OleDb;
-using FruPak.Utils.Data;
 
 namespace FruPak.PF.Data.AccessLayer
 {
     /*Description
     -----------------
     PR_PrintRequest Class.
-     * 
+     *
      * This Class is a data access layer to the PR_PrintRequest table
      * Where possible the following standard method names are used and standard column names used.
      *  1. Variable names as input to a method are the same as the column names they refer to.
@@ -26,6 +22,7 @@ namespace FruPak.PF.Data.AccessLayer
     -------------------------------------------------------------------------------------------------------------------------------------------------
     01/09/2013  Dave       Creation
     */
+
     public class SY_PrintRequest
     {
         public static DataSet Get_Max_ID()
@@ -33,21 +30,25 @@ namespace FruPak.PF.Data.AccessLayer
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(PrintRequest_Id) as Current_Id FROM dbo.SY_PrintRequest");
         }
+
         public static DataSet Get_Info()
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM dbo.SY_PrintRequest WHERE PDF_Created = 0");
         }
+
         public static DataSet Get_Info_All()
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM dbo.SY_PrintRequest ORDER BY PrintRequest_Id DESC");
         }
+
         public static DataSet Get_Info(int PrintRequest_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM dbo.SY_PrintRequest WHERE PrintRequest_Id = " + PrintRequest_Id);
         }
+
         public static int Insert(int PrintRequest_Id, string Printer_Name, string Template_Name, string PDF_Name, string Data, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
@@ -63,11 +64,13 @@ namespace FruPak.PF.Data.AccessLayer
                                                                   "Mod_User_Id = " + Mod_User_Id +
                                               " WHERE PrintRequest_Id = " + PrintRequest_Id);
         }
+
         public static int Delete(int PrintRequest_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM  dbo.SY_PrintRequest WHERE PrintRequest_Id = " + PrintRequest_Id);
         }
+
         public static int Delete_All()
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();

@@ -47,6 +47,9 @@
             this.txt_Network_Id = new System.Windows.Forms.TextBox();
             this.txt_Email_Subject = new System.Windows.Forms.TextBox();
             this.txt_Email_From = new System.Windows.Forms.TextBox();
+            this.checkBoxCcTo = new System.Windows.Forms.CheckBox();
+            this.textBoxCcTo = new System.Windows.Forms.TextBox();
+            this.buttonUpdateEmailToAddress = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label7
@@ -61,25 +64,21 @@
             // txt_Attachments
             // 
             this.txt_Attachments.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txt_Attachments.Enabled = false;
             this.txt_Attachments.Location = new System.Drawing.Point(122, 110);
             this.txt_Attachments.Multiline = true;
             this.txt_Attachments.Name = "txt_Attachments";
-            this.txt_Attachments.ReadOnly = true;
             this.txt_Attachments.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-            this.txt_Attachments.Size = new System.Drawing.Size(439, 93);
+            this.txt_Attachments.Size = new System.Drawing.Size(425, 93);
             this.txt_Attachments.TabIndex = 2;
             this.txt_Attachments.Text = "12";
             // 
             // txt_Email_To
             // 
             this.txt_Email_To.Cursor = System.Windows.Forms.Cursors.IBeam;
-            this.txt_Email_To.Enabled = false;
             this.txt_Email_To.Location = new System.Drawing.Point(122, 47);
             this.txt_Email_To.Multiline = true;
             this.txt_Email_To.Name = "txt_Email_To";
-            this.txt_Email_To.ReadOnly = true;
-            this.txt_Email_To.Size = new System.Drawing.Size(239, 57);
+            this.txt_Email_To.Size = new System.Drawing.Size(425, 57);
             this.txt_Email_To.TabIndex = 1;
             // 
             // label6
@@ -209,7 +208,7 @@
             // 
             this.txt_Email_Subject.Location = new System.Drawing.Point(122, 209);
             this.txt_Email_Subject.Name = "txt_Email_Subject";
-            this.txt_Email_Subject.Size = new System.Drawing.Size(239, 20);
+            this.txt_Email_Subject.Size = new System.Drawing.Size(425, 20);
             this.txt_Email_Subject.TabIndex = 3;
             this.txt_Email_Subject.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
             // 
@@ -221,11 +220,43 @@
             this.txt_Email_From.TabIndex = 5;
             this.txt_Email_From.KeyDown += new System.Windows.Forms.KeyEventHandler(this.KeyDown_1);
             // 
+            // checkBoxCcTo
+            // 
+            this.checkBoxCcTo.AutoSize = true;
+            this.checkBoxCcTo.Location = new System.Drawing.Point(314, 460);
+            this.checkBoxCcTo.Name = "checkBoxCcTo";
+            this.checkBoxCcTo.Size = new System.Drawing.Size(40, 17);
+            this.checkBoxCcTo.TabIndex = 60;
+            this.checkBoxCcTo.Text = "CC";
+            this.checkBoxCcTo.UseVisualStyleBackColor = true;
+            this.checkBoxCcTo.CheckedChanged += new System.EventHandler(this.checkBoxCcTo_CheckedChanged);
+            // 
+            // textBoxCcTo
+            // 
+            this.textBoxCcTo.Location = new System.Drawing.Point(360, 460);
+            this.textBoxCcTo.Name = "textBoxCcTo";
+            this.textBoxCcTo.Size = new System.Drawing.Size(187, 20);
+            this.textBoxCcTo.TabIndex = 61;
+            this.textBoxCcTo.Text = "phantom-dev@outlook.com";
+            // 
+            // buttonUpdateEmailToAddress
+            // 
+            this.buttonUpdateEmailToAddress.Location = new System.Drawing.Point(19, 66);
+            this.buttonUpdateEmailToAddress.Name = "buttonUpdateEmailToAddress";
+            this.buttonUpdateEmailToAddress.Size = new System.Drawing.Size(94, 38);
+            this.buttonUpdateEmailToAddress.TabIndex = 62;
+            this.buttonUpdateEmailToAddress.Text = "Update Address";
+            this.buttonUpdateEmailToAddress.UseVisualStyleBackColor = true;
+            this.buttonUpdateEmailToAddress.Click += new System.EventHandler(this.buttonUpdateEmailToAddress_Click);
+            // 
             // Send_Email
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(576, 539);
+            this.ClientSize = new System.Drawing.Size(565, 539);
+            this.Controls.Add(this.buttonUpdateEmailToAddress);
+            this.Controls.Add(this.textBoxCcTo);
+            this.Controls.Add(this.checkBoxCcTo);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.txt_Attachments);
             this.Controls.Add(this.txt_Email_To);
@@ -250,6 +281,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FruPak.PF.Common.Code.Send Email";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Invoice_email_FormClosing);
+            this.Load += new System.EventHandler(this.Send_Email_Load);
             this.Shown += new System.EventHandler(this.Send_Email_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Send_Email_KeyDown);
             this.ResumeLayout(false);
@@ -268,7 +300,6 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btn_Cancel;
-        internal System.Windows.Forms.TextBox txt_Email_To;
         internal System.Windows.Forms.TextBox txt_Attachments;
         internal System.Windows.Forms.TextBox txt_Email_From;
         internal System.Windows.Forms.RichTextBox txt_Email_Message;
@@ -277,5 +308,9 @@
         internal System.Windows.Forms.Button btn_Send;
         internal System.Windows.Forms.TextBox txt_Network_Id;
         internal System.Windows.Forms.TextBox txt_Email_Subject;
+        internal System.Windows.Forms.CheckBox checkBoxCcTo;
+        public System.Windows.Forms.TextBox textBoxCcTo;
+        private System.Windows.Forms.TextBox txt_Email_To;
+        private System.Windows.Forms.Button buttonUpdateEmailToAddress;
     }
 }

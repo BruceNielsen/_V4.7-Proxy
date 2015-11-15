@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using NLog;
+using System;
 using System.Data;
-using System.IO;
-using NLog;
 
 namespace FruPak.PF.PrintLayer
 {
     public class Pallet_Card
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
-        
+
         private static int int_Current_User_Id = 0;
 
         public static int Print(string Data, int Current_User_Id)
@@ -23,6 +19,7 @@ namespace FruPak.PF.PrintLayer
             return_code = Print(DataParts[0], Convert.ToBoolean(DataParts[1]), Current_User_Id);
             return return_code;
         }
+
         public static int Print(string Barcode, bool bol_print, int Current_User_Id)
         {
             int return_code = 97;
@@ -65,6 +62,7 @@ namespace FruPak.PF.PrintLayer
                                 FruPak.PF.PrintLayer.Word.TemplatePath = dr_Get_Info["Value"].ToString();
 
                                 break;
+
                             case "PF-TPallet":
                                 FruPak.PF.PrintLayer.Word.TemplateName = dr_Get_Info["Value"].ToString();
                                 break;
@@ -94,7 +92,7 @@ namespace FruPak.PF.PrintLayer
 
                     //Size
                     FruPak.PF.PrintLayer.Word.ReplaceText("Size", dr_details["S_Description"].ToString());
- 
+
                     //Dates, Batches, Quantity
 
                     int ip = 1;
@@ -129,10 +127,8 @@ namespace FruPak.PF.PrintLayer
                     }
 
                     FruPak.PF.PrintLayer.Word.CloseWord();
-
                 }
                 ds_details.Dispose();
-
             }
             ds.Dispose();
 
@@ -146,6 +142,7 @@ namespace FruPak.PF.PrintLayer
             }
             return return_code;
         }
+
         private static void stock_update()
         {
             DataSet ds = FruPak.PF.Data.AccessLayer.PF_Stock_Item.Get_Info("Other-1");

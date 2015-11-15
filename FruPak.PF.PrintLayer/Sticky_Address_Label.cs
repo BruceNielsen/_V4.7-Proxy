@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Data;
+﻿using System.Data;
 
 namespace FruPak.PF.PrintLayer
 {
@@ -17,6 +13,7 @@ namespace FruPak.PF.PrintLayer
             return_code = Print(DataParts[0], DataParts[1], DataParts[2], bol_print);
             return return_code;
         }
+
         public static int Print(string str_delivery_name, string str_Address, string str_City, bool bol_print)
         {
             int return_code = 97;
@@ -30,6 +27,7 @@ namespace FruPak.PF.PrintLayer
                     case "PF-TPath":
                         FruPak.PF.PrintLayer.Word.TemplatePath = dr_default["Value"].ToString();
                         break;
+
                     case "PF-TAdrlb1":
                         FruPak.PF.PrintLayer.Word.TemplateName = dr_default["Value"].ToString();
                         break;
@@ -41,7 +39,6 @@ namespace FruPak.PF.PrintLayer
             FruPak.PF.PrintLayer.Word.ReplaceText("Customer", str_delivery_name);
             FruPak.PF.PrintLayer.Word.ReplaceText("Address", str_Address);
             FruPak.PF.PrintLayer.Word.ReplaceText("City", str_City);
-   
 
             if (bol_print == true)
             {

@@ -25,13 +25,9 @@
 /////////////////////////////////////////////////////////////////////
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace Tools
 {
@@ -106,7 +102,7 @@ namespace Tools
 
         private void UpdateCue()
         {
-            // If the handle isn't yet created, 
+            // If the handle isn't yet created,
             // this will be called when it is created
             if (this.IsHandleCreated)
             {

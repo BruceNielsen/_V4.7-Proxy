@@ -1,16 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using FruPak.Utils.Data;
 using System.Data;
-using System.Data.OleDb;
-using FruPak.Utils.Data;
 
 namespace FruPak.PF.Data.AccessLayer
 {
     /*Description
     -----------------
     EX_GDI_Submission Class.
-     * 
+     *
      * This Class is a data access layer to the EX_GDI_Submission table
      * Where possible the following standard method names are used and standard column names used.
      *  1. Variable names as input to a method are the same as the column names they refer to.
@@ -26,6 +22,7 @@ namespace FruPak.PF.Data.AccessLayer
     -------------------------------------------------------------------------------------------------------------------------------------------------
     02/10/2013  Alison       Creation
     */
+
     public class EX_GDI_Submission
     {
         public static DataSet Get_Max_ID()
@@ -33,6 +30,7 @@ namespace FruPak.PF.Data.AccessLayer
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(Submission_Id) as Current_Id FROM EX_GDI_Submission");
         }
+
         public static int Insert(int Submission_Id, int Trader_Id, int Grower_Id, int Block_Id, string Grower_Reference, string Sub_date, string Harvest_date, int Pick_Num, string Comments, int Mod_User_Id)
         {
             FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();

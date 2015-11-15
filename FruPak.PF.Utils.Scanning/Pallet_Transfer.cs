@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using NLog;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using NLog;
 
 namespace FruPak.PF.Utils.Scanning
 {
     public partial class Pallet_Transfer : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static bool bol_write_access;
         private static int int_Current_User_Id = 0;
@@ -35,7 +30,7 @@ namespace FruPak.PF.Utils.Scanning
             bol_write_access = bol_w_a;
             btn_Add.Enabled = bol_w_a;
             AddColumnsProgrammatically();
-            //for testing 
+            //for testing
             barcode_frm.Set_Label = "From:";
             barcode_To.Set_Label = "To:";
 
@@ -46,6 +41,7 @@ namespace FruPak.PF.Utils.Scanning
             populate_dataGridView1();
 
             #region Log any interesting events from the UI to the CSV log file
+
             foreach (Control c in this.Controls)
             {
                 if (c.GetType() == typeof(Button))
@@ -76,16 +72,16 @@ namespace FruPak.PF.Utils.Scanning
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-
                 else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
                 {
                     FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
-            #endregion
 
+            #endregion Log any interesting events from the UI to the CSV log file
         }
+
         private void AddColumnsProgrammatically()
         {
             var col0 = new DataGridViewTextBoxColumn();
@@ -123,8 +119,8 @@ namespace FruPak.PF.Utils.Scanning
             col5.Visible = false;
 
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { col0, col1, col2, col3, col4, col5 });
-
         }
+
         private void populate_dataGridView1()
         {
             dataGridView1.Refresh();
@@ -169,6 +165,7 @@ namespace FruPak.PF.Utils.Scanning
         {
             Column_Size();
         }
+
         private void Column_Size()
         {
             dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
@@ -177,6 +174,7 @@ namespace FruPak.PF.Utils.Scanning
                 row.Height = 40;
             }
         }
+
         private void dataGridView1_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             int int_new_value = 0;
@@ -189,7 +187,7 @@ namespace FruPak.PF.Utils.Scanning
                 catch (Exception ex)
                 {
                     logger.Log(LogLevel.Debug, ex.Message);
-                }                    
+                }
 
                 if (Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString()) < int_new_value)
                 {
@@ -219,7 +217,7 @@ namespace FruPak.PF.Utils.Scanning
         private void btn_Add_Click(object sender, EventArgs e)
         {
             string str_msg = "";
-          //  int int_req_Amount = 0;
+            //  int int_req_Amount = 0;
             int int_result = -1;
 
             if (barcode_frm.BarcodeValue.Length == 0)
@@ -252,10 +250,9 @@ namespace FruPak.PF.Utils.Scanning
                         DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Details_For_Barcode_BatchNum(barcode_frm.BarcodeValue.ToString(), Convert.ToInt32(dataGridView1.Rows[i].Cells[5].Value.ToString()), Convert.ToInt32(dataGridView1.Rows[i].Cells["Qty"].Value.ToString()));
                         DataRow dr_Get_Info;
 
-
                         //use the pallet linked to the second barcode that has been scanned
                         DataSet ds_Get_Info2 = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Info_for_Barcode(barcode_To.BarcodeValue.ToString());
-                        DataRow dr_Get_Info2;
+                        DataRow dr_Get_Info2 = null;    // Added null to get rid of 'Unassigned variable' warning - BN 9/9/2015
 
                         int int_Pallet_Id = 0;
                         for (int i2 = 0; i2 < ds_Get_Info2.Tables[0].Rows.Count; i2++)
@@ -263,29 +260,53 @@ namespace FruPak.PF.Utils.Scanning
                             dr_Get_Info2 = ds_Get_Info2.Tables[0].Rows[i2];
                             int_Pallet_Id = Convert.ToInt32(dr_Get_Info2["Pallet_Id"].ToString());
                         }
-                        ds_Get_Info2.Dispose();
+                        //ds_Get_Info2.Dispose(); // Don't dispose just yet; needed below - BN
 
-
-                        for (int j = 0; j < ds_Get_Info.Tables[0].Rows.Count; j++)
+                        // ---------------------------------------------------------------------------------
+                        // As per Sel's request, this is a check to disllow transfers between pallets
+                        // where the Material_Id's don't match.
+                        // BN - 09/09/2015
+                        try
                         {
-                            dr_Get_Info = ds_Get_Info.Tables[0].Rows[j];
-                            int_result = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Pallet_Details"), int_Pallet_Id, Convert.ToInt32(dataGridView1.Rows[i].Cells[5].Value.ToString()),
-                                                                                            Convert.ToInt32(dr_Get_Info["Material_Id"].ToString()), Convert.ToInt32(dr_Get_Info["Work_Order_Id"].ToString()), Convert.ToDecimal(dataGridView1.Rows[i].Cells[4].Value.ToString()), int_Current_User_Id);
-                            if (int_result >= 0)
+                            dr_Get_Info = ds_Get_Info.Tables[0].Rows[0];    // Set to first row
+                            var fromPallet_Material_Id = dr_Get_Info["Material_Id"].ToString();
+                            var toPallet_Material_Id = dr_Get_Info2["Material_Id"].ToString();
+                            if (fromPallet_Material_Id != toPallet_Material_Id)
                             {
-                                int_result = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Update_Quantity(Convert.ToInt32(dr_Get_Info["PalletDetails_Id"].ToString()), Convert.ToDecimal(dr_Get_Info["Quantity"].ToString()) - Convert.ToDecimal(dataGridView1.Rows[i].Cells[4].Value.ToString()), int_Current_User_Id);
-                                DataSet ds = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Get_Pallet_Quantity(barcode_frm.BarcodeValue);
-                                DataRow dr;
-                                int int_total_quantity = 99;    // BN 21/01/2015 - What was he trying to achieve here?
-                                for (int k = 0; k < ds.Tables[0].Rows.Count; k++)
+                                int_result = -2;
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.Message);
+                            logger.Log(LogLevel.Debug, "Error - Material_Id: " + ex.Message);
+                        }
+
+                        ds_Get_Info2.Dispose(); // Now dispose.
+                        // ---------------------------------------------------------------------------------
+                        if (int_result != -2)
+                        {
+                            for (int j = 0; j < ds_Get_Info.Tables[0].Rows.Count; j++)
+                            {
+                                dr_Get_Info = ds_Get_Info.Tables[0].Rows[j];
+                                int_result = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Pallet_Details"), int_Pallet_Id, Convert.ToInt32(dataGridView1.Rows[i].Cells[5].Value.ToString()),
+                                                                                                Convert.ToInt32(dr_Get_Info["Material_Id"].ToString()), Convert.ToInt32(dr_Get_Info["Work_Order_Id"].ToString()), Convert.ToDecimal(dataGridView1.Rows[i].Cells[4].Value.ToString()), int_Current_User_Id);
+                                if (int_result >= 0)
                                 {
-                                    dr = ds.Tables[0].Rows[k];
-                                    int_total_quantity = Convert.ToInt32(dr["Total_Quantity"].ToString());
-                                }
-                                ds.Dispose();
-                                if (int_total_quantity == 0)
-                                {
-                                    int_result = int_result + FruPak.PF.Data.AccessLayer.PF_Pallet.Update_Active_status(int_Pallet_Id, false, int_Current_User_Id);
+                                    int_result = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Update_Quantity(Convert.ToInt32(dr_Get_Info["PalletDetails_Id"].ToString()), Convert.ToDecimal(dr_Get_Info["Quantity"].ToString()) - Convert.ToDecimal(dataGridView1.Rows[i].Cells[4].Value.ToString()), int_Current_User_Id);
+                                    DataSet ds = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Get_Pallet_Quantity(barcode_frm.BarcodeValue);
+                                    DataRow dr;
+                                    int int_total_quantity = 99;    // BN 21/01/2015 - What was he trying to achieve here?
+                                    for (int k = 0; k < ds.Tables[0].Rows.Count; k++)
+                                    {
+                                        dr = ds.Tables[0].Rows[k];
+                                        int_total_quantity = Convert.ToInt32(dr["Total_Quantity"].ToString());
+                                    }
+                                    ds.Dispose();
+                                    if (int_total_quantity == 0)
+                                    {
+                                        int_result = int_result + FruPak.PF.Data.AccessLayer.PF_Pallet.Update_Active_status(int_Pallet_Id, false, int_Current_User_Id);
+                                    }
                                 }
                             }
                         }
@@ -293,7 +314,7 @@ namespace FruPak.PF.Utils.Scanning
                     catch
                     {
                         int_reject++;
-                        logger.Log(LogLevel.Warn, "int_reject: " + int_reject.ToString ());
+                        logger.Log(LogLevel.Warn, "int_reject: " + int_reject.ToString());
                     }
                 }
                 if (int_result >= 0)
@@ -306,14 +327,20 @@ namespace FruPak.PF.Utils.Scanning
                     lbl_message.Text = "Number required has not been completed";
                     lbl_message.ForeColor = System.Drawing.Color.Red;
                 }
-                else
+                else if (int_result == -1)
                 {
                     lbl_message.Text = "Pallet has NOT been Transferred";
+                    lbl_message.ForeColor = System.Drawing.Color.Red;
+                }
+                else // int_result == -2 - - BN 9/9/2015
+                {
+                    lbl_message.Text = "Failed. Material_Id's do not match.";
                     lbl_message.ForeColor = System.Drawing.Color.Red;
                 }
             }
             Reset();
         }
+
         private void Reset()
         {
             barcode_frm.BarcodeValue = "";
@@ -323,12 +350,10 @@ namespace FruPak.PF.Utils.Scanning
 
         private void txt_Pallet_From_TextChanged(object sender, EventArgs e)
         {
-
             if (barcode_frm.BarcodeValue != null || barcode_frm.BarcodeValue != "")
             {
                 populate_dataGridView1();
             }
-
         }
 
         private void btn_Close_Click(object sender, EventArgs e)
@@ -337,8 +362,9 @@ namespace FruPak.PF.Utils.Scanning
         }
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
+
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>
@@ -349,34 +375,39 @@ namespace FruPak.PF.Utils.Scanning
             {
                 Button b = (Button)sender;
                 logger.Log(LogLevel.Info, DecorateString(b.Name, b.Text, "Click"));
-
             }
         }
+
         private void Control_Validated(object sender, EventArgs e)
         {
             TextBox t = (TextBox)sender;
             logger.Log(LogLevel.Info, DecorateString(t.Name, t.Text, "Validated"));
         }
+
         private void Control_SelectedValueChanged(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Text, "SelectedValueChanged"));
         }
+
         private void Control_ValueChanged(object sender, EventArgs e)
         {
             DateTimePicker dtp = (DateTimePicker)sender;
             logger.Log(LogLevel.Info, DecorateString(dtp.Name, dtp.Text, "ValueChanged"));
         }
+
         private void Control_NudValueChanged(object sender, EventArgs e)
         {
             NumericUpDown nud = (NumericUpDown)sender;
             logger.Log(LogLevel.Info, DecorateString(nud.Name, nud.Text, "NudValueChanged"));
         }
+
         private void Control_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Checked.ToString(), "CheckedChanged"));
         }
+
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
             FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
@@ -384,8 +415,10 @@ namespace FruPak.PF.Utils.Scanning
         }
 
         #region Decorate String
+
         // DecorateString
         private string openPad = " --- [ ";
+
         private string closePad = " ] --- ";
         private string intro = "--->   { ";
         private string outro = " }   <---";
@@ -407,7 +440,8 @@ namespace FruPak.PF.Utils.Scanning
             output = intro + name + openPad + input + closePad + action + outro;
             return output;
         }
-        #endregion
+
+        #endregion Decorate String
 
         /// <summary>
         /// Close the form with the Esc key (Sel request 11-02-2015 BN)
@@ -423,7 +457,6 @@ namespace FruPak.PF.Utils.Scanning
             }
         }
 
-        #endregion
-
+        #endregion Methods to log UI events to the CSV file. BN 29/01/2015
     }
 }

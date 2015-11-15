@@ -4,7 +4,7 @@
  *   Author:      César Roberto de Souza                               *
  *   Email:       cesarsouza at gmail.com                              *
  *   Website:     http://www.comp.ufscar.br/~cesarsouza                *
- *                                                                     *      
+ *                                                                     *
  *  This code is distributed under the The Code Project Open License   *
  *  (CPOL) 1.02 or any later versions of this same license. By using   *
  *  this code you agree not to remove any of the original copyright,   *
@@ -16,20 +16,14 @@
  *                                                                     *
  ***********************************************************************/
 
-
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Data;
-using System.Text;
 using System.Windows.Forms;
-
 
 namespace Tools     //cSouza.WinForms.Controls
 {
-
     /// <summary>
     ///   Represents a Bordered label.
     /// </summary>
@@ -44,12 +38,11 @@ namespace Tools     //cSouza.WinForms.Controls
         private GraphicsPath drawPath;
         private SolidBrush forecolorBrush;
 
-
-
         // Constructor
         //-----------------------------------------------------
 
         #region Constructor
+
         /// <summary>
         ///   Constructs a new BorderLabel object.
         /// </summary>
@@ -63,9 +56,8 @@ namespace Tools     //cSouza.WinForms.Controls
 
             this.Invalidate();
         }
-        #endregion
 
-
+        #endregion Constructor
 
         // Public Properties
         //-----------------------------------------------------
@@ -101,7 +93,6 @@ namespace Tools     //cSouza.WinForms.Controls
             }
         }
 
-
         /// <summary>
         ///   The border color of this component
         /// </summary>
@@ -123,14 +114,13 @@ namespace Tools     //cSouza.WinForms.Controls
             }
         }
 
-        #endregion
-
-
+        #endregion Public Properties
 
         // Public Methods
         //-----------------------------------------------------
 
         #region Public Methods
+
         /// <summary>
         ///   Releases all resources used by this control
         /// </summary>
@@ -139,7 +129,6 @@ namespace Tools     //cSouza.WinForms.Controls
         {
             if (disposing)
             {
-
                 if (this.forecolorBrush != null)
                     this.forecolorBrush.Dispose();
 
@@ -148,18 +137,17 @@ namespace Tools     //cSouza.WinForms.Controls
 
                 if (this.drawPen != null)
                     this.drawPen.Dispose();
-
             }
             base.Dispose(disposing);
         }
-        #endregion
 
-
+        #endregion Public Methods
 
         // Event Handling
         //-----------------------------------------------------
 
         #region Event Handling
+
         protected override void OnFontChanged(EventArgs e)
         {
             base.OnFontChanged(e);
@@ -183,22 +171,20 @@ namespace Tools     //cSouza.WinForms.Controls
             base.OnForeColorChanged(e);
             this.Invalidate();
         }
-        #endregion
 
-
+        #endregion Event Handling
 
         // Drawing Events
         //-----------------------------------------------------
 
         #region Drawing
+
         protected override void OnPaint(PaintEventArgs e)
         {
-
             // First lets check if we indeed have text to draw.
             //  if we have no text, then we have nothing to do.
             if (this.Text.Length == 0)
                 return;
-
 
             // Secondly, lets begin setting the smoothing mode to AntiAlias, to
             // reduce image sharpening and compositing quality to HighQuality,
@@ -207,18 +193,14 @@ namespace Tools     //cSouza.WinForms.Controls
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             e.Graphics.CompositingQuality = CompositingQuality.HighQuality;
 
-
-
             // Next, we measure how much space our drawning will use on the control.
             //  this is important so we can determine the correct position for our text.
             this.drawSize = e.Graphics.MeasureString(this.Text, this.Font, new PointF(), StringFormat.GenericTypographic);
 
-
-            
             // Now, we can determine how we should align our text in the control
             //  area, both horizontally and vertically. If the control is set to auto
             //  size itselft, then it should be automatically drawn to the standard position.
-            
+
             if (this.AutoSize)
             {
                 this.point.X = this.Padding.Left;
@@ -241,7 +223,6 @@ namespace Tools     //cSouza.WinForms.Controls
                 // Text is Right-Aligned
                 else point.X = this.Width - (this.Padding.Right + this.drawSize.Width);
 
-
                 // Text is Top-Aligned
                 if (this.TextAlign == ContentAlignment.TopLeft ||
                     this.TextAlign == ContentAlignment.TopCenter ||
@@ -258,35 +239,30 @@ namespace Tools     //cSouza.WinForms.Controls
                 else point.Y = this.Height - (this.Padding.Bottom + this.drawSize.Height);
             }
 
-
-
             // Now we can draw our text to a graphics path.
-            //  
+            //
             //   PS: this is a tricky part: AddString() expects float emSize in pixel, but Font.Size
             //   measures it as points. So, we need to convert between points and pixels, which in
-            //   turn requires detailed knowledge of the DPI of the device we are drawing on. 
+            //   turn requires detailed knowledge of the DPI of the device we are drawing on.
             //
             //   The solution was to get the last value returned by the Graphics.DpiY property and
             //   divide by 72, since point is 1/72 of an inch, no matter on what device we draw.
             //
             //   The source of this solution can be seen on CodeProject's article
-            //   'OSD window with animation effect' - http://www.codeproject.com/csharp/OSDwindow.asp 
+            //   'OSD window with animation effect' - http://www.codeproject.com/csharp/OSDwindow.asp
 
             float fontSize = e.Graphics.DpiY * this.Font.SizeInPoints / 72;
-            
-            this.drawPath.Reset();                                                                    
+
+            this.drawPath.Reset();
             this.drawPath.AddString(this.Text, this.Font.FontFamily, (int)this.Font.Style, fontSize,
                 point, StringFormat.GenericTypographic);
-
 
             // And finally, using our pen, all we have to do now
             //  is draw our graphics path to the screen. Voilla!
             e.Graphics.FillPath(this.forecolorBrush, this.drawPath);
             e.Graphics.DrawPath(this.drawPen, this.drawPath);
-
         }
-        #endregion
 
-
+        #endregion Drawing
     }
 }

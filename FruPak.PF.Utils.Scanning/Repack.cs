@@ -1,39 +1,37 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using NLog;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using NLog;
 
 namespace FruPak.PF.Utils.Scanning
 {
     public partial class Repack : Form
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
-        
+
         #region AutoResize Class Variable Declaration
+
         // Lives immediately after the public partial class declaration
-        private FruPak.PF.Common.Code.AutoResize _form_resize;
-        #endregion
+        //private FruPak.PF.Common.Code.AutoResize _form_resize;
+
+        #endregion AutoResize Class Variable Declaration
 
         private static bool bol_write_access;
         private static int int_Current_User_Id = 0;
         private static int int_Season = 0;
-        
+
         public Repack(int int_C_User_id, bool bol_w_a)
         {
             InitializeComponent();
 
             #region AutoResize EventHandlers - Lives immediately after InitializeComponent(); in the public Form declaration
-            _form_resize = new FruPak.PF.Common.Code.AutoResize(this);
-            
+
+            //_form_resize = new FruPak.PF.Common.Code.AutoResize(this);
+
             //this.Load += _Load;
             //this.Resize += _Resize;
 
-            #endregion
+            #endregion AutoResize EventHandlers - Lives immediately after InitializeComponent(); in the public Form declaration
 
             int_Current_User_Id = int_C_User_id;
 
@@ -48,6 +46,7 @@ namespace FruPak.PF.Utils.Scanning
             AddColumnsProgrammatically();
 
             #region Log any interesting events from the UI to the CSV log file
+
             foreach (Control c in this.Controls)
             {
                 if (c.GetType() == typeof(Button))
@@ -78,16 +77,16 @@ namespace FruPak.PF.Utils.Scanning
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-
                 else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
                 {
                     FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
-            #endregion
 
+            #endregion Log any interesting events from the UI to the CSV log file
         }
+
         private void populate_comboBoxes()
         {
             DataSet ds_get_info = FruPak.PF.Data.AccessLayer.CM_Pallet_Type.Get_Info();
@@ -97,6 +96,7 @@ namespace FruPak.PF.Utils.Scanning
             cmb_Pallet_Type.Text = null;
             ds_get_info.Dispose();
         }
+
         private void populate_combobox2()
         {
             try
@@ -112,12 +112,14 @@ namespace FruPak.PF.Utils.Scanning
                 logger.Log(LogLevel.Debug, ex.Message);
             }
         }
+
         private void txt_barcode_Leave(object sender, EventArgs e)
         {
             populate_combobox2();
             populate_dataGridView1();
             SizeColumns();
         }
+
         private void AddColumnsProgrammatically()
         {
             var col0 = new DataGridViewTextBoxColumn();
@@ -155,8 +157,8 @@ namespace FruPak.PF.Utils.Scanning
             col5.Visible = false;
 
             dataGridView1.Columns.AddRange(new DataGridViewColumn[] { col0, col1, col2, col3, col4, col5 });
-
         }
+
         private void populate_dataGridView1()
         {
             dataGridView1.Refresh();
@@ -164,7 +166,7 @@ namespace FruPak.PF.Utils.Scanning
 
             DataSet ds_Get_Info;
             DataRow dr_Get_Info;
-            if ( txt_barcode_from.TextLength > 0)
+            if (txt_barcode_from.TextLength > 0)
             {
                 ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Info_for_Barcode(txt_barcode_from.Text);
                 for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
@@ -196,13 +198,18 @@ namespace FruPak.PF.Utils.Scanning
                 SizeColumns();
             }
         }
+
         private void SizeAllColumns(Object sender, EventArgs e)
         {
             SizeColumns();
+
             #region AutoResize - Appears in Load and Resize methods
-            _form_resize._get_initial_size();
-            #endregion
+
+            //_form_resize._get_initial_size();
+
+            #endregion AutoResize - Appears in Load and Resize methods
         }
+
         private void SizeColumns()
         {
             dataGridView1.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);
@@ -230,6 +237,7 @@ namespace FruPak.PF.Utils.Scanning
             }
             return return_code;
         }
+
         private void btn_Update_Click(object sender, EventArgs e)
         {
             int int_result = -1;
@@ -261,6 +269,7 @@ namespace FruPak.PF.Utils.Scanning
             else
             {
                 #region Get total number being repacked - This is where I made the change for Sel 11-02-2015
+
                 for (int i = 0; i < Convert.ToInt32(dataGridView1.Rows.Count.ToString()); i++)
                 {
                     // This is where it was failing, corrupting the database - BN
@@ -276,8 +285,8 @@ namespace FruPak.PF.Utils.Scanning
                         // The system was designed to allow a Required value of zero, signifying that
                         // we are repacking the complete amount, but for some reason it's failing.
                         // My thought is that an empty or null value is being read from the datagrid, and is not actually what was intended.
-                        
-                        dataGridView1.Rows[i].Cells[4].Value = 0;   // Didn't work. Sel just wants it to stop and show the red error message 
+
+                        dataGridView1.Rows[i].Cells[4].Value = 0;   // Didn't work. Sel just wants it to stop and show the red error message
 
                         // Bypass the rest of the logic and jump straight to the end - BN 11-02-2015
                         lbl_message.Text = "Pallet Details failed to update - Req'd amount is zero";
@@ -288,9 +297,11 @@ namespace FruPak.PF.Utils.Scanning
                         return;
                     }
                 }
-                #endregion
+
+                #endregion Get total number being repacked - This is where I made the change for Sel 11-02-2015
 
                 #region Create a new pallet
+
                 if (txt_Barcode_To.TextLength == 0)
                 {
                     #region ------- Create New Pallet -----------------
@@ -314,7 +325,6 @@ namespace FruPak.PF.Utils.Scanning
                     this.labelBarcodeToBeCopied.Text = str_barcode;
                     this.labelBarcodeForSel.Text = str_barcode;
 
-
                     //get old Pallet Details
                     DataSet ds_Get_info;
                     DataRow dr_Get_info;
@@ -329,7 +339,6 @@ namespace FruPak.PF.Utils.Scanning
                         {
                             dr_Get_info = ds_Get_info.Tables[0].Rows[i];
 
-
                             int_result = FruPak.PF.Data.AccessLayer.PF_Pallet.Insert(
                                 int_Pallet_Id,
                                 Convert.ToInt32(cmb_Pallet_Type.SelectedValue.ToString()),
@@ -339,7 +348,6 @@ namespace FruPak.PF.Utils.Scanning
                                 true,
                                 Convert.ToInt32(dr_Get_info["Season"].ToString()),
                                 int_Current_User_Id);
-
 
                             //store old pallet_id on the new pallet_id so it can be traced.
                             int_result = int_result + FruPak.PF.Data.AccessLayer.PF_Pallet.Update_Old_Pallet_Id(
@@ -376,6 +384,7 @@ namespace FruPak.PF.Utils.Scanning
                                         int_Current_User_Id);
 
                                     #region Make old pallet inactive
+
                                     try
                                     {
                                         FruPak.PF.Data.AccessLayer.PF_Pallet.Update_Active_status(
@@ -387,7 +396,8 @@ namespace FruPak.PF.Utils.Scanning
                                     {
                                         logger.Log(LogLevel.Debug, ex.Message);
                                     }
-                                    #endregion
+
+                                    #endregion Make old pallet inactive
 
                                     #region Copy gross weight from old pallet to new pallet and set the tare weight to zero
 
@@ -410,7 +420,8 @@ namespace FruPak.PF.Utils.Scanning
                                     {
                                         logger.Log(LogLevel.Debug, ex.Message);
                                     }
-                                    #endregion
+
+                                    #endregion Copy gross weight from old pallet to new pallet and set the tare weight to zero
                                 }
                                 else
                                 {
@@ -436,7 +447,8 @@ namespace FruPak.PF.Utils.Scanning
                                     //update number transferred from old pallet.
                                     int_result = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Update(Convert.ToInt32(dr_old["PalletDetails_Id"].ToString()), Convert.ToInt32(dr_old["Batch_Num"].ToString()),
                                         Convert.ToInt32(dr_old["Material_Id"].ToString()), Convert.ToDecimal(dr_old["Quantity"].ToString()) - Convert.ToDecimal(dataGridView1.Rows[i].Cells["Required"].Value.ToString()), int_Current_User_Id);
-                                    #endregion
+
+                                    #endregion Calculate Weight_Gross
                                 }
 
                                 //adjust stock numbers
@@ -444,7 +456,8 @@ namespace FruPak.PF.Utils.Scanning
                             }
                             ds_old.Dispose();
                         }
-                    #endregion-
+
+                        #endregion ------- Create New Pallet -----------------
                     }
                     catch (Exception ex)
                     {
@@ -454,12 +467,15 @@ namespace FruPak.PF.Utils.Scanning
                         }
                     }
                 }
-                #endregion
+
+                #endregion Create a new pallet
 
                 #region Use existing pallet
+
                 else
                 {
                     #region ------- Use current Pallet -----------------
+
                     //get pallet ID
                     DataSet ds_to_Pallet = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Pallet_Id_From_Baracode(txt_Barcode_To.Text);
                     DataRow dr_to_Pallet;
@@ -500,8 +516,7 @@ namespace FruPak.PF.Utils.Scanning
                                 catch (Exception ex)
                                 {
                                     logger.Log(LogLevel.Debug, ex.Message);
-                                }                    
-
+                                }
                             }
                             else
                             {
@@ -524,7 +539,7 @@ namespace FruPak.PF.Utils.Scanning
                                 catch (Exception ex)
                                 {
                                     logger.Log(LogLevel.Debug, ex.Message);
-                                }                    
+                                }
 
                                 //update number transferred from old pallet.
                                 int_result = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Update(Convert.ToInt32(dr_old["PalletDetails_Id"].ToString()), Convert.ToInt32(dr_old["Batch_Num"].ToString()),
@@ -553,9 +568,11 @@ namespace FruPak.PF.Utils.Scanning
                         }
                         ds_old.Dispose();
                     }
-                    #endregion
+
+                    #endregion ------- Use current Pallet -----------------
                 }
-                #endregion
+
+                #endregion Use existing pallet
 
                 if (int_result >= 0)
                 {
@@ -574,7 +591,6 @@ namespace FruPak.PF.Utils.Scanning
                 txt_Barcode_To.Text = string.Empty;
 
                 cmb_Material.DataSource = null;
-
             }
         }   // return will jump to here
 
@@ -601,7 +617,8 @@ namespace FruPak.PF.Utils.Scanning
                 ds_stock1.Dispose();
             }
             ds_stock.Dispose();
-        }        
+        }
+
         private void Reset()
         {
             txt_barcode_from.ResetText();
@@ -609,14 +626,16 @@ namespace FruPak.PF.Utils.Scanning
             dataGridView1.Refresh();
             dataGridView1.Rows.Clear();
         }
+
         private void btn_Close_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
+
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>
@@ -627,34 +646,39 @@ namespace FruPak.PF.Utils.Scanning
             {
                 Button b = (Button)sender;
                 logger.Log(LogLevel.Info, DecorateString(b.Name, b.Text, "Click"));
-
             }
         }
+
         private void Control_Validated(object sender, EventArgs e)
         {
             TextBox t = (TextBox)sender;
             logger.Log(LogLevel.Info, DecorateString(t.Name, t.Text, "Validated"));
         }
+
         private void Control_SelectedValueChanged(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Text, "SelectedValueChanged"));
         }
+
         private void Control_ValueChanged(object sender, EventArgs e)
         {
             DateTimePicker dtp = (DateTimePicker)sender;
             logger.Log(LogLevel.Info, DecorateString(dtp.Name, dtp.Text, "ValueChanged"));
         }
+
         private void Control_NudValueChanged(object sender, EventArgs e)
         {
             NumericUpDown nud = (NumericUpDown)sender;
             logger.Log(LogLevel.Info, DecorateString(nud.Name, nud.Text, "NudValueChanged"));
         }
+
         private void Control_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Checked.ToString(), "CheckedChanged"));
         }
+
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
             FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
@@ -662,8 +686,10 @@ namespace FruPak.PF.Utils.Scanning
         }
 
         #region Decorate String
+
         // DecorateString
         private string openPad = " --- [ ";
+
         private string closePad = " ] --- ";
         private string intro = "--->   { ";
         private string outro = " }   <---";
@@ -685,7 +711,8 @@ namespace FruPak.PF.Utils.Scanning
             output = intro + name + openPad + input + closePad + action + outro;
             return output;
         }
-        #endregion
+
+        #endregion Decorate String
 
         private void buttonCopyBarcodeToClipboard_Click(object sender, EventArgs e)
         {
@@ -693,7 +720,7 @@ namespace FruPak.PF.Utils.Scanning
             this.toolTip1.SetToolTip(this.buttonCopyBarcodeToClipboard, "Copied to Clipboard: " + Environment.NewLine + this.labelBarcodeForSel.Text);
         }
 
-        #endregion
+        #endregion Methods to log UI events to the CSV file. BN 29/01/2015
 
         /// <summary>
         /// Auto-fill datagrid (Sel's request 11-02-2015 BN)
@@ -707,7 +734,6 @@ namespace FruPak.PF.Utils.Scanning
             {
                 populate_dataGridView1();
             }
-
         }
 
         /// <summary>
@@ -743,9 +769,6 @@ namespace FruPak.PF.Utils.Scanning
                 }
             }
             txt_total.Text = Convert.ToString(int_new_value);
-
-
-
         }
 
         private void txt_Barcode_To_TextChanged(object sender, EventArgs e)
@@ -761,8 +784,10 @@ namespace FruPak.PF.Utils.Scanning
         private void Repack_Resize(object sender, EventArgs e)
         {
             #region AutoResize - Appears in Load and Resize methods
-            _form_resize._resize();
-            #endregion
+
+            //_form_resize._resize();
+
+            #endregion AutoResize - Appears in Load and Resize methods
         }
     }
 }

@@ -1,30 +1,28 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data;
 
 namespace FruPak.PF.PrintLayer
 {
-
     public class Barcode
-    {          
-        
+    {
         public static string str_Barcode
         {
             get;
             set;
         }
+
         public static string Counter
         {
             get;
             set;
         }
+
         public static string Country
-        { 
+        {
             get;
             set;
         }
+
         public static string Trader
         {
             get;
@@ -36,16 +34,19 @@ namespace FruPak.PF.PrintLayer
             get;
             set;
         }
-        public static  int Height
+
+        public static int Height
         {
             get;
             set;
         }
+
         public static System.Drawing.RotateFlipType RotateFlip
         {
             get;
             set;
         }
+
         public static string Generate_Barcode()
         {
             if (str_Barcode == "")
@@ -58,9 +59,8 @@ namespace FruPak.PF.PrintLayer
             bar.IncludeLabel = true;
 
             bar.RotateFlipType = RotateFlip;
-          
-            pb.Image = bar.Encode(BarcodeLib.TYPE.CODE128, str_Barcode, Width, Height);
 
+            pb.Image = bar.Encode(BarcodeLib.TYPE.CODE128, str_Barcode, Width, Height);
 
             string str_path = "";
 
@@ -74,7 +74,6 @@ namespace FruPak.PF.PrintLayer
                     case "PF-TPPath":
                         str_path = dr_Get_Info["Value"].ToString();
                         break;
-
                 }
             }
             ds_Get_Info.Dispose();
@@ -82,11 +81,6 @@ namespace FruPak.PF.PrintLayer
             bar.SaveImage(str_path + @"\" + str_Barcode + ".jpg", BarcodeLib.SaveTypes.JPG);
 
             return str_path + @"\" + str_Barcode + ".jpg";
-           
-        
         }
-
     }
-
-
 }

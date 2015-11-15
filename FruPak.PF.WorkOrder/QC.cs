@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using NLog;
+using System;
 using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using NLog;
 
 namespace FruPak.PF.WorkOrder
 {
@@ -17,6 +13,7 @@ namespace FruPak.PF.WorkOrder
         private static bool bol_write_access;
         private static int int_Current_User_Id = 0;
         private static int int_Work_Order_Id = 0;
+
         public QC(int int_wo_Id, int int_C_User_id, bool bol_w_a)
         {
             InitializeComponent();
@@ -45,6 +42,7 @@ namespace FruPak.PF.WorkOrder
             populate_datagridview();
 
             #region Log any interesting events from the UI to the CSV log file
+
             foreach (Control c in this.Controls)
             {
                 if (c.GetType() == typeof(Button))
@@ -75,16 +73,16 @@ namespace FruPak.PF.WorkOrder
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-
                 else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
                 {
                     FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
-            #endregion
 
+            #endregion Log any interesting events from the UI to the CSV log file
         }
+
         private void populate_RPIN()
         {
             DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Info(int_Work_Order_Id);
@@ -96,6 +94,7 @@ namespace FruPak.PF.WorkOrder
             }
             ds_Get_Info.Dispose();
         }
+
         private void populate_combobox()
         {
             cmb_Defect.SeparatorColor = Color.DarkBlue;
@@ -104,7 +103,7 @@ namespace FruPak.PF.WorkOrder
             DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Defect_Class.Get_Info();
             DataRow dr_Get_Info;
 
-            for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i ++ )
+            for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {
                 dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
 
@@ -123,6 +122,7 @@ namespace FruPak.PF.WorkOrder
 
             cmb_Defect.SelectedIndex = 0;
         }
+
         private void AddColumnsProgrammatically()
         {
             var col0 = new DataGridViewTextBoxColumn();
@@ -188,10 +188,12 @@ namespace FruPak.PF.WorkOrder
 
             Column_Size();
         }
+
         private void SizeAllColumns(Object sender, EventArgs e)
         {
             Column_Size();
         }
+
         private void Column_Size()
         {
             // TODO: This line of code loads data into the 'moneyDataSet.List_TS_Work' table. You can move, or remove it, as needed.
@@ -204,8 +206,8 @@ namespace FruPak.PF.WorkOrder
             dataGridView1.AutoResizeColumn(6, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(8, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(9, DataGridViewAutoSizeColumnMode.AllCells);
-
         }
+
         private void populate_datagridview()
         {
             dataGridView1.Refresh();
@@ -222,7 +224,6 @@ namespace FruPak.PF.WorkOrder
                 DataGridViewCell DGVC_User_Id = new DataGridViewTextBoxCell();
                 DGVC_User_Id.Value = dr_Get_Info["DefectResult_Id"].ToString();
                 dataGridView1.Rows[i].Cells[0] = DGVC_User_Id;
-
 
                 DataGridViewCell DGVC_WO_Id = new DataGridViewTextBoxCell();
                 DGVC_WO_Id.Value = dr_Get_Info["Work_Order_Id"].ToString();
@@ -241,7 +242,7 @@ namespace FruPak.PF.WorkOrder
                 dataGridView1.Rows[i].Cells[4] = DGVC_Defect_ID;
 
                 DataGridViewCell DGVC_D_Combined = new DataGridViewTextBoxCell();
-                DGVC_D_Combined.Value = dr_Get_Info["Code"].ToString() + " - " +dr_Get_Info["Description"].ToString();
+                DGVC_D_Combined.Value = dr_Get_Info["Code"].ToString() + " - " + dr_Get_Info["Description"].ToString();
                 dataGridView1.Rows[i].Cells[5] = DGVC_D_Combined;
 
                 DataGridViewCell DGVC_num_found = new DataGridViewTextBoxCell();
@@ -256,6 +257,7 @@ namespace FruPak.PF.WorkOrder
                 ds_Get_Info.Dispose();
             }
         }
+
         private void btn_Add_Click(object sender, EventArgs e)
         {
             DialogResult DLR_MessageBox = new DialogResult();
@@ -293,6 +295,7 @@ namespace FruPak.PF.WorkOrder
                     case "&Add":
                         int_result = FruPak.PF.Data.AccessLayer.PF_Defect_Results.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Defect_Results"), int_Work_Order_Id, int_Defect_Id, Convert.ToDecimal(nud_num_Found.Value.ToString()), txt_comments.Text, int_Current_User_Id);
                         break;
+
                     case "&Update":
                         int_result = FruPak.PF.Data.AccessLayer.PF_Defect_Results.Update(int_DVG_Row_id, int_Work_Order_Id, int_Defect_Id, Convert.ToDecimal(nud_num_Found.Value.ToString()), txt_comments.Text, int_Current_User_Id);
                         break;
@@ -311,7 +314,9 @@ namespace FruPak.PF.WorkOrder
             }
             populate_datagridview();
         }
+
         private static int int_DVG_Row_id = 0;
+
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             DialogResult DLR_MessageBox = new DialogResult();
@@ -355,12 +360,13 @@ namespace FruPak.PF.WorkOrder
                 txt_comments.Text = dataGridView1.Rows[e.RowIndex].Cells[7].Value.ToString();
                 btn_Add.Text = "&Update";
             }
-
         }
+
         private void btn_reset_Click(object sender, EventArgs e)
         {
             Reset();
         }
+
         private void Reset()
         {
             nud_num_Found.Value = 0;
@@ -368,12 +374,14 @@ namespace FruPak.PF.WorkOrder
             txt_comments.ResetText();
             btn_Add.Text = "&Add";
         }
+
         private void btn_Close_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
+
         /// <summary>
         /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
@@ -386,34 +394,39 @@ namespace FruPak.PF.WorkOrder
             {
                 Button b = (Button)sender;
                 logger.Log(LogLevel.Info, DecorateString(b.Name, b.Text, "Click"));
-
             }
         }
+
         private void Control_Validated(object sender, EventArgs e)
         {
             TextBox t = (TextBox)sender;
             logger.Log(LogLevel.Info, DecorateString(t.Name, t.Text, "Validated"));
         }
+
         private void Control_SelectedValueChanged(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Text, "SelectedValueChanged"));
         }
+
         private void Control_ValueChanged(object sender, EventArgs e)
         {
             DateTimePicker dtp = (DateTimePicker)sender;
             logger.Log(LogLevel.Info, DecorateString(dtp.Name, dtp.Text, "ValueChanged"));
         }
+
         private void Control_NudValueChanged(object sender, EventArgs e)
         {
             NumericUpDown nud = (NumericUpDown)sender;
             logger.Log(LogLevel.Info, DecorateString(nud.Name, nud.Text, "NudValueChanged"));
         }
+
         private void Control_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Checked.ToString(), "CheckedChanged"));
         }
+
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
             FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
@@ -421,8 +434,10 @@ namespace FruPak.PF.WorkOrder
         }
 
         #region Decorate String
+
         // DecorateString
         private string openPad = " --- [ ";
+
         private string closePad = " ] --- ";
         private string intro = "--->   { ";
         private string outro = " }   <---";
@@ -444,7 +459,8 @@ namespace FruPak.PF.WorkOrder
             output = intro + name + openPad + input + closePad + action + outro;
             return output;
         }
-        #endregion
+
+        #endregion Decorate String
 
         /// <summary>
         /// Close the form with the Esc key (Sel request 11-02-2015 BN)
@@ -460,7 +476,6 @@ namespace FruPak.PF.WorkOrder
             }
         }
 
-        #endregion
-
-   }
+        #endregion Methods to log UI events to the CSV file. BN 29/01/2015
+    }
 }

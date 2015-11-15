@@ -1,18 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using NLog;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using NLog;
 
 namespace FruPak.PF.Utils.Common
 {
     public partial class Material_Rate_Relat : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static int int_Current_User_Id = 0;
         private static bool bol_write_access;
@@ -23,8 +18,6 @@ namespace FruPak.PF.Utils.Common
             InitializeComponent();
             //restrict access
 
-
-
             bol_write_access = bol_w_a;
             btn_Update_Relationship.Enabled = bol_w_a;
             int_Current_User_Id = int_C_User_id;
@@ -34,6 +27,7 @@ namespace FruPak.PF.Utils.Common
                 case "PF_A_Rates":
                     this.Text = "Material Rate Relationship";
                     break;
+
                 case "PF_Stock_Item":
                     this.Text = "Material Stock Relationship";
                     break;
@@ -51,6 +45,7 @@ namespace FruPak.PF.Utils.Common
             populate_check_boxList2();
 
             #region Log any interesting events from the UI to the CSV log file
+
             foreach (Control c in this.Controls)
             {
                 if (c.GetType() == typeof(Button))
@@ -81,15 +76,14 @@ namespace FruPak.PF.Utils.Common
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-
                 else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
                 {
                     FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
-            #endregion
 
+            #endregion Log any interesting events from the UI to the CSV log file
         }
 
         private void populate_check_boxList1()
@@ -100,12 +94,10 @@ namespace FruPak.PF.Utils.Common
             DataSet ds_dgv1 = FruPak.PF.Data.AccessLayer.CM_Material.Get_Info();
             DataRow dr_dgv1;
 
-
             for (int i = 0; i < Convert.ToInt32(ds_dgv1.Tables[0].Rows.Count.ToString()); i++)
             {
                 dr_dgv1 = ds_dgv1.Tables[0].Rows[i];
                 checkedListBox1.Items.Add(dr_dgv1["Material_Num"].ToString() + " " + dr_dgv1["Description"].ToString());
-
             }
             ds_dgv1.Dispose();
         }
@@ -120,11 +112,12 @@ namespace FruPak.PF.Utils.Common
                 case "PF_A_Rates":
                     ds_dgv2 = FruPak.PF.Data.AccessLayer.PF_A_Rates.Get_Info();
                     break;
+
                 case "PF_Stock_Item":
                     ds_dgv2 = FruPak.PF.Data.AccessLayer.PF_Stock_Item.Get_Info();
                     break;
-            }         
-         
+            }
+
             DataRow dr_dgv2;
             for (int i = 0; i < Convert.ToInt32(ds_dgv2.Tables[0].Rows.Count.ToString()); i++)
             {
@@ -135,10 +128,11 @@ namespace FruPak.PF.Utils.Common
                     case "PF_A_Rates":
                         checkedListBox2.Items.Add(dr_dgv2["Rates_Id"].ToString() + " " + dr_dgv2["Code"].ToString() + " " + dr_dgv2["Description"].ToString());
                         break;
+
                     case "PF_Stock_Item":
                         checkedListBox2.Items.Add(dr_dgv2["Stock_Item_Id"].ToString() + " " + dr_dgv2["Code"].ToString() + " " + dr_dgv2["Description"].ToString());
                         break;
-                }             
+                }
             }
             ds_dgv2.Dispose();
         }
@@ -152,7 +146,6 @@ namespace FruPak.PF.Utils.Common
             for (int i_mat = 0; i_mat < Convert.ToInt32(checkedListBox1.Items.Count.ToString()); i_mat++)
             {
                 decimal dec_Material_Num = Convert.ToDecimal(checkedListBox1.Items[i_mat].ToString().Substring(0, checkedListBox1.Items[i_mat].ToString().IndexOf(' ')));
-                
 
                 if (checkedListBox1.GetItemCheckState(i_mat) == CheckState.Checked)
                 {
@@ -170,10 +163,11 @@ namespace FruPak.PF.Utils.Common
                         case "PF_A_Rates":
                             FruPak.PF.Data.AccessLayer.CM_Material_Rates_Relationship.Delete_Material(int_material_Id);
                             break;
+
                         case "PF_Stock_Item":
                             FruPak.PF.Data.AccessLayer.CM_Material_ST_Product_Relationship.Delete_Material(int_material_Id);
                             break;
-                    }                   
+                    }
 
                     for (int i_rate = 0; i_rate < Convert.ToInt32(checkedListBox2.Items.Count.ToString()); i_rate++)
                     {
@@ -185,10 +179,11 @@ namespace FruPak.PF.Utils.Common
                                 case "PF_A_Rates":
                                     int_result = FruPak.PF.Data.AccessLayer.CM_Material_Rates_Relationship.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Material_Rates_Relationship"), int_material_Id, int_Id, int_Current_User_Id);
                                     break;
+
                                 case "PF_Stock_Item":
                                     int_result = FruPak.PF.Data.AccessLayer.CM_Material_ST_Product_Relationship.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Material_ST_Product_Relationship"), int_material_Id, int_Id, int_Current_User_Id);
                                     break;
-                            }                           
+                            }
                         }
 
                         if (int_result > 0)
@@ -210,7 +205,6 @@ namespace FruPak.PF.Utils.Common
                 {
                     lbl_message.Text = "Selected Material Number(s) have NOT been updated";
                     lbl_message.ForeColor = System.Drawing.Color.Red;
-
                 }
             }
             Reset();
@@ -221,14 +215,13 @@ namespace FruPak.PF.Utils.Common
             int int_material_Id = 0;
             int i_mat = Convert.ToInt32((sender as CheckedListBox).SelectedIndex.ToString());
 
-
             decimal dec_Material_Num = Convert.ToDecimal(checkedListBox1.Items[i_mat].ToString().Substring(0, checkedListBox1.Items[i_mat].ToString().IndexOf(' ')));
             //get the material_id
             DataSet ds_material;
             DataRow dr_material;
 
             ds_material = FruPak.PF.Data.AccessLayer.CM_Material.Get_Info(dec_Material_Num);
-            
+
             for (int j = 0; j < Convert.ToInt32(ds_material.Tables[0].Rows.Count.ToString()); j++)
             {
                 dr_material = ds_material.Tables[0].Rows[j];
@@ -236,16 +229,16 @@ namespace FruPak.PF.Utils.Common
             }
             ds_material.Dispose();
 
-
             switch (str_table)
             {
                 case "PF_A_Rates":
                     ds_material = FruPak.PF.Data.AccessLayer.CM_Material_Rates_Relationship.Get_Info_For_Material(int_material_Id);
                     break;
+
                 case "PF_Stock_Item":
                     ds_material = FruPak.PF.Data.AccessLayer.CM_Material_ST_Product_Relationship.Get_Info_For_Material(int_material_Id);
                     break;
-            }   
+            }
 
             for (int i = 0; i < Convert.ToInt32(checkedListBox2.Items.Count.ToString()); i++)
             {
@@ -257,16 +250,17 @@ namespace FruPak.PF.Utils.Common
                     dr_material = ds_material.Tables[0].Rows[j];
 
                     int int_rate_Id = 0;
-                    
+
                     switch (str_table)
                     {
                         case "PF_A_Rates":
                             int_rate_Id = Convert.ToInt32(dr_material["Rates_Id"].ToString());
                             break;
+
                         case "PF_Stock_Item":
                             int_rate_Id = Convert.ToInt32(dr_material["Stock_Item_Id"].ToString());
                             break;
-                    } 
+                    }
 
                     if (Convert.ToInt32(item.Substring(0, item.IndexOf(' '))) == int_rate_Id)
                     {
@@ -284,8 +278,9 @@ namespace FruPak.PF.Utils.Common
 
         private void btn_reset_Click(object sender, EventArgs e)
         {
-            Reset();   
+            Reset();
         }
+
         private void Reset()
         {
             populate_check_boxList1();
@@ -293,8 +288,9 @@ namespace FruPak.PF.Utils.Common
         }
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
+
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>
@@ -305,34 +301,39 @@ namespace FruPak.PF.Utils.Common
             {
                 Button b = (Button)sender;
                 logger.Log(LogLevel.Info, DecorateString(b.Name, b.Text, "Click"));
-
             }
         }
+
         private void Control_Validated(object sender, EventArgs e)
         {
             TextBox t = (TextBox)sender;
             logger.Log(LogLevel.Info, DecorateString(t.Name, t.Text, "Validated"));
         }
+
         private void Control_SelectedValueChanged(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Text, "SelectedValueChanged"));
         }
+
         private void Control_ValueChanged(object sender, EventArgs e)
         {
             DateTimePicker dtp = (DateTimePicker)sender;
             logger.Log(LogLevel.Info, DecorateString(dtp.Name, dtp.Text, "ValueChanged"));
         }
+
         private void Control_NudValueChanged(object sender, EventArgs e)
         {
             NumericUpDown nud = (NumericUpDown)sender;
             logger.Log(LogLevel.Info, DecorateString(nud.Name, nud.Text, "NudValueChanged"));
         }
+
         private void Control_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Checked.ToString(), "CheckedChanged"));
         }
+
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
             FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
@@ -340,8 +341,10 @@ namespace FruPak.PF.Utils.Common
         }
 
         #region Decorate String
+
         // DecorateString
         private string openPad = " --- [ ";
+
         private string closePad = " ] --- ";
         private string intro = "--->   { ";
         private string outro = " }   <---";
@@ -363,7 +366,8 @@ namespace FruPak.PF.Utils.Common
             output = intro + name + openPad + input + closePad + action + outro;
             return output;
         }
-        #endregion
+
+        #endregion Decorate String
 
         /// <summary>
         /// Close the form with the Esc key (Sel request 11-02-2015 BN)
@@ -379,7 +383,6 @@ namespace FruPak.PF.Utils.Common
             }
         }
 
-        #endregion
-
+        #endregion Methods to log UI events to the CSV file. BN 29/01/2015
     }
 }

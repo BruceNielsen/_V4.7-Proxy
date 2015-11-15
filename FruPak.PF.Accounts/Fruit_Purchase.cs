@@ -1,22 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using NLog;
+using System;
 using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
-using NLog;
 
 namespace FruPak.PF.Accounts
 {
     public partial class Fruit_Purchase : Form
     {
-        private static Logger logger = LogManager.GetCurrentClassLogger();     
+        private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static int int_Current_User_Id = 0;
         private static bool bol_write_access;
         private static string str_save_filename = "";
+
         public Fruit_Purchase(int int_C_User_id, bool bol_w_a)
         {
             InitializeComponent();
@@ -41,6 +37,7 @@ namespace FruPak.PF.Accounts
             populate_datagridview2();
 
             #region Log any interesting events from the UI to the CSV log file
+
             foreach (Control c in this.Controls)
             {
                 if (c.GetType() == typeof(Button))
@@ -71,15 +68,14 @@ namespace FruPak.PF.Accounts
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-
                 else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
                 {
                     FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
-            #endregion
 
+            #endregion Log any interesting events from the UI to the CSV log file
         }
 
         private void populate_datagridview1()
@@ -93,13 +89,13 @@ namespace FruPak.PF.Accounts
             switch (btn_Add.Text)
             {
                 case "&Update":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.GH_Submission.Get_ALL_Fruit_For_Customer(customer1.Customer_Id);                    
+                    ds_Get_Info = FruPak.PF.Data.AccessLayer.GH_Submission.Get_ALL_Fruit_For_Customer(customer1.Customer_Id);
                     break;
+
                 default:
                     ds_Get_Info = FruPak.PF.Data.AccessLayer.GH_Submission.Get_Fruit_NOT_Purchased(customer1.Customer_Id);
                     break;
             }
-            
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {
@@ -182,18 +178,21 @@ namespace FruPak.PF.Accounts
                     cost = 0;
                 }
                 dataGridView1.Rows[i].Cells["Total"].Value = (gross - tare) * cost;
-
             }
             ds_Get_Info.Dispose();
             Column_resize();
         }
+
         private void cmb_Customer_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (customer1.CFocused == true)
-            {               
+            {
+                Cursor.Current = Cursors.WaitCursor;
                 populate_datagridview1();
+                Cursor.Current = Cursors.Default;
             }
         }
+
         private void AddColumnsProgrammatically()
         {
             DataGridViewCheckBoxColumn ckb_select = new DataGridViewCheckBoxColumn();
@@ -266,6 +265,7 @@ namespace FruPak.PF.Accounts
             txt_total.HeaderText = "Total";
             txt_total.Name = "Total";
         }
+
         private void AddColumnsProgrammatically2()
         {
             var col0 = new DataGridViewTextBoxColumn();
@@ -323,9 +323,9 @@ namespace FruPak.PF.Accounts
             dataGridView2.Columns.Add(btn_Submit);
             btn_Submit.Text = "Submit";
             btn_Submit.Name = "Submit";
-           //btn_Submit.UseColumnTextForButtonValue = true;
-            
+            //btn_Submit.UseColumnTextForButtonValue = true;
         }
+
         private void populate_datagridview2()
         {
             DataSet ds_Get_Info;
@@ -361,7 +361,6 @@ namespace FruPak.PF.Accounts
 
                 if (dataGridView2.Rows[i].Cells["Date_to_Office"].Value.ToString() != "")
                 {
-
                     dataGridView2.Rows[i].Cells["Submit"].Value = "Resend";
                 }
                 else
@@ -380,10 +379,12 @@ namespace FruPak.PF.Accounts
             ds_Get_Info.Dispose();
             Column_resize();
         }
+
         private void SizeAllColumns(Object sender, EventArgs e)
         {
             Column_resize();
         }
+
         private void Column_resize()
         {
             dataGridView1.AutoResizeColumn(0, DataGridViewAutoSizeColumnMode.AllCells);
@@ -399,22 +400,24 @@ namespace FruPak.PF.Accounts
 
             dataGridView2.AutoResizeColumn(0, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView2.AutoResizeColumn(1, DataGridViewAutoSizeColumnMode.AllCells);
-            dataGridView2.AutoResizeColumn(2, DataGridViewAutoSizeColumnMode.AllCells);            
-            dataGridView2.AutoResizeColumn(3, DataGridViewAutoSizeColumnMode.AllCells);            
+            dataGridView2.AutoResizeColumn(2, DataGridViewAutoSizeColumnMode.AllCells);
+            dataGridView2.AutoResizeColumn(3, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView2.AutoResizeColumn(5, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView2.AutoResizeColumn(6, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView2.AutoResizeColumn(7, DataGridViewAutoSizeColumnMode.AllCells);
-            dataGridView2.AutoResizeColumn(8, DataGridViewAutoSizeColumnMode.AllCells);  
-       
+            dataGridView2.AutoResizeColumn(8, DataGridViewAutoSizeColumnMode.AllCells);
         }
+
         private void btn_Close_Click(object sender, EventArgs e)
         {
             this.Close();
         }
+
         private void btn_reset_Click(object sender, EventArgs e)
         {
             Reset();
         }
+
         private void Reset()
         {
             customer1.Customer_Id = 0;
@@ -423,8 +426,8 @@ namespace FruPak.PF.Accounts
             dataGridView1.Refresh();
             dataGridView1.Rows.Clear();
             nud_total.Value = 0;
-
         }
+
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             DataGridViewCheckBoxCell checkbox = (DataGridViewCheckBoxCell)dataGridView1.CurrentCell;
@@ -437,8 +440,8 @@ namespace FruPak.PF.Accounts
             {
                 nud_total.Value = nud_total.Value - Convert.ToDecimal(dataGridView1.CurrentRow.Cells["Total"].Value.ToString());
             }
-            
         }
+
         private void btn_Add_Click(object sender, EventArgs e)
         {
             DialogResult DLR_Message = new DialogResult();
@@ -454,7 +457,7 @@ namespace FruPak.PF.Accounts
             for (int i = 0; i < dataGridView1.Rows.Count; i++)
             {
                 DataGridViewCheckBoxCell checkbox = (DataGridViewCheckBoxCell)dataGridView1.Rows[i].Cells["Select"];
-                
+
                 if ((bool)checkbox.EditedFormattedValue == true)
                 {
                     int_result = int_result + 1;
@@ -474,8 +477,9 @@ namespace FruPak.PF.Accounts
                 switch (btn_Add.Text)
                 {
                     #region ------------- Update -------------
+
                     case "&Update":
-                        // reset fruit_purchade_ID to null 
+                        // reset fruit_purchade_ID to null
                         int_result = int_result + FruPak.PF.Data.AccessLayer.GH_Submission.Reset_Purchase(int_DGV_Cell0, int_Current_User_Id);
 
                         for (int i = 0; i < dataGridView1.Rows.Count; i++)
@@ -489,23 +493,27 @@ namespace FruPak.PF.Accounts
 
                         int_result = int_result + FruPak.PF.Data.AccessLayer.PF_A_Fruit_Purchase.Update(int_DGV_Cell0, customer1.Customer_Id, nud_total.Value, txt_Comments.Text, int_Current_User_Id);
                         break;
-                    #endregion
+
+                    #endregion ------------- Update -------------
+
                     #region ------------- default -------------
+
                     default:
                         int int_FruitPurchase_Id = FruPak.PF.Common.Code.General.int_max_user_id("PF_A_Fruit_Purchase");
-                        int_result = FruPak.PF.Data.AccessLayer.PF_A_Fruit_Purchase.insert(int_FruitPurchase_Id,customer1.Customer_Id, nud_total.Value, txt_Comments.Text, int_Current_User_Id);
+                        int_result = FruPak.PF.Data.AccessLayer.PF_A_Fruit_Purchase.insert(int_FruitPurchase_Id, customer1.Customer_Id, nud_total.Value, txt_Comments.Text, int_Current_User_Id);
 
                         for (int i = 0; i < dataGridView1.Rows.Count; i++)
                         {
                             DataGridViewCheckBoxCell checkbox = (DataGridViewCheckBoxCell)dataGridView1.Rows[i].Cells["Select"];
-                
+
                             if ((bool)checkbox.EditedFormattedValue == true)
                             {
                                 int_result = int_result + FruPak.PF.Data.AccessLayer.GH_Submission.Update_Purchase(Convert.ToInt32(dataGridView1.Rows[i].Cells["Submission_Id"].Value.ToString()), int_FruitPurchase_Id, int_Current_User_Id);
                             }
                         }
                         break;
-                    #endregion
+
+                        #endregion ------------- default -------------
                 }
             }
 
@@ -522,16 +530,16 @@ namespace FruPak.PF.Accounts
             populate_datagridview2();
             Reset();
         }
+
         private void btn_sub_Click(int int_fruitPurchase_id, string Customer)
         {
-
             FruPak.PF.Data.Excel.Excel.FilePath = FruPak.PF.Common.Code.General.Get_Single_System_Code("PF-SPath");
-      
-            str_save_filename = Customer +" - " + DateTime.Now.ToString("yyyyMMdd") + ".PDF";
+
+            str_save_filename = Customer + " - " + DateTime.Now.ToString("yyyyMMdd") + ".PDF";
             FruPak.PF.Data.Excel.Excel.FileName = str_save_filename;
 
             FruPak.PF.Data.Excel.Excel.startExcel();
-            
+
             FruPak.PF.Data.Excel.Excel.Add_Data_Text("A1", "Customer: " + Customer);
             FruPak.PF.Data.Excel.Excel.Font_Size("A1", 18);
             FruPak.PF.Data.Excel.Excel.Font_Bold("A1", true);
@@ -567,8 +575,8 @@ namespace FruPak.PF.Accounts
                 FruPak.PF.Data.Excel.Excel.Set_Horizontal_Aligment("D" + Convert.ToString(ip), "Center");
                 FruPak.PF.Data.Excel.Excel.Add_Data_Dec("E" + Convert.ToString(ip), Convert.ToDecimal(dr["Gross_Weight"].ToString()) - Convert.ToDecimal(dr["Tare_Weight"].ToString()), 2);
                 FruPak.PF.Data.Excel.Excel.Set_Horizontal_Aligment("E" + Convert.ToString(ip), "Center");
-                FruPak.PF.Data.Excel.Excel.Add_Data_Dec("F" + Convert.ToString(ip), Convert.ToDecimal(dr["Cost"].ToString()),2);                
-                
+                FruPak.PF.Data.Excel.Excel.Add_Data_Dec("F" + Convert.ToString(ip), Convert.ToDecimal(dr["Cost"].ToString()), 2);
+
                 FruPak.PF.Data.Excel.Excel.Set_Column_Width(2);
                 FruPak.PF.Data.Excel.Excel.Set_Column_Width(3);
                 FruPak.PF.Data.Excel.Excel.Set_Column_Width(4);
@@ -580,13 +588,16 @@ namespace FruPak.PF.Accounts
             FruPak.PF.Data.Excel.Excel.SaveASPDF();
             FruPak.PF.Data.Excel.Excel.CloseExcel();
         }
+
         private static int int_DGV_Cell0 = 0;
+
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
             string str_save_filename = "";
             int int_result = 0;
 
             #region ------------- Submit Button -------------
+
             if (e.ColumnIndex == 8)
             {
                 btn_sub_Click(Convert.ToInt32(dataGridView2.CurrentRow.Cells["FruitPurchase_Id"].Value.ToString()), dataGridView2.CurrentRow.Cells["Customer"].Value.ToString());
@@ -610,8 +621,11 @@ namespace FruPak.PF.Accounts
                     lbl_message.Text = "Fruit_Purchase failed to sent to the Office";
                 }
             }
-            #endregion
+
+            #endregion ------------- Submit Button -------------
+
             #region ------------- Edit -------------
+
             else if (e.ColumnIndex == 7)
             {
                 btn_Add.Text = "&Update";
@@ -621,8 +635,11 @@ namespace FruPak.PF.Accounts
                 nud_total.Value = Convert.ToDecimal(dataGridView2.CurrentRow.Cells["Cost"].Value.ToString());
                 populate_datagridview1();
             }
-            #endregion
+
+            #endregion ------------- Edit -------------
+
             #region ------------- Delete -------------
+
             else if (e.ColumnIndex == 6)
             {
                 string Data = "";
@@ -643,12 +660,14 @@ namespace FruPak.PF.Accounts
                 }
                 populate_datagridview2();
             }
-            #endregion
+
+            #endregion ------------- Delete -------------
         }
 
         #region Methods to log UI events to the CSV file. BN 29/01/2015
+
         /// <summary>
-        /// Method to log the identity of controls we are interested in into the CSV log file. 
+        /// Method to log the identity of controls we are interested in into the CSV log file.
         /// BN 29/01/2015
         /// </summary>
         /// <param name="sender">Control</param>
@@ -659,34 +678,39 @@ namespace FruPak.PF.Accounts
             {
                 Button b = (Button)sender;
                 logger.Log(LogLevel.Info, DecorateString(b.Name, b.Text, "Click"));
-
             }
         }
+
         private void Control_Validated(object sender, EventArgs e)
         {
             TextBox t = (TextBox)sender;
             logger.Log(LogLevel.Info, DecorateString(t.Name, t.Text, "Validated"));
         }
+
         private void Control_SelectedValueChanged(object sender, EventArgs e)
         {
             ComboBox cb = (ComboBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Text, "SelectedValueChanged"));
         }
+
         private void Control_ValueChanged(object sender, EventArgs e)
         {
             DateTimePicker dtp = (DateTimePicker)sender;
             logger.Log(LogLevel.Info, DecorateString(dtp.Name, dtp.Text, "ValueChanged"));
         }
+
         private void Control_NudValueChanged(object sender, EventArgs e)
         {
             NumericUpDown nud = (NumericUpDown)sender;
             logger.Log(LogLevel.Info, DecorateString(nud.Name, nud.Text, "NudValueChanged"));
         }
+
         private void Control_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox cb = (CheckBox)sender;
             logger.Log(LogLevel.Info, DecorateString(cb.Name, cb.Checked.ToString(), "CheckedChanged"));
         }
+
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
             FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
@@ -694,8 +718,10 @@ namespace FruPak.PF.Accounts
         }
 
         #region Decorate String
+
         // DecorateString
         private string openPad = " --- [ ";
+
         private string closePad = " ] --- ";
         private string intro = "--->   { ";
         private string outro = " }   <---";
@@ -717,7 +743,8 @@ namespace FruPak.PF.Accounts
             output = intro + name + openPad + input + closePad + action + outro;
             return output;
         }
-        #endregion
+
+        #endregion Decorate String
 
         /// <summary>
         /// Close the form with the Esc key (Sel request 11-02-2015 BN)
@@ -733,7 +760,7 @@ namespace FruPak.PF.Accounts
             }
         }
 
-        #endregion
+        #endregion Methods to log UI events to the CSV file. BN 29/01/2015
 
         private void Fruit_Purchase_FormClosing(object sender, FormClosingEventArgs e)
         {

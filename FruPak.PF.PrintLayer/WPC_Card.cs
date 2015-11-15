@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Data;
 
 namespace FruPak.PF.PrintLayer
@@ -9,6 +6,7 @@ namespace FruPak.PF.PrintLayer
     public class WPC_Card
     {
         private static int int_Current_User_Id = 0;
+
         public static int Print(string Data, int Current_User_Id)
         {
             int return_code = 98;
@@ -18,6 +16,7 @@ namespace FruPak.PF.PrintLayer
             return_code = Print(DataParts[0], Convert.ToBoolean(DataParts[1]), Current_User_Id);
             return return_code;
         }
+
         public static int Print(string Barcode, bool bol_print, int Current_User_Id)
         {
             int return_code = 98;
@@ -40,13 +39,12 @@ namespace FruPak.PF.PrintLayer
                 {
                     dt2 = Convert.ToDateTime(dr_Get_Info["WO_Start_Time"].ToString());
                 }
-                
-                
+
                 FruPak.PF.PrintLayer.Word.StartWord();
                 FruPak.PF.PrintLayer.Word.ReplaceText("Fruit", dr_Get_Info["FT_Description"].ToString());
                 FruPak.PF.PrintLayer.Word.ReplaceText("Pdate", dt1.Day.ToString() + "/" + dt1.Month.ToString() + "/" + dt1.Year.ToString());
                 FruPak.PF.PrintLayer.Word.ReplaceText("stime", dt2.Hour.ToString() + ":" + String.Format("{0:mm}", dt2));
-                FruPak.PF.PrintLayer.Word.ReplaceText("ftime", dt1.Hour.ToString() + ":" + String.Format("{0:mm}",dt1));
+                FruPak.PF.PrintLayer.Word.ReplaceText("ftime", dt1.Hour.ToString() + ":" + String.Format("{0:mm}", dt1));
                 FruPak.PF.PrintLayer.Word.ReplaceText("Variety", dr_Get_Info["FV_Description"].ToString());
                 FruPak.PF.PrintLayer.Word.ReplaceText("Batch", dr_Get_Info["Pallet_Number"].ToString());
                 FruPak.PF.PrintLayer.Word.ReplaceText("Net", dr_Get_Info["Weight_Nett"].ToString());
@@ -58,7 +56,6 @@ namespace FruPak.PF.PrintLayer
                     //FruPak.PF.PrintLayer.Word.FilePath = @"C:\dave";
                     //FruPak.PF.PrintLayer.Word.FileName = "dave";
                     //FruPak.PF.PrintLayer.Word.SaveAsPdf();
-                    
                 }
                 else
                 {
@@ -68,7 +65,7 @@ namespace FruPak.PF.PrintLayer
                 FruPak.PF.PrintLayer.Word.CloseWord();
             }
             ds_Get_Info.Dispose();
-            
+
             return return_code;
         }
 
@@ -85,12 +82,13 @@ namespace FruPak.PF.PrintLayer
                         FruPak.PF.PrintLayer.Word.TemplatePath = dr_Get_Info["Value"].ToString();
 
                         break;
+
                     case "PF-TWPC":
                         FruPak.PF.PrintLayer.Word.TemplateName = dr_Get_Info["Value"].ToString();
                         break;
                 }
             }
             ds_Get_Info.Dispose();
-        } 
+        }
     }
 }

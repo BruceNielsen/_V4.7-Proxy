@@ -40,6 +40,7 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.ckb_Active = new System.Windows.Forms.CheckBox();
             this.customer1 = new FruPak.PF.Utils.UserControls.Customer();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -55,7 +56,7 @@
             // 
             // btn_Add
             // 
-            this.btn_Add.Location = new System.Drawing.Point(580, 222);
+            this.btn_Add.Location = new System.Drawing.Point(655, 222);
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(75, 23);
             this.btn_Add.TabIndex = 5;
@@ -65,7 +66,7 @@
             // 
             // btn_Close
             // 
-            this.btn_Close.Location = new System.Drawing.Point(742, 222);
+            this.btn_Close.Location = new System.Drawing.Point(817, 222);
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 23);
             this.btn_Close.TabIndex = 7;
@@ -75,7 +76,7 @@
             // 
             // btn_reset
             // 
-            this.btn_reset.Location = new System.Drawing.Point(661, 222);
+            this.btn_reset.Location = new System.Drawing.Point(736, 222);
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(75, 23);
             this.btn_reset.TabIndex = 6;
@@ -86,7 +87,7 @@
             // cmb_Material
             // 
             this.cmb_Material.FormattingEnabled = true;
-            this.cmb_Material.Location = new System.Drawing.Point(666, 90);
+            this.cmb_Material.Location = new System.Drawing.Point(741, 90);
             this.cmb_Material.Name = "cmb_Material";
             this.cmb_Material.Size = new System.Drawing.Size(326, 21);
             this.cmb_Material.TabIndex = 2;
@@ -95,7 +96,7 @@
             // lbl_product
             // 
             this.lbl_product.AutoSize = true;
-            this.lbl_product.Location = new System.Drawing.Point(576, 93);
+            this.lbl_product.Location = new System.Drawing.Point(651, 93);
             this.lbl_product.Name = "lbl_product";
             this.lbl_product.Size = new System.Drawing.Size(84, 13);
             this.lbl_product.TabIndex = 46;
@@ -104,7 +105,7 @@
             // lbl_price
             // 
             this.lbl_price.AutoSize = true;
-            this.lbl_price.Location = new System.Drawing.Point(576, 140);
+            this.lbl_price.Location = new System.Drawing.Point(651, 140);
             this.lbl_price.Name = "lbl_price";
             this.lbl_price.Size = new System.Drawing.Size(34, 13);
             this.lbl_price.TabIndex = 47;
@@ -112,7 +113,7 @@
             // 
             // txt_Price
             // 
-            this.txt_Price.Location = new System.Drawing.Point(636, 137);
+            this.txt_Price.Location = new System.Drawing.Point(741, 133);
             this.txt_Price.Name = "txt_Price";
             this.txt_Price.Size = new System.Drawing.Size(100, 20);
             this.txt_Price.TabIndex = 3;
@@ -128,7 +129,7 @@
             this.dataGridView1.Location = new System.Drawing.Point(13, 41);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(543, 244);
+            this.dataGridView1.Size = new System.Drawing.Size(632, 308);
             this.dataGridView1.TabIndex = 5;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
@@ -137,7 +138,7 @@
             this.ckb_Active.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
             this.ckb_Active.Checked = true;
             this.ckb_Active.CheckState = System.Windows.Forms.CheckState.Checked;
-            this.ckb_Active.Location = new System.Drawing.Point(579, 176);
+            this.ckb_Active.Location = new System.Drawing.Point(654, 176);
             this.ckb_Active.Name = "ckb_Active";
             this.ckb_Active.Size = new System.Drawing.Size(84, 24);
             this.ckb_Active.TabIndex = 4;
@@ -150,16 +151,28 @@
             // 
             this.customer1.CFocused = false;
             this.customer1.Customer_Id = 0;
-            this.customer1.Location = new System.Drawing.Point(580, 41);
+            this.customer1.Location = new System.Drawing.Point(681, 41);
             this.customer1.Name = "customer1";
-            this.customer1.Size = new System.Drawing.Size(295, 28);
+            this.customer1.Size = new System.Drawing.Size(299, 28);
             this.customer1.TabIndex = 1;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(740, 294);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(152, 23);
+            this.button1.TabIndex = 48;
+            this.button1.Text = "ArgumentException";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // Sales_Rates
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1008, 361);
+            this.ClientSize = new System.Drawing.Size(1080, 361);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.customer1);
             this.Controls.Add(this.ckb_Active);
             this.Controls.Add(this.dataGridView1);
@@ -197,5 +210,6 @@
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.CheckBox ckb_Active;
         private Utils.UserControls.Customer customer1;
+        private System.Windows.Forms.Button button1;
     }
 }
