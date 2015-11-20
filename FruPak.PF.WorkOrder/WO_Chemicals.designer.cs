@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.WorkOrder
+﻿namespace PF.WorkOrder
 {
     partial class WO_Chemicals
     {
@@ -38,8 +38,8 @@
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.lbl_test = new System.Windows.Forms.Label();
             this.cmb_Test = new System.Windows.Forms.ComboBox();
-            this.woDisplay1 = new FruPak.PF.Utils.UserControls.WODisplay();
-            this.batchNum1 = new FruPak.PF.Utils.UserControls.BatchNum();
+            this.woDisplay1 = new PF.Utils.UserControls.WODisplay();
+            this.batchNum1 = new PF.Utils.UserControls.BatchNum();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -178,7 +178,7 @@
             this.KeyPreview = true;
             this.Name = "WO_Chemicals";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.WorkOrder.Work Order Chemicals";
+            this.Text = "PF.WorkOrder.Work Order Chemicals";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.WO_Chemicals_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -189,7 +189,7 @@
 
         #endregion
 
-        private FruPak.PF.Utils.UserControls.WODisplay woDisplay1;
+        private PF.Utils.UserControls.WODisplay woDisplay1;
         private System.Windows.Forms.Button btn_Close;
         private System.Windows.Forms.Button btn_reset;
         private System.Windows.Forms.Button btn_Add;

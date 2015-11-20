@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,34 +27,34 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(MenuPan_Id) as Current_Id FROM  dbo.SC_Menu_Panel");
         }
 
         public static int Insert(int MenuPan_Id, int Menu_Id, string Name, string Description, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO  dbo.SC_Menu_Panel(MenuPan_Id, Menu_Id, Name, Description, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + MenuPan_Id + "," + Menu_Id + ",'" + Name + "','" + Description + "', GETDATE()," + Mod_User_Id + ")");
         }
 
         public static DataSet Get_Info()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT MP.MenuPan_Id, M.Name AS MENU, MP.Name, MP.Description, MP.Mod_date, MP.Mod_User_Id " +
                                             "FROM  dbo.SC_Menu_Panel MP INNER JOIN SC_Menu M ON M.Menu_Id = MP.Menu_Id ORDER BY M.Name, MP.Name");
         }
 
         public static DataSet Get_Info(int Menu_Id, string str_Name)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT MP.MenuPan_Id, M.Name AS MENU, MP.Name, MP.Description, MP.Mod_date, MP.Mod_User_Id " +
                                             "FROM  dbo.SC_Menu_Panel MP INNER JOIN SC_Menu M ON M.Menu_Id = MP.Menu_Id WHERE MP.Menu_Id = " + Menu_Id + " AND MP.Name = '" + str_Name + "'");
         }
 
         public static int Update(int MenuPan_Id, int Menu_Id, string Name, string Description, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE  dbo.SC_Menu_Panel SET Menu_Id = " + Menu_Id + ", Name = '" + Name + "', " +
                                                                   "Description = '" + Description + "', " +
                                                                   "Mod_date = GETDATE(), " +
@@ -64,7 +64,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Delete(int MenuPan_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM  dbo.SC_Menu_Panel WHERE MenuPan_Id = " + MenuPan_Id);
         }
     }

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.UserControls
+namespace PF.Utils.UserControls
 {
     public partial class Test_Material_Number : Form
     {

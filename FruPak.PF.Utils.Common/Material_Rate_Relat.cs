@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Common
+namespace PF.Utils.Common
 {
     public partial class Material_Rate_Relat : Form
     {
@@ -33,13 +33,13 @@ namespace FruPak.PF.Utils.Common
                     break;
             }
             //check if testing or not
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
             populate_check_boxList1();
             populate_check_boxList2();
@@ -76,9 +76,9 @@ namespace FruPak.PF.Utils.Common
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -91,7 +91,7 @@ namespace FruPak.PF.Utils.Common
             checkedListBox1.Items.Clear();
 
             //get list of products
-            DataSet ds_dgv1 = FruPak.PF.Data.AccessLayer.CM_Material.Get_Info();
+            DataSet ds_dgv1 = PF.Data.AccessLayer.CM_Material.Get_Info();
             DataRow dr_dgv1;
 
             for (int i = 0; i < Convert.ToInt32(ds_dgv1.Tables[0].Rows.Count.ToString()); i++)
@@ -110,11 +110,11 @@ namespace FruPak.PF.Utils.Common
             switch (str_table)
             {
                 case "PF_A_Rates":
-                    ds_dgv2 = FruPak.PF.Data.AccessLayer.PF_A_Rates.Get_Info();
+                    ds_dgv2 = PF.Data.AccessLayer.PF_A_Rates.Get_Info();
                     break;
 
                 case "PF_Stock_Item":
-                    ds_dgv2 = FruPak.PF.Data.AccessLayer.PF_Stock_Item.Get_Info();
+                    ds_dgv2 = PF.Data.AccessLayer.PF_Stock_Item.Get_Info();
                     break;
             }
 
@@ -150,7 +150,7 @@ namespace FruPak.PF.Utils.Common
                 if (checkedListBox1.GetItemCheckState(i_mat) == CheckState.Checked)
                 {
                     //get the material_id
-                    DataSet ds_material = FruPak.PF.Data.AccessLayer.CM_Material.Get_Info(dec_Material_Num);
+                    DataSet ds_material = PF.Data.AccessLayer.CM_Material.Get_Info(dec_Material_Num);
                     DataRow dr_material;
                     for (int j = 0; j < Convert.ToInt32(ds_material.Tables[0].Rows.Count.ToString()); j++)
                     {
@@ -161,11 +161,11 @@ namespace FruPak.PF.Utils.Common
                     switch (str_table)
                     {
                         case "PF_A_Rates":
-                            FruPak.PF.Data.AccessLayer.CM_Material_Rates_Relationship.Delete_Material(int_material_Id);
+                            PF.Data.AccessLayer.CM_Material_Rates_Relationship.Delete_Material(int_material_Id);
                             break;
 
                         case "PF_Stock_Item":
-                            FruPak.PF.Data.AccessLayer.CM_Material_ST_Product_Relationship.Delete_Material(int_material_Id);
+                            PF.Data.AccessLayer.CM_Material_ST_Product_Relationship.Delete_Material(int_material_Id);
                             break;
                     }
 
@@ -177,11 +177,11 @@ namespace FruPak.PF.Utils.Common
                             switch (str_table)
                             {
                                 case "PF_A_Rates":
-                                    int_result = FruPak.PF.Data.AccessLayer.CM_Material_Rates_Relationship.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Material_Rates_Relationship"), int_material_Id, int_Id, int_Current_User_Id);
+                                    int_result = PF.Data.AccessLayer.CM_Material_Rates_Relationship.Insert(PF.Common.Code.General.int_max_user_id("CM_Material_Rates_Relationship"), int_material_Id, int_Id, int_Current_User_Id);
                                     break;
 
                                 case "PF_Stock_Item":
-                                    int_result = FruPak.PF.Data.AccessLayer.CM_Material_ST_Product_Relationship.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Material_ST_Product_Relationship"), int_material_Id, int_Id, int_Current_User_Id);
+                                    int_result = PF.Data.AccessLayer.CM_Material_ST_Product_Relationship.Insert(PF.Common.Code.General.int_max_user_id("CM_Material_ST_Product_Relationship"), int_material_Id, int_Id, int_Current_User_Id);
                                     break;
                             }
                         }
@@ -220,7 +220,7 @@ namespace FruPak.PF.Utils.Common
             DataSet ds_material;
             DataRow dr_material;
 
-            ds_material = FruPak.PF.Data.AccessLayer.CM_Material.Get_Info(dec_Material_Num);
+            ds_material = PF.Data.AccessLayer.CM_Material.Get_Info(dec_Material_Num);
 
             for (int j = 0; j < Convert.ToInt32(ds_material.Tables[0].Rows.Count.ToString()); j++)
             {
@@ -232,11 +232,11 @@ namespace FruPak.PF.Utils.Common
             switch (str_table)
             {
                 case "PF_A_Rates":
-                    ds_material = FruPak.PF.Data.AccessLayer.CM_Material_Rates_Relationship.Get_Info_For_Material(int_material_Id);
+                    ds_material = PF.Data.AccessLayer.CM_Material_Rates_Relationship.Get_Info_For_Material(int_material_Id);
                     break;
 
                 case "PF_Stock_Item":
-                    ds_material = FruPak.PF.Data.AccessLayer.CM_Material_ST_Product_Relationship.Get_Info_For_Material(int_material_Id);
+                    ds_material = PF.Data.AccessLayer.CM_Material_ST_Product_Relationship.Get_Info_For_Material(int_material_Id);
                     break;
             }
 
@@ -336,7 +336,7 @@ namespace FruPak.PF.Utils.Common
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

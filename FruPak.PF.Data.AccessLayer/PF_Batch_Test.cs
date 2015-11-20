@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,38 +27,38 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(BatchTest_Id) as Current_Id FROM PF_Batch_Test");
         }
 
         public static DataSet Get_Info()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Batch_Test ORDER BY Work_Order_Id, Batch_Num");
         }
 
         public static DataSet Get_Info(int Work_Order_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Batch_Test WHERE Work_Order_Id = " + Work_Order_Id + "ORDER BY Batch_Num DESC");
         }
 
         public static int Insert(int BatchTest_Id, int Batch_Num, string Time, int Work_Order_Id, int Test_Id, bool Test_Passed, string Results, string Comments, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO PF_Batch_Test (BatchTest_Id, Batch_Num, Time, Work_Order_Id, Test_Id, Test_Passed, Results, Comments, Mod_Date, Mod_User_Id)" +
                                                "VALUES( " + BatchTest_Id + "," + Batch_Num + ",'" + Time + "'," + Work_Order_Id + "," + Test_Id + ",'" + Test_Passed + "','" + Results + "','" + Comments + "', GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Delete(int BatchTest_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_Batch_Test WHERE BatchTest_Id = " + BatchTest_Id);
         }
 
         public static int Update(int BatchTest_Id, bool Test_Passed, string Results, string Comments)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_Batch_Test SET Test_Passed = '" + Test_Passed + "', " +
                                                                    "Results = '" + Results + "', " +
                                                                    "Comments = '" + Comments + "' " +

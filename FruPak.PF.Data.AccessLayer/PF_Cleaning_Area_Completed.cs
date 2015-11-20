@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,26 +27,26 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(CleanAreaCmp_Id) as Current_Id FROM PF_Cleaning_Area_Completed");
         }
 
         public static DataSet Get_Info(int CleanArea_Id, string Complete_Date)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Cleaning_Area_Completed WHERE CleanArea_Id = " + CleanArea_Id + " AND Complete_Date ='" + Complete_Date + "'");
         }
 
         public static int Insert(int CleanAreaCmp_Id, string Complete_Date, int CleanArea_Id, int Staff_Id, string Start_Time, string Finish_Time, string Comments, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO PF_Cleaning_Area_Completed(CleanAreaCmp_Id, Complete_Date, CleanArea_Id, Staff_Id, Start_Time, Finish_Time, Comments, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + CleanAreaCmp_Id + ",'" + Complete_Date + "'," + CleanArea_Id + "," + Staff_Id + ",'" + Start_Time + "','" + Finish_Time + "','" + Comments + "', GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Update(int CleanAreaCmp_Id, string Complete_Date, int Staff_Id, string Start_Time, string Finish_Time, string Comments, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_Cleaning_Area_Completed SET Complete_Date = '" + Complete_Date + "', " +
                                                                   "Start_Time = '" + Start_Time + "', " +
                                                                   "Finish_Time = '" + Finish_Time + "', " +

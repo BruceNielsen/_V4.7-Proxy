@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Dispatch
+﻿namespace PF.Dispatch
 {
     partial class Shipping_Order
     {
@@ -49,7 +49,7 @@
             this.lbl_message = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
-            this.customer1 = new FruPak.PF.Utils.UserControls.Customer();
+            this.customer1 = new PF.Utils.UserControls.Customer();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
@@ -351,7 +351,7 @@
             this.KeyPreview = true;
             this.Name = "Shipping_Order";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Dispatch.Shipping Order Summary";
+            this.Text = "PF.Dispatch.Shipping Order Summary";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Shipping_Order_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

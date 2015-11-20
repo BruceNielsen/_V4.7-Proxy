@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.Common
+﻿namespace PF.Utils.Common
 {
     partial class Common_Maintenance
     {
@@ -235,7 +235,7 @@
             this.KeyPreview = true;
             this.Name = "Common_Maintenance";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.Common.Common Maintenance";
+            this.Text = "PF.Utils.Common.Common Maintenance";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Common_Maintenance_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

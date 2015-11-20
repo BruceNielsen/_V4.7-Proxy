@@ -3,7 +3,7 @@ using System;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Server
+namespace PF.Utils.Server
 {
     internal static class Program
     {

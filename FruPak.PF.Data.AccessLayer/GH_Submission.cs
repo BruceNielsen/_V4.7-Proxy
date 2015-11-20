@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,31 +27,31 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(Submission_Id) as Current_Id FROM GH_Submission");
         }
 
         public static DataSet Get_Info()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM GH_Submission ORDER BY Submission_Id");
         }
 
         public static DataSet Get_for_Combo()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT Submission_Id, CONVERT(varchar, Submission_Id)+ ' - ' + SUBSTRING(Comments, 23,5) as Combined FROM GH_Submission  WHERE SUBSTRING(Comments, 1,3) = 'GDI' ORDER BY Submission_Id DESC");
         }
 
         public static DataSet Get_Info(int Submission_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM GH_Submission WHERE Submission_Id = " + Submission_Id);
         }
 
         public static DataSet Get_Info_Translated()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT S.Submission_Id, S.Trader_Id, S.Grower_Id, S.Block_Id, S.Grower_Reference, S.Sub_date, S.Harvest_date, S.Pick_Num, S.Comments, T.Code AS Trader, G.Rpin, " +
                                             "B.Code AS Block, COUNT(Bins.Bins_Id) AS NumBins, Min(Mat.FruitType_Id) as FruitType_Id, Min(Mat.Variety_Id) as Variety_Id, FT.Description AS FruitType, FV.Description as Variety " +
                                             "FROM [dbo].[GH_Submission] S " +
@@ -67,26 +67,26 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_Submission_Info(int Submission_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM dbo.[V_Submission_Details] WHERE Submission_Id = " + Submission_Id);
         }
 
         public static int Insert(int Submission_Id, int Trader_Id, int Grower_Id, int Block_Id, string Grower_Reference, string Sub_date, string Harvest_date, int Pick_Num, string Comments, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO GH_Submission(Submission_Id, Trader_Id, Grower_Id, Block_Id, Grower_Reference, Sub_date, Harvest_date, Pick_Num, Comments, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + Submission_Id + "," + Trader_Id + "," + Grower_Id + "," + Block_Id + ",'" + Grower_Reference + "','" + Sub_date + "','" + Harvest_date + "'," + Pick_Num + ",'" + Comments + "', GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Delete(int Submission_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM GH_Submission WHERE Submission_Id = " + Submission_Id);
         }
 
         public static int Update(int Submission_Id, int Trader_Id, int Grower_Id, int Block_Id, string Grower_Reference, string Sub_date, string Harvest_date, int Pick_Num, string Comments, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE GH_Submission SET Trader_Id = " + Trader_Id + ", " +
                                                                   "Grower_Id = " + Grower_Id + ", " +
                                                                   "Block_Id = " + Block_Id + ", " +
@@ -102,7 +102,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Update_Purchase(int Submission_Id, int FruitPurchase_Id, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE GH_Submission SET FruitPurchase_Id = " + FruitPurchase_Id + ", " +
                                                                       "Mod_date = GETDATE(), " +
                                                                       "Mod_User_Id = " + Mod_User_Id +
@@ -111,7 +111,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Reset_Purchase(int FruitPurchase_Id, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE GH_Submission SET FruitPurchase_Id = null , " +
                                                                   "Mod_date = GETDATE(), " +
                                                                   "Mod_User_Id = " + Mod_User_Id +
@@ -120,7 +120,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_Fruit_NOT_Purchased(int Customer_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT S.Submission_Id, S.Sub_date, S.FruitPurchase_Id, B.Material_Id,M.Material_Num,FT.Description AS FT_Description, FV.Description AS FV_Description,CSR.Value, " +
                                                     "COUNT(*) as Bin_Count, SUM(Weight_Gross) as Gross_Weight, SUM(Weight_Tare)as Tare_Weight " +
                                             "FROM dbo.GH_Submission S " +
@@ -137,7 +137,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_ALL_Fruit_For_Customer(int Customer_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT S.Submission_Id, S.Sub_date,S.FruitPurchase_Id, B.Material_Id,M.Material_Num,FT.Description AS FT_Description, FV.Description AS FV_Description,CSR.Value, " +
                                                     "COUNT(*) as Bin_Count, SUM(Weight_Gross) as Gross_Weight, SUM(Weight_Tare)as Tare_Weight " +
                                             "FROM dbo.GH_Submission S " +

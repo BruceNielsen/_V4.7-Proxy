@@ -3,7 +3,7 @@ using System.Collections;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.UserControls
+namespace PF.Utils.UserControls
 {
     public partial class Fruit : UserControl
     {
@@ -21,11 +21,11 @@ namespace FruPak.PF.Utils.UserControls
 
             if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
             {
-                Console.WriteLine("FruPak.PF.Utils.UserControls.Fruit (Constructor) - UsageMode = Designtime - Skipping populate()");
+                Console.WriteLine("PF.Utils.UserControls.Fruit (Constructor) - UsageMode = Designtime - Skipping populate()");
             }
             else
             {
-                Console.WriteLine("FruPak.PF.Utils.UserControls.Fruit (Constructor) - UsageMode = Runtime - Running populate()");
+                Console.WriteLine("PF.Utils.UserControls.Fruit (Constructor) - UsageMode = Runtime - Running populate()");
                 populate_Combos();
             }
         }
@@ -45,13 +45,13 @@ namespace FruPak.PF.Utils.UserControls
                 if (!DesignMode)
                 {
                     Console.WriteLine("DesignMode = False");
-                    Console.WriteLine("FruPak.PF.Utils.UserControls.Fruit (Block_Id) - DesignMode = False - Running populate()");
+                    Console.WriteLine("PF.Utils.UserControls.Fruit (Block_Id) - DesignMode = False - Running populate()");
                     populate_Combos();
                 }
                 else
                 {
                     Console.WriteLine("DesignMode = True");
-                    Console.WriteLine("FruPak.PF.Utils.UserControls.Fruit (Block_Id) - DesignMode = True - Skipping populate()");
+                    Console.WriteLine("PF.Utils.UserControls.Fruit (Block_Id) - DesignMode = True - Skipping populate()");
                 }
 
                 //populate_Combos();
@@ -66,11 +66,11 @@ namespace FruPak.PF.Utils.UserControls
             // populate fruit type combobox, default value is the first.
             if (int_Block_Id != 0)
             {
-                ds_get_info = FruPak.PF.Data.AccessLayer.CM_Fruit_Type.Get_Info_B(int_Block_Id);
+                ds_get_info = PF.Data.AccessLayer.CM_Fruit_Type.Get_Info_B(int_Block_Id);
             }
             else
             {
-                ds_get_info = FruPak.PF.Data.AccessLayer.CM_Fruit_Type.Get_Info();
+                ds_get_info = PF.Data.AccessLayer.CM_Fruit_Type.Get_Info();
             }
             //cmb_Fruit_Type.Items.Clear();
             ArrayList FruitTypes = new ArrayList();
@@ -97,22 +97,22 @@ namespace FruPak.PF.Utils.UserControls
             {
                 if (fruittype == 0)
                 {
-                    ds_get_info = FruPak.PF.Data.AccessLayer.CM_Block_Variety_Relationship.Get_Info(int_Block_Id);
+                    ds_get_info = PF.Data.AccessLayer.CM_Block_Variety_Relationship.Get_Info(int_Block_Id);
                 }
                 else
                 {
-                    ds_get_info = FruPak.PF.Data.AccessLayer.CM_Block_Variety_Relationship.Get_Info_Varieties(int_Block_Id, fruittype);
+                    ds_get_info = PF.Data.AccessLayer.CM_Block_Variety_Relationship.Get_Info_Varieties(int_Block_Id, fruittype);
                 }
             }
             else
             {
                 if (fruittype == 0)
                 {
-                    ds_get_info = FruPak.PF.Data.AccessLayer.CM_Fruit_Variety.Get_Info();
+                    ds_get_info = PF.Data.AccessLayer.CM_Fruit_Variety.Get_Info();
                 }
                 else
                 {
-                    ds_get_info = FruPak.PF.Data.AccessLayer.CM_Fruit_Variety.Get_Info(fruittype);
+                    ds_get_info = PF.Data.AccessLayer.CM_Fruit_Variety.Get_Info(fruittype);
                 }
             }
             // Populate the list box using an array as DataSource.

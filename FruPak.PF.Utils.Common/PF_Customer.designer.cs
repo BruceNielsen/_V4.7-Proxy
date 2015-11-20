@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.Common
+﻿namespace PF.Utils.Common
 {
     partial class PF_Customer
     {
@@ -188,7 +188,7 @@
             this.KeyPreview = true;
             this.Name = "PF_Customer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.Common.Customer";
+            this.Text = "PF.Utils.Common.Customer";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PF_Customer_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

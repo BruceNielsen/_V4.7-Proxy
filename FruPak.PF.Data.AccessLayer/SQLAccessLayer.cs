@@ -4,7 +4,7 @@ using System.Data;
 using System.Data.OleDb;
 using System.Windows.Forms;
 
-namespace FruPak.Utils.Data
+namespace FP.Utils.Data
 {
     /// <summary>
     /// SQL Access Layer.
@@ -236,8 +236,8 @@ namespace FruPak.Utils.Data
             // dbo.SC_Menu_Panel_Group_Relationship MPGR ON MPGR.UserGroup_Id = UGR.UserGroup_Id
             // INNER JOIN  dbo.SC_Menu_Panel MP ON MP.MenuPan_Id = MPGR.MenuPan_Id
             // INNER JOIN  dbo.SC_Menu M ON M.Menu_Id = MGR.Menu_Id AND M.Menu_Id = MP.Menu_Id
-            // WHERE U.User_Id = 3	FruPak.Utils.Data.SQLAccessLayer
-            // Run_Query	FruPak.Utils.Data.SQLAccessLayer.Run_Query(SQLAccessLayer.cs:236)	BRUCE-LAPTOP
+            // WHERE U.User_Id = 3	FP.Utils.Data.SQLAccessLayer
+            // Run_Query	FP.Utils.Data.SQLAccessLayer.Run_Query(SQLAccessLayer.cs:236)	BRUCE-LAPTOP
 
             //if (CommandText.StartsWith("SELECT DISTINCT M.Menu_Id, M.Name AS MENU") == true)
             //{

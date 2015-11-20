@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Security
+namespace PF.Utils.Security
 {
     internal static class Program
     {

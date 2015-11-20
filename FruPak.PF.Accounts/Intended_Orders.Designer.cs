@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Accounts
+﻿namespace PF.Accounts
 {
     partial class Intended_Orders
     {
@@ -49,7 +49,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.customer1 = new FruPak.PF.Utils.UserControls.Customer();
+            this.customer1 = new PF.Utils.UserControls.Customer();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Quantity)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Unit_Price)).BeginInit();
@@ -289,7 +289,7 @@
             this.KeyPreview = true;
             this.Name = "Intended_Orders";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Accounts.Intended Orders";
+            this.Text = "PF.Accounts.Intended Orders";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Intended_Orders_FormClosing);
             this.Load += new System.EventHandler(this.Intended_Orders_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Intended_Orders_KeyDown);

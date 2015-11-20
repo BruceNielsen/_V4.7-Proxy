@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,32 +27,32 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(CustSalesDisc_Id) as Current_Id FROM PF_A_Customer_Sales_Discount");
         }
 
         public static int Insert(int CustSalesDisc_Id, int Material_Id, int Customer_Id, decimal Value, bool PF_Active_Ind, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO PF_A_Customer_Sales_Discount(CustSalesDisc_Id, Material_Id, Customer_Id, Value, PF_Active_Ind, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + CustSalesDisc_Id + "," + Material_Id + "," + Customer_Id + ", " + Value + ",'" + PF_Active_Ind + "', GETDATE()," + Mod_User_Id + ")");
         }
 
         public static DataSet Get_Info()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_A_Customer_Sales_Discount");
         }
 
         public static DataSet Get_Info(int Material_Id, int Customer_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_A_Customer_Sales_Discount WHERE PF_Active_Ind = 1 AND Material_Id =" + Material_Id + " AND Customer_Id = " + Customer_Id);
         }
 
         public static DataSet Get_Info_Translated()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT CSR.CustSalesDisc_Id, CSR.Customer_Id, C.Name as Customer, CSR.Material_Id, CAST(M.Material_Num as Varchar) + ' - ' + M.Description as Combined, " +
                                             "CSR.Value, CSR.PF_Active_Ind " +
                                             "FROM dbo.PF_A_Customer_Sales_Discount CSR " +
@@ -63,7 +63,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Update(int CustSalesDisc_Id, int Material_Id, int Customer_Id, decimal Value, bool PF_Active_Ind, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_A_Customer_Sales_Discount SET Material_Id = " + Material_Id + ", " +
                                                                   "Customer_Id = " + Customer_Id + ", " +
                                                                   "Value = " + Value + ", " +
@@ -75,7 +75,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Update_Active(int CustSalesDisc_Id, bool PF_Active_Ind, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_A_Customer_Sales_Discount SET " +
                                                                   "PF_Active_Ind = '" + PF_Active_Ind + "', " +
                                                                   "Mod_date = GETDATE(), " +
@@ -85,7 +85,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Delete(int CustSalesDisc_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_A_Customer_Sales_Discount WHERE CustSalesDisc_Id = " + CustSalesDisc_Id);
         }
     }

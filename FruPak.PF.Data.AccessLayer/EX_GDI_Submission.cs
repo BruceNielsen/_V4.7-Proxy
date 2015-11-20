@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,13 +27,13 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(Submission_Id) as Current_Id FROM EX_GDI_Submission");
         }
 
         public static int Insert(int Submission_Id, int Trader_Id, int Grower_Id, int Block_Id, string Grower_Reference, string Sub_date, string Harvest_date, int Pick_Num, string Comments, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO EX_GDI_Submission(Submission_Id, Trader_Id, Grower_Id, Block_Id, Grower_Reference, Sub_date, Harvest_date, Pick_Num, Comments, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + Submission_Id + "," + Trader_Id + "," + Grower_Id + "," + Block_Id + ",'" + Grower_Reference + "','" + Sub_date + "','" + Harvest_date + "'," + Pick_Num + ",'" + Comments + "', GETDATE()," + Mod_User_Id + ")");
         }

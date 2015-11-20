@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,56 +27,56 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(Staff_Id) as Current_Id FROM PF_Staff");
         }
 
         public static DataSet Get_Info()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT *, First_Name + ' ' + Last_Name as Name FROM PF_Staff WHERE PF_Active_Ind = 1 ORDER BY PF_Active_Ind DESC");
         }
 
         public static DataSet Get_Info_for_multi_selectbox()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT convert(varchar(10),Staff_Id) + '-' + First_Name + ' ' + Last_Name as Name FROM PF_Staff WHERE PF_Active_Ind = 1 ORDER BY PF_Active_Ind DESC");
         }
 
         public static DataSet Get_Info_ALL()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT *, First_Name + ' ' + Last_Name as Name FROM PF_Staff ORDER BY PF_Active_Ind DESC");
         }
 
         public static DataSet Check_Employee_Num(int Emp_Number)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT *, First_Name + ' ' + Last_Name as Name FROM PF_Staff WHERE Emp_Number = " + Emp_Number);
         }
 
         public static DataSet Get_Info(int Staff_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT *, First_Name + ' ' + Last_Name as Name FROM PF_Staff WHERE PF_Active_Ind = 1 AND Staff_Id = " + Staff_Id);
         }
 
         public static DataSet Get_Info_Perm_Staff()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT *, First_Name + ' ' + Last_Name as Name FROM PF_Staff WHERE UPPER(Emp_Type) = 'P' AND PF_Active_Ind = 1");
         }
 
         public static int Insert(int Staff_Id, string First_Name, string Last_Name, int Emp_Number, decimal Hourly_Rate, bool PF_Active_Ind, string Emp_Type, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO PF_Staff(Staff_Id, First_Name, Last_Name, Emp_Number, Emp_Type, Hourly_Rate, PF_Active_Ind, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + Staff_Id + ",'" + First_Name + "','" + Last_Name + "'," + Emp_Number + ",'" + Emp_Type + "'," + Hourly_Rate + ",'" + PF_Active_Ind + "', GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Update(int Staff_Id, string First_Name, string Last_Name, int Emp_Number, decimal Hourly_Rate, bool PF_Active_Ind, string Emp_Type, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_Staff SET First_Name = '" + First_Name + "' ," +
                                                                    "Last_Name = '" + Last_Name + "' ," +
                                                                    "Emp_Number = " + Emp_Number + " ," +
@@ -90,7 +90,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Update_Active(int Staff_Id, bool PF_Active_Ind, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_Staff SET PF_Active_Ind = '" + PF_Active_Ind + "' ," +
                                                                    "Mod_Date = GETDATE() ," +
                                                                    "Mod_User_Id = " + Mod_User_Id + " " +

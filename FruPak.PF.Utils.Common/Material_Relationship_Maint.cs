@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Common
+namespace PF.Utils.Common
 {
     public partial class Material_Relationship_Maint : Form
     {
@@ -18,13 +18,13 @@ namespace FruPak.PF.Utils.Common
             int_Current_User_Id = int_C_User_id;
             bol_write_access = bol_w_a;
             //check if testing or not
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
 
             #region Log any interesting events from the UI to the CSV log file
@@ -59,9 +59,9 @@ namespace FruPak.PF.Utils.Common
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -165,7 +165,7 @@ namespace FruPak.PF.Utils.Common
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

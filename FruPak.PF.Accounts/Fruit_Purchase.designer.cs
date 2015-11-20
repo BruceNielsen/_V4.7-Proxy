@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Accounts
+﻿namespace PF.Accounts
 {
     partial class Fruit_Purchase
     {
@@ -38,7 +38,7 @@
             this.txt_Comments = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
-            this.customer1 = new FruPak.PF.Utils.UserControls.Customer();
+            this.customer1 = new PF.Utils.UserControls.Customer();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_total)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();

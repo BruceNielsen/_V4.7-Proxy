@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Accounts
+namespace PF.Accounts
 {
     /*Description
     -----------------
@@ -35,13 +35,13 @@ namespace FruPak.PF.Accounts
             btn_Add.Enabled = bol_w_a;
             //check if testing or not
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + "Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + "Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
             str_table = str_type;
             int_Current_User_Id = int_C_User_id;
@@ -90,9 +90,9 @@ namespace FruPak.PF.Accounts
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -154,7 +154,7 @@ namespace FruPak.PF.Accounts
             dataGridView1.Columns.Add(img_delete);
             img_delete.HeaderText = "Delete";
             img_delete.Name = "Delete";
-            img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
+            img_delete.Image = PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
             img_delete.Visible = bol_write_access;
 
@@ -162,7 +162,7 @@ namespace FruPak.PF.Accounts
             dataGridView1.Columns.Add(img_edit);
             img_edit.HeaderText = "Edit";
             img_edit.Name = "Edit";
-            img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
+            img_edit.Image = PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
         }
 
@@ -175,7 +175,7 @@ namespace FruPak.PF.Accounts
             switch (str_table)
             {
                 case "PF_A_Rates":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_A_Rates.Get_Info();
+                    ds_Get_Info = PF.Data.AccessLayer.PF_A_Rates.Get_Info();
                     break;
             }
 
@@ -248,7 +248,7 @@ namespace FruPak.PF.Accounts
             //Delete
             if (e.ColumnIndex == 7)
             {
-                int int_result = FruPak.PF.Common.Code.General.Delete_Record("PF_A_Rates", dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString(), dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString());
+                int int_result = PF.Common.Code.General.Delete_Record("PF_A_Rates", dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString(), dataGridView1.Rows[e.RowIndex].Cells[1].Value.ToString());
 
                 if (int_result > 0)
                 {
@@ -303,7 +303,7 @@ namespace FruPak.PF.Accounts
                         switch (str_table)
                         {
                             case "PF_A_Rates":
-                                int_result = FruPak.PF.Data.AccessLayer.PF_A_Rates.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_A_Rates"), str_code, txt_Description.Text, Convert.ToDecimal(txt_Value.Text), Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.PF_A_Rates.Insert(PF.Common.Code.General.int_max_user_id("PF_A_Rates"), str_code, txt_Description.Text, Convert.ToDecimal(txt_Value.Text), Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
                                 break;
                         }
                         break;
@@ -312,7 +312,7 @@ namespace FruPak.PF.Accounts
                         switch (str_table)
                         {
                             case "PF_A_Rates":
-                                int_result = FruPak.PF.Data.AccessLayer.PF_A_Rates.Update(int_DVG_Row_id, str_code, txt_Description.Text, Convert.ToDecimal(txt_Value.Text), Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.PF_A_Rates.Update(int_DVG_Row_id, str_code, txt_Description.Text, Convert.ToDecimal(txt_Value.Text), Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
                                 break;
                         }
                         break;
@@ -364,7 +364,7 @@ namespace FruPak.PF.Accounts
             switch (str_table)
             {
                 case "PF_A_Rates":
-                    ds_validate = FruPak.PF.Data.AccessLayer.PF_A_Rates.Get_Info(str_code);
+                    ds_validate = PF.Data.AccessLayer.PF_A_Rates.Get_Info(str_code);
                     break;
             }
             if (ds_validate != null)
@@ -481,7 +481,7 @@ namespace FruPak.PF.Accounts
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

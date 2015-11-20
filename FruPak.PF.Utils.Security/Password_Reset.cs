@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Security
+namespace PF.Utils.Security
 {
     /*Description
     -----------------
@@ -61,9 +61,9 @@ namespace FruPak.PF.Utils.Security
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
 
-                //else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                //else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 //{
-                //    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                //    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                 //    cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 //}
             }
@@ -104,7 +104,7 @@ namespace FruPak.PF.Utils.Security
                 {
                     int int_result = 0;
 
-                    int_result = FruPak.PF.Data.AccessLayer.SC_User.Update_User_Password(int_User_id, General.Password_Encryption(txt_Password_1.Text), int_User_id);
+                    int_result = PF.Data.AccessLayer.SC_User.Update_User_Password(int_User_id, General.Password_Encryption(txt_Password_1.Text), int_User_id);
 
                     if (int_result > 0)
                     {
@@ -119,7 +119,7 @@ namespace FruPak.PF.Utils.Security
                     }
                 }
             }
-            FruPak.PF.Common.Code.General.write_log(int_User_id, "PWD - Updated", int_User_id);
+            PF.Common.Code.General.write_log(int_User_id, "PWD - Updated", int_User_id);
         }
 
         private void Reset()
@@ -136,7 +136,7 @@ namespace FruPak.PF.Utils.Security
 
         private void btn_Close_Click(object sender, EventArgs e)
         {
-            FruPak.PF.Common.Code.General.write_log(int_User_id, "PWD - Cancelled", int_User_id);
+            PF.Common.Code.General.write_log(int_User_id, "PWD - Cancelled", int_User_id);
             this.Close();
         }
 
@@ -189,7 +189,7 @@ namespace FruPak.PF.Utils.Security
 
         //private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         //{
-        //    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+        //    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
         //    logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         //}
 

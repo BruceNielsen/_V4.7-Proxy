@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.BaseLoad
+namespace PF.BaseLoad
 {
     public partial class Base_Load_Maintenance : Form
     {
@@ -21,13 +21,13 @@ namespace FruPak.PF.BaseLoad
             btn_Add.Enabled = bol_w_a;
             //check if testing or not
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + "Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + "Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
 
             populate_combobox();
@@ -66,9 +66,9 @@ namespace FruPak.PF.BaseLoad
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -78,7 +78,7 @@ namespace FruPak.PF.BaseLoad
 
         private void populate_combobox()
         {
-            DataSet ds = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Combo();
+            DataSet ds = PF.Data.AccessLayer.PF_Work_Order.Get_Combo();
             cmb_Work_Order.DataSource = ds.Tables[0];
             cmb_Work_Order.DisplayMember = "Work_Order_Id";
             cmb_Work_Order.ValueMember = "Work_Order_Id";
@@ -117,7 +117,7 @@ namespace FruPak.PF.BaseLoad
             dataGridView1.Columns.Add(img_edit);
             img_edit.HeaderText = "Edit";
             img_edit.Name = "Edit";
-            img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
+            img_edit.Image = PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
         }
 
@@ -126,7 +126,7 @@ namespace FruPak.PF.BaseLoad
             dataGridView1.Refresh();
             dataGridView1.Rows.Clear();
 
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_BaseLoad.Get_Info();
+            DataSet ds_Get_Info = PF.Data.AccessLayer.PF_BaseLoad.Get_Info();
             DataRow dr_Get_Info;
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {
@@ -209,11 +209,11 @@ namespace FruPak.PF.BaseLoad
                 switch (btn_Add.Text)
                 {
                     case "&Add":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_BaseLoad.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_BaseLoad"), Convert.ToInt32(cmb_Work_Order.SelectedValue.ToString()), txt_Description.Text, Convert.ToBoolean(ckb_Active.Checked), int_Current_User_Id);
+                        int_result = PF.Data.AccessLayer.PF_BaseLoad.Insert(PF.Common.Code.General.int_max_user_id("PF_BaseLoad"), Convert.ToInt32(cmb_Work_Order.SelectedValue.ToString()), txt_Description.Text, Convert.ToBoolean(ckb_Active.Checked), int_Current_User_Id);
                         break;
 
                     case "&Update":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_BaseLoad.Update(int_dvg_id, Convert.ToInt32(cmb_Work_Order.SelectedValue.ToString()), txt_Description.Text, Convert.ToBoolean(ckb_Active.Checked), int_Current_User_Id);
+                        int_result = PF.Data.AccessLayer.PF_BaseLoad.Update(int_dvg_id, Convert.ToInt32(cmb_Work_Order.SelectedValue.ToString()), txt_Description.Text, Convert.ToBoolean(ckb_Active.Checked), int_Current_User_Id);
                         break;
                 }
             }
@@ -294,7 +294,7 @@ namespace FruPak.PF.BaseLoad
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

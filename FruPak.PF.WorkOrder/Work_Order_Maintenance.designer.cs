@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.WorkOrder
+﻿namespace PF.WorkOrder
 {
     partial class Work_Order_Maintenance
     {
@@ -53,7 +53,7 @@
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.checkedListBox2 = new System.Windows.Forms.CheckedListBox();
-            this.fruit1 = new FruPak.PF.Utils.UserControls.Fruit();
+            this.fruit1 = new PF.Utils.UserControls.Fruit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -359,7 +359,7 @@
             this.KeyPreview = true;
             this.Name = "Work_Order_Maintenance";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.WorkOrder.Work Order Maintenance";
+            this.Text = "PF.WorkOrder.Work Order Maintenance";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Work_Order_Maintenance_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.Common
+﻿namespace PF.Utils.Common
 {
     partial class Fruit_Variety
     {
@@ -167,7 +167,7 @@
             this.KeyPreview = true;
             this.Name = "Fruit_Variety";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.Common.Fruit Variety";
+            this.Text = "PF.Utils.Common.Fruit Variety";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Fruit_Variety_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

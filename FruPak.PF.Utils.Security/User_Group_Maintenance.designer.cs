@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.Security
+﻿namespace PF.Utils.Security
 {
     partial class User_Group_Maintenance
     {
@@ -174,7 +174,7 @@
             this.KeyPreview = true;
             this.Name = "User_Group_Maintenance";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.Security.User Group Maintenance";
+            this.Text = "PF.Utils.Security.User Group Maintenance";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.User_Group_Maintenance_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

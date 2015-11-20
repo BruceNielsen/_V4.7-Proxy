@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,38 +27,38 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(UserGroup_Id) as Current_Id FROM  dbo.SC_User_Groups");
         }
 
         public static DataSet Get_Info()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM  dbo.SC_User_Groups");
         }
 
         public static DataSet Get_Info(string str_Name)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM  dbo.SC_User_Groups WHERE Name = '" + str_Name + "'");
         }
 
         public static int Insert(int UserGroup_Id, string Name, string Description, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO  dbo.SC_User_Groups(UserGroup_Id, Name, Description, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + UserGroup_Id + ",'" + Name + "','" + Description + "', GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Delete(int UserGroup_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM  dbo.SC_User_Groups WHERE UserGroup_Id = " + UserGroup_Id);
         }
 
         public static int Update(int UserGroup_Id, string Name, string Description, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE  dbo.SC_User_Groups SET Name = '" + Name + "', " +
                                                                   "Description = '" + Description + "', " +
                                                                   "Mod_date = GETDATE(), " +

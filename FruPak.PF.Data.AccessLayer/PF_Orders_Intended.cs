@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,13 +27,13 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(OrderIntent_Id) as Current_Id FROM PF_Orders_Intended");
         }
 
         public static DataSet Get_info_translated()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT OI.* , C.Name,  CAST(M.Material_Num as varchar) + ' - ' + M.Description as Material, sum(P.Weight_Gross) as Total_Sold " +
                                             "FROM dbo.PF_Orders_Intended OI " +
                                             "INNER JOIN dbo.PF_Customer C ON C.Customer_Id = OI.Customer_Id " +
@@ -46,7 +46,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Insert(int OrderIntent_Id, int Customer_Id, int Material_Id, decimal Quantity, decimal Unit_Price, string Comments, string Customer_Order, bool PF_Active_Ind, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO PF_Orders_Intended( OrderIntent_Id, Customer_Id, Material_Id, Quantity, Unit_Price, Comments, Customer_Order, PF_Active_Ind, Mod_Date, Mod_User_Id) " +
                                                 "VALUES (" + OrderIntent_Id + "," + Customer_Id + "," + Material_Id + "," + Quantity + "," + Unit_Price + ",'" + Comments + "','" +
                                                              Customer_Order + "','" + PF_Active_Ind + "', GETDATE()," + Mod_User_Id + ")");
@@ -54,13 +54,13 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Delete(int OrderIntent_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_Orders_Intended WHERE OrderIntent_Id = " + OrderIntent_Id);
         }
 
         public static int Update(int OrderIntent_Id, int Customer_Id, int Material_Id, decimal Quantity, decimal Unit_Price, string Comments, string Customer_Order, bool PF_Active_Ind, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_Orders_Intended SET Customer_Id = " + Customer_Id + ", " +
                                                                   "Material_Id = " + Material_Id + ", " +
                                                                   "Quantity = " + Quantity + ", " +

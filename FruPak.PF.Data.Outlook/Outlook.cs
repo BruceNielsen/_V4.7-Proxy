@@ -2,7 +2,7 @@
 using NLog;
 using System;
 
-namespace FruPak.PF.Data.Outlook
+namespace PF.Data.Outlook
 {
     /*Description
     -----------------

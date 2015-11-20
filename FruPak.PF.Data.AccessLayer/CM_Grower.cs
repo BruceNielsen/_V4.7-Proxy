@@ -1,8 +1,8 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -28,38 +28,38 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(Grower_Id) as Current_Id FROM CM_Grower");
         }
 
         public static DataSet Get_Info()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT G.*, O.Description FROM dbo.CM_Grower G LEFT OUTER JOIN dbo.CM_Orchardist O ON O.Orchardist_Id = G.Orchardist_Id WHERE G.PF_Active_Ind = 1 ORDER BY RPIN");
         }
 
         public static DataSet Get_Info(string RPIN)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT G.*, O.Description FROM dbo.CM_Grower G INNER JOIN dbo.CM_Orchardist O ON O.Orchardist_Id = G.Orchardist_Id WHERE G.PF_Active_Ind = 1 AND RPIN = '" + RPIN + "'");
         }
 
         public static DataSet Get_Info(int Orchardist_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT G.*, O.Description FROM dbo.CM_Grower G INNER JOIN dbo.CM_Orchardist O ON O.Orchardist_Id = G.Orchardist_Id WHERE G.PF_Active_Ind = 1 AND G.Orchardist_Id = " + Orchardist_Id);
         }
 
         public static DataSet Get_Orchardist(int Grower_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM dbo.CM_Grower WHERE Grower_Id = " + Grower_Id);
         }
 
         public static string Get_RPIN(int Grower_Id)
         {
             string str_RPIN = "";
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             DataSet ds = SQLAccessLayer.Run_Query("SELECT RPIN FROM dbo.CM_Grower WHERE GROWER_Id = " + Grower_Id);
             DataRow dr;
 
@@ -74,20 +74,20 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Insert(int Grower_Id, string Rpin, int Orchardist_Id, decimal Global_Gap_Number, decimal GST, bool PF_Active_Ind, int Customer_Id, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO CM_Grower(Grower_Id, Rpin, Orchardist_Id, Global_Gap_Number, GST, PF_Active_Ind, Customer_Id, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + Grower_Id + ",'" + Rpin + "'," + Orchardist_Id + "," + Global_Gap_Number + "," + GST + ",'" + PF_Active_Ind + "'," + Customer_Id + ", GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Delete(int Grower_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM CM_Grower WHERE Grower_Id = " + Grower_Id);
         }
 
         public static int Update(int Grower_Id, string Rpin, int Orchardist_Id, decimal Global_Gap_Number, decimal GST, bool PF_Active_Ind, int Mod_User_Id, int Customer_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE CM_Grower SET Rpin = '" + Rpin + "', " +
                                                                   "Orchardist_Id = " + Orchardist_Id + ", " +
                                                                   "Global_Gap_Number = " + Global_Gap_Number + ", " +

@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Temp
+﻿namespace PF.Temp
 {
     partial class Submission
     {
@@ -49,7 +49,7 @@
             this.btn_reset = new System.Windows.Forms.Button();
             this.btn_Add = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.grower1 = new FruPak.PF.Utils.UserControls.Grower();
+            this.grower1 = new PF.Utils.UserControls.Grower();
             this.ckb_Print_all = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Pick_Num)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -289,7 +289,7 @@
             this.KeyPreview = true;
             this.Name = "Submission";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Temp.Submission";
+            this.Text = "PF.Temp.Submission";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Submission_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nud_Pick_Num)).EndInit();

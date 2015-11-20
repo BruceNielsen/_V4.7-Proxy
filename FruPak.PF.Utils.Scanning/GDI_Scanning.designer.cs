@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.Scanning
+﻿namespace PF.Utils.Scanning
 {
     partial class GDI_Scanning
     {
@@ -232,7 +232,7 @@
             this.KeyPreview = true;
             this.Name = "GDI_Scanning";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.Scanning.GDI Scanning";
+            this.Text = "PF.Utils.Scanning.GDI Scanning";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.GDI_Scanning_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).EndInit();
             this.ResumeLayout(false);

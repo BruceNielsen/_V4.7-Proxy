@@ -1,8 +1,8 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -28,25 +28,25 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(PalletDetails_Id) as Current_Id FROM PF_Pallet_Details");
         }
 
         public static DataSet Get_Info()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Pallet_Details ");
         }
 
         public static DataSet Get_Info_For_Pallet(int Pallet_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Pallet_Details WHERE Pallet_Id = " + Pallet_Id);
         }
 
         public static DataSet Check_BatchNum(int Work_Order_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("WITH CTE AS (SELECT rownum = ROW_NUMBER() OVER (ORDER BY pd.[Batch_Num]), pd.Batch_Num " +
                                                          "FROM dbo.PF_Pallet_Details pd " +
                                                          "WHERE Work_Order_Id = " + Work_Order_Id + " )" +
@@ -57,13 +57,13 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_Info(int Work_Order_Id, int Pallet_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Pallet_Details WHERE Work_Order_Id = " + Work_Order_Id + " AND Pallet_Id = " + Pallet_Id + " ORDER BY Pallet_Id DESC");
         }
 
         public static DataSet Get_Info(string Barcode, int Material_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT PD.*, FT.Code as FT_Code, FV.Description as FV_Description, S.Description as S_Description, WO.Product_Id, G.Code as G_Code " +
                                             "FROM PF_Pallet_Details PD " +
                                             "INNER JOIN PF_PALLET P ON P.Pallet_Id = PD.Pallet_Id " +
@@ -78,7 +78,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Check_Material(string Barcode)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * " +
                                             "FROM PF_Pallet_Details PD " +
                                             "INNER JOIN PF_PALLET P ON P.Pallet_Id = PD.Pallet_Id " +
@@ -89,7 +89,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_Info_For_WorkOrder(string WHERE, string CODE)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT DISTINCT Pallet_Id, SUM(Quantity) as Quantity " +
                                             "FROM PF_Pallet_Details PD " +
                                             "INNER JOIN dbo.CM_Material_Rates_Relationship MRR ON MRR.Material_Id = PD.Material_Id " +
@@ -100,7 +100,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_Batches_For_WorkOrder(string WHERE, string CODE)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT DISTINCT PD.Batch_Num " +
                                             "FROM PF_Pallet_Details PD " +
                                             "INNER JOIN dbo.CM_Material_Rates_Relationship MRR ON MRR.Material_Id = PD.Material_Id " +
@@ -110,25 +110,25 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Count_for_WorkOrder(int Work_Order_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT SUM(Quantity) as Total FROM dbo.PF_Pallet_Details WHERE Work_Order_Id = " + Work_Order_Id);
         }
 
         public static DataSet Count_of_Pallets(int Work_Order_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT COUNT(DISTINCT Pallet_Id) as Total FROM dbo.PF_Pallet_Details WHERE Work_Order_Id = " + Work_Order_Id);
         }
 
         public static DataSet Current_Batch_for_WorkOrder(int Work_Order_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT MAX(Batch_Num) as Current_Batch FROM dbo.PF_Pallet_Details WHERE Work_Order_Id = " + Work_Order_Id);
         }
 
         public static DataSet Count_for_Current_Batch_for_WorkOrder(int Work_Order_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT SUM(Quantity) as Current_Total FROM dbo.PF_Pallet_Details " +
                                             "WHERE Work_Order_Id = " + Work_Order_Id +
                                             "AND Batch_Num = (SELECT MAX(Batch_Num) FROM dbo.PF_Pallet_Details WHERE Work_Order_Id = " + Work_Order_Id + " )");
@@ -136,19 +136,19 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Delete(int PalletDetails_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_Pallet_Details WHERE PalletDetails_Id = " + PalletDetails_Id);
         }
 
         public static int Delete_Pallet(int Pallet_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_Pallet_Details WHERE Pallet_Id = " + Pallet_Id);
         }
 
         public static int Update(int PalletDetails_Id, int Batch_Num, int Material_Id, decimal Quantity, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_Pallet_Details SET Batch_Num = " + Batch_Num + ", " +
                                                                   "Material_Id = " + Material_Id + ", " +
                                                                   "Quantity = " + Quantity + ", " +
@@ -159,7 +159,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Update_Material(int PalletDetails_Id, int Material_Id, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_Pallet_Details SET Material_Id = " + Material_Id + ", " +
                                                                   "Mod_date = GETDATE(), " +
                                                                   "Mod_User_Id = " + Mod_User_Id +
@@ -168,7 +168,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Update_EOR_Weight(int PalletDetails_Id, decimal EOR_Weight, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_Pallet_Details SET EOR_Weight = " + EOR_Weight + ", " +
                                                                   "Mod_date = GETDATE(), " +
                                                                   "Mod_User_Id = " + Mod_User_Id +
@@ -181,13 +181,13 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_Info(int PalletDetails_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.RunSP_Query("dbo.PF_Pallet_Details_Get_Info_for_PalletDetail_Id", PalletDetails_Id);
         }
 
         public static DataSet Get_Pallet_Quantity(string Barcode)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.RunSP_Query("dbo.PF_Pallet_Details_Get_Pallet_Quantity", Barcode);
         }
 
@@ -197,7 +197,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Insert(int PalletDetails_Id, int Pallet_Id, int Batch_Num, int Material_Id, int Work_Order_Id, decimal Quantity, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             object ret_val;
 
             SQLAccessLayer.RunSP_NonQuery("dbo.PF_Pallet_Details_Insert", out ret_val, PalletDetails_Id, Pallet_Id, Batch_Num, Material_Id, Work_Order_Id, Quantity, Mod_User_Id);
@@ -216,7 +216,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Update_Quantity(int PalletDetails_Id, decimal Quantity, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             object ret_val;
 
             SQLAccessLayer.RunSP_NonQuery("dbo.PF_Pallet_Details_Update_Quantity", out ret_val, PalletDetails_Id, Quantity, Mod_User_Id);

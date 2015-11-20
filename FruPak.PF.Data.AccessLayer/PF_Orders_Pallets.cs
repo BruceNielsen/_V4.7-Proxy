@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,32 +27,32 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(OrderPallet_Id) as Current_Id FROM PF_Orders_Pallets");
         }
 
         public static DataSet Get_Info()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Orders_Pallets");
         }
 
         public static DataSet Get_Info_for_Order(int Order_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT OP.*, PT.Code FROM PF_Orders_Pallets OP INNER JOIN dbo.CM_Pallet_Type PT ON PT.PalletType_Id = OP.PalletType_Id WHERE Order_Id = " + Order_Id);
         }
 
         public static int Insert(int OrderPallet_Id, int Order_Id, int PalletType_Id, decimal Number, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO PF_Orders_Pallets(OrderPallet_Id, Order_Id, PalletType_Id, Number, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + OrderPallet_Id + "," + Order_Id + "," + PalletType_Id + "," + Number + ", GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Delete(int Order_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_Orders_Pallets WHERE Order_Id = " + Order_Id);
         }
     }

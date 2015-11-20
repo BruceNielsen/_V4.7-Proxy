@@ -3,7 +3,7 @@ using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Menu
+namespace PF.Menu
 {
     public partial class RobinJ : Form
     {

@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Comment CommentText="FruPak.Pf.Utils.Scanning">
+  <Comment CommentText="PF.Utils.Scanning">
     <Position X="9.719" Y="4.281" Height="0.75" Width="1.7" />
   </Comment>
-  <Class Name="FruPak.PF.Utils.Scanning.Bin_Tare_Weights">
+  <Class Name="PF.Utils.Scanning.Bin_Tare_Weights">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -13,7 +13,7 @@
       <FileName>Bin_Tare_Weights.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Scanning.Bin_Tipping">
+  <Class Name="PF.Utils.Scanning.Bin_Tipping">
     <Position X="2" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -23,7 +23,7 @@
       <FileName>Bin_Tipping.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Scanning.Bin_To_Order">
+  <Class Name="PF.Utils.Scanning.Bin_To_Order">
     <Position X="3.5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -33,7 +33,7 @@
       <FileName>Bin_To_Order.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Scanning.Create_Small_Rejects">
+  <Class Name="PF.Utils.Scanning.Create_Small_Rejects">
     <Position X="5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -43,14 +43,14 @@
       <FileName>Create_Small_Rejects.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Scanning.myPrinters" Collapsed="true">
+  <Class Name="PF.Utils.Scanning.myPrinters" Collapsed="true">
     <Position X="9.75" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Create_Small_Rejects.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Scanning.GDI_Scanning">
+  <Class Name="PF.Utils.Scanning.GDI_Scanning">
     <Position X="6.5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -60,7 +60,7 @@
       <FileName>GDI_Scanning.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Scanning.Pallet_Transfer">
+  <Class Name="PF.Utils.Scanning.Pallet_Transfer">
     <Position X="8" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -70,7 +70,7 @@
       <FileName>Pallet_Transfer.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Scanning.Pallet_Weight">
+  <Class Name="PF.Utils.Scanning.Pallet_Weight">
     <Position X="0.5" Y="4.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -80,14 +80,14 @@
       <FileName>Pallet_Weight.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Scanning.Program" Collapsed="true">
+  <Class Name="PF.Utils.Scanning.Program" Collapsed="true">
     <Position X="9.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAIAAAAAABAAAAAQ=</HashCode>
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Scanning.Reject_Bins_Weights">
+  <Class Name="PF.Utils.Scanning.Reject_Bins_Weights">
     <Position X="2" Y="4.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -97,7 +97,7 @@
       <FileName>Reject_Bins_Weights.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Scanning.Repack">
+  <Class Name="PF.Utils.Scanning.Repack">
     <Position X="3.5" Y="4.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -107,7 +107,7 @@
       <FileName>Repack.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Scanning.Reprint_Palletcards">
+  <Class Name="PF.Utils.Scanning.Reprint_Palletcards">
     <Position X="5" Y="4.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -117,7 +117,7 @@
       <FileName>Reprint_Palletcards.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Scanning.Tipping_Onto_Order">
+  <Class Name="PF.Utils.Scanning.Tipping_Onto_Order">
     <Position X="6.5" Y="4.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -127,7 +127,7 @@
       <FileName>Tipping_Onto_Order.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Scanning.Wet_Dry">
+  <Class Name="PF.Utils.Scanning.Wet_Dry">
     <Position X="8" Y="4.25" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -137,13 +137,13 @@
       <FileName>Wet_Dry.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Scanning.Properties.Resources" Collapsed="true">
+  <Class Name="PF.Utils.Scanning.Properties.Resources" Collapsed="true">
     <Position X="9.75" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Scanning.Properties.Settings" Collapsed="true">
+  <Class Name="PF.Utils.Scanning.Properties.Settings" Collapsed="true">
     <Position X="9.75" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>

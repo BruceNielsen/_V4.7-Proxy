@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Scanning
+namespace PF.Utils.Scanning
 {
     public partial class Repack : Form
     {
@@ -12,7 +12,7 @@ namespace FruPak.PF.Utils.Scanning
         #region AutoResize Class Variable Declaration
 
         // Lives immediately after the public partial class declaration
-        //private FruPak.PF.Common.Code.AutoResize _form_resize;
+        //private PF.Common.Code.AutoResize _form_resize;
 
         #endregion AutoResize Class Variable Declaration
 
@@ -26,7 +26,7 @@ namespace FruPak.PF.Utils.Scanning
 
             #region AutoResize EventHandlers - Lives immediately after InitializeComponent(); in the public Form declaration
 
-            //_form_resize = new FruPak.PF.Common.Code.AutoResize(this);
+            //_form_resize = new PF.Common.Code.AutoResize(this);
 
             //this.Load += _Load;
             //this.Resize += _Resize;
@@ -39,7 +39,7 @@ namespace FruPak.PF.Utils.Scanning
             bol_write_access = bol_w_a;
             btn_Update.Enabled = bol_w_a;
             populate_comboBoxes();
-            int_Season = FruPak.PF.Common.Code.General.Get_Season();
+            int_Season = PF.Common.Code.General.Get_Season();
 
             txt_barcode_from.Text = "00394210096400000000"; // Sel has asked for this to be left alone 10/02/2015
 
@@ -77,9 +77,9 @@ namespace FruPak.PF.Utils.Scanning
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -89,7 +89,7 @@ namespace FruPak.PF.Utils.Scanning
 
         private void populate_comboBoxes()
         {
-            DataSet ds_get_info = FruPak.PF.Data.AccessLayer.CM_Pallet_Type.Get_Info();
+            DataSet ds_get_info = PF.Data.AccessLayer.CM_Pallet_Type.Get_Info();
             cmb_Pallet_Type.DataSource = ds_get_info.Tables[0];
             cmb_Pallet_Type.DisplayMember = "Description";
             cmb_Pallet_Type.ValueMember = "PalletType_Id";
@@ -101,7 +101,7 @@ namespace FruPak.PF.Utils.Scanning
         {
             try
             {
-                DataSet ds_get_info = FruPak.PF.Data.AccessLayer.CM_Material.Get_Repack_List(txt_barcode_from.Text);
+                DataSet ds_get_info = PF.Data.AccessLayer.CM_Material.Get_Repack_List(txt_barcode_from.Text);
                 cmb_Material.DataSource = ds_get_info.Tables[0];
                 cmb_Material.DisplayMember = "Combined";
                 cmb_Material.ValueMember = "Material_id";
@@ -168,7 +168,7 @@ namespace FruPak.PF.Utils.Scanning
             DataRow dr_Get_Info;
             if (txt_barcode_from.TextLength > 0)
             {
-                ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Info_for_Barcode(txt_barcode_from.Text);
+                ds_Get_Info = PF.Data.AccessLayer.PF_Pallet.Get_Info_for_Barcode(txt_barcode_from.Text);
                 for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
                 {
                     dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
@@ -226,7 +226,7 @@ namespace FruPak.PF.Utils.Scanning
         private bool Validate_from_Barcode()
         {
             bool return_code;
-            DataSet ds_From_barcode = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Pallet_Id_From_Baracode(txt_barcode_from.Text);
+            DataSet ds_From_barcode = PF.Data.AccessLayer.PF_Pallet.Get_Pallet_Id_From_Baracode(txt_barcode_from.Text);
             if (ds_From_barcode.Tables[0].Rows.Count > 0)
             {
                 return_code = true;
@@ -310,13 +310,13 @@ namespace FruPak.PF.Utils.Scanning
 
                     // BN Notes:
                     // Go get 4-digit number to be used as part of the barcode
-                    int int_Pallet_Id = FruPak.PF.Common.Code.General.int_max_user_id("PF_Pallet");
+                    int int_Pallet_Id = PF.Common.Code.General.int_max_user_id("PF_Pallet");
 
                     // Create a barcode using the previously obtained number - looks like it's tacking on a check digit as well
-                    FruPak.PF.Common.Code.Barcode.Barcode_Create(int_Pallet_Id);
+                    PF.Common.Code.Barcode.Barcode_Create(int_Pallet_Id);
 
                     // Convert the number into a string, preserving the leading zeroes
-                    string str_barcode = FruPak.PF.Common.Code.Barcode.Barcode_Num.ToString();
+                    string str_barcode = PF.Common.Code.Barcode.Barcode_Num.ToString();
 
                     // Finally, assign the 'Barcode To' text to the barcode string.
                     txt_Barcode_To.Text = str_barcode;
@@ -332,14 +332,14 @@ namespace FruPak.PF.Utils.Scanning
                     try
                     {
                         // This call will fail if the barcode does not exist.
-                        ds_Get_info = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Info_For_Pallet_Id(Convert.ToInt32(dataGridView1.Rows[0].Cells["Pallet_Id"].Value.ToString()));
+                        ds_Get_info = PF.Data.AccessLayer.PF_Pallet.Get_Info_For_Pallet_Id(Convert.ToInt32(dataGridView1.Rows[0].Cells["Pallet_Id"].Value.ToString()));
 
                         //create new pallet
                         for (int i = 0; i < Convert.ToInt32(ds_Get_info.Tables[0].Rows.Count.ToString()); i++)
                         {
                             dr_Get_info = ds_Get_info.Tables[0].Rows[i];
 
-                            int_result = FruPak.PF.Data.AccessLayer.PF_Pallet.Insert(
+                            int_result = PF.Data.AccessLayer.PF_Pallet.Insert(
                                 int_Pallet_Id,
                                 Convert.ToInt32(cmb_Pallet_Type.SelectedValue.ToString()),
                                 str_barcode,
@@ -350,7 +350,7 @@ namespace FruPak.PF.Utils.Scanning
                                 int_Current_User_Id);
 
                             //store old pallet_id on the new pallet_id so it can be traced.
-                            int_result = int_result + FruPak.PF.Data.AccessLayer.PF_Pallet.Update_Old_Pallet_Id(
+                            int_result = int_result + PF.Data.AccessLayer.PF_Pallet.Update_Old_Pallet_Id(
                                 int_Pallet_Id,
                                 Convert.ToInt32(dataGridView1.Rows[0].Cells["Pallet_Id"].Value.ToString()),
                                 int_Current_User_Id);
@@ -365,7 +365,7 @@ namespace FruPak.PF.Utils.Scanning
 
                         for (int i = -0; i < Convert.ToInt32(dataGridView1.Rows.Count.ToString()); i++)
                         {
-                            DataSet ds_old = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Get_Info(
+                            DataSet ds_old = PF.Data.AccessLayer.PF_Pallet_Details.Get_Info(
                                 Convert.ToInt32(dataGridView1.Rows[i].Cells["PalletDetails_Id"].Value.ToString()));
                             DataRow dr_old;
                             for (int j = 0; j < ds_old.Tables[0].Rows.Count; j++)
@@ -374,8 +374,8 @@ namespace FruPak.PF.Utils.Scanning
                                 //if the required amount is zero then we are repacking the complete amount
                                 if (int_req_Amount == 0)
                                 {
-                                    int_result = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Insert(
-                                        FruPak.PF.Common.Code.General.int_max_user_id("PF_Pallet_Details"),
+                                    int_result = PF.Data.AccessLayer.PF_Pallet_Details.Insert(
+                                        PF.Common.Code.General.int_max_user_id("PF_Pallet_Details"),
                                         int_Pallet_Id,
                                         Convert.ToInt32(dr_old["Batch_Num"].ToString()),
                                         Convert.ToInt32(cmb_Material.SelectedValue.ToString()),
@@ -387,7 +387,7 @@ namespace FruPak.PF.Utils.Scanning
 
                                     try
                                     {
-                                        FruPak.PF.Data.AccessLayer.PF_Pallet.Update_Active_status(
+                                        PF.Data.AccessLayer.PF_Pallet.Update_Active_status(
                                             Convert.ToInt32(dataGridView1.Rows[i].Cells["Pallet_Id"].Value.ToString()),
                                             false,
                                             int_Current_User_Id);
@@ -402,19 +402,19 @@ namespace FruPak.PF.Utils.Scanning
                                     #region Copy gross weight from old pallet to new pallet and set the tare weight to zero
 
                                     //2. get the current gross weight that has been loaded
-                                    decimal dec_current_gross = FruPak.PF.Common.Code.General.Current_Gross_Weight(
+                                    decimal dec_current_gross = PF.Common.Code.General.Current_Gross_Weight(
                                         int_Pallet_Id);
 
-                                    decimal dec_current_tare = FruPak.PF.Common.Code.General.Current_Tare_Weight(
+                                    decimal dec_current_tare = PF.Common.Code.General.Current_Tare_Weight(
                                         Convert.ToInt32(dataGridView1.Rows[i].Cells["Pallet_Id"].Value.ToString()));
 
-                                    decimal dec_old_gross = FruPak.PF.Common.Code.General.Current_Gross_Weight(
+                                    decimal dec_old_gross = PF.Common.Code.General.Current_Gross_Weight(
                                         Convert.ToInt32(dataGridView1.Rows[i].Cells["Pallet_Id"].Value.ToString()));
 
                                     try
                                     {
-                                        FruPak.PF.Data.AccessLayer.PF_Pallet.Update_Gross_Weight(int_Pallet_Id, dec_current_gross + (dec_old_gross - dec_current_tare), int_Current_User_Id);
-                                        FruPak.PF.Data.AccessLayer.PF_Pallet.Update_Tare_Weight(int_Pallet_Id, Convert.ToDecimal("0.00"), int_Current_User_Id);
+                                        PF.Data.AccessLayer.PF_Pallet.Update_Gross_Weight(int_Pallet_Id, dec_current_gross + (dec_old_gross - dec_current_tare), int_Current_User_Id);
+                                        PF.Data.AccessLayer.PF_Pallet.Update_Tare_Weight(int_Pallet_Id, Convert.ToDecimal("0.00"), int_Current_User_Id);
                                     }
                                     catch (Exception ex)
                                     {
@@ -428,24 +428,24 @@ namespace FruPak.PF.Utils.Scanning
                                     #region Calculate Weight_Gross
 
                                     //1. get weight from material number
-                                    decimal dec_material_weight = FruPak.PF.Common.Code.General.Material_Weight(Convert.ToInt32(cmb_Material.SelectedValue.ToString()));
+                                    decimal dec_material_weight = PF.Common.Code.General.Material_Weight(Convert.ToInt32(cmb_Material.SelectedValue.ToString()));
 
                                     //2. get the current gross weight that has been loaded
-                                    decimal dec_current_gross = FruPak.PF.Common.Code.General.Current_Gross_Weight(int_Pallet_Id);
+                                    decimal dec_current_gross = PF.Common.Code.General.Current_Gross_Weight(int_Pallet_Id);
                                     try
                                     {
-                                        FruPak.PF.Data.AccessLayer.PF_Pallet.Update_Gross_Weight(int_Pallet_Id, dec_current_gross + (dec_material_weight * Convert.ToDecimal(dataGridView1.Rows[i].Cells["Required"].Value.ToString())), int_Current_User_Id);
-                                        FruPak.PF.Data.AccessLayer.PF_Pallet.Update_Tare_Weight(int_Pallet_Id, Convert.ToDecimal("0.00"), int_Current_User_Id);
+                                        PF.Data.AccessLayer.PF_Pallet.Update_Gross_Weight(int_Pallet_Id, dec_current_gross + (dec_material_weight * Convert.ToDecimal(dataGridView1.Rows[i].Cells["Required"].Value.ToString())), int_Current_User_Id);
+                                        PF.Data.AccessLayer.PF_Pallet.Update_Tare_Weight(int_Pallet_Id, Convert.ToDecimal("0.00"), int_Current_User_Id);
                                     }
                                     catch (Exception ex)
                                     {
                                         logger.Log(LogLevel.Debug, ex.Message);
                                     }
 
-                                    int_result = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Pallet_Details"), int_Pallet_Id, Convert.ToInt32(dr_old["Batch_Num"].ToString()),
+                                    int_result = PF.Data.AccessLayer.PF_Pallet_Details.Insert(PF.Common.Code.General.int_max_user_id("PF_Pallet_Details"), int_Pallet_Id, Convert.ToInt32(dr_old["Batch_Num"].ToString()),
                                         Convert.ToInt32(cmb_Material.SelectedValue.ToString()), Convert.ToInt32(dr_old["Work_Order_Id"].ToString()), Convert.ToDecimal(dataGridView1.Rows[i].Cells["Required"].Value.ToString()), int_Current_User_Id);
                                     //update number transferred from old pallet.
-                                    int_result = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Update(Convert.ToInt32(dr_old["PalletDetails_Id"].ToString()), Convert.ToInt32(dr_old["Batch_Num"].ToString()),
+                                    int_result = PF.Data.AccessLayer.PF_Pallet_Details.Update(Convert.ToInt32(dr_old["PalletDetails_Id"].ToString()), Convert.ToInt32(dr_old["Batch_Num"].ToString()),
                                         Convert.ToInt32(dr_old["Material_Id"].ToString()), Convert.ToDecimal(dr_old["Quantity"].ToString()) - Convert.ToDecimal(dataGridView1.Rows[i].Cells["Required"].Value.ToString()), int_Current_User_Id);
 
                                     #endregion Calculate Weight_Gross
@@ -477,7 +477,7 @@ namespace FruPak.PF.Utils.Scanning
                     #region ------- Use current Pallet -----------------
 
                     //get pallet ID
-                    DataSet ds_to_Pallet = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Pallet_Id_From_Baracode(txt_Barcode_To.Text);
+                    DataSet ds_to_Pallet = PF.Data.AccessLayer.PF_Pallet.Get_Pallet_Id_From_Baracode(txt_Barcode_To.Text);
                     DataRow dr_to_Pallet;
                     int int_to_Pallet_Id = 0;
                     for (int i = 0; i < ds_to_Pallet.Tables[0].Rows.Count; i++)
@@ -488,7 +488,7 @@ namespace FruPak.PF.Utils.Scanning
 
                     for (int i = 0; i < Convert.ToInt32(dataGridView1.Rows.Count.ToString()); i++)
                     {
-                        DataSet ds_old = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Get_Info(Convert.ToInt32(dataGridView1.Rows[i].Cells["PalletDetails_Id"].Value.ToString()));
+                        DataSet ds_old = PF.Data.AccessLayer.PF_Pallet_Details.Get_Info(Convert.ToInt32(dataGridView1.Rows[i].Cells["PalletDetails_Id"].Value.ToString()));
                         DataRow dr_old;
                         for (int j = 0; j < ds_old.Tables[0].Rows.Count; j++)
                         {
@@ -496,22 +496,22 @@ namespace FruPak.PF.Utils.Scanning
                             //if the require amount is zero then we are repacking the complete amount
                             if (int_req_Amount == 0)
                             {
-                                int_result = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Pallet_Details"), int_to_Pallet_Id, Convert.ToInt32(dr_old["Batch_Num"].ToString()),
+                                int_result = PF.Data.AccessLayer.PF_Pallet_Details.Insert(PF.Common.Code.General.int_max_user_id("PF_Pallet_Details"), int_to_Pallet_Id, Convert.ToInt32(dr_old["Batch_Num"].ToString()),
                                                                                                     Convert.ToInt32(cmb_Material.SelectedValue.ToString()), Convert.ToInt32(dr_old["Work_Order_Id"].ToString()), Convert.ToDecimal(dr_old["Quantity"].ToString()), int_Current_User_Id);
                                 //make old pallet inactive
-                                FruPak.PF.Data.AccessLayer.PF_Pallet.Update_Active_status(Convert.ToInt32(dataGridView1.Rows[i].Cells["Pallet_Id"].Value.ToString()), false, int_Current_User_Id);
+                                PF.Data.AccessLayer.PF_Pallet.Update_Active_status(Convert.ToInt32(dataGridView1.Rows[i].Cells["Pallet_Id"].Value.ToString()), false, int_Current_User_Id);
 
                                 //copy gross weight from old pallet to new pallet and set the tate weight to zero
 
                                 //2. get the current gross weight that has been loaded
-                                decimal dec_current_gross = FruPak.PF.Common.Code.General.Current_Gross_Weight(int_to_Pallet_Id);
-                                decimal dec_current_tare = FruPak.PF.Common.Code.General.Current_Tare_Weight(Convert.ToInt32(dataGridView1.Rows[i].Cells["Pallet_Id"].Value.ToString()));
-                                decimal dec_old_gross = FruPak.PF.Common.Code.General.Current_Gross_Weight(Convert.ToInt32(dataGridView1.Rows[i].Cells["Pallet_Id"].Value.ToString()));
+                                decimal dec_current_gross = PF.Common.Code.General.Current_Gross_Weight(int_to_Pallet_Id);
+                                decimal dec_current_tare = PF.Common.Code.General.Current_Tare_Weight(Convert.ToInt32(dataGridView1.Rows[i].Cells["Pallet_Id"].Value.ToString()));
+                                decimal dec_old_gross = PF.Common.Code.General.Current_Gross_Weight(Convert.ToInt32(dataGridView1.Rows[i].Cells["Pallet_Id"].Value.ToString()));
 
                                 try
                                 {
-                                    FruPak.PF.Data.AccessLayer.PF_Pallet.Update_Gross_Weight(int_to_Pallet_Id, dec_current_gross + (dec_old_gross - dec_current_tare), int_Current_User_Id);
-                                    FruPak.PF.Data.AccessLayer.PF_Pallet.Update_Tare_Weight(int_to_Pallet_Id, Convert.ToDecimal("0.00"), int_Current_User_Id);
+                                    PF.Data.AccessLayer.PF_Pallet.Update_Gross_Weight(int_to_Pallet_Id, dec_current_gross + (dec_old_gross - dec_current_tare), int_Current_User_Id);
+                                    PF.Data.AccessLayer.PF_Pallet.Update_Tare_Weight(int_to_Pallet_Id, Convert.ToDecimal("0.00"), int_Current_User_Id);
                                 }
                                 catch (Exception ex)
                                 {
@@ -520,21 +520,21 @@ namespace FruPak.PF.Utils.Scanning
                             }
                             else
                             {
-                                int_result = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Pallet_Details"), int_to_Pallet_Id, Convert.ToInt32(dr_old["Batch_Num"].ToString()),
+                                int_result = PF.Data.AccessLayer.PF_Pallet_Details.Insert(PF.Common.Code.General.int_max_user_id("PF_Pallet_Details"), int_to_Pallet_Id, Convert.ToInt32(dr_old["Batch_Num"].ToString()),
                                     Convert.ToInt32(cmb_Material.SelectedValue.ToString()), Convert.ToInt32(dr_old["Work_Order_Id"].ToString()), Convert.ToDecimal(dataGridView1.Rows[i].Cells["Required"].Value.ToString()), int_Current_User_Id);
 
                                 //Calculate Weight_Gross
 
                                 //1. get weight from material number
-                                decimal dec_material_weight = FruPak.PF.Common.Code.General.Material_Weight(Convert.ToInt32(cmb_Material.SelectedValue.ToString()));
+                                decimal dec_material_weight = PF.Common.Code.General.Material_Weight(Convert.ToInt32(cmb_Material.SelectedValue.ToString()));
 
                                 //2. get the current gross weight that has been loaded
-                                decimal dec_current_gross = FruPak.PF.Common.Code.General.Current_Gross_Weight(int_to_Pallet_Id);
+                                decimal dec_current_gross = PF.Common.Code.General.Current_Gross_Weight(int_to_Pallet_Id);
 
                                 try
                                 {
-                                    FruPak.PF.Data.AccessLayer.PF_Pallet.Update_Gross_Weight(int_to_Pallet_Id, dec_current_gross + (dec_material_weight * Convert.ToDecimal(dataGridView1.Rows[i].Cells["Required"].Value.ToString())), int_Current_User_Id);
-                                    FruPak.PF.Data.AccessLayer.PF_Pallet.Update_Tare_Weight(int_to_Pallet_Id, Convert.ToDecimal("0.00"), int_Current_User_Id);
+                                    PF.Data.AccessLayer.PF_Pallet.Update_Gross_Weight(int_to_Pallet_Id, dec_current_gross + (dec_material_weight * Convert.ToDecimal(dataGridView1.Rows[i].Cells["Required"].Value.ToString())), int_Current_User_Id);
+                                    PF.Data.AccessLayer.PF_Pallet.Update_Tare_Weight(int_to_Pallet_Id, Convert.ToDecimal("0.00"), int_Current_User_Id);
                                 }
                                 catch (Exception ex)
                                 {
@@ -542,21 +542,21 @@ namespace FruPak.PF.Utils.Scanning
                                 }
 
                                 //update number transferred from old pallet.
-                                int_result = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Update(Convert.ToInt32(dr_old["PalletDetails_Id"].ToString()), Convert.ToInt32(dr_old["Batch_Num"].ToString()),
+                                int_result = PF.Data.AccessLayer.PF_Pallet_Details.Update(Convert.ToInt32(dr_old["PalletDetails_Id"].ToString()), Convert.ToInt32(dr_old["Batch_Num"].ToString()),
                                     Convert.ToInt32(dr_old["Material_Id"].ToString()), Convert.ToDecimal(dr_old["Quantity"].ToString()) - Convert.ToDecimal(dataGridView1.Rows[i].Cells["Required"].Value.ToString()), int_Current_User_Id);
 
                                 //Calculate Weight_Gross
 
                                 //1. get weight from material number
-                                dec_material_weight = FruPak.PF.Common.Code.General.Material_Weight(Convert.ToInt32(dr_old["Material_Id"].ToString()));
+                                dec_material_weight = PF.Common.Code.General.Material_Weight(Convert.ToInt32(dr_old["Material_Id"].ToString()));
 
                                 //2. get the current gross weight that has been loaded
-                                dec_current_gross = FruPak.PF.Common.Code.General.Current_Gross_Weight(Convert.ToInt32(dataGridView1.Rows[i].Cells["Pallet_Id"].Value.ToString()));
-                                decimal dec_current_tare = FruPak.PF.Common.Code.General.Current_Tare_Weight(Convert.ToInt32(dataGridView1.Rows[i].Cells["Pallet_Id"].Value.ToString()));
+                                dec_current_gross = PF.Common.Code.General.Current_Gross_Weight(Convert.ToInt32(dataGridView1.Rows[i].Cells["Pallet_Id"].Value.ToString()));
+                                decimal dec_current_tare = PF.Common.Code.General.Current_Tare_Weight(Convert.ToInt32(dataGridView1.Rows[i].Cells["Pallet_Id"].Value.ToString()));
 
                                 try
                                 {
-                                    FruPak.PF.Data.AccessLayer.PF_Pallet.Update_Gross_Weight(Convert.ToInt32(dataGridView1.Rows[i].Cells["Pallet_Id"].Value.ToString()), dec_current_tare + (dec_material_weight * (Convert.ToDecimal(dr_old["Quantity"].ToString()) - Convert.ToDecimal(dataGridView1.Rows[i].Cells["Required"].Value.ToString()))), int_Current_User_Id);
+                                    PF.Data.AccessLayer.PF_Pallet.Update_Gross_Weight(Convert.ToInt32(dataGridView1.Rows[i].Cells["Pallet_Id"].Value.ToString()), dec_current_tare + (dec_material_weight * (Convert.ToDecimal(dr_old["Quantity"].ToString()) - Convert.ToDecimal(dataGridView1.Rows[i].Cells["Required"].Value.ToString()))), int_Current_User_Id);
                                 }
                                 catch (Exception ex)
                                 {
@@ -598,13 +598,13 @@ namespace FruPak.PF.Utils.Scanning
         private void Stock_Adjust(int int_old_Mat_Id, int int_req_Amount)
         {
             //adjust stock levels
-            DataSet ds_stock = FruPak.PF.Data.AccessLayer.CM_Material_ST_Product_Relationship.Get_Update_Info(int_old_Mat_Id, Convert.ToInt32(cmb_Material.SelectedValue.ToString()));
+            DataSet ds_stock = PF.Data.AccessLayer.CM_Material_ST_Product_Relationship.Get_Update_Info(int_old_Mat_Id, Convert.ToInt32(cmb_Material.SelectedValue.ToString()));
             DataRow dr_stock;
             for (int j = 0; j < ds_stock.Tables[0].Rows.Count; j++)
             {
                 dr_stock = ds_stock.Tables[0].Rows[j];
 
-                DataSet ds_stock1 = FruPak.PF.Data.AccessLayer.PF_Stock_Item.Get_Info(Convert.ToInt32(dr_stock["Stock_Item_Id"].ToString()));
+                DataSet ds_stock1 = PF.Data.AccessLayer.PF_Stock_Item.Get_Info(Convert.ToInt32(dr_stock["Stock_Item_Id"].ToString()));
                 DataRow dr_stock1;
                 for (int k = 0; k < ds_stock1.Tables[0].Rows.Count; k++)
                 {
@@ -612,7 +612,7 @@ namespace FruPak.PF.Utils.Scanning
                     dr_stock1 = ds_stock1.Tables[0].Rows[k];
                     dec_total = Convert.ToDecimal(int_req_Amount) * Convert.ToDecimal(dr_stock1["Multiplier"].ToString());
 
-                    FruPak.PF.Data.AccessLayer.PF_Stock_Used.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Stock_Used"), Convert.ToInt32(dr_stock["Stock_Item_Id"].ToString()), int_Season, Convert.ToInt32(dec_total), int_Current_User_Id);
+                    PF.Data.AccessLayer.PF_Stock_Used.Insert(PF.Common.Code.General.int_max_user_id("PF_Stock_Used"), Convert.ToInt32(dr_stock["Stock_Item_Id"].ToString()), int_Season, Convert.ToInt32(dec_total), int_Current_User_Id);
                 }
                 ds_stock1.Dispose();
             }
@@ -681,7 +681,7 @@ namespace FruPak.PF.Utils.Scanning
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

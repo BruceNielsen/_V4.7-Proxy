@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,26 +27,26 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(MnPGrp_Relat_Id) as Current_Id FROM  dbo.SC_Menu_Panel_Group_Relationship");
         }
 
         public static int Insert(int MnPGrp_Relat_Id, int UserGroup_Id, int MenuPan_Id, bool Write_Access, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO  dbo.SC_Menu_Panel_Group_Relationship(MnPGrp_Relat_Id, UserGroup_Id, MenuPan_Id, Write_Access, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + MnPGrp_Relat_Id + "," + UserGroup_Id + "," + MenuPan_Id + ",'" + Write_Access + "', GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Delete(int MenuPan_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM  dbo.SC_Menu_Panel_Group_Relationship WHERE MenuPan_Id = " + MenuPan_Id);
         }
 
         public static DataSet Get_Info(int MenuPan_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM  dbo.SC_Menu_Panel_Group_Relationship WHERE MenuPan_Id = " + MenuPan_Id);
         }
     }

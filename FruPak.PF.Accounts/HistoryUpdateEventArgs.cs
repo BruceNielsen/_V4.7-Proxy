@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Accounts
+﻿namespace PF.Accounts
 {
     public class HistoryUpdateEventArgs : System.EventArgs
     {

@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Accounts
+﻿namespace PF.Accounts
 {
     partial class Statement_Email
     {
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Statement_Email));
-            this.customer1 = new FruPak.PF.Utils.UserControls.Customer();
+            this.customer1 = new PF.Utils.UserControls.Customer();
             this.btn_Continue = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -63,7 +63,7 @@
             this.KeyPreview = true;
             this.Name = "Statement_Email";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Accounts.Statement Email";
+            this.Text = "PF.Accounts.Statement Email";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Statement_Email_KeyDown);
             this.ResumeLayout(false);
 

@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.Scanning
+﻿namespace PF.Utils.Scanning
 {
     partial class Reject_Bins_Weights
     {
@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.barcode1 = new FruPak.PF.Utils.UserControls.Barcode();
+            this.barcode1 = new PF.Utils.UserControls.Barcode();
             this.btn_Peeler = new System.Windows.Forms.Button();
             this.btn_Small = new System.Windows.Forms.Button();
             this.btn_Close = new System.Windows.Forms.Button();
@@ -142,7 +142,7 @@
             this.KeyPreview = true;
             this.Name = "Reject_Bins_Weights";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.Scanning.Reject_Bins_Weights";
+            this.Text = "PF.Utils.Scanning.Reject_Bins_Weights";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Reject_Bins_Weights_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nud_Gross)).EndInit();
             this.ResumeLayout(false);

@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Common.Code
+﻿namespace PF.Common.Code
 {
     partial class SendDebugEmail
     {
@@ -86,7 +86,7 @@
             this.labelBugReport.Name = "labelBugReport";
             this.labelBugReport.Size = new System.Drawing.Size(397, 32);
             this.labelBugReport.TabIndex = 6;
-            this.labelBugReport.Text = "This will send a screenshot and the debug log to: processerrors@frupak.co.nz. You" +
+            this.labelBugReport.Text = "This will send a screenshot and the debug log to: processerrors@FP.co.nz. You" +
     " can add in extra information if you want to.";
             // 
             // buttonTest

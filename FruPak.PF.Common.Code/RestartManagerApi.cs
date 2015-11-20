@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace FruPak.PF.Common.Code
+namespace PF.Common.Code
 {
     // http://stackoverflow.com/questions/317071/how-do-i-find-out-which-process-is-locking-a-file-using-net
     //    class RestartManagerApi

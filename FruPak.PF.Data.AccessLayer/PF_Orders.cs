@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -26,22 +26,22 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(Order_Id) as Current_Id FROM PF_Orders");
         }
         public static DataSet Get_Info()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Orders WHERE PF_Active_Ind = 1 ");
         }
         public static DataSet Get_Info(int Order_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Orders WHERE Order_Id = " + Order_Id);
         }
         public static DataSet Get_Order_id_for_Invoice(int Invoice_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT O.Order_Id, P.Pallet_Id " +
                                             "FROM PF_Orders O " +
                                             "INNER JOIN dbo.PF_Pallet P on P.Hold_For_Order_Id = O.Order_Id " +
@@ -49,7 +49,7 @@ namespace FruPak.PF.Data.AccessLayer
         }
         public static DataSet Get_Info_incl_Outlook(int Order_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT O.*, CC.Outlook_Key " +
                                             "FROM PF_Orders O " +
                                             "INNER JOIN dbo.PF_Customer CC ON CC.Customer_Id = O.Customer_Id " +
@@ -57,7 +57,7 @@ namespace FruPak.PF.Data.AccessLayer
         }
         public static DataSet Get_Info_Translated(int Order_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT O.Order_Id, O.Load_Date, O.Customer_Id,CC.Name as Customer,O.Customer_Order,O.Truck_ID,T.Description AS Truck,O.City_Id,C.Description AS City, O.Freight_Docket, O.Comments " +
                                             "FROM PF_Orders O " +
                                             "INNER JOIN dbo.CM_Truck T ON T.Truck_Id = O.Truck_Id " +
@@ -67,7 +67,7 @@ namespace FruPak.PF.Data.AccessLayer
         }
         public static DataSet Get_Storage(string WHERE)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT DATEDIFF(MONTH, WO.Process_Date, O.Load_Date) as Storage_Time, SUM(PD.Quantity) as Total " +
                                             "FROM dbo.PF_Orders O " +
                                             "INNER JOIN dbo.PF_Pallet P ON P.Order_Id = O.Order_Id " +
@@ -78,13 +78,13 @@ namespace FruPak.PF.Data.AccessLayer
         }
         public static int Insert(int Order_Id, int Truck_Id, int City_Id, string Load_Date, string Customer_Order, string Freight_Docket, int Customer_Id, string Comments, bool PF_Active_Ind, bool Hold_For_Payment, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO PF_Orders(Order_Id, Truck_Id, City_Id, Load_Date,  Customer_Order,Freight_Docket, Customer_Id, Comments, PF_Active_Ind, Hold_For_Payment, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + Order_Id + "," + Truck_Id + "," + City_Id + ",'" + Load_Date + "','" + Customer_Order + "','" + Freight_Docket + "'," + Customer_Id + ",'" + Comments + "','" + PF_Active_Ind + "','" + Hold_For_Payment + "', GETDATE()," + Mod_User_Id + ")");
         }
         public static int Update(int Order_Id, int Truck_Id, int City_Id, string Load_Date, string Customer_Order, string Freight_Docket, int Customer_Id, string Comments, bool PF_Active_Ind, bool Hold_For_Payment, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_Orders SET Truck_Id = " + Truck_Id + ", " +
                                                                   "City_Id = " + City_Id + ", " +
                                                                   "Load_Date = '" + Load_Date + "', " +
@@ -100,12 +100,12 @@ namespace FruPak.PF.Data.AccessLayer
         }
         public static int Delete(int Order_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_Orders WHERE Order_Id = " + Order_Id);
         }
         public static int Update_Invoiced(int Order_Id, int Invoice_Id, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_Orders SET Invoice_Id = " + Invoice_Id + " ," +
                                                                         "PF_Active_Ind = 0 ," +
                                                                         "Mod_Date = GETDATE() ," +
@@ -114,7 +114,7 @@ namespace FruPak.PF.Data.AccessLayer
         }
         public static int Remove_From_Invoiced(int Invoice_Id, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_Orders SET Invoice_Id = NULL, " +
                                                                      "PF_Active_Ind = 1 ," +
                                                                      "Mod_Date = GETDATE() ," +
@@ -125,32 +125,32 @@ namespace FruPak.PF.Data.AccessLayer
         #region ------------- Select -------------
         public static DataSet Get_Info_Desc()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.RunSP_Query("dbo.PF_Orders_Get_Info_Desc");
         }
         public static DataSet Get_Order_Info(bool bol_incld_all)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.RunSP_Query("dbo.PF_Orders_Get_Order_Info", bol_incld_all);
         }
         public static DataSet Get_Order_Info_For_Cust(int Customer_Id, bool bol_incld_all)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.RunSP_Query("dbo.PF_Orders_Get_Order_Info_For_Cust", Customer_Id, bol_incld_all);
         }
         public static DataSet Get_Overdue_Orders()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.RunSP_Query("dbo.PF_Orders_Get_Overdue_Orders");
         }
         public static DataSet Get_UnInvoiced()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.RunSP_Query("dbo.PF_Orders_Get_UnInvoiced");
         }
         public static DataSet Get_UnInvoiced(int Customer_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.RunSP_Query("dbo.PF_Orders_Get_UnInvoiced_For_Cust", Customer_Id);
         }
         #endregion ------------- Select -------------

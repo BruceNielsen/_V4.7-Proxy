@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,38 +27,38 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT MAX(MnuGrp_Relat_Id) AS Current_Id FROM  dbo.SC_Menu_Group_Relationship");
         }
 
         public static int Insert(int MnuGrp_Relat_Id, int UserGroup_Id, int Menu_Id, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO  dbo.SC_Menu_Group_Relationship(MnuGrp_Relat_Id, UserGroup_Id, Menu_Id, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + MnuGrp_Relat_Id + "," + UserGroup_Id + "," + Menu_Id + ", GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Delete(int Menu_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM  dbo.SC_Menu_Group_Relationship WHERE Menu_Id = " + Menu_Id);
         }
 
         public static int Delete_UserGroup_From_Menu(int UserGroup_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM  dbo.SC_Menu_Group_Relationship WHERE UserGroup_Id = " + UserGroup_Id);
         }
 
         public static int Delete_UserGroup_From_Menu(int UserGroup_Id, int Menu_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM  dbo.SC_Menu_Group_Relationship WHERE UserGroup_Id = " + UserGroup_Id + " AND Menu_Id = " + Menu_Id);
         }
 
         public static DataSet Get_Info(int Menu_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM  dbo.SC_Menu_Group_Relationship WHERE Menu_Id = " + Menu_Id);
         }
     }

@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,25 +27,25 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(PackType_Weight_Id) as Current_Id FROM CM_Pack_Type_Weight");
         }
 
         public static DataSet Get_Info()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM CM_Pack_Type_Weight WHERE PF_Active_Ind = 1 ");
         }
 
         public static DataSet Get_Info(int PackType_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM CM_Pack_Type_Weight WHERE PF_Active_Ind = 1 AND PackType_Id = " + PackType_Id);
         }
 
         public static DataSet Get_Tare_Weight_for_Material(decimal Material_Number)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT PTW.Weight_Tare, M.Material_Num " +
                                             "FROM dbo.CM_Pack_Type_Weight PTW " +
                                             "INNER JOIN dbo.CM_Material M on M.PackType_Id = PTW.PackType_Id " +
@@ -54,7 +54,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_Tare_Weight_for_Material_Id(int Material_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT PTW.Weight_Tare, M.Material_Num " +
                                             "FROM dbo.CM_Pack_Type_Weight PTW " +
                                             "INNER JOIN dbo.CM_Material M on M.PackType_Id = PTW.PackType_Id " +
@@ -63,20 +63,20 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Insert(int PackType_Weight_Id, int PackType_Id, decimal Weight_Tare, bool PF_Active_Ind, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO CM_Pack_Type_Weight(PackType_Weight_Id, PackType_Id, Weight_Tare, PF_Active_Ind, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + PackType_Weight_Id + "," + PackType_Id + "," + Weight_Tare + ",'" + PF_Active_Ind + "', GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Delete(int PackType_Weight_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM CM_Pack_Type_Weight WHERE PackType_Weight_Id = " + PackType_Weight_Id);
         }
 
         public static int Update(int PackType_Weight_Id, int PackType_Id, decimal Weight_Tare, bool PF_Active_Ind, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE CM_Pack_Type_Weight SET PackType_Id = " + PackType_Id + ", " +
                                                                   "Weight_Tare = " + Weight_Tare + ", " +
                                                                   "PF_Active_Ind = '" + PF_Active_Ind + "', " +

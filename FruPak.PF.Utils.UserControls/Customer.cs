@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.UserControls
+namespace PF.Utils.UserControls
 {
     public partial class Customer : UserControl
     {
@@ -14,7 +14,7 @@ namespace FruPak.PF.Utils.UserControls
         {
             InitializeComponent();
 
-            // 20/05/2015 - BN - Identified source of really annoying bug - FruPak.PF.Utils.UserControls.Customer
+            // 20/05/2015 - BN - Identified source of really annoying bug - PF.Utils.UserControls.Customer
             // This customer control was executing code in the designer instead of ONLY at runtime,
             // causing VS/SQL to crash, and would delete the code and control if you tried to ignore the error,
             // thereby mangling the code and rendering the customer UserControl useless and breaking the host form.
@@ -38,18 +38,18 @@ namespace FruPak.PF.Utils.UserControls
             // This works perfectly:
             if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
             {
-                Console.WriteLine("FruPak.PF.Utils.UserControls.Customer - UsageMode = Designtime - Skipping populate()");
+                Console.WriteLine("PF.Utils.UserControls.Customer - UsageMode = Designtime - Skipping populate()");
             }
             else
             {
-                Console.WriteLine("FruPak.PF.Utils.UserControls.Customer - UsageMode = Runtime - Running populate()");
+                Console.WriteLine("PF.Utils.UserControls.Customer - UsageMode = Runtime - Running populate()");
                 populate();
             }
         }
 
         public void populate()
         {
-            DataSet ds = FruPak.PF.Data.AccessLayer.PF_Customer.Get_Info();
+            DataSet ds = PF.Data.AccessLayer.PF_Customer.Get_Info();
             cmb_Customer.DataSource = ds.Tables[0];
             cmb_Customer.DisplayMember = "Name";
             cmb_Customer.ValueMember = "Customer_Id";
@@ -88,7 +88,7 @@ namespace FruPak.PF.Utils.UserControls
                 if (cmb_Customer.SelectedItem != null)
                 {
                     string str_Name = "";
-                    DataSet ds = FruPak.PF.Data.AccessLayer.PF_Customer.Get_Info(Customer_Id);
+                    DataSet ds = PF.Data.AccessLayer.PF_Customer.Get_Info(Customer_Id);
                     DataRow dr;
                     for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                     {

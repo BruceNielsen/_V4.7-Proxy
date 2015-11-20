@@ -1,4 +1,4 @@
-﻿// 20/05/2015 - BN - Identified source of really annoying bug - FruPak.PF.Utils.UserControls.Customer
+﻿// 20/05/2015 - BN - Identified source of really annoying bug - PF.Utils.UserControls.Customer
 // This customer control was executing code in the designer instead of ONLY at runtime, 
 // causing VS/SQL to crash, and would delete the code and control if you tried to ignore the error,
 // thereby mangling the code and rendering the customer UserControl useless and breaking the host form.
@@ -12,16 +12,16 @@
 NOTE: 20/05/2015
 After installing the new SSD drive and reinstalling everything, a few issues appeared:
 	
-	Sql and Sql Management Studio must be installed and configured, and the FruPak database needs to be restored.
+	Sql and Sql Management Studio must be installed and configured, and the FP database needs to be restored.
 	
 	Tortoise SVN and Visual SVN need to be installed - No particular configuration is needed, but you must restore a 
 	backup of the Repository folder in order to be able to commit to SVN once more : C:\Repositories
 
-You must set up the phantom-dev Outlook account and restore the FruPak contacts	
+You must set up the phantom-dev Outlook account and restore the FP contacts	
 --------------------------------------------------------------------------------
  
 NOTE: 01/05/2015
-If you rename your network ID you MUST change the 2 entries in FruPak.Phantom.config:
+If you rename your network ID you MUST change the 2 entries in FP.Phantom.config:
  
  <Phantom_Dev_TestMode_Server>-</Phantom_Dev_TestMode_Server>
  <Phantom_Dev_ProductionMode_Server>-</Phantom_Dev_ProductionMode_Server>
@@ -37,18 +37,18 @@ We/I started adding in version numbers.
 Anything pertaining to the very early code resides in the handwritten notebook:
 Transcription follows... (Order is just how it appears in the book)
 ------------------------------------------[ Begin Page One ]--------------------
-FruPak Process Factory (December 2014)
+FP Process Factory (December 2014)
 
-Connection strings are in FruPak.PF.Data.Access_Layer\Dconfig.cs
+Connection strings are in PF.Data.Access_Layer\Dconfig.cs
 
 (Pseudocode, and capitalization/case may be incorrect)
 
 if Global.bol_testing = true
-	use FruPak-SQL
+	use FP-SQL
 		Process_Factory_Test
 		UID:jobs; Pass: jobs
 else
-	use FruPak-SQL
+	use FP-SQL
 		Process_Factory
 		UID:jobs; Pass: jobs
 
@@ -76,7 +76,7 @@ separated by an underscore.
 
 Form title texts have been renamed along the form of:
 
-FruPak.PF.Subname etc. Form Title.
+PF.Subname etc. Form Title.
 
 This will aid in tracking down problem areas.
 --------------------------------------
@@ -91,7 +91,7 @@ as well (Required, NOT optional)
 ------------------------------------------[ Begin Page Three ]------------------
 PDFPrint (Not CutePDF) has a hardcoded log file:
 
-\\FruPak-SBS\Publicdocs\FruPak\Client\Logs\PDFPrint.txt
+\\FP-SBS\Publicdocs\FP\Client\Logs\PDFPrint.txt
 
 A crash when printing a pallet card will leave WinWord running hidden in the 
 background, causing an error:
@@ -141,7 +141,7 @@ Notes from the Trenches 15/12/2014
 
 Massive number of errors in:
 
-FruPak.PF.WorkOrder\Cleaning.cs - 
+PF.WorkOrder\Cleaning.cs - 
 On clicking on each tab at random without doing anything else:
 
 All NullReferenceExceptions caused by not checking for null before attempting to 
@@ -170,7 +170,7 @@ To continue:
 
 Program Execution Flow:
 	Startup Object is:
-	FruPak.ProcessFactory.Program.
+	FP.ProcessFactory.Program.
 
 	Calls:
 		IF Args (Program Arguments) > 0 
@@ -178,10 +178,10 @@ Program Execution Flow:
 		OR if there's more than an hours time elapsed between now and the last 
 			program run time
 		THEN
-			CALL FruPak.PF.Menu.Main_Menu (Also triggers the install bit I think)
+			CALL PF.Menu.Main_Menu (Also triggers the install bit I think)
 		OTHERWISE OR (not real, just pseudo code)
 			IF less than an hour has elapsed since the last program run,
-		CALL FruPak.PF.Menu.Main_Menu directly.
+		CALL PF.Menu.Main_Menu directly.
 
 	Hang in there...
 
@@ -266,11 +266,11 @@ Program Execution Flow:
 	improve consistency, as you'd now just be dealing with two programs, 
 	not three.
 
-	Any concerns about email functionality from within SQL or the FruPak App
+	Any concerns about email functionality from within SQL or the FP App
 	are baseless, as either one supports email functions fully.
 
 	What I would do personally is handle any email/attachment requests inside 
-	the FruPak app and just CC. whoever originated the Order/Invoice/Whatever.
+	the FP app and just CC. whoever originated the Order/Invoice/Whatever.
 
 	That gives you your paper trail (e-paper) which gets rid of the problem, 
 	which Microsoft tells you you shouldn't do, and leaves your 
@@ -280,13 +280,13 @@ Program Execution Flow:
 	This one's definitely out of time sequence, but here goes anyway...
 
 	I found and suppressed the code in each and every form which hid the 
-	complexities of where you were/are with a generic "FruPak" title.
+	complexities of where you were/are with a generic "FP" title.
 
 	Any errors will now be instantly trackable to their origin, just by reading
 	the form title.
 
-	eg. Crash in FruPak ProcessFactory (Generic) becomes:
-	Crash in FruPak.Common.Maintenance (Specific).
+	eg. Crash in FP ProcessFactory (Generic) becomes:
+	Crash in FP.Common.Maintenance (Specific).
 
 	All guesswork removed. The CSV log will contain the same info all the way
 	down to where it lost the plot.
@@ -317,7 +317,7 @@ counters.
 
 OOPS:	Dev-Laptop	=	Admin	-	OK
 		Jim			=	Admin	-	OK
-		FruPak		=	User	-	Crash
+		FP		=	User	-	Crash
 
 *** [ REMOVED ALL RELATED CODE ] ***
 
@@ -451,7 +451,7 @@ Nearly borked it. Reverted to known good version. Thanks, SVN. Stupid bloody rib
 Revision 33
 
 UI logging and Machine-Generated logging fully installed into all forms in 
-FruPak.PF.Dispatch.
+PF.Dispatch.
 --------------------------------------------------------------------------------
 
 Revision: 34
@@ -517,7 +517,7 @@ consistent order. Specific forms can be altered by request if I haven't got it q
 
 As the application depends upon Outlook so intimately, I have added a startup check to see if it is already running.
 If it is, no further action will be taken; conversely, if it is not running, the application will start it up.
-There is a possible conflict here if the two applications (FruPak.PF and Outlook) are running in different authentication modes.
+There is a possible conflict here if the two applications (FP.PF and Outlook) are running in different authentication modes.
 Both should be set to run as Administrator.
 
 I have been unable to reproduce the fault reported by Sel where the highlight on overdue/current orders goes away after clicking
@@ -532,7 +532,7 @@ I have removed the error MessageBoxes which can appear when attempting to print 
 	in Outlook, and the application became confused and could no longer print anything whereas prior to this it was printing fine.
 	Sel resolved the problem by removing the duplicate entries from his personal address book.
 
-	-The printer templates are missing from the applications folder ie. FruPak\Client\Templates (Must check the exact location)
+	-The printer templates are missing from the applications folder ie. FP\Client\Templates (Must check the exact location)
 
 
 Any comment TextBoxes will be scanned for illegal characters which could confuse the SQL parser - currently this only checks and corrects 

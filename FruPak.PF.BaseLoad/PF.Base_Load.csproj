@@ -5,18 +5,18 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{10BF98A4-8DB0-4EF5-9575-D2F80F2CDD69}</ProjectGuid>
+    <ProjectGuid>{02C7EB5C-0CBF-4D66-B7C9-594695060C3F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FruPak.PF.StockControl</RootNamespace>
-    <AssemblyName>FruPak.PF.StockControl</AssemblyName>
+    <RootNamespace>PF.BaseLoad</RootNamespace>
+    <AssemblyName>PF.BaseLoad</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -39,6 +39,24 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="NLog">
       <HintPath>..\packages\NLog.3.1.0.0\lib\net40\NLog.dll</HintPath>
@@ -55,28 +73,25 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Stock_Control_Maintenance.cs">
+    <Compile Include="BLWO_Labels.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Stock_Control_Maintenance.designer.cs">
-      <DependentUpon>Stock_Control_Maintenance.cs</DependentUpon>
+    <Compile Include="BLWO_Labels.designer.cs">
+      <DependentUpon>BLWO_Labels.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Base_Load_Maintenance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Base_Load_Maintenance.designer.cs">
+      <DependentUpon>Base_Load_Maintenance.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Stock_Holding.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Stock_Holding.designer.cs">
-      <DependentUpon>Stock_Holding.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Stock_Used.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Stock_Used.designer.cs">
-      <DependentUpon>Stock_Used.cs</DependentUpon>
-    </Compile>
-    <EmbeddedResource Include="Stock_Control_Maintenance.resx">
-      <DependentUpon>Stock_Control_Maintenance.cs</DependentUpon>
+    <EmbeddedResource Include="BLWO_Labels.resx">
+      <DependentUpon>BLWO_Labels.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Base_Load_Maintenance.resx">
+      <DependentUpon>Base_Load_Maintenance.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -88,12 +103,6 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EmbeddedResource Include="Stock_Holding.resx">
-      <DependentUpon>Stock_Holding.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Stock_Used.resx">
-      <DependentUpon>Stock_Used.cs</DependentUpon>
-    </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -106,17 +115,29 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FruPak.PF.Common.Code\FruPak.PF.Common.Code.csproj">
+    <ProjectReference Include="..\FruPak.PF.Common.Code\PF.Common.Code.csproj">
       <Project>{7A894363-CA13-4FB8-9A82-ABB3F8FFAE50}</Project>
-      <Name>FruPak.PF.Common.Code</Name>
+      <Name>PF.Common.Code</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FruPak.PF.Data.AccessLayer\FruPak.PF.Data.Access_Layer.csproj">
+    <ProjectReference Include="..\FruPak.PF.CustomSettings\PF.CustomSettings.csproj">
+      <Project>{03ac6274-6499-478e-ae47-3680a8451cd3}</Project>
+      <Name>PF.CustomSettings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FruPak.PF.Data.AccessLayer\PF.Data.Access_Layer.csproj">
       <Project>{3414FDC5-0AA3-46FA-BDCB-37954C6CE2F5}</Project>
-      <Name>FruPak.PF.Data.Access_Layer</Name>
+      <Name>PF.Data.Access_Layer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FruPak.PF.Global\FruPak.PF.Global.csproj">
+    <ProjectReference Include="..\FruPak.PF.Global\PF.Global.csproj">
       <Project>{CC23E470-4C74-4F8E-9AC6-432DCD2DF065}</Project>
-      <Name>FruPak.PF.Global</Name>
+      <Name>PF.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FruPak.PF.PrintLayer\PF.PrintLayer.csproj">
+      <Project>{CD7844BC-7688-4047-B176-7D12816F889C}</Project>
+      <Name>PF.PrintLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FruPak.PF.Utils.UserControls\PF.Utils.UserControls.csproj">
+      <Project>{23D1F355-55B4-4116-A9D6-C9AE36819F78}</Project>
+      <Name>PF.Utils.UserControls</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

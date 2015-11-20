@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.Scanning
+﻿namespace PF.Utils.Scanning
 {
     partial class Create_Small_Rejects
     {
@@ -102,7 +102,7 @@
             this.KeyPreview = true;
             this.Name = "Create_Small_Rejects";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.Scanning.Create Small Rejects";
+            this.Text = "PF.Utils.Scanning.Create Small Rejects";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Create_Small_Rejects_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nud_required)).EndInit();
             this.ResumeLayout(false);

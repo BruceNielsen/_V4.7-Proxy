@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Accounts
+﻿namespace PF.Accounts
 {
     partial class Invoice_Search
     {
@@ -41,7 +41,7 @@
             this.ckb_Office = new System.Windows.Forms.CheckBox();
             this.btn_View = new System.Windows.Forms.Button();
             this.ckb_COA = new System.Windows.Forms.CheckBox();
-            this.customer1 = new FruPak.PF.Utils.UserControls.Customer();
+            this.customer1 = new PF.Utils.UserControls.Customer();
             this.panelInvoice_Search = new System.Windows.Forms.Panel();
             this.buttonOpenPdfFileLocation = new System.Windows.Forms.Button();
             this.buttonSendDebugInfo = new System.Windows.Forms.Button();
@@ -285,7 +285,7 @@
             this.KeyPreview = true;
             this.Name = "Invoice_Search";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Accounts.Invoice Search";
+            this.Text = "PF.Accounts.Invoice Search";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Invoice_Search_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

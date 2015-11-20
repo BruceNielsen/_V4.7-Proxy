@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.Security
+﻿namespace PF.Utils.Security
 {
     partial class Password_Reset
     {
@@ -150,7 +150,7 @@
             this.KeyPreview = true;
             this.Name = "Password_Reset";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.Security.Password Reset";
+            this.Text = "PF.Utils.Security.Password Reset";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Password_Reset_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();

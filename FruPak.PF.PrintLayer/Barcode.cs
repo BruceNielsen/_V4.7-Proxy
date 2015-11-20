@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace FruPak.PF.PrintLayer
+namespace PF.PrintLayer
 {
     public class Barcode
     {
@@ -64,7 +64,7 @@ namespace FruPak.PF.PrintLayer
 
             string str_path = "";
 
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_System.Get_Info_Like("PF%");
+            DataSet ds_Get_Info = PF.Data.AccessLayer.CM_System.Get_Info_Like("PF%");
             DataRow dr_Get_Info;
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {

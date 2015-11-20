@@ -1,8 +1,8 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using NLog;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -34,7 +34,7 @@ namespace FruPak.PF.Data.AccessLayer
         {
             logger.Log(LogLevel.Info, LogCodeStatic("Get_Max_ID"));
 
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(Install_Id) as Current_Id FROM SC_Install");
         }
 
@@ -44,7 +44,7 @@ namespace FruPak.PF.Data.AccessLayer
             {
                 logger.Log(LogLevel.Info, LogCodeStatic("Get_MAC: " + MAC));
 
-                FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+                PF.Data.AccessLayer.DConfig.CreateDConfig();
                 return SQLAccessLayer.Run_Query("SELECT * FROM SC_Install WHERE MAC ='" + MAC + "'");
             }
             else
@@ -53,7 +53,7 @@ namespace FruPak.PF.Data.AccessLayer
                 // Phantom 16/12/2014
                 // Mac address is empty, but let the program continue with a dummy address
                 // so the error logging can trace what exactly happened
-                FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+                PF.Data.AccessLayer.DConfig.CreateDConfig();
                 return SQLAccessLayer.Run_Query("SELECT * FROM SC_Install WHERE MAC ='" + "Null Mac Address" + "'");
             }
         }
@@ -62,7 +62,7 @@ namespace FruPak.PF.Data.AccessLayer
         {
             logger.Log(LogLevel.Info, LogCodeStatic("Insert: Install_Id: " + Install_Id.ToString() + ", " + MAC));
 
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO SC_Install(Install_Id, MAC, last_update_date) " +
                                                 "VALUES ( " + Install_Id + ",'" + MAC + "', GETDATE())");
         }
@@ -71,7 +71,7 @@ namespace FruPak.PF.Data.AccessLayer
         {
             logger.Log(LogLevel.Info, LogCodeStatic("Update: Install_Id: " + Install_Id.ToString() + ", " + MAC));
 
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE SC_Install SET MAC = '" + MAC + "', " +
                                                "last_update_date = GETDATE() " +
                                                " WHERE Install_Id = " + Install_Id);

@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Menu
+﻿namespace PF.Menu
 {
     partial class RobinJ
     {
@@ -67,7 +67,7 @@
             this.MinimizeBox = false;
             this.Name = "RobinJ";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Menu.RobinJ";
+            this.Text = "PF.Menu.RobinJ";
             this.Shown += new System.EventHandler(this.RobinJ_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.RobinJ_KeyDown);
             this.ResumeLayout(false);

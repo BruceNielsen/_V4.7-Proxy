@@ -1,8 +1,8 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -28,46 +28,46 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(Customer_Id) as Current_Id FROM PF_Customer");
         }
 
         public static DataSet Get_Info()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT *, CONVERT(varchar(10), Customer_Id) + ' - ' + Name as Combined FROM PF_Customer WHERE PF_Active_Ind = 1 ORDER BY Name");
         }
 
         public static DataSet Get_Info(int Customer_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             Console.WriteLine("SELECT * FROM PF_Customer WHERE Customer_Id = " + Customer_Id);
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Customer WHERE Customer_Id = " + Customer_Id);
         }
 
         public static DataSet Get_Info(string Outlook_Key)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             Console.WriteLine("SELECT * FROM PF_Customer WHERE Outlook_Key = '" + Outlook_Key + "'");
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Customer WHERE Outlook_Key = '" + Outlook_Key + "'");
         }
 
         public static int Insert(int Customer_Id, string Name, string Outlook_Key, bool PF_Active_Ind, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO PF_Customer(Customer_Id,  Name, Outlook_Key, PF_Active_Ind, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + Customer_Id + ",'" + Name + "','" + Outlook_Key + "','" + PF_Active_Ind + "', GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Delete(int Customer_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_Customer WHERE Customer_Id = " + Customer_Id);
         }
 
         public static int Update(int Customer_Id, string Name, string Outlook_Key, bool PF_Active_Ind, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_Customer SET Name = '" + Name + "', " +
                                                                   "Outlook_Key = '" + Outlook_Key + "', " +
                                                                   "PF_Active_Ind = '" + PF_Active_Ind + "', " +

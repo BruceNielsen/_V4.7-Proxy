@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.UserControls
+﻿namespace PF.Utils.UserControls
 {
     partial class Customer
     {

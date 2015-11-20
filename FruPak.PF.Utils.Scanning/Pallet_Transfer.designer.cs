@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.Scanning
+﻿namespace PF.Utils.Scanning
 {
     partial class Pallet_Transfer
     {
@@ -37,8 +37,8 @@
             this.label2 = new System.Windows.Forms.Label();
             this.txt_total = new System.Windows.Forms.TextBox();
             this.btn_Close = new System.Windows.Forms.Button();
-            this.barcode_To = new FruPak.PF.Utils.UserControls.Barcode();
-            this.barcode_frm = new FruPak.PF.Utils.UserControls.Barcode();
+            this.barcode_To = new PF.Utils.UserControls.Barcode();
+            this.barcode_frm = new PF.Utils.UserControls.Barcode();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -161,7 +161,7 @@
             this.KeyPreview = true;
             this.Name = "Pallet_Transfer";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.Scanning.Pallet Transfer";
+            this.Text = "PF.Utils.Scanning.Pallet Transfer";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Pallet_Transfer_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

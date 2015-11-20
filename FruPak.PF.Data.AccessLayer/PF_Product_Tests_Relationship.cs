@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,20 +27,20 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(ProdTest_Relat_Id) as Current_Id FROM PF_Product_Tests_Relationship");
         }
 
         public static int Insert(int ProdTest_Relat_Id, int Product_Id, int Test_Id, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO PF_Product_Tests_Relationship(ProdTest_Relat_Id, Product_Id, Test_Id, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + ProdTest_Relat_Id + "," + Product_Id + "," + Test_Id + ", GETDATE()," + Mod_User_Id + ")");
         }
 
         public static DataSet Get_Info(int Product_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT PTR.ProdTest_Relat_Id, PTR.Product_Id, P.Code as Product, PTR.Test_Id, T.Code as Test,PTR.Mod_Date, PTR.Mod_User_Id " +
                                             "FROM PF_Product_Tests_Relationship PTR " +
                                             "INNER JOIN PF_Product P ON P.Product_Id = PTR.Product_Id " +
@@ -50,7 +50,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_Info(int Product_Id, string TType)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT PTR.ProdTest_Relat_Id, PTR.Product_Id, P.Code as Product, PTR.Test_Id, T.Code as Test,PTR.Mod_Date, PTR.Mod_User_Id " +
                                             "FROM PF_Product_Tests_Relationship PTR " +
                                             "INNER JOIN PF_Product P ON P.Product_Id = PTR.Product_Id " +
@@ -60,25 +60,25 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_Info_By_Test(int Test_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Product_Tests_Relationship WHERE Test_Id = " + Test_Id);
         }
 
         public static int Delete(int ProdTest_Relat_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_Product_Tests_Relationship WHERE ProdTest_Relat_Id = " + ProdTest_Relat_Id);
         }
 
         public static int Delete_Test_From_Product(int Test_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_Product_Tests_Relationship WHERE Test_Id = " + Test_Id);
         }
 
         public static int Delete_Product_From_Test(int Product_Id, int Test_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_Product_Tests_Relationship WHERE Test_Id = " + Test_Id + " AND Product_Id = " + Product_Id);
         }
     }

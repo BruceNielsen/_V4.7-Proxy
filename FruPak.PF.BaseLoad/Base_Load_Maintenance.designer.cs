@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.BaseLoad
+﻿namespace PF.BaseLoad
 {
     partial class Base_Load_Maintenance
     {
@@ -172,7 +172,7 @@
             this.KeyPreview = true;
             this.Name = "Base_Load_Maintenance";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.BaseLoad.Maintenance";
+            this.Text = "PF.BaseLoad.Maintenance";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Base_Load_Maintenance_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

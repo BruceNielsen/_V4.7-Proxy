@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.BaseLoad
+﻿namespace PF.BaseLoad
 {
     partial class BLWO_Labels
     {
@@ -44,7 +44,7 @@
             this.btn_Close = new System.Windows.Forms.Button();
             this.btn_reset = new System.Windows.Forms.Button();
             this.btn_Add = new System.Windows.Forms.Button();
-            this.woDisplay1 = new FruPak.PF.Utils.UserControls.WODisplay();
+            this.woDisplay1 = new PF.Utils.UserControls.WODisplay();
             this.cmb_Pallet_Type = new System.Windows.Forms.ComboBox();
             this.lbl_Pallet_Type = new System.Windows.Forms.Label();
             this.lbl_Location = new System.Windows.Forms.Label();
@@ -359,7 +359,7 @@
             this.KeyPreview = true;
             this.Name = "BLWO_Labels";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.BaseLoad.Work Order Labels";
+            this.Text = "PF.BaseLoad.Work Order Labels";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.BLWO_Labels_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nud_Quantity1)).EndInit();
@@ -389,7 +389,7 @@
         private System.Windows.Forms.Button btn_Close;
         private System.Windows.Forms.Button btn_reset;
         private System.Windows.Forms.Button btn_Add;
-        private FruPak.PF.Utils.UserControls.WODisplay woDisplay1;
+        private PF.Utils.UserControls.WODisplay woDisplay1;
         private System.Windows.Forms.ComboBox cmb_Pallet_Type;
         private System.Windows.Forms.Label lbl_Pallet_Type;
         private System.Windows.Forms.Label lbl_Location;

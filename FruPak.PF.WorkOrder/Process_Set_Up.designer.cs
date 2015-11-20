@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.WorkOrder
+﻿namespace PF.WorkOrder
 {
     partial class Process_Set_Up
     {
@@ -273,7 +273,7 @@
             this.KeyPreview = true;
             this.Name = "Process_Set_Up";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.WorkOrder.Process Set Up";
+            this.Text = "PF.WorkOrder.Process Set Up";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Process_Set_Up_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

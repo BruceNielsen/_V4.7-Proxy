@@ -3,7 +3,7 @@ using System.Data;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Server
+namespace PF.Utils.Server
 {
     public partial class Print_Server : Form
     {
@@ -14,15 +14,15 @@ namespace FruPak.PF.Utils.Server
             InitializeComponent();
 
             //set the environment as this is a background process and is not set anywhere else
-            FruPak.PF.Global.Global.bol_Testing = false;
+            PF.Global.Global.bool_Testing = false;
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak(Server) - Test Environment";
+            //    this.Text = "FP(Server) - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak(Server)";
+            //    this.Text = "FP(Server)";
             //}
 
             Print_Timer = new Timer();
@@ -41,7 +41,7 @@ namespace FruPak.PF.Utils.Server
         {
             DataSet ds = null;
             DataRow dr;
-            ds = FruPak.PF.Data.AccessLayer.SY_PrintRequest.Get_Info();
+            ds = PF.Data.AccessLayer.SY_PrintRequest.Get_Info();
 
             dataGridView1.DataSource = null;
             dataGridView1.DataSource = ds.Tables[0];
@@ -53,7 +53,7 @@ namespace FruPak.PF.Utils.Server
                 string current_printer = System.Printing.LocalPrintServer.GetDefaultPrintQueue().FullName.ToString();
                 try
                 {
-                    FruPak.PF.PrintLayer.Word.Printer = dr["Printer_Name"].ToString();
+                    PF.PrintLayer.Word.Printer = dr["Printer_Name"].ToString();
                     myPrinters.SetDefaultPrinter(dr["Printer_Name"].ToString());
                 }
                 catch
@@ -63,15 +63,15 @@ namespace FruPak.PF.Utils.Server
                 switch (dr["Template_Name"].ToString())
                 {
                     case "PF-Palletcard":
-                        Return_code = FruPak.PF.PrintLayer.Pallet_Card.Print(dr["Data"].ToString(), Convert.ToInt32(dr["Mod_User_Id"].ToString()));
+                        Return_code = PF.PrintLayer.Pallet_Card.Print(dr["Data"].ToString(), Convert.ToInt32(dr["Mod_User_Id"].ToString()));
                         break;
 
                     case "PF-BinCard":
-                        Return_code = FruPak.PF.PrintLayer.Bin_Card.Print(dr["Data"].ToString(), true);
+                        Return_code = PF.PrintLayer.Bin_Card.Print(dr["Data"].ToString(), true);
                         break;
 
                     case "PF-WPC":
-                        Return_code = FruPak.PF.PrintLayer.WPC_Card.Print(dr["Data"].ToString(), Convert.ToInt32(dr["Mod_User_Id"].ToString()));
+                        Return_code = PF.PrintLayer.WPC_Card.Print(dr["Data"].ToString(), Convert.ToInt32(dr["Mod_User_Id"].ToString()));
                         break;
                 }
 
@@ -79,7 +79,7 @@ namespace FruPak.PF.Utils.Server
 
                 if (Return_code == 0)
                 {
-                    FruPak.PF.Data.AccessLayer.SY_PrintRequest.Update(Convert.ToInt32(dr["PrintRequest_Id"].ToString()), true, 0);
+                    PF.Data.AccessLayer.SY_PrintRequest.Update(Convert.ToInt32(dr["PrintRequest_Id"].ToString()), true, 0);
                 }
             }
             ds.Dispose();
@@ -89,26 +89,26 @@ namespace FruPak.PF.Utils.Server
         {
             if (rdb_prod.Checked == true)
             {
-                FruPak.PF.Global.Global.bol_Testing = false;
+                PF.Global.Global.bool_Testing = false;
             }
             else if (rdb_Test.Checked == true)
             {
-                FruPak.PF.Global.Global.bol_Testing = true;
+                PF.Global.Global.bool_Testing = true;
             }
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak(Server) - Test Environment";
+            //    this.Text = "FP(Server) - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak(Server)";
+            //    this.Text = "FP(Server)";
             //}
         }
 
         private void btn_clear_Click(object sender, EventArgs e)
         {
-            FruPak.PF.Data.AccessLayer.SY_PrintRequest.Delete_All();
+            PF.Data.AccessLayer.SY_PrintRequest.Delete_All();
         }
 
         /// <summary>

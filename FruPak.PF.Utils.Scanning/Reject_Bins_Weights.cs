@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Scanning
+namespace PF.Utils.Scanning
 {
     public partial class Reject_Bins_Weights : Form
     {
@@ -15,13 +15,13 @@ namespace FruPak.PF.Utils.Scanning
         {
             InitializeComponent();
             int_Current_User_Id = int_C_User_id;
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
 
             #region Log any interesting events from the UI to the CSV log file
@@ -56,9 +56,9 @@ namespace FruPak.PF.Utils.Scanning
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -100,7 +100,7 @@ namespace FruPak.PF.Utils.Scanning
         {
             int return_code = 0;
             //get the bin_id from the Barcode
-            DataSet ds = FruPak.PF.Data.AccessLayer.CM_Bins.Get_Info_For_Barcode(barcode1.BarcodeValue.ToString());
+            DataSet ds = PF.Data.AccessLayer.CM_Bins.Get_Info_For_Barcode(barcode1.BarcodeValue.ToString());
             DataRow dr;
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
@@ -114,7 +114,7 @@ namespace FruPak.PF.Utils.Scanning
         private int Get_Material_Id(string str_PG_Code, int int_Fruit_Type_Id, int int_Fruit_Variety_Id)
         {
             int return_code = 0;
-            DataSet ds = FruPak.PF.Data.AccessLayer.CM_Material.Get_Material_for_Prod_Grp(str_PG_Code, int_Fruit_Type_Id, int_Fruit_Variety_Id);
+            DataSet ds = PF.Data.AccessLayer.CM_Material.Get_Material_for_Prod_Grp(str_PG_Code, int_Fruit_Type_Id, int_Fruit_Variety_Id);
             DataRow dr;
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
@@ -128,17 +128,17 @@ namespace FruPak.PF.Utils.Scanning
 
         private int Update_Tare(int int_Bin_Id, decimal dec_Tare)
         {
-            return FruPak.PF.Data.AccessLayer.CM_Bins.Update_Tare_Weight(int_Bin_Id, dec_Tare, int_Current_User_Id);
+            return PF.Data.AccessLayer.CM_Bins.Update_Tare_Weight(int_Bin_Id, dec_Tare, int_Current_User_Id);
         }
 
         private int Update_Gross(int int_Bin_Id, decimal dec_Gross)
         {
-            return FruPak.PF.Data.AccessLayer.CM_Bins.Update_Weight_Gross(int_Bin_Id, dec_Gross, int_Current_User_Id);
+            return PF.Data.AccessLayer.CM_Bins.Update_Weight_Gross(int_Bin_Id, dec_Gross, int_Current_User_Id);
         }
 
         private int Update_Material(int int_Bin_Id, int int_Material_Id)
         {
-            return FruPak.PF.Data.AccessLayer.CM_Bins.Update_Material_Id(int_Bin_Id, int_Material_Id, int_Current_User_Id);
+            return PF.Data.AccessLayer.CM_Bins.Update_Material_Id(int_Bin_Id, int_Material_Id, int_Current_User_Id);
         }
 
         private void btn_Close_Click(object sender, EventArgs e)
@@ -152,7 +152,7 @@ namespace FruPak.PF.Utils.Scanning
             int int_Bin_Id = Get_Bin_Id();
             int_result = int_result + Update_Tare(int_Bin_Id, Convert.ToDecimal("65.00"));
             int_result = int_result + Update_Gross(int_Bin_Id, nud_Gross.Value);
-            DataSet ds = FruPak.PF.Data.AccessLayer.CM_Bins.Get_fruit_from_bin(int_Bin_Id);
+            DataSet ds = PF.Data.AccessLayer.CM_Bins.Get_fruit_from_bin(int_Bin_Id);
             DataRow dr;
             int int_Fruit_Type_Id = 0;
             int int_Fruit_Variety_Id = 0;
@@ -286,7 +286,7 @@ namespace FruPak.PF.Utils.Scanning
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

@@ -14,7 +14,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Xml;
 
-namespace FruPak.PF.CustomSettings
+namespace PF.CustomSettings
 {
     public abstract class SettingsBase
     {

@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,50 +27,50 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(Report_Id) as Current_Id FROM PF_Reports");
         }
 
         public static DataSet Get_Info()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Reports WHERE PF_Active_Ind = 1 ORDER BY Description");
         }
 
         public static DataSet Get_Info(int Report_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Reports WHERE PF_Active_Ind = 1 AND  Report_Id = " + Report_Id);
         }
 
         public static DataSet Get_Info(string Code)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Reports WHERE PF_Active_Ind = 1 AND Code = '" + Code + "'");
         }
 
         public static DataSet Get_Info_by_like_Code(string Code)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Reports WHERE PF_Active_Ind = 1 AND Code like" + Code + "'");
         }
 
         public static int Insert(int Report_Id, string Code, string Description, string Value, bool PF_Active_Ind, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO PF_Reports(Report_Id,  Code, Description, Value, PF_Active_Ind, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + Report_Id + ",'" + Code + "','" + Description + "','" + Value + "','" + PF_Active_Ind + "', GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Delete(int Report_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_Reports WHERE Report_Id = " + Report_Id);
         }
 
         public static int Update(int Report_Id, string Code, string Description, string Value, bool PF_Active_Ind, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_Reports SET Code = '" + Code + "', " +
                                                                   "Description = '" + Description + "', " +
                                                                   "Value = '" + Value + "', " +

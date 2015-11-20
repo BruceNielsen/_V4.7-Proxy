@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,19 +27,19 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(FruitPurchase_Id) as Current_Id FROM PF_A_Fruit_Purchase");
         }
 
         public static DataSet Get_Info()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_A_Fruit_Purchase ");
         }
 
         public static DataSet Get_Info_Translated()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT FP.*, C.Name " +
                                             "FROM dbo.PF_A_Fruit_Purchase FP " +
                                             "INNER JOIN dbo.PF_Customer C ON C.Customer_Id = FP.Customer_Id " +
@@ -48,20 +48,20 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int insert(int FruitPurchase_Id, int Customer_Id, decimal Cost, string Comments, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO PF_A_Fruit_Purchase(FruitPurchase_Id, Customer_Id, Cost, Comments, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + FruitPurchase_Id + "," + Customer_Id + "," + Cost + ",'" + Comments + "', GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Delete(int FruitPurchase_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_A_Fruit_Purchase WHERE FruitPurchase_Id = " + FruitPurchase_Id);
         }
 
         public static DataSet Get_Purchase_Info(int FruitPurchase_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT FP.FruitPurchase_Id, FP.Cost, FP.Comments,FT.Description AS FT_Description, FV.Description AS FV_Description, " +
                                                     "COUNT(*) as Bin_Count, SUM(B.Weight_Gross) as Gross_Weight, SUM(B.Weight_Tare)as Tare_Weight " +
                                             "FROM   dbo.PF_A_Fruit_Purchase FP " +
@@ -76,7 +76,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Update(int FruitPurchase_Id, int Customer_Id, decimal Cost, string Comments, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_A_Fruit_Purchase SET Customer_Id = " + Customer_Id + ", " +
                                                                   "Cost = " + Cost + ", " +
                                                                   "Comments = '" + Comments + "', " +
@@ -87,7 +87,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Update(int FruitPurchase_Id, string Date_to_Office, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_A_Fruit_Purchase SET Date_to_Office = '" + Date_to_Office + "', " +
                                                                   "Mod_date = GETDATE(), " +
                                                                   "Mod_User_Id = " + Mod_User_Id +

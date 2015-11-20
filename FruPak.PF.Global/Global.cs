@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FruPak.PF.Global
+namespace PF.Global
 {
     // I want this as a global function
     // string surname = this.surnameTb.Text.Replace("'", "''");
@@ -15,20 +15,20 @@ namespace FruPak.PF.Global
             set { _Phantom_Dev_Mode = value; }
         }
 
-        private static bool _bol_Testing = true;
+        private static bool _bool_Testing = true;
 
-        public static bool bol_Testing
+        public static bool bool_Testing
         {
-            get { return _bol_Testing; }
-            set { _bol_Testing = value; }
+            get { return _bool_Testing; }
+            set { _bool_Testing = value; }
         }
 
-        private static bool _bol_Timer_Msg = true;
+        private static bool _bool_Timer_Msg = true;
 
-        public static bool bol_Timer_Msg
+        public static bool bool_Timer_Msg
         {
-            get { return _bol_Timer_Msg; }
-            set { _bol_Timer_Msg = value; }
+            get { return _bool_Timer_Msg; }
+            set { _bool_Timer_Msg = value; }
         }
 
         /// <summary>

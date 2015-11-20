@@ -3,7 +3,7 @@ using System.Collections;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.UserControls
+namespace PF.Utils.UserControls
 {
     public partial class Grower : UserControl
     {
@@ -28,16 +28,16 @@ namespace FruPak.PF.Utils.UserControls
             // which leads to completely unexpected results when testing what's needed to clean out the database
             // I don't know what further ramifications this will have later on.
             // ----------------------------------------------
-            //FruPak.PF.Global.Global.bol_Testing = bol_test;
+            //PF.Global.Global.bol_Testing = bol_test;
             // ----------------------------------------------
 
             if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
             {
-                Console.WriteLine("FruPak.PF.Utils.UserControls.Grower - UsageMode = Designtime - Skipping populate()");
+                Console.WriteLine("PF.Utils.UserControls.Grower - UsageMode = Designtime - Skipping populate()");
             }
             else
             {
-                Console.WriteLine("FruPak.PF.Utils.UserControls.Grower - UsageMode = Runtime - Running populate()");
+                Console.WriteLine("PF.Utils.UserControls.Grower - UsageMode = Runtime - Running populate()");
                 populate_Orchardist();
             }
         }
@@ -48,7 +48,7 @@ namespace FruPak.PF.Utils.UserControls
             DataRow dr_get_info;
 
             // populate orchardist combobox, default value is the first.
-            ds_get_info = FruPak.PF.Data.AccessLayer.CM_Orchardist.Get_Info();
+            ds_get_info = PF.Data.AccessLayer.CM_Orchardist.Get_Info();
 
             ArrayList Orchardists = new ArrayList();
             cmb_Orchardist.DataSource = null;
@@ -77,11 +77,11 @@ namespace FruPak.PF.Utils.UserControls
 
             if (Orchardist_Id == 0)
             {
-                ds_get_info = FruPak.PF.Data.AccessLayer.CM_Grower.Get_Info();
+                ds_get_info = PF.Data.AccessLayer.CM_Grower.Get_Info();
             }
             else
             {
-                ds_get_info = FruPak.PF.Data.AccessLayer.CM_Grower.Get_Info(Convert.ToInt32(Orchardist_Id));
+                ds_get_info = PF.Data.AccessLayer.CM_Grower.Get_Info(Convert.ToInt32(Orchardist_Id));
             }
 
             // Populate the list box using an array as DataSource.
@@ -146,7 +146,7 @@ namespace FruPak.PF.Utils.UserControls
                     // Avoid designer crash
                     if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
                     {
-                        Console.WriteLine("FruPak.PF.WorkOrder - UsageMode = Designtime");
+                        Console.WriteLine("PF.WorkOrder - UsageMode = Designtime");
                         cmb_Grower.SelectedIndex = 0;
                     }
                 }

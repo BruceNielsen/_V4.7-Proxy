@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.WorkOrder
+﻿namespace PF.WorkOrder
 {
     partial class Cleaning
     {
@@ -110,7 +110,7 @@
             this.KeyPreview = true;
             this.Name = "Cleaning";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.WorkOrder.Cleaning";
+            this.Text = "PF.WorkOrder.Cleaning";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Cleaning_KeyDown);
             this.tbc_Cleaning.ResumeLayout(false);
             this.tbp_Base.ResumeLayout(false);

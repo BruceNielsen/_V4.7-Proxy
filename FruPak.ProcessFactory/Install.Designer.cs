@@ -1,4 +1,4 @@
-﻿namespace FruPak.ProcessFactory
+﻿namespace FP.ProcessFactory
 {
     partial class Install
     {
@@ -65,7 +65,7 @@
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Install";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.ProcessFactory.Install";
+            this.Text = "FP.ProcessFactory.Install";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Install_FormClosing);
             this.Load += new System.EventHandler(this.Install_Load);
             this.ResumeLayout(false);

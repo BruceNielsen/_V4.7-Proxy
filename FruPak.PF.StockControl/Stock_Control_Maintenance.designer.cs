@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.StockControl
+﻿namespace PF.StockControl
 {
     partial class Stock_Control_Maintenance
     {
@@ -260,7 +260,7 @@
             this.KeyPreview = true;
             this.Name = "Stock_Control_Maintenance";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.StockControl.Stock Control Maintenance";
+            this.Text = "PF.StockControl.Stock Control Maintenance";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Stock_Control_Maintenance_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

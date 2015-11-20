@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Scanning
+namespace PF.Utils.Scanning
 {
     public partial class Bin_Tipping : Form
     {
@@ -22,13 +22,13 @@ namespace FruPak.PF.Utils.Scanning
             InitializeComponent();
             int_Current_User_Id = int_C_User_id;
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
             //restrict access
             bol_write_access = bol_w_a;
@@ -69,9 +69,9 @@ namespace FruPak.PF.Utils.Scanning
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -81,7 +81,7 @@ namespace FruPak.PF.Utils.Scanning
 
         private void populate_ComboBox()
         {
-            DataSet ds = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Current();
+            DataSet ds = PF.Data.AccessLayer.PF_Work_Order.Get_Current();
             DataRow dr;
 
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
@@ -99,7 +99,7 @@ namespace FruPak.PF.Utils.Scanning
         private void btn_Weight_Click(object sender, EventArgs e)
         {
             int int_result = -1;
-            int_result = FruPak.PF.Data.AccessLayer.CM_Bins.Update_Weight_Gross(int_Bin_Id, nud_weight.Value, int_Current_User_Id);
+            int_result = PF.Data.AccessLayer.CM_Bins.Update_Weight_Gross(int_Bin_Id, nud_weight.Value, int_Current_User_Id);
             if (int_result >= 0)
             {
                 lbl_message.Text = "Weight has been Loaded";
@@ -125,7 +125,7 @@ namespace FruPak.PF.Utils.Scanning
             }
             else
             {
-                DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Bins.Get_Info_For_Barcode(barcode1.BarcodeValue.ToString());
+                DataSet ds_Get_Info = PF.Data.AccessLayer.CM_Bins.Get_Info_For_Barcode(barcode1.BarcodeValue.ToString());
                 if (ds_Get_Info.Tables[0].Rows.Count > 0)
                 {
                     DataRow dr_Get_Info;
@@ -246,9 +246,9 @@ namespace FruPak.PF.Utils.Scanning
                 if (validate_barcode() == true)
                 {
                     int int_result = 0;
-                    int_result = FruPak.PF.Data.AccessLayer.CM_Bins.Update_Weight_Gross(int_Bin_Id, nud_weight.Value, int_Current_User_Id);
-                    int_result = int_result + FruPak.PF.Data.AccessLayer.CM_Bins.Update_Tipped_Date(int_Bin_Id, int_Work_Order_Id, int_Current_User_Id);
-                    int_result = int_result + FruPak.PF.Data.AccessLayer.CM_Bins.Update_Dump_Ind(int_Bin_Id, str_dump_ind, int_Current_User_Id);
+                    int_result = PF.Data.AccessLayer.CM_Bins.Update_Weight_Gross(int_Bin_Id, nud_weight.Value, int_Current_User_Id);
+                    int_result = int_result + PF.Data.AccessLayer.CM_Bins.Update_Tipped_Date(int_Bin_Id, int_Work_Order_Id, int_Current_User_Id);
+                    int_result = int_result + PF.Data.AccessLayer.CM_Bins.Update_Dump_Ind(int_Bin_Id, str_dump_ind, int_Current_User_Id);
 
                     if (int_result >= 0)
                     {
@@ -315,7 +315,7 @@ namespace FruPak.PF.Utils.Scanning
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Temp
+﻿namespace PF.Temp
 {
     partial class Submission_Bins
     {
@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Submission_Bins));
-            this.materialNumber1 = new FruPak.PF.Utils.UserControls.MaterialNumber();
-            this.fruit1 = new FruPak.PF.Utils.UserControls.Fruit();
+            this.materialNumber1 = new PF.Utils.UserControls.MaterialNumber();
+            this.fruit1 = new PF.Utils.UserControls.Fruit();
             this.cmb_ESP = new System.Windows.Forms.ComboBox();
             this.label6 = new System.Windows.Forms.Label();
             this.cmb_Storage = new System.Windows.Forms.ComboBox();
@@ -243,7 +243,7 @@
             this.KeyPreview = true;
             this.Name = "Submission_Bins";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Temp.Submission Bins";
+            this.Text = "PF.Temp.Submission Bins";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Submission_Bins_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nud_total_bins)).EndInit();
             this.ResumeLayout(false);

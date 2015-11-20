@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,62 +27,62 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(Prod_Other_Id) as Current_Id FROM PF_Product_Other");
         }
 
         public static DataSet Get_Info()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Product_Other WHERE PF_Active_Ind = 1 ORDER BY Code");
         }
 
         public static DataSet Get_Info(int Prod_Other_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Product_Other WHERE PF_Active_Ind = 1 AND  Prod_Other_Id = " + Prod_Other_Id);
         }
 
         public static DataSet Get_Info(string Code)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Product_Other WHERE PF_Active_Ind = 1 AND Code = '" + Code + "'");
         }
 
         public static DataSet Get_Info(int Product_Id, string Code)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Product_Other WHERE PF_Active_Ind = 1 AND  Product_Id = " + Product_Id + " AND Code = '" + Code + "'");
         }
 
         public static DataSet Get_Info_by_Prod(int Product_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Product_Other WHERE PF_Active_Ind = 1 AND  Product_Id = " + Product_Id);
         }
 
         public static DataSet Get_Info_by_like_Code(string Code)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Product_Other WHERE PF_Active_Ind = 1 AND Code like" + Code + "'");
         }
 
         public static int Insert(int Prod_Other_Id, int Product_Id, string Code, string Description, string Value, bool PF_Active_Ind, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO PF_Product_Other(Prod_Other_Id, Product_Id, Code, Description, Value, PF_Active_Ind, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + Prod_Other_Id + "," + Product_Id + ",'" + Code + "','" + Description + "','" + Value + "','" + PF_Active_Ind + "', GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Delete(int Prod_Other_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_Product_Other WHERE Prod_Other_Id = " + Prod_Other_Id);
         }
 
         public static int Update(int Prod_Other_Id, int Product_Id, string Code, string Description, string Value, bool PF_Active_Ind, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_Product_Other SET Product_Id = " + Product_Id + ", " +
                                                                   "Code = '" + Code + "', " +
                                                                   "Description = '" + Description + "', " +

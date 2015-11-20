@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,13 +27,13 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(DefectResult_Id) as Current_Id FROM PF_Defect_Results");
         }
 
         public static DataSet Get_Info_Translated(int Work_Order_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT DR.*, WO.Process_Date, G.Rpin, D.Code, D.Description " +
                                             "FROM dbo.PF_Defect_Results DR " +
                                             "INNER JOIN dbo.PF_Work_Order WO ON WO.Work_Order_Id = DR.Work_Order_Id " +
@@ -44,14 +44,14 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Insert(int DefectResult_Id, int Work_Order_Id, int Defect_Id, decimal num_found, string Comments, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO PF_Defect_Results(DefectResult_Id, Work_Order_Id, Defect_Id, num_found, Comments, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + DefectResult_Id + "," + Work_Order_Id + "," + Defect_Id + "," + num_found + ",'" + Comments + "', GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Update(int DefectResult_Id, int Work_Order_Id, int Defect_Id, decimal num_found, string Comments, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_Defect_Results SET Work_Order_Id = " + Work_Order_Id + ", " +
                                                                   "Defect_Id = " + Defect_Id + ", " +
                                                                   "num_found = " + num_found + ", " +
@@ -63,7 +63,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Delete(int DefectResult_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_Defect_Results WHERE DefectResult_Id = " + DefectResult_Id);
         }
     }

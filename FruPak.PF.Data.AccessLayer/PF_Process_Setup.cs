@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,19 +27,19 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(Processsetup_Id) as Current_Id FROM PF_Process_Setup");
         }
 
         public static DataSet Get_Info()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Process_Setup WHERE PF_Active_Ind = 1 ");
         }
 
         public static DataSet Get_Info_Translated()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT PS.*, S.First_Name + ' ' + S.Last_Name as Name " +
                                             "FROM dbo.PF_Process_Setup PS " +
                                             "INNER JOIN dbo.PF_Staff S ON S.Staff_Id = PS.Staff_Id " +
@@ -48,20 +48,20 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Insert(int Processsetup_Id, int Staff_Id, string Start_Date, string Start_Time, string Finish_Date, string Finish_Time, string Comments, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO PF_Process_Setup(Processsetup_Id, Staff_Id, Start_Date, Start_Time, Finish_Date, Finish_Time, Comments, PF_Active_Ind, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + Processsetup_Id + "," + Staff_Id + ",'" + Start_Date + "','" + Start_Time + "','" + Finish_Date + "','" + Finish_Time + "','" + Comments + "','true', GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Delete(int Processsetup_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_Process_Setup WHERE Processsetup_Id = " + Processsetup_Id);
         }
 
         public static int Update(int Processsetup_Id, int Staff_Id, string Start_Date, string Start_Time, string Finish_Date, string Finish_Time, string Comments, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_Process_Setup SET Staff_Id = " + Staff_Id + ", " +
                                                                   "Start_Date = '" + Start_Date + "', " +
                                                                   "Start_Time = '" + Start_Time + "', " +
@@ -75,7 +75,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Update_Active(bool PF_Active_Ind, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_Process_Setup SET PF_Active_Ind = '" + PF_Active_Ind + "', " +
                                                                   "Mod_date = GETDATE(), " +
                                                                   "Mod_User_Id = " + Mod_User_Id);

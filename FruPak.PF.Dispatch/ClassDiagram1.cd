@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Comment CommentText="FruPak.PF.Dispatch">
+  <Comment CommentText="PF.Dispatch">
     <Position X="2.135" Y="7.24" Height="0.75" Width="1.7" />
   </Comment>
-  <Class Name="FruPak.PF.Dispatch.Other_Work">
+  <Class Name="PF.Dispatch.Other_Work">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -13,7 +13,7 @@
       <FileName>Other_Work.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Dispatch.Pallet_Details">
+  <Class Name="PF.Dispatch.Pallet_Details">
     <Position X="2.25" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -23,14 +23,14 @@
       <FileName>Pallet_Details.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Dispatch.Program" Collapsed="true">
+  <Class Name="PF.Dispatch.Program" Collapsed="true">
     <Position X="9.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAIAAAAAABAAAAAQ=</HashCode>
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Dispatch.Shipping_Order">
+  <Class Name="PF.Dispatch.Shipping_Order">
     <Position X="4" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -40,7 +40,7 @@
       <FileName>Shipping_Order.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Dispatch.Shipping_Search">
+  <Class Name="PF.Dispatch.Shipping_Search">
     <Position X="5.75" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -50,7 +50,7 @@
       <FileName>Shipping_Search.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Dispatch.Shipping_Staff">
+  <Class Name="PF.Dispatch.Shipping_Staff">
     <Position X="7.5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -60,13 +60,13 @@
       <FileName>Shipping_Staff.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Dispatch.Properties.Resources" Collapsed="true">
+  <Class Name="PF.Dispatch.Properties.Resources" Collapsed="true">
     <Position X="9.25" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Dispatch.Properties.Settings" Collapsed="true">
+  <Class Name="PF.Dispatch.Properties.Settings" Collapsed="true">
     <Position X="9.25" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>

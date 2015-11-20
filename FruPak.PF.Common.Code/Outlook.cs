@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Common.Code
+namespace PF.Common.Code
 {
     public class Outlook
     {
@@ -27,7 +27,7 @@ namespace FruPak.PF.Common.Code
             // Returns Process Factory - Contacts   (BN)
             string return_code = "";
             //setup Outlook location
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_System.Get_Info_Like(str_code);
+            DataSet ds_Get_Info = PF.Data.AccessLayer.CM_System.Get_Info_Like(str_code);
             DataRow dr_Get_Info;
 
             // Table Column names are:
@@ -91,29 +91,29 @@ namespace FruPak.PF.Common.Code
         public static string Check_Outlook(int Customer_Id, string str_msg, string str_type)
         {
             //set up outlook locations
-            FruPak.PF.Data.Outlook.Outlook.Folder_Name = FruPak.PF.Common.Code.Outlook.SetUp_Location("PF-Contact");
-            FruPak.PF.Data.Outlook.Outlook.Folder_Name_Location = FruPak.PF.Data.Outlook.Outlook.Folder_Name_Location;
+            PF.Data.Outlook.Outlook.Folder_Name = PF.Common.Code.Outlook.SetUp_Location("PF-Contact");
+            PF.Data.Outlook.Outlook.Folder_Name_Location = PF.Data.Outlook.Outlook.Folder_Name_Location;
 
-            DataSet ds = FruPak.PF.Data.AccessLayer.PF_Customer.Get_Info(Customer_Id);
+            DataSet ds = PF.Data.AccessLayer.PF_Customer.Get_Info(Customer_Id);
             DataRow dr;
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
                 dr = ds.Tables[0].Rows[i];
-                FruPak.PF.Data.Outlook.Contacts.Contact_Details(dr["Outlook_Key"].ToString());
+                PF.Data.Outlook.Contacts.Contact_Details(dr["Outlook_Key"].ToString());
             }
             ds.Dispose();
 
             switch (str_type)
             {
                 case "Print":
-                    str_msg = str_msg + FruPak.PF.Common.Code.General.Check_Address();
+                    str_msg = str_msg + PF.Common.Code.General.Check_Address();
                     break;
 
                 case "Email":
-                    str_msg = str_msg + FruPak.PF.Common.Code.General.Check_Email();
+                    str_msg = str_msg + PF.Common.Code.General.Check_Email();
                     break;
             }
-            str_msg = str_msg + FruPak.PF.Common.Code.General.Check_Name();
+            str_msg = str_msg + PF.Common.Code.General.Check_Name();
             return str_msg;
         }
 
@@ -126,7 +126,7 @@ namespace FruPak.PF.Common.Code
             int int_return = 0;
             System.Windows.Forms.DialogResult DLR_Message = new System.Windows.Forms.DialogResult();
 
-            str_msg = str_msg + FruPak.PF.Common.Code.General.Check_Email();
+            str_msg = str_msg + PF.Common.Code.General.Check_Email();
 
             if (str_msg.Length > 0)
             {
@@ -135,7 +135,7 @@ namespace FruPak.PF.Common.Code
 
             bol_copy_to_office = copy_to_office;
 
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_System_Email.Get_Info_Like("PF%");
+            DataSet ds_Get_Info = PF.Data.AccessLayer.CM_System_Email.Get_Info_Like("PF%");
             DataRow dr_Get_Info;
 
             for (int i = 0; i < ds_Get_Info.Tables[0].Rows.Count; i++)
@@ -143,72 +143,84 @@ namespace FruPak.PF.Common.Code
                 dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
                 switch (dr_Get_Info["Code"].ToString())
                 {
+                    // BN - 19/11/2015
+                    // I think I need a new code option here to send a targeted message to the customer
+                    // The one to SueL works, but it's leaking into the customer's email.
                     case "PF-Addr":
-                        FruPak.PF.Common.Code.Send_Email.Email_From_Address = dr_Get_Info["Value"].ToString();
+                        PF.Common.Code.Send_Email.Email_From_Address = dr_Get_Info["Value"].ToString();
                         break;
 
                     case "PF-UserID":
-                        FruPak.PF.Common.Code.Send_Email.Network_UserId = dr_Get_Info["Value"].ToString();
+                        PF.Common.Code.Send_Email.Network_UserId = dr_Get_Info["Value"].ToString();
                         break;
 
                     case "PF-InvSub":
-                        if (FruPak.PF.Common.Code.Send_Email.Email_Subject == "")
+                        if (PF.Common.Code.Send_Email.Email_Subject == "")
                         {
-                            FruPak.PF.Common.Code.Send_Email.Email_Subject = dr_Get_Info["Value"].ToString();
+                            PF.Common.Code.Send_Email.Email_Subject = dr_Get_Info["Value"].ToString();
                         }
                         break;
 
                     case "PF-InvMsg":
-                        if (FruPak.PF.Common.Code.Send_Email.Email_Message == "")
+                        if (PF.Common.Code.Send_Email.Email_Message == "")
                         {
-                            FruPak.PF.Common.Code.Send_Email.Email_Message = dr_Get_Info["Value"].ToString();
+                            PF.Common.Code.Send_Email.Email_Message = dr_Get_Info["Value"].ToString();
                         }
                         else
                         {
-                            FruPak.PF.Common.Code.Send_Email.Email_Message = FruPak.PF.Common.Code.Send_Email.Email_Message + Environment.NewLine + FruPak.PF.Common.Code.Send_Email.Network_UserId;
+                            PF.Common.Code.Send_Email.Email_Message = PF.Common.Code.Send_Email.Email_Message + 
+                                Environment.NewLine + PF.Common.Code.Send_Email.Network_UserId;
                         }
                         break;
                 }
             }
             ds_Get_Info.Dispose();
 
-            Form frm = new FruPak.PF.Common.Code.Send_Email();
+            Form frm = new PF.Common.Code.Send_Email();
             DLR_Message = frm.ShowDialog();
 
             if (DLR_Message == System.Windows.Forms.DialogResult.OK)
             {
-                FruPak.PF.Common.Code.SendEmail.From_Email_Address = FruPak.PF.Common.Code.Send_Email.Email_From_Address;
-                FruPak.PF.Common.Code.SendEmail.Network_UserId = FruPak.PF.Common.Code.Send_Email.Network_UserId;
-                FruPak.PF.Common.Code.SendEmail.Network_Password = FruPak.PF.Common.Code.Send_Email.Network_Password;
+                PF.Common.Code.SendEmail.From_Email_Address = PF.Common.Code.Send_Email.Email_From_Address;
+                PF.Common.Code.SendEmail.Network_UserId = PF.Common.Code.Send_Email.Network_UserId;
+                PF.Common.Code.SendEmail.Network_Password = PF.Common.Code.Send_Email.Network_Password;
 
-                FruPak.PF.Common.Code.SendEmail.Subject = FruPak.PF.Common.Code.Send_Email.Email_Subject;
-                FruPak.PF.Common.Code.SendEmail.IsBodyHtml = false;
-                FruPak.PF.Common.Code.SendEmail.message = FruPak.PF.Common.Code.Send_Email.Email_Message;
+                PF.Common.Code.SendEmail.Subject = PF.Common.Code.Send_Email.Email_Subject;
+                PF.Common.Code.SendEmail.IsBodyHtml = false;
+                PF.Common.Code.SendEmail.message = PF.Common.Code.Send_Email.Email_Message;
 
-                if (FruPak.PF.Common.Code.Send_Email.EmailOverriddenList.Count > 0)
+                if (PF.Common.Code.Send_Email.EmailOverriddenList.Count > 0)
                 {
-                    //logger.Log(LogLevel.Warn, "Email recipient has been overridden: " + FruPak.PF.Common.Code.SendEmail.Recipient);
-                    FruPak.PF.Common.Code.SendEmail.Recipient.Clear();
+                    //logger.Log(LogLevel.Warn, "Email recipient has been overridden: " + PF.Common.Code.SendEmail.Recipient);
+                    if (PF.Common.Code.SendEmail.Recipient != null)
+                    {
+                        PF.Common.Code.SendEmail.Recipient.Clear();
+                    }
+                    else
+                    {
+                        // It's currently null, so must instantiate it
+                        PF.Common.Code.SendEmail.Recipient = new List<string>();
+                    }
                     for (int i = 0; i < Send_Email.EmailOverriddenList.Count; i++)
                     {
                         if(Send_Email.EmailOverriddenList[i] != "")
                         {
-                            FruPak.PF.Common.Code.SendEmail.Recipient.Add(Send_Email.EmailOverriddenList[i]);
+                            PF.Common.Code.SendEmail.Recipient.Add(Send_Email.EmailOverriddenList[i]);
                         }
                     }
-                    FruPak.PF.Common.Code.Send_Email.EmailOverriddenList.Clear();
+                    PF.Common.Code.Send_Email.EmailOverriddenList.Clear();
                 }
                 else
                 {
-                    FruPak.PF.Common.Code.SendEmail.Recipient = FruPak.PF.Data.Outlook.Contacts.Contact_Email;
+                    PF.Common.Code.SendEmail.Recipient = PF.Data.Outlook.Contacts.Contact_Email;
                 }
 
-                FruPak.PF.Common.Code.SendEmail.BCC_Email_Address = new List<string>();
-                if (FruPak.PF.Common.Code.Send_Email.Email_sender_Copy == true)
+                PF.Common.Code.SendEmail.BCC_Email_Address = new List<string>();
+                if (PF.Common.Code.Send_Email.Email_sender_Copy == true)
                 {
                     try
                     {
-                        FruPak.PF.Common.Code.SendEmail.BCC_Email_Address.Add(FruPak.PF.Common.Code.Send_Email.Email_From_Address);
+                        PF.Common.Code.SendEmail.BCC_Email_Address.Add(PF.Common.Code.Send_Email.Email_From_Address);
                     }
                     catch (Exception ex)
                     {
@@ -217,7 +229,7 @@ namespace FruPak.PF.Common.Code
                 }
 
                 str_msg = "";
-                str_msg = FruPak.PF.Common.Code.SendEmail.send_mail();
+                str_msg = PF.Common.Code.SendEmail.send_mail();
                 if (str_msg.Length > 0)
                 {
                     DLR_Message = MessageBox.Show(str_msg, "Process Factory - Accounting (Invoice - Email)", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -243,7 +255,7 @@ namespace FruPak.PF.Common.Code
             string str_staff_Name = "";
 
             List<string> str_email_msg = new List<string>();
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_System_Email.Get_Info_Like(str_Office);
+            DataSet ds_Get_Info = PF.Data.AccessLayer.CM_System_Email.Get_Info_Like(str_Office);
             DataRow dr_Get_Info;
             for (int i = 0; i < ds_Get_Info.Tables[0].Rows.Count; i++)
             {
@@ -275,21 +287,21 @@ namespace FruPak.PF.Common.Code
             switch (str_Office)
             {
                 case "FP-Off1%":
-                    FruPak.PF.Common.Code.Send_Email.Email_Subject = "Invoice for " + str_save_filename;
+                    PF.Common.Code.Send_Email.Email_Subject = "Invoice for " + str_save_filename;
                     break;
 
                 case "FP-Off2%":
-                    FruPak.PF.Common.Code.Send_Email.Email_Subject = "Fruit Purchase for" + str_save_filename;
+                    PF.Common.Code.Send_Email.Email_Subject = "Fruit Purchase for" + str_save_filename;
                     break;
 
                 case "FP-Off3%":
-                    FruPak.PF.Common.Code.Send_Email.Email_Subject = "Outstanding Invoices";
+                    PF.Common.Code.Send_Email.Email_Subject = "Outstanding Invoices";
                     break;
             }
 
             try
             {
-                FruPak.PF.Common.Code.Send_Email.Email_Message = str_staff_Name + Environment.NewLine;
+                PF.Common.Code.Send_Email.Email_Message = str_staff_Name + Environment.NewLine;
             }
             catch (Exception ex)
             {
@@ -297,7 +309,7 @@ namespace FruPak.PF.Common.Code
             }
             try
             {
-                FruPak.PF.Common.Code.Send_Email.Email_Message = FruPak.PF.Common.Code.Send_Email.Email_Message + str_email_msg[0] + Environment.NewLine;
+                PF.Common.Code.Send_Email.Email_Message = PF.Common.Code.Send_Email.Email_Message + str_email_msg[0] + Environment.NewLine;
             }
             catch (Exception ex)
             {
@@ -310,11 +322,11 @@ namespace FruPak.PF.Common.Code
                 {
                     case "FP-Off1%":
                     case "FP-Off2%":
-                        FruPak.PF.Common.Code.Send_Email.Email_Message = FruPak.PF.Common.Code.Send_Email.Email_Message + str_save_filename + Environment.NewLine;
+                        PF.Common.Code.Send_Email.Email_Message = PF.Common.Code.Send_Email.Email_Message + str_save_filename + Environment.NewLine;
                         break;
 
                     default:
-                        FruPak.PF.Common.Code.Send_Email.Email_Message = FruPak.PF.Common.Code.Send_Email.Email_Message + Environment.NewLine;
+                        PF.Common.Code.Send_Email.Email_Message = PF.Common.Code.Send_Email.Email_Message + Environment.NewLine;
                         break;
                 }
             }
@@ -324,7 +336,7 @@ namespace FruPak.PF.Common.Code
             }
             try
             {
-                FruPak.PF.Common.Code.Send_Email.Email_Message = FruPak.PF.Common.Code.Send_Email.Email_Message + str_email_msg[1] + Environment.NewLine;
+                PF.Common.Code.Send_Email.Email_Message = PF.Common.Code.Send_Email.Email_Message + str_email_msg[1] + Environment.NewLine;
             }
             catch (Exception ex)
             {
@@ -332,16 +344,16 @@ namespace FruPak.PF.Common.Code
             }
             try
             {
-                FruPak.PF.Common.Code.Send_Email.Email_Message = FruPak.PF.Common.Code.Send_Email.Email_Message + str_email_msg[2];
+                PF.Common.Code.Send_Email.Email_Message = PF.Common.Code.Send_Email.Email_Message + str_email_msg[2];
             }
             catch (Exception ex)
             {
                 logger.Log(LogLevel.Debug, ex.Message);
             }
 
-            FruPak.PF.Data.Outlook.Contacts.Contact_Email = new List<string>();
-            FruPak.PF.Data.Outlook.Contacts.Contact_Email.Clear();
-            FruPak.PF.Data.Outlook.Contacts.Contact_Email.Add(str_office_email);
+            PF.Data.Outlook.Contacts.Contact_Email = new List<string>();
+            PF.Data.Outlook.Contacts.Contact_Email.Clear();
+            PF.Data.Outlook.Contacts.Contact_Email.Add(str_office_email);
             int_result = Outlook.Email(str_msg, false);
             return int_result;
         }

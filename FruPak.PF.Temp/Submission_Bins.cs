@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Temp
+namespace PF.Temp
 {
     public partial class Submission_Bins : Form
     {
@@ -21,11 +21,11 @@ namespace FruPak.PF.Temp
 
             if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
             {
-                Console.WriteLine("FruPak.PF.Utils.UserControls.Submission_Bins - UsageMode = Designtime - Skipping populate()");
+                Console.WriteLine("PF.Utils.UserControls.Submission_Bins - UsageMode = Designtime - Skipping populate()");
             }
             else
             {
-                Console.WriteLine("FruPak.PF.Utils.UserControls.Submission_Bins - UsageMode = Runtime - Running populate()");
+                Console.WriteLine("PF.Utils.UserControls.Submission_Bins - UsageMode = Runtime - Running populate()");
                 //populate_comboboxes();
                 //}
 
@@ -39,13 +39,13 @@ namespace FruPak.PF.Temp
 
                 //check if testing or not
 
-                //if (FruPak.PF.Global.Global.bol_Testing == true)
+                //if (PF.Global.Global.bol_Testing == true)
                 //{
-                //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+                //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
                 //}
                 //else
                 //{
-                //    this.Text = "FruPak Process Factory";
+                //    this.Text = "FP Process Factory";
                 //}
 
                 //populate submission number
@@ -60,7 +60,7 @@ namespace FruPak.PF.Temp
                 else
                 {
                     btn_Add.Text = "&Update";
-                    DataSet ds = FruPak.PF.Data.AccessLayer.CM_Bins.Get_Info_Submission(int_Submission_Id);
+                    DataSet ds = PF.Data.AccessLayer.CM_Bins.Get_Info_Submission(int_Submission_Id);
                     DataRow dr;
                     for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                     {
@@ -110,9 +110,9 @@ namespace FruPak.PF.Temp
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -124,7 +124,7 @@ namespace FruPak.PF.Temp
         {
             DataSet ds_Get_Info;
             //Location
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Location.Get_Info();
+            ds_Get_Info = PF.Data.AccessLayer.CM_Location.Get_Info();
             cmb_Location.DataSource = ds_Get_Info.Tables[0];
             cmb_Location.DisplayMember = "Combined";
             cmb_Location.ValueMember = "Location_Id";
@@ -132,7 +132,7 @@ namespace FruPak.PF.Temp
             ds_Get_Info.Dispose();
 
             //Storage
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Storage.Get_Info();
+            ds_Get_Info = PF.Data.AccessLayer.CM_Storage.Get_Info();
             cmb_Storage.DataSource = ds_Get_Info.Tables[0];
             cmb_Storage.DisplayMember = "Combined";
             cmb_Storage.ValueMember = "Storage_Id";
@@ -140,7 +140,7 @@ namespace FruPak.PF.Temp
             ds_Get_Info.Dispose();
 
             //ESP
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_ESP.Get_Info();
+            ds_Get_Info = PF.Data.AccessLayer.CM_ESP.Get_Info();
             cmb_ESP.DataSource = ds_Get_Info.Tables[0];
             cmb_ESP.DisplayMember = "Combined";
             cmb_ESP.ValueMember = "ESP_Id";
@@ -219,13 +219,13 @@ namespace FruPak.PF.Temp
 
                             for (int i = 0; i < int_def; i++)
                             {
-                                int_result = FruPak.PF.Data.AccessLayer.CM_Bins.Delete(FruPak.PF.Common.Code.General.int_max_user_id("CM_Bins") - 1);
+                                int_result = PF.Data.AccessLayer.CM_Bins.Delete(PF.Common.Code.General.int_max_user_id("CM_Bins") - 1);
                             }
                         }
                         //update details only
                         else
                         {
-                            // int_result = FruPak.PF.Data.AccessLayer.CM_Bins.Update(int_Submission_Id, Convert.ToInt32(cmb_Location.SelectedValue.ToString()),Convert.
+                            // int_result = PF.Data.AccessLayer.CM_Bins.Update(int_Submission_Id, Convert.ToInt32(cmb_Location.SelectedValue.ToString()),Convert.
                             MessageBox.Show("Not Coded Yet", "Process Factory - Temp(Submisssion - Update)", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
                         break;
@@ -253,13 +253,13 @@ namespace FruPak.PF.Temp
 
         private int Add_New_Bins()
         {
-            int int_new_Bin_Id = FruPak.PF.Common.Code.General.int_max_user_id("CM_Bins");
+            int int_new_Bin_Id = PF.Common.Code.General.int_max_user_id("CM_Bins");
 
             //Setup for Generating Barcode
-            FruPak.PF.Common.Code.Barcode.Barcode_Trader = Convert.ToInt32(int_Trader_Id);
-            FruPak.PF.Common.Code.Barcode.Barcode_Create(int_new_Bin_Id);
+            PF.Common.Code.Barcode.Barcode_Trader = Convert.ToInt32(int_Trader_Id);
+            PF.Common.Code.Barcode.Barcode_Create(int_new_Bin_Id);
 
-            int_result = int_result + FruPak.PF.Data.AccessLayer.CM_Bins.InsertSubmission(int_new_Bin_Id, int_Submission_Id, FruPak.PF.Common.Code.Barcode.Barcode_Num.ToString(),
+            int_result = int_result + PF.Data.AccessLayer.CM_Bins.InsertSubmission(int_new_Bin_Id, int_Submission_Id, PF.Common.Code.Barcode.Barcode_Num.ToString(),
                 Convert.ToInt32(cmb_Location.SelectedValue.ToString()), materialNumber1.Material_Number, Convert.ToInt32(cmb_Storage.SelectedValue.ToString()),
                 Convert.ToInt32(cmb_ESP.SelectedValue.ToString()), int_Current_User_Id);
 
@@ -348,7 +348,7 @@ namespace FruPak.PF.Temp
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

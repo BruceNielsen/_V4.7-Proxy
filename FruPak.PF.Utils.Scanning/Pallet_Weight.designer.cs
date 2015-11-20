@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.Scanning
+﻿namespace PF.Utils.Scanning
 {
     partial class Pallet_Weight
     {
@@ -36,7 +36,7 @@
             this.nud_Tare_Weight = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_Close = new System.Windows.Forms.Button();
-            this.barcode1 = new FruPak.PF.Utils.UserControls.Barcode();
+            this.barcode1 = new PF.Utils.UserControls.Barcode();
             this.rbn_WPC = new System.Windows.Forms.RadioButton();
             this.rbn_PalletCard = new System.Windows.Forms.RadioButton();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Gross_Weight)).BeginInit();
@@ -180,7 +180,7 @@
             this.KeyPreview = true;
             this.Name = "Pallet_Weight";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.Scanning.Pallet Weight";
+            this.Text = "PF.Utils.Scanning.Pallet Weight";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Pallet_Weight_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nud_Gross_Weight)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Tare_Weight)).EndInit();

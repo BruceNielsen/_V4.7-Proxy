@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Menu
+﻿namespace PF.Menu
 {
     partial class InputWorkOrder
     {

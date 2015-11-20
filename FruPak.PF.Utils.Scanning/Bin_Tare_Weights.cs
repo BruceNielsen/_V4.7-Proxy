@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Scanning
+namespace PF.Utils.Scanning
 {
     public partial class Bin_Tare_Weights : Form
     {
@@ -55,9 +55,9 @@ namespace FruPak.PF.Utils.Scanning
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -81,7 +81,7 @@ namespace FruPak.PF.Utils.Scanning
             if (validate_barcode() == true && bol_valid_wo == true)
             {
                 int int_result = 0;
-                int_result = FruPak.PF.Data.AccessLayer.CM_Bins.Update_Tare_Weight(int_Bin_Id, nud_weight.Value, int_Current_User_Id);
+                int_result = PF.Data.AccessLayer.CM_Bins.Update_Tare_Weight(int_Bin_Id, nud_weight.Value, int_Current_User_Id);
                 if (int_result > 0)
                 {
                     lbl_message.Text = "Tare Weight Added to Bin";
@@ -106,7 +106,7 @@ namespace FruPak.PF.Utils.Scanning
             }
             else
             {
-                DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Bins.Get_Weights(barcode1.BarcodeValue.ToString());
+                DataSet ds_Get_Info = PF.Data.AccessLayer.CM_Bins.Get_Weights(barcode1.BarcodeValue.ToString());
                 if (ds_Get_Info.Tables[0].Rows.Count > 0)
                 {
                     DataRow dr_Get_Info;
@@ -225,7 +225,7 @@ namespace FruPak.PF.Utils.Scanning
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

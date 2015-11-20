@@ -2,7 +2,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Common.Code
+namespace PF.Common.Code
 {
     public partial class SendDebugEmail : Form
     {
@@ -50,7 +50,7 @@ namespace FruPak.PF.Common.Code
             this.Show();
 
             // Fire off the bug report
-            FruPak.PF.Common.Code.EmailDebugInfo.SendDebugInfo(this.textBoxBugReport.Text);
+            PF.Common.Code.EmailDebugInfo.SendDebugInfo(this.textBoxBugReport.Text);
             
         }
 

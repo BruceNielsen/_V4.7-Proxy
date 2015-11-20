@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.Common
+﻿namespace PF.Utils.Common
 {
     partial class Grower
     {
@@ -43,7 +43,7 @@
             this.btn_Add = new System.Windows.Forms.Button();
             this.lbl_message = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.customer1 = new FruPak.PF.Utils.UserControls.Customer();
+            this.customer1 = new PF.Utils.UserControls.Customer();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -222,7 +222,7 @@
             this.KeyPreview = true;
             this.Name = "Grower";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.Common.Grower";
+            this.Text = "PF.Utils.Common.Grower";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Grower_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

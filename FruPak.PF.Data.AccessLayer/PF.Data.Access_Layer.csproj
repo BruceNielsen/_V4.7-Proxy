@@ -23,7 +23,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <Prefer32Bit>false</Prefer32Bit>
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -152,13 +152,13 @@
     <Compile Include="Temp_submission.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FruPak.PF.CustomSettings\FruPak.PF.CustomSettings.csproj">
+    <ProjectReference Include="..\FruPak.PF.CustomSettings\PF.CustomSettings.csproj">
       <Project>{03ac6274-6499-478e-ae47-3680a8451cd3}</Project>
-      <Name>FruPak.PF.CustomSettings</Name>
+      <Name>PF.CustomSettings</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FruPak.PF.Global\FruPak.PF.Global.csproj">
+    <ProjectReference Include="..\FruPak.PF.Global\PF.Global.csproj">
       <Project>{CC23E470-4C74-4F8E-9AC6-432DCD2DF065}</Project>
-      <Name>FruPak.PF.Global</Name>
+      <Name>PF.Global</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

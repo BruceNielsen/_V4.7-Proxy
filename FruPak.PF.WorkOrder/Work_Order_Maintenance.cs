@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.WorkOrder
+namespace PF.WorkOrder
 {
     /*Description
     -----------------
@@ -35,13 +35,13 @@ namespace FruPak.PF.WorkOrder
             btn_Add.Enabled = bol_w_a;
             //check if testing or not
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
             str_table = str_type;
             int_Current_User_Id = int_C_User_id;
@@ -152,9 +152,9 @@ namespace FruPak.PF.WorkOrder
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -164,7 +164,7 @@ namespace FruPak.PF.WorkOrder
 
         private void populate_comboBox()
         {
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Product.Get_Info();
+            DataSet ds_Get_Info = PF.Data.AccessLayer.PF_Product.Get_Info();
             cmb_Product.DataSource = ds_Get_Info.Tables[0];
             cmb_Product.DisplayMember = "Code";
             cmb_Product.ValueMember = "Product_Id";
@@ -305,7 +305,7 @@ namespace FruPak.PF.WorkOrder
             dataGridView1.Columns.Add(img_delete);
             img_delete.HeaderText = "Delete";
             img_delete.Name = "Delete";
-            img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
+            img_delete.Image = PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
             img_delete.Visible = bol_write_access;
 
@@ -313,7 +313,7 @@ namespace FruPak.PF.WorkOrder
             dataGridView1.Columns.Add(img_edit);
             img_edit.HeaderText = "Edit";
             img_edit.Name = "Edit";
-            img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
+            img_edit.Image = PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
         }
 
@@ -326,35 +326,35 @@ namespace FruPak.PF.WorkOrder
             switch (str_table)
             {
                 case "PF_Chemicals":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Chemicals.Get_Info();
+                    ds_Get_Info = PF.Data.AccessLayer.PF_Chemicals.Get_Info();
                     break;
 
                 case "PF_Cleaning_Area":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area.Get_Info();
+                    ds_Get_Info = PF.Data.AccessLayer.PF_Cleaning_Area.Get_Info();
                     break;
 
                 case "PF_Cleaning_Area_Parts":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Parts.Get_Info();
+                    ds_Get_Info = PF.Data.AccessLayer.PF_Cleaning_Area_Parts.Get_Info();
                     break;
 
                 case "PF_Product":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Product.Get_Info();
+                    ds_Get_Info = PF.Data.AccessLayer.PF_Product.Get_Info();
                     break;
 
                 case "PF_Product_LabResults":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Product_LabResults.Get_Info();
+                    ds_Get_Info = PF.Data.AccessLayer.PF_Product_LabResults.Get_Info();
                     break;
 
                 case "PF_Product_Other":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Product_Other.Get_Info();
+                    ds_Get_Info = PF.Data.AccessLayer.PF_Product_Other.Get_Info();
                     break;
 
                 case "PF_Tests":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Tests.Get_Info();
+                    ds_Get_Info = PF.Data.AccessLayer.PF_Tests.Get_Info();
                     break;
 
                 case "PF_Reports":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Reports.Get_Info();
+                    ds_Get_Info = PF.Data.AccessLayer.PF_Reports.Get_Info();
                     break;
             }
 
@@ -441,7 +441,7 @@ namespace FruPak.PF.WorkOrder
                         DGVC_prod_id.Value = dr_Get_Info["Product_Id"].ToString();
                         dataGridView1.Rows[i].Cells[7] = DGVC_prod_id;
 
-                        ds_Get_Info2 = FruPak.PF.Data.AccessLayer.PF_Product.Get_Info(Convert.ToInt32(dr_Get_Info["Product_Id"].ToString()));
+                        ds_Get_Info2 = PF.Data.AccessLayer.PF_Product.Get_Info(Convert.ToInt32(dr_Get_Info["Product_Id"].ToString()));
                         for (int j = 0; j < Convert.ToInt32(ds_Get_Info2.Tables[0].Rows.Count.ToString()); j++)
                         {
                             dr_Get_Info2 = ds_Get_Info2.Tables[0].Rows[j];
@@ -468,7 +468,7 @@ namespace FruPak.PF.WorkOrder
                         DGVC_prod_id.Value = dr_Get_Info["Product_Id"].ToString();
                         dataGridView1.Rows[i].Cells[7] = DGVC_prod_id;
 
-                        ds_Get_Info2 = FruPak.PF.Data.AccessLayer.PF_Product.Get_Info(Convert.ToInt32(dr_Get_Info["Product_Id"].ToString()));
+                        ds_Get_Info2 = PF.Data.AccessLayer.PF_Product.Get_Info(Convert.ToInt32(dr_Get_Info["Product_Id"].ToString()));
                         for (int j = 0; j < Convert.ToInt32(ds_Get_Info2.Tables[0].Rows.Count.ToString()); j++)
                         {
                             dr_Get_Info2 = ds_Get_Info2.Tables[0].Rows[j];
@@ -530,39 +530,39 @@ namespace FruPak.PF.WorkOrder
                     switch (str_table)
                     {
                         case "PF_Chemicals":
-                            int_result = FruPak.PF.Data.AccessLayer.PF_Product_Chemicals_Relationship.Delete_Chemical_From_Product(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
-                            int_result = FruPak.PF.Data.AccessLayer.PF_Chemicals.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
+                            int_result = PF.Data.AccessLayer.PF_Product_Chemicals_Relationship.Delete_Chemical_From_Product(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
+                            int_result = PF.Data.AccessLayer.PF_Chemicals.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
                             break;
 
                         case "PF_Cleaning_Area":
-                            int_result = FruPak.PF.Data.AccessLayer.PF_Clean_Area_Area_Parts_Relationship.Delete_Cleaning_Area(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
-                            int_result = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
+                            int_result = PF.Data.AccessLayer.PF_Clean_Area_Area_Parts_Relationship.Delete_Cleaning_Area(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
+                            int_result = PF.Data.AccessLayer.PF_Cleaning_Area.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
                             break;
 
                         case "PF_Cleaning_Area_Parts":
-                            int_result = FruPak.PF.Data.AccessLayer.PF_Clean_Area_Area_Parts_Relationship.Delete_Cleaning_Part(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
-                            int_result = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Parts.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
+                            int_result = PF.Data.AccessLayer.PF_Clean_Area_Area_Parts_Relationship.Delete_Cleaning_Part(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
+                            int_result = PF.Data.AccessLayer.PF_Cleaning_Area_Parts.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
                             break;
 
                         case "PF_Product":
-                            int_result = FruPak.PF.Data.AccessLayer.PF_Product.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
+                            int_result = PF.Data.AccessLayer.PF_Product.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
                             break;
 
                         case "PF_Product_LabResults":
-                            int_result = FruPak.PF.Data.AccessLayer.PF_Product_LabResults.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
+                            int_result = PF.Data.AccessLayer.PF_Product_LabResults.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
                             break;
 
                         case "PF_Product_Other":
-                            int_result = FruPak.PF.Data.AccessLayer.PF_Product_Other.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
+                            int_result = PF.Data.AccessLayer.PF_Product_Other.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
                             break;
 
                         case "PF_Tests":
-                            int_result = FruPak.PF.Data.AccessLayer.PF_Product_Tests_Relationship.Delete_Test_From_Product(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
-                            int_result = FruPak.PF.Data.AccessLayer.PF_Tests.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
+                            int_result = PF.Data.AccessLayer.PF_Product_Tests_Relationship.Delete_Test_From_Product(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
+                            int_result = PF.Data.AccessLayer.PF_Tests.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
                             break;
 
                         case "PF_Reports":
-                            int_result = FruPak.PF.Data.AccessLayer.PF_Reports.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
+                            int_result = PF.Data.AccessLayer.PF_Reports.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
                             break;
                     }
                 }
@@ -710,23 +710,23 @@ namespace FruPak.PF.WorkOrder
             switch (str_table)
             {
                 case "PF_Chemicals":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Product.Get_Info();
+                    ds_Get_Info = PF.Data.AccessLayer.PF_Product.Get_Info();
                     break;
 
                 case "PF_Cleaning_Area":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Parts.Get_Info();
+                    ds_Get_Info = PF.Data.AccessLayer.PF_Cleaning_Area_Parts.Get_Info();
                     break;
 
                 case "PF_Cleaning_Area_Parts":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area.Get_Info();
+                    ds_Get_Info = PF.Data.AccessLayer.PF_Cleaning_Area.Get_Info();
                     break;
 
                 case "PF_Product":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Product_Group.Get_Info();
+                    ds_Get_Info = PF.Data.AccessLayer.CM_Product_Group.Get_Info();
                     break;
 
                 case "PF_Tests":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Product.Get_Info();
+                    ds_Get_Info = PF.Data.AccessLayer.PF_Product.Get_Info();
                     break;
             }
 
@@ -762,23 +762,23 @@ namespace FruPak.PF.WorkOrder
             switch (str_table)
             {
                 case "PF_Chemicals":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Product_Chemicals_Relationship.Get_Info_By_Chemical(int_DVG_Row_id);
+                    ds_Get_Info = PF.Data.AccessLayer.PF_Product_Chemicals_Relationship.Get_Info_By_Chemical(int_DVG_Row_id);
                     break;
 
                 case "PF_Cleaning_Area":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Clean_Area_Area_Parts_Relationship.Get_Info_Area(int_DVG_Row_id);
+                    ds_Get_Info = PF.Data.AccessLayer.PF_Clean_Area_Area_Parts_Relationship.Get_Info_Area(int_DVG_Row_id);
                     break;
 
                 case "PF_Cleaning_Area_Parts":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Clean_Area_Area_Parts_Relationship.Get_Info_Parts(int_DVG_Row_id);
+                    ds_Get_Info = PF.Data.AccessLayer.PF_Clean_Area_Area_Parts_Relationship.Get_Info_Parts(int_DVG_Row_id);
                     break;
 
                 case "PF_Product":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Product_Product_Group_Relationship.Get_Info_By_Product(int_DVG_Row_id);
+                    ds_Get_Info = PF.Data.AccessLayer.CM_Product_Product_Group_Relationship.Get_Info_By_Product(int_DVG_Row_id);
                     break;
 
                 case "PF_Tests":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Product_Tests_Relationship.Get_Info_By_Test(int_DVG_Row_id);
+                    ds_Get_Info = PF.Data.AccessLayer.PF_Product_Tests_Relationship.Get_Info_By_Test(int_DVG_Row_id);
                     break;
             }
 
@@ -834,11 +834,11 @@ namespace FruPak.PF.WorkOrder
             switch (str_table)
             {
                 case "PF_Cleaning_Area":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Product.Get_Info();
+                    ds_Get_Info = PF.Data.AccessLayer.PF_Product.Get_Info();
                     break;
 
                 case "PF_Product":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area.Get_Info();
+                    ds_Get_Info = PF.Data.AccessLayer.PF_Cleaning_Area.Get_Info();
                     break;
             }
 
@@ -862,11 +862,11 @@ namespace FruPak.PF.WorkOrder
             switch (str_table)
             {
                 case "PF_Cleaning_Area":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Product_Cleaning_Area_Relationship.Get_Info_By_Area(int_DVG_Row_id);
+                    ds_Get_Info = PF.Data.AccessLayer.PF_Product_Cleaning_Area_Relationship.Get_Info_By_Area(int_DVG_Row_id);
                     break;
 
                 case "PF_Product":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Product_Cleaning_Area_Relationship.Get_Info_By_Product(int_DVG_Row_id);
+                    ds_Get_Info = PF.Data.AccessLayer.PF_Product_Cleaning_Area_Relationship.Get_Info_By_Product(int_DVG_Row_id);
                     break;
             }
 
@@ -940,35 +940,35 @@ namespace FruPak.PF.WorkOrder
                         switch (str_table)
                         {
                             case "PF_Chemicals":
-                                int_result = FruPak.PF.Data.AccessLayer.PF_Chemicals.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Chemicals"), txt_code.Text, txt_Description.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.PF_Chemicals.Insert(PF.Common.Code.General.int_max_user_id("PF_Chemicals"), txt_code.Text, txt_Description.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
                                 break;
 
                             case "PF_Cleaning_Area":
-                                int_result = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Cleaning_Area"), txt_code.Text, txt_Description.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.PF_Cleaning_Area.Insert(PF.Common.Code.General.int_max_user_id("PF_Cleaning_Area"), txt_code.Text, txt_Description.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
                                 break;
 
                             case "PF_Cleaning_Area_Parts":
-                                int_result = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Parts.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Cleaning_Area_Parts"), txt_code.Text, txt_Description.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.PF_Cleaning_Area_Parts.Insert(PF.Common.Code.General.int_max_user_id("PF_Cleaning_Area_Parts"), txt_code.Text, txt_Description.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
                                 break;
 
                             case "PF_Product":
-                                int_result = FruPak.PF.Data.AccessLayer.PF_Product.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Product"), txt_code.Text, txt_Description.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.PF_Product.Insert(PF.Common.Code.General.int_max_user_id("PF_Product"), txt_code.Text, txt_Description.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
                                 break;
 
                             case "PF_Product_LabResults":
-                                int_result = FruPak.PF.Data.AccessLayer.PF_Product_LabResults.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Product_LabResults"), Convert.ToInt32(cmb_Product.SelectedValue.ToString()), fruit1.FruitType_Id, fruit1.FruitVariety_Id, txt_code.Text, txt_Description.Text, txt_Value.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.PF_Product_LabResults.Insert(PF.Common.Code.General.int_max_user_id("PF_Product_LabResults"), Convert.ToInt32(cmb_Product.SelectedValue.ToString()), fruit1.FruitType_Id, fruit1.FruitVariety_Id, txt_code.Text, txt_Description.Text, txt_Value.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
                                 break;
 
                             case "PF_Product_Other":
-                                int_result = FruPak.PF.Data.AccessLayer.PF_Product_Other.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Product_Other"), Convert.ToInt32(cmb_Product.SelectedValue.ToString()), txt_code.Text, txt_Description.Text, txt_Value.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.PF_Product_Other.Insert(PF.Common.Code.General.int_max_user_id("PF_Product_Other"), Convert.ToInt32(cmb_Product.SelectedValue.ToString()), txt_code.Text, txt_Description.Text, txt_Value.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
                                 break;
 
                             case "PF_Tests":
-                                int_result = FruPak.PF.Data.AccessLayer.PF_Tests.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Tests"), txt_code.Text, txt_Description.Text, str_Test_Type, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.PF_Tests.Insert(PF.Common.Code.General.int_max_user_id("PF_Tests"), txt_code.Text, txt_Description.Text, str_Test_Type, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
                                 break;
 
                             case "PF_Reports":
-                                int_result = FruPak.PF.Data.AccessLayer.PF_Reports.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Reports"), txt_code.Text, txt_Description.Text, txt_Value.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.PF_Reports.Insert(PF.Common.Code.General.int_max_user_id("PF_Reports"), txt_code.Text, txt_Description.Text, txt_Value.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
                                 break;
                         }
                         break;
@@ -977,35 +977,35 @@ namespace FruPak.PF.WorkOrder
                         switch (str_table)
                         {
                             case "PF_Chemicals":
-                                int_result = FruPak.PF.Data.AccessLayer.PF_Chemicals.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.PF_Chemicals.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
                                 break;
 
                             case "PF_Cleaning_Area":
-                                int_result = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.PF_Cleaning_Area.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
                                 break;
 
                             case "PF_Cleaning_Area_Parts":
-                                int_result = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Parts.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.PF_Cleaning_Area_Parts.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
                                 break;
 
                             case "PF_Product":
-                                int_result = FruPak.PF.Data.AccessLayer.PF_Product.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.PF_Product.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
                                 break;
 
                             case "PF_Product_LabResults":
-                                int_result = FruPak.PF.Data.AccessLayer.PF_Product_LabResults.Update(int_DVG_Row_id, Convert.ToInt32(cmb_Product.SelectedValue.ToString()), fruit1.FruitType_Id, fruit1.FruitVariety_Id, txt_code.Text, txt_Description.Text, txt_Value.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.PF_Product_LabResults.Update(int_DVG_Row_id, Convert.ToInt32(cmb_Product.SelectedValue.ToString()), fruit1.FruitType_Id, fruit1.FruitVariety_Id, txt_code.Text, txt_Description.Text, txt_Value.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
                                 break;
 
                             case "PF_Product_Other":
-                                int_result = FruPak.PF.Data.AccessLayer.PF_Product_Other.Update(int_DVG_Row_id, Convert.ToInt32(cmb_Product.SelectedValue.ToString()), txt_code.Text, txt_Description.Text, txt_Value.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.PF_Product_Other.Update(int_DVG_Row_id, Convert.ToInt32(cmb_Product.SelectedValue.ToString()), txt_code.Text, txt_Description.Text, txt_Value.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
                                 break;
 
                             case "PF_Tests":
-                                int_result = FruPak.PF.Data.AccessLayer.PF_Tests.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, str_Test_Type, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.PF_Tests.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, str_Test_Type, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
                                 break;
 
                             case "PF_Reports":
-                                int_result = FruPak.PF.Data.AccessLayer.PF_Reports.Update(FruPak.PF.Common.Code.General.int_max_user_id("PF_Reports"), txt_code.Text, txt_Description.Text, txt_Value.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.PF_Reports.Update(PF.Common.Code.General.int_max_user_id("PF_Reports"), txt_code.Text, txt_Description.Text, txt_Value.Text, Convert.ToBoolean(ckb_Active.Checked.ToString()), int_Current_User_Id);
                                 break;
                         }
                         break;
@@ -1066,35 +1066,35 @@ namespace FruPak.PF.WorkOrder
                     switch (str_table)
                     {
                         case "PF_Chemicals":
-                            ds_validate = FruPak.PF.Data.AccessLayer.PF_Chemicals.Get_Info(txt_code.Text);
+                            ds_validate = PF.Data.AccessLayer.PF_Chemicals.Get_Info(txt_code.Text);
                             break;
 
                         case "PF_Cleaning_Area":
-                            ds_validate = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area.Get_Info(txt_code.Text);
+                            ds_validate = PF.Data.AccessLayer.PF_Cleaning_Area.Get_Info(txt_code.Text);
                             break;
 
                         case "PF_Cleaning_Area_Parts":
-                            ds_validate = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Parts.Get_Info(txt_code.Text);
+                            ds_validate = PF.Data.AccessLayer.PF_Cleaning_Area_Parts.Get_Info(txt_code.Text);
                             break;
 
                         case "PF_Product":
-                            ds_validate = FruPak.PF.Data.AccessLayer.PF_Product.Get_Info(txt_code.Text);
+                            ds_validate = PF.Data.AccessLayer.PF_Product.Get_Info(txt_code.Text);
                             break;
 
                         case "PF_Product_LabResults":
-                            ds_validate = FruPak.PF.Data.AccessLayer.PF_Product_LabResults.Get_Info(Convert.ToInt32(cmb_Product.SelectedValue.ToString()), fruit1.FruitType_Id, fruit1.FruitVariety_Id, txt_code.Text);
+                            ds_validate = PF.Data.AccessLayer.PF_Product_LabResults.Get_Info(Convert.ToInt32(cmb_Product.SelectedValue.ToString()), fruit1.FruitType_Id, fruit1.FruitVariety_Id, txt_code.Text);
                             break;
 
                         case "PF_Product_Other":
-                            ds_validate = FruPak.PF.Data.AccessLayer.PF_Product_Other.Get_Info(Convert.ToInt32(cmb_Product.SelectedValue.ToString()), txt_code.Text);
+                            ds_validate = PF.Data.AccessLayer.PF_Product_Other.Get_Info(Convert.ToInt32(cmb_Product.SelectedValue.ToString()), txt_code.Text);
                             break;
 
                         case "PF_Tests":
-                            ds_validate = FruPak.PF.Data.AccessLayer.PF_Tests.Get_Info(txt_code.Text);
+                            ds_validate = PF.Data.AccessLayer.PF_Tests.Get_Info(txt_code.Text);
                             break;
 
                         case "PF_Reports":
-                            ds_validate = FruPak.PF.Data.AccessLayer.PF_Reports.Get_Info(txt_code.Text);
+                            ds_validate = PF.Data.AccessLayer.PF_Reports.Get_Info(txt_code.Text);
                             break;
                     }
                     if (ds_validate != null)
@@ -1198,23 +1198,23 @@ namespace FruPak.PF.WorkOrder
             switch (str_table)
             {
                 case "PF_Chemicals":
-                    FruPak.PF.Data.AccessLayer.PF_Product_Chemicals_Relationship.Delete_Chemical_From_Product(int_DVG_Row_id);
+                    PF.Data.AccessLayer.PF_Product_Chemicals_Relationship.Delete_Chemical_From_Product(int_DVG_Row_id);
                     break;
 
                 case "PF_Cleaning_Area":
-                    FruPak.PF.Data.AccessLayer.PF_Clean_Area_Area_Parts_Relationship.Delete_Cleaning_Area(int_DVG_Row_id);
+                    PF.Data.AccessLayer.PF_Clean_Area_Area_Parts_Relationship.Delete_Cleaning_Area(int_DVG_Row_id);
                     break;
 
                 case "PF_Cleaning_Area_Parts":
-                    FruPak.PF.Data.AccessLayer.PF_Clean_Area_Area_Parts_Relationship.Delete_Cleaning_Part(int_DVG_Row_id);
+                    PF.Data.AccessLayer.PF_Clean_Area_Area_Parts_Relationship.Delete_Cleaning_Part(int_DVG_Row_id);
                     break;
 
                 case "PF_Product":
-                    FruPak.PF.Data.AccessLayer.CM_Product_Product_Group_Relationship.Delete_Group_From_Product(int_DVG_Row_id);
+                    PF.Data.AccessLayer.CM_Product_Product_Group_Relationship.Delete_Group_From_Product(int_DVG_Row_id);
                     break;
 
                 case "PF_Tests":
-                    FruPak.PF.Data.AccessLayer.PF_Product_Tests_Relationship.Delete_Test_From_Product(int_DVG_Row_id);
+                    PF.Data.AccessLayer.PF_Product_Tests_Relationship.Delete_Test_From_Product(int_DVG_Row_id);
                     break;
             }
             for (int i = 0; i < checkedListBox1.Items.Count; i++)
@@ -1225,28 +1225,28 @@ namespace FruPak.PF.WorkOrder
                     switch (str_table)
                     {
                         case "PF_Chemicals":
-                            FruPak.PF.Data.AccessLayer.PF_Product_Chemicals_Relationship.Delete_Product_From_Chemical(int_CLB_Id, int_DVG_Row_id);
-                            FruPak.PF.Data.AccessLayer.PF_Product_Chemicals_Relationship.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Product_Chemicals_Relationship"), int_CLB_Id, int_DVG_Row_id, int_Current_User_Id);
+                            PF.Data.AccessLayer.PF_Product_Chemicals_Relationship.Delete_Product_From_Chemical(int_CLB_Id, int_DVG_Row_id);
+                            PF.Data.AccessLayer.PF_Product_Chemicals_Relationship.Insert(PF.Common.Code.General.int_max_user_id("PF_Product_Chemicals_Relationship"), int_CLB_Id, int_DVG_Row_id, int_Current_User_Id);
                             break;
 
                         case "PF_Cleaning_Area":
-                            FruPak.PF.Data.AccessLayer.PF_Clean_Area_Area_Parts_Relationship.Delete_Cleaning_Area_Part(int_CLB_Id, int_DVG_Row_id);
-                            FruPak.PF.Data.AccessLayer.PF_Clean_Area_Area_Parts_Relationship.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Clean_Area_Area_Parts_Relationship"), int_DVG_Row_id, int_CLB_Id, int_Current_User_Id);
+                            PF.Data.AccessLayer.PF_Clean_Area_Area_Parts_Relationship.Delete_Cleaning_Area_Part(int_CLB_Id, int_DVG_Row_id);
+                            PF.Data.AccessLayer.PF_Clean_Area_Area_Parts_Relationship.Insert(PF.Common.Code.General.int_max_user_id("PF_Clean_Area_Area_Parts_Relationship"), int_DVG_Row_id, int_CLB_Id, int_Current_User_Id);
                             break;
 
                         case "PF_Cleaning_Area_Parts":
-                            FruPak.PF.Data.AccessLayer.PF_Product_Chemicals_Relationship.Delete_Product_From_Chemical(int_CLB_Id, int_DVG_Row_id);
-                            FruPak.PF.Data.AccessLayer.PF_Clean_Area_Area_Parts_Relationship.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Clean_Area_Area_Parts_Relationship"), int_CLB_Id, int_DVG_Row_id, int_Current_User_Id);
+                            PF.Data.AccessLayer.PF_Product_Chemicals_Relationship.Delete_Product_From_Chemical(int_CLB_Id, int_DVG_Row_id);
+                            PF.Data.AccessLayer.PF_Clean_Area_Area_Parts_Relationship.Insert(PF.Common.Code.General.int_max_user_id("PF_Clean_Area_Area_Parts_Relationship"), int_CLB_Id, int_DVG_Row_id, int_Current_User_Id);
                             break;
 
                         case "PF_Product":
-                            FruPak.PF.Data.AccessLayer.CM_Product_Product_Group_Relationship.Delete_Product_From_Group(int_DVG_Row_id, int_CLB_Id);
-                            FruPak.PF.Data.AccessLayer.CM_Product_Product_Group_Relationship.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Product_Product_Group_Relationship"), int_DVG_Row_id, int_CLB_Id, int_Current_User_Id);
+                            PF.Data.AccessLayer.CM_Product_Product_Group_Relationship.Delete_Product_From_Group(int_DVG_Row_id, int_CLB_Id);
+                            PF.Data.AccessLayer.CM_Product_Product_Group_Relationship.Insert(PF.Common.Code.General.int_max_user_id("CM_Product_Product_Group_Relationship"), int_DVG_Row_id, int_CLB_Id, int_Current_User_Id);
                             break;
 
                         case "PF_Tests":
-                            FruPak.PF.Data.AccessLayer.PF_Product_Tests_Relationship.Delete_Product_From_Test(int_CLB_Id, int_DVG_Row_id);
-                            FruPak.PF.Data.AccessLayer.PF_Product_Tests_Relationship.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Product_Tests_Relationship"), int_CLB_Id, int_DVG_Row_id, int_Current_User_Id);
+                            PF.Data.AccessLayer.PF_Product_Tests_Relationship.Delete_Product_From_Test(int_CLB_Id, int_DVG_Row_id);
+                            PF.Data.AccessLayer.PF_Product_Tests_Relationship.Insert(PF.Common.Code.General.int_max_user_id("PF_Product_Tests_Relationship"), int_CLB_Id, int_DVG_Row_id, int_Current_User_Id);
                             break;
                     }
                 }
@@ -1255,23 +1255,23 @@ namespace FruPak.PF.WorkOrder
                     switch (str_table)
                     {
                         case "PF_Chemicals":
-                            FruPak.PF.Data.AccessLayer.PF_Product_Chemicals_Relationship.Delete_Product_From_Chemical(int_CLB_Id, int_DVG_Row_id);
+                            PF.Data.AccessLayer.PF_Product_Chemicals_Relationship.Delete_Product_From_Chemical(int_CLB_Id, int_DVG_Row_id);
                             break;
 
                         case "PF_Cleaning_Area":
-                            FruPak.PF.Data.AccessLayer.PF_Clean_Area_Area_Parts_Relationship.Delete_Cleaning_Area_Part(int_CLB_Id, int_DVG_Row_id);
+                            PF.Data.AccessLayer.PF_Clean_Area_Area_Parts_Relationship.Delete_Cleaning_Area_Part(int_CLB_Id, int_DVG_Row_id);
                             break;
 
                         case "PF_Cleaning_Area_Parts":
-                            FruPak.PF.Data.AccessLayer.PF_Product_Chemicals_Relationship.Delete_Product_From_Chemical(int_CLB_Id, int_DVG_Row_id);
+                            PF.Data.AccessLayer.PF_Product_Chemicals_Relationship.Delete_Product_From_Chemical(int_CLB_Id, int_DVG_Row_id);
                             break;
 
                         case "PF_Product":
-                            FruPak.PF.Data.AccessLayer.CM_Product_Product_Group_Relationship.Delete_Product_From_Group(int_DVG_Row_id, int_CLB_Id);
+                            PF.Data.AccessLayer.CM_Product_Product_Group_Relationship.Delete_Product_From_Group(int_DVG_Row_id, int_CLB_Id);
                             break;
 
                         case "PF_Tests":
-                            FruPak.PF.Data.AccessLayer.PF_Product_Tests_Relationship.Delete_Product_From_Test(int_CLB_Id, int_DVG_Row_id);
+                            PF.Data.AccessLayer.PF_Product_Tests_Relationship.Delete_Product_From_Test(int_CLB_Id, int_DVG_Row_id);
                             break;
                     }
                 }
@@ -1284,13 +1284,13 @@ namespace FruPak.PF.WorkOrder
                     switch (str_table)
                     {
                         case "PF_Cleaning_Area":
-                            FruPak.PF.Data.AccessLayer.PF_Product_Cleaning_Area_Relationship.Delete(int_CLB_Id, int_DVG_Row_id);
-                            FruPak.PF.Data.AccessLayer.PF_Product_Cleaning_Area_Relationship.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Product_Cleaning_Area_Relationship"), int_CLB_Id, int_DVG_Row_id, int_Current_User_Id);
+                            PF.Data.AccessLayer.PF_Product_Cleaning_Area_Relationship.Delete(int_CLB_Id, int_DVG_Row_id);
+                            PF.Data.AccessLayer.PF_Product_Cleaning_Area_Relationship.Insert(PF.Common.Code.General.int_max_user_id("PF_Product_Cleaning_Area_Relationship"), int_CLB_Id, int_DVG_Row_id, int_Current_User_Id);
                             break;
 
                         case "PF_Product":
-                            FruPak.PF.Data.AccessLayer.PF_Product_Cleaning_Area_Relationship.Delete(int_DVG_Row_id, int_CLB_Id);
-                            FruPak.PF.Data.AccessLayer.PF_Product_Cleaning_Area_Relationship.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Product_Cleaning_Area_Relationship"), int_DVG_Row_id, int_CLB_Id, int_Current_User_Id);
+                            PF.Data.AccessLayer.PF_Product_Cleaning_Area_Relationship.Delete(int_DVG_Row_id, int_CLB_Id);
+                            PF.Data.AccessLayer.PF_Product_Cleaning_Area_Relationship.Insert(PF.Common.Code.General.int_max_user_id("PF_Product_Cleaning_Area_Relationship"), int_DVG_Row_id, int_CLB_Id, int_Current_User_Id);
                             break;
                     }
                 }
@@ -1299,11 +1299,11 @@ namespace FruPak.PF.WorkOrder
                     switch (str_table)
                     {
                         case "PF_Cleaning_Area":
-                            FruPak.PF.Data.AccessLayer.PF_Product_Cleaning_Area_Relationship.Delete(int_CLB_Id, int_DVG_Row_id);
+                            PF.Data.AccessLayer.PF_Product_Cleaning_Area_Relationship.Delete(int_CLB_Id, int_DVG_Row_id);
                             break;
 
                         case "PF_Product":
-                            FruPak.PF.Data.AccessLayer.PF_Product_Cleaning_Area_Relationship.Delete(int_DVG_Row_id, int_CLB_Id);
+                            PF.Data.AccessLayer.PF_Product_Cleaning_Area_Relationship.Delete(int_DVG_Row_id, int_CLB_Id);
                             break;
                     }
                 }
@@ -1388,7 +1388,7 @@ namespace FruPak.PF.WorkOrder
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.UserControls
+﻿namespace PF.Utils.UserControls
 {
     partial class Test_Grower
     {
@@ -32,7 +32,7 @@
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.grower2 = new FruPak.PF.Utils.UserControls.Grower();
+            this.grower2 = new PF.Utils.UserControls.Grower();
             this.button2 = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -94,7 +94,7 @@
             this.KeyPreview = true;
             this.Name = "Test_Grower";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.UserControls.Test Grower";
+            this.Text = "PF.Utils.UserControls.Test Grower";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Test_Grower_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();

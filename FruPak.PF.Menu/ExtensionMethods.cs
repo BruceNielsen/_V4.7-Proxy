@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace FruPak.PF.Menu
+namespace PF.Menu
 {
     public static class ExtensionMethods
     {

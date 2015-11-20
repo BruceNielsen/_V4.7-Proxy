@@ -7,7 +7,7 @@ using System.Drawing.Printing;
 using System.IO;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Common.Code
+namespace PF.Common.Code
 {
     /*Description
     -----------------
@@ -58,75 +58,75 @@ namespace FruPak.PF.Common.Code
                     #region ------------- Common -------------
 
                     case "CM_Brand":
-                        int_result = FruPak.PF.Data.AccessLayer.CM_Brand.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.CM_Brand.Delete(int_Delete_Id);
                         break;
 
                     case "CM_Cities":
-                        int_result = FruPak.PF.Data.AccessLayer.CM_Cities.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.CM_Cities.Delete(int_Delete_Id);
                         break;
 
                     case "CM_Count":
-                        int_result = FruPak.PF.Data.AccessLayer.CM_Count.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.CM_Count.Delete(int_Delete_Id);
                         break;
 
                     case "CM_Defect":
-                        int_result = FruPak.PF.Data.AccessLayer.CM_Defect.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.CM_Defect.Delete(int_Delete_Id);
                         break;
 
                     case "CM_Defect_Class":
-                        int_result = FruPak.PF.Data.AccessLayer.CM_Defect_Class.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.CM_Defect_Class.Delete(int_Delete_Id);
                         break;
 
                     case "CM_ESP":
-                        int_result = FruPak.PF.Data.AccessLayer.CM_ESP.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.CM_ESP.Delete(int_Delete_Id);
                         break;
 
                     case "CM_Fruit_Type":
-                        int_result = FruPak.PF.Data.AccessLayer.CM_Fruit_Type.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.CM_Fruit_Type.Delete(int_Delete_Id);
                         break;
 
                     case "CM_Grade":
-                        int_result = FruPak.PF.Data.AccessLayer.CM_Grade.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.CM_Grade.Delete(int_Delete_Id);
                         break;
 
                     case "CM_Growing_Method":
-                        int_result = FruPak.PF.Data.AccessLayer.CM_Growing_Method.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.CM_Growing_Method.Delete(int_Delete_Id);
                         break;
 
                     case "CM_Location":
-                        int_result = FruPak.PF.Data.AccessLayer.CM_Location.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.CM_Location.Delete(int_Delete_Id);
                         break;
 
                     case "CM_Market_Attribute":
-                        int_result = FruPak.PF.Data.AccessLayer.CM_Market_Attribute.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.CM_Market_Attribute.Delete(int_Delete_Id);
                         break;
 
                     case "CM_Pack_Type":
-                        int_result = FruPak.PF.Data.AccessLayer.CM_Pack_Type.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.CM_Pack_Type.Delete(int_Delete_Id);
                         break;
 
                     case "CM_Pallet_Type":
-                        int_result = FruPak.PF.Data.AccessLayer.CM_Pallet_Type.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.CM_Pallet_Type.Delete(int_Delete_Id);
                         break;
 
                     case "CM_Product_Group":
-                        int_result = FruPak.PF.Data.AccessLayer.CM_Product_Group.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.CM_Product_Group.Delete(int_Delete_Id);
                         break;
 
                     case "CM_Size":
-                        int_result = FruPak.PF.Data.AccessLayer.CM_Size.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.CM_Size.Delete(int_Delete_Id);
                         break;
 
                     case "CM_Storage":
-                        int_result = FruPak.PF.Data.AccessLayer.CM_Storage.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.CM_Storage.Delete(int_Delete_Id);
                         break;
 
                     case "CM_Treatment":
-                        int_result = FruPak.PF.Data.AccessLayer.CM_Treatment.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.CM_Treatment.Delete(int_Delete_Id);
                         break;
 
                     case "CM_Truck":
-                        int_result = FruPak.PF.Data.AccessLayer.CM_Truck.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.CM_Truck.Delete(int_Delete_Id);
                         break;
 
                     #endregion ------------- Common -------------
@@ -134,38 +134,38 @@ namespace FruPak.PF.Common.Code
                     #region ------------- Process Factory -------------
 
                     case "PF_Other_Work":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Other_Work.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.PF_Other_Work.Delete(int_Delete_Id);
                         break;
 
                     case "PF_Other_Work_Types":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Other_Work_Types.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.PF_Other_Work_Types.Delete(int_Delete_Id);
                         break;
 
                     case "PF_Orders":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Orders_Staff_Relationship.Delete_Order(int_Delete_Id);
-                        int_result = int_result + FruPak.PF.Data.AccessLayer.PF_Orders_Pallets.Delete(int_Delete_Id);
-                        int_result = int_result + FruPak.PF.Data.AccessLayer.PF_Orders.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.PF_Orders_Staff_Relationship.Delete_Order(int_Delete_Id);
+                        int_result = int_result + PF.Data.AccessLayer.PF_Orders_Pallets.Delete(int_Delete_Id);
+                        int_result = int_result + PF.Data.AccessLayer.PF_Orders.Delete(int_Delete_Id);
                         break;
 
                     case "PF_Orders_Intended":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Orders_Intended.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.PF_Orders_Intended.Delete(int_Delete_Id);
                         break;
 
                     case "PF_Pallet":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Delete_Pallet(int_Delete_Id);
-                        int_result = int_result + FruPak.PF.Data.AccessLayer.PF_Pallet.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.PF_Pallet_Details.Delete_Pallet(int_Delete_Id);
+                        int_result = int_result + PF.Data.AccessLayer.PF_Pallet.Delete(int_Delete_Id);
                         break;
 
                     case "PF_Pallet_Details":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Delete_Pallet(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.PF_Pallet_Details.Delete_Pallet(int_Delete_Id);
                         break;
 
                     case "PF_Stock_Holding":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Stock_Holding.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.PF_Stock_Holding.Delete(int_Delete_Id);
                         break;
 
                     case "PF_Stock_Item":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Stock_Item.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.PF_Stock_Item.Delete(int_Delete_Id);
                         break;
 
                     #endregion ------------- Process Factory -------------
@@ -173,27 +173,27 @@ namespace FruPak.PF.Common.Code
                     #region ------------- Process Factory  Accounting-------------
 
                     case "PF_A_Customer_Sales_Discount":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_A_Customer_Sales_Discount.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.PF_A_Customer_Sales_Discount.Delete(int_Delete_Id);
                         break;
 
                     case "PF_A_Customer_Sales_Rates":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_A_Customer_Sales_Rates.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.PF_A_Customer_Sales_Rates.Delete(int_Delete_Id);
                         break;
 
                     case "PF_A_Fruit_Purchase":
-                        int_result = FruPak.PF.Data.AccessLayer.GH_Submission.Reset_Purchase(int_Delete_Id, int_Current_User_Id);
-                        int_result = int_result + FruPak.PF.Data.AccessLayer.PF_A_Fruit_Purchase.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.GH_Submission.Reset_Purchase(int_Delete_Id, int_Current_User_Id);
+                        int_result = int_result + PF.Data.AccessLayer.PF_A_Fruit_Purchase.Delete(int_Delete_Id);
                         break;
 
                     case "PF_A_Invoice":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Orders.Remove_From_Invoiced(int_Delete_Id, int_Current_User_Id);
-                        int_result = int_result + FruPak.PF.Data.AccessLayer.PF_A_Invoice_Details.Delete(int_Delete_Id);
-                        int_result = int_result + FruPak.PF.Data.AccessLayer.PF_A_Invoice.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.PF_Orders.Remove_From_Invoiced(int_Delete_Id, int_Current_User_Id);
+                        int_result = int_result + PF.Data.AccessLayer.PF_A_Invoice_Details.Delete(int_Delete_Id);
+                        int_result = int_result + PF.Data.AccessLayer.PF_A_Invoice.Delete(int_Delete_Id);
                         break;
 
                     case "PF_A_Rates":
-                        int_result = FruPak.PF.Data.AccessLayer.CM_Material_Rates_Relationship.Delete_Rates(int_Delete_Id);
-                        int_result = int_result + FruPak.PF.Data.AccessLayer.PF_A_Rates.Delete(int_Delete_Id);
+                        int_result = PF.Data.AccessLayer.CM_Material_Rates_Relationship.Delete_Rates(int_Delete_Id);
+                        int_result = int_result + PF.Data.AccessLayer.PF_A_Rates.Delete(int_Delete_Id);
                         break;
 
                         #endregion ------------- Process Factory  Accounting-------------
@@ -210,127 +210,127 @@ namespace FruPak.PF.Common.Code
                 #region ------------- Common -------------
 
                 case "CM_Bins":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Bins.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Bins.Get_Max_ID();
                     break;
 
                 case "CM_Block":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Block.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Block.Get_Max_ID();
                     break;
 
                 case "CM_Block_Variety_Relationship":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Block_Variety_Relationship.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Block_Variety_Relationship.Get_Max_ID();
                     break;
 
                 case "CM_Brand":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Brand.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Brand.Get_Max_ID();
                     break;
 
                 case "CM_Cities":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Cities.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Cities.Get_Max_ID();
                     break;
 
                 case "CM_Count":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Count.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Count.Get_Max_ID();
                     break;
 
                 case "CM_Defect":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Defect.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Defect.Get_Max_ID();
                     break;
 
                 case "CM_Defect_Class":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Defect_Class.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Defect_Class.Get_Max_ID();
                     break;
 
                 case "CM_Defect_Defect_Class_Relationship":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Defect_Defect_Class_Relationship.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Defect_Defect_Class_Relationship.Get_Max_ID();
                     break;
 
                 case "CM_ESP":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_ESP.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_ESP.Get_Max_ID();
                     break;
 
                 case "CM_Fruit_Type":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Fruit_Type.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Fruit_Type.Get_Max_ID();
                     break;
 
                 case "CM_Fruit_Variety":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Fruit_Variety.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Fruit_Variety.Get_Max_ID();
                     break;
 
                 case "CM_Grade":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Grade.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Grade.Get_Max_ID();
                     break;
 
                 case "CM_Grower":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Grower.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Grower.Get_Max_ID();
                     break;
 
                 case "CM_Growing_Method":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Growing_Method.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Growing_Method.Get_Max_ID();
                     break;
 
                 case "CM_Location":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Location.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Location.Get_Max_ID();
                     break;
 
                 case "CM_Market_Attribute":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Market_Attribute.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Market_Attribute.Get_Max_ID();
                     break;
 
                 case "CM_Material":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Material.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Material.Get_Max_ID();
                     break;
 
                 case "CM_Material_Rates_Relationship":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Material_Rates_Relationship.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Material_Rates_Relationship.Get_Max_ID();
                     break;
 
                 case "CM_Material_ST_Product_Relationship":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Material_ST_Product_Relationship.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Material_ST_Product_Relationship.Get_Max_ID();
                     break;
 
                 case "CM_Orchardist":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Orchardist.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Orchardist.Get_Max_ID();
                     break;
 
                 case "CM_Pack_Type":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Pack_Type.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Pack_Type.Get_Max_ID();
                     break;
 
                 case "CM_Pack_Type_Weight":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Pack_Type_Weight.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Pack_Type_Weight.Get_Max_ID();
                     break;
 
                 case "CM_Pallet_Type":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Pallet_Type.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Pallet_Type.Get_Max_ID();
                     break;
 
                 case "CM_Product_Group":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Product_Group.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Product_Group.Get_Max_ID();
                     break;
 
                 case "CM_Product_Product_Group_Relationship":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Product_Product_Group_Relationship.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Product_Product_Group_Relationship.Get_Max_ID();
                     break;
 
                 case "CM_Size":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Size.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Size.Get_Max_ID();
                     break;
 
                 case "CM_Storage":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Storage.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Storage.Get_Max_ID();
                     break;
 
                 case "CM_Trader":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Trader.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Trader.Get_Max_ID();
                     break;
 
                 case "CM_Treatment":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Treatment.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Treatment.Get_Max_ID();
                     break;
 
                 case "CM_Truck":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.CM_Truck.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.CM_Truck.Get_Max_ID();
                     break;
 
                 #endregion ------------- Common -------------
@@ -338,146 +338,146 @@ namespace FruPak.PF.Common.Code
                 #region ------------- Process Factory -------------
 
                 case "PF_BaseLoad":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_BaseLoad.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_BaseLoad.Get_Max_ID();
                     break;
 
                 case "PF_Batch_Chemical":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Batch_Chemical.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Batch_Chemical.Get_Max_ID();
                     break;
 
                 case "PF_Batch_Test":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Batch_Test.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Batch_Test.Get_Max_ID();
                     break;
 
                 case "PF_Chemicals":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Chemicals.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Chemicals.Get_Max_ID();
                     break;
 
                 case "PF_Cleaning_Area":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Cleaning_Area.Get_Max_ID();
                     break;
 
                 case "PF_Cleaning_Area_Completed":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Completed.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Cleaning_Area_Completed.Get_Max_ID();
                     break;
 
                 case "PF_Clean_Area_Area_Parts_Relationship":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Clean_Area_Area_Parts_Relationship.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Clean_Area_Area_Parts_Relationship.Get_Max_ID();
                     break;
 
                 case "PF_Cleaning_Area_Parts":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Parts.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Cleaning_Area_Parts.Get_Max_ID();
                     break;
 
                 case "PF_Cleaning_Area_Parts_Completed":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Parts_Completed.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Cleaning_Area_Parts_Completed.Get_Max_ID();
                     break;
 
                 case "PF_Customer":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Customer.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Customer.Get_Max_ID();
                     break;
 
                 case "PF_Defect_Results":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Defect_Results.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Defect_Results.Get_Max_ID();
                     break;
 
                 case "PF_Orders_Intended":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Orders_Intended.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Orders_Intended.Get_Max_ID();
                     break;
 
                 case "PF_Other_Work":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Other_Work.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Other_Work.Get_Max_ID();
                     break;
 
                 case "PF_Other_Work_Types":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Other_Work_Types.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Other_Work_Types.Get_Max_ID();
                     break;
 
                 case "PF_Orders":
-                    ds_system = FruPak.PF.Data.AccessLayer.CM_System.Get_Info_For_Code("Season");
+                    ds_system = PF.Data.AccessLayer.CM_System.Get_Info_For_Code("Season");
                     for (int i = 0; i < ds_system.Tables[0].Rows.Count; i++)
                     {
                         dr_system = ds_system.Tables[0].Rows[i];
                         int_Season = Convert.ToInt32(dr_system["Value"].ToString());
                     }
                     ds_system.Dispose();
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Orders.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Orders.Get_Max_ID();
                     break;
 
                 case "PF_Orders_Pallets":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Orders_Pallets.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Orders_Pallets.Get_Max_ID();
                     break;
 
                 case "PF_Orders_Staff_Relationship":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Orders_Staff_Relationship.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Orders_Staff_Relationship.Get_Max_ID();
                     break;
 
                 case "PF_Pallet":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Pallet.Get_Max_ID();
                     break;
 
                 case "PF_Pallet_Details":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Pallet_Details.Get_Max_ID();
                     break;
 
                 case "PF_Process_Setup":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Process_Setup.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Process_Setup.Get_Max_ID();
                     break;
 
                 case "PF_PreSystem_Pallet_Stock":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_PreSystem_Pallet_Stock.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_PreSystem_Pallet_Stock.Get_Max_ID();
                     break;
 
                 case "PF_Process_Setup_Work_Order_Relationship":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Process_Setup_Work_Order_Relationship.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Process_Setup_Work_Order_Relationship.Get_Max_ID();
                     break;
 
                 case "PF_Product":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Product.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Product.Get_Max_ID();
                     break;
 
                 case "PF_Product_Cleaning_Area_Relationship":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Product_Cleaning_Area_Relationship.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Product_Cleaning_Area_Relationship.Get_Max_ID();
                     break;
 
                 case "PF_Product_Chemicals_Relationship":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Product_Chemicals_Relationship.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Product_Chemicals_Relationship.Get_Max_ID();
                     break;
 
                 case "PF_Product_LabResults":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Product_LabResults.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Product_LabResults.Get_Max_ID();
                     break;
 
                 case "PF_Product_Other":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Product_Other.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Product_Other.Get_Max_ID();
                     break;
 
                 case "PF_Product_Tests_Relationship":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Product_Tests_Relationship.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Product_Tests_Relationship.Get_Max_ID();
                     break;
 
                 case "PF_Reports":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Reports.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Reports.Get_Max_ID();
                     break;
 
                 case "PF_Staff":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Staff.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Staff.Get_Max_ID();
                     break;
 
                 case "PF_Tests":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Tests.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Tests.Get_Max_ID();
                     break;
 
                 case "PF_Work_Order":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Work_Order.Get_Max_ID();
                     break;
 
                 case "PF_Work_Order_Material_Relationship":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Work_Order_Material_Relationship.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Work_Order_Material_Relationship.Get_Max_ID();
                     break;
 
                 case "PF_Work_Order_Staff_Relationship":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Work_Order_Staff_Relationship.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Work_Order_Staff_Relationship.Get_Max_ID();
                     break;
 
                 #endregion ------------- Process Factory -------------
@@ -485,34 +485,34 @@ namespace FruPak.PF.Common.Code
                 #region ------------- Process Factory  Accounting-------------
 
                 case "PF_A_Customer_Sales_Discount":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_A_Customer_Sales_Discount.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_A_Customer_Sales_Discount.Get_Max_ID();
                     break;
 
                 case "PF_A_Customer_Sales_Rates":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_A_Customer_Sales_Rates.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_A_Customer_Sales_Rates.Get_Max_ID();
                     break;
 
                 case "PF_A_Fruit_Purchase":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_A_Fruit_Purchase.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_A_Fruit_Purchase.Get_Max_ID();
                     break;
 
                 case "PF_A_Invoice":
-                    ds_system = FruPak.PF.Data.AccessLayer.CM_System.Get_Info_For_Code("Season");
+                    ds_system = PF.Data.AccessLayer.CM_System.Get_Info_For_Code("Season");
                     for (int i = 0; i < ds_system.Tables[0].Rows.Count; i++)
                     {
                         dr_system = ds_system.Tables[0].Rows[i];
                         int_Season = Convert.ToInt32(dr_system["Value"].ToString());
                     }
                     ds_system.Dispose();
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_A_Invoice.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_A_Invoice.Get_Max_ID();
                     break;
 
                 case "PF_A_Invoice_Details":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_A_Invoice_Details.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_A_Invoice_Details.Get_Max_ID();
                     break;
 
                 case "PF_A_Rates":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_A_Rates.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_A_Rates.Get_Max_ID();
                     break;
 
                 #endregion ------------- Process Factory  Accounting-------------
@@ -522,15 +522,15 @@ namespace FruPak.PF.Common.Code
                 #region ------------- Process Factory - Stock Control -------------
 
                 case "PF_Stock_Holding":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Stock_Holding.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Stock_Holding.Get_Max_ID();
                     break;
 
                 case "PF_Stock_Item":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Stock_Item.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Stock_Item.Get_Max_ID();
                     break;
 
                 case "PF_Stock_Used":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.PF_Stock_Used.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.PF_Stock_Used.Get_Max_ID();
                     break;
 
                 #endregion ------------- Process Factory - Stock Control -------------
@@ -540,11 +540,11 @@ namespace FruPak.PF.Common.Code
                 #region ------------- Print Request PR -------------
 
                 case "SY_PrintRequest":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.SY_PrintRequest.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.SY_PrintRequest.Get_Max_ID();
                     break;
 
                 case "SY_Message":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.SY_Message.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.SY_Message.Get_Max_ID();
                     break;
 
                 #endregion ------------- Print Request PR -------------
@@ -554,7 +554,7 @@ namespace FruPak.PF.Common.Code
                 #region ------------- GateHouse -------------
 
                 case "GH_Submission":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.GH_Submission.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.GH_Submission.Get_Max_ID();
                     break;
 
                 #endregion ------------- GateHouse -------------
@@ -564,43 +564,43 @@ namespace FruPak.PF.Common.Code
                 #region ------------- Security -------------
 
                 case "SC_Install":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.SC_Install.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.SC_Install.Get_Max_ID();
                     break;
 
                 case "SC_User":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.SC_User.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.SC_User.Get_Max_ID();
                     break;
 
                 case "SC_User_Groups":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.SC_User_Groups.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.SC_User_Groups.Get_Max_ID();
                     break;
 
                 case "SC_User_Group_Relationship":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.SC_User_Group_Relationship.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.SC_User_Group_Relationship.Get_Max_ID();
                     break;
 
                 case "SC_Menu":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.SC_Menu.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.SC_Menu.Get_Max_ID();
                     break;
 
                 case "SC_Menu_Group_Relationship":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.SC_Menu_Group_Relationship.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.SC_Menu_Group_Relationship.Get_Max_ID();
                     break;
 
                 case "SC_Menu_Panel":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.SC_Menu_Panel.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.SC_Menu_Panel.Get_Max_ID();
                     break;
 
                 case "SC_Menu_Panel_Group_Relationship":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.SC_Menu_Panel_Group_Relationship.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.SC_Menu_Panel_Group_Relationship.Get_Max_ID();
                     break;
 
                 case "SC_Log_Action":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.SC_Log_Action.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.SC_Log_Action.Get_Max_ID();
                     break;
 
                 case "SC_Log":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.SC_Log.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.SC_Log.Get_Max_ID();
                     break;
 
                 #endregion ------------- Security -------------
@@ -610,11 +610,11 @@ namespace FruPak.PF.Common.Code
                 #region ------------- External -------------
 
                 case "EX_GDI_Bins":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.EX_GDI_Bins.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.EX_GDI_Bins.Get_Max_ID();
                     break;
 
                 case "EX_GDI_Submission":
-                    ds_Get_Max_ID = FruPak.PF.Data.AccessLayer.EX_GDI_Submission.Get_Max_ID();
+                    ds_Get_Max_ID = PF.Data.AccessLayer.EX_GDI_Submission.Get_Max_ID();
                     break;
 
                     #endregion ------------- External -------------
@@ -667,15 +667,15 @@ namespace FruPak.PF.Common.Code
 
         public static int Print_Insert(string papersize, string Template, string Outputfile, string Data, int User_Id)
         {
-            int int_PrintRequest_Id = FruPak.PF.Common.Code.General.int_max_user_id("SY_PrintRequest");
-            FruPak.PF.Data.AccessLayer.SY_PrintRequest.Insert(int_PrintRequest_Id, FruPak.PF.Common.Code.General.Get_Printer(papersize), Template, Outputfile, Data, User_Id);
+            int int_PrintRequest_Id = PF.Common.Code.General.int_max_user_id("SY_PrintRequest");
+            PF.Data.AccessLayer.SY_PrintRequest.Insert(int_PrintRequest_Id, PF.Common.Code.General.Get_Printer(papersize), Template, Outputfile, Data, User_Id);
             return int_PrintRequest_Id;
         }
 
         public static string Get_Path(string code)
         {
             string path = "";
-            DataSet ds = FruPak.PF.Data.AccessLayer.CM_System.Get_Info_For_Code(code);
+            DataSet ds = PF.Data.AccessLayer.CM_System.Get_Info_For_Code(code);
             DataRow dr;
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
@@ -690,7 +690,7 @@ namespace FruPak.PF.Common.Code
         {
             try
             {
-                DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.SC_Log_Action.Get_Info(str_Action);
+                DataSet ds_Get_Info = PF.Data.AccessLayer.SC_Log_Action.Get_Info(str_Action);
                 DataRow dr_Get_Info;
 
                 int int_Action_id = 0;
@@ -701,7 +701,7 @@ namespace FruPak.PF.Common.Code
                     int_Action_id = Convert.ToInt32(dr_Get_Info["Action_Id"].ToString());
                 }
 
-                FruPak.PF.Data.AccessLayer.SC_Log.Insert(General.int_max_user_id("SC_Log"), int_User_Id, int_Action_id, int_Current_User_Id);
+                PF.Data.AccessLayer.SC_Log.Insert(General.int_max_user_id("SC_Log"), int_User_Id, int_Action_id, int_Current_User_Id);
                 ds_Get_Info.Dispose();
             }
             catch (Exception ex)
@@ -721,7 +721,7 @@ namespace FruPak.PF.Common.Code
 
             if (path == "")
             {
-                DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_System.Get_Info_Like("PF%");
+                DataSet ds_Get_Info = PF.Data.AccessLayer.CM_System.Get_Info_Like("PF%");
                 DataRow dr_Get_Info;
                 for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
                 {
@@ -854,7 +854,7 @@ namespace FruPak.PF.Common.Code
 
         public static decimal Material_Weight(int int_material_id)
         {
-            DataSet ds_weight = FruPak.PF.Data.AccessLayer.CM_Material.Get_Info(int_material_id);
+            DataSet ds_weight = PF.Data.AccessLayer.CM_Material.Get_Info(int_material_id);
             DataRow dr_weight;
             decimal dec_material_weight = 0;
 
@@ -870,7 +870,7 @@ namespace FruPak.PF.Common.Code
 
         public static decimal Current_Gross_Weight(int int_Pallet_id)
         {
-            DataSet ds_current_weight = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Info_For_Pallet_Id(int_Pallet_id);
+            DataSet ds_current_weight = PF.Data.AccessLayer.PF_Pallet.Get_Info_For_Pallet_Id(int_Pallet_id);
             DataRow dr_current_weight;
             decimal dec_current_gross = 0;
             for (int k = 0; k < ds_current_weight.Tables[0].Rows.Count; k++)
@@ -892,7 +892,7 @@ namespace FruPak.PF.Common.Code
 
         public static decimal Current_Tare_Weight(int int_Pallet_id)
         {
-            DataSet ds_current_weight = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Info_For_Pallet_Id(int_Pallet_id);
+            DataSet ds_current_weight = PF.Data.AccessLayer.PF_Pallet.Get_Info_For_Pallet_Id(int_Pallet_id);
             DataRow dr_current_weight;
             decimal dec_current_tare = 0;
             for (int k = 0; k < ds_current_weight.Tables[0].Rows.Count; k++)
@@ -916,7 +916,7 @@ namespace FruPak.PF.Common.Code
         {
             decimal dec_Nett_Weight = 0;
             decimal dec_material_weight = 0;
-            DataSet ds = FruPak.PF.Data.AccessLayer.CM_Material.Get_Info(material_Id);
+            DataSet ds = PF.Data.AccessLayer.CM_Material.Get_Info(material_Id);
             DataRow dr;
             try
             {
@@ -939,7 +939,7 @@ namespace FruPak.PF.Common.Code
         public static int Get_Season()
         {
             int int_Season = 0;
-            DataSet ds_system = FruPak.PF.Data.AccessLayer.CM_System.Get_Info_For_Code("Season");
+            DataSet ds_system = PF.Data.AccessLayer.CM_System.Get_Info_For_Code("Season");
             DataRow dr_system;
 
             for (int i = 0; i < ds_system.Tables[0].Rows.Count; i++)
@@ -955,7 +955,7 @@ namespace FruPak.PF.Common.Code
         public static decimal Get_GST()
         {
             decimal dec_GST = 0;
-            DataSet ds_system = FruPak.PF.Data.AccessLayer.CM_System.Get_Info_For_Code("GST");
+            DataSet ds_system = PF.Data.AccessLayer.CM_System.Get_Info_For_Code("GST");
             DataRow dr_system;
 
             for (int i = 0; i < ds_system.Tables[0].Rows.Count; i++)
@@ -971,7 +971,7 @@ namespace FruPak.PF.Common.Code
         public static string Get_Single_System_Code(string code)
         {
             string return_code = "";
-            DataSet ds = FruPak.PF.Data.AccessLayer.CM_System.Get_Info_For_Code(code);
+            DataSet ds = PF.Data.AccessLayer.CM_System.Get_Info_For_Code(code);
             DataRow dr;
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
@@ -986,8 +986,8 @@ namespace FruPak.PF.Common.Code
         {
             //check holding and used levels
             var stock1 = new List<stock>();
-            DataSet ds1 = FruPak.PF.Data.AccessLayer.PF_Stock_Holding.Holding_Sum();
-            DataSet ds2 = FruPak.PF.Data.AccessLayer.PF_Stock_Used.Used_Sum();
+            DataSet ds1 = PF.Data.AccessLayer.PF_Stock_Holding.Holding_Sum();
+            DataSet ds2 = PF.Data.AccessLayer.PF_Stock_Used.Used_Sum();
             DataRow dr1;
             DataRow dr2;
 
@@ -1015,7 +1015,7 @@ namespace FruPak.PF.Common.Code
             string str_emsg = "";
             for (int i = 0; i < stock1.Count; i++)
             {
-                DataSet ds = FruPak.PF.Data.AccessLayer.PF_Stock_Item.Get_Info(stock1[i].Stock_Item_Id);
+                DataSet ds = PF.Data.AccessLayer.PF_Stock_Item.Get_Info(stock1[i].Stock_Item_Id);
                 DataRow dr;
                 for (int i2 = 0; i2 < ds.Tables[0].Rows.Count; i2++)
                 {
@@ -1034,12 +1034,12 @@ namespace FruPak.PF.Common.Code
             {
                 str_emsg = "The following consumable items are running low. " + Environment.NewLine + str_emsg;
 
-                FruPak.PF.Data.AccessLayer.SY_SendMail.send("services@frupak.co.nz", "GlenysP@frupak.co.nz", "Consumable Levels Email", str_emsg);
-                FruPak.PF.Data.AccessLayer.SY_SendMail.send("services@frupak.co.nz", "AlisonC@frupak.co.nz", "Process Factory - Consumable Levels Email", str_emsg);
+                PF.Data.AccessLayer.SY_SendMail.send("services@FP.co.nz", "GlenysP@FP.co.nz", "Consumable Levels Email", str_emsg);
+                PF.Data.AccessLayer.SY_SendMail.send("services@FP.co.nz", "AlisonC@FP.co.nz", "Process Factory - Consumable Levels Email", str_emsg);
 
                 for (int i = 0; i < stock1.Count; i++)
                 {
-                    FruPak.PF.Data.AccessLayer.PF_Stock_Item.Update_Email(stock1[i].Stock_Item_Id, true, int_Current_User_Id);
+                    PF.Data.AccessLayer.PF_Stock_Item.Update_Email(stock1[i].Stock_Item_Id, true, int_Current_User_Id);
                 }
             }
         }
@@ -1050,17 +1050,17 @@ namespace FruPak.PF.Common.Code
             try
             {
                 //other address is used for the billing address, if this is blank, then use delivery address
-                if (FruPak.PF.Data.Outlook.Contacts.Contact_Other_Address == "")
+                if (PF.Data.Outlook.Contacts.Contact_Other_Address == "")
                 {
-                    str_delivery_name = str_delivery_name + Environment.NewLine + FruPak.PF.Data.Outlook.Contacts.Contact_Business_Address.ToString() + Environment.NewLine +
-                                        FruPak.PF.Data.Outlook.Contacts.Contact_Business_City.ToString() + Environment.NewLine + FruPak.PF.Data.Outlook.Contacts.Contact_Business_Postal_Code.ToString();
+                    str_delivery_name = str_delivery_name + Environment.NewLine + PF.Data.Outlook.Contacts.Contact_Business_Address.ToString() + Environment.NewLine +
+                                        PF.Data.Outlook.Contacts.Contact_Business_City.ToString() + Environment.NewLine + PF.Data.Outlook.Contacts.Contact_Business_Postal_Code.ToString();
                 }
                 else
                 {
                     // Null
 
-                    str_delivery_name = str_delivery_name + Environment.NewLine + FruPak.PF.Data.Outlook.Contacts.Contact_Other_Address.ToString() + Environment.NewLine +
-                                        FruPak.PF.Data.Outlook.Contacts.Contact_Other_City.ToString() + Environment.NewLine + FruPak.PF.Data.Outlook.Contacts.Contact_Other_Postal_Code.ToString();
+                    str_delivery_name = str_delivery_name + Environment.NewLine + PF.Data.Outlook.Contacts.Contact_Other_Address.ToString() + Environment.NewLine +
+                                        PF.Data.Outlook.Contacts.Contact_Other_City.ToString() + Environment.NewLine + PF.Data.Outlook.Contacts.Contact_Other_Postal_Code.ToString();
                 }
                 return str_delivery_name;
             }
@@ -1081,7 +1081,7 @@ namespace FruPak.PF.Common.Code
         {
             string str_msg = "";
 
-            if (FruPak.PF.Data.Outlook.Contacts.Contact_Email == null || FruPak.PF.Data.Outlook.Contacts.Contact_Email.Count == 0)
+            if (PF.Data.Outlook.Contacts.Contact_Email == null || PF.Data.Outlook.Contacts.Contact_Email.Count == 0)
             {
                 str_msg = "No Email Address have been loaded for this customer. Please load an Email Address in Outlook." + Environment.NewLine;
             }
@@ -1097,20 +1097,20 @@ namespace FruPak.PF.Common.Code
         public static string Check_Name()
         {
             string str_msg = "";
-            if (FruPak.PF.Data.Outlook.Contacts.Contact_Company_Name == "")
+            if (PF.Data.Outlook.Contacts.Contact_Company_Name == "")
             {
-                if (FruPak.PF.Data.Outlook.Contacts.Contact_First_Name == "" && FruPak.PF.Data.Outlook.Contacts.Contact_Last_Name == "")
+                if (PF.Data.Outlook.Contacts.Contact_First_Name == "" && PF.Data.Outlook.Contacts.Contact_Last_Name == "")
                 {
                     str_msg = str_msg + "No Names (Company, First, Last) are loaded in Outlook for this Customer. Please load a Name and try again." + Environment.NewLine;
                 }
                 else
                 {
-                    delivery_name = FruPak.PF.Data.Outlook.Contacts.Contact_First_Name + " " + FruPak.PF.Data.Outlook.Contacts.Contact_Last_Name;
+                    delivery_name = PF.Data.Outlook.Contacts.Contact_First_Name + " " + PF.Data.Outlook.Contacts.Contact_Last_Name;
                 }
             }
             else
             {
-                delivery_name = FruPak.PF.Data.Outlook.Contacts.Contact_Company_Name;
+                delivery_name = PF.Data.Outlook.Contacts.Contact_Company_Name;
             }
             return str_msg;
         }
@@ -1119,11 +1119,11 @@ namespace FruPak.PF.Common.Code
         {
             string str_msg = "";
             try {
-                if (FruPak.PF.Data.Outlook.Contacts.Contact_Business_Address.ToString() == "")
+                if (PF.Data.Outlook.Contacts.Contact_Business_Address.ToString() == "")
                 {
                     str_msg = str_msg + "No Delivery Address loaded in OutLook for this Customer. Please load an Address and try again." + Environment.NewLine;
                 }
-                if (FruPak.PF.Data.Outlook.Contacts.Contact_Other_Address.ToString() == "")
+                if (PF.Data.Outlook.Contacts.Contact_Other_Address.ToString() == "")
                 {
                     str_msg = str_msg + "No Billing Address loaded in OutLook for this Customer. Please load an Address and try again." + Environment.NewLine;
                 }
@@ -1153,7 +1153,7 @@ namespace FruPak.PF.Common.Code
                 // Gets the number of cartons/drums on each pallet, and totals for the work order
                 case "BAGS":
                 case "BOXS":
-                    ds_bins = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Get_Info_For_WorkOrder(str_WHERE, code);
+                    ds_bins = PF.Data.AccessLayer.PF_Pallet_Details.Get_Info_For_WorkOrder(str_WHERE, code);
                     int int_sum_boxes = 0;
                     for (int i_bins = 0; i_bins < Convert.ToInt32(ds_bins.Tables[0].Rows.Count.ToString()); i_bins++)
                     {
@@ -1166,13 +1166,13 @@ namespace FruPak.PF.Common.Code
                     break;
                 // gets the number of bins tipped on the work orders
                 case "BINS":
-                    ds_bins = FruPak.PF.Data.AccessLayer.CM_Bins.Get_Info_for_Work_Order(str_WHERE);
+                    ds_bins = PF.Data.AccessLayer.CM_Bins.Get_Info_for_Work_Order(str_WHERE);
                     str_return = ds_bins.Tables[0].Rows.Count.ToString();
                     ds_bins.Dispose();
                     break;
                 //Get the number of Batches created on the work order
                 case "BOILER":
-                    ds_bins = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Get_Batches_For_WorkOrder(str_WHERE, code);
+                    ds_bins = PF.Data.AccessLayer.PF_Pallet_Details.Get_Batches_For_WorkOrder(str_WHERE, code);
                     str_return = ds_bins.Tables[0].Rows.Count.ToString();
                     ds_bins.Dispose();
                     break;
@@ -1184,7 +1184,7 @@ namespace FruPak.PF.Common.Code
                 case "HOTFILL":
                 case "OLIVES":
                 case "BERRIES": // Added 19/10/2015 BN
-                    ds_bins = FruPak.PF.Data.AccessLayer.CM_Bins.Get_Info_for_Work_Order(str_WHERE, code);
+                    ds_bins = PF.Data.AccessLayer.CM_Bins.Get_Info_for_Work_Order(str_WHERE, code);
 
                     decimal dec_sum_weight = 0;
 
@@ -1198,7 +1198,7 @@ namespace FruPak.PF.Common.Code
                     break;
                 //Get the number of pallets created for the work order
                 case "PALLETS":
-                    ds_bins = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Get_Info_For_WorkOrder(str_WHERE, code);
+                    ds_bins = PF.Data.AccessLayer.PF_Pallet_Details.Get_Info_For_WorkOrder(str_WHERE, code);
                     str_return = ds_bins.Tables[0].Rows.Count.ToString();
                     ds_bins.Dispose();
                     break;
@@ -1206,13 +1206,13 @@ namespace FruPak.PF.Common.Code
                 case "RENTAL":
                 case "POWER":
                 case "CLEAN":
-                    ds_bins = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Invoice_Rate(str_WHERE, code);
+                    ds_bins = PF.Data.AccessLayer.PF_Work_Order.Get_Invoice_Rate(str_WHERE, code);
                     str_return = ds_bins.Tables[0].Rows.Count.ToString();
                     ds_bins.Dispose();
                     break;
 
                 case "STORAGE-1": //unprocessed fruit
-                    ds_bins = FruPak.PF.Data.AccessLayer.CM_Bins.Get_Bin_Storage(str_WHERE);
+                    ds_bins = PF.Data.AccessLayer.CM_Bins.Get_Bin_Storage(str_WHERE);
                     decimal dec_storeage1 = 0;
 
                     for (int i_bins = 0; i_bins < Convert.ToInt32(ds_bins.Tables[0].Rows.Count.ToString()); i_bins++)
@@ -1226,7 +1226,7 @@ namespace FruPak.PF.Common.Code
 
                 case "STORAGE-2": //Processed Product in Cool Storeage
                 case "STORAGE-3": //Processed Product in Dry Storeage
-                    ds_bins = FruPak.PF.Data.AccessLayer.PF_Orders.Get_Storage(str_WHERE);
+                    ds_bins = PF.Data.AccessLayer.PF_Orders.Get_Storage(str_WHERE);
                     decimal dec_storeage2 = 0;
 
                     for (int i_bins = 0; i_bins < Convert.ToInt32(ds_bins.Tables[0].Rows.Count.ToString()); i_bins++)
@@ -1239,7 +1239,7 @@ namespace FruPak.PF.Common.Code
                     break;
 
                 case "WAGES":
-                    ds_bins = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Staff_for_Work_Order(str_WHERE);
+                    ds_bins = PF.Data.AccessLayer.PF_Work_Order.Get_Staff_for_Work_Order(str_WHERE);
                     decimal dec_total_wages = 0;
 
                     for (int i_wages = 0; i_wages < ds_bins.Tables[0].Rows.Count; i_wages++)

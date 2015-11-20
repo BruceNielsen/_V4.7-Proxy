@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,25 +27,25 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(Trader_Id) as Current_Id FROM CM_Trader");
         }
 
         public static DataSet Get_Info()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT *, Code + ' - ' + Description as Combined FROM CM_Trader WHERE PF_Active_Ind = 1 ORDER BY Code ");
         }
 
         public static DataSet Get_Info(int Trader_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM CM_Trader WHERE PF_Active_Ind = 1 AND Trader_Id = " + Trader_Id);
         }
 
         public static DataSet Get_Customer_Id(int Trader_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT C.Customer_Id " +
                                             "FROM CM_Trader T " +
                                             "INNER JOIN dbo.PF_Customer C on C.Customer_Id = T.Customer_Id " +
@@ -54,7 +54,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Check_Trader(int Trader_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT Trader_Id FROM dbo.GH_Submission WHERE Trader_Id = " + Trader_Id + " " +
                                             "UNION " +
                                             "SELECT Trader_Id FROM dbo.PF_Work_Order WHERE Trader_Id = " + Trader_Id + " " +
@@ -64,26 +64,26 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_Info(string Code)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM CM_Trader WHERE PF_Active_Ind = 1 AND Code = '" + Code + "'");
         }
 
         public static int Insert(int Trader_Id, string Code, string Description, int Customer_Id, string Barcode_Num, bool PF_Active_Ind, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO CM_Trader(Trader_Id, Code, Description, Customer_Id, Barcode_Num, PF_Active_Ind, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + Trader_Id + ",'" + Code + "','" + Description + "'," + Customer_Id + ",'" + Barcode_Num + "','" + PF_Active_Ind + "', GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Delete(int Trader_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM CM_Trader WHERE Trader_Id = " + Trader_Id);
         }
 
         public static int Update(int Trader_Id, string Code, string Description, int Customer_Id, string Barcode_Num, bool PF_Active_Ind, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE CM_Trader SET Code = '" + Code + "', " +
                                                                   "Description = '" + Description + "', " +
                                                                   "Customer_Id = " + Customer_Id + ", " +

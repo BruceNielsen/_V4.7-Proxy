@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Temp
+﻿namespace PF.Temp
 {
     partial class Pre_System_Stock
     {
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Pre_System_Stock));
-            this.materialNumber1 = new FruPak.PF.Utils.UserControls.MaterialNumber();
+            this.materialNumber1 = new PF.Utils.UserControls.MaterialNumber();
             this.label1 = new System.Windows.Forms.Label();
             this.nud_quantity = new System.Windows.Forms.NumericUpDown();
             this.btn_Add = new System.Windows.Forms.Button();
@@ -155,7 +155,7 @@
             this.KeyPreview = true;
             this.Name = "Pre_System_Stock";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Temp.Pre System Stock";
+            this.Text = "PF.Temp.Pre System Stock";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Pre_System_Stock_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nud_quantity)).EndInit();

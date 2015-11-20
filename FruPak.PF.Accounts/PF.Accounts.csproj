@@ -1,0 +1,274 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{6543499B-86BE-4356-9496-34DAF73A998F}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>PF.Accounts</RootNamespace>
+    <AssemblyName>PF.Accounts</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="CheckBoxComboBox, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\FruPak.ProcessFactory\FruPak.ProcessFactory\bin\Release\CheckBoxComboBox.dll</HintPath>
+    </Reference>
+    <Reference Include="DataGridViewAutoFilter">
+      <HintPath>..\..\FruPak.ProcessFactory\FruPak.ProcessFactory\bin\Release\DataGridViewAutoFilter.dll</HintPath>
+    </Reference>
+    <Reference Include="NLog">
+      <HintPath>..\packages\NLog.3.1.0.0\lib\net40\NLog.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.DirectoryServices.AccountManagement" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Fruit_Purchase.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Fruit_Purchase.designer.cs">
+      <DependentUpon>Fruit_Purchase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="HistoryUpdateEventArgs.cs" />
+    <Compile Include="Intended_Orders.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Intended_Orders.Designer.cs">
+      <DependentUpon>Intended_Orders.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Invoice_Search.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Invoice_Search.designer.cs">
+      <DependentUpon>Invoice_Search.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Invoicing_Sales.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Invoicing_Sales.designer.cs">
+      <DependentUpon>Invoicing_Sales.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Invoicing_WO.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Invoicing_WO.designer.cs">
+      <DependentUpon>Invoicing_WO.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Accounts_Maintenance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Accounts_Maintenance.designer.cs">
+      <DependentUpon>Accounts_Maintenance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Order_Invoice_Link.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Order_Invoice_Link.Designer.cs">
+      <DependentUpon>Order_Invoice_Link.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Payment_Received.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Payment_Received.Designer.cs">
+      <DependentUpon>Payment_Received.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sales_Rates.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sales_Rates.designer.cs">
+      <DependentUpon>Sales_Rates.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Statement_Email.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Statement_Email.Designer.cs">
+      <DependentUpon>Statement_Email.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Fruit_Purchase.resx">
+      <DependentUpon>Fruit_Purchase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Intended_Orders.resx">
+      <DependentUpon>Intended_Orders.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Invoice_Search.resx">
+      <DependentUpon>Invoice_Search.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Invoicing_Sales.resx">
+      <DependentUpon>Invoicing_Sales.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Invoicing_WO.resx">
+      <DependentUpon>Invoicing_WO.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Accounts_Maintenance.resx">
+      <DependentUpon>Accounts_Maintenance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Order_Invoice_Link.resx">
+      <DependentUpon>Order_Invoice_Link.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Payment_Received.resx">
+      <DependentUpon>Payment_Received.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <EmbeddedResource Include="Sales_Rates.resx">
+      <DependentUpon>Sales_Rates.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Statement_Email.resx">
+      <DependentUpon>Statement_Email.cs</DependentUpon>
+    </EmbeddedResource>
+    <None Include="app.config" />
+    <None Include="ClassDiagram1.cd" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FruPak.PF.Common.Code\PF.Common.Code.csproj">
+      <Project>{7A894363-CA13-4FB8-9A82-ABB3F8FFAE50}</Project>
+      <Name>PF.Common.Code</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FruPak.PF.CustomSettings\PF.CustomSettings.csproj">
+      <Project>{03ac6274-6499-478e-ae47-3680a8451cd3}</Project>
+      <Name>PF.CustomSettings</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FruPak.PF.Data.AccessLayer\PF.Data.Access_Layer.csproj">
+      <Project>{3414FDC5-0AA3-46FA-BDCB-37954C6CE2F5}</Project>
+      <Name>PF.Data.Access_Layer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FruPak.PF.Data.Excel\PF.Data.Excel.csproj">
+      <Project>{3D2550EC-9DB7-4EF0-B48D-6CEAEFEFADEB}</Project>
+      <Name>PF.Data.Excel</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FruPak.PF.Data.Outlook\PF.Data.Outlook.csproj">
+      <Project>{0C73C37C-8860-4CE3-8677-67D44DA753F2}</Project>
+      <Name>PF.Data.Outlook</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FruPak.PF.Global\PF.Global.csproj">
+      <Project>{CC23E470-4C74-4F8E-9AC6-432DCD2DF065}</Project>
+      <Name>PF.Global</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FruPak.PF.PrintLayer\PF.PrintLayer.csproj">
+      <Project>{CD7844BC-7688-4047-B176-7D12816F889C}</Project>
+      <Name>PF.PrintLayer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FruPak.PF.Utils.UserControls\PF.Utils.UserControls.csproj">
+      <Project>{23D1F355-55B4-4116-A9D6-C9AE36819F78}</Project>
+      <Name>PF.Utils.UserControls</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Reversi\Reversible.csproj">
+      <Project>{661959de-8191-4107-b72b-36451bb853c7}</Project>
+      <Name>Reversible</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <COMReference Include="Microsoft.Office.Core">
+      <Guid>{2DF8D04C-5BFA-101B-BDE5-00AA0044DE52}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>4</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>tlbimp</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="Microsoft.Office.Interop.Outlook">
+      <Guid>{00062FFF-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>9</VersionMajor>
+      <VersionMinor>4</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+    <COMReference Include="stdole">
+      <Guid>{00020430-0000-0000-C000-000000000046}</Guid>
+      <VersionMajor>2</VersionMajor>
+      <VersionMinor>0</VersionMinor>
+      <Lcid>0</Lcid>
+      <WrapperTool>primary</WrapperTool>
+      <Isolated>False</Isolated>
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </COMReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

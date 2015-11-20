@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Dispatch
+namespace PF.Dispatch
 {
     public partial class Other_Work : Form
     {
@@ -23,13 +23,13 @@ namespace FruPak.PF.Dispatch
             btn_Add.Enabled = bol_w_a;
             //check if testing or not
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
 
             //setup custom date time format
@@ -74,9 +74,9 @@ namespace FruPak.PF.Dispatch
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -89,7 +89,7 @@ namespace FruPak.PF.Dispatch
             DataSet ds_Get_Info;
 
             //Work Type
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Other_Work_Types.Get_Info();
+            ds_Get_Info = PF.Data.AccessLayer.PF_Other_Work_Types.Get_Info();
             cmb_Work_Type.DataSource = ds_Get_Info.Tables[0];
             cmb_Work_Type.DisplayMember = "Combined";
             cmb_Work_Type.ValueMember = "Other_Work_Types_Id";
@@ -97,7 +97,7 @@ namespace FruPak.PF.Dispatch
             ds_Get_Info.Dispose();
 
             //Destination
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Staff.Get_Info();
+            ds_Get_Info = PF.Data.AccessLayer.PF_Staff.Get_Info();
             cmb_Staff.DataSource = ds_Get_Info.Tables[0];
             cmb_Staff.DisplayMember = "Name";
             cmb_Staff.ValueMember = "Staff_Id";
@@ -158,14 +158,14 @@ namespace FruPak.PF.Dispatch
             dataGridView1.Columns.Add(img_delete);
             img_delete.HeaderText = "Delete";
             img_delete.Name = "Delete";
-            img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
+            img_delete.Image = PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
 
             DataGridViewImageColumn img_edit = new DataGridViewImageColumn();
             dataGridView1.Columns.Add(img_edit);
             img_edit.HeaderText = "Edit";
             img_edit.Name = "Edit";
-            img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
+            img_edit.Image = PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
         }
 
@@ -192,7 +192,7 @@ namespace FruPak.PF.Dispatch
             dataGridView1.Refresh();
             dataGridView1.Rows.Clear();
 
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Other_Work.Get_Info_Translated();
+            DataSet ds_Get_Info = PF.Data.AccessLayer.PF_Other_Work.Get_Info_Translated();
             DataRow dr_Get_Info;
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
@@ -277,14 +277,14 @@ namespace FruPak.PF.Dispatch
                 switch (btn_Add.Text)
                 {
                     case "&Add":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Other_Work.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Other_Work"), Convert.ToInt32(cmb_Work_Type.SelectedValue.ToString()), Convert.ToInt32(cmb_Staff.SelectedValue.ToString()),
+                        int_result = PF.Data.AccessLayer.PF_Other_Work.Insert(PF.Common.Code.General.int_max_user_id("PF_Other_Work"), Convert.ToInt32(cmb_Work_Type.SelectedValue.ToString()), Convert.ToInt32(cmb_Staff.SelectedValue.ToString()),
                             dtp_Start.Value.ToShortDateString() + " " + dtp_Start.Value.Hour.ToString() + ":" + dtp_Start.Value.Minute + ":" + dtp_Start.Value.Second.ToString(),
                             dtp_Finish.Value.ToShortDateString() + " " + dtp_Finish.Value.Hour.ToString() + ":" + dtp_Finish.Value.Minute.ToString() + ":" + dtp_Finish.Value.Second.ToString(),
                             txt_Description.Text, int_Current_User_Id);
                         break;
 
                     case "&Update":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Other_Work.Update(int_Other_Work_Id, Convert.ToInt32(cmb_Work_Type.SelectedValue.ToString()), Convert.ToInt32(cmb_Staff.SelectedValue.ToString()),
+                        int_result = PF.Data.AccessLayer.PF_Other_Work.Update(int_Other_Work_Id, Convert.ToInt32(cmb_Work_Type.SelectedValue.ToString()), Convert.ToInt32(cmb_Staff.SelectedValue.ToString()),
                             dtp_Start.Value.ToShortDateString() + " " + dtp_Start.Value.Hour.ToString() + ":" + dtp_Start.Value.Minute + ":" + dtp_Start.Value.Second.ToString(),
                             dtp_Finish.Value.ToShortDateString() + " " + dtp_Finish.Value.Hour.ToString() + ":" + dtp_Finish.Value.Minute.ToString() + ":" + dtp_Finish.Value.Second.ToString(),
                             txt_Description.Text, int_Current_User_Id);
@@ -350,7 +350,7 @@ namespace FruPak.PF.Dispatch
             //Delete
             if (e.ColumnIndex == 8)
             {
-                int int_result = FruPak.PF.Common.Code.General.Delete_Record("PF_Other_Work", dataGridView1.Rows[e.RowIndex].Cells["Other_Work_Id"].Value.ToString(),
+                int int_result = PF.Common.Code.General.Delete_Record("PF_Other_Work", dataGridView1.Rows[e.RowIndex].Cells["Other_Work_Id"].Value.ToString(),
                                                                         " Other Work entry for " + dataGridView1.Rows[e.RowIndex].Cells["Staff"].Value.ToString());
                 if (int_result > 0)
                 {
@@ -424,7 +424,7 @@ namespace FruPak.PF.Dispatch
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

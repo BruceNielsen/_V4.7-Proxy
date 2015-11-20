@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Security
+namespace PF.Utils.Security
 {
     /*Description
     -----------------
@@ -35,7 +35,7 @@ namespace FruPak.PF.Utils.Security
             #region Get "My Documents" folder
 
             //string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            //path = Path.Combine(path, "FruPak_Settings");
+            //path = Path.Combine(path, "FP_Settings");
 
             //// Create folder if it doesn't already exist
             //if (!Directory.Exists(path))
@@ -68,7 +68,7 @@ namespace FruPak.PF.Utils.Security
             #endregion Load CustomSettings (Disabled - Reasons why are given in Install.cs)
 
             // By using the global variables, I can avoid using the settings file in this form
-            //if(FruPak.PF.Global.Global.Phantom_Dev_Mode == true)
+            //if(PF.Global.Global.Phantom_Dev_Mode == true)
             //{
             //    this.buttonPhantomPasswordHack.Visible = true;
             //}
@@ -76,9 +76,9 @@ namespace FruPak.PF.Utils.Security
             //{
             //    this.buttonPhantomPasswordHack.Visible = false;
             //}
-            //log.Info("FruPak.PF.Utils.Security.Logon");
+            //log.Info("PF.Utils.Security.Logon");
 
-            FruPak.PF.Global.Global.bol_Testing = false;
+            PF.Global.Global.bool_Testing = false;
             str_Type = str_type;
             if (str_user_id != "")
             {
@@ -122,9 +122,9 @@ namespace FruPak.PF.Utils.Security
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
 
-                //else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                //else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 //{
-                //    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                //    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                 //    cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 //}
             }
@@ -135,7 +135,7 @@ namespace FruPak.PF.Utils.Security
         //validate userid and password
         private void btn_login_Click(object sender, EventArgs e)
         {
-            FruPak.PF.Global.Global.Phantom_Dev_Mode = FruPak.PF.Global.Global.bol_Testing;
+            PF.Global.Global.Phantom_Dev_Mode = PF.Global.Global.bool_Testing;
             submit();
         }
 
@@ -144,7 +144,7 @@ namespace FruPak.PF.Utils.Security
             // Enter key
             if (e.KeyChar == 13)
             {
-                FruPak.PF.Global.Global.Phantom_Dev_Mode = FruPak.PF.Global.Global.bol_Testing;
+                PF.Global.Global.Phantom_Dev_Mode = PF.Global.Global.bool_Testing;
                 submit();
             }
         }
@@ -160,7 +160,7 @@ namespace FruPak.PF.Utils.Security
             {
                 DLR_MessageBox = MessageBox.Show("Invalid Password - Please try again", "Security - Logon", MessageBoxButtons.RetryCancel, MessageBoxIcon.Stop);
             }
-            DataSet ds_Get_User_Info = FruPak.PF.Data.AccessLayer.SC_User.Get_Info(txt_User_Id.Text);
+            DataSet ds_Get_User_Info = PF.Data.AccessLayer.SC_User.Get_Info(txt_User_Id.Text);
 
             if (Convert.ToInt32(ds_Get_User_Info.Tables[0].Rows.Count.ToString()) == 0)
             {
@@ -196,23 +196,23 @@ namespace FruPak.PF.Utils.Security
                     DLR_MessageBox = DialogResult.Yes;
                     break;
             }
-            FruPak.PF.Common.Code.General.write_log(int_User_id, str_Type, int_User_id);
+            PF.Common.Code.General.write_log(int_User_id, str_Type, int_User_id);
             //logger.Log(LogLevel.Info, LogCode("Logon.cs: write_log:" + int_User_id.ToString() + ", " + str_Type + ", " + int_User_id.ToString()));
 
-            FruPak.PF.Global.Global.LogonName = txt_User_Id.Text;
+            PF.Global.Global.LogonName = txt_User_Id.Text;
         }
 
         private void btn_Close_Click(object sender, EventArgs e)
         {
             DLR_MessageBox = DialogResult.Yes;
-            FruPak.PF.Common.Code.General.write_log(int_User_id, "Log off", int_User_id);
+            PF.Common.Code.General.write_log(int_User_id, "Log off", int_User_id);
             logger.Log(LogLevel.Info, LogCode("Logon.cs: btn_Close_Click:" + int_User_id.ToString() + ", Log off, " + int_User_id.ToString()));
             this.Close();
         }
 
         private void btn_Change_Password_Click(object sender, EventArgs e)
         {
-            FruPak.PF.Common.Code.General.write_log(int_User_id, "Change pwd", int_User_id);
+            PF.Common.Code.General.write_log(int_User_id, "Change pwd", int_User_id);
             Form Frm_Change_PSWD = new Password_Reset(txt_User_Id.Text);
             Frm_Change_PSWD.ShowDialog();
         }
@@ -259,7 +259,7 @@ namespace FruPak.PF.Utils.Security
 
         private void txt_User_Id_Leave(object sender, EventArgs e)
         {
-            DataSet ds = FruPak.PF.Data.AccessLayer.SC_User.Get_Info(txt_User_Id.Text);
+            DataSet ds = PF.Data.AccessLayer.SC_User.Get_Info(txt_User_Id.Text);
             DataRow dr;
             if (ds != null)
             {
@@ -298,27 +298,27 @@ namespace FruPak.PF.Utils.Security
             var rad = (RadioButton)sender;
             if (rad.Text == "&Test" && rad.Checked == true)
             {
-                FruPak.PF.Global.Global.bol_Testing = true;
-                FruPak.PF.Global.Global.Phantom_Dev_Mode = true;
+                PF.Global.Global.bool_Testing = true;
+                PF.Global.Global.Phantom_Dev_Mode = true;
                 //Console.WriteLine("Phantom_Dev_Mode = true");
             }
             else
             {
-                FruPak.PF.Global.Global.bol_Testing = false;
-                FruPak.PF.Global.Global.Phantom_Dev_Mode = false;
+                PF.Global.Global.bool_Testing = false;
+                PF.Global.Global.Phantom_Dev_Mode = false;
                 //Console.WriteLine("Phantom_Dev_Mode = false");
             }
 
             //// The compiler was complaining about this statement, so I had to cast it to string to get around it
             //if ((string)(sender as RadioButton).Text == "&Test" && (sender as RadioButton).Checked == true)
             //{
-            //    FruPak.PF.Global.Global.bol_Testing = true;
-            //    //FruPak.PF.Global.Global.Phantom_Dev_Mode = true;
+            //    PF.Global.Global.bol_Testing = true;
+            //    //PF.Global.Global.Phantom_Dev_Mode = true;
             //}
             //else
             //{
-            //    FruPak.PF.Global.Global.bol_Testing = false;
-            //    //FruPak.PF.Global.Global.Phantom_Dev_Mode = false;
+            //    PF.Global.Global.bol_Testing = false;
+            //    //PF.Global.Global.Phantom_Dev_Mode = false;
             //}
         }
 
@@ -341,7 +341,7 @@ namespace FruPak.PF.Utils.Security
 
         private void Logon_FormClosing(object sender, FormClosingEventArgs e)
         {
-            //FruPak.PF.Global.Global.Phantom_Dev_Mode = FruPak.PF.Global.Global.bol_Testing;
+            //PF.Global.Global.Phantom_Dev_Mode = PF.Global.Global.bol_Testing;
             //logger.Log(LogLevel.Info, LogCode("Logon.cs: Logon_FormClosing."));
         }
 
@@ -419,7 +419,7 @@ namespace FruPak.PF.Utils.Security
 
         //private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         //{
-        //    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+        //    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
         //    logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         //}
 
@@ -482,6 +482,11 @@ namespace FruPak.PF.Utils.Security
             this.txt_User_Id.Text = "GlenysP";
             this.txt_Password.Focus();
             this.txt_Password.Text = "piemix";
+        }
+
+        private void panelHackSelkuckG_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Dispatch
+﻿namespace PF.Dispatch
 {
     partial class Shipping_Search
     {
@@ -52,7 +52,7 @@
             this.buttonCheckFilesInTheTempFolder = new System.Windows.Forms.Button();
             this.buttonTest = new System.Windows.Forms.Button();
             this.buttonNewView = new System.Windows.Forms.Button();
-            this.customer1 = new FruPak.PF.Utils.UserControls.Customer();
+            this.customer1 = new PF.Utils.UserControls.Customer();
             this.buttonDeleteFiles = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.panelShipping_Search.SuspendLayout();
@@ -361,7 +361,7 @@
             this.KeyPreview = true;
             this.Name = "Shipping_Search";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Dispatch.Shipping Search";
+            this.Text = "PF.Dispatch.Shipping Search";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ShippingSearch_FormClosing);
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Shipping_Search_KeyDown);

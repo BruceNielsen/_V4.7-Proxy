@@ -3,7 +3,7 @@ using System;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace FruPak.PF.StockControl
+namespace PF.StockControl
 {
     internal static class Program
     {

@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.WorkOrder
+namespace PF.WorkOrder
 {
     public partial class WO_Output : Form
     {
@@ -33,13 +33,13 @@ namespace FruPak.PF.WorkOrder
             int_Work_Order_Id = int_wo_id;
             //check if testing or not
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
             // setup display of current work order
             woDisplay1.Work_Order_Id = int_Work_Order_Id;
@@ -85,9 +85,9 @@ namespace FruPak.PF.WorkOrder
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -106,21 +106,21 @@ namespace FruPak.PF.WorkOrder
             selectedVariety = woDisplay1.Variety_Id;
             DataSet ds_Get_Info;
             DataRow dr_Get_Info;
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Info(int_Work_Order_Id);
+            ds_Get_Info = PF.Data.AccessLayer.PF_Work_Order.Get_Info(int_Work_Order_Id);
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {
                 dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
                 selectedGrowingMethod = Convert.ToInt32(dr_Get_Info["Growing_Method_Id"].ToString());
             }
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Work_Order_Material_Relationship.Get_Info_By_Work_Order(int_Work_Order_Id);
+            ds_Get_Info = PF.Data.AccessLayer.PF_Work_Order_Material_Relationship.Get_Info_By_Work_Order(int_Work_Order_Id);
 
             if (Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()) > 0)
             {
                 for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
                 {
                     dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
-                    DataSet ds_Get_Info2 = FruPak.PF.Data.AccessLayer.CM_Material.Get_Info_By_Translated(Convert.ToInt32(dr_Get_Info["Material_Id"].ToString()));
+                    DataSet ds_Get_Info2 = PF.Data.AccessLayer.CM_Material.Get_Info_By_Translated(Convert.ToInt32(dr_Get_Info["Material_Id"].ToString()));
                     DataRow dr_Get_Info2;
                     for (int j = 0; j < Convert.ToInt32(ds_Get_Info2.Tables[0].Rows.Count.ToString()); j++)
                     {
@@ -161,7 +161,7 @@ namespace FruPak.PF.WorkOrder
             }
             else
             {
-                DataSet ds_Get_prod_reltn = FruPak.PF.Data.AccessLayer.CM_Product_Product_Group_Relationship.Get_Info_By_Product(int_Product_Id);
+                DataSet ds_Get_prod_reltn = PF.Data.AccessLayer.CM_Product_Product_Group_Relationship.Get_Info_By_Product(int_Product_Id);
                 DataRow dr_Get_prod_reltn;
                 for (int i = 0; i < Convert.ToInt32(ds_Get_prod_reltn.Tables[0].Rows.Count.ToString()); i++)
                 {
@@ -178,7 +178,7 @@ namespace FruPak.PF.WorkOrder
         private void populate_comboboxs()
         {
             DataSet ds_Get_Info;
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Material.Get_Info_By_Translated();
+            ds_Get_Info = PF.Data.AccessLayer.CM_Material.Get_Info_By_Translated();
             dv = new DataView(ds_Get_Info.Tables[0]);
             string filterString = "";
             if (selectedVariety != 0)
@@ -368,7 +368,7 @@ namespace FruPak.PF.WorkOrder
             dataGridView1.Columns.Add(img_delete);
             img_delete.HeaderText = "Delete";
             img_delete.Name = "Delete";
-            img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
+            img_delete.Image = PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
         }
 
@@ -377,7 +377,7 @@ namespace FruPak.PF.WorkOrder
             //dataGridView1.Refresh();
             //dataGridView1.Rows.Clear();
 
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Product_Product_Group_Relationship.Get_Info_By_Product_Material(int_Product_Id, int_ProductGroup_Id);
+            DataSet ds_Get_Info = PF.Data.AccessLayer.CM_Product_Product_Group_Relationship.Get_Info_By_Product_Material(int_Product_Id, int_ProductGroup_Id);
             DataRow dr_Get_Info;
             if (Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()) == 1)
             {
@@ -391,7 +391,7 @@ namespace FruPak.PF.WorkOrder
                     DGVC_Id.Value = dr_Get_Info["Material_Id"].ToString();
                     dataGridView1.Rows[i_rows].Cells[0] = DGVC_Id;
 
-                    int_result = FruPak.PF.Data.AccessLayer.PF_Work_Order_Material_Relationship.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Work_Order_Material_Relationship"), int_Work_Order_Id, Convert.ToInt32(dr_Get_Info["Material_Id"].ToString()), int_Current_User_Id);
+                    int_result = PF.Data.AccessLayer.PF_Work_Order_Material_Relationship.Insert(PF.Common.Code.General.int_max_user_id("PF_Work_Order_Material_Relationship"), int_Work_Order_Id, Convert.ToInt32(dr_Get_Info["Material_Id"].ToString()), int_Current_User_Id);
 
                     DataGridViewCell DGVC_Trader = new DataGridViewTextBoxCell();
                     DGVC_Trader.Value = dr_Get_Info["Trader"].ToString();
@@ -537,7 +537,7 @@ namespace FruPak.PF.WorkOrder
             }
             if (DLR_MessageBox != DialogResult.OK)
             {
-                int_result = FruPak.PF.Data.AccessLayer.PF_Work_Order_Material_Relationship.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Work_Order_Material_Relationship"), int_Work_Order_Id, Convert.ToInt32(cmb_Material.SelectedValue.ToString()), int_Current_User_Id);
+                int_result = PF.Data.AccessLayer.PF_Work_Order_Material_Relationship.Insert(PF.Common.Code.General.int_max_user_id("PF_Work_Order_Material_Relationship"), int_Work_Order_Id, Convert.ToInt32(cmb_Material.SelectedValue.ToString()), int_Current_User_Id);
             }
             if (int_result > 0)
             {
@@ -571,7 +571,7 @@ namespace FruPak.PF.WorkOrder
 
                 if (DLR_Message == DialogResult.Yes)
                 {
-                    int_result = FruPak.PF.Data.AccessLayer.PF_Work_Order_Material_Relationship.Delete(int_Work_Order_Id, Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
+                    int_result = PF.Data.AccessLayer.PF_Work_Order_Material_Relationship.Delete(int_Work_Order_Id, Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
                 }
 
                 if (int_result > 0)
@@ -678,7 +678,7 @@ namespace FruPak.PF.WorkOrder
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

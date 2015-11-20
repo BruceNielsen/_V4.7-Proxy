@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,20 +27,20 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(BlkVar_Relat_Id) as Current_Id FROM CM_Block_Variety_Relationship");
         }
 
         public static int Insert(int BlkVar_Relat_Id, int Block_Id, int Variety_Id, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO CM_Block_Variety_Relationship(BlkVar_Relat_Id, Block_Id, Variety_Id, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + BlkVar_Relat_Id + "," + Block_Id + "," + Variety_Id + ", GETDATE()," + Mod_User_Id + ")");
         }
 
         public static DataSet Get_Info(int Block_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT BlkVar_Relat_Id, BVR.Block_Id, B.Code as BLOCK, BVR.Variety_Id, FV.Code as Variety, FV.Description as Description, BVR.Mod_Date, BVR.Mod_User_Id " +
                                             "FROM CM_Block_Variety_Relationship BVR " +
                                             "INNER JOIN CM_Block B ON B.Block_Id = BVR.Block_Id " +
@@ -50,7 +50,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_Info(int Block_Id, int Variety_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT BlkVar_Relat_Id, BVR.Block_Id, B.Code as BLOCK, BVR.Variety_Id, FV.Code as Variety, FV.Description as Description, BVR.Mod_Date, BVR.Mod_User_Id " +
                                             "FROM CM_Block_Variety_Relationship BVR " +
                                             "INNER JOIN CM_Block B ON B.Block_Id = BVR.Block_Id " +
@@ -60,7 +60,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_Info_Varieties(int Block_Id, int FruitType_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT BVR.[BlkVar_Relat_Id], BVR.[Block_Id] ,BVR.[Variety_Id] ,FV.Code as Variety ,FV.Description as Description ,BVR.[Mod_Date] ,BVR.[Mod_User_Id] ,FV.FruitType_Id " +
                                             "FROM [dbo].[CM_Block_Variety_Relationship] BVR " +
                                             "INNER JOIN dbo.CM_Fruit_Variety FV ON BVR.Variety_Id = FV.Variety_Id " +
@@ -69,13 +69,13 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Delete(int BlkVar_Relat_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM CM_Block_Variety_Relationship WHERE BlkVar_Relat_Id = " + BlkVar_Relat_Id);
         }
 
         public static int Delete_For_Block(int Block_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM CM_Block_Variety_Relationship WHERE Block_Id = " + Block_Id);
         }
     }

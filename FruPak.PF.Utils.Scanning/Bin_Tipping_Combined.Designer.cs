@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.Scanning
+﻿namespace PF.Utils.Scanning
 {
     partial class Bin_Tipping_Combined
     {
@@ -41,12 +41,12 @@
             this.groupBoxBinTipping = new System.Windows.Forms.GroupBox();
             this.buttonZeroGrossWeight = new System.Windows.Forms.Button();
             this.buttonCopyBinTippingBarcode = new System.Windows.Forms.Button();
-            this.barcode_BinTipping = new FruPak.PF.Utils.UserControls.Barcode();
+            this.barcode_BinTipping = new PF.Utils.UserControls.Barcode();
             this.groupBoxBinTareWeights = new System.Windows.Forms.GroupBox();
             this.buttonZeroBinTareWeight = new System.Windows.Forms.Button();
             this.buttonCopyBinTareWeightsBarcode = new System.Windows.Forms.Button();
             this.labelNotes = new System.Windows.Forms.Label();
-            this.barcode_BinTareWeights = new FruPak.PF.Utils.UserControls.Barcode();
+            this.barcode_BinTareWeights = new PF.Utils.UserControls.Barcode();
             this.btn_Tipped_BinTareWeights = new System.Windows.Forms.Button();
             this.nud_weight_BinTareWeights = new System.Windows.Forms.NumericUpDown();
             this.lbl_message_BinTareWeights = new System.Windows.Forms.Label();
@@ -338,7 +338,7 @@
             this.KeyPreview = true;
             this.Name = "Bin_Tipping_Combined";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.Scanning.Bin_Tipping_Combined";
+            this.Text = "PF.Utils.Scanning.Bin_Tipping_Combined";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Bin_Tipping_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nud_weight_BinTipping)).EndInit();
             this.groupBoxBinTipping.ResumeLayout(false);

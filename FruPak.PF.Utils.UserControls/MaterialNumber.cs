@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.UserControls
+namespace PF.Utils.UserControls
 {
     public partial class MaterialNumber : UserControl
     {
@@ -111,7 +111,7 @@ namespace FruPak.PF.Utils.UserControls
         public void populate()
         {
             DataSet ds_Get_Info;
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Material.Get_Info_By_Translated();
+            ds_Get_Info = PF.Data.AccessLayer.CM_Material.Get_Info_By_Translated();
             dv = new DataView(ds_Get_Info.Tables[0]);
             string filterString = "";
             if (selectedVariety != 0)
@@ -355,7 +355,7 @@ namespace FruPak.PF.Utils.UserControls
                 // Need to convert Material_Num to Material_Id to set selectedMaterial
                 DataSet ds_Get_Info;
                 DataRow dr_get_info;
-                ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Material.Get_Info(Convert.ToDecimal(chosenMaterial));
+                ds_Get_Info = PF.Data.AccessLayer.CM_Material.Get_Info(Convert.ToDecimal(chosenMaterial));
                 for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
                 {
                     dr_get_info = ds_Get_Info.Tables[0].Rows[i];

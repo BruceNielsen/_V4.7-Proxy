@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Dispatch
+﻿namespace PF.Dispatch
 {
     partial class Pallet_Details
     {
@@ -119,7 +119,7 @@
             this.KeyPreview = true;
             this.Name = "Pallet_Details";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Dispatch.Pallet Details for Order";
+            this.Text = "PF.Dispatch.Pallet Details for Order";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Pallet_Details_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

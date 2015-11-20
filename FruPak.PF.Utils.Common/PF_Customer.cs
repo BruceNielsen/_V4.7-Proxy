@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Common
+namespace PF.Utils.Common
 {
     public partial class PF_Customer : Form
     {
@@ -13,7 +13,7 @@ namespace FruPak.PF.Utils.Common
         private static bool bol_write_access;
 
         /// <summary>
-        /// Occasionally getting: A first chance exception of type 'System.TypeInitializationException' occurred in FruPak.PF.Utils.Common.dll
+        /// Occasionally getting: A first chance exception of type 'System.TypeInitializationException' occurred in PF.Utils.Common.dll
         /// </summary>
         /// <param name="int_C_User_id"></param>
         /// <param name="bol_w_a"></param>
@@ -24,26 +24,26 @@ namespace FruPak.PF.Utils.Common
 
             //check if testing or not
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
             //setup Outlook location
 
             try
             {
                 // Experimental Change 23-03-2015
-                //FruPak.PF.Data.Outlook.Outlook.Folder_Name = FruPak.PF.Common.Code.Outlook.SetUp_Location("OutLook%");
-                FruPak.PF.Data.Outlook.Outlook.Folder_Name = FruPak.PF.Common.Code.Outlook.SetUp_Location("OutLook");
+                //PF.Data.Outlook.Outlook.Folder_Name = PF.Common.Code.Outlook.SetUp_Location("OutLook%");
+                PF.Data.Outlook.Outlook.Folder_Name = PF.Common.Code.Outlook.SetUp_Location("OutLook");
 
-                if (FruPak.PF.Data.Outlook.Outlook.Folder_Name == string.Empty)
+                if (PF.Data.Outlook.Outlook.Folder_Name == string.Empty)
                 {
-                    Console.WriteLine("FruPak.PF.Data.Outlook.Outlook.Folder_Name == string.Empty");
-                    logger.Log(LogLevel.Debug, "FruPak.PF.Data.Outlook.Outlook.Folder_Name == string.Empty");
+                    Console.WriteLine("PF.Data.Outlook.Outlook.Folder_Name == string.Empty");
+                    logger.Log(LogLevel.Debug, "PF.Data.Outlook.Outlook.Folder_Name == string.Empty");
                 }
                 //restrict access
                 bol_write_access = bol_w_a;
@@ -92,9 +92,9 @@ namespace FruPak.PF.Utils.Common
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -147,7 +147,7 @@ namespace FruPak.PF.Utils.Common
             dataGridView1.Columns.Add(img_delete);
             img_delete.HeaderText = "Delete";
             img_delete.Name = "Delete";
-            img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
+            img_delete.Image = PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
             img_delete.Visible = bol_write_access;
 
@@ -155,7 +155,7 @@ namespace FruPak.PF.Utils.Common
             dataGridView1.Columns.Add(img_edit);
             img_edit.HeaderText = "Edit";
             img_edit.Name = "Edit";
-            img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
+            img_edit.Image = PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
         }
 
@@ -178,10 +178,15 @@ namespace FruPak.PF.Utils.Common
 
         private void populate_datagridview()
         {
+            // Set cursor as hourglass
+            Cursor.Current = Cursors.WaitCursor;
+
             dataGridView1.Refresh();
             dataGridView1.Rows.Clear();
+            dataGridView1.SuspendLayout();  // Takes ages to load
+            
 
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Customer.Get_Info();
+            DataSet ds_Get_Info = PF.Data.AccessLayer.PF_Customer.Get_Info();
             DataRow dr_Get_Info;
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
@@ -217,6 +222,10 @@ namespace FruPak.PF.Utils.Common
                 Column_Size();
                 ds_Get_Info.Dispose();
             }
+            dataGridView1.ResumeLayout();
+
+            // Set cursor as default arrow
+            Cursor.Current = Cursors.Default;
         }
 
         private void populate_outlook_Combo()
@@ -226,20 +235,20 @@ namespace FruPak.PF.Utils.Common
             cmb_Outlook.DataSource = null;
 
             // Folder_Name_Location is returned in a COM object (BN 22-04-2015)
-            if (FruPak.PF.Data.Outlook.Outlook.Folder_Name_Location == null)
+            if (PF.Data.Outlook.Outlook.Folder_Name_Location == null)
             {
-                Console.WriteLine("FruPak.PF.Data.Outlook.Outlook.Folder_Name_Location == null");
-                logger.Log(LogLevel.Debug, "FruPak.PF.Data.Outlook.Outlook.Folder_Name_Location == null");
+                Console.WriteLine("PF.Data.Outlook.Outlook.Folder_Name_Location == null");
+                logger.Log(LogLevel.Debug, "PF.Data.Outlook.Outlook.Folder_Name_Location == null");
             }
 
             try
             {
-                FruPak.PF.Data.Outlook.Outlook.Folder_Name_Location = FruPak.PF.Data.Outlook.Outlook.Folder_Name_Location;
+                PF.Data.Outlook.Outlook.Folder_Name_Location = PF.Data.Outlook.Outlook.Folder_Name_Location;
 
                 // Contact_List_All returns a DataSet with the following fields:
                 // combined, company, FirstName, LastName, JobTitle, Entry_Id.
                 // ---------------------------------------------------------------------- (BN 22-04-2015)
-                DataSet ds_Contacts = FruPak.PF.Data.Outlook.Contacts.Contact_List_All();
+                DataSet ds_Contacts = PF.Data.Outlook.Contacts.Contact_List_All();
                 cmb_Outlook.DataSource = ds_Contacts.Tables[0];
                 cmb_Outlook.DisplayMember = "Combined";
                 cmb_Outlook.ValueMember = "Entry_Id";
@@ -281,7 +290,9 @@ namespace FruPak.PF.Utils.Common
 
             if (cmb_Outlook.SelectedIndex == -1)
             {
-                str_msg = str_msg + "Invalid Outlook Link. PLease select a valid Outlook link from the Drop down list." + Environment.NewLine;
+                // This causes subtle errors elsewhere in the program - If you print a COA, then print another without  matching entry,
+                // you'll get the correct data, but with the name and address of the previous customer.
+                str_msg = str_msg + "No matching Outlook Link entry found. Please check your Outlook Contact list to ensure the contact exists." + Environment.NewLine;
             }
 
             if (txt_name.TextLength == 0)
@@ -299,11 +310,11 @@ namespace FruPak.PF.Utils.Common
                 switch (btn_Add.Text)
                 {
                     case "&Add":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Customer.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Customer"), txt_name.Text, cmb_Outlook.SelectedValue.ToString(), ckb_Active.Checked, int_Current_User_Id);
+                        int_result = PF.Data.AccessLayer.PF_Customer.Insert(PF.Common.Code.General.int_max_user_id("PF_Customer"), txt_name.Text, cmb_Outlook.SelectedValue.ToString(), ckb_Active.Checked, int_Current_User_Id);
                         break;
 
                     case "&Update":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Customer.Update(int_DVG_Row_id, txt_name.Text, cmb_Outlook.SelectedValue.ToString(), ckb_Active.Checked, int_Current_User_Id);
+                        int_result = PF.Data.AccessLayer.PF_Customer.Update(int_DVG_Row_id, txt_name.Text, cmb_Outlook.SelectedValue.ToString(), ckb_Active.Checked, int_Current_User_Id);
                         break;
                 }
             }
@@ -327,31 +338,31 @@ namespace FruPak.PF.Utils.Common
             // BN 21/01/2015 - Just discovered if you accidentally click on the wrong entry in the drop-down list,
             // you'll cause a crash.
             //
-            FruPak.PF.Data.Outlook.Contacts.Contact_Details(cmb_Outlook.SelectedValue.ToString());
+            PF.Data.Outlook.Contacts.Contact_Details(cmb_Outlook.SelectedValue.ToString());
 
             // BN 5/8/2015 - The dude who originally wrote this was too lazy to
             // check for nulls, and preferred to catch exceptions instead.
 
             // Exceptions are expensive to catch in terms of processor time.
-            if (FruPak.PF.Data.Outlook.Contacts.Contact_Company_Name != "" &&
-                FruPak.PF.Data.Outlook.Contacts.Contact_Company_Name != null)
+            if (PF.Data.Outlook.Contacts.Contact_Company_Name != "" &&
+                PF.Data.Outlook.Contacts.Contact_Company_Name != null)
             {
-                txt_name.Text = FruPak.PF.Data.Outlook.Contacts.Contact_Company_Name.ToString();
+                txt_name.Text = PF.Data.Outlook.Contacts.Contact_Company_Name.ToString();
             }
             else
             {
-                txt_name.Text = FruPak.PF.Data.Outlook.Contacts.Contact_First_Name.ToString() + " " + FruPak.PF.Data.Outlook.Contacts.Contact_Last_Name.ToString();
+                txt_name.Text = PF.Data.Outlook.Contacts.Contact_First_Name.ToString() + " " + PF.Data.Outlook.Contacts.Contact_Last_Name.ToString();
             }
 
             //try
             //{
-            //    txt_name.Text = FruPak.PF.Data.Outlook.Contacts.Contact_Company_Name.ToString();
+            //    txt_name.Text = PF.Data.Outlook.Contacts.Contact_Company_Name.ToString();
             //}
             //catch
             //{
             //    try
             //    {
-            //        txt_name.Text = FruPak.PF.Data.Outlook.Contacts.Contact_First_Name.ToString() + " " + FruPak.PF.Data.Outlook.Contacts.Contact_Last_Name.ToString();
+            //        txt_name.Text = PF.Data.Outlook.Contacts.Contact_First_Name.ToString() + " " + PF.Data.Outlook.Contacts.Contact_Last_Name.ToString();
             //    }
             //    catch (Exception ex)
             //    {
@@ -379,7 +390,7 @@ namespace FruPak.PF.Utils.Common
 
                 if (DLR_Message == DialogResult.Yes)
                 {
-                    int_result = FruPak.PF.Data.AccessLayer.PF_Customer.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
+                    int_result = PF.Data.AccessLayer.PF_Customer.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
                 }
 
                 if (int_result > 0)
@@ -473,7 +484,7 @@ namespace FruPak.PF.Utils.Common
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

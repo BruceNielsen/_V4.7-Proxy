@@ -7,7 +7,7 @@ using System.Drawing;
 using System.IO;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Dispatch
+namespace PF.Dispatch
 {
     public partial class Shipping_Order : Form
     {
@@ -29,19 +29,19 @@ namespace FruPak.PF.Dispatch
             btn_Add.Enabled = bol_w_a;
             //check if testing or not
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
             AddColumnsProgrammatically();
 
             //set up outlook locations
-            FruPak.PF.Data.Outlook.Outlook.Folder_Name = FruPak.PF.Common.Code.Outlook.SetUp_Location("PF-Contact");
-            FruPak.PF.Data.Outlook.Outlook.Folder_Name_Location = FruPak.PF.Data.Outlook.Outlook.Folder_Name_Location;
+            PF.Data.Outlook.Outlook.Folder_Name = PF.Common.Code.Outlook.SetUp_Location("PF-Contact");
+            PF.Data.Outlook.Outlook.Folder_Name_Location = PF.Data.Outlook.Outlook.Folder_Name_Location;
 
             populate_DataGridView1();
             populate_combobox();
@@ -80,9 +80,9 @@ namespace FruPak.PF.Dispatch
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -95,7 +95,7 @@ namespace FruPak.PF.Dispatch
             DataSet ds_Get_Info;
 
             //Destination
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Cities.Get_Info();
+            ds_Get_Info = PF.Data.AccessLayer.CM_Cities.Get_Info();
             cmb_Destination.DataSource = ds_Get_Info.Tables[0];
             cmb_Destination.DisplayMember = "Description";
             cmb_Destination.ValueMember = "City_Id";
@@ -103,7 +103,7 @@ namespace FruPak.PF.Dispatch
             ds_Get_Info.Dispose();
 
             //Truck
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Truck.Get_Info();
+            ds_Get_Info = PF.Data.AccessLayer.CM_Truck.Get_Info();
             cmb_Truck.DataSource = ds_Get_Info.Tables[0];
             cmb_Truck.DisplayMember = "Description";
             cmb_Truck.ValueMember = "Truck_Id";
@@ -192,14 +192,14 @@ namespace FruPak.PF.Dispatch
             dataGridView1.Columns.Add(img_delete);
             img_delete.HeaderText = "Delete";
             img_delete.Name = "Delete";
-            img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
+            img_delete.Image = PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
 
             DataGridViewImageColumn img_edit = new DataGridViewImageColumn();
             dataGridView1.Columns.Add(img_edit);
             img_edit.HeaderText = "Edit";
             img_edit.Name = "Edit";
-            img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
+            img_edit.Image = PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
         }
 
@@ -254,7 +254,7 @@ namespace FruPak.PF.Dispatch
             dataGridView2.Refresh();
             dataGridView2.Rows.Clear();
 
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Pallet_Type.Get_Info();
+            DataSet ds_Get_Info = PF.Data.AccessLayer.CM_Pallet_Type.Get_Info();
             DataRow dr_Get_Info;
 
             if (ds_Get_Info != null)    // BN 29/01/2015
@@ -290,7 +290,7 @@ namespace FruPak.PF.Dispatch
             dataGridView1.Refresh();
             dataGridView1.Rows.Clear();
 
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Orders.Get_Order_Info(true);
+            DataSet ds_Get_Info = PF.Data.AccessLayer.PF_Orders.Get_Order_Info(true);
             DataRow dr_Get_Info;
 
             if (ds_Get_Info != null)    // BN 29/01/2015
@@ -370,7 +370,7 @@ namespace FruPak.PF.Dispatch
             dt_current = DateTime.Now;
             int int_dt_current = Convert.ToInt32(dt_current.ToString("yyyyMMdd"));
 
-            DataSet ds = FruPak.PF.Data.AccessLayer.PF_Orders.Get_Overdue_Orders();
+            DataSet ds = PF.Data.AccessLayer.PF_Orders.Get_Overdue_Orders();
             DataRow dr;
 
             if (ds != null)    // BN 29/01/2015
@@ -471,26 +471,26 @@ namespace FruPak.PF.Dispatch
                 {
                     case "&Add":
 
-                        int_order_id = FruPak.PF.Common.Code.General.int_max_user_id("PF_Orders");
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Orders.Insert(int_order_id, Convert.ToInt32(cmb_Truck.SelectedValue.ToString()), Convert.ToInt32(cmb_Destination.SelectedValue.ToString()), dtp_Load_Date.Value.ToString("yyyy/MM/dd"), txt_Customer_Ref.Text, txt_Freight_Docket.Text, customer1.Customer_Id, txt_Comments.Text, true, ckb_Hold_For_Payment.Checked, int_Current_User_Id);
+                        int_order_id = PF.Common.Code.General.int_max_user_id("PF_Orders");
+                        int_result = PF.Data.AccessLayer.PF_Orders.Insert(int_order_id, Convert.ToInt32(cmb_Truck.SelectedValue.ToString()), Convert.ToInt32(cmb_Destination.SelectedValue.ToString()), dtp_Load_Date.Value.ToString("yyyy/MM/dd"), txt_Customer_Ref.Text, txt_Freight_Docket.Text, customer1.Customer_Id, txt_Comments.Text, true, ckb_Hold_For_Payment.Checked, int_Current_User_Id);
 
                         for (int i = 0; i < Convert.ToInt32(dataGridView2.Rows.Count.ToString()); i++)
                         {
                             if (dataGridView2.Rows[i].Cells[2].EditedFormattedValue.ToString() != "")
                             {
-                                FruPak.PF.Data.AccessLayer.PF_Orders_Pallets.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Orders_Pallets"), int_order_id, Convert.ToInt32(dataGridView2.Rows[i].Cells[0].Value.ToString()), Convert.ToDecimal(dataGridView2.Rows[i].Cells[2].EditedFormattedValue.ToString()), int_Current_User_Id);
+                                PF.Data.AccessLayer.PF_Orders_Pallets.Insert(PF.Common.Code.General.int_max_user_id("PF_Orders_Pallets"), int_order_id, Convert.ToInt32(dataGridView2.Rows[i].Cells[0].Value.ToString()), Convert.ToDecimal(dataGridView2.Rows[i].Cells[2].EditedFormattedValue.ToString()), int_Current_User_Id);
                             }
                         }
                         break;
 
                     case "&Update":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Orders.Update(int_order_id, Convert.ToInt32(cmb_Truck.SelectedValue.ToString()), Convert.ToInt32(cmb_Destination.SelectedValue.ToString()), dtp_Load_Date.Value.ToString("yyyy/MM/dd"), txt_Customer_Ref.Text, txt_Freight_Docket.Text, customer1.Customer_Id, txt_Comments.Text, true, ckb_Hold_For_Payment.Checked, int_Current_User_Id);
-                        FruPak.PF.Data.AccessLayer.PF_Orders_Pallets.Delete(int_order_id);
+                        int_result = PF.Data.AccessLayer.PF_Orders.Update(int_order_id, Convert.ToInt32(cmb_Truck.SelectedValue.ToString()), Convert.ToInt32(cmb_Destination.SelectedValue.ToString()), dtp_Load_Date.Value.ToString("yyyy/MM/dd"), txt_Customer_Ref.Text, txt_Freight_Docket.Text, customer1.Customer_Id, txt_Comments.Text, true, ckb_Hold_For_Payment.Checked, int_Current_User_Id);
+                        PF.Data.AccessLayer.PF_Orders_Pallets.Delete(int_order_id);
                         for (int i = 0; i < Convert.ToInt32(dataGridView2.Rows.Count.ToString()); i++)
                         {
                             if (dataGridView2.Rows[i].Cells[2].EditedFormattedValue.ToString() != "")
                             {
-                                FruPak.PF.Data.AccessLayer.PF_Orders_Pallets.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Orders_Pallets"), int_order_id, Convert.ToInt32(dataGridView2.Rows[i].Cells[0].Value.ToString()), Convert.ToDecimal(dataGridView2.Rows[i].Cells[2].EditedFormattedValue.ToString()), int_Current_User_Id);
+                                PF.Data.AccessLayer.PF_Orders_Pallets.Insert(PF.Common.Code.General.int_max_user_id("PF_Orders_Pallets"), int_order_id, Convert.ToInt32(dataGridView2.Rows[i].Cells[0].Value.ToString()), Convert.ToDecimal(dataGridView2.Rows[i].Cells[2].EditedFormattedValue.ToString()), int_Current_User_Id);
                             }
                         }
                         break;
@@ -541,7 +541,7 @@ namespace FruPak.PF.Dispatch
 
                 if (e.RowIndex != -1)    // Stop a crash when clicking on the Print header - BN 20/01/2015
                 {
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Orders.Get_Info_incl_Outlook(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
+                    ds_Get_Info = PF.Data.AccessLayer.PF_Orders.Get_Info_incl_Outlook(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
 
                     for (int i = 0; i <= Convert.ToInt32(Math.Floor(Convert.ToDecimal(ds_Get_Info.Tables[0].Rows.Count.ToString()) / 10)); i++)
                     {
@@ -564,26 +564,26 @@ namespace FruPak.PF.Dispatch
                             str_Order_Num = dr_Get_Info["Customer_Order"].ToString();
                             str_Freight_Docket = dr_Get_Info["Freight_Docket"].ToString();
 
-                            FruPak.PF.Data.Outlook.Contacts.Contact_Details(dr_Get_Info["Outlook_Key"].ToString());
-
-                            if (FruPak.PF.Data.Outlook.Contacts.Contact_Business_Address.ToString() == "")
+                            PF.Data.Outlook.Contacts.Contact_Details(dr_Get_Info["Outlook_Key"].ToString());
+                            Console.WriteLine(dr_Get_Info["Outlook_Key"].ToString());
+                            if (PF.Data.Outlook.Contacts.Contact_Business_Address.ToString() == "")
                             {
                                 str_msg = str_msg + "No Address loaded in OutLook for this Customer. Please load an Address and try again." + Environment.NewLine;
                             }
-                            if (FruPak.PF.Data.Outlook.Contacts.Contact_Company_Name == "")
+                            if (PF.Data.Outlook.Contacts.Contact_Company_Name == "")
                             {
-                                if (FruPak.PF.Data.Outlook.Contacts.Contact_First_Name == "" && FruPak.PF.Data.Outlook.Contacts.Contact_Last_Name == "")
+                                if (PF.Data.Outlook.Contacts.Contact_First_Name == "" && PF.Data.Outlook.Contacts.Contact_Last_Name == "")
                                 {
                                     str_msg = str_msg + "No Names (Company, First, Last) are loaded in Outlook for this Customer. Please load a Name and try again." + Environment.NewLine;
                                 }
                                 else
                                 {
-                                    str_delivery_name = FruPak.PF.Data.Outlook.Contacts.Contact_First_Name + " " + FruPak.PF.Data.Outlook.Contacts.Contact_Last_Name;
+                                    str_delivery_name = PF.Data.Outlook.Contacts.Contact_First_Name + " " + PF.Data.Outlook.Contacts.Contact_Last_Name;
                                 }
                             }
                             else
                             {
-                                str_delivery_name = FruPak.PF.Data.Outlook.Contacts.Contact_Company_Name;
+                                str_delivery_name = PF.Data.Outlook.Contacts.Contact_Company_Name;
                             }
 
                             if (str_msg.Length > 0)
@@ -607,7 +607,7 @@ namespace FruPak.PF.Dispatch
                         string str_barcode = "";
                         bool bol_print = false;
                         //Gets the pallet details for the order
-                        ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Info_for_Order(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
+                        ds_Get_Info = PF.Data.AccessLayer.PF_Pallet.Get_Info_for_Order(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()));
                         for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
                         {
                             dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
@@ -618,10 +618,10 @@ namespace FruPak.PF.Dispatch
                             {
                                 Cursor = Cursors.WaitCursor;
                                 //set printer
-                                FruPak.PF.PrintLayer.Word.Printer = FruPak.PF.Common.Code.General.Get_Printer("A4");
-                                FruPak.PF.PrintLayer.Word.FileName = "PC" + str_barcode;
-                                FruPak.PF.PrintLayer.Pallet_Card.Print(str_barcode, true, int_Current_User_Id);
-                                FruPak.PF.Data.AccessLayer.PF_Pallet.Update_For_PCard(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()), true, int_Current_User_Id);
+                                PF.PrintLayer.Word.Printer = PF.Common.Code.General.Get_Printer("A4");
+                                PF.PrintLayer.Word.FileName = "PC" + str_barcode;
+                                PF.PrintLayer.Pallet_Card.Print(str_barcode, true, int_Current_User_Id);
+                                PF.Data.AccessLayer.PF_Pallet.Update_For_PCard(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString()), true, int_Current_User_Id);
                                 Cursor = Cursors.Default;
                             }
                         }
@@ -638,19 +638,19 @@ namespace FruPak.PF.Dispatch
                     if (e.RowIndex != -1)    // Stop a crash when clicking on the Print header - BN 20/01/2015
                     {
                         string Data = "";
-                        //if (FruPak.PF.Data.Outlook.Contacts.Contact_Business_Address != null)
+                        //if (PF.Data.Outlook.Contacts.Contact_Business_Address != null)
                         //{
                             Data = Data + dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString();
                             Data = Data + ":" + str_delivery_name;
 
                         // This a very common error - So allow it to print without the address- BN 29/10/2015
-                        if (FruPak.PF.Data.Outlook.Contacts.Contact_Business_Address != null)
+                        if (PF.Data.Outlook.Contacts.Contact_Business_Address != null)
                         {
-                            Data = Data + ":" + FruPak.PF.Data.Outlook.Contacts.Contact_Business_Address.ToString();
+                            Data = Data + ":" + PF.Data.Outlook.Contacts.Contact_Business_Address.ToString();
                         }
                         else
                         {
-                            // Just replace the missing data with this text - It seems to mostly show up with FruPak - Staff Sales, 
+                            // Just replace the missing data with this text - It seems to mostly show up with FP - Staff Sales, 
                             // which makes sense. BN 29/10/2015
                             Data = Data + ":" + "Contact Business Address:\r\n\r\nDoes not exist in the Outlook Address Book";
                         }
@@ -659,9 +659,9 @@ namespace FruPak.PF.Dispatch
 
                             Cursor = Cursors.WaitCursor;
                             //set printer
-                            FruPak.PF.PrintLayer.Word.Printer = FruPak.PF.Common.Code.General.Get_Printer("A4");
-                            FruPak.PF.PrintLayer.Word.FileName = "COA" + dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                            FruPak.PF.PrintLayer.Certificate_Of_Analysis.Print(Data, true);
+                            PF.PrintLayer.Word.Printer = PF.Common.Code.General.Get_Printer("A4");
+                            PF.PrintLayer.Word.FileName = "COA" + dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                            PF.PrintLayer.Certificate_Of_Analysis.Print(Data, true);
                             Cursor = Cursors.Default;
                         //}
                         //else
@@ -679,7 +679,7 @@ namespace FruPak.PF.Dispatch
                 {
                     if (e.RowIndex != -1)    // Stop a crash when clicking on the Print header - BN 20/01/2015
                     {
-                        //if (FruPak.PF.Data.Outlook.Contacts.Contact_Business_Address != null)
+                        //if (PF.Data.Outlook.Contacts.Contact_Business_Address != null)
                         //{
                             string Data = "";
                             Data = Data + Convert.ToString(int_Loop_count);
@@ -687,9 +687,9 @@ namespace FruPak.PF.Dispatch
                             Data = Data + ":" + str_delivery_name;
 
                         // This a very common error - So allow it to print without the address- BN 29/10/2015
-                        if (FruPak.PF.Data.Outlook.Contacts.Contact_Business_Address != null)
+                        if (PF.Data.Outlook.Contacts.Contact_Business_Address != null)
                         {
-                            Data = Data + ":" + FruPak.PF.Data.Outlook.Contacts.Contact_Business_Address.ToString();
+                            Data = Data + ":" + PF.Data.Outlook.Contacts.Contact_Business_Address.ToString();
                         }
                         else
                         {
@@ -700,9 +700,9 @@ namespace FruPak.PF.Dispatch
 
                             Cursor = Cursors.WaitCursor;
                             //set printer
-                            FruPak.PF.PrintLayer.Word.Printer = FruPak.PF.Common.Code.General.Get_Printer("A4");
-                            FruPak.PF.PrintLayer.Word.FileName = "PS" + dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                            FruPak.PF.PrintLayer.Packing_Slip.Print(Data, true);
+                            PF.PrintLayer.Word.Printer = PF.Common.Code.General.Get_Printer("A4");
+                            PF.PrintLayer.Word.FileName = "PS" + dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                            PF.PrintLayer.Packing_Slip.Print(Data, true);
                             Cursor = Cursors.Default;
                         //}
                         //else
@@ -721,12 +721,12 @@ namespace FruPak.PF.Dispatch
                 //{
                 //    string Data = "";
                 //    Data = Data + str_delivery_name;
-                //    Data = Data + ":" + FruPak.PF.Data.Outlook.Contacts.Contact_Business_Address.ToString();
+                //    Data = Data + ":" + PF.Data.Outlook.Contacts.Contact_Business_Address.ToString();
                 //    Cursor = Cursors.WaitCursor;
                 //    //set printer
-                //    FruPak.PF.PrintLayer.Word.Printer = FruPak.PF.Common.Code.General.Get_Printer("Custom");
-                //    FruPak.PF.PrintLayer.Word.FileName = "SL" + dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                //    FruPak.PF.PrintLayer.StickyAddressLabel.Print(Data, true);
+                //    PF.PrintLayer.Word.Printer = PF.Common.Code.General.Get_Printer("Custom");
+                //    PF.PrintLayer.Word.FileName = "SL" + dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                //    PF.PrintLayer.StickyAddressLabel.Print(Data, true);
                 //    Cursor = Cursors.Default;
                 //}
 
@@ -736,10 +736,10 @@ namespace FruPak.PF.Dispatch
 
                 if (e.RowIndex != -1)    // Stop a crash when clicking on the Print header - BN 20/01/2015
                 {
-                    FruPak.PF.Common.Code.General.Delete_After_Printing("", "*" + dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString() + "*");
-                    FruPak.PF.Common.Code.General.Delete_After_Printing("", "COA" + dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString() + "*");
-                    FruPak.PF.Common.Code.General.Delete_After_Printing("", "PS" + dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString() + "*");
-                    FruPak.PF.Common.Code.General.Delete_After_Printing("", "SL" + dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString() + "*");
+                    PF.Common.Code.General.Delete_After_Printing("", "*" + dataGridView1.Rows[e.RowIndex].Cells[3].Value.ToString() + "*");
+                    PF.Common.Code.General.Delete_After_Printing("", "COA" + dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString() + "*");
+                    PF.Common.Code.General.Delete_After_Printing("", "PS" + dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString() + "*");
+                    PF.Common.Code.General.Delete_After_Printing("", "SL" + dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString() + "*");
 
                     foreach (string filename in lst_filenames)
                     {
@@ -758,7 +758,7 @@ namespace FruPak.PF.Dispatch
             {
                 if (e.RowIndex != -1)    // Stop a crash when clicking on the Delete header - BN 20/01/2015
                 {
-                    int int_result = FruPak.PF.Common.Code.General.Delete_Record("PF_Orders", dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString(), " Order Number " + dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
+                    int int_result = PF.Common.Code.General.Delete_Record("PF_Orders", dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString(), " Order Number " + dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString());
 
                     if (int_result > 0)
                     {
@@ -792,7 +792,7 @@ namespace FruPak.PF.Dispatch
                     txt_Comments.Text = dataGridView1.Rows[e.RowIndex].Cells[10].Value.ToString();
                     btn_Add.Text = "&Update";
                     populate_DataGridView2();
-                    DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Orders_Pallets.Get_Info_for_Order(int_order_id);
+                    DataSet ds_Get_Info = PF.Data.AccessLayer.PF_Orders_Pallets.Get_Info_for_Order(int_order_id);
                     DataRow dr_Get_Info;
                     for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
                     {
@@ -815,7 +815,7 @@ namespace FruPak.PF.Dispatch
             #endregion ------------- Edit -------------
             
             // BN 29/10/2015
-            FruPak.PF.Common.Code.KillAllWordInstances.KillAllWordProcesses();
+            //PF.Common.Code.KillAllWordInstances.KillAllWordProcesses();
         }
 
         private bool HasData(DataSet data)
@@ -914,7 +914,7 @@ namespace FruPak.PF.Dispatch
 
         private void btn_Close_Click(object sender, EventArgs e)
         {
-            FruPak.PF.Common.Code.KillAllWordInstances.KillAllWordProcesses();
+            //PF.Common.Code.KillAllWordInstances.KillAllWordProcesses();
             this.Close();
         }
 
@@ -1054,7 +1054,7 @@ namespace FruPak.PF.Dispatch
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

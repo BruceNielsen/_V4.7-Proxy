@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Common.Code
+﻿namespace PF.Common.Code
 {
     partial class Send_Email
     {
@@ -279,7 +279,7 @@
             this.KeyPreview = true;
             this.Name = "Send_Email";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Common.Code.Send Email";
+            this.Text = "PF.Common.Code.Send Email";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Invoice_email_FormClosing);
             this.Load += new System.EventHandler(this.Send_Email_Load);
             this.Shown += new System.EventHandler(this.Send_Email_Shown);

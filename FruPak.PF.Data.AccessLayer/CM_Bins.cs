@@ -1,8 +1,8 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -28,13 +28,13 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(Bins_Id) as Current_Id FROM CM_Bins");
         }
 
         public static DataSet Get_fruit_from_bin(int Bins_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("Select WO.Fruit_Type_Id, WO.Fruit_Variety_Id " +
                                             "from dbo.CM_Bins B inner join dbo.PF_Work_Order WO on WO.Work_Order_Id = B.Work_Order_In_Id " +
                                             "where B.Bins_Id = " + Bins_Id);
@@ -42,19 +42,19 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_Info()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM CM_Bins ");
         }
 
         public static DataSet Count_Bins_for_WorkOrder(int Work_Order_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT COUNT(*) AS Total FROM CM_Bins B WHERE B.Work_Order_Id = " + Work_Order_Id);
         }
 
         public static DataSet Get_Info_for_Work_Order(int Work_Order_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * " +
                                             "FROM CM_Bins B " +
                                             "LEFT OUTER JOIN dbo.CM_Material_Rates_Relationship MRR ON MRR.Material_Id = B.Material_Id " +
@@ -64,7 +64,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet BinCard_Work_Order_In(int Bins_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * " +
                                             "FROM CM_Bins B " +
                                             "WHERE B.Bins_Id = " + Bins_Id);
@@ -72,7 +72,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_Info_for_Work_Order(string WHERE)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * " +
                                             "FROM CM_Bins B " +
                                             "INNER JOIN dbo.CM_Material_Rates_Relationship MRR ON MRR.Material_Id = B.Material_Id " +
@@ -82,7 +82,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_unused_Rejects(int Work_Order_In_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * " +
                                             "FROM dbo.CM_Bins " +
                                             "WHERE Work_Order_In_Id = " + Work_Order_In_Id +
@@ -91,7 +91,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_Info_for_Work_Order(string WHERE, string Code)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * " +
                                             "FROM CM_Bins B " +
                                             "INNER JOIN dbo.CM_Material_Rates_Relationship MRR ON MRR.Material_Id = B.Material_Id " +
@@ -101,7 +101,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_Bin_Storage(string WHERE)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT DATEDIFF(MONTH, S.Sub_date, B.Tipped_Date) as Storage_Time, Count(*) as Bins " +
                                             "FROM dbo.CM_Bins B " +
                                             "INNER JOIN dbo.GH_Submission S ON S.Submission_Id = B.Submission_Id " +
@@ -111,7 +111,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_Info_Submission(int Submission_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT  COUNT(B.Bins_Id) AS NumBins, B.Work_Order_Id, B.PF_Active_Ind, " +
                                                     "B.Location_Id, L.Code AS Location, " +
                                                     "B.Material_Id, M.Material_Num AS Material, M.FruitType_Id, M.Variety_Id," +
@@ -128,7 +128,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int InsertSubmission(int Bins_Id, int Submission_Id, string Barcode, int Location_Id, int Material_Id, int Storage_Id, int ESP_Id, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO CM_Bins(Bins_Id, Submission_Id, Barcode, Location_Id, Material_Id, Storage_Id, ESP_Id, PF_Active_Ind, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + Bins_Id + "," + Submission_Id + "," + Barcode + "," + Location_Id + "," + Material_Id + "," + Storage_Id + "," + ESP_Id + ",1, GETDATE()," + Mod_User_Id + ")");
         }
@@ -136,47 +136,47 @@ namespace FruPak.PF.Data.AccessLayer
         //includes Weight_Tare
         public static int InsertSubmission(int Bins_Id, int Submission_Id, string Barcode, int Location_Id, int Material_Id, int Storage_Id, int ESP_Id, int Mod_User_Id, decimal Weight_Tare)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO CM_Bins(Bins_Id, Submission_Id, Barcode, Location_Id, Material_Id, Storage_Id, ESP_Id, PF_Active_Ind, Mod_Date, Mod_User_Id, Weight_Tare) " +
                                                 "VALUES ( " + Bins_Id + "," + Submission_Id + "," + Barcode + "," + Location_Id + "," + Material_Id + "," + Storage_Id + "," + ESP_Id + ",1, GETDATE()," + Mod_User_Id + ", " + Weight_Tare + " )");
         }
 
         public static int InsertWorkOrder(int Bins_Id, int Work_Order_In_Id, string Barcode, int Location_Id, int Storage_Id, int ESP_Id, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO CM_Bins(Bins_Id, Work_Order_In_Id, Barcode, Location_Id, Storage_Id, ESP_Id, PF_Active_Ind, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + Bins_Id + "," + Work_Order_In_Id + "," + Barcode + "," + Location_Id + "," + Storage_Id + "," + ESP_Id + ",1, GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int InsertGDIOverrun(int Bins_Id, string Barcode, string GDIBarcode, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO CM_Bins(Bins_Id, Barcode, GDIBarcode, PF_Active_Ind, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + Bins_Id + "," + Barcode + "," + GDIBarcode + ",1, GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int InsertWorkOrder(int Bins_Id, int Work_Order_In_Id, string Barcode, int Location_Id, int Material_Id, int Storage_Id, int ESP_Id, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO CM_Bins(Bins_Id, Work_Order_In_Id, Barcode, Location_Id, Material_Id, Storage_Id, ESP_Id, PF_Active_Ind, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + Bins_Id + "," + Work_Order_In_Id + "," + Barcode + "," + Location_Id + "," + Material_Id + "," + Storage_Id + "," + ESP_Id + ",1, GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Delete(int Bins_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM CM_Bins WHERE Bins_Id = " + Bins_Id);
         }
 
         public static int Delete_Submission(int Submission_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM CM_Bins WHERE Submission_Id = " + Submission_Id);
         }
 
         public static int Update(int Bins_Id, int Submission_Id, int Work_Order_In_Id, string Barcode, int Location_Id, int Material_Id, int Storage_Id, int ESP_Id, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE CM_Bins SET Submission_Id = " + Submission_Id + ", " +
                                                                   "Work_Order_In_Id = " + Work_Order_In_Id + ", " +
                                                                   "Barcode = '" + Barcode + "', " +
@@ -191,7 +191,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Update(int Submission_Id, int Location_Id, int Material_Id, int Storage_Id, int ESP_Id, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE CM_Bins SET  = Location_Id = " + Location_Id + ", " +
                                                                   "Material_Id = " + Material_Id + ", " +
                                                                   "Storage_Id = " + Storage_Id + ", " +
@@ -203,7 +203,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Update_Print_Ind(string Barcode, bool Print_ind)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE CM_Bins SET Print_ind = '" + Print_ind + "', " +
                                                                   "Mod_date = GETDATE() " +
                                               " WHERE Barcode = '" + Barcode + "'");
@@ -211,7 +211,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Update_Dump_Ind(int Bins_Id, string Dump_Ind, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE dbo.CM_Bins SET Dump_Ind = '" + Dump_Ind + "', " +
                                                                   "Mod_date = GETDATE(), " +
                                                                   " Mod_User_Id = " + Mod_User_Id + " " +
@@ -220,7 +220,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Update_Material_Id(int Bins_Id, int Material_Id, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE dbo.CM_Bins SET Material_Id = " + Material_Id + ", " +
                                                                   "Mod_date = GETDATE(), " +
                                                                   " Mod_User_Id = " + Mod_User_Id + " " +
@@ -229,7 +229,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Update_Weight_Gross(int Bins_Id, decimal Weight_Gross, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE dbo.CM_Bins	SET Weight_Gross = " + Weight_Gross + ", " +
                                                                        "Mod_date = GETDATE(), " +
                                                                        "Mod_User_Id = " + Mod_User_Id +
@@ -238,7 +238,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Update_Tare_Weight(int Bins_Id, decimal Weight_Tare, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE	dbo.CM_Bins	SET Weight_Tare = " + Weight_Tare + ", " +
                                                                        "Mod_date = GETDATE(), " +
                                                                        "Mod_User_Id = " + Mod_User_Id +
@@ -247,7 +247,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_NET_Bin_Weight_by_Work_Order(int Work_Order_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT SUM(B.Weight_Gross)- SUM(B.Weight_Tare) as NET_Weight " +
                                             "FROM dbo.CM_Bins B " +
                                             "INNER JOIN dbo.PF_Work_Order WO ON WO.Work_Order_Id = B.Work_Order_Id " +
@@ -257,13 +257,13 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_All_For_Barcode(string barcode)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM dbo.CM_Bins WHERE barcode = '" + barcode + "' ");
         }
 
         public static DataSet Get_All_For_GDIBarcode(string barcode)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM dbo.CM_Bins WHERE GDIBarcode = '" + barcode + "' ");
         }
 
@@ -273,19 +273,19 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_Info_For_Barcode(string barcode)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.RunSP_Query("dbo.CM_Bins_Get_Info_For_Barcode", barcode);
         }
 
         public static DataSet Get_Info_For_GDIBarcode(string barcode)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.RunSP_Query("dbo.CM_Bins_Get_Info_For_GDIBarcode", barcode);
         }
 
         public static DataSet Get_Weights(string barcode)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.RunSP_Query("dbo.CM_Bins_Get_Weights", barcode);
         }
 
@@ -295,7 +295,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Update_Tipped_Date(int Bins_Id, int Work_Order_Id, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             object ret_val;
             SQLAccessLayer.RunSP_NonQuery("dbo.CM_Bins_Update_Tipped_Date", out ret_val, Bins_Id, Work_Order_Id, Mod_User_Id);
             //get the return value

@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("FruPak.ProcessFactory")]
+[assembly: AssemblyTitle("FP.ProcessFactory")]
 [assembly: AssemblyDescription("Process Factory")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Phantom Technologies Ltd")]
-[assembly: AssemblyProduct("FruPak.ProcessFactory")]
+[assembly: AssemblyProduct("FP.ProcessFactory")]
 [assembly: AssemblyCopyright("Copyright ©  2015")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -33,5 +33,5 @@ using System.Runtime.InteropServices;
 // You can specify all the values or you can default the Build and Revision Numbers
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
-[assembly: AssemblyVersion("5.5.0.0")]
-[assembly: AssemblyFileVersion("5.5.0.0")]
+[assembly: AssemblyVersion("5.7.0.0")]
+[assembly: AssemblyFileVersion("5.7.0.0")]

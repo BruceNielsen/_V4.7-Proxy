@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.WorkOrder
+﻿namespace PF.WorkOrder
 {
     partial class WO_Create
     {
@@ -63,8 +63,8 @@
             this.lbl_Growing_method = new System.Windows.Forms.Label();
             this.cmb_Growing_Method = new System.Windows.Forms.ComboBox();
             this.btn_Update = new System.Windows.Forms.Button();
-            this.grower1 = new FruPak.PF.Utils.UserControls.Grower();
-            this.fruit1 = new FruPak.PF.Utils.UserControls.Fruit();
+            this.grower1 = new PF.Utils.UserControls.Grower();
+            this.fruit1 = new PF.Utils.UserControls.Fruit();
             this.gb_results.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -448,7 +448,7 @@
             this.KeyPreview = true;
             this.Name = "WO_Create";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.WorkOrder.Work Order Create";
+            this.Text = "PF.WorkOrder.Work Order Create";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.WO_Create_KeyDown);
             this.gb_results.ResumeLayout(false);
             this.gb_results.PerformLayout();
@@ -489,7 +489,7 @@
 
         private System.Windows.Forms.GroupBox gb_results;
         private System.Windows.Forms.Button btn_Close;
-        private FruPak.PF.Utils.UserControls.Fruit fruit1;
+        private PF.Utils.UserControls.Fruit fruit1;
         private System.Windows.Forms.Label lbl_Trader;
         private System.Windows.Forms.ComboBox cmb_Trader;
         private System.Windows.Forms.Label lbl_Growing_method;

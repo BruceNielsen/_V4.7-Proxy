@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Globalization;
 using _Excel = NetOffice.ExcelApi;
 
-namespace FruPak.PF.Data.Excel
+namespace PF.Data.Excel
 {
     public class Excel
     {

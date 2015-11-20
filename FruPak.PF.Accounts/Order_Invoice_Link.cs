@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Accounts
+namespace PF.Accounts
 {
     public partial class Order_Invoice_Link : Form
     {
@@ -22,13 +22,13 @@ namespace FruPak.PF.Accounts
             btn_Add.Enabled = bol_w_a;
             //check if testing or not
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
 
             #region Log any interesting events from the UI to the CSV log file
@@ -63,9 +63,9 @@ namespace FruPak.PF.Accounts
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -75,13 +75,13 @@ namespace FruPak.PF.Accounts
 
         private void Order_Invoice_Link_Load(object sender, EventArgs e)
         {
-            DataSet ds_orders = FruPak.PF.Data.AccessLayer.PF_Orders.Get_UnInvoiced();
+            DataSet ds_orders = PF.Data.AccessLayer.PF_Orders.Get_UnInvoiced();
             cmb_Order.DataSource = ds_orders.Tables[0];
             cmb_Order.DisplayMember = "Order_Id";
             cmb_Order.ValueMember = "Order_Id";
             cmb_Order.Text = null;
 
-            DataSet ds_Invoice = FruPak.PF.Data.AccessLayer.PF_A_Invoice.Get_Info();
+            DataSet ds_Invoice = PF.Data.AccessLayer.PF_A_Invoice.Get_Info();
             cmb_Invoice.DataSource = ds_Invoice.Tables[0];
             cmb_Invoice.DisplayMember = "Invoice_Id";
             cmb_Invoice.ValueMember = "Invoice_Id";
@@ -129,17 +129,17 @@ namespace FruPak.PF.Accounts
             }
             if (DLR_Message != System.Windows.Forms.DialogResult.OK)
             {
-                DataSet ds = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Info_for_Order("(" + int_order_id + ")");
+                DataSet ds = PF.Data.AccessLayer.PF_Pallet.Get_Info_for_Order("(" + int_order_id + ")");
                 DataRow dr;
 
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
-                    int int_Invoice_Details_id = FruPak.PF.Common.Code.General.int_max_user_id("PF_A_Invoice_Details");
+                    int int_Invoice_Details_id = PF.Common.Code.General.int_max_user_id("PF_A_Invoice_Details");
 
                     dr = ds.Tables[0].Rows[i];
 
-                    int_result = int_result + FruPak.PF.Data.AccessLayer.PF_A_Invoice_Details.Insert_Product(int_Invoice_Details_id, Convert.ToInt32(cmb_Invoice.SelectedValue.ToString()), Convert.ToInt32(dr["Material_Id"].ToString()), 0, int_Current_User_Id, Convert.ToString(int_order_id), Convert.ToDecimal(dr["Quantity"].ToString()));
-                    int_result = int_result + FruPak.PF.Data.AccessLayer.PF_Orders.Update_Invoiced(int_order_id, Convert.ToInt32(cmb_Invoice.SelectedValue.ToString()), int_Current_User_Id);
+                    int_result = int_result + PF.Data.AccessLayer.PF_A_Invoice_Details.Insert_Product(int_Invoice_Details_id, Convert.ToInt32(cmb_Invoice.SelectedValue.ToString()), Convert.ToInt32(dr["Material_Id"].ToString()), 0, int_Current_User_Id, Convert.ToString(int_order_id), Convert.ToDecimal(dr["Quantity"].ToString()));
+                    int_result = int_result + PF.Data.AccessLayer.PF_Orders.Update_Invoiced(int_order_id, Convert.ToInt32(cmb_Invoice.SelectedValue.ToString()), int_Current_User_Id);
                 }
             }
             if (int_result > 0)
@@ -204,7 +204,7 @@ namespace FruPak.PF.Accounts
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

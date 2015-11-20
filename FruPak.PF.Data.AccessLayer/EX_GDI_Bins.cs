@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,25 +27,25 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(Bins_Id) as Current_Id FROM EX_GDI_Bins");
         }
 
         public static DataSet Get_Info(int Bins_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM EX_GDI_Bins WHERE PF_Active_ind = 1 AND Bins_Id = " + Bins_Id);
         }
 
         public static DataSet Get_Info(string barcode)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM EX_GDI_Bins WHERE PF_Active_ind = 1 AND GDIBarcode = '" + barcode + "'");
         }
 
         public static int InsertSubmission(int Bins_Id, int Submission_Id, string Barcode, int Location_Id, int Material_Id, int Storage_Id, int ESP_Id, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO EX_GDI_Bins(Bins_Id, Submission_Id, Barcode, Location_Id, Material_Id, Storage_Id, ESP_Id, PF_Active_Ind, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + Bins_Id + "," + Submission_Id + "," + Barcode + "," + Location_Id + "," + Material_Id + "," + Storage_Id + "," + ESP_Id + ",1, GETDATE()," + Mod_User_Id + ")");
         }
@@ -53,14 +53,14 @@ namespace FruPak.PF.Data.AccessLayer
         //includes Weight_Tare
         public static int InsertSubmission(int Bins_Id, int Submission_Id, string Barcode, int Location_Id, int Material_Id, int Storage_Id, int ESP_Id, int Mod_User_Id, decimal Weight_Tare)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO EX_GDI_Bins(Bins_Id, Submission_Id, Barcode, Location_Id, Material_Id, Storage_Id, ESP_Id, PF_Active_Ind, Mod_Date, Mod_User_Id, Weight_Tare) " +
                                                 "VALUES ( " + Bins_Id + "," + Submission_Id + "," + Barcode + "," + Location_Id + "," + Material_Id + "," + Storage_Id + "," + ESP_Id + ",1, GETDATE()," + Mod_User_Id + ", " + Weight_Tare + " )");
         }
 
         public static int Update_Active(int Bins_Id, bool PF_Active_Ind, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE EX_GDI_Bins SET PF_Active_Ind = '" + PF_Active_Ind + "', " +
                                                                   "Mod_date = GETDATE(), " +
                                                                   "Mod_User_Id = " + Mod_User_Id +

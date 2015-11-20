@@ -3,7 +3,7 @@ using System;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace FruPak.PF.WorkOrder
+namespace PF.WorkOrder
 {
     internal static class Program
     {

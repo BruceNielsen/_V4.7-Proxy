@@ -4,7 +4,7 @@ using System.Data;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Scanning
+namespace PF.Utils.Scanning
 {
     public partial class Create_Small_Rejects : Form
     {
@@ -16,13 +16,13 @@ namespace FruPak.PF.Utils.Scanning
         {
             InitializeComponent();
             int_Current_User_Id = int_C_User_id;
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
 
             #region Log any interesting events from the UI to the CSV log file
@@ -57,9 +57,9 @@ namespace FruPak.PF.Utils.Scanning
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -78,13 +78,13 @@ namespace FruPak.PF.Utils.Scanning
 
             for (int i = 0; i < Convert.ToInt32(nud_required.Value); i++)
             {
-                int int_Bin_Id = FruPak.PF.Common.Code.General.int_max_user_id("CM_Bins");
+                int int_Bin_Id = PF.Common.Code.General.int_max_user_id("CM_Bins");
 
-                FruPak.PF.Common.Code.Barcode.Barcode_Trader = Get_Trader_Id(int_Current_WO_Id);
-                FruPak.PF.Common.Code.Barcode.Barcode_Create(int_Bin_Id);
-                string str_barcode = FruPak.PF.Common.Code.Barcode.Barcode_Num.ToString();
+                PF.Common.Code.Barcode.Barcode_Trader = Get_Trader_Id(int_Current_WO_Id);
+                PF.Common.Code.Barcode.Barcode_Create(int_Bin_Id);
+                string str_barcode = PF.Common.Code.Barcode.Barcode_Num.ToString();
 
-                FruPak.PF.Data.AccessLayer.CM_Bins.InsertWorkOrder(int_Bin_Id, int_Current_WO_Id, str_barcode, 456, 1, 4, int_Current_User_Id);
+                PF.Data.AccessLayer.CM_Bins.InsertWorkOrder(int_Bin_Id, int_Current_WO_Id, str_barcode, 456, 1, 4, int_Current_User_Id);
                 Print(int_Bin_Id, nud_required.Value);
             }
         }
@@ -97,7 +97,7 @@ namespace FruPak.PF.Utils.Scanning
         {
             int int_WO_Id = 0;
 
-            DataSet ds = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Current();
+            DataSet ds = PF.Data.AccessLayer.PF_Work_Order.Get_Current();
             DataRow dr;
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
@@ -115,7 +115,7 @@ namespace FruPak.PF.Utils.Scanning
         private int Get_Trader_Id(int Current_WO_Id)
         {
             int int_Trader_Id = 0;
-            DataSet ds = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Info(Current_WO_Id);
+            DataSet ds = PF.Data.AccessLayer.PF_Work_Order.Get_Info(Current_WO_Id);
             DataRow dr;
 
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
@@ -135,15 +135,15 @@ namespace FruPak.PF.Utils.Scanning
             Data = Data + ":" + total_required;
 
             string curent_printer = System.Printing.LocalPrintServer.GetDefaultPrintQueue().FullName.ToString();
-            string str_req_Printer = FruPak.PF.Common.Code.General.Get_Single_System_Code("PR-Bincrd");
+            string str_req_Printer = PF.Common.Code.General.Get_Single_System_Code("PR-Bincrd");
             foreach (string printer in System.Drawing.Printing.PrinterSettings.InstalledPrinters)
             {
                 try
                 {
                     if (printer.IndexOf(str_req_Printer) > 0)
                     {
-                        FruPak.PF.PrintLayer.Word.Printer = printer;
-                        myPrinters.SetDefaultPrinter(FruPak.PF.PrintLayer.Word.Printer);
+                        PF.PrintLayer.Word.Printer = printer;
+                        myPrinters.SetDefaultPrinter(PF.PrintLayer.Word.Printer);
                     }
                 }
                 catch (Exception ex)
@@ -155,18 +155,18 @@ namespace FruPak.PF.Utils.Scanning
 
             try
             {
-                FruPak.PF.PrintLayer.Bin_Card.Print(Data, true);
+                PF.PrintLayer.Bin_Card.Print(Data, true);
             }
             catch
             {
-                FruPak.PF.Data.AccessLayer.SY_PrintRequest.Insert(FruPak.PF.Common.Code.General.int_max_user_id("SY_PrintRequest"), "Bincard", "PF-BinCard", "", Data, int_Current_User_Id);
+                PF.Data.AccessLayer.SY_PrintRequest.Insert(PF.Common.Code.General.int_max_user_id("SY_PrintRequest"), "Bincard", "PF-BinCard", "", Data, int_Current_User_Id);
             }
             myPrinters.SetDefaultPrinter(curent_printer);
         }
 
         private void btn_reprint_Click(object sender, EventArgs e)
         {
-            DataSet ds = FruPak.PF.Data.AccessLayer.CM_Bins.Get_unused_Rejects(Get_Current_Work_Order_Id());
+            DataSet ds = PF.Data.AccessLayer.CM_Bins.Get_unused_Rejects(Get_Current_Work_Order_Id());
             DataRow dr;
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
@@ -225,7 +225,7 @@ namespace FruPak.PF.Utils.Scanning
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

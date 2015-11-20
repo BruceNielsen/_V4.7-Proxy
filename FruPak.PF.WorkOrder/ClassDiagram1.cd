@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Comment CommentText="FruPak.Pf.WorkOrder">
+  <Comment CommentText="PF.WorkOrder">
     <Position X="3.406" Y="8.25" Height="0.75" Width="1.523" />
   </Comment>
-  <Class Name="FruPak.PF.WorkOrder.Cleaning">
+  <Class Name="PF.WorkOrder.Cleaning">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -13,14 +13,14 @@
       <FileName>Cleaning.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.WorkOrder.Marquee_Label" Collapsed="true">
+  <Class Name="PF.WorkOrder.Marquee_Label" Collapsed="true">
     <Position X="12.5" Y="7.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AACAAAAAACAAAABAAAAAAAAAAAAAAgAAAAAAAAAEAAA=</HashCode>
       <FileName>Marquee_Label.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.WorkOrder.Process_Set_Up">
+  <Class Name="PF.WorkOrder.Process_Set_Up">
     <Position X="2" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -30,14 +30,14 @@
       <FileName>Process_Set_Up.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.WorkOrder.Program" Collapsed="true">
+  <Class Name="PF.WorkOrder.Program" Collapsed="true">
     <Position X="12.5" Y="5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAIAAAAAABAAAAAQ=</HashCode>
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.WorkOrder.QC">
+  <Class Name="PF.WorkOrder.QC">
     <Position X="3.5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -47,14 +47,14 @@
       <FileName>QC.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.WorkOrder.Tablet_WO_Labels">
+  <Class Name="PF.WorkOrder.Tablet_WO_Labels">
     <Position X="3.5" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Tablet_WO_Labels.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.WorkOrder.WO_Chemicals">
+  <Class Name="PF.WorkOrder.WO_Chemicals">
     <Position X="6.5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -64,7 +64,7 @@
       <FileName>WO_Chemicals.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.WorkOrder.WO_Complete">
+  <Class Name="PF.WorkOrder.WO_Complete">
     <Position X="8" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -74,7 +74,7 @@
       <FileName>WO_Complete.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.WorkOrder.WO_Create">
+  <Class Name="PF.WorkOrder.WO_Create">
     <Position X="9.5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -84,7 +84,7 @@
       <FileName>WO_Create.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.WorkOrder.WO_Labels">
+  <Class Name="PF.WorkOrder.WO_Labels">
     <Position X="5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -94,7 +94,7 @@
       <FileName>WO_Labels.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.WorkOrder.WO_Output">
+  <Class Name="PF.WorkOrder.WO_Output">
     <Position X="11" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -104,7 +104,7 @@
       <FileName>WO_Output.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.WorkOrder.WO_Staff">
+  <Class Name="PF.WorkOrder.WO_Staff">
     <Position X="12.5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -114,7 +114,7 @@
       <FileName>WO_Staff.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.WorkOrder.WO_Tests">
+  <Class Name="PF.WorkOrder.WO_Tests">
     <Position X="8" Y="4.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -124,7 +124,7 @@
       <FileName>WO_Tests.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.WorkOrder.Work_Order_Maintenance">
+  <Class Name="PF.WorkOrder.Work_Order_Maintenance">
     <Position X="9.5" Y="4.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -134,13 +134,13 @@
       <FileName>Work_Order_Maintenance.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.WorkOrder.Properties.Resources" Collapsed="true">
+  <Class Name="PF.WorkOrder.Properties.Resources" Collapsed="true">
     <Position X="12.5" Y="6.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.WorkOrder.Properties.Settings" Collapsed="true">
+  <Class Name="PF.WorkOrder.Properties.Settings" Collapsed="true">
     <Position X="12.5" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>

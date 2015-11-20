@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,20 +27,20 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(ProdChem_Relat_Id) as Current_Id FROM PF_Product_Chemicals_Relationship");
         }
 
         public static int Insert(int ProdChem_Relat_Id, int Product_Id, int Chemical_Id, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO PF_Product_Chemicals_Relationship(ProdChem_Relat_Id, Product_Id, Chemical_Id, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + ProdChem_Relat_Id + "," + Product_Id + "," + Chemical_Id + ", GETDATE()," + Mod_User_Id + ")");
         }
 
         public static DataSet Get_Info(int Product_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT PCR.ProdChem_Relat_Id, PCR.Product_Id, P.Code as Product, PCR.Chemical_Id, C.Code as Chemical, PCR.Mod_Date, PCR.Mod_User_Id " +
                                             "FROM PF_Product_Chemicals_Relationship PCR " +
                                             "INNER JOIN PF_Product P ON P.Product_Id = PCR.Product_Id " +
@@ -50,25 +50,25 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_Info_By_Chemical(int Chemical_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Product_Chemicals_Relationship WHERE Chemical_Id = " + Chemical_Id);
         }
 
         public static int Delete(int ProdChem_Relat_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_Product_Chemicals_Relationship WHERE ProdChem_Relat_Id = " + ProdChem_Relat_Id);
         }
 
         public static int Delete_Chemical_From_Product(int Chemical_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_Product_Chemicals_Relationship WHERE Chemical_Id = " + Chemical_Id);
         }
 
         public static int Delete_Product_From_Chemical(int Product_Id, int Chemical_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_Product_Chemicals_Relationship WHERE Chemical_Id = " + Chemical_Id + " AND Product_Id = " + Product_Id);
         }
     }

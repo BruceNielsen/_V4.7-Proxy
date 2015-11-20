@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Accounts
+﻿namespace PF.Accounts
 {
     partial class Invoicing_Sales
     {
@@ -52,7 +52,7 @@
             this.nud_freight = new System.Windows.Forms.NumericUpDown();
             this.lbl_freight_charge = new System.Windows.Forms.Label();
             this.btn_delete = new System.Windows.Forms.Button();
-            this.customer1 = new FruPak.PF.Utils.UserControls.Customer();
+            this.customer1 = new PF.Utils.UserControls.Customer();
             this.buttonSendDebugInfo = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.buttonOpenPdfFileLocation = new System.Windows.Forms.Button();
@@ -316,7 +316,7 @@
             this.buttonSendDebugInfo.Size = new System.Drawing.Size(238, 23);
             this.buttonSendDebugInfo.TabIndex = 18;
             this.buttonSendDebugInfo.Text = "Send &Debug Info";
-            this.toolTip1.SetToolTip(this.buttonSendDebugInfo, "Sends an email with debug info and a screenshot to: processerrors@frupak.co.nz");
+            this.toolTip1.SetToolTip(this.buttonSendDebugInfo, "Sends an email with debug info and a screenshot to: processerrors@FP.co.nz");
             this.buttonSendDebugInfo.UseVisualStyleBackColor = true;
             this.buttonSendDebugInfo.Visible = false;
             this.buttonSendDebugInfo.Click += new System.EventHandler(this.buttonSendDebugInfo_Click);
@@ -396,7 +396,7 @@
             this.KeyPreview = true;
             this.Name = "Invoicing_Sales";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Accounts.Invoicing Sales";
+            this.Text = "PF.Accounts.Invoicing Sales";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Invoicing_Sales_FormClosing);
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Invoicing_Sales_KeyDown);

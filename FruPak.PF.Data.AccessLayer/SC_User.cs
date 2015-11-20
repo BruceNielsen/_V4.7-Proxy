@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -31,19 +31,19 @@ namespace FruPak.PF.Data.AccessLayer
         /// <returns></returns>
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(user_id) as Current_Id FROM  dbo.SC_User");
         }
 
         public static DataSet Get_Info()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM  dbo.SC_User ORDER BY  First_Name, Last_Name");
         }
 
         public static DataSet Get_For_Combo()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT *, First_Name + ' ' + Last_Name as Full_Name FROM  dbo.SC_User ORDER BY  First_Name, Last_Name");
         }
 
@@ -54,7 +54,7 @@ namespace FruPak.PF.Data.AccessLayer
         /// <returns></returns>
         public static DataSet Get_Info(string Logon)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM  dbo.SC_User WHERE Logon = '" + Logon + "' AND Active_Ind = 1");
         }
 
@@ -72,7 +72,7 @@ namespace FruPak.PF.Data.AccessLayer
         /// <returns></returns>
         public static int Insert(int User_Id, string Logon, string First_Name, string Last_Name, string Password, bool Active_Ind, bool Allow_Test, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO  dbo.SC_User(User_Id, Logon, First_Name, Last_Name, Password, Active_Ind, Allow_Test,Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + User_Id + ",'" + Logon + "','" + First_Name + "','" + Last_Name + "','" + Password + "','" +
                                                             Active_Ind + "','" + Allow_Test + "', GETDATE()," + Mod_User_Id + ")");
@@ -80,13 +80,13 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Delete(int User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM  dbo.SC_User WHERE User_Id = " + User_Id);
         }
 
         public static int Update(int User_Id, string First_Name, string Last_Name, bool Active_Ind, bool Allow_Test, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE  dbo.SC_User SET First_Name = '" + First_Name + "', " +
                                                                   "Last_Name = '" + Last_Name + "', " +
                                                                   "Active_Ind = '" + Active_Ind + "', " +
@@ -98,7 +98,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Update(int User_Id, string First_Name, string Last_Name, string Logon, bool Active_Ind, bool Allow_Test, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE  dbo.SC_User SET First_Name = '" + First_Name + "', " +
                                                                   "Last_Name = '" + Last_Name + "', " +
                                                                   "Logon = '" + Logon + "', " +
@@ -111,7 +111,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Update_User_Password(int User_Id, string Password, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE  dbo.SC_User SET Password = '" + Password + "', " +
                                                                   "Mod_date = GETDATE(), " +
                                                                   "Mod_User_Id = " + Mod_User_Id +
@@ -120,7 +120,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_User_Menus(int User_id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT DISTINCT M.Menu_Id, M.Name AS MENU ,MP.MenuPan_Id, MP.Name AS SUBMENU, MPGR.Write_Access " +
                                             "FROM  dbo.SC_User U " +
                                             "INNER JOIN  dbo.SC_User_Group_Relationship UGR ON U.User_Id = UGR.User_Id " +

@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.WorkOrder
+﻿namespace PF.WorkOrder
 {
     partial class Tablet_WO_Labels
     {
@@ -40,7 +40,7 @@
             this.KeyPreview = true;
             this.Name = "Tablet_WO_Labels";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.WorkOrder.Tablet Work Order Labels";
+            this.Text = "PF.WorkOrder.Tablet Work Order Labels";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Tablet_WO_Labels_KeyDown);
             this.ResumeLayout(false);
 

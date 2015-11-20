@@ -4,7 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 
-namespace FruPak.PF.Data.Outlook
+namespace PF.Data.Outlook
 {
     /*Description
     -----------------
@@ -358,13 +358,13 @@ namespace FruPak.PF.Data.Outlook
                             var contact = (_ContactItem)obj;
                             try
                             {
-                                //Console.WriteLine("FruPak.PF.Data.Outlook.Contacts.Contact_Details:");
+                                //Console.WriteLine("PF.Data.Outlook.Contacts.Contact_Details:");
                                 //Console.WriteLine("contact.EntryID: \t" + contact.EntryID);
                                 //Console.WriteLine("str_Entry_Id: \t\t" + str_Entry_Id);
                                 //Console.WriteLine("---\r\n");
                                 if (contact.EntryID == str_Entry_Id)
                                 {
-                                    Console.WriteLine("FruPak.PF.Data.Outlook.Contacts.Contact_Details: Match between contact id and entry id.");
+                                    Console.WriteLine("PF.Data.Outlook.Contacts.Contact_Details: Match between contact id and entry id.");
                                     if (contact.CompanyName != "" && contact.CompanyName != null) // BN
                                     {
                                         Contact_Company_Name = contact.CompanyName.ToString();

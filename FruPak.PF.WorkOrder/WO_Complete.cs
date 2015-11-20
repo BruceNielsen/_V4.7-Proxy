@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.WorkOrder
+namespace PF.WorkOrder
 {
     public partial class WO_Complete : Form
     {
@@ -21,13 +21,13 @@ namespace FruPak.PF.WorkOrder
 
             //check if testing or not
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
             AddColumnsProgrammatically();
             populate_dataGridView();
@@ -64,9 +64,9 @@ namespace FruPak.PF.WorkOrder
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -107,7 +107,7 @@ namespace FruPak.PF.WorkOrder
             dataGridView1.Refresh();
             dataGridView1.Rows.Clear();
 
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Info_Exclude_Current(FruPak.PF.Common.Code.General.Get_Season());
+            DataSet ds_Get_Info = PF.Data.AccessLayer.PF_Work_Order.Get_Info_Exclude_Current(PF.Common.Code.General.Get_Season());
             DataRow dr_Get_Info;
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {
@@ -155,13 +155,13 @@ namespace FruPak.PF.WorkOrder
             {
                 if (dataGridView1.CurrentRow.Cells[2].Value.ToString() == "Complete")
                 {
-                    int_result = FruPak.PF.Data.AccessLayer.PF_Work_Order.Update_Completed(Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString()), int_Current_User_Id);
+                    int_result = PF.Data.AccessLayer.PF_Work_Order.Update_Completed(Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString()), int_Current_User_Id);
                     lbl_message.ForeColor = System.Drawing.Color.Blue;
                     lbl_message.Text = "Work Order: " + Convert.ToString(dataGridView1.CurrentRow.Cells[0].Value.ToString()) + " has been Completed";
                 }
                 else
                 {
-                    int_result = FruPak.PF.Data.AccessLayer.PF_Work_Order.Update_UnCompleted(Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString()), int_Current_User_Id);
+                    int_result = PF.Data.AccessLayer.PF_Work_Order.Update_UnCompleted(Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString()), int_Current_User_Id);
                     lbl_message.ForeColor = System.Drawing.Color.Blue;
                     lbl_message.Text = "Work Order: " + Convert.ToString(dataGridView1.CurrentRow.Cells[0].Value.ToString()) + " has been Un-Completed";
                 }
@@ -223,7 +223,7 @@ namespace FruPak.PF.WorkOrder
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Common
+namespace PF.Utils.Common
 {
     public partial class Material : Form
     {
@@ -18,24 +18,24 @@ namespace FruPak.PF.Utils.Common
 
             if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
             {
-                Console.WriteLine("FruPak.PF.Utils.Common.Material - UsageMode = Designtime - Skipping populate()");
+                Console.WriteLine("PF.Utils.Common.Material - UsageMode = Designtime - Skipping populate()");
             }
             else
             {
-                Console.WriteLine("FruPak.PF.Utils.Common.Material - UsageMode = Runtime - Running populate()");
+                Console.WriteLine("PF.Utils.Common.Material - UsageMode = Runtime - Running populate()");
                 //populate_comboboxs();
                 //}
 
                 int_Current_User_Id = int_C_User_id;
                 //check if testing or not
 
-                //if (FruPak.PF.Global.Global.bol_Testing == true)
+                //if (PF.Global.Global.bol_Testing == true)
                 //{
-                //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+                //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
                 //}
                 //else
                 //{
-                //    this.Text = "FruPak Process Factory";
+                //    this.Text = "FP Process Factory";
                 //}
                 //restrict access
                 bol_write_access = bol_w_a;
@@ -76,9 +76,9 @@ namespace FruPak.PF.Utils.Common
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -92,7 +92,7 @@ namespace FruPak.PF.Utils.Common
 
             DataSet ds_Get_Info;
             //Brand
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Brand.Get_Info();
+            ds_Get_Info = PF.Data.AccessLayer.CM_Brand.Get_Info();
             cmb_Brand.DataSource = ds_Get_Info.Tables[0];
             cmb_Brand.DisplayMember = "Combined";
             cmb_Brand.ValueMember = "Brand_Id";
@@ -100,7 +100,7 @@ namespace FruPak.PF.Utils.Common
             ds_Get_Info.Dispose();
 
             //Count
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Count.Get_Info();
+            ds_Get_Info = PF.Data.AccessLayer.CM_Count.Get_Info();
             cmb_Count.DataSource = ds_Get_Info.Tables[0];
             cmb_Count.DisplayMember = "Combined";
             cmb_Count.ValueMember = "Count_Id";
@@ -108,7 +108,7 @@ namespace FruPak.PF.Utils.Common
             ds_Get_Info.Dispose();
 
             //Grade
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Grade.Get_Info();
+            ds_Get_Info = PF.Data.AccessLayer.CM_Grade.Get_Info();
             cmb_Grade.DataSource = ds_Get_Info.Tables[0];
             cmb_Grade.DisplayMember = "Combined";
             cmb_Grade.ValueMember = "Grade_Id";
@@ -116,7 +116,7 @@ namespace FruPak.PF.Utils.Common
             ds_Get_Info.Dispose();
 
             //Growing Method
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Growing_Method.Get_Info();
+            ds_Get_Info = PF.Data.AccessLayer.CM_Growing_Method.Get_Info();
             cmb_GrowingMethod.DataSource = ds_Get_Info.Tables[0];
             cmb_GrowingMethod.DisplayMember = "Combined";
             cmb_GrowingMethod.ValueMember = "Growing_Method_Id";
@@ -124,7 +124,7 @@ namespace FruPak.PF.Utils.Common
             ds_Get_Info.Dispose();
 
             //MArke Attr
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Market_Attribute.Get_Info();
+            ds_Get_Info = PF.Data.AccessLayer.CM_Market_Attribute.Get_Info();
             cmb_MarketAttrib.DataSource = ds_Get_Info.Tables[0];
             cmb_MarketAttrib.DisplayMember = "Combined";
             cmb_MarketAttrib.ValueMember = "Market_Attribute_Id";
@@ -132,7 +132,7 @@ namespace FruPak.PF.Utils.Common
             ds_Get_Info.Dispose();
 
             //Pack Type
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Pack_Type.Get_Info();
+            ds_Get_Info = PF.Data.AccessLayer.CM_Pack_Type.Get_Info();
             cmb_PackType.DataSource = ds_Get_Info.Tables[0];
             cmb_PackType.DisplayMember = "Combined";
             cmb_PackType.ValueMember = "PackType_Id";
@@ -140,7 +140,7 @@ namespace FruPak.PF.Utils.Common
             ds_Get_Info.Dispose();
 
             //Pallet Type
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Pallet_Type.Get_Info();
+            ds_Get_Info = PF.Data.AccessLayer.CM_Pallet_Type.Get_Info();
             cmb_Pallet_Type.DataSource = ds_Get_Info.Tables[0];
             cmb_Pallet_Type.DisplayMember = "Combined";
             cmb_Pallet_Type.ValueMember = "PalletType_Id";
@@ -148,7 +148,7 @@ namespace FruPak.PF.Utils.Common
             ds_Get_Info.Dispose();
 
             //Product Group
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Product_Group.Get_Info();
+            ds_Get_Info = PF.Data.AccessLayer.CM_Product_Group.Get_Info();
             cmb_Product_Group.DataSource = ds_Get_Info.Tables[0];
             cmb_Product_Group.DisplayMember = "Combined";
             cmb_Product_Group.ValueMember = "ProductGroup_Id";
@@ -156,7 +156,7 @@ namespace FruPak.PF.Utils.Common
             ds_Get_Info.Dispose();
 
             //Size
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Size.Get_Info();
+            ds_Get_Info = PF.Data.AccessLayer.CM_Size.Get_Info();
             cmb_Size.DataSource = ds_Get_Info.Tables[0];
             cmb_Size.DisplayMember = "Combined";
             cmb_Size.ValueMember = "Size_Id";
@@ -164,7 +164,7 @@ namespace FruPak.PF.Utils.Common
             ds_Get_Info.Dispose();
 
             //Trader
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Trader.Get_Info();
+            ds_Get_Info = PF.Data.AccessLayer.CM_Trader.Get_Info();
             cmb_Trader.DataSource = ds_Get_Info.Tables[0];
             cmb_Trader.DisplayMember = "Combined";
             cmb_Trader.ValueMember = "Trader_Id";
@@ -172,7 +172,7 @@ namespace FruPak.PF.Utils.Common
             ds_Get_Info.Dispose();
 
             //Treatment
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Treatment.Get_Info();
+            ds_Get_Info = PF.Data.AccessLayer.CM_Treatment.Get_Info();
             cmb_Treatment.DataSource = ds_Get_Info.Tables[0];
             cmb_Treatment.DisplayMember = "Combined";
             cmb_Treatment.ValueMember = "Treatment_Id";
@@ -202,7 +202,7 @@ namespace FruPak.PF.Utils.Common
             {
                 try
                 {
-                    DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Material.Check_Mat_num_Trader(Convert.ToDecimal(txt_Material_No.Text), Convert.ToInt32(cmb_Trader.SelectedValue.ToString()));
+                    DataSet ds_Get_Info = PF.Data.AccessLayer.CM_Material.Check_Mat_num_Trader(Convert.ToDecimal(txt_Material_No.Text), Convert.ToInt32(cmb_Trader.SelectedValue.ToString()));
 
                     if (Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()) > 0)
                     {
@@ -278,7 +278,7 @@ namespace FruPak.PF.Utils.Common
 
             if (DLR_MessageBox != DialogResult.OK)
             {
-                DataSet ds = FruPak.PF.Data.AccessLayer.CM_Material.Does_It_Exist(Convert.ToInt32(cmb_Brand.SelectedValue.ToString()), Convert.ToInt32(cmb_Count.SelectedValue.ToString()), int_FruitType_Id, Convert.ToInt32(cmb_Grade.SelectedValue.ToString()),
+                DataSet ds = PF.Data.AccessLayer.CM_Material.Does_It_Exist(Convert.ToInt32(cmb_Brand.SelectedValue.ToString()), Convert.ToInt32(cmb_Count.SelectedValue.ToString()), int_FruitType_Id, Convert.ToInt32(cmb_Grade.SelectedValue.ToString()),
                     Convert.ToInt32(cmb_GrowingMethod.SelectedValue.ToString()), Convert.ToInt32(cmb_MarketAttrib.SelectedValue.ToString()), Convert.ToInt32(cmb_PackType.SelectedValue.ToString()), Convert.ToInt32(cmb_Pallet_Type.SelectedValue.ToString()),
                     Convert.ToInt32(cmb_Product_Group.SelectedValue.ToString()), Convert.ToInt32(cmb_Size.SelectedValue.ToString()), Convert.ToInt32(cmb_Treatment.SelectedValue.ToString()), int_FruitVariety_Id, Convert.ToInt32(cmb_Trader.SelectedValue.ToString()));
                 DataRow dr;
@@ -297,7 +297,7 @@ namespace FruPak.PF.Utils.Common
 
                 if (DLR_MessageBox != System.Windows.Forms.DialogResult.OK)
                 {
-                    int_result = FruPak.PF.Data.AccessLayer.CM_Material.insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Material"), Convert.ToDecimal(txt_Material_No.Text), Convert.ToInt32(cmb_Trader.SelectedValue.ToString()), int_FruitType_Id, int_FruitVariety_Id,
+                    int_result = PF.Data.AccessLayer.CM_Material.insert(PF.Common.Code.General.int_max_user_id("CM_Material"), Convert.ToDecimal(txt_Material_No.Text), Convert.ToInt32(cmb_Trader.SelectedValue.ToString()), int_FruitType_Id, int_FruitVariety_Id,
                                                                             Convert.ToInt32(cmb_PackType.SelectedValue.ToString()), Convert.ToInt32(cmb_Size.SelectedValue.ToString()), Convert.ToInt32(cmb_Count.SelectedValue.ToString()),
                                                                             Convert.ToInt32(cmb_Brand.SelectedValue.ToString()), Convert.ToInt32(cmb_Grade.SelectedValue.ToString()), Convert.ToInt32(cmb_Treatment.SelectedValue.ToString()),
                                                                             Convert.ToInt32(cmb_MarketAttrib.SelectedValue.ToString()), Convert.ToInt32(cmb_GrowingMethod.SelectedValue.ToString()), Convert.ToInt32(cmb_Product_Group.SelectedValue.ToString()),
@@ -477,7 +477,7 @@ namespace FruPak.PF.Utils.Common
                         {
                             try
                             {
-                                ds = FruPak.PF.Data.AccessLayer.CM_Brand.Get_Info(Convert.ToInt32(cmb_Brand.SelectedValue.ToString()));
+                                ds = PF.Data.AccessLayer.CM_Brand.Get_Info(Convert.ToInt32(cmb_Brand.SelectedValue.ToString()));
                             }
                             catch (Exception ex)
                             {
@@ -504,7 +504,7 @@ namespace FruPak.PF.Utils.Common
                     {
                         if (cmb_Grade.SelectedValue != null)
                         {
-                            try { ds = FruPak.PF.Data.AccessLayer.CM_Grade.Get_Info(Convert.ToInt32(cmb_Grade.SelectedValue.ToString())); }
+                            try { ds = PF.Data.AccessLayer.CM_Grade.Get_Info(Convert.ToInt32(cmb_Grade.SelectedValue.ToString())); }
                             catch (Exception ex)
                             {
                                 logger.Log(LogLevel.Debug, ex.Message);
@@ -531,7 +531,7 @@ namespace FruPak.PF.Utils.Common
                     {
                         if (cmb_GrowingMethod.SelectedValue != null)
                         {
-                            try { ds = FruPak.PF.Data.AccessLayer.CM_Growing_Method.Get_Info(Convert.ToInt32(cmb_GrowingMethod.SelectedValue.ToString())); }
+                            try { ds = PF.Data.AccessLayer.CM_Growing_Method.Get_Info(Convert.ToInt32(cmb_GrowingMethod.SelectedValue.ToString())); }
                             catch (Exception ex)
                             {
                                 logger.Log(LogLevel.Debug, ex.Message);
@@ -558,7 +558,7 @@ namespace FruPak.PF.Utils.Common
                     {
                         if (cmb_MarketAttrib.SelectedValue != null)
                         {
-                            try { ds = FruPak.PF.Data.AccessLayer.CM_Market_Attribute.Get_Info(Convert.ToInt32(cmb_MarketAttrib.SelectedValue.ToString())); }
+                            try { ds = PF.Data.AccessLayer.CM_Market_Attribute.Get_Info(Convert.ToInt32(cmb_MarketAttrib.SelectedValue.ToString())); }
                             catch (Exception ex)
                             {
                                 logger.Log(LogLevel.Debug, ex.Message);
@@ -585,7 +585,7 @@ namespace FruPak.PF.Utils.Common
                     {
                         if (cmb_PackType.SelectedValue != null)
                         {
-                            try { ds = FruPak.PF.Data.AccessLayer.CM_Pack_Type.Get_Info(Convert.ToInt32(cmb_PackType.SelectedValue.ToString())); }
+                            try { ds = PF.Data.AccessLayer.CM_Pack_Type.Get_Info(Convert.ToInt32(cmb_PackType.SelectedValue.ToString())); }
                             catch (Exception ex)
                             {
                                 logger.Log(LogLevel.Debug, ex.Message);
@@ -612,7 +612,7 @@ namespace FruPak.PF.Utils.Common
                     {
                         if (cmb_Product_Group.SelectedValue != null)
                         {
-                            try { ds = FruPak.PF.Data.AccessLayer.CM_Product_Group.Get_Info(Convert.ToInt32(cmb_Product_Group.SelectedValue.ToString())); }
+                            try { ds = PF.Data.AccessLayer.CM_Product_Group.Get_Info(Convert.ToInt32(cmb_Product_Group.SelectedValue.ToString())); }
                             catch (Exception ex)
                             {
                                 logger.Log(LogLevel.Debug, ex.Message);
@@ -639,7 +639,7 @@ namespace FruPak.PF.Utils.Common
                     {
                         if (cmb_Size.SelectedValue != null)
                         {
-                            try { ds = FruPak.PF.Data.AccessLayer.CM_Size.Get_Info(Convert.ToInt32(cmb_Size.SelectedValue.ToString())); }
+                            try { ds = PF.Data.AccessLayer.CM_Size.Get_Info(Convert.ToInt32(cmb_Size.SelectedValue.ToString())); }
                             catch (Exception ex)
                             {
                                 logger.Log(LogLevel.Debug, ex.Message);
@@ -666,7 +666,7 @@ namespace FruPak.PF.Utils.Common
                     {
                         if (cmb_Trader.SelectedValue != null)
                         {
-                            try { ds = FruPak.PF.Data.AccessLayer.CM_Trader.Get_Info(Convert.ToInt32(cmb_Trader.SelectedValue.ToString())); }
+                            try { ds = PF.Data.AccessLayer.CM_Trader.Get_Info(Convert.ToInt32(cmb_Trader.SelectedValue.ToString())); }
                             catch (Exception ex)
                             {
                                 logger.Log(LogLevel.Debug, ex.Message);
@@ -693,7 +693,7 @@ namespace FruPak.PF.Utils.Common
                     {
                         if (cmb_Treatment.SelectedValue != null)
                         {
-                            try { ds = FruPak.PF.Data.AccessLayer.CM_Treatment.Get_Info(Convert.ToInt32(cmb_Treatment.SelectedValue.ToString())); }
+                            try { ds = PF.Data.AccessLayer.CM_Treatment.Get_Info(Convert.ToInt32(cmb_Treatment.SelectedValue.ToString())); }
                             catch (Exception ex)
                             {
                                 logger.Log(LogLevel.Debug, ex.Message);
@@ -766,42 +766,42 @@ namespace FruPak.PF.Utils.Common
                                         cmb_Pallet_Type.SelectedValue = 0;
                                         cmb_Product_Group.SelectedValue = 0;
 
-                                        ds_pg = FruPak.PF.Data.AccessLayer.CM_Product_Group.Get_Info("PB");
+                                        ds_pg = PF.Data.AccessLayer.CM_Product_Group.Get_Info("PB");
                                         for (int i_pg = 0; i_pg < ds_pg.Tables[0].Rows.Count; i_pg++)
                                         {
                                             dr_pg = ds_pg.Tables[0].Rows[i_pg];
                                             cmb_Product_Group.SelectedValue = dr_pg["ProductGroup_Id"].ToString();
                                         }
                                         ds_pg.Dispose();
-                                        ds_pg = FruPak.PF.Data.AccessLayer.CM_Brand.Get_Info("PB");
+                                        ds_pg = PF.Data.AccessLayer.CM_Brand.Get_Info("PB");
                                         for (int i_pg = 0; i_pg < ds_pg.Tables[0].Rows.Count; i_pg++)
                                         {
                                             dr_pg = ds_pg.Tables[0].Rows[i_pg];
                                             cmb_Brand.SelectedValue = dr_pg["Brand_Id"].ToString();
                                         }
                                         ds_pg.Dispose();
-                                        ds_pg = FruPak.PF.Data.AccessLayer.CM_Pallet_Type.Get_Info("FPB");
+                                        ds_pg = PF.Data.AccessLayer.CM_Pallet_Type.Get_Info("FPB");
                                         for (int i_pg = 0; i_pg < ds_pg.Tables[0].Rows.Count; i_pg++)
                                         {
                                             dr_pg = ds_pg.Tables[0].Rows[i_pg];
                                             cmb_Pallet_Type.SelectedValue = dr_pg["PalletType_Id"].ToString();
                                         }
                                         ds_pg.Dispose();
-                                        ds_pg = FruPak.PF.Data.AccessLayer.CM_Size.Get_Info("MIX");
+                                        ds_pg = PF.Data.AccessLayer.CM_Size.Get_Info("MIX");
                                         for (int i_pg = 0; i_pg < ds_pg.Tables[0].Rows.Count; i_pg++)
                                         {
                                             dr_pg = ds_pg.Tables[0].Rows[i_pg];
                                             cmb_Size.SelectedValue = dr_pg["Size_Id"].ToString();
                                         }
                                         ds_pg.Dispose();
-                                        ds_pg = FruPak.PF.Data.AccessLayer.CM_Grade.Get_Info("UG");
+                                        ds_pg = PF.Data.AccessLayer.CM_Grade.Get_Info("UG");
                                         for (int i_pg = 0; i_pg < ds_pg.Tables[0].Rows.Count; i_pg++)
                                         {
                                             dr_pg = ds_pg.Tables[0].Rows[i_pg];
                                             cmb_Grade.SelectedValue = dr_pg["Grade_Id"].ToString();
                                         }
                                         ds_pg.Dispose();
-                                        ds_pg = FruPak.PF.Data.AccessLayer.CM_Market_Attribute.Get_Info("N");
+                                        ds_pg = PF.Data.AccessLayer.CM_Market_Attribute.Get_Info("N");
                                         for (int i_pg = 0; i_pg < ds_pg.Tables[0].Rows.Count; i_pg++)
                                         {
                                             dr_pg = ds_pg.Tables[0].Rows[i_pg];
@@ -812,35 +812,35 @@ namespace FruPak.PF.Utils.Common
                                     #endregion ---------- RND -------------
                                     #region ---------- PHB -----------------
                                     case "PHB":
-                                        ds_pg = FruPak.PF.Data.AccessLayer.CM_Product_Group.Get_Info("PFP");
+                                        ds_pg = PF.Data.AccessLayer.CM_Product_Group.Get_Info("PFP");
                                         for (int i_pg = 0; i_pg < ds_pg.Tables[0].Rows.Count; i_pg++)
                                         {
                                             dr_pg = ds_pg.Tables[0].Rows[i_pg];
                                             cmb_Product_Group.SelectedValue = dr_pg["ProductGroup_Id"].ToString();
                                         }
                                         ds_pg.Dispose();
-                                        ds_pg = FruPak.PF.Data.AccessLayer.CM_Brand.Get_Info("BA");
+                                        ds_pg = PF.Data.AccessLayer.CM_Brand.Get_Info("BA");
                                         for (int i_pg = 0; i_pg < ds_pg.Tables[0].Rows.Count; i_pg++)
                                         {
                                             dr_pg = ds_pg.Tables[0].Rows[i_pg];
                                             cmb_Brand.SelectedValue = dr_pg["Brand_Id"].ToString();
                                         }
                                         ds_pg.Dispose();
-                                        ds_pg = FruPak.PF.Data.AccessLayer.CM_Pallet_Type.Get_Info("FPB");
+                                        ds_pg = PF.Data.AccessLayer.CM_Pallet_Type.Get_Info("FPB");
                                         for (int i_pg = 0; i_pg < ds_pg.Tables[0].Rows.Count; i_pg++)
                                         {
                                             dr_pg = ds_pg.Tables[0].Rows[i_pg];
                                             cmb_Pallet_Type.SelectedValue = dr_pg["PalletType_Id"].ToString();
                                         }
                                         ds_pg.Dispose();
-                                        ds_pg = FruPak.PF.Data.AccessLayer.CM_Grade.Get_Info("HF");
+                                        ds_pg = PF.Data.AccessLayer.CM_Grade.Get_Info("HF");
                                         for (int i_pg = 0; i_pg < ds_pg.Tables[0].Rows.Count; i_pg++)
                                         {
                                             dr_pg = ds_pg.Tables[0].Rows[i_pg];
                                             cmb_Grade.SelectedValue = dr_pg["Grade_Id"].ToString();
                                         }
                                         ds_pg.Dispose();
-                                        ds_pg = FruPak.PF.Data.AccessLayer.CM_Market_Attribute.Get_Info("HB");
+                                        ds_pg = PF.Data.AccessLayer.CM_Market_Attribute.Get_Info("HB");
                                         for (int i_pg = 0; i_pg < ds_pg.Tables[0].Rows.Count; i_pg++)
                                         {
                                             dr_pg = ds_pg.Tables[0].Rows[i_pg];
@@ -851,35 +851,35 @@ namespace FruPak.PF.Utils.Common
                                     #endregion ---------- PHB -----------------
                                     #region ----------- PHC -------------
                                     case "PHC":
-                                        ds_pg = FruPak.PF.Data.AccessLayer.CM_Product_Group.Get_Info("PFP");
+                                        ds_pg = PF.Data.AccessLayer.CM_Product_Group.Get_Info("PFP");
                                         for (int i_pg = 0; i_pg < ds_pg.Tables[0].Rows.Count; i_pg++)
                                         {
                                             dr_pg = ds_pg.Tables[0].Rows[i_pg];
                                             cmb_Product_Group.SelectedValue = dr_pg["ProductGroup_Id"].ToString();
                                         }
                                         ds_pg.Dispose();
-                                        ds_pg = FruPak.PF.Data.AccessLayer.CM_Brand.Get_Info("GN");
+                                        ds_pg = PF.Data.AccessLayer.CM_Brand.Get_Info("GN");
                                         for (int i_pg = 0; i_pg < ds_pg.Tables[0].Rows.Count; i_pg++)
                                         {
                                             dr_pg = ds_pg.Tables[0].Rows[i_pg];
                                             cmb_Brand.SelectedValue = dr_pg["Brand_Id"].ToString();
                                         }
                                         ds_pg.Dispose();
-                                        ds_pg = FruPak.PF.Data.AccessLayer.CM_Pallet_Type.Get_Info("BCHEP");
+                                        ds_pg = PF.Data.AccessLayer.CM_Pallet_Type.Get_Info("BCHEP");
                                         for (int i_pg = 0; i_pg < ds_pg.Tables[0].Rows.Count; i_pg++)
                                         {
                                             dr_pg = ds_pg.Tables[0].Rows[i_pg];
                                             cmb_Pallet_Type.SelectedValue = dr_pg["PalletType_Id"].ToString();
                                         }
                                         ds_pg.Dispose();
-                                        ds_pg = FruPak.PF.Data.AccessLayer.CM_Grade.Get_Info("HF");
+                                        ds_pg = PF.Data.AccessLayer.CM_Grade.Get_Info("HF");
                                         for (int i_pg = 0; i_pg < ds_pg.Tables[0].Rows.Count; i_pg++)
                                         {
                                             dr_pg = ds_pg.Tables[0].Rows[i_pg];
                                             cmb_Grade.SelectedValue = dr_pg["Grade_Id"].ToString();
                                         }
                                         ds_pg.Dispose();
-                                        ds_pg = FruPak.PF.Data.AccessLayer.CM_Market_Attribute.Get_Info("HB");
+                                        ds_pg = PF.Data.AccessLayer.CM_Market_Attribute.Get_Info("HB");
                                         for (int i_pg = 0; i_pg < ds_pg.Tables[0].Rows.Count; i_pg++)
                                         {
                                             dr_pg = ds_pg.Tables[0].Rows[i_pg];
@@ -948,7 +948,7 @@ namespace FruPak.PF.Utils.Common
 
         private void fruit1_FruitVarietyChanged(object sender, EventArgs e)
         {
-            DataSet ds = FruPak.PF.Data.AccessLayer.CM_Fruit_Variety.Get_Info_std(Convert.ToInt32(fruit1.FruitVariety_Id));
+            DataSet ds = PF.Data.AccessLayer.CM_Fruit_Variety.Get_Info_std(Convert.ToInt32(fruit1.FruitVariety_Id));
             DataRow dr;
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
@@ -976,7 +976,7 @@ namespace FruPak.PF.Utils.Common
                 number.product_id = number.grade_id;
             }
 
-            DataSet ds = FruPak.PF.Data.AccessLayer.CM_Material.Get_Max_Material_Num(Convert.ToInt32(number.pos1.ToString() + number.product_id + number.fruittype + "000"), Convert.ToInt32(number.pos1.ToString() + number.product_id + number.fruittype + "999"));
+            DataSet ds = PF.Data.AccessLayer.CM_Material.Get_Max_Material_Num(Convert.ToInt32(number.pos1.ToString() + number.product_id + number.fruittype + "000"), Convert.ToInt32(number.pos1.ToString() + number.product_id + number.fruittype + "999"));
             DataRow dr;
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
@@ -999,7 +999,7 @@ namespace FruPak.PF.Utils.Common
             if (txt_Material_No.TextLength > 0)
             {
                 str_temp_material_Num = txt_Material_No.Text;
-                DataSet ds = FruPak.PF.Data.AccessLayer.CM_Material.Get_Info(Convert.ToDecimal(txt_Material_No.Text));
+                DataSet ds = PF.Data.AccessLayer.CM_Material.Get_Info(Convert.ToDecimal(txt_Material_No.Text));
                 DataRow dr;
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
@@ -1086,7 +1086,7 @@ namespace FruPak.PF.Utils.Common
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

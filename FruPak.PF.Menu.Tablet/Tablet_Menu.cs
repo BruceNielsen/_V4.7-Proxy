@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Menu.Tablet
+namespace PF.Menu.Tablet
 {
     public partial class Tablet_Menu : Form
     {
@@ -15,22 +15,22 @@ namespace FruPak.PF.Menu.Tablet
         {
             InitializeComponent();
 
-            bool bol_temp_environ = FruPak.PF.Global.Global.bol_Testing;
+            bool bol_temp_environ = PF.Global.Global.bool_Testing;
 
-            var result = FruPak.PF.Utils.Security.Logon.Execute(Environment.UserName, "Scanner");
+            var result = PF.Utils.Security.Logon.Execute(Environment.UserName, "Scanner");
 
             if (result.Result == System.Windows.Forms.DialogResult.None)
             {
-                FruPak.PF.Global.Global.bol_Testing = bol_temp_environ;
+                PF.Global.Global.bool_Testing = bol_temp_environ;
             }
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak - Test Environment";
+            //    this.Text = "FP - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak";
+            //    this.Text = "FP";
             //}
 
             if (result.Result == DialogResult.Cancel)
@@ -72,9 +72,9 @@ namespace FruPak.PF.Menu.Tablet
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
 
-                //else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                //else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 //{
-                //    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                //    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                 //    cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 //}
             }
@@ -84,31 +84,31 @@ namespace FruPak.PF.Menu.Tablet
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form frm = new FruPak.PF.Utils.Scanning.Bin_Tipping(int_User_id, true);
+            Form frm = new PF.Utils.Scanning.Bin_Tipping(int_User_id, true);
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
         }
 
         private void button2_Click(object sender, EventArgs e)
         {
-            Form frm = new FruPak.PF.Utils.Scanning.Tipping_Onto_Order(int_User_id, true);
+            Form frm = new PF.Utils.Scanning.Tipping_Onto_Order(int_User_id, true);
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
         }
 
         private void button3_Click(object sender, EventArgs e)
         {
-            Form frm = new FruPak.PF.Utils.Scanning.Pallet_Transfer(int_User_id, true);
+            Form frm = new PF.Utils.Scanning.Pallet_Transfer(int_User_id, true);
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
         }
 
         private void button4_Click(object sender, EventArgs e)
         {
-            Form frm = new FruPak.PF.Utils.Scanning.Reprint_Palletcards(int_User_id);
+            Form frm = new PF.Utils.Scanning.Reprint_Palletcards(int_User_id);
             //frm.TopMost = true; // 21/10/2015 BN
             frm.ShowDialog();
-            lbl_message.Text = FruPak.PF.Utils.Scanning.Reprint_Palletcards.PrintMessage;
+            lbl_message.Text = PF.Utils.Scanning.Reprint_Palletcards.PrintMessage;
             //   frm.Close();
         }
 
@@ -119,49 +119,49 @@ namespace FruPak.PF.Menu.Tablet
 
         private void button5_Click(object sender, EventArgs e)
         {
-            Form frm = new FruPak.PF.Utils.Scanning.Repack(int_User_id, true);
+            Form frm = new PF.Utils.Scanning.Repack(int_User_id, true);
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
         }
 
         private void button6_Click(object sender, EventArgs e)
         {
-            Form frm = new FruPak.PF.Utils.Scanning.Bin_Tare_Weights(int_User_id, true);
+            Form frm = new PF.Utils.Scanning.Bin_Tare_Weights(int_User_id, true);
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
         }
 
         private void button7_Click(object sender, EventArgs e)
         {
-            Form frm = new FruPak.PF.Utils.Scanning.Pallet_Weight(int_User_id, true);
+            Form frm = new PF.Utils.Scanning.Pallet_Weight(int_User_id, true);
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-            Form frm = new FruPak.PF.Utils.Scanning.GDI_Scanning(int_User_id, true);
+            Form frm = new PF.Utils.Scanning.GDI_Scanning(int_User_id, true);
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
         }
 
         private void button9_Click(object sender, EventArgs e)
         {
-            Form frm = new FruPak.PF.Utils.Scanning.Create_Small_Rejects(int_User_id);
+            Form frm = new PF.Utils.Scanning.Create_Small_Rejects(int_User_id);
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
         }
 
         private void button10_Click(object sender, EventArgs e)
         {
-            Form frm = new FruPak.PF.Utils.Scanning.Reject_Bins_Weights(int_User_id);
+            Form frm = new PF.Utils.Scanning.Reject_Bins_Weights(int_User_id);
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
         }
 
         private void button11_Click(object sender, EventArgs e)
         {
-            DataSet ds = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Current();
+            DataSet ds = PF.Data.AccessLayer.PF_Work_Order.Get_Current();
             DataRow dr;
             int int_current_wo = 0;
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
@@ -169,21 +169,21 @@ namespace FruPak.PF.Menu.Tablet
                 dr = ds.Tables[0].Rows[i];
                 int_current_wo = Convert.ToInt32(dr["Work_Order_Id"].ToString());
             }
-            Form frm = new FruPak.PF.WorkOrder.Tablet_WO_Labels(int_current_wo, int_User_id, true);
+            Form frm = new PF.WorkOrder.Tablet_WO_Labels(int_current_wo, int_User_id, true);
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
         }
 
         private void button12_Click(object sender, EventArgs e)
         {
-            Form frm = new FruPak.PF.Utils.Scanning.Wet_Dry(int_User_id);
+            Form frm = new PF.Utils.Scanning.Wet_Dry(int_User_id);
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
         }
 
         private void button13_Click(object sender, EventArgs e)
         {
-            Form frm = new FruPak.PF.Utils.Scanning.Bin_To_Order(int_User_id);
+            Form frm = new PF.Utils.Scanning.Bin_To_Order(int_User_id);
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
         }
@@ -237,7 +237,7 @@ namespace FruPak.PF.Menu.Tablet
 
         //private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         //{
-        //    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+        //    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
         //    logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         //}
 
@@ -288,7 +288,7 @@ namespace FruPak.PF.Menu.Tablet
 
         private void buttonCombinedWeights_Click(object sender, EventArgs e)
         {
-            Form frm = new FruPak.PF.Utils.Scanning.Bin_Tipping_Combined(int_User_id, true);
+            Form frm = new PF.Utils.Scanning.Bin_Tipping_Combined(int_User_id, true);
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
         }

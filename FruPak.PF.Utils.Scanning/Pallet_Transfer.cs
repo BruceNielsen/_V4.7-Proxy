@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Scanning
+namespace PF.Utils.Scanning
 {
     public partial class Pallet_Transfer : Form
     {
@@ -17,13 +17,13 @@ namespace FruPak.PF.Utils.Scanning
             InitializeComponent();
             int_Current_User_Id = int_C_User_id;
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
 
             //restrict access
@@ -72,9 +72,9 @@ namespace FruPak.PF.Utils.Scanning
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -130,7 +130,7 @@ namespace FruPak.PF.Utils.Scanning
             DataRow dr_Get_Info;
             if (barcode_frm.BarcodeValue.Length > 0)
             {
-                ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Info_for_Barcode(barcode_frm.BarcodeValue.ToString());
+                ds_Get_Info = PF.Data.AccessLayer.PF_Pallet.Get_Info_for_Barcode(barcode_frm.BarcodeValue.ToString());
                 for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
                 {
                     dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
@@ -247,11 +247,11 @@ namespace FruPak.PF.Utils.Scanning
                     try
                     {
                         Convert.ToDecimal(dataGridView1.Rows[i].Cells[4].Value.ToString());
-                        DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Details_For_Barcode_BatchNum(barcode_frm.BarcodeValue.ToString(), Convert.ToInt32(dataGridView1.Rows[i].Cells[5].Value.ToString()), Convert.ToInt32(dataGridView1.Rows[i].Cells["Qty"].Value.ToString()));
+                        DataSet ds_Get_Info = PF.Data.AccessLayer.PF_Pallet.Get_Details_For_Barcode_BatchNum(barcode_frm.BarcodeValue.ToString(), Convert.ToInt32(dataGridView1.Rows[i].Cells[5].Value.ToString()), Convert.ToInt32(dataGridView1.Rows[i].Cells["Qty"].Value.ToString()));
                         DataRow dr_Get_Info;
 
                         //use the pallet linked to the second barcode that has been scanned
-                        DataSet ds_Get_Info2 = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Info_for_Barcode(barcode_To.BarcodeValue.ToString());
+                        DataSet ds_Get_Info2 = PF.Data.AccessLayer.PF_Pallet.Get_Info_for_Barcode(barcode_To.BarcodeValue.ToString());
                         DataRow dr_Get_Info2 = null;    // Added null to get rid of 'Unassigned variable' warning - BN 9/9/2015
 
                         int int_Pallet_Id = 0;
@@ -289,12 +289,12 @@ namespace FruPak.PF.Utils.Scanning
                             for (int j = 0; j < ds_Get_Info.Tables[0].Rows.Count; j++)
                             {
                                 dr_Get_Info = ds_Get_Info.Tables[0].Rows[j];
-                                int_result = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Pallet_Details"), int_Pallet_Id, Convert.ToInt32(dataGridView1.Rows[i].Cells[5].Value.ToString()),
+                                int_result = PF.Data.AccessLayer.PF_Pallet_Details.Insert(PF.Common.Code.General.int_max_user_id("PF_Pallet_Details"), int_Pallet_Id, Convert.ToInt32(dataGridView1.Rows[i].Cells[5].Value.ToString()),
                                                                                                 Convert.ToInt32(dr_Get_Info["Material_Id"].ToString()), Convert.ToInt32(dr_Get_Info["Work_Order_Id"].ToString()), Convert.ToDecimal(dataGridView1.Rows[i].Cells[4].Value.ToString()), int_Current_User_Id);
                                 if (int_result >= 0)
                                 {
-                                    int_result = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Update_Quantity(Convert.ToInt32(dr_Get_Info["PalletDetails_Id"].ToString()), Convert.ToDecimal(dr_Get_Info["Quantity"].ToString()) - Convert.ToDecimal(dataGridView1.Rows[i].Cells[4].Value.ToString()), int_Current_User_Id);
-                                    DataSet ds = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Get_Pallet_Quantity(barcode_frm.BarcodeValue);
+                                    int_result = PF.Data.AccessLayer.PF_Pallet_Details.Update_Quantity(Convert.ToInt32(dr_Get_Info["PalletDetails_Id"].ToString()), Convert.ToDecimal(dr_Get_Info["Quantity"].ToString()) - Convert.ToDecimal(dataGridView1.Rows[i].Cells[4].Value.ToString()), int_Current_User_Id);
+                                    DataSet ds = PF.Data.AccessLayer.PF_Pallet_Details.Get_Pallet_Quantity(barcode_frm.BarcodeValue);
                                     DataRow dr;
                                     int int_total_quantity = 99;    // BN 21/01/2015 - What was he trying to achieve here?
                                     for (int k = 0; k < ds.Tables[0].Rows.Count; k++)
@@ -305,7 +305,7 @@ namespace FruPak.PF.Utils.Scanning
                                     ds.Dispose();
                                     if (int_total_quantity == 0)
                                     {
-                                        int_result = int_result + FruPak.PF.Data.AccessLayer.PF_Pallet.Update_Active_status(int_Pallet_Id, false, int_Current_User_Id);
+                                        int_result = int_result + PF.Data.AccessLayer.PF_Pallet.Update_Active_status(int_Pallet_Id, false, int_Current_User_Id);
                                     }
                                 }
                             }
@@ -410,7 +410,7 @@ namespace FruPak.PF.Utils.Scanning
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

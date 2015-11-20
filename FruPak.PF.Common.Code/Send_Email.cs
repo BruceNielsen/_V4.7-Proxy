@@ -1,16 +1,16 @@
-﻿using FruPak.PF.CustomSettings;
+﻿using PF.CustomSettings;
 using NLog;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Common.Code
+namespace PF.Common.Code
 {
     public partial class Send_Email : Form
     {
         private static Logger logger = LogManager.GetCurrentClassLogger();
-        private static FruPak.PF.CustomSettings.PhantomCustomSettings Settings;
+        private static PF.CustomSettings.PhantomCustomSettings Settings;
 
         /// <summary>
         /// Outlook will check here to see if it's empty. 
@@ -66,19 +66,19 @@ namespace FruPak.PF.Common.Code
 
             //check if testing or not
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
 
             txt_Email_To.ResetText();
-            if (FruPak.PF.Data.Outlook.Contacts.Contact_Email != null)
+            if (PF.Data.Outlook.Contacts.Contact_Email != null)
             {
-                foreach (string email in FruPak.PF.Data.Outlook.Contacts.Contact_Email)
+                foreach (string email in PF.Data.Outlook.Contacts.Contact_Email)
                 {
                     txt_Email_To.Text = txt_Email_To.Text + email + Environment.NewLine;
                     logger.Log(LogLevel.Info, "Email To: " + txt_Email_To.Text);
@@ -93,7 +93,7 @@ namespace FruPak.PF.Common.Code
             txt_Attachments.ResetText();
             try
             {
-                foreach (string attach in FruPak.PF.Common.Code.SendEmail.attachment)
+                foreach (string attach in PF.Common.Code.SendEmail.attachment)
                 {
                     txt_Attachments.Text = txt_Attachments.Text + attach + Environment.NewLine;
                     logger.Log(LogLevel.Info, "Attachments: " + txt_Attachments.Text);
@@ -149,9 +149,9 @@ namespace FruPak.PF.Common.Code
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
 
-                //else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                //else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 //{
-                //    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                //    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                 //    cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 //}
             }
@@ -190,30 +190,34 @@ namespace FruPak.PF.Common.Code
         private void Send_btn()
         {
 
-            // Inside here I can switch off all network validation so i can test for correct email functionality
-            // BN 11/08/2015
             DLR_Message = new DialogResult();
-
             string str_msg = "";
-            if (txt_Email_From.TextLength <= 0)
-            {
-                str_msg = str_msg + "Invalid Email Address. Please enter a valid Frupak Email Address." + Environment.NewLine;
-            }
-            if (txt_Network_Id.TextLength <= 0)
-            {
-                str_msg = str_msg + "Invalid UserId. Please enter the valid network UserId, that is associated with the supplied Email Address " + Environment.NewLine;
-            }
-            if (txt_Network_Pswd.TextLength <= 0)
-            {
-                str_msg = str_msg + "Invalid Password. Please enter the valid network Password, that is associated with the supplied UserId" + Environment.NewLine;
-            }
-            if (txt_Network_Id.TextLength > 0 && txt_Network_Pswd.TextLength > 0)
-            {
-                if (Validate_User(txt_Network_Id.Text, txt_Network_Pswd.Text) == false)
-                {
-                    str_msg = str_msg + "Invalid UserId/Password. You have entered either an Invalid UserId or and Invalid Password. Please try again." + Environment.NewLine;
-                }
-            }
+
+            // Inside here I can switch off all network validation so i can test for correct email functionality
+            // BN 11/08/2015 -----------------------------------------------------------------------------------
+
+            //if (txt_Email_From.TextLength <= 0)
+            //{
+            //    str_msg = str_msg + "Invalid Email Address. Please enter a valid FP Email Address." + Environment.NewLine;
+            //}
+            //if (txt_Network_Id.TextLength <= 0)
+            //{
+            //    str_msg = str_msg + "Invalid UserId. Please enter the valid network UserId, that is associated with the supplied Email Address " + Environment.NewLine;
+            //}
+            //if (txt_Network_Pswd.TextLength <= 0)
+            //{
+            //    str_msg = str_msg + "Invalid Password. Please enter the valid network Password, that is associated with the supplied UserId" + Environment.NewLine;
+            //}
+            //if (txt_Network_Id.TextLength > 0 && txt_Network_Pswd.TextLength > 0)
+            //{
+            //    if (Validate_User(txt_Network_Id.Text, txt_Network_Pswd.Text) == false)
+            //    {
+            //        str_msg = str_msg + "Invalid UserId/Password. You have entered either an Invalid UserId or and Invalid Password. Please try again." + Environment.NewLine;
+            //    }
+            //}
+
+            // End of switch off network validation ---------------------------------------------------------
+
             if (str_msg.Length > 0)
             {
                 DLR_Message = MessageBox.Show(str_msg, "Process Factory - Invoicing(Email)", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -263,7 +267,7 @@ namespace FruPak.PF.Common.Code
             #endregion Get "Application.StartupPath" folder
 
             Settings = new CustomSettings.PhantomCustomSettings();
-            Settings.SettingsPath = Path.Combine(path, "FruPak.Phantom.config");
+            Settings.SettingsPath = Path.Combine(path, "FP.Phantom.config");
             Settings.EncryptionKey = "phantomKey";
 
             Settings.Load();
@@ -350,7 +354,7 @@ namespace FruPak.PF.Common.Code
 
         //private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         //{
-        //    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+        //    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
         //    logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         //}
 
@@ -408,7 +412,7 @@ namespace FruPak.PF.Common.Code
             #endregion Get "Application.StartupPath" folder
 
             Settings = new CustomSettings.PhantomCustomSettings();
-            Settings.SettingsPath = Path.Combine(path, "FruPak.Phantom.config");
+            Settings.SettingsPath = Path.Combine(path, "FP.Phantom.config");
             Settings.EncryptionKey = "phantomKey";
 
             Settings.Load();
@@ -420,7 +424,7 @@ namespace FruPak.PF.Common.Code
         {
             if (checkBoxCcTo.CheckState == CheckState.Checked)
             {
-                FruPak.PF.Data.Outlook.Contacts.Contact_Email.Add(this.textBoxCcTo.Text);   // + Environment.NewLine);
+                PF.Data.Outlook.Contacts.Contact_Email.Add(this.textBoxCcTo.Text);   // + Environment.NewLine);
                 this.txt_Email_To.AppendText(this.textBoxCcTo.Text);
             }
             else
@@ -428,15 +432,15 @@ namespace FruPak.PF.Common.Code
                 txt_Email_To.ResetText();
 
                 // Can't use a foreach here, as I'm modifying the enumeration.
-                for (int i = 0; i < FruPak.PF.Data.Outlook.Contacts.Contact_Email.Count; i++)
+                for (int i = 0; i < PF.Data.Outlook.Contacts.Contact_Email.Count; i++)
                 {
-                    if (FruPak.PF.Data.Outlook.Contacts.Contact_Email[i] == this.textBoxCcTo.Text)
+                    if (PF.Data.Outlook.Contacts.Contact_Email[i] == this.textBoxCcTo.Text)
                     {
-                        FruPak.PF.Data.Outlook.Contacts.Contact_Email.Remove(this.textBoxCcTo.Text);
+                        PF.Data.Outlook.Contacts.Contact_Email.Remove(this.textBoxCcTo.Text);
                     }
                 }
 
-                foreach (string email in FruPak.PF.Data.Outlook.Contacts.Contact_Email)
+                foreach (string email in PF.Data.Outlook.Contacts.Contact_Email)
                 {
                     txt_Email_To.Text = txt_Email_To.Text + email + Environment.NewLine;
                 }
@@ -454,7 +458,7 @@ namespace FruPak.PF.Common.Code
             #region Pull the temp path from the database
             string path = Application.StartupPath;
             Settings = new PhantomCustomSettings();
-            Settings.SettingsPath = Path.Combine(path, "FruPak.Phantom.config");
+            Settings.SettingsPath = Path.Combine(path, "FP.Phantom.config");
             Settings.EncryptionKey = "phantomKey";
             Settings.Load();
             TempPath = Settings.Path_Local_PDF_Files;
@@ -464,8 +468,8 @@ namespace FruPak.PF.Common.Code
             {
                 if (fi.Extension == ".pdf")
                 {
-                    //FruPak.PF.Common.Code.SendEmail.attachment.Add(FruPak.PF.PrintLayer.Word.FilePath + "\\" + FruPak.PF.PrintLayer.Word.FileName + ".PDF");
-                    //FruPak.PF.Common.Code.SendEmail.attachment.Add(TempPath + "\\" + fi.Name);
+                    //PF.Common.Code.SendEmail.attachment.Add(PF.PrintLayer.Word.FilePath + "\\" + PF.PrintLayer.Word.FileName + ".PDF");
+                    //PF.Common.Code.SendEmail.attachment.Add(TempPath + "\\" + fi.Name);
 
                     logger.Log(LogLevel.Info, "Deleting: " + fi.Name);
 

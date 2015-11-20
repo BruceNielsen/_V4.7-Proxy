@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Comment CommentText="FruPak.Pf.Utils.Common">
+  <Comment CommentText="PF.Utils.Common">
     <Position X="8.01" Y="5.531" Height="0.75" Width="1.7" />
   </Comment>
-  <Class Name="FruPak.PF.Utils.Common.Common_Maintenance">
+  <Class Name="PF.Utils.Common.Common_Maintenance">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -13,7 +13,7 @@
       <FileName>Common_Maintenance.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Common.Common_Maintenance2">
+  <Class Name="PF.Utils.Common.Common_Maintenance2">
     <Position X="2" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -23,7 +23,7 @@
       <FileName>Common_Maintenance2.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Common.Fruit_Variety">
+  <Class Name="PF.Utils.Common.Fruit_Variety">
     <Position X="3.5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -33,7 +33,7 @@
       <FileName>Fruit_Variety.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Common.Grower">
+  <Class Name="PF.Utils.Common.Grower">
     <Position X="5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -43,7 +43,7 @@
       <FileName>Grower.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Common.Grower_Block">
+  <Class Name="PF.Utils.Common.Grower_Block">
     <Position X="6.5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -53,7 +53,7 @@
       <FileName>Grower_Block.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Common.Grower_Block_Variety">
+  <Class Name="PF.Utils.Common.Grower_Block_Variety">
     <Position X="8" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -63,7 +63,7 @@
       <FileName>Grower_Block_Variety.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Common.Material">
+  <Class Name="PF.Utils.Common.Material">
     <Position X="0.5" Y="5.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -73,21 +73,21 @@
       <FileName>Material.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Common.description" Collapsed="true">
+  <Class Name="PF.Utils.Common.description" Collapsed="true">
     <Position X="9.75" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>BAEAARCAAgAAAEAAAIAAAAIAAgAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Material.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Common.number" Collapsed="true">
+  <Class Name="PF.Utils.Common.number" Collapsed="true">
     <Position X="9.75" Y="3.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAgAAAAAQAAAAAAAAAAAAAAAAAAAAEAAAAAAQAA=</HashCode>
       <FileName>Material.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Common.Material_Rate_Relat">
+  <Class Name="PF.Utils.Common.Material_Rate_Relat">
     <Position X="2" Y="5.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -97,7 +97,7 @@
       <FileName>Material_Rate_Relat.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Common.Material_Relationship_Maint">
+  <Class Name="PF.Utils.Common.Material_Relationship_Maint">
     <Position X="3.5" Y="5.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -107,7 +107,7 @@
       <FileName>Material_Relationship_Maint.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Common.PF_Customer">
+  <Class Name="PF.Utils.Common.PF_Customer">
     <Position X="5" Y="5.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -117,7 +117,7 @@
       <FileName>PF_Customer.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Common.PF_Staff">
+  <Class Name="PF.Utils.Common.PF_Staff">
     <Position X="6.5" Y="5.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -127,20 +127,20 @@
       <FileName>PF_Staff.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Common.Program" Collapsed="true">
+  <Class Name="PF.Utils.Common.Program" Collapsed="true">
     <Position X="9.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAIAAAAAABAAAAAQ=</HashCode>
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Common.Properties.Resources" Collapsed="true">
+  <Class Name="PF.Utils.Common.Properties.Resources" Collapsed="true">
     <Position X="9.75" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Utils.Common.Properties.Settings" Collapsed="true">
+  <Class Name="PF.Utils.Common.Properties.Settings" Collapsed="true">
     <Position X="9.75" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>

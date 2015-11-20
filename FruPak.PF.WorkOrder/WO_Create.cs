@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.WorkOrder
+namespace PF.WorkOrder
 {
     public partial class WO_Create : Form
     {
@@ -17,25 +17,25 @@ namespace FruPak.PF.WorkOrder
         public WO_Create(int int_wo_id, int int_C_User_id, bool bol_w_a)
         {
             //must reset the bol_test on the grower user control before the form is Initialized
-            bool bol_temp = FruPak.PF.Global.Global.bol_Testing;
+            bool bol_temp = PF.Global.Global.bool_Testing;
 
             InitializeComponent();
 
             grower1.bol_test = bol_temp;
 
-            FruPak.PF.Global.Global.bol_Testing = bol_temp;
+            PF.Global.Global.bool_Testing = bol_temp;
 
             int_Current_User_Id = int_C_User_id;
 
             //check if testing or not
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
             //restrict access
             bol_write_access = bol_w_a;
@@ -89,9 +89,9 @@ namespace FruPak.PF.WorkOrder
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -101,7 +101,7 @@ namespace FruPak.PF.WorkOrder
 
         private void get_existing_Work_Order()
         {
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Info(int_Work_Order_Id);
+            DataSet ds_Get_Info = PF.Data.AccessLayer.PF_Work_Order.Get_Info(int_Work_Order_Id);
             DataRow dr_Get_Info;
             for (int i = 0; i < ds_Get_Info.Tables[0].Rows.Count; i++)
             {
@@ -125,7 +125,7 @@ namespace FruPak.PF.WorkOrder
 
             ds_Get_Info.Dispose();
             //total bins tipped
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Bins.Count_Bins_for_WorkOrder(int_Work_Order_Id);
+            ds_Get_Info = PF.Data.AccessLayer.CM_Bins.Count_Bins_for_WorkOrder(int_Work_Order_Id);
             for (int i = 0; i < ds_Get_Info.Tables[0].Rows.Count; i++)
             {
                 dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
@@ -133,14 +133,14 @@ namespace FruPak.PF.WorkOrder
             }
             ds_Get_Info.Dispose();
             //Current Bacth
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Current_Batch_for_WorkOrder(int_Work_Order_Id);
+            ds_Get_Info = PF.Data.AccessLayer.PF_Pallet_Details.Current_Batch_for_WorkOrder(int_Work_Order_Id);
             for (int i = 0; i < ds_Get_Info.Tables[0].Rows.Count; i++)
             {
                 dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
                 txt_current_batch.Text = dr_Get_Info["Current_Batch"].ToString();
             }
             //Product in Bacth
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Count_for_Current_Batch_for_WorkOrder(int_Work_Order_Id);
+            ds_Get_Info = PF.Data.AccessLayer.PF_Pallet_Details.Count_for_Current_Batch_for_WorkOrder(int_Work_Order_Id);
             for (int i = 0; i < ds_Get_Info.Tables[0].Rows.Count; i++)
             {
                 dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
@@ -148,7 +148,7 @@ namespace FruPak.PF.WorkOrder
             }
             ds_Get_Info.Dispose();
             //total output
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Count_for_WorkOrder(int_Work_Order_Id);
+            ds_Get_Info = PF.Data.AccessLayer.PF_Pallet_Details.Count_for_WorkOrder(int_Work_Order_Id);
             for (int i = 0; i < ds_Get_Info.Tables[0].Rows.Count; i++)
             {
                 dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
@@ -174,7 +174,7 @@ namespace FruPak.PF.WorkOrder
         {
             DataSet ds_Get_Info;
             //Trader
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Trader.Get_Info();
+            ds_Get_Info = PF.Data.AccessLayer.CM_Trader.Get_Info();
             cmb_Trader.DataSource = ds_Get_Info.Tables[0];
             cmb_Trader.DisplayMember = "Combined";
             cmb_Trader.ValueMember = "Trader_Id";
@@ -182,7 +182,7 @@ namespace FruPak.PF.WorkOrder
             ds_Get_Info.Dispose();
 
             //Product
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Product.Get_Info();
+            ds_Get_Info = PF.Data.AccessLayer.PF_Product.Get_Info();
             cmb_Product.DataSource = ds_Get_Info.Tables[0];
             cmb_Product.DisplayMember = "Code";
             cmb_Product.ValueMember = "Product_Id";
@@ -190,7 +190,7 @@ namespace FruPak.PF.WorkOrder
             ds_Get_Info.Dispose();
 
             //Growing_Method
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Growing_Method.Get_Info();
+            ds_Get_Info = PF.Data.AccessLayer.CM_Growing_Method.Get_Info();
 
             cmb_Growing_Method.DataSource = ds_Get_Info.Tables[0];
             cmb_Growing_Method.DisplayMember = "Combined";
@@ -265,10 +265,10 @@ namespace FruPak.PF.WorkOrder
             {
                 if ((sender as Button).Text == "&Add" || (sender as Button).Text == "&Copy")
                 {
-                    int_Work_Order_Id = FruPak.PF.Common.Code.General.int_max_user_id("PF_Work_Order");
+                    int_Work_Order_Id = PF.Common.Code.General.int_max_user_id("PF_Work_Order");
                     txt_WorkOrder.Text = Convert.ToString(int_Work_Order_Id);
 
-                    int_result = FruPak.PF.Data.AccessLayer.PF_Work_Order.Insert(int_Work_Order_Id, Convert.ToDecimal(DateTime.Now.ToString("yyyy")),
+                    int_result = PF.Data.AccessLayer.PF_Work_Order.Insert(int_Work_Order_Id, Convert.ToDecimal(DateTime.Now.ToString("yyyy")),
                                                                              dtp_date.Value.ToString("yyyy/MM/dd"), dtp_start.Value.ToString("HH:mm:ss"), dtp_finish.Value.ToString("HH:mm:ss"),
                                                                              Convert.ToInt32(cmb_Trader.SelectedValue.ToString()), Convert.ToInt32(cmb_Product.SelectedValue.ToString()),
                                                                              grower1.Orchardist_Id, grower1.Grower_Id,
@@ -288,7 +288,7 @@ namespace FruPak.PF.WorkOrder
                 }
                 else if ((sender as Button).Text == "&Update")
                 {
-                    int_result = FruPak.PF.Data.AccessLayer.PF_Work_Order.Update(int_Work_Order_Id, Convert.ToDecimal(DateTime.Now.ToString("yyyy")),
+                    int_result = PF.Data.AccessLayer.PF_Work_Order.Update(int_Work_Order_Id, Convert.ToDecimal(DateTime.Now.ToString("yyyy")),
                                                                              dtp_date.Value.ToString("yyyy/MM/dd"), dtp_start.Value.ToString("HH:mm:ss"), dtp_finish.Value.ToString("HH:mm:ss"),
                                                                              Convert.ToInt32(cmb_Trader.SelectedValue.ToString()), Convert.ToInt32(cmb_Product.SelectedValue.ToString()),
                                                                              grower1.Orchardist_Id, grower1.Grower_Id,
@@ -310,16 +310,16 @@ namespace FruPak.PF.WorkOrder
 
         private void btn_Current_Click(object sender, EventArgs e)
         {
-            DataSet ds_Current = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Current();
+            DataSet ds_Current = PF.Data.AccessLayer.PF_Work_Order.Get_Current();
             DataRow dr_Current;
 
             for (int i = 0; i < Convert.ToInt32(ds_Current.Tables[0].Rows.Count.ToString()); i++)
             {
                 dr_Current = ds_Current.Tables[0].Rows[i];
-                int_result = FruPak.PF.Data.AccessLayer.PF_Work_Order.Update_Current_Ind(Convert.ToInt32(dr_Current["Work_Order_Id"].ToString()), false, int_Current_User_Id);
+                int_result = PF.Data.AccessLayer.PF_Work_Order.Update_Current_Ind(Convert.ToInt32(dr_Current["Work_Order_Id"].ToString()), false, int_Current_User_Id);
             }
 
-            int_result = FruPak.PF.Data.AccessLayer.PF_Work_Order.Update_Current_Ind(int_Work_Order_Id, true, int_Current_User_Id);
+            int_result = PF.Data.AccessLayer.PF_Work_Order.Update_Current_Ind(int_Work_Order_Id, true, int_Current_User_Id);
             if (int_result > 0)
             {
                 lbl_message.ForeColor = System.Drawing.Color.Blue;
@@ -371,19 +371,19 @@ namespace FruPak.PF.WorkOrder
 
         private void fruit1_FruitTypeChanged(object sender, EventArgs e)
         {
-            int_FruitType_Id = (sender as FruPak.PF.Utils.UserControls.Fruit).FruitType_Id;
+            int_FruitType_Id = (sender as PF.Utils.UserControls.Fruit).FruitType_Id;
         }
 
         private int int_FruitVariety_Id = 0;
 
         private void fruit1_FruitVarietyChanged(object sender, EventArgs e)
         {
-            int_FruitVariety_Id = (sender as FruPak.PF.Utils.UserControls.Fruit).FruitVariety_Id;
+            int_FruitVariety_Id = (sender as PF.Utils.UserControls.Fruit).FruitVariety_Id;
         }
 
         private void btn_Print_Click(object sender, EventArgs e)
         {
-            DataSet ds_system = FruPak.PF.Data.AccessLayer.CM_System.Get_Info_Like("PF%");
+            DataSet ds_system = PF.Data.AccessLayer.CM_System.Get_Info_Like("PF%");
             DataRow dr_system;
             for (int i = 0; i < ds_system.Tables[0].Rows.Count; i++)
             {
@@ -391,11 +391,11 @@ namespace FruPak.PF.WorkOrder
                 switch (dr_system["Code"].ToString())
                 {
                     case "PF-TPath":
-                        FruPak.PF.PrintLayer.Word.TemplatePath = dr_system["Value"].ToString();
+                        PF.PrintLayer.Word.TemplatePath = dr_system["Value"].ToString();
                         break;
 
                     case "PF-TWorkO":
-                        FruPak.PF.PrintLayer.Word.TemplateName = dr_system["Value"].ToString();
+                        PF.PrintLayer.Word.TemplateName = dr_system["Value"].ToString();
                         break;
                 }
             }
@@ -451,7 +451,7 @@ namespace FruPak.PF.WorkOrder
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

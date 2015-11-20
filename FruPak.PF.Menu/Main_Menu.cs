@@ -1,18 +1,18 @@
-﻿//#define FruPakWebServer
-//#undef FruPakWebServer
+﻿//#define FPWebServer
+//#undef FPWebServer
 
 //#define PhantomWebServer
 //#undef PhantomWebServer
 
 // Usage
-//#if (FruPakWebServer)
-//        Console.WriteLine("FruPakWebServer is enabled.");
+//#if (FPWebServer)
+//        Console.WriteLine("FPWebServer is enabled.");
 //#endif
 
 //#if (PhantomWebServer)
 //     Console.WriteLine("PhantomWebServer is enabled.");
 //#endif
-// -------------------------- Output: FruPakWebServer is enabled.
+// -------------------------- Output: FPWebServer is enabled.
 
 #region Imports (23)
 
@@ -60,7 +60,7 @@
 // ----------------------------------------------------------------
 
 using AutoUpdaterDotNET;
-using FruPak.PF.CustomSettings;
+using PF.CustomSettings;
 using NLog;
 using NLog.Config;
 using NLog.Targets;
@@ -82,13 +82,20 @@ using TreeViewSerialization;
 
 #endregion Imports (23)
 
-namespace FruPak.PF.Menu
+namespace PF.Menu
 {
     /// <summary>
     /// Class which contains all the Main Menu logic
     /// </summary>
     public partial class Main_Menu : Form
     {
+
+        //public static string LoggedOnUserName
+        //{
+        //    get;
+        //    set;
+        //}
+
         #region Members of Main_Menu (20)
 
         private const int WM_SYSCOMMAND = 0x112;
@@ -98,11 +105,14 @@ namespace FruPak.PF.Menu
         private static Logger logger = LogManager.GetCurrentClassLogger();
         private static PhantomCustomSettings Settings;
         private static Reversible.UndoRedoSession undoRedoSession = new Reversible.UndoRedoSession();
-        private static int nodeIndex = 0;
-        private string openPad = " --- [ ";
-        private string closePad = " ] --- ";
-        private string intro = "--->   { ";
-        private string outro = " }   <---";
+
+        // These entries are from when I was decorating the log file - I stopped doing that a while back
+        //private static int nodeIndex = 0;
+        //private string openPad = " --- [ ";
+        //private string closePad = " ] --- ";
+        //private string intro = "--->   { ";
+        //private string outro = " }   <---";
+
         private string MaxTreeFileSize = string.Empty;
         private static int int_User_id = 0;
         private DataSet ds_Get_Info;
@@ -138,7 +148,7 @@ namespace FruPak.PF.Menu
 
         #endregion SystemMonitor
         // This is used in Main_Menu_Resize to detect when the form is maximised
-        FormWindowState LastWindowState;
+        //FormWindowState LastWindowState;
 
         #endregion Members of Main_Menu (20)
 
@@ -209,7 +219,7 @@ namespace FruPak.PF.Menu
 
             // Initialize settings
             Settings = new PhantomCustomSettings();
-            Settings.SettingsPath = Path.Combine(path, "FruPak.Phantom.config");
+            Settings.SettingsPath = Path.Combine(path, "FP.Phantom.config");
             Settings.EncryptionKey = "phantomKey";
 
             if (!File.Exists(Settings.SettingsPath))
@@ -229,18 +239,18 @@ namespace FruPak.PF.Menu
 
             #endregion Load CustomSettings
 
-            var result = FruPak.PF.Utils.Security.Logon.Execute(Environment.UserName, "Computer");
+            var result = PF.Utils.Security.Logon.Execute(Environment.UserName, "Computer");
 
             // This is where the main menu text is selected
-            if (FruPak.PF.Global.Global.bol_Testing == true)
+            if (PF.Global.Global.bool_Testing == true)
             {
-                this.Text = "FruPak - Test Environment";
-                //logger.Log(LogLevel.Info, LogCode("FruPak - Test Environment - Startup"));
+                this.Text = "FP - Test Environment";
+                //logger.Log(LogLevel.Info, LogCode("FP - Test Environment - Startup"));
             }
             else
             {
-                this.Text = "FruPak - Production Environment";
-                //logger.Log(LogLevel.Info, LogCode("FruPak - Production Environment - Startup"));
+                this.Text = "FP - Production Environment";
+                //logger.Log(LogLevel.Info, LogCode("FP - Production Environment - Startup"));
             }
 
             if (Settings.ShowWordWarningMessage == true)
@@ -254,7 +264,7 @@ namespace FruPak.PF.Menu
 
             if (result.Result == DialogResult.Cancel)
             {
-                logger.Log(LogLevel.Info, LogCode("FruPak - Logon Cancelled"));
+                logger.Log(LogLevel.Info, LogCode("FP - Logon Cancelled"));
                 this.Close();
             }
             else
@@ -264,7 +274,7 @@ namespace FruPak.PF.Menu
                 {
                     //logger.Log(LogLevel.Info, LogCode("Calling: Delete_After_Printing."));
 
-                    FruPak.PF.Common.Code.General.Delete_After_Printing("", "*.*");
+                    PF.Common.Code.General.Delete_After_Printing("", "*.*");
                 }
                 catch (Exception ex)
                 {
@@ -275,17 +285,17 @@ namespace FruPak.PF.Menu
                 if (Environment.UserName.ToString().ToUpper() == "PROCESS")
                 {
                     //logger.Log(LogLevel.Info, LogCode("Environment.UserName.ToString().ToUpper == PROCESS, Setting bol_Timer_Msg = false."));
-                    FruPak.PF.Global.Global.bol_Timer_Msg = false;
+                    PF.Global.Global.bool_Timer_Msg = false;
                 }
                 else
                 {
                     //logger.Log(LogLevel.Info, LogCode("Environment.UserName.ToString().ToUpper != PROCESS, Setting bol_Timer_Msg = true."));
-                    FruPak.PF.Global.Global.bol_Timer_Msg = true;
+                    PF.Global.Global.bool_Timer_Msg = true;
                 }
 
                 // Count down Message for Robin J
 
-                if (FruPak.PF.Global.Global.bol_Timer_Msg == true)
+                if (PF.Global.Global.bool_Timer_Msg == true)
                 {
                     //logger.Log(LogLevel.Info, LogCode("Showing personal user messages."));
 
@@ -343,7 +353,7 @@ namespace FruPak.PF.Menu
                 toolTipMainMenu.SetToolTip(this.buttonDispatchBaseLoadAddNew, "After adding a new item," + Environment.NewLine + "press the Reset button" + Environment.NewLine + "to refresh the BaseLoad List.");
 
                 // This is used in Main_Menu_Resize to detect when the form is maximised
-                LastWindowState = FormWindowState.Minimized;
+                //LastWindowState = FormWindowState.Minimized;
             }
         }
 
@@ -357,7 +367,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Accounting - Costs", "Accounting_Costs_Rates_Click", "(Rates)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Accounts.Accounts_Maintenance("PF_A_Rates", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.Accounts.Accounts_Maintenance("PF_A_Rates", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -369,7 +379,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Accounting - Invoicing", "Accounting_Invoicing_FruitPurchase_Click", "(Fruit Purchase)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Accounts.Fruit_Purchase(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.Accounts.Fruit_Purchase(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -381,7 +391,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Accounting - Intent", "Accounting_Invoicing_Intent_Order_Click", "(Order)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Accounts.Intended_Orders(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.Accounts.Intended_Orders(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -393,7 +403,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Accounting - Invoicing", "Accounting_Invoicing_OrderInvoiceLink_Click", "(Order/Invoice Link)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Accounts.Order_Invoice_Link(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.Accounts.Order_Invoice_Link(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -405,7 +415,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Accounting - Invoicing", "Accounting_Invoicing_PaymentReceived_Click", "(Payments Recieved)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Accounts.Payment_Received(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.Accounts.Payment_Received(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -418,8 +428,8 @@ namespace FruPak.PF.Menu
 
             Cursor = Cursors.WaitCursor;
 
-            FruPak.PF.Accounts.Invoicing_Sales frm = new FruPak.PF.Accounts.Invoicing_Sales(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
-            //Form frm = new FruPak.PF.Accounts.Invoicing_Sales(int_User_id, Convert.ToBoolean((sender as RibbonButton).Tag.ToString()));
+            PF.Accounts.Invoicing_Sales frm = new PF.Accounts.Invoicing_Sales(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            //Form frm = new PF.Accounts.Invoicing_Sales(int_User_id, Convert.ToBoolean((sender as RibbonButton).Tag.ToString()));
 
             frm.HistoryUpdated += frm_HistoryUpdated;   // Attach to the EventHandler
 
@@ -440,9 +450,9 @@ namespace FruPak.PF.Menu
             Cursor = Cursors.WaitCursor;
 
             // This was really difficult to find; just declaring this as type Form meant it was hiding the eventhandler. BN
-            //Form frm = new FruPak.PF.Accounts.Invoice_Search(int_User_id, Convert.ToBoolean((sender as RibbonButton).Tag.ToString()));
+            //Form frm = new PF.Accounts.Invoice_Search(int_User_id, Convert.ToBoolean((sender as RibbonButton).Tag.ToString()));
 
-            FruPak.PF.Accounts.Invoice_Search frm = new FruPak.PF.Accounts.Invoice_Search(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            PF.Accounts.Invoice_Search frm = new PF.Accounts.Invoice_Search(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
 
             frm.HistoryUpdated += frm_HistoryUpdated;   // Attach to the EventHandler
 
@@ -460,7 +470,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Accounting - Invoicing", "Accounting_Invoicing_WorkOrder_Click", "(Work Order)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Accounts.Invoicing_WO(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.Accounts.Invoicing_WO(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -472,7 +482,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Accounting - Sales", "Accounting_Sales_Discounts_Click", "(Discounts)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Accounts.Sales_Rates("PF_A_Customer_Sales_Discount", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.Accounts.Sales_Rates("PF_A_Customer_Sales_Discount", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -484,7 +494,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Accounting - Sales", "Accounting_Sales_Rates_Click", "(Rates)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Accounts.Sales_Rates("PF_A_Customer_Sales_Rates", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.Accounts.Sales_Rates("PF_A_Customer_Sales_Rates", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -562,7 +572,7 @@ namespace FruPak.PF.Menu
         }
 
         /// <summary>
-        /// FruPak
+        /// FP
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -595,18 +605,18 @@ namespace FruPak.PF.Menu
                 //{
                 //    if (ribbonText_Common_Material_MaterialNumber.TextBoxText != string.Empty)
                 //    {
-                //        ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Material.Get_Info(Convert.ToDecimal(ribbonText_Common_Material_MaterialNumber.TextBoxText));
+                //        ds_Get_Info = PF.Data.AccessLayer.CM_Material.Get_Info(Convert.ToDecimal(ribbonText_Common_Material_MaterialNumber.TextBoxText));
                 //    }
                 //}
                 //else if (type == typeof(Button))
                 //{
                 if (hintedTextBox_Common_Material_MaterialNumber.Text != string.Empty)
                 {
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Material.Get_Info(Convert.ToDecimal(hintedTextBox_Common_Material_MaterialNumber.Text));
+                    ds_Get_Info = PF.Data.AccessLayer.CM_Material.Get_Info(Convert.ToDecimal(hintedTextBox_Common_Material_MaterialNumber.Text));
                 }
                 //}
 
-                //DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Material.Get_Info(Convert.ToDecimal(ribbonText_Common_Material_MaterialNumber.TextBoxText));
+                //DataSet ds_Get_Info = PF.Data.AccessLayer.CM_Material.Get_Info(Convert.ToDecimal(ribbonText_Common_Material_MaterialNumber.TextBoxText));
                 DataRow dr_Get_Info;
 
                 if (Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()) > 0)
@@ -617,11 +627,11 @@ namespace FruPak.PF.Menu
 
                         if (Convert.ToBoolean(dr_Get_Info["PF_Active_Ind"].ToString()) == true)
                         {
-                            FruPak.PF.Data.AccessLayer.CM_Material.update_active(Convert.ToInt32(dr_Get_Info["Material_Id"].ToString()), false, int_User_id);
+                            PF.Data.AccessLayer.CM_Material.update_active(Convert.ToInt32(dr_Get_Info["Material_Id"].ToString()), false, int_User_id);
                         }
                         else
                         {
-                            FruPak.PF.Data.AccessLayer.CM_Material.update_active(Convert.ToInt32(dr_Get_Info["Material_Id"].ToString()), true, int_User_id);
+                            PF.Data.AccessLayer.CM_Material.update_active(Convert.ToInt32(dr_Get_Info["Material_Id"].ToString()), true, int_User_id);
                         }
                     }
                     //lbl_message.Text = "Active Status on Material Number: " + ribbonText_Common_Material_MaterialNumber.TextBoxText + " has been updated";
@@ -669,8 +679,8 @@ namespace FruPak.PF.Menu
                 // Because the new cueComboBox has an array of ComboboxItems, we need to get at the underlying data a bit differently.
                 ComboboxItem ci = cueComboBoxReportsSSRSReportList.SelectedItem as ComboboxItem;
 
-                FruPak.PF.Common.Code.General.Report_Viewer(ci.Value);
-                //FruPak.PF.Common.Code.General.Report_Viewer(cueComboBoxReportsSSRSReportList.SelectedValue.ToString());
+                PF.Common.Code.General.Report_Viewer(ci.Value);
+                //PF.Common.Code.General.Report_Viewer(cueComboBoxReportsSSRSReportList.SelectedValue.ToString());
                 Cursor = Cursors.Default;
             }
         }
@@ -783,7 +793,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Common - ESP", "Common_ESP_ESP_Click", "(ESP)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Common.Common_Maintenance("CM_ESP", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.Utils.Common.Common_Maintenance("CM_ESP", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -795,7 +805,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Common - Fruit", "Common_Fruit_Type_Click", "(Type)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Common.Common_Maintenance("CM_Fruit_Type", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.Utils.Common.Common_Maintenance("CM_Fruit_Type", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -807,7 +817,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Common - Fruit", "Common_Fruit_Variety_Click", "(Variety)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Common.Fruit_Variety(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.Utils.Common.Fruit_Variety(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -819,7 +829,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Common - Groups", "Common_Groups_ProductGroups_Click", "(Product Groups)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Common.Common_Maintenance("CM_Product_Group", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.Utils.Common.Common_Maintenance("CM_Product_Group", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -831,7 +841,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Common - Grower", "Common_Grower_Customer_Click", "(Customer)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Common.PF_Customer(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.Utils.Common.PF_Customer(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -843,7 +853,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Common - Grower", "Common_Grower_Grower_Click", "(Grower)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Common.Grower(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.Utils.Common.Grower(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -855,8 +865,8 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Common - Grower", "Common_Grower_Orchardist_Click", "(Orchardist)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Common.Common_Maintenance2("CM_Orchardist", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
-            frm.Text = "FruPak.PF.Utils.Common Maintenance2 (Orchardist)";
+            Form frm = new PF.Utils.Common.Common_Maintenance2("CM_Orchardist", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Utils.Common Maintenance2 (Orchardist)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -868,8 +878,8 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Common - Grower", "Common_Grower_Trader_Click", "(Trader)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Common.Common_Maintenance2("CM_Trader", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
-            frm.Text = "FruPak.PF.Utils.Common Maintenance2 (Trader)";
+            Form frm = new PF.Utils.Common.Common_Maintenance2("CM_Trader", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Utils.Common Maintenance2 (Trader)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -881,7 +891,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Common - Location - Offsite", "Common_Location_OffSite_Cities_Click", "(Cities)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Common.Common_Maintenance("CM_Cities", int_User_id, Convert.ToBoolean((sender as GroupedComboBox).Tag.ToString()));
+            Form frm = new PF.Utils.Common.Common_Maintenance("CM_Cities", int_User_id, Convert.ToBoolean((sender as GroupedComboBox).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -893,7 +903,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Common - Location - Offsite", "Common_Location_OffSite_Trucks_Click", "(Trucks)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Common.Common_Maintenance("CM_Truck", int_User_id, Convert.ToBoolean((sender as GroupedComboBox).Tag.ToString()));
+            Form frm = new PF.Utils.Common.Common_Maintenance("CM_Truck", int_User_id, Convert.ToBoolean((sender as GroupedComboBox).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -905,7 +915,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Common - Location - Onsite", "Common_Location_OnSite_Location_Click", "(Location)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Common.Common_Maintenance("CM_Location", int_User_id, Convert.ToBoolean((sender as GroupedComboBox).Tag.ToString()));
+            Form frm = new PF.Utils.Common.Common_Maintenance("CM_Location", int_User_id, Convert.ToBoolean((sender as GroupedComboBox).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -917,7 +927,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Common - Material", "Common_Material_Material_Click", "(Material)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Common.Material(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.Utils.Common.Material(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -928,7 +938,7 @@ namespace FruPak.PF.Menu
             historyAdd("Common - Types - Material - Brand");
             logger.Log(LogLevel.Info, DecorateString("Common - Types - Material", "Common_Types_Material_Brand_Click", "(Brand)"));
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Common.Common_Maintenance("CM_Brand", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
+            Form frm = new PF.Utils.Common.Common_Maintenance("CM_Brand", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -940,7 +950,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Common - Types - Material", "ribbonButton_Common_Types_Material_Count_Click", "(Count)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Common.Common_Maintenance("CM_Count", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
+            Form frm = new PF.Utils.Common.Common_Maintenance("CM_Count", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -952,7 +962,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Common - Types - Material", "Common_Types_Material_Grade_Click", "(Grade)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Common.Common_Maintenance("CM_Grade", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
+            Form frm = new PF.Utils.Common.Common_Maintenance("CM_Grade", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -964,7 +974,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Common - Types - Material", "Common_Types_Material_GrowingMethod_Click", "(Growing Method)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Common.Common_Maintenance("CM_Growing_Method", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
+            Form frm = new PF.Utils.Common.Common_Maintenance("CM_Growing_Method", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -976,7 +986,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Common - Types - Material", "Common_Types_Material_MarketAttribute_Click", "(Market Attribute)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Common.Common_Maintenance("CM_Market_Attribute", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
+            Form frm = new PF.Utils.Common.Common_Maintenance("CM_Market_Attribute", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -988,7 +998,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Common - Types - Material", "Common_Types_Material_Size_Click", "(Size)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Common.Common_Maintenance("CM_Size", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
+            Form frm = new PF.Utils.Common.Common_Maintenance("CM_Size", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1000,7 +1010,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Common - Types - Material", "Common_Types_Material_Treatment_Click", "(Treatment)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Common.Common_Maintenance("CM_Treatment", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
+            Form frm = new PF.Utils.Common.Common_Maintenance("CM_Treatment", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1012,7 +1022,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Common - Types - Types", "Common_Types_Types_Defect_Click", "(Defect)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Common.Common_Maintenance("CM_Defect", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
+            Form frm = new PF.Utils.Common.Common_Maintenance("CM_Defect", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1024,7 +1034,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Common - Types - Types", "Common_Types_Types_DefectClass_Click", "(Defect Class)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Common.Common_Maintenance("CM_Defect_Class", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
+            Form frm = new PF.Utils.Common.Common_Maintenance("CM_Defect_Class", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1035,7 +1045,7 @@ namespace FruPak.PF.Menu
             historyAdd("Common - Types - Types - Pack Types");
             logger.Log(LogLevel.Info, DecorateString("Common - Types - Types", "Common_Types_Types_PackTypes_Click", "(Pack Types)"));
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Common.Common_Maintenance("CM_Pack_Type", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
+            Form frm = new PF.Utils.Common.Common_Maintenance("CM_Pack_Type", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1047,7 +1057,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Common - Types - Types", "Common_Types_Types_Pallets_Click", "(Pallets)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Common.Common_Maintenance("CM_Pallet_Type", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
+            Form frm = new PF.Utils.Common.Common_Maintenance("CM_Pallet_Type", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1059,7 +1069,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Common - Types - Types", "Common_Types_Types_Storage_Click", "(Storage)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Common.Common_Maintenance("CM_Storage", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
+            Form frm = new PF.Utils.Common.Common_Maintenance("CM_Storage", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1103,7 +1113,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Consumables - Maintenance", "Consumables_Maintenance_Holding_Click", "(Holding)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.StockControl.Stock_Holding(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.StockControl.Stock_Holding(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1115,7 +1125,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Consumables - Maintenance", "Consumables_Maintenance_Maintenance_Click", "(Maintenance)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.StockControl.Stock_Control_Maintenance("PF_Stock_Item", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.StockControl.Stock_Control_Maintenance("PF_Stock_Item", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1127,7 +1137,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Consumables - Maintenance", "Consumables_Maintenance_UsageAdjustment_Click", "(Usage Adjustment)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.StockControl.Stock_Used(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.StockControl.Stock_Used(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1444,7 +1454,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Dispatch - Baseload", "Dispatch_BaseLoad_AddNew_Click", "(Add New)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.BaseLoad.Base_Load_Maintenance(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.BaseLoad.Base_Load_Maintenance(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1467,7 +1477,7 @@ namespace FruPak.PF.Menu
                 if (DLR_Message != System.Windows.Forms.DialogResult.OK)
                 {
                     Cursor = Cursors.WaitCursor;
-                    Form frm = new FruPak.PF.WorkOrder.WO_Output(Convert.ToInt32(cbi.Value.ToString()), int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+                    Form frm = new PF.WorkOrder.WO_Output(Convert.ToInt32(cbi.Value.ToString()), int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
                     //frm.TopMost = true; // 21/10/2015 BN
                     frm.Show();
                     Cursor = Cursors.Default;
@@ -1499,8 +1509,8 @@ namespace FruPak.PF.Menu
                 {
                     try
                     {
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Work_Order.Update_Completed(Convert.ToInt32(cbi.Value.ToString()), int_User_id);
-                        int_result = FruPak.PF.Data.AccessLayer.PF_BaseLoad.Complete(Convert.ToInt32(cbi.Tag.ToString()), false, int_User_id);
+                        int_result = PF.Data.AccessLayer.PF_Work_Order.Update_Completed(Convert.ToInt32(cbi.Value.ToString()), int_User_id);
+                        int_result = PF.Data.AccessLayer.PF_BaseLoad.Complete(Convert.ToInt32(cbi.Tag.ToString()), false, int_User_id);
 
                         //labelTabControlMainBottomStatus.ForeColor = SystemColors.ControlText;
                         labelTabControlMainBottomStatus.ForeColor = Color.Blue;
@@ -1556,7 +1566,7 @@ namespace FruPak.PF.Menu
                 if (DLR_Message != System.Windows.Forms.DialogResult.OK)
                 {
                     Cursor = Cursors.WaitCursor;
-                    Form frm = new FruPak.PF.BaseLoad.BLWO_Labels(Convert.ToInt32(cbi.Value.ToString()), int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+                    Form frm = new PF.BaseLoad.BLWO_Labels(Convert.ToInt32(cbi.Value.ToString()), int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
                     //frm.TopMost = true; // 21/10/2015 BN
                     frm.Show();
                     Cursor = Cursors.Default;
@@ -1574,7 +1584,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Dispatch - Orders", "Dispatch_Orders_Create_Click", "(Create)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Dispatch.Shipping_Order(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.Dispatch.Shipping_Order(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1586,7 +1596,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Dispatch - Orders", "Dispatch_Orders_Search_Click", "(Search)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Dispatch.Shipping_Search(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.Dispatch.Shipping_Search(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
 
@@ -1598,7 +1608,7 @@ namespace FruPak.PF.Menu
             historyAdd("Dispatch - Other - Other Work");
             logger.Log(LogLevel.Info, DecorateString("Dispatch - Other", "Dispatch_Other_OtherWork_Click", "(Other Work)"));
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Dispatch.Other_Work(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.Dispatch.Other_Work(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1610,7 +1620,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Dispatch - Packing", "Dispatch_Packing_Pack_Click", "(Pack)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Scanning.Repack(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.Utils.Scanning.Repack(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1622,7 +1632,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Dispatch - Scanning", "Dispatch_Scanning_AddProductToOrder_Click", "(Add Product to Order)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Scanning.Tipping_Onto_Order(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.Utils.Scanning.Tipping_Onto_Order(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1634,7 +1644,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Dispatch - Scanning", "Dispatch_Scanning_PalletTransfer_Click", "(Pallet Transfer)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Scanning.Pallet_Transfer(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.Utils.Scanning.Pallet_Transfer(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1646,7 +1656,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Dispatch - Scanning", "Dispatch_Scanning_PrintPalletCard_Click", "(Print Pallet Card)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Scanning.Reprint_Palletcards(int_User_id);
+            Form frm = new PF.Utils.Scanning.Reprint_Palletcards(int_User_id);
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1714,7 +1724,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Extra - Gatehouse", "Extra_GateHouse_Submission_Click", "(Submission)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Temp.Submission(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.Temp.Submission(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1726,7 +1736,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Extra - History", "Extra_History_LoadOldStockNumbers_Click", "(Load Old Stock Numbers)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Temp.Pre_System_Stock(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.Temp.Pre_System_Stock(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1738,7 +1748,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Extra - Scanning", "Extra_Scanning_PalletWeights_Click", "(Pallet Weights)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Scanning.Pallet_Weight(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.Utils.Scanning.Pallet_Weight(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1750,7 +1760,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Extra - Scanning", "Extra_Scanning_ReprintPalletCard_Click", "(Reprint P/Card)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Scanning.Reprint_Palletcards(int_User_id);
+            Form frm = new PF.Utils.Scanning.Reprint_Palletcards(int_User_id);
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1762,8 +1772,8 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Extra - Scanning", "Extra_Scanning_TabletMenu_Click", "(Tablet Menu)"));
 
             Cursor = Cursors.WaitCursor;
-            //Form frm = new FruPak.PF.Utils.Scanning.Tablet_Menu();
-            Form frm = new FruPak.PF.Menu.Tablet.Tablet_Menu();
+            //Form frm = new PF.Utils.Scanning.Tablet_Menu();
+            Form frm = new PF.Menu.Tablet.Tablet_Menu();
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1801,7 +1811,7 @@ namespace FruPak.PF.Menu
             // causing me hours of frustration trying to find the problem.
 
             // Update the settings object with the value set in the logon form
-            //Settings.Phantom_Dev_Test_Mode = FruPak.PF.Global.Global.Phantom_Dev_Test;
+            //Settings.Phantom_Dev_Test_Mode = PF.Global.Global.Phantom_Dev_Test;
             //Settings.Save();
 
             this.propertyGridDebug.SelectedObject = Settings;
@@ -2005,7 +2015,7 @@ namespace FruPak.PF.Menu
 
         private void hide_Tabs()
         {
-            DataSet ds_Get_User_Menus = FruPak.PF.Data.AccessLayer.SC_User.Get_User_Menus(int_User_id);
+            DataSet ds_Get_User_Menus = PF.Data.AccessLayer.SC_User.Get_User_Menus(int_User_id);
             DataRow dr_Get_User_Menus;
 
             #region Original version for Ribbon
@@ -2512,13 +2522,13 @@ namespace FruPak.PF.Menu
             historyAdd("Home - Help - Help");
             logger.Log(LogLevel.Info, DecorateString("Home - Message", "Home_Help_Help_Click", "(Help)"));
 
-            if (System.IO.File.Exists("C:\\FruPak\\Documentation\\Help\\Process Factory.chm"))
+            if (System.IO.File.Exists("C:\\FP\\Documentation\\Help\\Process Factory.chm"))
             {
-                Help.ShowHelp(this, "file://C:\\FruPak\\Documentation\\Help\\Process Factory.chm");
+                Help.ShowHelp(this, "file://C:\\FP\\Documentation\\Help\\Process Factory.chm");
             }
             else
             {
-                MessageBox.Show("Help File is missing.\r\nPlease contact Jim @ Phantom or the Frupak Development Office", "Help file is missing", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Help File is missing.\r\nPlease contact Jim @ Phantom or the FP Development Office", "Help file is missing", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -2528,7 +2538,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Home - Message", "Home_Message_AddNew_Click", "(Add New)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Menu.Fun_Messages();
+            Form frm = new PF.Menu.Fun_Messages();
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -2706,7 +2716,7 @@ namespace FruPak.PF.Menu
             ////serializer.SerializeTreeView(this.treeViewUndoRedo, saveFile.FileName);
             //serializer.SerializeTreeView(this.treeViewUndoRedo, Application.StartupPath + @"\Serialise.xml");
 
-            FruPak.PF.Common.Code.KillAllWordInstances.KillAllWordProcesses();
+            //PF.Common.Code.KillAllWordInstances.KillAllWordProcesses();
         }
 
         /// <summary>
@@ -2807,9 +2817,13 @@ namespace FruPak.PF.Menu
 
             //The version number has four parts, as follows:
             //<major version>.<minor version>.<build number>.<revision>
+            
+            // Having the windows logon name is causing confusion
+            this.Text += " V" + Application.ProductVersion + " (20/11/2015)";
 
-            this.Text += " V" + Application.ProductVersion + " (10/11/2015) " +
-                System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+            //this.Text += " V" + Application.ProductVersion + " (10/11/2015) " +
+            //    System.Security.Principal.WindowsIdentity.GetCurrent().Name;
+
             //"Special Proxy Test Version (05/08/2015)";
 
             // Make a note of the date the version number changed "
@@ -2839,18 +2853,18 @@ namespace FruPak.PF.Menu
             //this.Text += " v3.4 (12/05/2015)"; // Installed alternate Menu & Tabs + Solved the security issue
             //this.Text += " v4.0 (14/05/2015)"; // Ribbon finally ready to be hidden
             //this.Text += " v4.5.1 (21/05/2015)"; // Ribbon is now completely removed. Jumped version number as a reminder that we now need the .NET Framework v4.5
-            //this.Text += " v4.5.2 (22/05/2015) - " + FruPak.PF.Global.Global.LogonName; // Menu handlers now hooked up correctly. Missing Packing section in Dispatch restored.
-            //this.Text += " v4.5.3 (06/06/2015) - " + FruPak.PF.Global.Global.LogonName; // Keyboard Accelerators and Tab Stops corrected in all forms + Sel's requested changes to the Tipping Forms
-            //this.Text += " v4.6 (10/06/2015) - " + FruPak.PF.Global.Global.LogonName; // Added File --> Update functionality
-            //this.Text += " v4.7 (01/07/2015) - " + FruPak.PF.Global.Global.LogonName; // Fixed hardcoded string printer names + accelerators
-            //this.Text += " v4.7 (04/08/2015) - " + FruPak.PF.Global.Global.LogonName; // Fixed hardcoded string printer names + accelerators
+            //this.Text += " v4.5.2 (22/05/2015) - " + PF.Global.Global.LogonName; // Menu handlers now hooked up correctly. Missing Packing section in Dispatch restored.
+            //this.Text += " v4.5.3 (06/06/2015) - " + PF.Global.Global.LogonName; // Keyboard Accelerators and Tab Stops corrected in all forms + Sel's requested changes to the Tipping Forms
+            //this.Text += " v4.6 (10/06/2015) - " + PF.Global.Global.LogonName; // Added File --> Update functionality
+            //this.Text += " v4.7 (01/07/2015) - " + PF.Global.Global.LogonName; // Fixed hardcoded string printer names + accelerators
+            //this.Text += " v4.7 (04/08/2015) - " + PF.Global.Global.LogonName; // Fixed hardcoded string printer names + accelerators
 
             // -----------------------------------------------------------------------------------------------------------
             // Update has this as a post-build command line. /because of the way the update project is set up
             // I have to physically copy these files to the correct directory manually.
             // -----------------------------------------------------------------------------------------------------------
-            // copy /Y "$(TargetDir)$(ProjectName).exe" "$(SolutionDir)\FruPak.ProcessFactory\$(OutDir)$(ProjectName).exe"
-            // copy /Y "$(TargetDir)$(ProjectName).pdb" "$(SolutionDir)\FruPak.ProcessFactory\$(OutDir)$(ProjectName).pdb"
+            // copy /Y "$(TargetDir)$(ProjectName).exe" "$(SolutionDir)\FP.ProcessFactory\$(OutDir)$(ProjectName).exe"
+            // copy /Y "$(TargetDir)$(ProjectName).pdb" "$(SolutionDir)\FP.ProcessFactory\$(OutDir)$(ProjectName).pdb"
             // -----------------------------------------------------------------------------------------------------------
 
             logger.Log(LogLevel.Info, "---------------------[ Program Start ]--- :" + DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString());
@@ -2858,6 +2872,16 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, LogCode(this.Text));
 
             Check_The_Templates_Folder_Exists();
+
+            this.labelPFLoginValue.Text = PF.Global.Global.LogonName;
+
+            // Bill Burr - These lead to other videos (I think)
+            // https://youtu.be/z11AHUDodZk
+            // https://youtu.be/_0LG2i79i-8
+            //
+            //
+
+
         }
 
         private void Check_The_Templates_Folder_Exists()
@@ -2865,7 +2889,7 @@ namespace FruPak.PF.Menu
             string TemplatePath = string.Empty;
             string TemplateName = string.Empty;
 
-            DataSet ds_default = FruPak.PF.Data.AccessLayer.CM_System.Get_Info_Like("PF%");
+            DataSet ds_default = PF.Data.AccessLayer.CM_System.Get_Info_Like("PF%");
             DataRow dr_default;
             for (int i_d = 0; i_d < ds_default.Tables[0].Rows.Count; i_d++)
             {
@@ -2901,7 +2925,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("PF - Maintenance - Cleaning", "Maintenance_Cleaning_Area_Click", "(Area)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.WorkOrder.Work_Order_Maintenance("PF_Cleaning_Area", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.WorkOrder.Work_Order_Maintenance("PF_Cleaning_Area", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -2913,7 +2937,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("PF - Maintenance - Cleaning", "Maintenance_Cleaning_Parts_Click", "(Parts)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.WorkOrder.Work_Order_Maintenance("PF_Cleaning_Area_Parts", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.WorkOrder.Work_Order_Maintenance("PF_Cleaning_Area_Parts", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -2925,7 +2949,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("PF - Maintenance - Lab", "Maintenance_Lab_LabResults_Click", "(Lab Results)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.WorkOrder.Work_Order_Maintenance("PF_Product_LabResults", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.WorkOrder.Work_Order_Maintenance("PF_Product_LabResults", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -2937,7 +2961,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("PF - Maintenance - Staff", "Maintenance_Staff_Maintenance_Click", "(Maintenance)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Common.PF_Staff(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.Utils.Common.PF_Staff(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -2949,7 +2973,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("PF - Maintenance - Staff", "Maintenance_Staff_OtherWorkAreas_Click", "(Other Work Areas)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.Utils.Common.Common_Maintenance("PF_Other_Work_Types", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.Utils.Common.Common_Maintenance("PF_Other_Work_Types", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -2961,7 +2985,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("PF - Maintenance - Types", "Maintenance_Types_Chemicals_Click", "(Chemicals)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.WorkOrder.Work_Order_Maintenance("PF_Chemicals", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.WorkOrder.Work_Order_Maintenance("PF_Chemicals", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -2973,7 +2997,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("PF - Maintenance - Types", "Maintenance_Types_OtherValues_Click", "(Other Values)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.WorkOrder.Work_Order_Maintenance("PF_Product_Other", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.WorkOrder.Work_Order_Maintenance("PF_Product_Other", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -2984,7 +3008,7 @@ namespace FruPak.PF.Menu
             historyAdd("PF - Maintenance - Types - Products");
             logger.Log(LogLevel.Info, DecorateString("PF - Maintenance - Types", "Maintenance_Types_Products_Click", "(Products)"));
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.WorkOrder.Work_Order_Maintenance("PF_Product", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.WorkOrder.Work_Order_Maintenance("PF_Product", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -2996,7 +3020,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("PF - Maintenance - Types", "Maintenance_Types_Tests_Click", "(Tests)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.WorkOrder.Work_Order_Maintenance("PF_Tests", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.WorkOrder.Work_Order_Maintenance("PF_Tests", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -3275,7 +3299,7 @@ namespace FruPak.PF.Menu
 
                 DataSet ds_Get_Info;
 
-                ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_BaseLoad.Get_Info();
+                ds_Get_Info = PF.Data.AccessLayer.PF_BaseLoad.Get_Info();
 
                 //ribbonCombo_BaseLoad_BaseLoadList.DropDownItems.Clear();
 
@@ -3318,11 +3342,11 @@ namespace FruPak.PF.Menu
             //Not Completed Process Date
             if (int_prod_combo == 0)
             {
-                ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Combo_Date();
+                ds_Get_Info = PF.Data.AccessLayer.PF_Work_Order.Get_Combo_Date();
             }
             else
             {
-                ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Combo_Date(int_prod_combo);
+                ds_Get_Info = PF.Data.AccessLayer.PF_Work_Order.Get_Combo_Date(int_prod_combo);
             }
             //ribbonCombo_ProcessFactory_WorkOrders_Date.DropDownItems.Clear();
 
@@ -3380,11 +3404,11 @@ namespace FruPak.PF.Menu
             //Not Completed
             if (str_date_combo == "")
             {
-                ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Product.Get_Info();
+                ds_Get_Info = PF.Data.AccessLayer.PF_Product.Get_Info();
             }
             else
             {
-                ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Combo_Prod_by_Date(str_date_combo);
+                ds_Get_Info = PF.Data.AccessLayer.PF_Work_Order.Get_Combo_Prod_by_Date(str_date_combo);
             }
             //ribbonCombo_ProcessFactory_WorkOrders_Product.DropDownItems.Clear();
 
@@ -3422,7 +3446,7 @@ namespace FruPak.PF.Menu
                 string description = string.Empty;
                 string value = string.Empty;
 
-                ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Reports.Get_Info();
+                ds_Get_Info = PF.Data.AccessLayer.PF_Reports.Get_Info();
 
                 //ribbonCombo_Reports_SSRS_ReportList.DropDownItems.Clear();
 
@@ -3487,19 +3511,19 @@ namespace FruPak.PF.Menu
             //Not Completed
             if (str_date_combo == "" && int_prod_combo == 0)
             {
-                ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Combo_Work_Order();
+                ds_Get_Info = PF.Data.AccessLayer.PF_Work_Order.Get_Combo_Work_Order();
             }
             else if (str_date_combo != "" && int_prod_combo == 0)
             {
-                ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Combo_Work_Order(str_date_combo);
+                ds_Get_Info = PF.Data.AccessLayer.PF_Work_Order.Get_Combo_Work_Order(str_date_combo);
             }
             else if (str_date_combo == "" && int_prod_combo != 0)
             {
-                ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Combo_Work_Order(int_prod_combo);
+                ds_Get_Info = PF.Data.AccessLayer.PF_Work_Order.Get_Combo_Work_Order(int_prod_combo);
             }
             else
             {
-                ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Combo_Work_Order(str_date_combo, int_prod_combo);
+                ds_Get_Info = PF.Data.AccessLayer.PF_Work_Order.Get_Combo_Work_Order(str_date_combo, int_prod_combo);
             }
             //ribbonCombo_ProcessFactory_WorkOrders_WorkOrder.DropDownItems.Clear();
 
@@ -3525,7 +3549,7 @@ namespace FruPak.PF.Menu
                 // I wondered what this was for - it puts the little green blob next to the entry.
                 if (Convert.ToBoolean(dr_Get_Info["Current_Ind"].ToString()) == true)
                 {
-                    //rbtn_Combo_Work_Order.SmallImage = FruPak.PF.Global.Properties.Resources.Current_sml;
+                    //rbtn_Combo_Work_Order.SmallImage = PF.Global.Properties.Resources.Current_sml;
 
                     item.Text = item.Text + " <--"; // New - 12/05/2015 BN - Can't use a graphic so just draw an arrow
 
@@ -3550,7 +3574,7 @@ namespace FruPak.PF.Menu
         private void printTreeToolStripMenuItem_Click(object sender, EventArgs e)
         {
             //var print = new PrintHelper();
-            //print.PrintPreviewTree(this.treeViewUndoRedo, "FruPak History");
+            //print.PrintPreviewTree(this.treeViewUndoRedo, "FP History");
         }
 
         private void ProcessFactory_Cleaning_Cleaning_Click(object sender, EventArgs e)
@@ -3559,7 +3583,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Process Factory - Cleaning", "ProcessFactory_Cleaning_Cleaning_Click", "(Cleaning)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.WorkOrder.Cleaning(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.WorkOrder.Cleaning(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -3571,7 +3595,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Process Factory - Complete Work Orders", "ProcessFactory_CompleteWorkOrders_Complete_Click", "(Complete)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.WorkOrder.WO_Complete(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.WorkOrder.WO_Complete(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -3583,7 +3607,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Process Factory - Setup", "ProcessFactory_Setup_Factory_Click", "(Factory)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new FruPak.PF.WorkOrder.Process_Set_Up(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.WorkOrder.Process_Set_Up(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -3612,7 +3636,7 @@ namespace FruPak.PF.Menu
             }
             if (int_WO_Id == 0 && int_current_WO_Id == 0)
             {
-                DLR_MessageBox = MessageBox.Show("Invalid Work Order - Please select a valid Work Order from the Drop Down List.", "FruPak - Menu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DLR_MessageBox = MessageBox.Show("Invalid Work Order - Please select a valid Work Order from the Drop Down List.", "FP - Menu", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (int_WO_Id == 0 && int_current_WO_Id > 0)
             {
@@ -3620,7 +3644,7 @@ namespace FruPak.PF.Menu
             }
             if (DLR_MessageBox != DialogResult.OK)
             {
-                Form frm = new FruPak.PF.WorkOrder.WO_Chemicals(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+                Form frm = new PF.WorkOrder.WO_Chemicals(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
                 //frm.TopMost = true; // 21/10/2015 BN
                 frm.Show();
             }
@@ -3640,11 +3664,19 @@ namespace FruPak.PF.Menu
             int int_WO_Id = 0;
             //cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder
             //
-            if (cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.SelectedItem != null && cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.Text != "Work Order")
+            //if (cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.SelectedItem != null && cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.Text != "Work Order")
+
+            if (cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.Text != "Select Work Order" && cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.Text != "")
             {
                 //string strValue = cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.SelectedItem.GetType().ToString();
                 // 4/8/2015 Found stupid mistake causing the work orders to come
                 // up blank
+
+                // BN added 18/111/2015
+
+                int index = cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.FindString(cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.Text);
+                cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.SelectedIndex = index;
+
                 ComboboxItem cbi = (ComboboxItem)cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.SelectedItem;
                 string tempString = cbi.Value.ToString();
 
@@ -3665,7 +3697,7 @@ namespace FruPak.PF.Menu
 
                 int_WO_Id = Convert.ToInt32(tempString);
             }
-            Form frm = new FruPak.PF.WorkOrder.WO_Create(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.WorkOrder.WO_Create(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             frm.ShowDialog();
 
             populate_Date_Combo();
@@ -3696,11 +3728,11 @@ namespace FruPak.PF.Menu
                 }
                 if (int_WO_Id == 0)
                 {
-                    DLR_MessageBox = MessageBox.Show("Invalid Work Order - Please select a valid Work Order from the Drop Down List.", "FruPak - Menu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DLR_MessageBox = MessageBox.Show("Invalid Work Order - Please select a valid Work Order from the Drop Down List.", "FP - Menu", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
-                    DLR_MessageBox = MessageBox.Show("Are you sure you want to delete Work Order " + Convert.ToString(int_WO_Id), "FruPak - Menu", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                    DLR_MessageBox = MessageBox.Show("Are you sure you want to delete Work Order " + Convert.ToString(int_WO_Id), "FP - Menu", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 }
                 if (DLR_MessageBox == DialogResult.Yes)
                 {
@@ -3708,14 +3740,14 @@ namespace FruPak.PF.Menu
                     {
                         try
                         {
-                            FruPak.PF.Data.AccessLayer.PF_Work_Order_Material_Relationship.Delete_WO(int_WO_Id);
+                            PF.Data.AccessLayer.PF_Work_Order_Material_Relationship.Delete_WO(int_WO_Id);
                         }
                         catch (Exception ex)
                         {
                             logger.Log(LogLevel.Debug, ex.Message);
                         }
-                        FruPak.PF.Data.AccessLayer.PF_Work_Order_Staff_Relationship.Delete_WO(int_WO_Id);
-                        FruPak.PF.Data.AccessLayer.PF_Work_Order.Delete(int_WO_Id);
+                        PF.Data.AccessLayer.PF_Work_Order_Staff_Relationship.Delete_WO(int_WO_Id);
+                        PF.Data.AccessLayer.PF_Work_Order.Delete(int_WO_Id);
 
                         lbl_message.Text = "Work Order " + int_WO_Id + " has been deleted";
                         lbl_message.ForeColor = System.Drawing.Color.Blue;
@@ -3764,7 +3796,7 @@ namespace FruPak.PF.Menu
             }
             if (int_WO_Id == 0 && int_current_WO_Id == 0)
             {
-                DLR_MessageBox = MessageBox.Show("Invalid Work Order - Please select a valid Work Order from the Drop Down List.", "FruPak - Menu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DLR_MessageBox = MessageBox.Show("Invalid Work Order - Please select a valid Work Order from the Drop Down List.", "FP - Menu", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (int_WO_Id == 0 && int_current_WO_Id > 0)
             {
@@ -3772,7 +3804,7 @@ namespace FruPak.PF.Menu
             }
             if (DLR_MessageBox != DialogResult.OK)
             {
-                Form frm = new FruPak.PF.WorkOrder.WO_Output(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+                Form frm = new PF.WorkOrder.WO_Output(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
                 //frm.TopMost = true; // 21/10/2015 BN
                 frm.Show();
             }
@@ -3802,7 +3834,7 @@ namespace FruPak.PF.Menu
             }
             if (int_WO_Id == 0 && int_current_WO_Id == 0)
             {
-                DLR_MessageBox = MessageBox.Show("Invalid Work Order - Please select a valid Work Order from the Drop Down List.", "FruPak - Menu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DLR_MessageBox = MessageBox.Show("Invalid Work Order - Please select a valid Work Order from the Drop Down List.", "FP - Menu", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (int_WO_Id == 0 && int_current_WO_Id > 0)
             {
@@ -3810,7 +3842,7 @@ namespace FruPak.PF.Menu
             }
             if (DLR_MessageBox != DialogResult.OK)
             {
-                Form frm = new FruPak.PF.WorkOrder.WO_Labels(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+                Form frm = new PF.WorkOrder.WO_Labels(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
                 //frm.TopMost = true; // 21/10/2015 BN
                 frm.Show();
             }
@@ -3840,7 +3872,7 @@ namespace FruPak.PF.Menu
             }
             if (int_WO_Id == 0 && int_current_WO_Id == 0)
             {
-                DLR_MessageBox = MessageBox.Show("Invalid Work Order - Please select a valid Work Order from the Drop Down List.", "FruPak - Menu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DLR_MessageBox = MessageBox.Show("Invalid Work Order - Please select a valid Work Order from the Drop Down List.", "FP - Menu", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (int_WO_Id == 0 && int_current_WO_Id > 0)
             {
@@ -3848,7 +3880,7 @@ namespace FruPak.PF.Menu
             }
             if (DLR_MessageBox != DialogResult.OK)
             {
-                Form frm = new FruPak.PF.WorkOrder.QC(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+                Form frm = new PF.WorkOrder.QC(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
                 //frm.TopMost = true; // 21/10/2015 BN
                 frm.Show();
             }
@@ -3883,10 +3915,15 @@ namespace FruPak.PF.Menu
             int int_WO_Id = 0;
             //cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder
             // ComboboxItem
-            if (cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.SelectedItem != null)
-            {
+            //if (cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.SelectedItem != null)
+                if (cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.Text != null)
+                {
+                // BN added 18/111/2015
+                int index = cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.FindString(cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.Text);
+                cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.SelectedIndex = index;
+
                 ComboboxItem cbi = (ComboboxItem)cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.SelectedItem;
-                if (cbi.Value != null && cbi.Text != "Work Order")
+                if (cbi.Value != null && cbi.Text != "Select Work Order")
                 //if (cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.SelectedItem != null && cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.Text != "Work Order")
                 {
                     //int_WO_Id = Convert.ToInt32(cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.SelectedValue.ToString());
@@ -3894,19 +3931,19 @@ namespace FruPak.PF.Menu
                 }
                 if (int_WO_Id == 0)
                 {
-                    DLR_MessageBox = MessageBox.Show("Invalid Work Order - Please select a valid Work Order from the Drop Down List.", "FruPak - Menu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    DLR_MessageBox = MessageBox.Show("Invalid Work Order - Please select a valid Work Order from the Drop Down List.", "FP - Menu", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 if (DLR_MessageBox != DialogResult.OK)
                 {
-                    DataSet ds = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Current();
+                    DataSet ds = PF.Data.AccessLayer.PF_Work_Order.Get_Current();
                     DataRow dr;
                     for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                     {
                         dr = ds.Tables[0].Rows[i];
-                        FruPak.PF.Data.AccessLayer.PF_Work_Order.Update_Current_Ind(Convert.ToInt32(dr["Work_Order_Id"].ToString()), false, int_User_id);
+                        PF.Data.AccessLayer.PF_Work_Order.Update_Current_Ind(Convert.ToInt32(dr["Work_Order_Id"].ToString()), false, int_User_id);
                     }
                     ds.Dispose();
-                    int_result = FruPak.PF.Data.AccessLayer.PF_Work_Order.Update_Current_Ind(int_WO_Id, true, int_User_id);
+                    int_result = PF.Data.AccessLayer.PF_Work_Order.Update_Current_Ind(int_WO_Id, true, int_User_id);
                 }
 
                 if (int_result > 0)
@@ -3948,7 +3985,7 @@ namespace FruPak.PF.Menu
             }
             if (int_WO_Id == 0 && int_current_WO_Id == 0)
             {
-                DLR_MessageBox = MessageBox.Show("Invalid Work Order - Please select a valid Work Order from the Drop Down List.", "FruPak - Menu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DLR_MessageBox = MessageBox.Show("Invalid Work Order - Please select a valid Work Order from the Drop Down List.", "FP - Menu", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (int_WO_Id == 0 && int_current_WO_Id > 0)
             {
@@ -3956,7 +3993,7 @@ namespace FruPak.PF.Menu
             }
             if (DLR_MessageBox != DialogResult.OK)
             {
-                Form frm = new FruPak.PF.WorkOrder.WO_Staff(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+                Form frm = new PF.WorkOrder.WO_Staff(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
                 //frm.TopMost = true; // 21/10/2015 BN
                 frm.Show();
             }
@@ -3986,7 +4023,7 @@ namespace FruPak.PF.Menu
             }
             if (int_WO_Id == 0 && int_current_WO_Id == 0)
             {
-                DLR_MessageBox = MessageBox.Show("Invalid Work Order - Please select a valid Work Order from the Drop Down List.", "FruPak - Menu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                DLR_MessageBox = MessageBox.Show("Invalid Work Order - Please select a valid Work Order from the Drop Down List.", "FP - Menu", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
             else if (int_WO_Id == 0 && int_current_WO_Id > 0)
             {
@@ -3994,7 +4031,7 @@ namespace FruPak.PF.Menu
             }
             if (DLR_MessageBox != DialogResult.OK)
             {
-                Form frm = new FruPak.PF.WorkOrder.WO_Tests(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+                Form frm = new PF.WorkOrder.WO_Tests(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
                 //frm.TopMost = true; // 21/10/2015 BN
                 frm.Show();
             }
@@ -4069,7 +4106,7 @@ namespace FruPak.PF.Menu
 
             Cursor = Cursors.WaitCursor;
 
-            Form frm = new FruPak.PF.WorkOrder.Work_Order_Maintenance("PF_Reports", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm = new PF.WorkOrder.Work_Order_Maintenance("PF_Reports", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             frm.ShowDialog();
 
             Cursor = Cursors.Default;
@@ -4089,7 +4126,7 @@ namespace FruPak.PF.Menu
             else
             {
                 Cursor = Cursors.WaitCursor;
-                FruPak.PF.Common.Code.General.Report_Viewer(cbi.Value.ToString());
+                PF.Common.Code.General.Report_Viewer(cbi.Value.ToString());
                 Cursor = Cursors.Default;
             }
         }
@@ -4222,7 +4259,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Security - Maintenance", "Security_Maintenance_Group_Click", "(Group)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm_User = new FruPak.PF.Utils.Security.User_Group_Maintenance(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm_User = new PF.Utils.Security.User_Group_Maintenance(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             frm_User.Show();
             Cursor = Cursors.Default;
         }
@@ -4233,7 +4270,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Security - Maintenance", "Security_Maintenance_User_Click", "(User)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm_User = new FruPak.PF.Utils.Security.User_Maintenance(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm_User = new PF.Utils.Security.User_Maintenance(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             frm_User.Show();
             Cursor = Cursors.Default;
         }
@@ -4244,7 +4281,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Security - Menus", "Security_Menus_Panels_Click", "(Panels)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm_User = new FruPak.PF.Utils.Security.Menu_Panel_Maintenance(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm_User = new PF.Utils.Security.Menu_Panel_Maintenance(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             frm_User.Show();
             Cursor = Cursors.Default;
         }
@@ -4255,7 +4292,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Security - Menus", "Security_Menus_Tabs_Click", "(Tabs)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm_User = new FruPak.PF.Utils.Security.Menu_Maintenance(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            Form frm_User = new PF.Utils.Security.Menu_Maintenance(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             frm_User.Show();
             Cursor = Cursors.Default;
         }
@@ -4356,7 +4393,7 @@ namespace FruPak.PF.Menu
 
         private void SYMessage()
         {
-            DataSet ds = FruPak.PF.Data.AccessLayer.SY_Message.Get_Info();
+            DataSet ds = PF.Data.AccessLayer.SY_Message.Get_Info();
             DataRow dr;
 
             int int_msg_U = 0;
@@ -4459,23 +4496,23 @@ namespace FruPak.PF.Menu
                             case "A":
                                 dt = Convert.ToDateTime(dr["End_Date"].ToString());
                                 str_new_datetime = update_date(dt, 1, 0, 0);
-                                FruPak.PF.Data.AccessLayer.SY_Message.Update_End_Date(Convert.ToInt32(dr["Message_Id"].ToString()), str_new_datetime);
+                                PF.Data.AccessLayer.SY_Message.Update_End_Date(Convert.ToInt32(dr["Message_Id"].ToString()), str_new_datetime);
                                 break;
 
                             case "M":
                                 dt = Convert.ToDateTime(dr["End_Date"].ToString());
                                 str_new_datetime = update_date(dt, 0, Convert.ToInt32(dr["Repeat_ind"].ToString().Substring(1)), 0);
-                                FruPak.PF.Data.AccessLayer.SY_Message.Update_End_Date(Convert.ToInt32(dr["Message_Id"].ToString()), str_new_datetime);
+                                PF.Data.AccessLayer.SY_Message.Update_End_Date(Convert.ToInt32(dr["Message_Id"].ToString()), str_new_datetime);
                                 break;
 
                             case "D":
                                 dt = Convert.ToDateTime(dr["End_Date"].ToString());
                                 str_new_datetime = update_date(dt, 0, 0, Convert.ToInt32(dr["Repeat_ind"].ToString().Substring(1)));
-                                FruPak.PF.Data.AccessLayer.SY_Message.Update_End_Date(Convert.ToInt32(dr["Message_Id"].ToString()), str_new_datetime);
+                                PF.Data.AccessLayer.SY_Message.Update_End_Date(Convert.ToInt32(dr["Message_Id"].ToString()), str_new_datetime);
                                 break;
 
                             default:
-                                FruPak.PF.Data.AccessLayer.SY_Message.Delete(Convert.ToInt32(dr["Message_Id"].ToString()));
+                                PF.Data.AccessLayer.SY_Message.Delete(Convert.ToInt32(dr["Message_Id"].ToString()));
                                 break;
                         }
                     }
@@ -4499,8 +4536,8 @@ namespace FruPak.PF.Menu
             labelTabControlMainBottomStatus.ForeColor = SystemColors.ControlText;
 
             Console.WriteLine(tabControlMain.SelectedTab.Text);
-            Console.WriteLine(FruPak.PF.Global.Global.bol_Testing);
-            //FruPak.PF.Global.Global.Phantom_Dev_Mode = FruPak.PF.Global.Global.bol_Testing;
+            Console.WriteLine(PF.Global.Global.bool_Testing);
+            //PF.Global.Global.Phantom_Dev_Mode = PF.Global.Global.bol_Testing;
 
             //if (tabControlMain.SelectedTab == tabPageAccounting)
             //{
@@ -4695,7 +4732,7 @@ namespace FruPak.PF.Menu
             // Test if the About item was selected from the system menu
             if ((m.Msg == WM_SYSCOMMAND) && ((int)m.WParam == SYSMENU_ABOUT_ID))
             {
-                MessageBox.Show("Placeholder for possible unknown future function.\r\n12/06/2105 - Testing", "About FruPak.ProcessFactory", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("Placeholder for possible unknown future function.\r\n12/06/2105 - Testing", "About FP.ProcessFactory", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
@@ -4771,7 +4808,7 @@ namespace FruPak.PF.Menu
                 //AutoUpdater.proxyURI = "http://192.168.80.69";
                 //AutoUpdater.proxyPort = "8090";
                 //AutoUpdater.useProxy = true;
-                //AutoUpdater.Start("http://192.168.80.69:8090/FruPak-Update/FruPak-PF-Update.xml");
+                //AutoUpdater.Start("http://192.168.80.69:8090/FP-Update/FP-PF-Update.xml");
 
                 // ------------------------------------------------------------------------------------------
                 // 22/08/2015 Bruce Nielsen
@@ -4972,7 +5009,7 @@ namespace FruPak.PF.Menu
             logger.Log(LogLevel.Info, "Calling: SendDebugInfo");
 
             // Now get the debug email ready by creating a new debug form called sde.
-            FruPak.PF.Common.Code.SendDebugEmail sde = new PF.Common.Code.SendDebugEmail();
+            PF.Common.Code.SendDebugEmail sde = new PF.Common.Code.SendDebugEmail();
 
             sde.textBoxBugReport.Text = "This will send an automatic report without any further input.";
 
@@ -4998,13 +5035,13 @@ namespace FruPak.PF.Menu
         private void openSavedFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // BN 29/10/2015
-            FruPak.PF.Common.Code.OpenPdfFileLocations.OpenSavedPdfFileLocation();
+            PF.Common.Code.OpenPdfFileLocations.OpenSavedPdfFileLocation();
         }
 
         private void openTempFolderToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // BN 29/10/2015
-            FruPak.PF.Common.Code.OpenPdfFileLocations.OpenTempPdfFileLocation();
+            PF.Common.Code.OpenPdfFileLocations.OpenTempPdfFileLocation();
         }
 
         private void Main_Menu_Resize(object sender, EventArgs e)

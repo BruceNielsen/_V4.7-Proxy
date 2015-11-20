@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Common
+namespace PF.Utils.Common
 {
     public partial class PF_Staff : Form
     {
@@ -22,13 +22,13 @@ namespace FruPak.PF.Utils.Common
             btn_Add.Enabled = bol_w_a;
             int_Current_User_Id = int_C_User_id;
             //check if testing or not
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
             AddColumnsProgrammatically();
             populate_datagridview();
@@ -65,9 +65,9 @@ namespace FruPak.PF.Utils.Common
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -124,7 +124,7 @@ namespace FruPak.PF.Utils.Common
             dataGridView1.Columns.Add(img_delete);
             img_delete.HeaderText = "Delete";
             img_delete.Name = "Delete";
-            img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
+            img_delete.Image = PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
             img_delete.Visible = bol_write_access;
 
@@ -132,7 +132,7 @@ namespace FruPak.PF.Utils.Common
             dataGridView1.Columns.Add(img_edit);
             img_edit.HeaderText = "Edit";
             img_edit.Name = "Edit";
-            img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
+            img_edit.Image = PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
         }
 
@@ -141,7 +141,7 @@ namespace FruPak.PF.Utils.Common
             dataGridView1.Refresh();
             dataGridView1.Rows.Clear();
 
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Staff.Get_Info_ALL();
+            DataSet ds_Get_Info = PF.Data.AccessLayer.PF_Staff.Get_Info_ALL();
             DataRow dr_Get_Info;
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {
@@ -226,7 +226,7 @@ namespace FruPak.PF.Utils.Common
                     switch (btn_Add.Text)
                     {
                         case "&Add":
-                            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Staff.Check_Employee_Num(Convert.ToInt32(txt_Employee_Num.Text));
+                            DataSet ds_Get_Info = PF.Data.AccessLayer.PF_Staff.Check_Employee_Num(Convert.ToInt32(txt_Employee_Num.Text));
 
                             if (ds_Get_Info.Tables[0].Rows.Count > 0)
                             {
@@ -269,11 +269,11 @@ namespace FruPak.PF.Utils.Common
                 switch (btn_Add.Text)
                 {
                     case "&Add":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Staff.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Staff"), txt_First_Name.Text, txt_Last_Name.Text, Convert.ToInt32(txt_Employee_Num.Text), Convert.ToDecimal(txt_hourly_Rate.Text), Convert.ToBoolean(ckb_Active.Checked), cmb_Emp_Type.Text.Substring(0, 1), int_Current_User_Id);
+                        int_result = PF.Data.AccessLayer.PF_Staff.Insert(PF.Common.Code.General.int_max_user_id("PF_Staff"), txt_First_Name.Text, txt_Last_Name.Text, Convert.ToInt32(txt_Employee_Num.Text), Convert.ToDecimal(txt_hourly_Rate.Text), Convert.ToBoolean(ckb_Active.Checked), cmb_Emp_Type.Text.Substring(0, 1), int_Current_User_Id);
                         break;
 
                     case "&Update":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Staff.Update(int_staff_id, txt_First_Name.Text, txt_Last_Name.Text, Convert.ToInt32(txt_Employee_Num.Text), Convert.ToDecimal(txt_hourly_Rate.Text), Convert.ToBoolean(ckb_Active.Checked), cmb_Emp_Type.Text.Substring(0, 1), int_Current_User_Id);
+                        int_result = PF.Data.AccessLayer.PF_Staff.Update(int_staff_id, txt_First_Name.Text, txt_Last_Name.Text, Convert.ToInt32(txt_Employee_Num.Text), Convert.ToDecimal(txt_hourly_Rate.Text), Convert.ToBoolean(ckb_Active.Checked), cmb_Emp_Type.Text.Substring(0, 1), int_Current_User_Id);
                         break;
                 }
             }
@@ -318,7 +318,7 @@ namespace FruPak.PF.Utils.Common
             //Delete
             if (e.ColumnIndex == 7)
             {
-                FruPak.PF.Data.AccessLayer.PF_Staff.Update_Active(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()), false, int_Current_User_Id);
+                PF.Data.AccessLayer.PF_Staff.Update_Active(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()), false, int_Current_User_Id);
                 populate_datagridview();
             }
             //Edit
@@ -409,7 +409,7 @@ namespace FruPak.PF.Utils.Common
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

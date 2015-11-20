@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Dispatch
+namespace PF.Dispatch
 {
     public partial class Pallet_Details : Form
     {
@@ -24,13 +24,13 @@ namespace FruPak.PF.Dispatch
 
             //check if testing or not
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
 
             txt_order_num.Text = Convert.ToString(int_order_id);
@@ -70,9 +70,9 @@ namespace FruPak.PF.Dispatch
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -99,7 +99,7 @@ namespace FruPak.PF.Dispatch
             dataGridView1.Columns.Add(img_delete);
             img_delete.HeaderText = "Remove From Order";
             img_delete.Name = "Remove";
-            img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
+            img_delete.Image = PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
         }
 
@@ -151,7 +151,7 @@ namespace FruPak.PF.Dispatch
             dataGridView1.Refresh();
             dataGridView1.Rows.Clear();
 
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Info_distinct_order(int_order_id);
+            DataSet ds_Get_Info = PF.Data.AccessLayer.PF_Pallet.Get_Info_distinct_order(int_order_id);
             DataRow dr_Get_Info;
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
@@ -177,7 +177,7 @@ namespace FruPak.PF.Dispatch
             dataGridView2.Refresh();
             dataGridView2.Rows.Clear();
 
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Info_for_Order_Pallet(int_order_id, int_Pallet_ID);
+            DataSet ds_Get_Info = PF.Data.AccessLayer.PF_Pallet.Get_Info_for_Order_Pallet(int_order_id, int_Pallet_ID);
             DataRow dr_Get_Info;
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
@@ -258,7 +258,7 @@ namespace FruPak.PF.Dispatch
 
                     if (DLR_Message == DialogResult.Yes)
                     {
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Pallet.Update_remove_from_Order(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Pallet_Id"].Value.ToString()), int_Current_User_Id);
+                        int_result = PF.Data.AccessLayer.PF_Pallet.Update_remove_from_Order(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Pallet_Id"].Value.ToString()), int_Current_User_Id);
                     }
 
                     if (int_result > 0)
@@ -359,7 +359,7 @@ namespace FruPak.PF.Dispatch
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

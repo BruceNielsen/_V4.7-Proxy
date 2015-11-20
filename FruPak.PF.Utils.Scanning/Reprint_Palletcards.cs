@@ -1,4 +1,4 @@
-﻿using FruPak.PF.CustomSettings;
+﻿using PF.CustomSettings;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.Data;
 using System.IO;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Scanning
+namespace PF.Utils.Scanning
 {
     public partial class Reprint_Palletcards : Form
     {
@@ -57,9 +57,9 @@ namespace FruPak.PF.Utils.Scanning
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -78,12 +78,12 @@ namespace FruPak.PF.Utils.Scanning
             int int_result = 9;
             if (barcode1.BarcodeValue.Length > 0)
             {
-                FruPak.PF.Common.Code.General.Get_Printer("A4");
+                PF.Common.Code.General.Get_Printer("A4");
                 if (rbn_PalletCard.Checked == true)
                 {
                     try
                     {
-                        int_result = FruPak.PF.PrintLayer.Pallet_Card.Print(barcode1.BarcodeValue.ToString(), true, int_Current_User_Id);
+                        int_result = PF.PrintLayer.Pallet_Card.Print(barcode1.BarcodeValue.ToString(), true, int_Current_User_Id);
                     }
                     catch
                     {
@@ -91,13 +91,13 @@ namespace FruPak.PF.Utils.Scanning
                         Data = Data + barcode1.BarcodeValue.ToString();
                         Data = Data + ":True";
 
-                        //FruPak.PF.PrintLayer.Word.Printer = "Brother HL-2040 series";
-                        FruPak.PF.PrintLayer.Word.Printer = Settings.Printer_Name;  // 16/06/2015 Fixed - Jim worked out there was some hardcoded strings
+                        //PF.PrintLayer.Word.Printer = "Brother HL-2040 series";
+                        PF.PrintLayer.Word.Printer = Settings.Printer_Name;  // 16/06/2015 Fixed - Jim worked out there was some hardcoded strings
 
                         // Phantom 18/12/2014
-                        //FruPak.PF.PrintLayer.Word.Printer = Settings.Printer_Name;    // Reverted 06-03-2015
+                        //PF.PrintLayer.Word.Printer = Settings.Printer_Name;    // Reverted 06-03-2015
 
-                        FruPak.PF.PrintLayer.Word.Server_Print(Data, int_Current_User_Id);
+                        PF.PrintLayer.Word.Server_Print(Data, int_Current_User_Id);
                     }
                 }
                 else
@@ -108,7 +108,7 @@ namespace FruPak.PF.Utils.Scanning
 
                         DataSet ds = null;
                         DataRow dr;
-                        ds = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Current();
+                        ds = PF.Data.AccessLayer.PF_Work_Order.Get_Current();
                         int int_current_WO = 0;
                         for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                         {
@@ -120,7 +120,7 @@ namespace FruPak.PF.Utils.Scanning
                         // New trap for SystemOverflowException: Convert.ToInt32(barcode1.Get_Barcode.ToString() - BN 11/08/2015
                         try
                         {
-                            ds = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Pallet_barocde(int_current_WO, Convert.ToInt32(barcode1.BarcodeValue.ToString()));
+                            ds = PF.Data.AccessLayer.PF_Pallet.Get_Pallet_barocde(int_current_WO, Convert.ToInt32(barcode1.BarcodeValue.ToString()));
                             string str_Barcode = "";
                             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                             {
@@ -133,7 +133,7 @@ namespace FruPak.PF.Utils.Scanning
                             {
                                 try
                                 {
-                                    int_result = FruPak.PF.PrintLayer.WPC_Card.Print(str_Barcode, true, int_Current_User_Id);
+                                    int_result = PF.PrintLayer.WPC_Card.Print(str_Barcode, true, int_Current_User_Id);
                                 }
                                 catch
                                 {
@@ -141,13 +141,13 @@ namespace FruPak.PF.Utils.Scanning
                                     Data = Data + barcode1.BarcodeValue.ToString();
                                     Data = Data + ":True";
 
-                                    //FruPak.PF.PrintLayer.Word.Printer = "Brother HL-2040 series";
-                                    FruPak.PF.PrintLayer.Word.Printer = Settings.Printer_Name;  // 16/06/2015 Fixed - Jim worked out there was some hardcoded strings
+                                    //PF.PrintLayer.Word.Printer = "Brother HL-2040 series";
+                                    PF.PrintLayer.Word.Printer = Settings.Printer_Name;  // 16/06/2015 Fixed - Jim worked out there was some hardcoded strings
 
                                     // Phantom 18/12/2014
-                                    //FruPak.PF.PrintLayer.Word.Printer = Settings.Printer_Name;   // Reverted 06-03-2015
+                                    //PF.PrintLayer.Word.Printer = Settings.Printer_Name;   // Reverted 06-03-2015
 
-                                    FruPak.PF.PrintLayer.Word.Server_Print(Data, int_Current_User_Id);
+                                    PF.PrintLayer.Word.Server_Print(Data, int_Current_User_Id);
                                 }
                             }
                             else
@@ -175,10 +175,10 @@ namespace FruPak.PF.Utils.Scanning
                     string filePath = Settings.Path_Printer_Temp;
 
                     // BN 12-01-2015
-                    //lst_filenames.AddRange(System.IO.Directory.GetFiles(@"\\FRUPAK-SBS\PublicDocs\FruPak\Server\Temp", "*" + barcode1.Get_Barcode.ToString() + "*", System.IO.SearchOption.TopDirectoryOnly));
+                    //lst_filenames.AddRange(System.IO.Directory.GetFiles(@"\\FP-SBS\PublicDocs\FP\Server\Temp", "*" + barcode1.Get_Barcode.ToString() + "*", System.IO.SearchOption.TopDirectoryOnly));
 
                     // An exception can occurr at this point (path not found):
-                    // "\\\\FRUPAK-SBS\\\\PublicDocs\\\\FruPak\\\\Server\\\\Temp"
+                    // "\\\\FP-SBS\\\\PublicDocs\\\\FP\\\\Server\\\\Temp"
                     DirectoryInfo di = new DirectoryInfo(filePath);
                     if (di.Exists)
                     {
@@ -255,7 +255,7 @@ namespace FruPak.PF.Utils.Scanning
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

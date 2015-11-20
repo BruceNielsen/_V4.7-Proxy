@@ -1,6 +1,6 @@
 ﻿using System.Windows.Forms;
 
-namespace FruPak.PF.Temp
+namespace PF.Temp
 {
     public partial class Temp_Form : Form
     {

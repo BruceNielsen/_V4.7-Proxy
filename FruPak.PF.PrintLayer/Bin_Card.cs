@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 
-namespace FruPak.PF.PrintLayer
+namespace PF.PrintLayer
 {
     public class Bin_Card
     {
@@ -30,7 +30,7 @@ namespace FruPak.PF.PrintLayer
         {
             int return_code = 97;
 
-            DataSet ds_default = FruPak.PF.Data.AccessLayer.CM_System.Get_Info_Like("PF%");
+            DataSet ds_default = PF.Data.AccessLayer.CM_System.Get_Info_Like("PF%");
             DataRow dr_default;
             for (int i_d = 0; i_d < ds_default.Tables[0].Rows.Count; i_d++)
             {
@@ -38,11 +38,11 @@ namespace FruPak.PF.PrintLayer
                 switch (dr_default["Code"].ToString())
                 {
                     case "PF-TPath":
-                        FruPak.PF.PrintLayer.Word.TemplatePath = dr_default["Value"].ToString();
+                        PF.PrintLayer.Word.TemplatePath = dr_default["Value"].ToString();
                         break;
 
                     case "PF-TBin":
-                        FruPak.PF.PrintLayer.Word.TemplateName = dr_default["Value"].ToString();
+                        PF.PrintLayer.Word.TemplateName = dr_default["Value"].ToString();
                         break;
 
                     case "PF-TPPath":
@@ -61,72 +61,72 @@ namespace FruPak.PF.PrintLayer
             switch (str_WS_Ind)
             {
                 case "S":
-                    ds_bincard = FruPak.PF.Data.AccessLayer.Temp_submission.BinCard(int_sub_id);
+                    ds_bincard = PF.Data.AccessLayer.Temp_submission.BinCard(int_sub_id);
                     break;
 
                 case "W":
                     //int_sub_id here is the Bin_Id
-                    ds_bincard = FruPak.PF.Data.AccessLayer.CM_Bins.BinCard_Work_Order_In(int_sub_id);
+                    ds_bincard = PF.Data.AccessLayer.CM_Bins.BinCard_Work_Order_In(int_sub_id);
                     break;
             }
             DataRow dr_bincard;
 
             for (int i = 0; i < ds_bincard.Tables[0].Rows.Count; i++)
             {
-                FruPak.PF.PrintLayer.Word.StartWord();
-                FruPak.PF.PrintLayer.Word.OpenTemplate();
+                PF.PrintLayer.Word.StartWord();
+                PF.PrintLayer.Word.OpenTemplate();
                 dr_bincard = ds_bincard.Tables[0].Rows[i];
                 //start word and replace bookmarks
 
                 //create barcode1
                 string str_image_location = "";
-                FruPak.PF.PrintLayer.Barcode.str_Barcode = dr_bincard["Barcode"].ToString();
-                FruPak.PF.PrintLayer.Barcode.Width = 450;
-                FruPak.PF.PrintLayer.Barcode.Height = 100;
-                FruPak.PF.PrintLayer.Barcode.RotateFlip = System.Drawing.RotateFlipType.Rotate270FlipNone;
-                str_image_location = FruPak.PF.PrintLayer.Barcode.Generate_Barcode();
+                PF.PrintLayer.Barcode.str_Barcode = dr_bincard["Barcode"].ToString();
+                PF.PrintLayer.Barcode.Width = 450;
+                PF.PrintLayer.Barcode.Height = 100;
+                PF.PrintLayer.Barcode.RotateFlip = System.Drawing.RotateFlipType.Rotate270FlipNone;
+                str_image_location = PF.PrintLayer.Barcode.Generate_Barcode();
 
-                FruPak.PF.PrintLayer.Word.BarcodeFull = str_image_location;
-                FruPak.PF.PrintLayer.Word.Add_Barcode("Barcode1");
+                PF.PrintLayer.Word.BarcodeFull = str_image_location;
+                PF.PrintLayer.Word.Add_Barcode("Barcode1");
 
                 //create barcode2
                 str_image_location = "";
-                FruPak.PF.PrintLayer.Barcode.str_Barcode = dr_bincard["Barcode"].ToString();
-                FruPak.PF.PrintLayer.Barcode.Width = 450;
-                FruPak.PF.PrintLayer.Barcode.Height = 100;
-                FruPak.PF.PrintLayer.Barcode.RotateFlip = System.Drawing.RotateFlipType.RotateNoneFlipNone;
-                str_image_location = FruPak.PF.PrintLayer.Barcode.Generate_Barcode();
+                PF.PrintLayer.Barcode.str_Barcode = dr_bincard["Barcode"].ToString();
+                PF.PrintLayer.Barcode.Width = 450;
+                PF.PrintLayer.Barcode.Height = 100;
+                PF.PrintLayer.Barcode.RotateFlip = System.Drawing.RotateFlipType.RotateNoneFlipNone;
+                str_image_location = PF.PrintLayer.Barcode.Generate_Barcode();
 
-                FruPak.PF.PrintLayer.Word.BarcodeFull = str_image_location;
-                FruPak.PF.PrintLayer.Word.Add_Barcode("Barcode2");
+                PF.PrintLayer.Word.BarcodeFull = str_image_location;
+                PF.PrintLayer.Word.Add_Barcode("Barcode2");
 
                 DateTime dt = new DateTime();
                 switch (str_WS_Ind)
                 {
                     case "W":
-                        FruPak.PF.PrintLayer.Word.ReplaceText("Fruit", "REJECT");
+                        PF.PrintLayer.Word.ReplaceText("Fruit", "REJECT");
 
                         dt = DateTime.Now;
-                        FruPak.PF.PrintLayer.Word.ReplaceText("Date", dt.Day.ToString() + "/" + dt.Month.ToString() + "/" + dt.Year.ToString());
-                        FruPak.PF.PrintLayer.Word.ReplaceText("NumBins", Convert.ToString(num_of_Bins));
+                        PF.PrintLayer.Word.ReplaceText("Date", dt.Day.ToString() + "/" + dt.Month.ToString() + "/" + dt.Year.ToString());
+                        PF.PrintLayer.Word.ReplaceText("NumBins", Convert.ToString(num_of_Bins));
 
                         break;
 
                     default:
-                        FruPak.PF.PrintLayer.Word.ReplaceText("Submission", int_sub_id.ToString());
-                        FruPak.PF.PrintLayer.Word.ReplaceText("Fruit", dr_bincard["Fruit"].ToString().ToUpper());
-                        FruPak.PF.PrintLayer.Word.ReplaceText("Variety", dr_bincard["Variety"].ToString().ToUpper());
+                        PF.PrintLayer.Word.ReplaceText("Submission", int_sub_id.ToString());
+                        PF.PrintLayer.Word.ReplaceText("Fruit", dr_bincard["Fruit"].ToString().ToUpper());
+                        PF.PrintLayer.Word.ReplaceText("Variety", dr_bincard["Variety"].ToString().ToUpper());
 
                         dt = Convert.ToDateTime(dr_bincard["Sub_Date"].ToString());
-                        FruPak.PF.PrintLayer.Word.ReplaceText("Date", dt.Day.ToString() + "/" + dt.Month.ToString() + "/" + dt.Year.ToString());
+                        PF.PrintLayer.Word.ReplaceText("Date", dt.Day.ToString() + "/" + dt.Month.ToString() + "/" + dt.Year.ToString());
 
-                        FruPak.PF.PrintLayer.Word.ReplaceText("Rpin", dr_bincard["Rpin"].ToString());
+                        PF.PrintLayer.Word.ReplaceText("Rpin", dr_bincard["Rpin"].ToString());
 
-                        FruPak.PF.PrintLayer.Word.ReplaceText("Trader", dr_bincard["Trader"].ToString().ToUpper());
-                        FruPak.PF.PrintLayer.Word.ReplaceText("Trader1", dr_bincard["Full_Trader"].ToString().ToUpper());
+                        PF.PrintLayer.Word.ReplaceText("Trader", dr_bincard["Trader"].ToString().ToUpper());
+                        PF.PrintLayer.Word.ReplaceText("Trader1", dr_bincard["Full_Trader"].ToString().ToUpper());
 
                         //Number of bin in submission
-                        DataSet ds = FruPak.PF.Data.AccessLayer.CM_Bins.Get_Info_Submission(int_sub_id);
+                        DataSet ds = PF.Data.AccessLayer.CM_Bins.Get_Info_Submission(int_sub_id);
                         DataRow dr;
                         num_of_Bins = 0; //reset
                         for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
@@ -135,7 +135,7 @@ namespace FruPak.PF.PrintLayer
                             num_of_Bins = num_of_Bins + Convert.ToInt32(dr["NumBins"].ToString());
                         }
                         ds.Dispose();
-                        FruPak.PF.PrintLayer.Word.ReplaceText("NumBins", Convert.ToString(num_of_Bins));
+                        PF.PrintLayer.Word.ReplaceText("NumBins", Convert.ToString(num_of_Bins));
                         break;
                 }
                 //check bool
@@ -156,10 +156,10 @@ namespace FruPak.PF.PrintLayer
 
                 if (bol_Print_ind == false)
                 {
-                    return_code = FruPak.PF.PrintLayer.Word.Print();
-                    FruPak.PF.Data.AccessLayer.CM_Bins.Update_Print_Ind(dr_bincard["Barcode"].ToString(), true);
+                    return_code = PF.PrintLayer.Word.Print();
+                    PF.Data.AccessLayer.CM_Bins.Update_Print_Ind(dr_bincard["Barcode"].ToString(), true);
                 }
-                FruPak.PF.PrintLayer.Word.CloseWord();
+                PF.PrintLayer.Word.CloseWord();
             }
 
             //Delete temp files after printer

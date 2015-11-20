@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,19 +27,19 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(WOStf_Relat_Id) as Current_Id FROM PF_Work_Order_Staff_Relationship");
         }
 
         public static DataSet Get_Info()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Work_Order_Staff_Relationship ");
         }
 
         public static DataSet Get_Info_Translated(int Work_Order_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT WOSR.*, S.First_Name + ' ' + S.Last_Name as Name " +
                                             "FROM PF_Work_Order_Staff_Relationship WOSR " +
                                             "INNER JOIN dbo.PF_Staff S ON WOSR.Staff_Id = S.Staff_Id " +
@@ -48,26 +48,26 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Insert(int WOStf_Relat_Id, int Work_Order_Id, int Staff_Id, bool Process_Hours, decimal Extra_Hours, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO PF_Work_Order_Staff_Relationship(WOStf_Relat_Id, Work_Order_Id, Staff_Id, Process_Hours, Extra_Hours, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + WOStf_Relat_Id + "," + Work_Order_Id + "," + Staff_Id + ",'" + Process_Hours + "'," + Extra_Hours + ", GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Delete(int WOStf_Relat_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_Work_Order_Staff_Relationship WHERE WOStf_Relat_Id = " + WOStf_Relat_Id);
         }
 
         public static int Delete_WO(int Work_Order_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_Work_Order_Staff_Relationship WHERE Work_Order_Id = " + Work_Order_Id);
         }
 
         public static int Update(int WOStf_Relat_Id, int Work_Order_Id, int Staff_Id, bool Process_Hours, decimal Extra_Hours, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_Work_Order_Staff_Relationship SET Work_Order_Id = " + Work_Order_Id + ", " +
                                                                                            "Staff_Id = " + Staff_Id + ", " +
                                                                                            "Process_Hours = '" + Process_Hours + "', " +

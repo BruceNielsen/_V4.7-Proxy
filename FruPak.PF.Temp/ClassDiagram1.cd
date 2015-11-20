@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Comment CommentText="FruPak.Pf.Temp">
+  <Comment CommentText="PF.Temp">
     <Position X="7.521" Y="3.823" Height="0.75" Width="1.7" />
   </Comment>
-  <Class Name="FruPak.PF.Temp.Pre_System_Stock">
+  <Class Name="PF.Temp.Pre_System_Stock">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -13,14 +13,14 @@
       <FileName>Pre_System_Stock.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Temp.Program" Collapsed="true">
+  <Class Name="PF.Temp.Program" Collapsed="true">
     <Position X="7.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAIAAAAAABAAAAAQ=</HashCode>
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Temp.Submission">
+  <Class Name="PF.Temp.Submission">
     <Position X="2.25" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -30,14 +30,14 @@
       <FileName>Submission.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Temp.myPrinters" Collapsed="true">
+  <Class Name="PF.Temp.myPrinters" Collapsed="true">
     <Position X="7.5" Y="3" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Submission.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Temp.Submission_Bins">
+  <Class Name="PF.Temp.Submission_Bins">
     <Position X="4" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -47,20 +47,20 @@
       <FileName>Submission_Bins.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Temp.Temp_Form">
+  <Class Name="PF.Temp.Temp_Form">
     <Position X="5.75" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAACAAAAAAAACAAAACAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Temp_Form.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Temp.Properties.Resources" Collapsed="true">
+  <Class Name="PF.Temp.Properties.Resources" Collapsed="true">
     <Position X="7.5" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Temp.Properties.Settings" Collapsed="true">
+  <Class Name="PF.Temp.Properties.Settings" Collapsed="true">
     <Position X="7.5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>

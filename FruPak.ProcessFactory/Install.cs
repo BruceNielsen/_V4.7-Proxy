@@ -1,4 +1,4 @@
-﻿using FruPak.PF.CustomSettings;
+﻿using PF.CustomSettings;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace FruPak.ProcessFactory
+namespace FP.ProcessFactory
 {
     /// <summary>
     /// Install form which gets called at startup
@@ -51,7 +51,7 @@ namespace FruPak.ProcessFactory
             //#region Get "My Documents" folder
 
             //string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            //path = Path.Combine(path, "FruPak_Settings");
+            //path = Path.Combine(path, "FP_Settings");
 
             //// Create folder if it doesn't already exist
             //if (!Directory.Exists(path))
@@ -61,7 +61,7 @@ namespace FruPak.ProcessFactory
 
             //// Initialize settings
             //Settings = new PhantomCustomSettings();
-            //Settings.SettingsPath = Path.Combine(path, "FruPak.Phantom.config");
+            //Settings.SettingsPath = Path.Combine(path, "FP.Phantom.config");
             //Settings.EncryptionKey = "phantomKey";
 
             //if (!File.Exists(Settings.SettingsPath))
@@ -81,10 +81,10 @@ namespace FruPak.ProcessFactory
             //// Was getting screwed up as the Main_Menu form is actually opened before the logon form,
             //// but stays hidden.
 
-            ////FruPak.PF.Global.Global.Phantom_Dev_Mode = Settings.Phantom_Dev_Mode;
+            ////PF.Global.Global.Phantom_Dev_Mode = Settings.Phantom_Dev_Mode;
 
-            ////FruPak.PF.Global.Global.Phantom_Dev_Test = Settings.Phantom_Dev_Test_Mode;
-            ////FruPak.PF.Global.Global.Phantom_Dev_EnableResize = Settings.Phantom_Dev_EnableResize;
+            ////PF.Global.Global.Phantom_Dev_Test = Settings.Phantom_Dev_Test_Mode;
+            ////PF.Global.Global.Phantom_Dev_EnableResize = Settings.Phantom_Dev_EnableResize;
 
             //logger.Log(LogLevel.Info, LogCode("Install.cs: Settings file opened."));
 
@@ -155,7 +155,7 @@ namespace FruPak.ProcessFactory
                         // Use task manager to find and kill off the process.
                         // ------------------------------------------------------------- Phantom 16/12/2014
                         // "System.IO.IOException: The process cannot access the file
-                        // 'C:\FruPak\Client\Printing\Templates\PF-BinCard.dotx' because it is being used by another process.
+                        // 'C:\FP\Client\Printing\Templates\PF-BinCard.dotx' because it is being used by another process.
                         logger.Log(LogLevel.Trace, "Exception - probable cause is WinWord running in the background.");
 
                         logger.Log(LogLevel.Debug, ex.Message);
@@ -212,14 +212,14 @@ namespace FruPak.ProcessFactory
             {
                 logger.Log(LogLevel.Trace, "Install_id == 0 (Insert)");
 
-                FruPak.PF.Data.AccessLayer.SC_Install.Insert(FruPak.PF.Common.Code.General.int_max_user_id("SC_Install"), MAC_Address);
+                PF.Data.AccessLayer.SC_Install.Insert(PF.Common.Code.General.int_max_user_id("SC_Install"), MAC_Address);
             }
             //Update
             else
             {
                 logger.Log(LogLevel.Trace, "Install_id != 0 (Update), Install ID is: " + Install_id.ToString() + ", MAC: " + MAC_Address);
 
-                FruPak.PF.Data.AccessLayer.SC_Install.Update(Install_id, MAC_Address);
+                PF.Data.AccessLayer.SC_Install.Update(Install_id, MAC_Address);
             }
             this.Close();
         }
@@ -259,7 +259,7 @@ namespace FruPak.ProcessFactory
             else
             {
                 int int_install_id = 0;
-                DataSet ds = FruPak.PF.Data.AccessLayer.SC_Install.Get_MAC(MAC);
+                DataSet ds = PF.Data.AccessLayer.SC_Install.Get_MAC(MAC);
                 DataRow dr;
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
@@ -280,7 +280,7 @@ namespace FruPak.ProcessFactory
         public static DateTime Get_Last_execution(string MAC)
         {
             DateTime dt = new DateTime();
-            DataSet ds = FruPak.PF.Data.AccessLayer.SC_Install.Get_MAC(MAC);
+            DataSet ds = PF.Data.AccessLayer.SC_Install.Get_MAC(MAC);
             DataRow dr;
             if (ds != null)
             {

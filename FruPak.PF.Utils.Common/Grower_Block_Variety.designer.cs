@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.Common
+﻿namespace PF.Utils.Common
 {
     partial class Grower_Block_Variety
     {
@@ -176,7 +176,7 @@
             this.KeyPreview = true;
             this.Name = "Grower_Block_Variety";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.Common.Grower Block Variety";
+            this.Text = "PF.Utils.Common.Grower Block Variety";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Grower_Block_Variety_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.Scanning
+﻿namespace PF.Utils.Scanning
 {
     partial class Repack
     {
@@ -285,7 +285,7 @@
             this.KeyPreview = true;
             this.Name = "Repack";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.Scanning.Repack";
+            this.Text = "PF.Utils.Scanning.Repack";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Repack_KeyDown);
             this.Resize += new System.EventHandler(this.Repack_Resize);

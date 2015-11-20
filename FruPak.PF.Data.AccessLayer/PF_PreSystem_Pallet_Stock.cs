@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,25 +27,25 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(PrePalletStock_ID) as Current_Id FROM PF_PreSystem_Pallet_Stock");
         }
 
         public static DataSet Get_Info()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_PreSystem_Pallet_Stock ");
         }
 
         public static DataSet Get_Info(int Material_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_PreSystem_Pallet_Stock WHERE Material_Id = " + Material_Id);
         }
 
         public static DataSet Get_Info_Translated()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT PPS.*, M.Material_Num, M.Description " +
                                             "FROM dbo.PF_PreSystem_Pallet_Stock PPS " +
                                             "INNER JOIN dbo.CM_Material M ON M.Material_Id = PPS.Material_Id");
@@ -53,20 +53,20 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Delete(int PrePalletStock_ID)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_PreSystem_Pallet_Stock WHERE PrePalletStock_ID = " + PrePalletStock_ID);
         }
 
         public static int Insert(int PrePalletStock_ID, int Material_Id, decimal Quantity, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO PF_PreSystem_Pallet_Stock(PrePalletStock_ID, Material_Id, Quantity,  Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + PrePalletStock_ID + "," + Material_Id + "," + Quantity + ", GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Update(int PrePalletStock_ID, decimal Quantity, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_PreSystem_Pallet_Stock SET Quantity = " + Quantity + ", " +
                                                                   "Mod_date = GETDATE(), " +
                                                                   "Mod_User_Id = " + Mod_User_Id +
@@ -75,7 +75,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Update(int PrePalletStock_ID, int Material_Id, decimal Quantity, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_PreSystem_Pallet_Stock SET Material_Id = " + Material_Id + ", " +
                                                                   "Quantity = " + Quantity + ", " +
                                                                   "Mod_date = GETDATE(), " +

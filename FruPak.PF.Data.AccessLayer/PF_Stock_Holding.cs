@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,13 +27,13 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(Stock_Hold_Id) as Current_Id FROM PF_Stock_Holding");
         }
 
         public static DataSet Get_Info_Translated()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT SH.*, SI.Code as SI_Code, SI.Description AS SI_Description " +
                                             "FROM dbo.PF_Stock_Holding SH " +
                                             "INNER JOIN dbo.PF_Stock_Item SI ON SI.Stock_Item_Id = SH.Stock_Item_Id " +
@@ -42,14 +42,14 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Insert(int Stock_Hold_Id, int Stock_Item_Id, decimal Season, string Invoice_Num, string Arrival_Date, int Quantity, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO PF_Stock_Holding(Stock_Hold_Id,  Stock_Item_Id, Season, Invoice_Num, Arrival_Date, Quantity, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + Stock_Hold_Id + "," + Stock_Item_Id + "," + Season + ",'" + Invoice_Num + "', '" + Arrival_Date + "'," + Quantity + ", GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Update(int Stock_Hold_Id, int Stock_Item_Id, string Invoice_Num, string Arrival_Date, int Quantity, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE PF_Stock_Holding SET Stock_Item_Id = " + Stock_Item_Id + ", " +
                                                                   "Invoice_Num = '" + Invoice_Num + "', " +
                                                                   "Arrival_Date = '" + Arrival_Date + "', " +
@@ -61,13 +61,13 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Delete(int Stock_Hold_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_Stock_Holding WHERE Stock_Hold_Id = " + Stock_Hold_Id);
         }
 
         public static DataSet Holding_Sum()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT SH.Stock_Item_Id, SUM(SH.Quantity)as Holding FROM dbo.PF_Stock_Holding SH GROUP BY SH.Stock_Item_Id");
         }
     }

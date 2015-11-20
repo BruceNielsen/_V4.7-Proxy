@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.Security
+﻿namespace PF.Utils.Security
 {
     partial class Logon
     {
@@ -110,9 +110,9 @@
             // btn_Change_Password
             // 
             this.btn_Change_Password.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btn_Change_Password.Location = new System.Drawing.Point(325, 34);
+            this.btn_Change_Password.Location = new System.Drawing.Point(325, 35);
             this.btn_Change_Password.Name = "btn_Change_Password";
-            this.btn_Change_Password.Size = new System.Drawing.Size(178, 74);
+            this.btn_Change_Password.Size = new System.Drawing.Size(162, 74);
             this.btn_Change_Password.TabIndex = 7;
             this.btn_Change_Password.Text = "Change Pass&word";
             this.btn_Change_Password.UseVisualStyleBackColor = true;
@@ -148,25 +148,31 @@
             // 
             // panelHackRobinJ
             // 
-            this.panelHackRobinJ.Location = new System.Drawing.Point(434, 169);
+            this.panelHackRobinJ.AutoSize = true;
+            this.panelHackRobinJ.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.panelHackRobinJ.Location = new System.Drawing.Point(449, 185);
             this.panelHackRobinJ.Name = "panelHackRobinJ";
-            this.panelHackRobinJ.Size = new System.Drawing.Size(85, 74);
+            this.panelHackRobinJ.Size = new System.Drawing.Size(60, 65);
             this.panelHackRobinJ.TabIndex = 9;
             this.panelHackRobinJ.Click += new System.EventHandler(this.panelHack_Click);
             // 
             // panelHackSelkuckG
             // 
-            this.panelHackSelkuckG.Location = new System.Drawing.Point(454, 5);
+            this.panelHackSelkuckG.BackColor = System.Drawing.SystemColors.Control;
+            this.panelHackSelkuckG.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.panelHackSelkuckG.Location = new System.Drawing.Point(428, -1);
             this.panelHackSelkuckG.Name = "panelHackSelkuckG";
-            this.panelHackSelkuckG.Size = new System.Drawing.Size(65, 23);
+            this.panelHackSelkuckG.Size = new System.Drawing.Size(81, 36);
             this.panelHackSelkuckG.TabIndex = 10;
             this.panelHackSelkuckG.Click += new System.EventHandler(this.panelHackSelkuckG_Click);
+            this.panelHackSelkuckG.Paint += new System.Windows.Forms.PaintEventHandler(this.panelHackSelkuckG_Paint);
             // 
             // panelHackGlenysP
             // 
-            this.panelHackGlenysP.Location = new System.Drawing.Point(1, 4);
+            this.panelHackGlenysP.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            this.panelHackGlenysP.Location = new System.Drawing.Point(3, -1);
             this.panelHackGlenysP.Name = "panelHackGlenysP";
-            this.panelHackGlenysP.Size = new System.Drawing.Size(56, 24);
+            this.panelHackGlenysP.Size = new System.Drawing.Size(83, 36);
             this.panelHackGlenysP.TabIndex = 11;
             this.panelHackGlenysP.Click += new System.EventHandler(this.panelHackGlenysP_Click);
             // 
@@ -175,7 +181,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.CancelButton = this.btn_Close;
-            this.ClientSize = new System.Drawing.Size(513, 236);
+            this.ClientSize = new System.Drawing.Size(511, 247);
             this.ControlBox = false;
             this.Controls.Add(this.panelHackGlenysP);
             this.Controls.Add(this.panelHackSelkuckG);
@@ -189,15 +195,14 @@
             this.Controls.Add(this.lbl_Password);
             this.Controls.Add(this.lbl_User_Id);
             this.Controls.Add(this.txt_User_Id);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Logon";
-            this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.Security.Logon";
+            this.Text = "PF.Utils.Security.Logon";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.Logon_FormClosing);
             this.Load += new System.EventHandler(this.Logon_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Logon_KeyDown);

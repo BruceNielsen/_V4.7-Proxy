@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.WorkOrder
+namespace PF.WorkOrder
 {
     public partial class Process_Set_Up : Form
     {
@@ -21,13 +21,13 @@ namespace FruPak.PF.WorkOrder
             bol_write_access = bol_w_a;
             btn_Add.Enabled = bol_w_a;
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
 
             populate_combobox();
@@ -70,9 +70,9 @@ namespace FruPak.PF.WorkOrder
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -82,7 +82,7 @@ namespace FruPak.PF.WorkOrder
 
         private void populate_combobox()
         {
-            DataSet ds = FruPak.PF.Data.AccessLayer.PF_Staff.Get_Info();
+            DataSet ds = PF.Data.AccessLayer.PF_Staff.Get_Info();
             cmb_Staff.DataSource = ds.Tables[0];
             cmb_Staff.DisplayMember = "Name";
             cmb_Staff.ValueMember = "Staff_Id";
@@ -142,14 +142,14 @@ namespace FruPak.PF.WorkOrder
             dataGridView1.Columns.Add(img_delete);
             img_delete.HeaderText = "Remove";
             img_delete.Name = "Delete";
-            img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
+            img_delete.Image = PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
 
             DataGridViewImageColumn img_edit = new DataGridViewImageColumn();
             dataGridView1.Columns.Add(img_edit);
             img_edit.HeaderText = "Edit";
             img_edit.Name = "Edit";
-            img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
+            img_edit.Image = PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
         }
 
@@ -216,7 +216,7 @@ namespace FruPak.PF.WorkOrder
             DataSet ds_Get_Info;
             DataRow dr_Get_Info;
 
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Process_Setup.Get_Info_Translated();
+            ds_Get_Info = PF.Data.AccessLayer.PF_Process_Setup.Get_Info_Translated();
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {
@@ -270,7 +270,7 @@ namespace FruPak.PF.WorkOrder
             dataGridView2.Refresh();
             dataGridView2.Rows.Clear();
 
-            DataSet ds = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_WO_For_SetUP(str_join, str_where);
+            DataSet ds = PF.Data.AccessLayer.PF_Work_Order.Get_WO_For_SetUP(str_join, str_where);
             DataRow dr;
 
             for (int i = 0; i < Convert.ToInt32(ds.Tables[0].Rows.Count.ToString()); i++)
@@ -312,7 +312,7 @@ namespace FruPak.PF.WorkOrder
                 DGVC_Cell7.Value = dr["FruitVariety"].ToString();
                 dataGridView2.Rows[i_rows].Cells["FruitVariety"] = DGVC_Cell7;
 
-                DataSet ds_distinct = FruPak.PF.Data.AccessLayer.PF_Process_Setup_Work_Order_Relationship.Get_Selected(Convert.ToInt32(dr["Work_Order_Id"].ToString()));
+                DataSet ds_distinct = PF.Data.AccessLayer.PF_Process_Setup_Work_Order_Relationship.Get_Selected(Convert.ToInt32(dr["Work_Order_Id"].ToString()));
 
                 if (ds_distinct.Tables[0].Rows.Count > 0)
                 {
@@ -380,13 +380,13 @@ namespace FruPak.PF.WorkOrder
                 switch (btn_Add.Text)
                 {
                     case "&Add":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Process_Setup.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Process_Setup"), Convert.ToInt32(cmb_Staff.SelectedValue.ToString()), dtp_start_date.Value.ToString("yyyy/MM/dd"),
+                        int_result = PF.Data.AccessLayer.PF_Process_Setup.Insert(PF.Common.Code.General.int_max_user_id("PF_Process_Setup"), Convert.ToInt32(cmb_Staff.SelectedValue.ToString()), dtp_start_date.Value.ToString("yyyy/MM/dd"),
                                                                                     dtp_start_time.Value.Hour.ToString() + ":" + dtp_start_time.Value.Minute.ToString() + ":" + dtp_start_time.Value.Second.ToString(), dtp_finish_date.Value.ToString("yyyy/MM/dd"),
                                                                                     dtp_finish_time.Value.Hour.ToString() + ":" + dtp_finish_time.Value.Minute.ToString() + ":" + dtp_finish_time.Value.Second.ToString(), txt_comments.Text, int_Current_User_Id);
                         break;
 
                     case "&Update":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Process_Setup.Update(int_dvg_Cell0, Convert.ToInt32(cmb_Staff.SelectedValue.ToString()), dtp_start_date.Value.ToString("yyyy/MM/dd"),
+                        int_result = PF.Data.AccessLayer.PF_Process_Setup.Update(int_dvg_Cell0, Convert.ToInt32(cmb_Staff.SelectedValue.ToString()), dtp_start_date.Value.ToString("yyyy/MM/dd"),
                                                                                     dtp_start_time.Value.Hour.ToString() + ":" + dtp_start_time.Value.Minute.ToString() + ":" + dtp_start_time.Value.Second.ToString(), dtp_finish_date.Value.ToString("yyyy/MM/dd"),
                                                                                     dtp_finish_time.Value.Hour.ToString() + ":" + dtp_finish_time.Value.Minute.ToString() + ":" + dtp_finish_time.Value.Second.ToString(), txt_comments.Text, int_Current_User_Id);
 
@@ -436,7 +436,7 @@ namespace FruPak.PF.WorkOrder
 
                 if (DLR_Message == DialogResult.Yes)
                 {
-                    int_result = FruPak.PF.Data.AccessLayer.PF_Process_Setup.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Processsetup_Id"].Value.ToString()));
+                    int_result = PF.Data.AccessLayer.PF_Process_Setup.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Processsetup_Id"].Value.ToString()));
                 }
 
                 if (int_result > 0)
@@ -509,15 +509,15 @@ namespace FruPak.PF.WorkOrder
             {
                 if (Convert.ToBoolean(dataGridView2.Rows[i2].Cells["Select"].Value) == true)
                 {
-                    FruPak.PF.Data.AccessLayer.PF_Process_Setup_Work_Order_Relationship.Delete(Convert.ToInt32(dataGridView1.CurrentRow.Cells["Processsetup_Id"].Value.ToString()), Convert.ToInt32(dataGridView2.Rows[i2].Cells["Work_Order_Id"].Value.ToString()));
+                    PF.Data.AccessLayer.PF_Process_Setup_Work_Order_Relationship.Delete(Convert.ToInt32(dataGridView1.CurrentRow.Cells["Processsetup_Id"].Value.ToString()), Convert.ToInt32(dataGridView2.Rows[i2].Cells["Work_Order_Id"].Value.ToString()));
                     int_result =
-                    int_result + FruPak.PF.Data.AccessLayer.PF_Process_Setup_Work_Order_Relationship.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Process_Setup_Work_Order_Relationship"),
+                    int_result + PF.Data.AccessLayer.PF_Process_Setup_Work_Order_Relationship.Insert(PF.Common.Code.General.int_max_user_id("PF_Process_Setup_Work_Order_Relationship"),
                         Convert.ToInt32(dataGridView1.CurrentRow.Cells["Processsetup_Id"].Value.ToString()), Convert.ToInt32(dataGridView2.Rows[i2].Cells["Work_Order_Id"].Value.ToString()), int_Current_User_Id);
                 }
                 else
                 {
                     int_result =
-                    int_result + FruPak.PF.Data.AccessLayer.PF_Process_Setup_Work_Order_Relationship.Delete(Convert.ToInt32(dataGridView1.CurrentRow.Cells["Processsetup_Id"].Value.ToString()), Convert.ToInt32(dataGridView2.Rows[i2].Cells["Work_Order_Id"].Value.ToString()));
+                    int_result + PF.Data.AccessLayer.PF_Process_Setup_Work_Order_Relationship.Delete(Convert.ToInt32(dataGridView1.CurrentRow.Cells["Processsetup_Id"].Value.ToString()), Convert.ToInt32(dataGridView2.Rows[i2].Cells["Work_Order_Id"].Value.ToString()));
                 }
             }
 
@@ -538,7 +538,7 @@ namespace FruPak.PF.WorkOrder
 
         private void btn_new_Click(object sender, EventArgs e)
         {
-            FruPak.PF.Data.AccessLayer.PF_Process_Setup.Update_Active(Convert.ToBoolean(false), int_Current_User_Id);
+            PF.Data.AccessLayer.PF_Process_Setup.Update_Active(Convert.ToBoolean(false), int_Current_User_Id);
             populate_datagridview();
 
             string str_join = "INNER JOIN dbo.PF_Process_Setup_Work_Order_Relationship PSWOR ON PSWOR.Work_Order_Id <> WO.Work_Order_Id";
@@ -595,7 +595,7 @@ namespace FruPak.PF.WorkOrder
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Accounts
+﻿namespace PF.Accounts
 {
     partial class Order_Invoice_Link
     {
@@ -129,7 +129,7 @@
             this.KeyPreview = true;
             this.Name = "Order_Invoice_Link";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Accounts.Order_Invoice_Link";
+            this.Text = "PF.Accounts.Order_Invoice_Link";
             this.Load += new System.EventHandler(this.Order_Invoice_Link_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Order_Invoice_Link_KeyDown);
             this.ResumeLayout(false);

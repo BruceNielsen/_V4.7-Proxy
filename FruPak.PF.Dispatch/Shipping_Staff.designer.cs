@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Dispatch
+﻿namespace PF.Dispatch
 {
     partial class Shipping_Staff
     {
@@ -204,7 +204,7 @@
             this.MinimizeBox = false;
             this.Name = "Shipping_Staff";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Dispatch.Shipping Staff";
+            this.Text = "PF.Dispatch.Shipping Staff";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Shipping_Staff_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

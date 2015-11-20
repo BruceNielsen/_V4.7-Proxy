@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Scanning
+namespace PF.Utils.Scanning
 {
     public partial class Wet_Dry : Form
     {
@@ -16,13 +16,13 @@ namespace FruPak.PF.Utils.Scanning
             InitializeComponent();
             int_Current_User_Id = int_C_User_id;
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
 
             #region Log any interesting events from the UI to the CSV log file
@@ -57,9 +57,9 @@ namespace FruPak.PF.Utils.Scanning
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -85,11 +85,11 @@ namespace FruPak.PF.Utils.Scanning
                 DataSet ds = null;
                 if (rbn_PF.Checked == true)
                 {
-                    ds = FruPak.PF.Data.AccessLayer.CM_Bins.Get_All_For_Barcode(barcode1.BarcodeValue.ToString());
+                    ds = PF.Data.AccessLayer.CM_Bins.Get_All_For_Barcode(barcode1.BarcodeValue.ToString());
                 }
                 else if (rbn_GDI.Checked == true)
                 {
-                    ds = FruPak.PF.Data.AccessLayer.CM_Bins.Get_All_For_GDIBarcode(barcode1.BarcodeValue.ToString());
+                    ds = PF.Data.AccessLayer.CM_Bins.Get_All_For_GDIBarcode(barcode1.BarcodeValue.ToString());
                 }
                 DataRow dr;
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
@@ -100,13 +100,13 @@ namespace FruPak.PF.Utils.Scanning
                 ds.Dispose();
                 if (rbn_Wet.Checked == true)
                 {
-                    FruPak.PF.Data.AccessLayer.CM_Bins.Update_Dump_Ind(int_Bins_Id, "W", int_Current_User_Id);
+                    PF.Data.AccessLayer.CM_Bins.Update_Dump_Ind(int_Bins_Id, "W", int_Current_User_Id);
                     lbl_message.Text = "Updated to WET";
                     lbl_message.ForeColor = System.Drawing.Color.Blue;
                 }
                 else if (rbn_Dry.Checked == true)
                 {
-                    FruPak.PF.Data.AccessLayer.CM_Bins.Update_Dump_Ind(int_Bins_Id, "D", int_Current_User_Id);
+                    PF.Data.AccessLayer.CM_Bins.Update_Dump_Ind(int_Bins_Id, "D", int_Current_User_Id);
                     lbl_message.Text = "Updated to Dry";
                     lbl_message.ForeColor = System.Drawing.Color.Blue;
                 }
@@ -162,7 +162,7 @@ namespace FruPak.PF.Utils.Scanning
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

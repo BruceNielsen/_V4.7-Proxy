@@ -3,7 +3,7 @@ using System;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Menu.Tablet
+namespace PF.Menu.Tablet
 {
     internal static class Program
     {

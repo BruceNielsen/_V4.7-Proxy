@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.UserControls
+﻿namespace PF.Utils.UserControls
 {
     partial class Test_Material_Number
     {
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Test_Material_Number));
-            this.materialNumber1 = new FruPak.PF.Utils.UserControls.MaterialNumber();
+            this.materialNumber1 = new PF.Utils.UserControls.MaterialNumber();
             this.button1 = new System.Windows.Forms.Button();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.SuspendLayout();
@@ -87,7 +87,7 @@
             this.KeyPreview = true;
             this.Name = "Test_Material_Number";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.UserControls.Test Material Number";
+            this.Text = "PF.Utils.UserControls.Test Material Number";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Test_Material_Number_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();

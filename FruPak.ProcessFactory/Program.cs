@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
 
-namespace FruPak.ProcessFactory
+namespace FP.ProcessFactory
 {
     internal static class Program
     {
@@ -20,10 +20,10 @@ namespace FruPak.ProcessFactory
             try
             {
                 //set to production
-                FruPak.PF.Global.Global.bol_Testing = false;
+                PF.Global.Global.bool_Testing = false;
 
-                //FruPak.PF.Global.Configuration.App.Configuration.Initialize();
-                //FruPak.PF.Global.Configuration.App.Configuration.Write();
+                //PF.Global.Configuration.App.Configuration.Initialize();
+                //PF.Global.Configuration.App.Configuration.Write();
 
                 Application.EnableVisualStyles();
                 Application.SetCompatibleTextRenderingDefault(false);
@@ -44,7 +44,7 @@ namespace FruPak.ProcessFactory
                     new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
 
                 // -----------------------------------------------[ Testing Exceptions only - not part of original design ]----------------------
-                Application.Run(new FruPak.PF.Menu.Main_Menu());
+                Application.Run(new PF.Menu.Main_Menu());
                 // -----------------------------------------------[ Testing Exceptions only - not part of original design ]----------------------
 
                 #endregion ThreadException and UnhandledException Handlers - Register Handlers - Phantom 9/12/2014
@@ -70,7 +70,7 @@ namespace FruPak.ProcessFactory
                 //        {
                 //            Application.Run(new Install());
                 //        }
-                //        Application.Run(new FruPak.PF.Menu.Main_Menu());
+                //        Application.Run(new PF.Menu.Main_Menu());
                 //    }
                 //    catch (Exception ex)
                 //    {
@@ -146,7 +146,7 @@ namespace FruPak.ProcessFactory
             //logger.Log(LogLevel.Info, "Calling: SendDebugInfo");
 
             //// Now get the debug email ready by creating a new debug form called sde.
-            //FruPak.PF.Common.Code.SendDebugEmail sde = new PF.Common.Code.SendDebugEmail();
+            //PF.Common.Code.SendDebugEmail sde = new PF.Common.Code.SendDebugEmail();
 
             //// Auto-populate the error - Add a blank line ("\r\n\r\n") as a prefix so they can type in any extra info 
             //// (It'll never happen)

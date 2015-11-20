@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,38 +27,38 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(Menu_Id) as Current_Id FROM  dbo.SC_Menu");
         }
 
         public static int Insert(int Menu_Id, string Name, string Description, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO  dbo.SC_Menu(Menu_Id, Name, Description, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + Menu_Id + ",'" + Name + "','" + Description + "', GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Delete(int Menu_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM  dbo.SC_Menu WHERE Menu_Id = " + Menu_Id);
         }
 
         public static DataSet Get_Info()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM  dbo.SC_Menu ORDER BY Name");
         }
 
         public static DataSet Get_Info(string str_Name)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM  dbo.SC_Menu WHERE Name = '" + str_Name + "'");
         }
 
         public static int Update(int Menu_Id, string Name, string Description, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE  dbo.SC_Menu SET Name = '" + Name + "', " +
                                                                   "Description = '" + Description + "', " +
                                                                   "Mod_date = GETDATE(), " +

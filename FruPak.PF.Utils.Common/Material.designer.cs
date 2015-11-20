@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.Common
+﻿namespace PF.Utils.Common
 {
     partial class Material
     {
@@ -64,7 +64,7 @@
             this.lbl_Pallet_Type = new System.Windows.Forms.Label();
             this.btn_Refresh = new System.Windows.Forms.Button();
             this.btn_reltn = new System.Windows.Forms.Button();
-            this.fruit1 = new FruPak.PF.Utils.UserControls.Fruit();
+            this.fruit1 = new PF.Utils.UserControls.Fruit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).BeginInit();
             this.SuspendLayout();
             // 
@@ -491,7 +491,7 @@
             this.KeyPreview = true;
             this.Name = "Material";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.Common.Material";
+            this.Text = "PF.Utils.Common.Material";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Material_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).EndInit();
             this.ResumeLayout(false);

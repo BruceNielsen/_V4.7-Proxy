@@ -8,15 +8,15 @@
     <ProjectGuid>{7ECD8DC7-B83D-4A41-ADB5-E1532C4AEB3A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FruPak.PF.Utils.Common</RootNamespace>
-    <AssemblyName>FruPak.PF.Utils.Common</AssemblyName>
+    <RootNamespace>PF.Utils.Common</RootNamespace>
+    <AssemblyName>PF.Utils.Common</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -38,6 +38,24 @@
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="NLog">
@@ -178,25 +196,25 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FruPak.PF.Common.Code\FruPak.PF.Common.Code.csproj">
+    <ProjectReference Include="..\FruPak.PF.Common.Code\PF.Common.Code.csproj">
       <Project>{7A894363-CA13-4FB8-9A82-ABB3F8FFAE50}</Project>
-      <Name>FruPak.PF.Common.Code</Name>
+      <Name>PF.Common.Code</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FruPak.PF.Data.AccessLayer\FruPak.PF.Data.Access_Layer.csproj">
+    <ProjectReference Include="..\FruPak.PF.Data.AccessLayer\PF.Data.Access_Layer.csproj">
       <Project>{3414FDC5-0AA3-46FA-BDCB-37954C6CE2F5}</Project>
-      <Name>FruPak.PF.Data.Access_Layer</Name>
+      <Name>PF.Data.Access_Layer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FruPak.PF.Data.Outlook\FruPak.PF.Data.Outlook.csproj">
+    <ProjectReference Include="..\FruPak.PF.Data.Outlook\PF.Data.Outlook.csproj">
       <Project>{0C73C37C-8860-4CE3-8677-67D44DA753F2}</Project>
-      <Name>FruPak.PF.Data.Outlook</Name>
+      <Name>PF.Data.Outlook</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FruPak.PF.Global\FruPak.PF.Global.csproj">
+    <ProjectReference Include="..\FruPak.PF.Global\PF.Global.csproj">
       <Project>{CC23E470-4C74-4F8E-9AC6-432DCD2DF065}</Project>
-      <Name>FruPak.PF.Global</Name>
+      <Name>PF.Global</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FruPak.PF.Utils.UserControls\FruPak.PF.Utils.UserControls.csproj">
+    <ProjectReference Include="..\FruPak.PF.Utils.UserControls\PF.Utils.UserControls.csproj">
       <Project>{23D1F355-55B4-4116-A9D6-C9AE36819F78}</Project>
-      <Name>FruPak.PF.Utils.UserControls</Name>
+      <Name>PF.Utils.UserControls</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

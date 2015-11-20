@@ -2,7 +2,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace FruPak.PF.PrintLayer
+namespace PF.PrintLayer
 {
     public class General
     {
@@ -33,18 +33,18 @@ namespace FruPak.PF.PrintLayer
             switch (str_type)
             {
                 case "Print":
-                    FruPak.PF.PrintLayer.Word.Print();
+                    PF.PrintLayer.Word.Print();
                     break;
 
                 case "Email":
                 case "EmailO":
                 case "View":
                     str_save_filename = str_save_filename + " - " + str_Invoice_Date_yyyymmdd + ".PDF";
-                    FruPak.PF.PrintLayer.Word.FileName = str_save_filename;
-                    int_result = FruPak.PF.PrintLayer.Word.SaveAsPdf();
+                    PF.PrintLayer.Word.FileName = str_save_filename;
+                    int_result = PF.PrintLayer.Word.SaveAsPdf();
 
                     // Will crash here if view_list is null - BN 9/11/2015
-                    FruPak.PF.PrintLayer.General.view_list.Add(str_save_filename);
+                    PF.PrintLayer.General.view_list.Add(str_save_filename);
 
                     logger.Log(LogLevel.Info, "Final Filename: " + str_save_filename);
                     break;

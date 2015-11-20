@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,32 +27,32 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(WOMat_Relat_Id) as Current_Id FROM PF_Work_Order_Material_Relationship");
         }
 
         public static int Insert(int WOMat_Relat_Id, int work_Order_Id, int Material_Id, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO PF_Work_Order_Material_Relationship(WOMat_Relat_Id, work_Order_Id, Material_Id, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + WOMat_Relat_Id + "," + work_Order_Id + "," + Material_Id + ", GETDATE()," + Mod_User_Id + ")");
         }
 
         public static DataSet Get_Info_By_Work_Order(int work_Order_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Work_Order_Material_Relationship WHERE work_Order_Id = " + work_Order_Id);
         }
 
         public static DataSet Get_Info_By_Material(int Material_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Work_Order_Material_Relationship WHERE Material_Id = " + Material_Id);
         }
 
         public static DataSet Get_Info_By_WO_Translated(int work_Order_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT DISTINCT WOMR.Material_Id,M.Description, M.ProductGroup_Id, PG.Description as ProductGroup, CONVERT(varchar(max),M.Material_Num) + ' - ' + M.Description + ' - ' + PG.Description as Combined  " +
                                             "FROM dbo.PF_Work_Order_Material_Relationship WOMR " +
                                             "INNER JOIN dbo.CM_Material M ON M.Material_Id = WOMR.Material_Id " +
@@ -62,7 +62,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_Info_By_WO_Translated_M(int Material_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT DISTINCT WOMR.Material_Id,M.Description, M.ProductGroup_Id, PG.Description as ProductGroup, CONVERT(varchar(max),M.Material_Num) + ' - ' + M.Description + ' - ' + PG.Description as Combined  " +
                                             "FROM dbo.PF_Work_Order_Material_Relationship WOMR " +
                                             "INNER JOIN dbo.CM_Material M ON M.Material_Id = WOMR.Material_Id " +
@@ -72,13 +72,13 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Delete(int work_Order_Id, int Material_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_Work_Order_Material_Relationship WHERE work_Order_Id = " + work_Order_Id + " AND Material_Id = " + Material_Id);
         }
 
         public static int Delete_WO(int work_Order_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_Work_Order_Material_Relationship WHERE work_Order_Id = " + work_Order_Id);
         }
     }

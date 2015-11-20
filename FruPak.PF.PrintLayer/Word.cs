@@ -1,4 +1,4 @@
-﻿using FruPak.PF.CustomSettings;
+﻿using PF.CustomSettings;
 using NetOffice.WordApi.Enums;
 using NLog;
 using System;
@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 using System.Windows.Forms;
 using _Word = NetOffice.WordApi;
 
-namespace FruPak.PF.PrintLayer
+namespace PF.PrintLayer
 {
 	public class Word
 	{
@@ -80,7 +80,7 @@ namespace FruPak.PF.PrintLayer
 		
 		public static void Server_Print(string Data, int int_Current_User_Id)
 		{
-			FruPak.PF.Data.AccessLayer.SY_PrintRequest.Insert(FruPak.PF.Common.Code.General.int_max_user_id("SY_PrintRequest"), Printer, TemplateName, FileName, Data, int_Current_User_Id);
+			PF.Data.AccessLayer.SY_PrintRequest.Insert(PF.Common.Code.General.int_max_user_id("SY_PrintRequest"), Printer, TemplateName, FileName, Data, int_Current_User_Id);
 		}
 
 		public static bool Test_for_Word()
@@ -175,7 +175,7 @@ namespace FruPak.PF.PrintLayer
 				Common.Code.DebugStacktrace.StackTrace(ex);
 
 				//{"Sorry, we couldn’t find your file. Is it possible it was moved, renamed or deleted?\r
-				// (C:\\FruPak\\...\\Temp\\COA2015000240-1.docx)"}
+				// (C:\\FP\\...\\Temp\\COA2015000240-1.docx)"}
 				// --------------------------------------------------------------------------------------
 				// This exception is being caused by my using a virtual pdf printer for testing, which
 				// saves the documents with a completely different filename into a different location.
@@ -348,7 +348,7 @@ namespace FruPak.PF.PrintLayer
 
 					string path = Application.StartupPath;
 					Settings = new PhantomCustomSettings();
-					Settings.SettingsPath = Path.Combine(path, "FruPak.Phantom.config");
+					Settings.SettingsPath = Path.Combine(path, "FP.Phantom.config");
 					Settings.EncryptionKey = "phantomKey";
 					Settings.Load();
 					default_printer = Settings.Printer_Name;
@@ -368,8 +368,8 @@ namespace FruPak.PF.PrintLayer
 					object oMissing = System.Reflection.Missing.Value;
 					object oTrue = true;
 
-					Console.WriteLine("FruPak.PF.PrintLayer.Word: Word version = " + version.ToString());
-					logger.Log(LogLevel.Info, LogCodeStatic("FruPak.PF.PrintLayer.Word: Word version = " + version.ToString()));
+					Console.WriteLine("PF.PrintLayer.Word: Word version = " + version.ToString());
+					logger.Log(LogLevel.Info, LogCodeStatic("PF.PrintLayer.Word: Word version = " + version.ToString()));
 
 					#endregion Get word version and filename
 
@@ -378,9 +378,9 @@ namespace FruPak.PF.PrintLayer
 					{
 						//trial for 2007 start
 						// Note from 2015 - this never gets called
-						FilePath = @"\\FruPak-SBS\PublicDocs\\FruPak\Client\Printing\Saved";
+						FilePath = @"\\FP-SBS\PublicDocs\\FP\Client\Printing\Saved";
 						FileName = "Dave1";
-						return_code = FruPak.PF.PrintLayer.Word.SaveAS();
+						return_code = PF.PrintLayer.Word.SaveAS();
 
 						Microsoft.Office.Interop.Word.Application wordInstance = new Microsoft.Office.Interop.Word.Application();
 
@@ -540,7 +540,7 @@ namespace FruPak.PF.PrintLayer
 			object missing = System.Reflection.Missing.Value;
 
 			// This next line has been missing the whole time - BN 29/10/2015
-			FruPak.PF.PrintLayer.Word.FilePath = FruPak.PF.Common.Code.General.Get_Single_System_Code("PF-TPPath");
+			PF.PrintLayer.Word.FilePath = PF.Common.Code.General.Get_Single_System_Code("PF-TPPath");
 
 			string paramExportFilePath = @FilePath + @"\" + FileName;
 
@@ -586,15 +586,18 @@ namespace FruPak.PF.PrintLayer
 				//Console.WriteLine("SaveAsPdf: ExportFilePath: " + paramExportFilePath);
 				//logger.Log(LogLevel.Debug, "SaveAsPdf: ExportFilePath: " + paramExportFilePath);
 				Common.Code.DebugStacktrace.StackTrace(ex);
-
-				if (ex.InnerException.InnerException != null)
+				logger.Log(LogLevel.Debug, "Save as PDF Exception: " + ex.Message);
+				if (ex.InnerException != null)
 				{
-					logger.Log(LogLevel.Debug, "Save as PDF Inner Exception: " + ex.InnerException.InnerException.Message);
-				}
-				else
-				{
-					logger.Log(LogLevel.Debug, "Save as PDF Exception: " + ex.Message);
-					//MessageBox.Show("OpenDoc: newDocument is null.", "OpenDoc", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+					if (ex.InnerException.InnerException != null)
+					{
+						logger.Log(LogLevel.Debug, "Save as PDF Inner Exception: " + ex.InnerException.InnerException.Message);
+					}
+					else
+					{
+						logger.Log(LogLevel.Debug, "Save as PDF Exception: " + ex.Message);
+						//MessageBox.Show("OpenDoc: newDocument is null.", "OpenDoc", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+					}
 				}
 
 				return_code = 9;

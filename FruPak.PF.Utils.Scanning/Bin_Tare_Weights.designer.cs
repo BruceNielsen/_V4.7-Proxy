@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.Scanning
+﻿namespace PF.Utils.Scanning
 {
     partial class Bin_Tare_Weights
     {
@@ -34,7 +34,7 @@
             this.lbl_message = new System.Windows.Forms.Label();
             this.lbl_weight = new System.Windows.Forms.Label();
             this.btn_Close = new System.Windows.Forms.Button();
-            this.barcode1 = new FruPak.PF.Utils.UserControls.Barcode();
+            this.barcode1 = new PF.Utils.UserControls.Barcode();
             this.buttonZeroTareWeight = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).BeginInit();
             this.SuspendLayout();
@@ -138,7 +138,7 @@
             this.KeyPreview = true;
             this.Name = "Bin_Tare_Weights";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.Scanning.Bin Tare Weights";
+            this.Text = "PF.Utils.Scanning.Bin Tare Weights";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Bin_Tare_Weights_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).EndInit();
             this.ResumeLayout(false);

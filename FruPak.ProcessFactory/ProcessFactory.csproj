@@ -8,8 +8,8 @@
     <ProjectGuid>{C8BCFD49-52AC-4BA6-94F1-C874D25A7810}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FruPak.ProcessFactory</RootNamespace>
-    <AssemblyName>FruPak.ProcessFactory</AssemblyName>
+    <RootNamespace>FP.ProcessFactory</RootNamespace>
+    <AssemblyName>FP.ProcessFactory</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
@@ -33,7 +33,7 @@
     <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -59,7 +59,7 @@
     <ApplicationIcon>FruPak-PF-Overlay 2.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject>FruPak.ProcessFactory.Program</StartupObject>
+    <StartupObject>FP.ProcessFactory.Program</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <TargetZone>LocalIntranet</TargetZone>
@@ -85,6 +85,24 @@
   <PropertyGroup>
     <ManifestKeyFile>
     </ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="NLog">
@@ -164,25 +182,25 @@
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FruPak.PF.Common.Code\FruPak.PF.Common.Code.csproj">
+    <ProjectReference Include="..\FruPak.PF.Common.Code\PF.Common.Code.csproj">
       <Project>{7A894363-CA13-4FB8-9A82-ABB3F8FFAE50}</Project>
-      <Name>FruPak.PF.Common.Code</Name>
+      <Name>PF.Common.Code</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FruPak.PF.CustomSettings\FruPak.PF.CustomSettings.csproj">
+    <ProjectReference Include="..\FruPak.PF.CustomSettings\PF.CustomSettings.csproj">
       <Project>{03ac6274-6499-478e-ae47-3680a8451cd3}</Project>
-      <Name>FruPak.PF.CustomSettings</Name>
+      <Name>PF.CustomSettings</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FruPak.PF.Data.AccessLayer\FruPak.PF.Data.Access_Layer.csproj">
+    <ProjectReference Include="..\FruPak.PF.Data.AccessLayer\PF.Data.Access_Layer.csproj">
       <Project>{3414FDC5-0AA3-46FA-BDCB-37954C6CE2F5}</Project>
-      <Name>FruPak.PF.Data.Access_Layer</Name>
+      <Name>PF.Data.Access_Layer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FruPak.PF.Global\FruPak.PF.Global.csproj">
+    <ProjectReference Include="..\FruPak.PF.Global\PF.Global.csproj">
       <Project>{CC23E470-4C74-4F8E-9AC6-432DCD2DF065}</Project>
-      <Name>FruPak.PF.Global</Name>
+      <Name>PF.Global</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FruPak.PF.Menu\FruPak.PF.Menu.csproj">
+    <ProjectReference Include="..\FruPak.PF.Menu\PF.Menu.csproj">
       <Project>{3F708EB4-EDFC-4CC7-975B-CFAEC7DA76B8}</Project>
-      <Name>FruPak.PF.Menu</Name>
+      <Name>PF.Menu</Name>
     </ProjectReference>
     <ProjectReference Include="..\Reversi\Reversible.csproj">
       <Project>{661959de-8191-4107-b72b-36451bb853c7}</Project>

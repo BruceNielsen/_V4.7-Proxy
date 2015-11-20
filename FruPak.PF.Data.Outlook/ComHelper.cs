@@ -4,21 +4,24 @@
 //using System.Text;
 //using System.Threading.Tasks;
 
-//namespace FruPak.PF.Common.Code
+//namespace PF.Common.Code
 //{
 //    class ComHelper
 //    {
 //    }
 //}
 
+using NLog;
 using System;
 using System.Runtime.InteropServices;
 using ComTypes = System.Runtime.InteropServices.ComTypes;
 
-namespace FruPak.PF.Data.Outlook.ComUtils
+namespace PF.Data.Outlook.ComUtils
 {
     public class ComHelper
     {
+        private static Logger logger = LogManager.GetCurrentClassLogger();
+
         /// <summary>
         /// Returns a string value representing the type name of the specified COM object.
         /// </summary>
@@ -48,6 +51,8 @@ namespace FruPak.PF.Data.Outlook.ComUtils
                 }
                 catch (Exception ex)
                 {
+                    logger.Log(LogLevel.Info, ("Cannot get the ITypeInfo interface for the specified COM object: " + ex.Message));
+
                     //Cannot get the ITypeInfo interface for the specified COM object
                     return String.Empty;
                 }
@@ -64,6 +69,7 @@ namespace FruPak.PF.Data.Outlook.ComUtils
                 }
                 catch (Exception ex)
                 {
+                    logger.Log(LogLevel.Info, ("Cannot extract ITypeInfo information: " + ex.Message));
                     // Cannot extract ITypeInfo information
                     return String.Empty;
                 }
@@ -71,6 +77,7 @@ namespace FruPak.PF.Data.Outlook.ComUtils
             }
             catch (Exception ex)
             {
+                logger.Log(LogLevel.Info, ("Weird Unexpected Error: " + ex.Message));
                 // Unexpected error
                 return String.Empty;
             }

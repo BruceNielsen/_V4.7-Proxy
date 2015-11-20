@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Accounts
+﻿namespace PF.Accounts
 {
     partial class Payment_Received
     {
@@ -164,7 +164,7 @@
             this.KeyPreview = true;
             this.Name = "Payment_Received";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Accounts.Payment Received";
+            this.Text = "PF.Accounts.Payment Received";
             this.Load += new System.EventHandler(this.Payment_Received_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Payment_Received_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

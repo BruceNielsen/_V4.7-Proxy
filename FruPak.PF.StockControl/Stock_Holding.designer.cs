@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.StockControl
+﻿namespace PF.StockControl
 {
     partial class Stock_Holding
     {
@@ -204,7 +204,7 @@
             this.KeyPreview = true;
             this.Name = "Stock_Holding";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.StockControl.Holding";
+            this.Text = "PF.StockControl.Holding";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Stock_Holding_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nud_quantity)).EndInit();

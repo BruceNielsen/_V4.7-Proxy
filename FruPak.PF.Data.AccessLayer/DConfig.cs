@@ -1,10 +1,10 @@
-using FruPak.PF.CustomSettings;
-using FruPak.Utils.Data;
+using PF.CustomSettings;
+using FP.Utils.Data;
 using NLog;
 using System.IO;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /// <summary>
     /// Summary description for DConfig.
@@ -27,7 +27,7 @@ namespace FruPak.PF.Data.AccessLayer
 
             string path = Application.StartupPath;
             // string path = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments);
-            //path = Path.Combine(path, "FruPak_Settings"); // Creates a subfolder
+            //path = Path.Combine(path, "FP_Settings"); // Creates a subfolder
 
             // Create folder if it doesn't already exist
             //if (!Directory.Exists(path))
@@ -37,7 +37,7 @@ namespace FruPak.PF.Data.AccessLayer
 
             // Initialize settings
             Settings = new PhantomCustomSettings();
-            Settings.SettingsPath = Path.Combine(path, "FruPak.Phantom.config");
+            Settings.SettingsPath = Path.Combine(path, "FP.Phantom.config");
             Settings.EncryptionKey = "phantomKey";
 
             if (!File.Exists(Settings.SettingsPath))
@@ -59,11 +59,11 @@ namespace FruPak.PF.Data.AccessLayer
 
             #endregion Load CustomSettings
 
-            if (FruPak.PF.Global.Global.bol_Testing == true)
+            if (PF.Global.Global.bool_Testing == true)
             {
-                if (Settings.Phantom_Dev_Use_FruPak_SQL == true)
+                if (Settings.Phantom_Dev_Use_FP_SQL == true)
                 {
-                    #region FRUPAK-SQL Test mode
+                    #region FP-SQL Test mode
 
                     SQLAccessLayer.ConnectionString = @"Provider=sqloledb;" +
                                                 "Server=" + Settings.TestMode_Server + ";" +
@@ -76,14 +76,14 @@ namespace FruPak.PF.Data.AccessLayer
                     #region Original hardcoded string
 
                     //                SQLAccessLayer.ConnectionString = @"Provider=sqloledb;
-                    //				                                                Server=FRUPAK-SQL;
+                    //				                                                Server=FP-SQL;
                     //				                                                Database=Process_Factory_Test;
                     //				                                                User Id=jobs;
                     //				                                                Password=jobs;";
 
                     #endregion Original hardcoded string
 
-                    #endregion FRUPAK-SQL Test mode
+                    #endregion FP-SQL Test mode
                 }
                 else
                 {
@@ -112,9 +112,9 @@ namespace FruPak.PF.Data.AccessLayer
             }
             else
             {
-                if (Settings.Phantom_Dev_Use_FruPak_SQL == true)
+                if (Settings.Phantom_Dev_Use_FP_SQL == true)
                 {
-                    #region FRUPAK-SQL Production Mode
+                    #region FP-SQL Production Mode
 
                     SQLAccessLayer.ConnectionString = @"Provider=sqloledb;" +
                                                 "Server=" + Settings.ProductionMode_Server + ";" +
@@ -127,14 +127,14 @@ namespace FruPak.PF.Data.AccessLayer
                     #region Original hardcoded string
 
                     //                SQLAccessLayer.ConnectionString = @"Provider=sqloledb;
-                    //				                                                Server=FRUPAK-SQL;
+                    //				                                                Server=FP-SQL;
                     //				                                                Database=Process_Factory;
                     //				                                                User Id=jobs;
                     //				                                                Password=jobs;";
 
                     #endregion Original hardcoded string
 
-                    #endregion FRUPAK-SQL Production Mode
+                    #endregion FP-SQL Production Mode
                 }
                 else
                 {

@@ -2,7 +2,7 @@
 using System;
 using System.ComponentModel;
 
-namespace FruPak.PF.Data.Outlook
+namespace PF.Data.Outlook
 {
     /*Description
     -----------------

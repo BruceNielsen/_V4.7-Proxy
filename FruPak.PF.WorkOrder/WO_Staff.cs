@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.WorkOrder
+namespace PF.WorkOrder
 {
     public partial class WO_Staff : Form
     {
@@ -22,13 +22,13 @@ namespace FruPak.PF.WorkOrder
             int_Work_Order_Id = int_wo_Id;
             //check if testing or not
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
             //populate Work Order Display
             woDisplay1.Work_Order_Id = int_wo_Id;
@@ -74,9 +74,9 @@ namespace FruPak.PF.WorkOrder
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -92,7 +92,7 @@ namespace FruPak.PF.WorkOrder
             DataSet ds_Get_Info;
             DataRow dr_Get_Info;
 
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Work_Order_Staff_Relationship.Get_Info_Translated(int_Work_Order_Id);
+            ds_Get_Info = PF.Data.AccessLayer.PF_Work_Order_Staff_Relationship.Get_Info_Translated(int_Work_Order_Id);
 
             if (Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()) > 0)
             {
@@ -126,12 +126,12 @@ namespace FruPak.PF.WorkOrder
             }
             else
             {
-                DataSet ds_Get_Reltn = FruPak.PF.Data.AccessLayer.PF_Staff.Get_Info_Perm_Staff();
+                DataSet ds_Get_Reltn = PF.Data.AccessLayer.PF_Staff.Get_Info_Perm_Staff();
                 DataRow dr_Get_Reltn;
                 for (int i = 0; i < Convert.ToInt32(ds_Get_Reltn.Tables[0].Rows.Count.ToString()); i++)
                 {
                     dr_Get_Reltn = ds_Get_Reltn.Tables[0].Rows[i];
-                    FruPak.PF.Data.AccessLayer.PF_Work_Order_Staff_Relationship.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Work_Order_Staff_Relationship"), int_Work_Order_Id, Convert.ToInt32(dr_Get_Reltn["Staff_Id"].ToString()), true, 0, int_Current_User_Id);
+                    PF.Data.AccessLayer.PF_Work_Order_Staff_Relationship.Insert(PF.Common.Code.General.int_max_user_id("PF_Work_Order_Staff_Relationship"), int_Work_Order_Id, Convert.ToInt32(dr_Get_Reltn["Staff_Id"].ToString()), true, 0, int_Current_User_Id);
                 }
                 ds_Get_Reltn.Dispose();
                 populate_datagridview();
@@ -176,14 +176,14 @@ namespace FruPak.PF.WorkOrder
             dataGridView1.Columns.Add(img_delete);
             img_delete.HeaderText = "Remove";
             img_delete.Name = "Delete";
-            img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
+            img_delete.Image = PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
 
             DataGridViewImageColumn img_edit = new DataGridViewImageColumn();
             dataGridView1.Columns.Add(img_edit);
             img_edit.HeaderText = "Edit";
             img_edit.Name = "Edit";
-            img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
+            img_edit.Image = PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
         }
 
@@ -197,7 +197,7 @@ namespace FruPak.PF.WorkOrder
             cmb_Staff.DataSource = null;
 
             DataSet ds_Get_Info;
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Staff.Get_Info();
+            ds_Get_Info = PF.Data.AccessLayer.PF_Staff.Get_Info();
             cmb_Staff.DataSource = ds_Get_Info.Tables[0];
             cmb_Staff.DisplayMember = "Name";
             cmb_Staff.ValueMember = "Staff_Id";
@@ -222,7 +222,7 @@ namespace FruPak.PF.WorkOrder
 
                 if (DLR_Message == DialogResult.Yes)
                 {
-                    int_result = FruPak.PF.Data.AccessLayer.PF_Work_Order_Staff_Relationship.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
+                    int_result = PF.Data.AccessLayer.PF_Work_Order_Staff_Relationship.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
                 }
 
                 if (int_result > 0)
@@ -278,7 +278,7 @@ namespace FruPak.PF.WorkOrder
                 {
                     if (cmb_Staff.SelectedValue != null)
                     {
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Work_Order_Staff_Relationship.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Work_Order_Staff_Relationship"), int_Work_Order_Id, Convert.ToInt32(cmb_Staff.SelectedValue.ToString()), Convert.ToBoolean(ckb_Process_Hours.Checked), Convert.ToDecimal(nud_Extra_Hours.Value), int_Current_User_Id);
+                        int_result = PF.Data.AccessLayer.PF_Work_Order_Staff_Relationship.Insert(PF.Common.Code.General.int_max_user_id("PF_Work_Order_Staff_Relationship"), int_Work_Order_Id, Convert.ToInt32(cmb_Staff.SelectedValue.ToString()), Convert.ToBoolean(ckb_Process_Hours.Checked), Convert.ToDecimal(nud_Extra_Hours.Value), int_Current_User_Id);
                         lbl_message.Text = "Staff Member has been added to the Work Order";
                     }
                     else
@@ -333,22 +333,22 @@ namespace FruPak.PF.WorkOrder
                             str_emp_type = "C";
                         }
 
-                        int int_new_Staff_Id = FruPak.PF.Common.Code.General.int_max_user_id("PF_Staff");
+                        int int_new_Staff_Id = PF.Common.Code.General.int_max_user_id("PF_Staff");
                         int_emp_num = int_new_Staff_Id;
 
                         if (DLR_MessageBox3 != DialogResult.OK)
                         {
                             if (DLR_MessageBox2 == DialogResult.Yes)
                             {
-                                int_result = FruPak.PF.Data.AccessLayer.PF_Staff.Insert(int_new_Staff_Id, str_first_name, str_last_name, int_new_Staff_Id, Convert.ToDecimal(txt_hourly_rate.Text), true, str_emp_type, int_Current_User_Id);
-                                int_result = FruPak.PF.Data.AccessLayer.PF_Work_Order_Staff_Relationship.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Work_Order_Staff_Relationship"), int_Work_Order_Id, int_new_Staff_Id, Convert.ToBoolean(ckb_Process_Hours.Checked), Convert.ToDecimal(nud_Extra_Hours.Value), int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.PF_Staff.Insert(int_new_Staff_Id, str_first_name, str_last_name, int_new_Staff_Id, Convert.ToDecimal(txt_hourly_rate.Text), true, str_emp_type, int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.PF_Work_Order_Staff_Relationship.Insert(PF.Common.Code.General.int_max_user_id("PF_Work_Order_Staff_Relationship"), int_Work_Order_Id, int_new_Staff_Id, Convert.ToBoolean(ckb_Process_Hours.Checked), Convert.ToDecimal(nud_Extra_Hours.Value), int_Current_User_Id);
                                 lbl_message.Text = "Staff Member has been added to the Work Order";
                                 populate_combobox();
                             }
                             else if (DLR_MessageBox2 != DialogResult.Yes && DLR_MessageBox2 != DialogResult.No)
                             {
-                                int_result = FruPak.PF.Data.AccessLayer.PF_Staff.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Staff"), str_first_name, str_last_name, int_emp_num, Convert.ToDecimal(txt_hourly_rate.Text), true, str_emp_type, int_Current_User_Id);
-                                int_result = FruPak.PF.Data.AccessLayer.PF_Work_Order_Staff_Relationship.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Work_Order_Staff_Relationship"), int_Work_Order_Id, int_new_Staff_Id, Convert.ToBoolean(ckb_Process_Hours.Checked), Convert.ToDecimal(nud_Extra_Hours.Value), int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.PF_Staff.Insert(PF.Common.Code.General.int_max_user_id("PF_Staff"), str_first_name, str_last_name, int_emp_num, Convert.ToDecimal(txt_hourly_rate.Text), true, str_emp_type, int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.PF_Work_Order_Staff_Relationship.Insert(PF.Common.Code.General.int_max_user_id("PF_Work_Order_Staff_Relationship"), int_Work_Order_Id, int_new_Staff_Id, Convert.ToBoolean(ckb_Process_Hours.Checked), Convert.ToDecimal(nud_Extra_Hours.Value), int_Current_User_Id);
                                 lbl_message.Text = "Staff Member has been added to the Work Order";
                                 populate_combobox();
                             }
@@ -357,7 +357,7 @@ namespace FruPak.PF.WorkOrder
                 }
                 else
                 {
-                    int_result = FruPak.PF.Data.AccessLayer.PF_Work_Order_Staff_Relationship.Update(int_DVG_Row_id, int_Work_Order_Id, Convert.ToInt32(cmb_Staff.SelectedValue.ToString()), Convert.ToBoolean(ckb_Process_Hours.Checked), Convert.ToDecimal(nud_Extra_Hours.Value), int_Current_User_Id);
+                    int_result = PF.Data.AccessLayer.PF_Work_Order_Staff_Relationship.Update(int_DVG_Row_id, int_Work_Order_Id, Convert.ToInt32(cmb_Staff.SelectedValue.ToString()), Convert.ToBoolean(ckb_Process_Hours.Checked), Convert.ToDecimal(nud_Extra_Hours.Value), int_Current_User_Id);
                     lbl_message.Text = "Staff Member has been update on the Work Order";
                 }
             }
@@ -475,7 +475,7 @@ namespace FruPak.PF.WorkOrder
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

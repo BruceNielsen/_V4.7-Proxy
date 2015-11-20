@@ -1,4 +1,4 @@
-﻿using FruPak.PF.CustomSettings;
+﻿using PF.CustomSettings;
 using NLog;
 using System;
 using System.Data;
@@ -6,7 +6,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 
-namespace FruPak.PF.PrintLayer
+namespace PF.PrintLayer
 {
 	public class Certificate_Of_Analysis
 	{
@@ -38,7 +38,7 @@ namespace FruPak.PF.PrintLayer
 				int return_code = 97;
 
 				#region Pull the Template path from the database
-				DataSet ds_default = FruPak.PF.Data.AccessLayer.CM_System.Get_Info_Like("PF%");
+				DataSet ds_default = PF.Data.AccessLayer.CM_System.Get_Info_Like("PF%");
 				DataRow dr_default;
 
 				for (int i_d = 0; i_d < ds_default.Tables[0].Rows.Count; i_d++)
@@ -47,11 +47,11 @@ namespace FruPak.PF.PrintLayer
 					switch (dr_default["Code"].ToString())
 					{
 						case "PF-TPath":
-							FruPak.PF.PrintLayer.Word.TemplatePath = dr_default["Value"].ToString();
+							PF.PrintLayer.Word.TemplatePath = dr_default["Value"].ToString();
 							break;
 
 						case "PF-TCOA":
-							FruPak.PF.PrintLayer.Word.TemplateName = dr_default["Value"].ToString();
+							PF.PrintLayer.Word.TemplateName = dr_default["Value"].ToString();
 							break;
 					}
 				}
@@ -60,7 +60,7 @@ namespace FruPak.PF.PrintLayer
 				#endregion
 
 				//find the products and add them to the COA
-				DataSet ds_Pallet = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Info_for_Order_prod(int_Order_Id);
+				DataSet ds_Pallet = PF.Data.AccessLayer.PF_Pallet.Get_Info_for_Order_prod(int_Order_Id);
 				DataRow dr_Pallet;
 
 				int ip = 1;
@@ -87,24 +87,24 @@ namespace FruPak.PF.PrintLayer
 				string str_Freight_Docket = "";
 				for (int i = 0; i < ds_Pallet.Tables[0].Rows.Count; i++)
 				{
-					FruPak.PF.PrintLayer.Word.StartWord();
+					PF.PrintLayer.Word.StartWord();
 
 					#region ------------- Order Details -------------
 
-					DataSet ds_Order = FruPak.PF.Data.AccessLayer.PF_Orders.Get_Info(int_Order_Id);
+					DataSet ds_Order = PF.Data.AccessLayer.PF_Orders.Get_Info(int_Order_Id);
 					DataRow dr_Order;
 					for (int i_order = 0; i_order < ds_Order.Tables[0].Rows.Count; i_order++)
 					{
 						dr_Order = ds_Order.Tables[0].Rows[i_order];
 						dt_Load_Date = Convert.ToDateTime(dr_Order["Load_Date"].ToString());
-						FruPak.PF.PrintLayer.Word.ReplaceText("Load_Date", dt_Load_Date.Date.ToString("dd/MM/yyyy"));
+						PF.PrintLayer.Word.ReplaceText("Load_Date", dt_Load_Date.Date.ToString("dd/MM/yyyy"));
 						str_cust_order = dr_Order["Customer_Order"].ToString();
-						FruPak.PF.PrintLayer.Word.ReplaceText("Order_Num", dr_Order["Customer_Order"].ToString());
+						PF.PrintLayer.Word.ReplaceText("Order_Num", dr_Order["Customer_Order"].ToString());
 						str_Freight_Docket = dr_Order["Freight_Docket"].ToString();
-						FruPak.PF.PrintLayer.Word.ReplaceText("Freight_Docket", dr_Order["Freight_Docket"].ToString());
+						PF.PrintLayer.Word.ReplaceText("Freight_Docket", dr_Order["Freight_Docket"].ToString());
 					}
 
-					FruPak.PF.PrintLayer.Word.ReplaceText("Address", str_delivery_name + Environment.NewLine + str_Address);
+					PF.PrintLayer.Word.ReplaceText("Address", str_delivery_name + Environment.NewLine + str_Address);
 
 					int_tot_quantity = 0;
 					dr_Pallet = ds_Pallet.Tables[0].Rows[i];
@@ -113,8 +113,8 @@ namespace FruPak.PF.PrintLayer
 					string str_size = dr_Pallet["Size"].ToString();
 					string str_variety = "Variety: " + dr_Pallet["Varity"].ToString();
 
-					FruPak.PF.PrintLayer.Word.ReplaceText("Product", str_product + " " + str_size);
-					FruPak.PF.PrintLayer.Word.ReplaceText("Variety", str_variety);
+					PF.PrintLayer.Word.ReplaceText("Product", str_product + " " + str_size);
+					PF.PrintLayer.Word.ReplaceText("Variety", str_variety);
 
 					#endregion ------------- Order Details -------------
 
@@ -125,7 +125,7 @@ namespace FruPak.PF.PrintLayer
 
 					#region ------------- Lab Results -------------
 
-					DataSet ds_LabResults = FruPak.PF.Data.AccessLayer.PF_Product_LabResults.Get_Info_by_Prod(Convert.ToInt32(dr_Pallet["Product_Id"].ToString()), Convert.ToInt32(dr_Pallet["FruitType_Id"].ToString()), Convert.ToInt32(dr_Pallet["Variety_Id"].ToString()));
+					DataSet ds_LabResults = PF.Data.AccessLayer.PF_Product_LabResults.Get_Info_by_Prod(Convert.ToInt32(dr_Pallet["Product_Id"].ToString()), Convert.ToInt32(dr_Pallet["FruitType_Id"].ToString()), Convert.ToInt32(dr_Pallet["Variety_Id"].ToString()));
 					DataRow dr_LabResults;
 					string str_ph = "";
 					string str_moist = "";
@@ -137,17 +137,17 @@ namespace FruPak.PF.PrintLayer
 						{
 							case "pH":
 								str_ph = dr_LabResults["Value"].ToString();
-								FruPak.PF.PrintLayer.Word.ReplaceText("PH", dr_LabResults["Value"].ToString());
+								PF.PrintLayer.Word.ReplaceText("PH", dr_LabResults["Value"].ToString());
 								break;
 
 							case "Moist":
 								str_moist = dr_LabResults["Value"].ToString();
-								FruPak.PF.PrintLayer.Word.ReplaceText("MOIST", dr_LabResults["Value"].ToString());
+								PF.PrintLayer.Word.ReplaceText("MOIST", dr_LabResults["Value"].ToString());
 								break;
 
 							case "Brix":
 								str_brix = dr_LabResults["Value"].ToString();
-								FruPak.PF.PrintLayer.Word.ReplaceText("BRIX", dr_LabResults["Value"].ToString());
+								PF.PrintLayer.Word.ReplaceText("BRIX", dr_LabResults["Value"].ToString());
 								break;
 						}
 					}
@@ -160,7 +160,7 @@ namespace FruPak.PF.PrintLayer
 					//pallet numbers
 					int int_total_Chep = 0;
 					int int_total_Oth = 0;
-					DataSet ds_Orders_Pallets = FruPak.PF.Data.AccessLayer.PF_Orders_Pallets.Get_Info_for_Order(int_Order_Id);
+					DataSet ds_Orders_Pallets = PF.Data.AccessLayer.PF_Orders_Pallets.Get_Info_for_Order(int_Order_Id);
 					DataRow dr_Orders_Pallets;
 					for (int j = 0; j < Convert.ToInt32(ds_Orders_Pallets.Tables[0].Rows.Count.ToString()); j++)
 					{
@@ -176,23 +176,23 @@ namespace FruPak.PF.PrintLayer
 					}
 					ds_Orders_Pallets.Dispose();
 
-					FruPak.PF.PrintLayer.Word.ReplaceText("Chep_Pallets", Convert.ToString(int_total_Chep));
-					FruPak.PF.PrintLayer.Word.ReplaceText("Oth_Pallets", Convert.ToString(int_total_Oth));
+					PF.PrintLayer.Word.ReplaceText("Chep_Pallets", Convert.ToString(int_total_Chep));
+					PF.PrintLayer.Word.ReplaceText("Oth_Pallets", Convert.ToString(int_total_Oth));
 
 					#endregion ------------- Pallet Number-------------
 
 					#region Check and reset output filename
 
 
-					if (FruPak.PF.PrintLayer.Word.FileName.LastIndexOf('-') > 0)
+					if (PF.PrintLayer.Word.FileName.LastIndexOf('-') > 0)
 					{
-						FruPak.PF.PrintLayer.Word.FileName =
-							FruPak.PF.PrintLayer.Word.FileName.Substring(0, FruPak.PF.PrintLayer.Word.FileName.LastIndexOf('-')) + "-" + Convert.ToString(ip);
+						PF.PrintLayer.Word.FileName =
+							PF.PrintLayer.Word.FileName.Substring(0, PF.PrintLayer.Word.FileName.LastIndexOf('-')) + "-" + Convert.ToString(ip);
 					}
 					else
 					{
-						FruPak.PF.PrintLayer.Word.FileName =
-							FruPak.PF.PrintLayer.Word.FileName.Substring(0, FruPak.PF.PrintLayer.Word.FileName.Length) + "-" + Convert.ToString(ip);
+						PF.PrintLayer.Word.FileName =
+							PF.PrintLayer.Word.FileName.Substring(0, PF.PrintLayer.Word.FileName.Length) + "-" + Convert.ToString(ip);
 					}
 
 					#endregion
@@ -200,7 +200,7 @@ namespace FruPak.PF.PrintLayer
 					#region ------------- Best Before Dates-------------
 
 					//Get BBD (Best Before Date), number of months to add on to production date
-					DataSet ds_Other = FruPak.PF.Data.AccessLayer.PF_Product_Other.Get_Info(Convert.ToInt32(dr_Pallet["Product_Id"].ToString()), "BBD");
+					DataSet ds_Other = PF.Data.AccessLayer.PF_Product_Other.Get_Info(Convert.ToInt32(dr_Pallet["Product_Id"].ToString()), "BBD");
 					DataRow dr_Other;
 					int int_BBD_months = 0;
 					for (int bbd = 0; bbd < ds_Other.Tables[0].Rows.Count; bbd++)
@@ -222,7 +222,7 @@ namespace FruPak.PF.PrintLayer
 					#region ------------- Batch Details -------------
 
 					//get batch info
-					ds_Get_Info3 = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Info_for_Order(int_Order_Id, Convert.ToInt32(dr_Pallet["Product_Id"].ToString()), Convert.ToInt32(dr_Pallet["FruitType_Id"].ToString()), Convert.ToInt32(dr_Pallet["Variety_Id"].ToString()));
+					ds_Get_Info3 = PF.Data.AccessLayer.PF_Pallet.Get_Info_for_Order(int_Order_Id, Convert.ToInt32(dr_Pallet["Product_Id"].ToString()), Convert.ToInt32(dr_Pallet["FruitType_Id"].ToString()), Convert.ToInt32(dr_Pallet["Variety_Id"].ToString()));
 					int jp = 0;
 					int kp = 0;
 					for (int j = 0; j < Convert.ToInt32(ds_Get_Info3.Tables[0].Rows.Count.ToString()); j++)
@@ -253,36 +253,36 @@ namespace FruPak.PF.PrintLayer
 						if (jp > 18)
 						{
 							//kp++;
-							if (FruPak.PF.PrintLayer.Word.FileName.LastIndexOf('-') > 0)
+							if (PF.PrintLayer.Word.FileName.LastIndexOf('-') > 0)
 							{
-								FruPak.PF.PrintLayer.Word.FileName =
-									 FruPak.PF.PrintLayer.Word.FileName.Substring(0, FruPak.PF.PrintLayer.Word.FileName.LastIndexOf('-')) + "-" + Convert.ToString(kp++);
+								PF.PrintLayer.Word.FileName =
+									 PF.PrintLayer.Word.FileName.Substring(0, PF.PrintLayer.Word.FileName.LastIndexOf('-')) + "-" + Convert.ToString(kp++);
 
 							}
 							else
 							{
-								FruPak.PF.PrintLayer.Word.FileName =
-									FruPak.PF.PrintLayer.Word.FileName.Substring(0, FruPak.PF.PrintLayer.Word.FileName.Length) + "-" + Convert.ToString(kp);
+								PF.PrintLayer.Word.FileName =
+									PF.PrintLayer.Word.FileName.Substring(0, PF.PrintLayer.Word.FileName.Length) + "-" + Convert.ToString(kp);
 
 							}
 
 							#region Prepare the page for printing
 
-							FruPak.PF.PrintLayer.Word.CloseWord();
-							FruPak.PF.PrintLayer.Word.StartWord();
+							PF.PrintLayer.Word.CloseWord();
+							PF.PrintLayer.Word.StartWord();
 
 
-							FruPak.PF.PrintLayer.Word.ReplaceText("Load_Date", dt_Load_Date.Date.ToString("dd/MM/yyyy"));
-							FruPak.PF.PrintLayer.Word.ReplaceText("Order_Num", str_cust_order);
-							FruPak.PF.PrintLayer.Word.ReplaceText("Freight_Docket", str_Freight_Docket);
-							FruPak.PF.PrintLayer.Word.ReplaceText("Address", str_delivery_name + Environment.NewLine + str_Address);
-							FruPak.PF.PrintLayer.Word.ReplaceText("Product", str_product + " " + str_size);
-							FruPak.PF.PrintLayer.Word.ReplaceText("Variety", str_variety);
-							FruPak.PF.PrintLayer.Word.ReplaceText("PH", str_ph);
-							FruPak.PF.PrintLayer.Word.ReplaceText("MOIST", str_moist);
-							FruPak.PF.PrintLayer.Word.ReplaceText("BRIX", str_brix);
-							FruPak.PF.PrintLayer.Word.ReplaceText("Chep_Pallets", Convert.ToString(int_total_Chep));
-							FruPak.PF.PrintLayer.Word.ReplaceText("Oth_Pallets", Convert.ToString(int_total_Oth));
+							PF.PrintLayer.Word.ReplaceText("Load_Date", dt_Load_Date.Date.ToString("dd/MM/yyyy"));
+							PF.PrintLayer.Word.ReplaceText("Order_Num", str_cust_order);
+							PF.PrintLayer.Word.ReplaceText("Freight_Docket", str_Freight_Docket);
+							PF.PrintLayer.Word.ReplaceText("Address", str_delivery_name + Environment.NewLine + str_Address);
+							PF.PrintLayer.Word.ReplaceText("Product", str_product + " " + str_size);
+							PF.PrintLayer.Word.ReplaceText("Variety", str_variety);
+							PF.PrintLayer.Word.ReplaceText("PH", str_ph);
+							PF.PrintLayer.Word.ReplaceText("MOIST", str_moist);
+							PF.PrintLayer.Word.ReplaceText("BRIX", str_brix);
+							PF.PrintLayer.Word.ReplaceText("Chep_Pallets", Convert.ToString(int_total_Chep));
+							PF.PrintLayer.Word.ReplaceText("Oth_Pallets", Convert.ToString(int_total_Oth));
 
 							#endregion  Prepare the page for printing
 
@@ -293,21 +293,21 @@ namespace FruPak.PF.PrintLayer
 
 							Bookmark = "Date" + Convert.ToString(jp);   // Date1 etc.
 							NewText = dr_Get_Info3["Batch_Num"].ToString().Substring(6, 2) + "/" + dr_Get_Info3["Batch_Num"].ToString().Substring(4, 2) + "/" + dr_Get_Info3["Batch_Num"].ToString().Substring(0, 4);
-							FruPak.PF.PrintLayer.Word.ReplaceText(Bookmark, NewText);
-							//FruPak.PF.PrintLayer.Word.ReplaceText("Date" + Convert.ToString(jp), dr_Get_Info3["Batch_Num"].ToString().Substring(6, 2) + "/" + dr_Get_Info3["Batch_Num"].ToString().Substring(4, 2) + "/" + dr_Get_Info3["Batch_Num"].ToString().Substring(0, 4));
+							PF.PrintLayer.Word.ReplaceText(Bookmark, NewText);
+							//PF.PrintLayer.Word.ReplaceText("Date" + Convert.ToString(jp), dr_Get_Info3["Batch_Num"].ToString().Substring(6, 2) + "/" + dr_Get_Info3["Batch_Num"].ToString().Substring(4, 2) + "/" + dr_Get_Info3["Batch_Num"].ToString().Substring(0, 4));
 
 							if (int_BBD_months > 0)
 							{
 								Bookmark = "BBD" + Convert.ToString(jp);    // BBD1 etc.
 								NewText = dat.ToShortDateString();
-								FruPak.PF.PrintLayer.Word.ReplaceText(Bookmark, NewText);
-								//FruPak.PF.PrintLayer.Word.ReplaceText("BBD" + Convert.ToString(jp), dat.ToShortDateString());
+								PF.PrintLayer.Word.ReplaceText(Bookmark, NewText);
+								//PF.PrintLayer.Word.ReplaceText("BBD" + Convert.ToString(jp), dat.ToShortDateString());
 							}
 
 							Bookmark = "Batch" + Convert.ToString(jp);  // Batch1 etc.
 							NewText = dr_Get_Info3["Batch_Num"].ToString().Substring(8) + " - " + dr_Get_Info3["Quantity"].ToString();
-							FruPak.PF.PrintLayer.Word.ReplaceText(Bookmark, NewText);
-							//FruPak.PF.PrintLayer.Word.ReplaceText("Batch" + Convert.ToString(jp), dr_Get_Info3["Batch_Num"].ToString().Substring(8) + " - " + dr_Get_Info3["Quantity"].ToString());
+							PF.PrintLayer.Word.ReplaceText(Bookmark, NewText);
+							//PF.PrintLayer.Word.ReplaceText("Batch" + Convert.ToString(jp), dr_Get_Info3["Batch_Num"].ToString().Substring(8) + " - " + dr_Get_Info3["Quantity"].ToString());
 							int_tot_quantity = int_tot_quantity + Convert.ToInt32(dr_Get_Info3["Quantity"].ToString());
 
 						}
@@ -321,23 +321,23 @@ namespace FruPak.PF.PrintLayer
 							Bookmark = "Date" + Convert.ToString(jp);
 							NewText = dr_Get_Info3["Batch_Num"].ToString().Substring(6, 2) + "/" + dr_Get_Info3["Batch_Num"].ToString().Substring(4, 2) + "/" + dr_Get_Info3["Batch_Num"].ToString().Substring(0, 4);
 
-							FruPak.PF.PrintLayer.Word.ReplaceText(Bookmark, NewText);
-							//FruPak.PF.PrintLayer.Word.ReplaceText("Date" + Convert.ToString(jp), dr_Get_Info3["Batch_Num"].ToString().Substring(6, 2) + "/" + dr_Get_Info3["Batch_Num"].ToString().Substring(4, 2) + "/" + dr_Get_Info3["Batch_Num"].ToString().Substring(0, 4));
+							PF.PrintLayer.Word.ReplaceText(Bookmark, NewText);
+							//PF.PrintLayer.Word.ReplaceText("Date" + Convert.ToString(jp), dr_Get_Info3["Batch_Num"].ToString().Substring(6, 2) + "/" + dr_Get_Info3["Batch_Num"].ToString().Substring(4, 2) + "/" + dr_Get_Info3["Batch_Num"].ToString().Substring(0, 4));
 
 							if (int_BBD_months > 0)
 							{
 								Bookmark = "BBD" + Convert.ToString(jp);
 								NewText = dt.ToShortDateString();
-								FruPak.PF.PrintLayer.Word.ReplaceText(Bookmark, NewText);
+								PF.PrintLayer.Word.ReplaceText(Bookmark, NewText);
 
-								//FruPak.PF.PrintLayer.Word.ReplaceText("BBD" + Convert.ToString(jp), dt.ToShortDateString());
+								//PF.PrintLayer.Word.ReplaceText("BBD" + Convert.ToString(jp), dt.ToShortDateString());
 							}
 
 							Bookmark = "Batch" + Convert.ToString(jp);
 							NewText = dr_Get_Info3["Batch_Num"].ToString().Substring(8) + " - " + dr_Get_Info3["Quantity"].ToString();
-							FruPak.PF.PrintLayer.Word.ReplaceText(Bookmark, NewText);
+							PF.PrintLayer.Word.ReplaceText(Bookmark, NewText);
 
-							//FruPak.PF.PrintLayer.Word.ReplaceText("Batch" + Convert.ToString(jp), dr_Get_Info3["Batch_Num"].ToString().Substring(8) + " - " + dr_Get_Info3["Quantity"].ToString());
+							//PF.PrintLayer.Word.ReplaceText("Batch" + Convert.ToString(jp), dr_Get_Info3["Batch_Num"].ToString().Substring(8) + " - " + dr_Get_Info3["Quantity"].ToString());
 
 							int_tot_quantity = int_tot_quantity + Convert.ToInt32(dr_Get_Info3["Quantity"].ToString());
 						}
@@ -348,31 +348,31 @@ namespace FruPak.PF.PrintLayer
 							{
 								case "Print":
 									// This generates zillions of pages because the page is built up by progressively adding to it
-									//return_code = FruPak.PF.PrintLayer.Word.Print();    // C:\Windows\System32\spool\PRINTERS
+									//return_code = PF.PrintLayer.Word.Print();    // C:\Windows\System32\spool\PRINTERS
 
 									// In both cases, save as pdf - it will be handled differently further up in Shipping_Search.cs
-									return_code = FruPak.PF.PrintLayer.Word.SaveAsPdf();
-									//return_code = FruPak.PF.PrintLayer.Word.SaveAS();
+									return_code = PF.PrintLayer.Word.SaveAsPdf();
+									//return_code = PF.PrintLayer.Word.SaveAS();
 									break;
 
 								case "Email":
-									return_code = FruPak.PF.PrintLayer.Word.SaveAsPdf();
-									//return_code = FruPak.PF.PrintLayer.Word.SaveAS();
+									return_code = PF.PrintLayer.Word.SaveAsPdf();
+									//return_code = PF.PrintLayer.Word.SaveAS();
 									break;
 							}
 						}
 						else
 						{
-							// View - FruPak.PF.PrintLayer.Word.SaveAS - Saves as .docx
-							return_code = FruPak.PF.PrintLayer.Word.SaveAsPdf();
-							//return_code = FruPak.PF.PrintLayer.Word.SaveAS();
+							// View - PF.PrintLayer.Word.SaveAS - Saves as .docx
+							return_code = PF.PrintLayer.Word.SaveAsPdf();
+							//return_code = PF.PrintLayer.Word.SaveAS();
 						}
 
 					}
 					#endregion
 
 					#region SaveAsPdf This is the last thing to go on the page
-					FruPak.PF.PrintLayer.Word.ReplaceText("Quantity", Convert.ToString(int_tot_quantity));
+					PF.PrintLayer.Word.ReplaceText("Quantity", Convert.ToString(int_tot_quantity));
 
 					// Print works every single time without fail
 					if (bol_print == true)
@@ -380,17 +380,17 @@ namespace FruPak.PF.PrintLayer
 						switch (str_type)
 						{
 							case "Print":
-								//return_code = FruPak.PF.PrintLayer.Word.Print();    // C:\Windows\System32\spool\PRINTERS
-								return_code = FruPak.PF.PrintLayer.Word.SaveAsPdf();
-								//return_code = FruPak.PF.PrintLayer.Word.SaveAS();
-								//FruPak.PF.PrintLayer.Word.CloseWord();
+								//return_code = PF.PrintLayer.Word.Print();    // C:\Windows\System32\spool\PRINTERS
+								return_code = PF.PrintLayer.Word.SaveAsPdf();
+								//return_code = PF.PrintLayer.Word.SaveAS();
+								//PF.PrintLayer.Word.CloseWord();
 								break;
 
 							case "Email":
 								// I'm pretty sure I've just found the fault
-								return_code = FruPak.PF.PrintLayer.Word.SaveAsPdf();
-								//return_code = FruPak.PF.PrintLayer.Word.SaveAS();
-								//FruPak.PF.PrintLayer.Word.CloseWord();
+								return_code = PF.PrintLayer.Word.SaveAsPdf();
+								//return_code = PF.PrintLayer.Word.SaveAS();
+								//PF.PrintLayer.Word.CloseWord();
 								break;
 						}
 					}
@@ -398,15 +398,15 @@ namespace FruPak.PF.PrintLayer
 					{
 
 						// View - Saves as .docx // This is faulty as well
-						//return_code = FruPak.PF.PrintLayer.Word.SaveAS();
-						return_code = FruPak.PF.PrintLayer.Word.SaveAsPdf();
-						//return_code = FruPak.PF.PrintLayer.Word.SaveAS();
-						//FruPak.PF.PrintLayer.Word.CloseWord();
+						//return_code = PF.PrintLayer.Word.SaveAS();
+						return_code = PF.PrintLayer.Word.SaveAsPdf();
+						//return_code = PF.PrintLayer.Word.SaveAS();
+						//PF.PrintLayer.Word.CloseWord();
 						//throw new ArgumentException("The parameter was invalid");
 					}
 
 					// Doesn't seem to do anything
-					//FruPak.PF.PrintLayer.Word.CloseWord();
+					//PF.PrintLayer.Word.CloseWord();
 					#endregion
 
 					ip++;
@@ -416,8 +416,8 @@ namespace FruPak.PF.PrintLayer
 				ds_Pallet.Dispose();
 
 
-                FruPak.PF.PrintLayer.Word.CloseWord();
-                return return_code;
+				PF.PrintLayer.Word.CloseWord();
+				return return_code;
 			}
 			catch (Exception ex)
 			{

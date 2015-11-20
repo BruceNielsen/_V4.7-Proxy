@@ -2,7 +2,7 @@
 using System;
 using System.Data;
 
-namespace FruPak.PF.PrintLayer
+namespace PF.PrintLayer
 {
     public class Pallet_Card
     {
@@ -26,12 +26,12 @@ namespace FruPak.PF.PrintLayer
             int_Current_User_Id = Current_User_Id;
             //Create Barcode
             string str_image_location = "";
-            FruPak.PF.PrintLayer.Barcode.str_Barcode = Barcode;
-            FruPak.PF.PrintLayer.Barcode.Width = 300;
-            FruPak.PF.PrintLayer.Barcode.Height = 100;
-            str_image_location = FruPak.PF.PrintLayer.Barcode.Generate_Barcode();
+            PF.PrintLayer.Barcode.str_Barcode = Barcode;
+            PF.PrintLayer.Barcode.Width = 300;
+            PF.PrintLayer.Barcode.Height = 100;
+            str_image_location = PF.PrintLayer.Barcode.Generate_Barcode();
 
-            DataSet ds = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Material_info(Barcode);
+            DataSet ds = PF.Data.AccessLayer.PF_Pallet.Get_Material_info(Barcode);
             DataRow dr;
 
             //this loop should produce 1 pallet card per material number.
@@ -45,53 +45,53 @@ namespace FruPak.PF.PrintLayer
 
                 DataSet ds_Get_Info;
                 DataRow dr_Get_Info;
-                DataSet ds_details = FruPak.PF.Data.AccessLayer.PF_Pallet_Details.Get_Info(Barcode, int_material_id);
+                DataSet ds_details = PF.Data.AccessLayer.PF_Pallet_Details.Get_Info(Barcode, int_material_id);
                 DataRow dr_details;
 
                 for (int h = 0; h <= Convert.ToInt32(Math.Floor(Convert.ToDecimal(ds_details.Tables[0].Rows.Count.ToString()) / 4)); h++)
                 {
                     dr_details = ds_details.Tables[0].Rows[h];
 
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_System.Get_Info_Like("PF%");
+                    ds_Get_Info = PF.Data.AccessLayer.CM_System.Get_Info_Like("PF%");
                     for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
                     {
                         dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
                         switch (dr_Get_Info["Code"].ToString())
                         {
                             case "PF-TPath":
-                                FruPak.PF.PrintLayer.Word.TemplatePath = dr_Get_Info["Value"].ToString();
+                                PF.PrintLayer.Word.TemplatePath = dr_Get_Info["Value"].ToString();
 
                                 break;
 
                             case "PF-TPallet":
-                                FruPak.PF.PrintLayer.Word.TemplateName = dr_Get_Info["Value"].ToString();
+                                PF.PrintLayer.Word.TemplateName = dr_Get_Info["Value"].ToString();
                                 break;
                         }
                     }
                     ds_Get_Info.Dispose();
 
-                    FruPak.PF.PrintLayer.Word.BarcodeFull = str_image_location;
-                    FruPak.PF.PrintLayer.Word.StartWord();
-                    FruPak.PF.PrintLayer.Word.Add_Barcode("Barcode1");
+                    PF.PrintLayer.Word.BarcodeFull = str_image_location;
+                    PF.PrintLayer.Word.StartWord();
+                    PF.PrintLayer.Word.Add_Barcode("Barcode1");
 
                     //Fruit Type
-                    FruPak.PF.PrintLayer.Word.ReplaceText("Type", dr_details["FT_Code"].ToString());
+                    PF.PrintLayer.Word.ReplaceText("Type", dr_details["FT_Code"].ToString());
 
                     //Product
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Product.Get_Info(Convert.ToInt32(dr_details["Product_Id"].ToString()));
+                    ds_Get_Info = PF.Data.AccessLayer.PF_Product.Get_Info(Convert.ToInt32(dr_details["Product_Id"].ToString()));
 
                     for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
                     {
                         dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
-                        FruPak.PF.PrintLayer.Word.ReplaceText("Product", dr_Get_Info["Code"].ToString());
+                        PF.PrintLayer.Word.ReplaceText("Product", dr_Get_Info["Code"].ToString());
                     }
                     ds_Get_Info.Dispose();
 
                     //Variety
-                    FruPak.PF.PrintLayer.Word.ReplaceText("Variety", dr_details["FV_Description"].ToString() + "(" + dr_details["G_Code"].ToString() + ")");
+                    PF.PrintLayer.Word.ReplaceText("Variety", dr_details["FV_Description"].ToString() + "(" + dr_details["G_Code"].ToString() + ")");
 
                     //Size
-                    FruPak.PF.PrintLayer.Word.ReplaceText("Size", dr_details["S_Description"].ToString());
+                    PF.PrintLayer.Word.ReplaceText("Size", dr_details["S_Description"].ToString());
 
                     //Dates, Batches, Quantity
 
@@ -102,31 +102,31 @@ namespace FruPak.PF.PrintLayer
                     {
                         dr_Get_Info1 = ds_details.Tables[0].Rows[i];
 
-                        FruPak.PF.PrintLayer.Word.ReplaceText("Date" + Convert.ToString(ip), dr_Get_Info1["Batch_Num"].ToString().Substring(6, 2) + "/" + dr_Get_Info1["Batch_Num"].ToString().Substring(4, 2) + "/" + dr_Get_Info1["Batch_Num"].ToString().Substring(0, 4));
+                        PF.PrintLayer.Word.ReplaceText("Date" + Convert.ToString(ip), dr_Get_Info1["Batch_Num"].ToString().Substring(6, 2) + "/" + dr_Get_Info1["Batch_Num"].ToString().Substring(4, 2) + "/" + dr_Get_Info1["Batch_Num"].ToString().Substring(0, 4));
 
-                        FruPak.PF.PrintLayer.Word.ReplaceText("Batch" + Convert.ToString(ip), dr_Get_Info1["Batch_Num"].ToString().Substring(8));
+                        PF.PrintLayer.Word.ReplaceText("Batch" + Convert.ToString(ip), dr_Get_Info1["Batch_Num"].ToString().Substring(8));
 
-                        FruPak.PF.PrintLayer.Word.ReplaceText("Quantity" + Convert.ToString(ip), dr_Get_Info1["Quantity"].ToString());
+                        PF.PrintLayer.Word.ReplaceText("Quantity" + Convert.ToString(ip), dr_Get_Info1["Quantity"].ToString());
                         int_Pallet_Total = int_Pallet_Total + Convert.ToInt32(dr_Get_Info1["Quantity"].ToString());
                         ip++;
                     }
 
                     if (h == Convert.ToInt32(Math.Floor(Convert.ToDecimal(ds_details.Tables[0].Rows.Count.ToString()) / 4)))
                     {
-                        FruPak.PF.PrintLayer.Word.ReplaceText("Total", Convert.ToString(int_Pallet_Total));
+                        PF.PrintLayer.Word.ReplaceText("Total", Convert.ToString(int_Pallet_Total));
                     }
 
                     if (bol_print == true)
                     {
-                        return_code = FruPak.PF.PrintLayer.Word.Print();
+                        return_code = PF.PrintLayer.Word.Print();
                         stock_update();
                     }
                     else
                     {
-                        return_code = FruPak.PF.PrintLayer.Word.SaveAS();
+                        return_code = PF.PrintLayer.Word.SaveAS();
                     }
 
-                    FruPak.PF.PrintLayer.Word.CloseWord();
+                    PF.PrintLayer.Word.CloseWord();
                 }
                 ds_details.Dispose();
             }
@@ -134,7 +134,7 @@ namespace FruPak.PF.PrintLayer
 
             try
             {
-                FruPak.PF.PrintLayer.Word.CloseWord();
+                PF.PrintLayer.Word.CloseWord();
             }
             catch (Exception ex)
             {
@@ -145,7 +145,7 @@ namespace FruPak.PF.PrintLayer
 
         private static void stock_update()
         {
-            DataSet ds = FruPak.PF.Data.AccessLayer.PF_Stock_Item.Get_Info("Other-1");
+            DataSet ds = PF.Data.AccessLayer.PF_Stock_Item.Get_Info("Other-1");
             DataRow dr;
             int int_Stock_Item_Id = 0;
 
@@ -156,8 +156,8 @@ namespace FruPak.PF.PrintLayer
             }
             ds.Dispose();
 
-            FruPak.PF.Data.AccessLayer.PF_Stock_Used.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Stock_Used"), int_Stock_Item_Id, FruPak.PF.Common.Code.General.Get_Season(), 1, int_Current_User_Id);
-            FruPak.PF.Common.Code.General.Consumable_Check(int_Current_User_Id);
+            PF.Data.AccessLayer.PF_Stock_Used.Insert(PF.Common.Code.General.int_max_user_id("PF_Stock_Used"), int_Stock_Item_Id, PF.Common.Code.General.Get_Season(), 1, int_Current_User_Id);
+            PF.Common.Code.General.Consumable_Check(int_Current_User_Id);
         }
     }
 }

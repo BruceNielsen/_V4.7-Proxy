@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Menu.Tablet
+﻿namespace PF.Menu.Tablet
 {
     partial class Tablet_Menu
     {
@@ -315,7 +315,7 @@
             this.KeyPreview = true;
             this.Name = "Tablet_Menu";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Menu.Tablet.Tablet Menu";
+            this.Text = "PF.Menu.Tablet.Tablet Menu";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Tablet_Menu_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);

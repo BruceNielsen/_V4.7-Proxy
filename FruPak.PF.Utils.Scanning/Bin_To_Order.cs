@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Scanning
+namespace PF.Utils.Scanning
 {
     public partial class Bin_To_Order : Form
     {
@@ -18,16 +18,16 @@ namespace FruPak.PF.Utils.Scanning
             int_Current_User_Id = int_C_User_id;
 
             //check if testing or not
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
 
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Orders.Get_Info_Desc();
+            DataSet ds_Get_Info = PF.Data.AccessLayer.PF_Orders.Get_Info_Desc();
             cmb_Orders.DataSource = ds_Get_Info.Tables[0];
             cmb_Orders.DisplayMember = "Combined";
             cmb_Orders.ValueMember = "Order_Id";
@@ -66,9 +66,9 @@ namespace FruPak.PF.Utils.Scanning
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -115,7 +115,7 @@ namespace FruPak.PF.Utils.Scanning
             {
                 DataSet ds = null;
                 DataRow dr;
-                ds = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Current();
+                ds = PF.Data.AccessLayer.PF_Work_Order.Get_Current();
                 int int_current_WO = 0;
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
@@ -124,7 +124,7 @@ namespace FruPak.PF.Utils.Scanning
                 }
                 ds.Dispose();
 
-                ds = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Pallet_barocde(int_current_WO, Convert.ToInt32(txt_bin_num.Text));
+                ds = PF.Data.AccessLayer.PF_Pallet.Get_Pallet_barocde(int_current_WO, Convert.ToInt32(txt_bin_num.Text));
                 int int_Pallet_Id = 0;
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
@@ -133,7 +133,7 @@ namespace FruPak.PF.Utils.Scanning
                 }
                 ds.Dispose();
                 int int_result = -1;
-                int_result = FruPak.PF.Data.AccessLayer.PF_Pallet.Update_Order_Id(int_Pallet_Id, Convert.ToInt32(cmb_Orders.SelectedValue.ToString()), int_Current_User_Id);
+                int_result = PF.Data.AccessLayer.PF_Pallet.Update_Order_Id(int_Pallet_Id, Convert.ToInt32(cmb_Orders.SelectedValue.ToString()), int_Current_User_Id);
 
                 if (int_result >= 0)
                 {
@@ -197,7 +197,7 @@ namespace FruPak.PF.Utils.Scanning
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

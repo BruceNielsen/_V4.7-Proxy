@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Comment CommentText="FruPak.PF.Menu">
+  <Comment CommentText="PF.Menu">
     <Position X="7.51" Y="3.125" Height="0.75" Width="1.7" />
   </Comment>
   <Class Name="Tools.CollapsibleSplitter" Collapsed="true">
@@ -17,7 +17,7 @@
       <FileName>CollapsibleSplitter.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Menu.Fun_Messages">
+  <Class Name="PF.Menu.Fun_Messages">
     <Position X="4" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -27,7 +27,7 @@
       <FileName>Fun_Messages.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Menu.Main_Menu">
+  <Class Name="PF.Menu.Main_Menu">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -37,27 +37,27 @@
       <FileName>Main_Menu.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Menu.Program" Collapsed="true">
+  <Class Name="PF.Menu.Program" Collapsed="true">
     <Position X="7.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAIAAAAAABAAAAAQ=</HashCode>
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Menu.RobinJ">
+  <Class Name="PF.Menu.RobinJ">
     <Position X="2.25" Y="0.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AQAAAAAABCAAAABCAACkABACAAAAAAAAAAAABEAAAgA=</HashCode>
       <FileName>RobinJ.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Menu.Properties.Resources" Collapsed="true">
+  <Class Name="PF.Menu.Properties.Resources" Collapsed="true">
     <Position X="7.5" Y="1.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Menu.Properties.Settings" Collapsed="true">
+  <Class Name="PF.Menu.Properties.Settings" Collapsed="true">
     <Position X="7.5" Y="2" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>

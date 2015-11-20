@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.UserControls
+namespace PF.Utils.UserControls
 {
     public partial class BatchNum : UserControl
     {
@@ -18,11 +18,11 @@ namespace FruPak.PF.Utils.UserControls
 
             if (System.ComponentModel.LicenseManager.UsageMode == System.ComponentModel.LicenseUsageMode.Designtime)
             {
-                Console.WriteLine("FruPak.PF.Utils.UserControls.BatchNum - UsageMode = Designtime - Skipping populate()");
+                Console.WriteLine("PF.Utils.UserControls.BatchNum - UsageMode = Designtime - Skipping populate()");
             }
             else
             {
-                Console.WriteLine("FruPak.PF.Utils.UserControls.BatchNum - UsageMode = Runtime - Running populate()");
+                Console.WriteLine("PF.Utils.UserControls.BatchNum - UsageMode = Runtime - Running populate()");
                 populate();
             }
         }
@@ -31,7 +31,7 @@ namespace FruPak.PF.Utils.UserControls
         {
             DataSet ds_Get_Info;
             //batch numbers
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Info(Work_Order_Id);
+            ds_Get_Info = PF.Data.AccessLayer.PF_Work_Order.Get_Info(Work_Order_Id);
             DataRow dr_Get_Info;
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)

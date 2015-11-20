@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.UserControls
+namespace PF.Utils.UserControls
 {
     public partial class WODisplay : UserControl
     {
@@ -45,7 +45,7 @@ namespace FruPak.PF.Utils.UserControls
         {
             DataSet ds_Get_Info;
             DataRow dr_Get_Info;
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Info_translated(Work_Order_Id);
+            ds_Get_Info = PF.Data.AccessLayer.PF_Work_Order.Get_Info_translated(Work_Order_Id);
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {

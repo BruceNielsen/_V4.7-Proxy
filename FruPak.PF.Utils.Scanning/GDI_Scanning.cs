@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Scanning
+namespace PF.Utils.Scanning
 {
     public partial class GDI_Scanning : Form
     {
@@ -63,9 +63,9 @@ namespace FruPak.PF.Utils.Scanning
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -76,7 +76,7 @@ namespace FruPak.PF.Utils.Scanning
         private void populate_ComboBox()
         {
             DataSet ds;
-            ds = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Current();
+            ds = PF.Data.AccessLayer.PF_Work_Order.Get_Current();
             DataRow dr;
 
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
@@ -88,7 +88,7 @@ namespace FruPak.PF.Utils.Scanning
 
             ds.Dispose();
 
-            ds = FruPak.PF.Data.AccessLayer.GH_Submission.Get_for_Combo();
+            ds = PF.Data.AccessLayer.GH_Submission.Get_for_Combo();
             cmb_sub_Id.DataSource = ds.Tables[0];
             cmb_sub_Id.DisplayMember = "Combined";
             cmb_sub_Id.ValueMember = "Submission_Id";
@@ -102,7 +102,7 @@ namespace FruPak.PF.Utils.Scanning
 
             if (rbn_Overrun.Checked == true)
             {
-                DataSet dsp = FruPak.PF.Data.AccessLayer.EX_GDI_Overrun.Get_GDIBarcode(txt_barcode.Text);
+                DataSet dsp = PF.Data.AccessLayer.EX_GDI_Overrun.Get_GDIBarcode(txt_barcode.Text);
                 if (dsp.Tables[0].Rows.Count < 1)
                 {
                     lbl_message.Text = "Invalid Barcode";
@@ -110,27 +110,27 @@ namespace FruPak.PF.Utils.Scanning
                 }
                 else
                 {
-                    int int_new_Bin_Id = FruPak.PF.Common.Code.General.int_max_user_id("CM_Bins");
+                    int int_new_Bin_Id = PF.Common.Code.General.int_max_user_id("CM_Bins");
 
                     //Setup for Generating Barcode
-                    FruPak.PF.Common.Code.Barcode.Barcode_Trader = Convert.ToInt32(int_Trader_Id);
-                    FruPak.PF.Common.Code.Barcode.Barcode_Create(int_new_Bin_Id);
+                    PF.Common.Code.Barcode.Barcode_Trader = Convert.ToInt32(int_Trader_Id);
+                    PF.Common.Code.Barcode.Barcode_Create(int_new_Bin_Id);
 
-                    int_result = int_result + FruPak.PF.Data.AccessLayer.CM_Bins.InsertGDIOverrun(int_new_Bin_Id, FruPak.PF.Common.Code.Barcode.Barcode_Num.ToString(), txt_barcode.Text, int_Current_User_Id);
+                    int_result = int_result + PF.Data.AccessLayer.CM_Bins.InsertGDIOverrun(int_new_Bin_Id, PF.Common.Code.Barcode.Barcode_Num.ToString(), txt_barcode.Text, int_Current_User_Id);
 
-                    int_result = int_result + FruPak.PF.Data.AccessLayer.CM_Bins.Update_Weight_Gross(int_new_Bin_Id, nud_weight.Value, int_Current_User_Id);
-                    int_result = int_result + FruPak.PF.Data.AccessLayer.CM_Bins.Update_Tare_Weight(int_new_Bin_Id, Convert.ToDecimal("65.00"), int_Current_User_Id);
-                    int_result = int_result + FruPak.PF.Data.AccessLayer.CM_Bins.Update_Tipped_Date(int_new_Bin_Id, int_Work_Order_Id, int_Current_User_Id);
+                    int_result = int_result + PF.Data.AccessLayer.CM_Bins.Update_Weight_Gross(int_new_Bin_Id, nud_weight.Value, int_Current_User_Id);
+                    int_result = int_result + PF.Data.AccessLayer.CM_Bins.Update_Tare_Weight(int_new_Bin_Id, Convert.ToDecimal("65.00"), int_Current_User_Id);
+                    int_result = int_result + PF.Data.AccessLayer.CM_Bins.Update_Tipped_Date(int_new_Bin_Id, int_Work_Order_Id, int_Current_User_Id);
                     if ((sender as Button).Name == "btn_Wet")
                     {
-                        int_result = int_result + FruPak.PF.Data.AccessLayer.CM_Bins.Update_Dump_Ind(int_new_Bin_Id, "W", int_Current_User_Id);
+                        int_result = int_result + PF.Data.AccessLayer.CM_Bins.Update_Dump_Ind(int_new_Bin_Id, "W", int_Current_User_Id);
                     }
                     else if ((sender as Button).Name == "btn_Dry")
                     {
-                        int_result = int_result + FruPak.PF.Data.AccessLayer.CM_Bins.Update_Dump_Ind(int_new_Bin_Id, "D", int_Current_User_Id);
+                        int_result = int_result + PF.Data.AccessLayer.CM_Bins.Update_Dump_Ind(int_new_Bin_Id, "D", int_Current_User_Id);
                     }
 
-                    int_result = int_result + FruPak.PF.Data.AccessLayer.EX_GDI_Overrun.Update_Active(txt_barcode.Text, false);
+                    int_result = int_result + PF.Data.AccessLayer.EX_GDI_Overrun.Update_Active(txt_barcode.Text, false);
                 }
                 dsp.Dispose();
             }
@@ -147,37 +147,37 @@ namespace FruPak.PF.Utils.Scanning
                 {
                     bol_valid_sub = true;
                 }
-                DataSet ds = FruPak.PF.Data.AccessLayer.CM_Bins.Get_Info_For_GDIBarcode(txt_barcode.Text);
+                DataSet ds = PF.Data.AccessLayer.CM_Bins.Get_Info_For_GDIBarcode(txt_barcode.Text);
 
                 if (ds.Tables[0].Rows.Count > 0)
                 {
-                    int_result = int_result + FruPak.PF.Data.AccessLayer.CM_Bins.Update_Weight_Gross(int_Bin_Id, nud_weight.Value, int_Current_User_Id);
-                    int_result = int_result + FruPak.PF.Data.AccessLayer.CM_Bins.Update_Tipped_Date(int_Bin_Id, int_Work_Order_Id, int_Current_User_Id);
+                    int_result = int_result + PF.Data.AccessLayer.CM_Bins.Update_Weight_Gross(int_Bin_Id, nud_weight.Value, int_Current_User_Id);
+                    int_result = int_result + PF.Data.AccessLayer.CM_Bins.Update_Tipped_Date(int_Bin_Id, int_Work_Order_Id, int_Current_User_Id);
                     if ((sender as Button).Name == "btn_Wet")
                     {
-                        int_result = int_result + FruPak.PF.Data.AccessLayer.CM_Bins.Update_Dump_Ind(int_Bin_Id, "W", int_Current_User_Id);
+                        int_result = int_result + PF.Data.AccessLayer.CM_Bins.Update_Dump_Ind(int_Bin_Id, "W", int_Current_User_Id);
                     }
                     else if ((sender as Button).Name == "btn_Dry")
                     {
-                        int_result = int_result + FruPak.PF.Data.AccessLayer.CM_Bins.Update_Dump_Ind(int_Bin_Id, "D", int_Current_User_Id);
+                        int_result = int_result + PF.Data.AccessLayer.CM_Bins.Update_Dump_Ind(int_Bin_Id, "D", int_Current_User_Id);
                     }
-                    int_result = int_result + FruPak.PF.Data.AccessLayer.EX_GDI_Bins.Update_Active(int_GDI_Bin_Id, false, int_Current_User_Id);
+                    int_result = int_result + PF.Data.AccessLayer.EX_GDI_Bins.Update_Active(int_GDI_Bin_Id, false, int_Current_User_Id);
                 }
                 else
                 {
                     if (validate_barcode() == true && bol_valid_sub == true)
                     {
-                        int_result = int_result + FruPak.PF.Data.AccessLayer.CM_Bins.Update_Weight_Gross(int_Bin_Id, nud_weight.Value, int_Current_User_Id);
-                        int_result = int_result + FruPak.PF.Data.AccessLayer.CM_Bins.Update_Tipped_Date(int_Bin_Id, int_Work_Order_Id, int_Current_User_Id);
+                        int_result = int_result + PF.Data.AccessLayer.CM_Bins.Update_Weight_Gross(int_Bin_Id, nud_weight.Value, int_Current_User_Id);
+                        int_result = int_result + PF.Data.AccessLayer.CM_Bins.Update_Tipped_Date(int_Bin_Id, int_Work_Order_Id, int_Current_User_Id);
                         if ((sender as Button).Name == "btn_Wet")
                         {
-                            int_result = int_result + FruPak.PF.Data.AccessLayer.CM_Bins.Update_Dump_Ind(int_Bin_Id, "W", int_Current_User_Id);
+                            int_result = int_result + PF.Data.AccessLayer.CM_Bins.Update_Dump_Ind(int_Bin_Id, "W", int_Current_User_Id);
                         }
                         else if ((sender as Button).Name == "btn_Dry")
                         {
-                            int_result = int_result + FruPak.PF.Data.AccessLayer.CM_Bins.Update_Dump_Ind(int_Bin_Id, "D", int_Current_User_Id);
+                            int_result = int_result + PF.Data.AccessLayer.CM_Bins.Update_Dump_Ind(int_Bin_Id, "D", int_Current_User_Id);
                         }
-                        int_result = int_result + FruPak.PF.Data.AccessLayer.EX_GDI_Bins.Update_Active(int_GDI_Bin_Id, false, int_Current_User_Id);
+                        int_result = int_result + PF.Data.AccessLayer.EX_GDI_Bins.Update_Active(int_GDI_Bin_Id, false, int_Current_User_Id);
                     }
                 }
             }
@@ -193,7 +193,7 @@ namespace FruPak.PF.Utils.Scanning
         {
             if (rbn_Overrun.Checked == true)
             {
-                DataSet dsp = FruPak.PF.Data.AccessLayer.EX_GDI_Overrun.Get_GDIBarcode(txt_barcode.Text);
+                DataSet dsp = PF.Data.AccessLayer.EX_GDI_Overrun.Get_GDIBarcode(txt_barcode.Text);
                 if (dsp.Tables[0].Rows.Count < 1)
                 {
                     lbl_message.Text = "Invalid Barcode";
@@ -201,7 +201,7 @@ namespace FruPak.PF.Utils.Scanning
                 }
                 else
                 {
-                    FruPak.PF.Data.AccessLayer.EX_GDI_Overrun.Update_Weight(txt_barcode.Text, nud_weight.Value);
+                    PF.Data.AccessLayer.EX_GDI_Overrun.Update_Weight(txt_barcode.Text, nud_weight.Value);
                     lbl_message.Text = "Weight has been updated";
                     lbl_message.ForeColor = System.Drawing.Color.Blue;
                 }
@@ -212,7 +212,7 @@ namespace FruPak.PF.Utils.Scanning
                 if (validate_barcode() == true)
                 {
                     int int_result = 0;
-                    int_result = FruPak.PF.Data.AccessLayer.CM_Bins.Update_Weight_Gross(int_Bin_Id, nud_weight.Value, int_Current_User_Id);
+                    int_result = PF.Data.AccessLayer.CM_Bins.Update_Weight_Gross(int_Bin_Id, nud_weight.Value, int_Current_User_Id);
                     if (int_result > 0)
                     {
                         lbl_message.Text = "Weight has been Loaded";
@@ -238,7 +238,7 @@ namespace FruPak.PF.Utils.Scanning
             }
             else
             {
-                DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.EX_GDI_Bins.Get_Info(txt_barcode.Text);
+                DataSet ds_Get_Info = PF.Data.AccessLayer.EX_GDI_Bins.Get_Info(txt_barcode.Text);
                 if (ds_Get_Info.Tables[0].Rows.Count > 0)
                 {
                     DataRow dr_Get_Info;
@@ -247,22 +247,22 @@ namespace FruPak.PF.Utils.Scanning
                         dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
 
                         int_GDI_Bin_Id = Convert.ToInt32(dr_Get_Info["Bins_Id"].ToString());
-                        int_Bin_Id = FruPak.PF.Common.Code.General.int_max_user_id("CM_Bins");
+                        int_Bin_Id = PF.Common.Code.General.int_max_user_id("CM_Bins");
 
                         //Setup for Generating Barcode
 
-                        FruPak.PF.Common.Code.Barcode.Barcode_Trader = Convert.ToInt32(int_Trader_Id);
-                        FruPak.PF.Common.Code.Barcode.Barcode_Create(int_Bin_Id);
+                        PF.Common.Code.Barcode.Barcode_Trader = Convert.ToInt32(int_Trader_Id);
+                        PF.Common.Code.Barcode.Barcode_Create(int_Bin_Id);
 
                         int Loc_id = 456;
                         int Mat_id = Convert.ToInt32(dr_Get_Info["Material_Id"].ToString());
                         int Stor_id = Convert.ToInt32(dr_Get_Info["Storage_Id"].ToString());
                         int ESP_id = Convert.ToInt32(dr_Get_Info["ESP_Id"].ToString());
 
-                        FruPak.PF.Data.AccessLayer.CM_Bins.InsertSubmission(int_Bin_Id, Convert.ToInt32(cmb_sub_Id.SelectedValue), FruPak.PF.Common.Code.Barcode.Barcode_Num.ToString(),
+                        PF.Data.AccessLayer.CM_Bins.InsertSubmission(int_Bin_Id, Convert.ToInt32(cmb_sub_Id.SelectedValue), PF.Common.Code.Barcode.Barcode_Num.ToString(),
                             Loc_id, Mat_id, Stor_id, ESP_id, int_Current_User_Id, 65);
 
-                        FruPak.PF.Data.AccessLayer.Temp_submission.Update_GDIBarcode(int_Bin_Id, txt_barcode.Text, int_Current_User_Id);
+                        PF.Data.AccessLayer.Temp_submission.Update_GDIBarcode(int_Bin_Id, txt_barcode.Text, int_Current_User_Id);
                         try
                         {
                             Convert.ToDecimal(dr_Get_Info["Weight_Gross"].ToString());
@@ -284,7 +284,7 @@ namespace FruPak.PF.Utils.Scanning
                 }
                 else
                 {
-                    DataSet ds_bin_id = FruPak.PF.Data.AccessLayer.CM_Bins.Get_Info_For_GDIBarcode(txt_barcode.Text);
+                    DataSet ds_bin_id = PF.Data.AccessLayer.CM_Bins.Get_Info_For_GDIBarcode(txt_barcode.Text);
                     if (ds_bin_id.Tables[0].Rows.Count > 0)
                     {
                         DataRow dr_bin_id;
@@ -325,7 +325,7 @@ namespace FruPak.PF.Utils.Scanning
         {
             if (rbn_Overrun.Checked == true)
             {
-                DataSet dsp = FruPak.PF.Data.AccessLayer.EX_GDI_Overrun.Get_GDIBarcode(txt_barcode.Text);
+                DataSet dsp = PF.Data.AccessLayer.EX_GDI_Overrun.Get_GDIBarcode(txt_barcode.Text);
                 if (dsp.Tables[0].Rows.Count < 1)
                 {
                     lbl_message.Text = "Invalid Barcode";
@@ -384,7 +384,7 @@ namespace FruPak.PF.Utils.Scanning
             }
             else
             {
-                DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Bins.Get_Info_For_GDIBarcode(txt_barcode.Text);
+                DataSet ds_Get_Info = PF.Data.AccessLayer.CM_Bins.Get_Info_For_GDIBarcode(txt_barcode.Text);
                 if (ds_Get_Info.Tables[0].Rows.Count > 0)
                 {
                     DataRow dr_Get_Info;
@@ -463,7 +463,7 @@ namespace FruPak.PF.Utils.Scanning
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

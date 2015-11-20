@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,32 +27,32 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(ProdCleaning_Relat_Id) as Current_Id FROM PF_Product_Cleaning_Area_Relationship");
         }
 
         public static int Insert(int ProdCleaning_Relat_Id, int Product_Id, int CleanArea_Id, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO PF_Product_Cleaning_Area_Relationship(ProdCleaning_Relat_Id, Product_Id, CleanArea_Id, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + ProdCleaning_Relat_Id + "," + Product_Id + "," + CleanArea_Id + ", GETDATE()," + Mod_User_Id + ")");
         }
 
         public static DataSet Get_Info_By_Product(int Product_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Product_Cleaning_Area_Relationship WHERE Product_Id = " + Product_Id);
         }
 
         public static DataSet Get_Info_By_Area(int CleanArea_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM PF_Product_Cleaning_Area_Relationship WHERE CleanArea_Id = " + CleanArea_Id);
         }
 
         public static int Delete(int Product_Id, int CleanArea_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_Product_Cleaning_Area_Relationship WHERE Product_Id = " + Product_Id + " AND CleanArea_Id =" + CleanArea_Id);
         }
     }

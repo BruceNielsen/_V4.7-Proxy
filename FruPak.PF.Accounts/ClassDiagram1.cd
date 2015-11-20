@@ -1,9 +1,9 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ClassDiagram MajorVersion="1" MinorVersion="1">
-  <Comment CommentText="FruPak.PF.Accounts">
+  <Comment CommentText="PF.Accounts">
     <Position X="9.698" Y="5.844" Height="0.75" Width="1.7" />
   </Comment>
-  <Class Name="FruPak.PF.Accounts.Accounts_Maintenance">
+  <Class Name="PF.Accounts.Accounts_Maintenance">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -13,7 +13,7 @@
       <FileName>Accounts_Maintenance.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Accounts.Fruit_Purchase">
+  <Class Name="PF.Accounts.Fruit_Purchase">
     <Position X="2" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -23,7 +23,7 @@
       <FileName>Fruit_Purchase.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Accounts.Intended_Orders">
+  <Class Name="PF.Accounts.Intended_Orders">
     <Position X="3.5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -33,7 +33,7 @@
       <FileName>Intended_Orders.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Accounts.Invoice_Search">
+  <Class Name="PF.Accounts.Invoice_Search">
     <Position X="5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -43,7 +43,7 @@
       <FileName>Invoice_Search.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Accounts.Invoicing_Sales">
+  <Class Name="PF.Accounts.Invoicing_Sales">
     <Position X="6.5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -53,7 +53,7 @@
       <FileName>Invoicing_Sales.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Accounts.Invoicing_WO">
+  <Class Name="PF.Accounts.Invoicing_WO">
     <Position X="8" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -63,7 +63,7 @@
       <FileName>Invoicing_WO.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Accounts.Order_Invoice_Link">
+  <Class Name="PF.Accounts.Order_Invoice_Link">
     <Position X="9.5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -73,7 +73,7 @@
       <FileName>Order_Invoice_Link.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Accounts.Payment_Received">
+  <Class Name="PF.Accounts.Payment_Received">
     <Position X="11" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -83,21 +83,21 @@
       <FileName>Payment_Received.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Accounts.DataTableWrapper" Collapsed="true">
+  <Class Name="PF.Accounts.DataTableWrapper" Collapsed="true">
     <Position X="2" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Payment_Received.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Accounts.Program" Collapsed="true">
+  <Class Name="PF.Accounts.Program" Collapsed="true">
     <Position X="0.5" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAACAAAAAAAAAAAAAIAAAAAABAAAAAQ=</HashCode>
       <FileName>Program.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Accounts.Sales_Rates">
+  <Class Name="PF.Accounts.Sales_Rates">
     <Position X="12.5" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -107,7 +107,7 @@
       <FileName>Sales_Rates.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Accounts.Statement_Email">
+  <Class Name="PF.Accounts.Statement_Email">
     <Position X="14" Y="0.5" Width="1.5" />
     <Compartments>
       <Compartment Name="Fields" Collapsed="true" />
@@ -117,13 +117,13 @@
       <FileName>Statement_Email.cs</FileName>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Accounts.Properties.Resources" Collapsed="true">
+  <Class Name="PF.Accounts.Properties.Resources" Collapsed="true">
     <Position X="2" Y="5.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAABEAAAAQAAAAAAAAAAAAAAAIA=</HashCode>
     </TypeIdentifier>
   </Class>
-  <Class Name="FruPak.PF.Accounts.Properties.Settings" Collapsed="true">
+  <Class Name="PF.Accounts.Properties.Settings" Collapsed="true">
     <Position X="0.5" Y="6.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAIAAAAAABAAAAAAAAAAAAAAA=</HashCode>

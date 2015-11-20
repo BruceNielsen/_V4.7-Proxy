@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Accounts
+namespace PF.Accounts
 {
     public partial class Payment_Received : Form
     {
@@ -23,13 +23,13 @@ namespace FruPak.PF.Accounts
             btn_Add.Enabled = bol_w_a;
 
             //check if testing or not
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
 
             #region Log any interesting events from the UI to the CSV log file
@@ -64,9 +64,9 @@ namespace FruPak.PF.Accounts
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -83,9 +83,9 @@ namespace FruPak.PF.Accounts
             populate_datagridview(null);
 
             //get gst
-            dec_GST = FruPak.PF.Common.Code.General.Get_GST();
+            dec_GST = PF.Common.Code.General.Get_GST();
 
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_System_Email.Get_Info("FP-Off3");
+            DataSet ds_Get_Info = PF.Data.AccessLayer.CM_System_Email.Get_Info("FP-Off3");
             DataRow dr_Get_Info;
             for (int i = 0; i < ds_Get_Info.Tables[0].Rows.Count; i++)
             {
@@ -94,7 +94,7 @@ namespace FruPak.PF.Accounts
             }
             ds_Get_Info.Dispose();
 
-            DataSet ds = FruPak.PF.Data.AccessLayer.PF_Customer.Get_Info();
+            DataSet ds = PF.Data.AccessLayer.PF_Customer.Get_Info();
 
             cmb_test.DataSource = new ListSelectionWrapper<DataRow>(ds.Tables[0].Rows,
                 "Combined" // "SomePropertyOrColumnName" will populate the Name on ObjectSelectionWrapper.
@@ -178,11 +178,11 @@ namespace FruPak.PF.Accounts
 
             if (where == null)
             {
-                ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_A_Invoice.Get_Info_Payments_Not_Recevied();
+                ds_Get_Info = PF.Data.AccessLayer.PF_A_Invoice.Get_Info_Payments_Not_Recevied();
             }
             else
             {
-                ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_A_Invoice.Get_Info_Payments_Not_Recevied(where);
+                ds_Get_Info = PF.Data.AccessLayer.PF_A_Invoice.Get_Info_Payments_Not_Recevied(where);
             }
 
             DataRow dr_Get_Info;
@@ -283,15 +283,15 @@ namespace FruPak.PF.Accounts
 
                     dt = Convert.ToDateTime(dataGridView1.Rows[i].Cells["Payment_Received"].Value.ToString());
 
-                    int_result = int_result + FruPak.PF.Data.AccessLayer.PF_A_Invoice.Update_Payment_Received(Convert.ToInt32(dataGridView1.Rows[i].Cells["Invoice_Id"].Value),
+                    int_result = int_result + PF.Data.AccessLayer.PF_A_Invoice.Update_Payment_Received(Convert.ToInt32(dataGridView1.Rows[i].Cells["Invoice_Id"].Value),
                                                                                                                 dt.Year.ToString() + "/" + dt.Month.ToString() + "/" + dt.Day.ToString(),
                                                                                                                 int_Current_User_Id);
-                    DataSet ds = FruPak.PF.Data.AccessLayer.PF_Orders.Get_Order_id_for_Invoice(Convert.ToInt32(dataGridView1.Rows[i].Cells["Invoice_Id"].Value));
+                    DataSet ds = PF.Data.AccessLayer.PF_Orders.Get_Order_id_for_Invoice(Convert.ToInt32(dataGridView1.Rows[i].Cells["Invoice_Id"].Value));
                     DataRow dr;
                     for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
                     {
                         dr = ds.Tables[0].Rows[j];
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Pallet.Update_Order_Id(Convert.ToInt32(dr["Pallet_Id"].ToString()), Convert.ToInt32(dr["Order_id"].ToString()), int_Current_User_Id);
+                        int_result = PF.Data.AccessLayer.PF_Pallet.Update_Order_Id(Convert.ToInt32(dr["Pallet_Id"].ToString()), Convert.ToInt32(dr["Order_id"].ToString()), int_Current_User_Id);
                     }
                     ds.Dispose();
                 }
@@ -323,27 +323,27 @@ namespace FruPak.PF.Accounts
         private void btn_Email_Click(object sender, EventArgs e)
         {
             int int_result = 9;
-            FruPak.PF.Data.Excel.Excel.FilePath = FruPak.PF.Common.Code.General.Get_Single_System_Code("PF-TPPath");
+            PF.Data.Excel.Excel.FilePath = PF.Common.Code.General.Get_Single_System_Code("PF-TPPath");
 
             string str_save_filename = "Outstanding Invoices as at " + DateTime.Now.ToString("yyyyMMdd");
-            FruPak.PF.Data.Excel.Excel.FileName = str_save_filename;
+            PF.Data.Excel.Excel.FileName = str_save_filename;
 
-            FruPak.PF.Data.Excel.Excel.startExcel();
-            FruPak.PF.Data.Excel.Excel.Add_Data_Text("A1", "Customer");
-            FruPak.PF.Data.Excel.Excel.Font_Size("A1", 12);
-            FruPak.PF.Data.Excel.Excel.Font_Bold("A1", true);
+            PF.Data.Excel.Excel.startExcel();
+            PF.Data.Excel.Excel.Add_Data_Text("A1", "Customer");
+            PF.Data.Excel.Excel.Font_Size("A1", 12);
+            PF.Data.Excel.Excel.Font_Bold("A1", true);
 
-            FruPak.PF.Data.Excel.Excel.Add_Data_Text("B1", "Invoice Num");
-            FruPak.PF.Data.Excel.Excel.Font_Size("B1", 12);
-            FruPak.PF.Data.Excel.Excel.Font_Bold("B1", true);
+            PF.Data.Excel.Excel.Add_Data_Text("B1", "Invoice Num");
+            PF.Data.Excel.Excel.Font_Size("B1", 12);
+            PF.Data.Excel.Excel.Font_Bold("B1", true);
 
-            FruPak.PF.Data.Excel.Excel.Add_Data_Text("C1", "Invoice Date");
-            FruPak.PF.Data.Excel.Excel.Font_Size("C1", 12);
-            FruPak.PF.Data.Excel.Excel.Font_Bold("C1", true);
+            PF.Data.Excel.Excel.Add_Data_Text("C1", "Invoice Date");
+            PF.Data.Excel.Excel.Font_Size("C1", 12);
+            PF.Data.Excel.Excel.Font_Bold("C1", true);
 
-            FruPak.PF.Data.Excel.Excel.Add_Data_Text("D1", "Cost");
-            FruPak.PF.Data.Excel.Excel.Font_Size("D1", 12);
-            FruPak.PF.Data.Excel.Excel.Font_Bold("D1", true);
+            PF.Data.Excel.Excel.Add_Data_Text("D1", "Cost");
+            PF.Data.Excel.Excel.Font_Size("D1", 12);
+            PF.Data.Excel.Excel.Font_Bold("D1", true);
 
             int ip = 2;
 
@@ -352,32 +352,32 @@ namespace FruPak.PF.Accounts
                 if (dataGridView1.Rows[i].Cells["Payment_Received"].Value == null)
                 {
                     ip++; // increase the positional counter
-                    FruPak.PF.Data.Excel.Excel.Add_Data_Text("A" + Convert.ToString(ip), dataGridView1.Rows[i].Cells["Customer"].Value.ToString());
-                    FruPak.PF.Data.Excel.Excel.Add_Data_Int("B" + Convert.ToString(ip), Convert.ToInt32(dataGridView1.Rows[i].Cells["Invoice_Id"].Value.ToString()));
-                    FruPak.PF.Data.Excel.Excel.Add_Data_Text("C" + Convert.ToString(ip), dataGridView1.Rows[i].Cells["Invoice_Date"].Value.ToString());
-                    FruPak.PF.Data.Excel.Excel.Add_Data_Dec("D" + Convert.ToString(ip), Convert.ToDecimal(dataGridView1.Rows[i].Cells["Cost"].Value.ToString()), 3);
+                    PF.Data.Excel.Excel.Add_Data_Text("A" + Convert.ToString(ip), dataGridView1.Rows[i].Cells["Customer"].Value.ToString());
+                    PF.Data.Excel.Excel.Add_Data_Int("B" + Convert.ToString(ip), Convert.ToInt32(dataGridView1.Rows[i].Cells["Invoice_Id"].Value.ToString()));
+                    PF.Data.Excel.Excel.Add_Data_Text("C" + Convert.ToString(ip), dataGridView1.Rows[i].Cells["Invoice_Date"].Value.ToString());
+                    PF.Data.Excel.Excel.Add_Data_Dec("D" + Convert.ToString(ip), Convert.ToDecimal(dataGridView1.Rows[i].Cells["Cost"].Value.ToString()), 3);
                 }
             }
 
             //set column width to autofit
-            FruPak.PF.Data.Excel.Excel.Set_Column_Width(1);
-            FruPak.PF.Data.Excel.Excel.Set_Column_Width(2);
-            FruPak.PF.Data.Excel.Excel.Set_Column_Width(3);
-            FruPak.PF.Data.Excel.Excel.Set_Column_Width(4);
+            PF.Data.Excel.Excel.Set_Column_Width(1);
+            PF.Data.Excel.Excel.Set_Column_Width(2);
+            PF.Data.Excel.Excel.Set_Column_Width(3);
+            PF.Data.Excel.Excel.Set_Column_Width(4);
 
-            FruPak.PF.Data.Excel.Excel.SaveAS();
-            FruPak.PF.Data.Excel.Excel.CloseExcel();
+            PF.Data.Excel.Excel.SaveAS();
+            PF.Data.Excel.Excel.CloseExcel();
 
-            FruPak.PF.Common.Code.SendEmail.attachment = new List<string>();
-            FruPak.PF.Common.Code.SendEmail.attachment.Add(FruPak.PF.Data.Excel.Excel.FilePath + "\\" + FruPak.PF.Data.Excel.Excel.FileName + FruPak.PF.Data.Excel.Excel.fileExt);
-            int_result = FruPak.PF.Common.Code.Outlook.Email_Office("FP-Off3%", str_save_filename, "");
+            PF.Common.Code.SendEmail.attachment = new List<string>();
+            PF.Common.Code.SendEmail.attachment.Add(PF.Data.Excel.Excel.FilePath + "\\" + PF.Data.Excel.Excel.FileName + PF.Data.Excel.Excel.fileExt);
+            int_result = PF.Common.Code.Outlook.Email_Office("FP-Off3%", str_save_filename, "");
 
             if (int_result >= 0)
             {
                 lbl_message.Text = lbl_message.Text + "Invoice has been emailed to Customer and to the Office.";
                 lbl_message.ForeColor = System.Drawing.Color.Blue;
 
-                file_List.Add(FruPak.PF.Data.Excel.Excel.FilePath + "\\" + FruPak.PF.Data.Excel.Excel.FileName + FruPak.PF.Data.Excel.Excel.fileExt);
+                file_List.Add(PF.Data.Excel.Excel.FilePath + "\\" + PF.Data.Excel.Excel.FileName + PF.Data.Excel.Excel.fileExt);
             }
         }
 
@@ -404,37 +404,37 @@ namespace FruPak.PF.Accounts
 
             if (DLR_Message != System.Windows.Forms.DialogResult.OK)
             {
-                FruPak.PF.Data.Excel.Excel.FilePath = FruPak.PF.Common.Code.General.Get_Path("PF-TPPath");
+                PF.Data.Excel.Excel.FilePath = PF.Common.Code.General.Get_Path("PF-TPPath");
 
-                FruPak.PF.Data.Excel.Excel.FileName = "Statement";
-                FruPak.PF.Data.Excel.Excel.startExcel();
-                int int_return = FruPak.PF.Data.Excel.Excel.Open();
+                PF.Data.Excel.Excel.FileName = "Statement";
+                PF.Data.Excel.Excel.startExcel();
+                int int_return = PF.Data.Excel.Excel.Open();
                 if (int_return > 0)
                 {
-                    MessageBox.Show("File: " + FruPak.PF.Data.Excel.Excel.FilePath + "\\" + FruPak.PF.Data.Excel.Excel.FileName + FruPak.PF.Data.Excel.Excel.fileExt + " Can not be found",
+                    MessageBox.Show("File: " + PF.Data.Excel.Excel.FilePath + "\\" + PF.Data.Excel.Excel.FileName + PF.Data.Excel.Excel.fileExt + " Can not be found",
                         "Process Factory - Payment Recevied (Statements)", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 }
                 else
                 {
                     #region ------------- Create Spreadsheet -------------
 
-                    FruPak.PF.Data.Excel.Excel.Add_Data_Text("B10", "Invoice Num");
-                    FruPak.PF.Data.Excel.Excel.Font_Size("B10", 12);
-                    FruPak.PF.Data.Excel.Excel.Font_Bold("B10", true);
+                    PF.Data.Excel.Excel.Add_Data_Text("B10", "Invoice Num");
+                    PF.Data.Excel.Excel.Font_Size("B10", 12);
+                    PF.Data.Excel.Excel.Font_Bold("B10", true);
 
-                    FruPak.PF.Data.Excel.Excel.Add_Data_Text("C10", "Invoice Date");
-                    FruPak.PF.Data.Excel.Excel.Font_Size("C10", 12);
-                    FruPak.PF.Data.Excel.Excel.Font_Bold("C10", true);
+                    PF.Data.Excel.Excel.Add_Data_Text("C10", "Invoice Date");
+                    PF.Data.Excel.Excel.Font_Size("C10", 12);
+                    PF.Data.Excel.Excel.Font_Bold("C10", true);
 
-                    FruPak.PF.Data.Excel.Excel.Add_Data_Text("D10", "Payment Received");
-                    FruPak.PF.Data.Excel.Excel.Font_Size("D10", 12);
-                    FruPak.PF.Data.Excel.Excel.Font_Bold("D10", true);
+                    PF.Data.Excel.Excel.Add_Data_Text("D10", "Payment Received");
+                    PF.Data.Excel.Excel.Font_Size("D10", 12);
+                    PF.Data.Excel.Excel.Font_Bold("D10", true);
 
-                    FruPak.PF.Data.Excel.Excel.Add_Data_Text("E10", "Cost");
-                    FruPak.PF.Data.Excel.Excel.Font_Size("E10", 12);
-                    FruPak.PF.Data.Excel.Excel.Font_Bold("E10", true);
+                    PF.Data.Excel.Excel.Add_Data_Text("E10", "Cost");
+                    PF.Data.Excel.Excel.Font_Size("E10", 12);
+                    PF.Data.Excel.Excel.Font_Bold("E10", true);
 
-                    DataSet ds_statement = FruPak.PF.Data.AccessLayer.PF_A_Invoice.Get_Statement(str_selected_Ids, Convert.ToInt32(cmb_Month.SelectedValue.ToString()));
+                    DataSet ds_statement = PF.Data.AccessLayer.PF_A_Invoice.Get_Statement(str_selected_Ids, Convert.ToInt32(cmb_Month.SelectedValue.ToString()));
                     DataRow dr_statement;
                     int ip = 12;
                     string str_current_name = "";
@@ -448,20 +448,20 @@ namespace FruPak.PF.Accounts
 
                         if (str_current_name != dr_statement["Name"].ToString())
                         {
-                            FruPak.PF.Data.Excel.Excel.Add_Data_Text("A" + Convert.ToString(ip), dr_statement["Name"].ToString());
+                            PF.Data.Excel.Excel.Add_Data_Text("A" + Convert.ToString(ip), dr_statement["Name"].ToString());
                             str_current_name = dr_statement["Name"].ToString();
                         }
                         try
                         {
-                            FruPak.PF.Data.Excel.Excel.Add_Data_Int("B" + Convert.ToString(ip), Convert.ToInt32(dr_statement["Invoice_Id"].ToString()));
+                            PF.Data.Excel.Excel.Add_Data_Int("B" + Convert.ToString(ip), Convert.ToInt32(dr_statement["Invoice_Id"].ToString()));
                             bol_cost_total = false;
                         }
                         catch
                         {
                             bol_cost_total = true;
                         }
-                        FruPak.PF.Data.Excel.Excel.Add_Data_Text("C" + Convert.ToString(ip), dr_statement["Invoice_Date"].ToString());
-                        FruPak.PF.Data.Excel.Excel.Add_Data_Text("D" + Convert.ToString(ip), dr_statement["Payment_Received"].ToString());
+                        PF.Data.Excel.Excel.Add_Data_Text("C" + Convert.ToString(ip), dr_statement["Invoice_Date"].ToString());
+                        PF.Data.Excel.Excel.Add_Data_Text("D" + Convert.ToString(ip), dr_statement["Payment_Received"].ToString());
 
                         decimal dec_cost = 0;
                         try
@@ -485,50 +485,50 @@ namespace FruPak.PF.Accounts
                         if (bol_cost_total == true) //print total
                         {
                             dec_grand_Total = dec_grand_Total + Math.Round((dec_cost + dec_freight) + (((dec_cost + dec_freight) * dec_GST) / 100), 2); // calculate rand total
-                            FruPak.PF.Data.Excel.Excel.Add_Data_Dec("F" + Convert.ToString(ip), Math.Round((dec_cost + dec_freight) + (((dec_cost + dec_freight) * dec_GST) / 100), 2), 3);
-                            FruPak.PF.Data.Excel.Excel.Font_Bold("F" + Convert.ToString(ip), true);
+                            PF.Data.Excel.Excel.Add_Data_Dec("F" + Convert.ToString(ip), Math.Round((dec_cost + dec_freight) + (((dec_cost + dec_freight) * dec_GST) / 100), 2), 3);
+                            PF.Data.Excel.Excel.Font_Bold("F" + Convert.ToString(ip), true);
                         }
                         else
                         {
-                            FruPak.PF.Data.Excel.Excel.Add_Data_Dec("E" + Convert.ToString(ip), Math.Round((dec_cost + dec_freight) + (((dec_cost + dec_freight) * dec_GST) / 100), 2), 3);
+                            PF.Data.Excel.Excel.Add_Data_Dec("E" + Convert.ToString(ip), Math.Round((dec_cost + dec_freight) + (((dec_cost + dec_freight) * dec_GST) / 100), 2), 3);
                         }
                     }
 
-                    FruPak.PF.Data.Excel.Excel.Add_Data_Text("A" + Convert.ToString(ip + 2), "Grand Total");
-                    FruPak.PF.Data.Excel.Excel.Cell_Border("F" + Convert.ToString(ip + 2), "Top", "Continuous", "Red");
-                    FruPak.PF.Data.Excel.Excel.Cell_Border("F" + Convert.ToString(ip + 2), "Bottom", "Double", "Red");
-                    FruPak.PF.Data.Excel.Excel.Add_Data_Dec("F" + Convert.ToString(ip + 2), dec_grand_Total, 3);
-                    FruPak.PF.Data.Excel.Excel.Font_Bold("F" + Convert.ToString(ip + 2), true);
+                    PF.Data.Excel.Excel.Add_Data_Text("A" + Convert.ToString(ip + 2), "Grand Total");
+                    PF.Data.Excel.Excel.Cell_Border("F" + Convert.ToString(ip + 2), "Top", "Continuous", "Red");
+                    PF.Data.Excel.Excel.Cell_Border("F" + Convert.ToString(ip + 2), "Bottom", "Double", "Red");
+                    PF.Data.Excel.Excel.Add_Data_Dec("F" + Convert.ToString(ip + 2), dec_grand_Total, 3);
+                    PF.Data.Excel.Excel.Font_Bold("F" + Convert.ToString(ip + 2), true);
 
                     ds_statement.Dispose();
                     //set column width to autofit
-                    FruPak.PF.Data.Excel.Excel.Set_Column_Width(1);
-                    FruPak.PF.Data.Excel.Excel.Set_Column_Width(2);
-                    FruPak.PF.Data.Excel.Excel.Set_Column_Width(3);
-                    FruPak.PF.Data.Excel.Excel.Set_Column_Width(4);
-                    FruPak.PF.Data.Excel.Excel.Set_Column_Width(5);
+                    PF.Data.Excel.Excel.Set_Column_Width(1);
+                    PF.Data.Excel.Excel.Set_Column_Width(2);
+                    PF.Data.Excel.Excel.Set_Column_Width(3);
+                    PF.Data.Excel.Excel.Set_Column_Width(4);
+                    PF.Data.Excel.Excel.Set_Column_Width(5);
 
-                    FruPak.PF.Data.Excel.Excel.FilePath = FruPak.PF.Common.Code.General.Get_Path("PF-TPPath");
+                    PF.Data.Excel.Excel.FilePath = PF.Common.Code.General.Get_Path("PF-TPPath");
 
                     string str_save_filename = "Statement as at " + DateTime.Now.ToString("yyyyMMdd");
-                    FruPak.PF.Data.Excel.Excel.FileName = str_save_filename;
+                    PF.Data.Excel.Excel.FileName = str_save_filename;
 
-                    FruPak.PF.Data.Excel.Excel.SaveAS();
-                    FruPak.PF.Data.Excel.Excel.SaveASPDF();
-                    FruPak.PF.Data.Excel.Excel.CloseExcel();
+                    PF.Data.Excel.Excel.SaveAS();
+                    PF.Data.Excel.Excel.SaveASPDF();
+                    PF.Data.Excel.Excel.CloseExcel();
 
                     #endregion ------------- Create Spreadsheet -------------
 
                     #region ------------- Email Customer -------------
 
-                    FruPak.PF.Common.Code.SendEmail.attachment = new List<string>();
-                    FruPak.PF.Common.Code.SendEmail.attachment.Add(FruPak.PF.Data.Excel.Excel.FilePath + "\\" + FruPak.PF.Data.Excel.Excel.FileName + ".PDF");
+                    PF.Common.Code.SendEmail.attachment = new List<string>();
+                    PF.Common.Code.SendEmail.attachment.Add(PF.Data.Excel.Excel.FilePath + "\\" + PF.Data.Excel.Excel.FileName + ".PDF");
 
                     Form frm_Select_Cust = new Statement_Email();
                     frm_Select_Cust.ShowDialog();
 
-                    str_msg = str_msg + FruPak.PF.Common.Code.Outlook.Check_Outlook(Statement_Email.Customer_Id, "", "Email");
-                    FruPak.PF.Common.Code.Send_Email.Email_Subject = "Monthly Statement";
+                    str_msg = str_msg + PF.Common.Code.Outlook.Check_Outlook(Statement_Email.Customer_Id, "", "Email");
+                    PF.Common.Code.Send_Email.Email_Subject = "Monthly Statement";
 
                     string str_month = "";
                     foreach (DataRow dr1 in dt.Rows)
@@ -539,12 +539,12 @@ namespace FruPak.PF.Accounts
                         }
                     }
 
-                    FruPak.PF.Common.Code.Send_Email.Email_Message = "Please find attached you Monthly Statement for the month of " + str_month;
-                    FruPak.PF.Common.Code.Outlook.Email(str_msg, true);
+                    PF.Common.Code.Send_Email.Email_Message = "Please find attached you Monthly Statement for the month of " + str_month;
+                    PF.Common.Code.Outlook.Email(str_msg, true);
 
                     #endregion ------------- Email Customer -------------
                 }
-                FruPak.PF.Data.Excel.Excel.CloseExcel();
+                PF.Data.Excel.Excel.CloseExcel();
             }
         }
 
@@ -621,7 +621,7 @@ namespace FruPak.PF.Accounts
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

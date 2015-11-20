@@ -8,9 +8,9 @@ using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using FruPak.PF.CustomSettings;
+using PF.CustomSettings;
 
-namespace FruPak.PF.Dispatch
+namespace PF.Dispatch
 {
     public partial class Shipping_Search : Form
     {
@@ -40,13 +40,13 @@ namespace FruPak.PF.Dispatch
             bol_write_access = bol_w_a;
             //check if testing or not
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
             //filter labels
             showAllLabel.Visible = false;
@@ -91,9 +91,9 @@ namespace FruPak.PF.Dispatch
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -103,12 +103,12 @@ namespace FruPak.PF.Dispatch
             try
             {
                 //set up outlook locations
-                FruPak.PF.Data.Outlook.Outlook.Folder_Name = FruPak.PF.Common.Code.Outlook.SetUp_Location("PF-Contact");
+                PF.Data.Outlook.Outlook.Folder_Name = PF.Common.Code.Outlook.SetUp_Location("PF-Contact");
 
                 // Crashes here if Outlook is open
-                Console.WriteLine("Outlook.Folder_Name: " + FruPak.PF.Data.Outlook.Outlook.Folder_Name);
+                Console.WriteLine("Outlook.Folder_Name: " + PF.Data.Outlook.Outlook.Folder_Name);
 
-                FruPak.PF.Data.Outlook.Outlook.Folder_Name_Location = FruPak.PF.Data.Outlook.Outlook.Folder_Name_Location;
+                PF.Data.Outlook.Outlook.Folder_Name_Location = PF.Data.Outlook.Outlook.Folder_Name_Location;
                 //AddColumnsProgrammatically();
                 populate_DataGridView1(bol_list_all);
             }
@@ -182,7 +182,7 @@ namespace FruPak.PF.Dispatch
         {
             Reset();
             // --------------------------------------------------------------------------
-            FruPak.PF.Common.Code.KillAllWordInstances.KillAllWordProcesses();
+            //PF.Common.Code.KillAllWordInstances.KillAllWordProcesses();
             this.Close();
         }
 
@@ -197,11 +197,11 @@ namespace FruPak.PF.Dispatch
 
         private void Generate_The_Email()
         {
-            //logger.Log(LogLevel.Info, DecorateString("FruPak.PF.Dispatch.Shipping Search", "btn_Email_Click", "(Email)"));
+            //logger.Log(LogLevel.Info, DecorateString("PF.Dispatch.Shipping Search", "btn_Email_Click", "(Email)"));
             DLR_Message = new DialogResult();   // Added 24/9/2015 to fix problem where a success view or print operation left the DLR_Message with a result of OK
             try
             {
-                FruPak.PF.Common.Code.SendEmail.attachment = new List<string>();
+                PF.Common.Code.SendEmail.attachment = new List<string>();
 
                 string str_msg = "";
                 if (chb_All.Checked == true)
@@ -244,7 +244,7 @@ namespace FruPak.PF.Dispatch
                     if (chb_COA.Checked == true && DLR_Message != DialogResult.OK)
                     {
                         // this line is common to View, Print and Email - Just a path statement pulled from the Database
-                        FruPak.PF.PrintLayer.Word.FilePath = FruPak.PF.Common.Code.General.Get_Path("PF-TPPath");
+                        PF.PrintLayer.Word.FilePath = PF.Common.Code.General.Get_Path("PF-TPPath");
 
                         // This call is where it branches off from the rest (View and Print)
                         // The battle is won at last - setting print to true generates the pdf files correctly,
@@ -257,7 +257,7 @@ namespace FruPak.PF.Dispatch
                         // Will need to add in a delay to allow the send handler to do its thing
 
                         // Original single-file code
-                        //FruPak.PF.Common.Code.SendEmail.attachment.Add(FruPak.PF.PrintLayer.Word.FilePath + "\\" + FruPak.PF.PrintLayer.Word.FileName + ".PDF");
+                        //PF.Common.Code.SendEmail.attachment.Add(PF.PrintLayer.Word.FilePath + "\\" + PF.PrintLayer.Word.FileName + ".PDF");
 
                     }
 
@@ -269,14 +269,14 @@ namespace FruPak.PF.Dispatch
                     {
                         create_Packing_Slip(int_Loop_count, str_delivery_name, "Email", true);
 
-                        FruPak.PF.Common.Code.SendEmail.attachment.Add(FruPak.PF.PrintLayer.Word.FilePath + "\\" + FruPak.PF.PrintLayer.Word.FileName + ".PDF");
+                        PF.Common.Code.SendEmail.attachment.Add(PF.PrintLayer.Word.FilePath + "\\" + PF.PrintLayer.Word.FileName + ".PDF");
                     }
 
                     #endregion ------------- print Packing Slip -------------
 
                     #region ------------- Send Email -------------
 
-                    str_msg = str_msg + FruPak.PF.Common.Code.Outlook.Check_Outlook(Convert.ToInt32(dataGridView1.CurrentRow.Cells["Customer_id"].Value.ToString()), "", "Email");
+                    str_msg = str_msg + PF.Common.Code.Outlook.Check_Outlook(Convert.ToInt32(dataGridView1.CurrentRow.Cells["Customer_id"].Value.ToString()), "", "Email");
 
                     if (str_msg.Length > 0)
                     {
@@ -285,10 +285,10 @@ namespace FruPak.PF.Dispatch
 
                     if (DLR_Message != System.Windows.Forms.DialogResult.OK)
                     {
-                        FruPak.PF.Common.Code.Send_Email.Email_Subject = "Delivery Documentation";
-                        FruPak.PF.Common.Code.Send_Email.Email_Message = "Please find attached the documentation the order that was shipped from us on  " + Environment.NewLine
+                        PF.Common.Code.Send_Email.Email_Subject = "Delivery Documentation";
+                        PF.Common.Code.Send_Email.Email_Message = "Please find attached the documentation the order that was shipped from us on  " + Environment.NewLine
                             + dataGridView1.CurrentRow.Cells["Load_Date"].Value.ToString() + Environment.NewLine + "Thanks" + Environment.NewLine;
-                        int int_result = FruPak.PF.Common.Code.Outlook.Email(str_msg, true);
+                        int int_result = PF.Common.Code.Outlook.Email(str_msg, true);
 
                         if (int_result == 0)
                         {
@@ -310,14 +310,18 @@ namespace FruPak.PF.Dispatch
 
         private void btn_Print_Click(object sender, EventArgs e)
         {
-            //logger.Log(LogLevel.Info, DecorateString("FruPak.PF.Dispatch.Shipping Search", "btn_Print_Click", "(Print)"));
+            Cursor.Current = Cursors.WaitCursor;
+
+            //logger.Log(LogLevel.Info, DecorateString("PF.Dispatch.Shipping Search", "btn_Print_Click", "(Print)"));
             ClearOutTempFolder();
 
-            FruPak.PF.PrintLayer.Word.FilePath = FruPak.PF.Common.Code.General.Get_Path("PF-TPPath");
+            PF.PrintLayer.Word.FilePath = PF.Common.Code.General.Get_Path("PF-TPPath");
             Print_Selected_Data(true);
 
             // Print, then delete - NEW 13-10-2015 BN
             PrintAnyPdfsInTheTempFolder();
+
+            Cursor.Current = Cursors.Default;
 
         }
 
@@ -326,22 +330,22 @@ namespace FruPak.PF.Dispatch
             Cursor.Current = Cursors.WaitCursor;
             //ClearOutTempFolder();
 
-            //logger.Log(LogLevel.Info, DecorateString("FruPak.PF.Dispatch.Shipping Search", "btn_View_Click", "(View)"));
+            //logger.Log(LogLevel.Info, DecorateString("PF.Dispatch.Shipping Search", "btn_View_Click", "(View)"));
 
             view_list.Clear();
             //Reset();
 
-            FruPak.PF.PrintLayer.Word.FilePath = FruPak.PF.Common.Code.General.Get_Single_System_Code("PF-TPPath");
+            PF.PrintLayer.Word.FilePath = PF.Common.Code.General.Get_Single_System_Code("PF-TPPath");
 
             Print_Selected_Data(false);
             int int_return = 0;
             foreach (string view_file in view_list)
             {
-                FruPak.PF.PrintLayer.Word.StartWord_No_Template();
-                FruPak.PF.PrintLayer.Word.FileName = view_file;
-                FruPak.PF.PrintLayer.Word.OpenDoc();
-                int_return = FruPak.PF.PrintLayer.Word.SaveAsPdf();
-                FruPak.PF.PrintLayer.Word.CloseWord();
+                PF.PrintLayer.Word.StartWord_No_Template();
+                PF.PrintLayer.Word.FileName = view_file;
+                PF.PrintLayer.Word.OpenDoc();
+                int_return = PF.PrintLayer.Word.SaveAsPdf();
+                PF.PrintLayer.Word.CloseWord();
 
                 if (int_return == 9)
                 {
@@ -350,9 +354,9 @@ namespace FruPak.PF.Dispatch
                 else
                 {
                     // All this may just be hunting a red herring, as I'm thinking the call to word is supplying the extension - BN 05-03-2015
-                    //Console.WriteLine("Appending .pdf: " + FruPak.PF.PrintLayer.Word.FilePath + "\\" + FruPak.PF.PrintLayer.Word.FileName + ".pdf");
-                    //logger.Log(LogLevel.Info, "Appending .pdf: " + FruPak.PF.PrintLayer.Word.FilePath + "\\" + FruPak.PF.PrintLayer.Word.FileName + ".pdf");
-                    FruPak.PF.Common.Code.General.Report_Viewer(FruPak.PF.PrintLayer.Word.FilePath + "\\" + FruPak.PF.PrintLayer.Word.FileName + ".pdf");
+                    //Console.WriteLine("Appending .pdf: " + PF.PrintLayer.Word.FilePath + "\\" + PF.PrintLayer.Word.FileName + ".pdf");
+                    //logger.Log(LogLevel.Info, "Appending .pdf: " + PF.PrintLayer.Word.FilePath + "\\" + PF.PrintLayer.Word.FileName + ".pdf");
+                    PF.Common.Code.General.Report_Viewer(PF.PrintLayer.Word.FilePath + "\\" + PF.PrintLayer.Word.FileName + ".pdf");
                 }
             }
 
@@ -482,16 +486,16 @@ namespace FruPak.PF.Dispatch
             {
                 string Data = "";
                 Data = Data + str_delivery_name;
-                Data = Data + ":" + FruPak.PF.Data.Outlook.Contacts.Contact_Business_Address.ToString();
-                Data = Data + ":" + FruPak.PF.Data.Outlook.Contacts.Contact_Business_City.ToString();
+                Data = Data + ":" + PF.Data.Outlook.Contacts.Contact_Business_Address.ToString();
+                Data = Data + ":" + PF.Data.Outlook.Contacts.Contact_Business_City.ToString();
                 Cursor = Cursors.WaitCursor;
-                //logger.Log(LogLevel.Info, DecorateString("FruPak.PF.Dispatch.Shipping Search", "create_address_label", Data));
+                //logger.Log(LogLevel.Info, DecorateString("PF.Dispatch.Shipping Search", "create_address_label", Data));
 
                 //set printer
-                //FruPak.PF.PrintLayer.Word.Printer = FruPak.PF.Common.Code.General.Get_Printer("Custom");
-                FruPak.PF.PrintLayer.Word.FileName = "SL" + dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                view_list.Add(FruPak.PF.PrintLayer.Word.FileName);
-                FruPak.PF.PrintLayer.Sticky_Address_Label.Print(Data, bol_print);
+                //PF.PrintLayer.Word.Printer = PF.Common.Code.General.Get_Printer("Custom");
+                PF.PrintLayer.Word.FileName = "SL" + dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                view_list.Add(PF.PrintLayer.Word.FileName);
+                PF.PrintLayer.Sticky_Address_Label.Print(Data, bol_print);
                 Cursor = Cursors.Default;
             }
             catch (Exception ex)
@@ -502,7 +506,7 @@ namespace FruPak.PF.Dispatch
 
         private int create_COA(string str_delivery_name, string str_type, bool bol_print)
         {
-            //logger.Log(LogLevel.Info, DecorateString("FruPak.PF.Dispatch.Shipping Search", "create_COA", "Delivery Name: " + str_delivery_name + ", Type: " + str_type + ", Print: " + bol_print.ToString()));
+            //logger.Log(LogLevel.Info, DecorateString("PF.Dispatch.Shipping Search", "create_COA", "Delivery Name: " + str_delivery_name + ", Type: " + str_type + ", Print: " + bol_print.ToString()));
             // Massive errors which were appearing here were caused by the broken Outlook links again.
             // Re-Link in Common -> Customers Form BN 2/02/2015
             try
@@ -512,19 +516,29 @@ namespace FruPak.PF.Dispatch
 
                 Data = Data + dataGridView1.CurrentRow.Cells[0].Value.ToString();
                 Data = Data + ":" + str_delivery_name;
-                Data = Data + ":" + FruPak.PF.Data.Outlook.Contacts.Contact_Business_Address.ToString();
+
+                // Changed 19/11/2015 - BN
+                if (str_delivery_name.StartsWith("There is no matching entry in your Outlook Contacts list."))
+                {
+                    Data = Data + ":" + "No Address Found.";
+                }
+                else
+                {
+                    Data = Data + ":" + PF.Data.Outlook.Contacts.Contact_Business_Address.ToString();
+                }
+
                 Data = Data + ":" + str_type;
 
                 Cursor = Cursors.WaitCursor;
-                //logger.Log(LogLevel.Info, DecorateString("FruPak.PF.Dispatch.Shipping Search", "create_COA", Data));
+                //logger.Log(LogLevel.Info, DecorateString("PF.Dispatch.Shipping Search", "create_COA", Data));
 
                 //set printer
-                FruPak.PF.PrintLayer.Word.Printer = FruPak.PF.Common.Code.General.Get_Printer("A4");
-                FruPak.PF.PrintLayer.Word.FileName = "COA" + dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                PF.PrintLayer.Word.Printer = PF.Common.Code.General.Get_Printer("A4");
+                PF.PrintLayer.Word.FileName = "COA" + dataGridView1.CurrentRow.Cells[0].Value.ToString();
 
-                return_code = FruPak.PF.PrintLayer.Certificate_Of_Analysis.Print(Data, bol_print);
+                return_code = PF.PrintLayer.Certificate_Of_Analysis.Print(Data, bol_print);
 
-                view_list.AddRange(System.IO.Directory.GetFiles(FruPak.PF.PrintLayer.Word.FilePath, "COA" + dataGridView1.CurrentRow.Cells[0].Value.ToString() + "*", System.IO.SearchOption.TopDirectoryOnly)
+                view_list.AddRange(System.IO.Directory.GetFiles(PF.PrintLayer.Word.FilePath, "COA" + dataGridView1.CurrentRow.Cells[0].Value.ToString() + "*", System.IO.SearchOption.TopDirectoryOnly)
                      .Select(path => Path.GetFileNameWithoutExtension(path))
                      .ToArray());
 
@@ -545,13 +559,14 @@ namespace FruPak.PF.Dispatch
             // Step over this line
             //[DebuggerStepThrough] would be nice
 
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Orders.Get_Info(Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString()));
+            DataSet ds_Get_Info = PF.Data.AccessLayer.PF_Orders.Get_Info(Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString()));
             DataRow dr_Get_Info;
             DateTime Load_Date = new DateTime();
             string str_Order_Num = "";
             string str_Freight_Docket = "";
             string str_delivery_name = "";
             int int_Loop_count = 0;
+            //bool DataMatchFailed = false;   // BN 19/11/2015
 
             for (int i = 0; i <= Convert.ToInt32(Math.Floor(Convert.ToDecimal(ds_Get_Info.Tables[0].Rows.Count.ToString()) / 10)); i++)
             {
@@ -563,43 +578,76 @@ namespace FruPak.PF.Dispatch
                 str_Order_Num = dr_Get_Info["Customer_Order"].ToString();
                 str_Freight_Docket = dr_Get_Info["Freight_Docket"].ToString();
 
-                DataSet ds = FruPak.PF.Data.AccessLayer.PF_Customer.Get_Info(Convert.ToInt32(dr_Get_Info["Customer_Id"].ToString()));
+                DataSet ds = PF.Data.AccessLayer.PF_Customer.Get_Info(Convert.ToInt32(dr_Get_Info["Customer_Id"].ToString()));
                 DataRow dr;
+                string sCustomerName = "";  // Declare out here so I can get to it later
+                
+
                 for (int j = 0; j < ds.Tables[0].Rows.Count; j++)
                 {
                     dr = ds.Tables[0].Rows[j];
-                    FruPak.PF.Data.Outlook.Contacts.Contact_Details(dr["Outlook_Key"].ToString());
+                    PF.Data.Outlook.Contacts.Contact_Details(dr["Outlook_Key"].ToString());
+                    sCustomerName = dr["Name"].ToString();
                     string s = dr["Outlook_Key"].ToString();
+                    Console.WriteLine("Customer Name:\t\t" + sCustomerName);
                     Console.WriteLine("Outlook Key:\t\t" + s);
                 }
                 ds.Dispose();
 
+                // There's been an error present from day one - The first time you create a COA, everything is correct,
+                // but if you print a second one, the name and address are printed as the first customer, and not the current one.
+
+                // Name and everything else is correct up to this point  - BN 19/11/2015
+
+                // What I need to do here and check that the customer name in the data (Which is always correct)
+                // matches Contact_Company_Name - if it doesn't, that means theres no matching entry in the contact list.
                 try
                 {
-                    if (FruPak.PF.Data.Outlook.Contacts.Contact_Business_Address != null)
+                    if (PF.Data.Outlook.Contacts.Contact_Business_Address != null)
                     {
                         // Null reference exception
-                        if (FruPak.PF.Data.Outlook.Contacts.Contact_Business_Address.ToString() == "")
+                        if (PF.Data.Outlook.Contacts.Contact_Business_Address.ToString() == "")
                         {
                             str_msg = str_msg + "No Street Address loaded in OutLook for this Customer. Please load an Address and try again." + Environment.NewLine;
                         }
 
                         // Yet again no checking for nulls
-                        if (FruPak.PF.Data.Outlook.Contacts.Contact_Company_Name == "" ||
-                            FruPak.PF.Data.Outlook.Contacts.Contact_Company_Name == null)
+                        if (PF.Data.Outlook.Contacts.Contact_Company_Name == "" ||
+                            PF.Data.Outlook.Contacts.Contact_Company_Name == null)
                         {
-                            if (FruPak.PF.Data.Outlook.Contacts.Contact_First_Name == "" && FruPak.PF.Data.Outlook.Contacts.Contact_Last_Name == "")
+                            if (PF.Data.Outlook.Contacts.Contact_First_Name == "" && PF.Data.Outlook.Contacts.Contact_Last_Name == "")
                             {
                                 str_msg = str_msg + "No Names (Company, First, Last) are loaded in Outlook for this Customer. PLease load a Name and try again." + Environment.NewLine;
                             }
                             else
                             {
-                                str_delivery_name = FruPak.PF.Data.Outlook.Contacts.Contact_First_Name + " " + FruPak.PF.Data.Outlook.Contacts.Contact_Last_Name;
+
+                                // Insert the matching check here - If match is incorrect, change the delivery name to a brief error message
+                                if (PF.Data.Outlook.Contacts.Contact_Company_Name != sCustomerName)
+                                {
+                                    str_delivery_name = "There is no matching entry in your Outlook Contacts list.";
+                                    //DataMatchFailed = true;
+                                }
+                                else
+                                {
+                                    str_delivery_name = PF.Data.Outlook.Contacts.Contact_First_Name + " " + PF.Data.Outlook.Contacts.Contact_Last_Name;
+                                }
                             }
                         }
                         else
                         {
-                            str_delivery_name = FruPak.PF.Data.Outlook.Contacts.Contact_Company_Name;
+                            // Insert the matching check here - If match is incorrect, change the delivery name to a brief error message
+                            if (PF.Data.Outlook.Contacts.Contact_Company_Name != sCustomerName)
+                            {
+                                str_delivery_name = "There is no matching entry in your Outlook Contacts list.";
+                                //DataMatchFailed = true;
+                            }
+                            else
+                            {
+                                str_delivery_name = PF.Data.Outlook.Contacts.Contact_First_Name + " " + PF.Data.Outlook.Contacts.Contact_Last_Name;
+                            }
+
+                            //str_delivery_name = PF.Data.Outlook.Contacts.Contact_Company_Name;
                         }
 
                         //str_msg = check_tickboxs();
@@ -626,9 +674,17 @@ namespace FruPak.PF.Dispatch
             ds_Get_Info.Dispose();
 
             string Data = "";
-            Data = Data + str_delivery_name;
-            Data = Data + ":" + Convert.ToString(int_Loop_count);
+            //if (DataMatchFailed == false)
+            //{
+                Data = Data + str_delivery_name;
+                Data = Data + ":" + Convert.ToString(int_Loop_count);
+            //}
+            //else
+            //{
+            //    Data = Data + str_delivery_name;
+            //    Data = Data + ":" + Convert.ToString(int_Loop_count);
 
+            //}
             return Data;
         }
 
@@ -640,17 +696,17 @@ namespace FruPak.PF.Dispatch
                 Data = Data + Convert.ToString(int_Loop_count);
                 Data = Data + ":" + dataGridView1.CurrentRow.Cells[0].Value.ToString();
                 Data = Data + ":" + str_delivery_name;
-                Data = Data + ":" + FruPak.PF.Data.Outlook.Contacts.Contact_Business_Address.ToString();
+                Data = Data + ":" + PF.Data.Outlook.Contacts.Contact_Business_Address.ToString();
                 Data = Data + ":" + str_type;
 
                 Cursor = Cursors.WaitCursor;
-                //logger.Log(LogLevel.Info, DecorateString("FruPak.PF.Dispatch.Shipping Search", "create_Packing_Slip", Data));
+                //logger.Log(LogLevel.Info, DecorateString("PF.Dispatch.Shipping Search", "create_Packing_Slip", Data));
 
                 //set printer
-                FruPak.PF.PrintLayer.Word.Printer = FruPak.PF.Common.Code.General.Get_Printer("A4");
-                FruPak.PF.PrintLayer.Word.FileName = "PS" + dataGridView1.CurrentRow.Cells[0].Value.ToString();
-                view_list.Add(FruPak.PF.PrintLayer.Word.FileName);
-                FruPak.PF.PrintLayer.Packing_Slip.Print(Data, bol_print);
+                PF.PrintLayer.Word.Printer = PF.Common.Code.General.Get_Printer("A4");
+                PF.PrintLayer.Word.FileName = "PS" + dataGridView1.CurrentRow.Cells[0].Value.ToString();
+                view_list.Add(PF.PrintLayer.Word.FileName);
+                PF.PrintLayer.Packing_Slip.Print(Data, bol_print);
                 Cursor = Cursors.Default;
             }
             catch (Exception ex)
@@ -751,7 +807,7 @@ namespace FruPak.PF.Dispatch
 
             int int_dt_current = Convert.ToInt32(dt_current.ToString("yyyyMMdd"));
 
-            DataSet ds = FruPak.PF.Data.AccessLayer.PF_Orders.Get_Overdue_Orders();
+            DataSet ds = PF.Data.AccessLayer.PF_Orders.Get_Overdue_Orders();
             DataRow dr;
             if (ds != null)
             {
@@ -810,11 +866,11 @@ namespace FruPak.PF.Dispatch
 
             if (customer1.Customer_Id > 0)
             {
-                ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Orders.Get_Order_Info_For_Cust(customer1.Customer_Id, bol_list_all);
+                ds_Get_Info = PF.Data.AccessLayer.PF_Orders.Get_Order_Info_For_Cust(customer1.Customer_Id, bol_list_all);
             }
             else
             {
-                ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Orders.Get_Order_Info(bol_list_all);
+                ds_Get_Info = PF.Data.AccessLayer.PF_Orders.Get_Order_Info(bol_list_all);
             }
 
             BindingSource dataSource = new BindingSource(ds_Get_Info, "Table");
@@ -847,7 +903,7 @@ namespace FruPak.PF.Dispatch
             if (chb_PC.Checked == true && DLR_Message != DialogResult.OK)
             {
                 //Gets the pallet details for the order
-                ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Info_for_Order(Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString()));
+                ds_Get_Info = PF.Data.AccessLayer.PF_Pallet.Get_Info_for_Order(Convert.ToInt32(dataGridView1.CurrentRow.Cells[0].Value.ToString()));
                 for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
                 {
                     dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
@@ -855,13 +911,13 @@ namespace FruPak.PF.Dispatch
 
                     Cursor = Cursors.WaitCursor;
                     //set printer
-                    FruPak.PF.PrintLayer.Word.Printer = FruPak.PF.Common.Code.General.Get_Printer("A4");
-                    FruPak.PF.PrintLayer.Word.FileName = "PC" + str_barcode;
+                    PF.PrintLayer.Word.Printer = PF.Common.Code.General.Get_Printer("A4");
+                    PF.PrintLayer.Word.FileName = "PC" + str_barcode;
 
-                    FruPak.PF.PrintLayer.Pallet_Card.Print(str_barcode, bol_print, int_Current_User_Id);
+                    PF.PrintLayer.Pallet_Card.Print(str_barcode, bol_print, int_Current_User_Id);
                     Cursor = Cursors.Default;
 
-                    view_list.Add(FruPak.PF.PrintLayer.Word.FileName);
+                    view_list.Add(PF.PrintLayer.Word.FileName);
                 }
                 ds_Get_Info.Dispose();
             }
@@ -872,7 +928,7 @@ namespace FruPak.PF.Dispatch
 
             if (chb_COA.Checked == true && DLR_Message != DialogResult.OK)
             {
-                //logger.Log(LogLevel.Info, DecorateString("FruPak.PF.Dispatch.Shipping Search", "Print_btn: create_COA", "Delivery Name: " + str_delivery_name + ", Type: " + ", Print: " + bol_print.ToString()));
+                //logger.Log(LogLevel.Info, DecorateString("PF.Dispatch.Shipping Search", "Print_btn: create_COA", "Delivery Name: " + str_delivery_name + ", Type: " + ", Print: " + bol_print.ToString()));
 
                 return_code = create_COA(str_delivery_name, "Print", bol_print);
             }
@@ -975,8 +1031,8 @@ namespace FruPak.PF.Dispatch
         {
             // All region comments I've added for clarity (BN 12/08/2015)
 
-            FruPak.PF.PrintLayer.Word.FilePath = FruPak.PF.Common.Code.General.Get_Path("PF-TPPath");
-            DirectoryInfo di = new DirectoryInfo(FruPak.PF.PrintLayer.Word.FilePath);
+            PF.PrintLayer.Word.FilePath = PF.Common.Code.General.Get_Path("PF-TPPath");
+            DirectoryInfo di = new DirectoryInfo(PF.PrintLayer.Word.FilePath);
             if (di.Exists)
             {
                 foreach (FileInfo fi in di.GetFiles())
@@ -1168,7 +1224,7 @@ namespace FruPak.PF.Dispatch
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             //logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 
@@ -1227,12 +1283,12 @@ namespace FruPak.PF.Dispatch
                 // This is new, now that I've finally got the COA print to pdf working - BN 30/10/2015
 
                 // Pull the temp path from the database
-                string TempPath = FruPak.PF.Common.Code.General.Get_Single_System_Code("PF-TPPath");
+                string TempPath = PF.Common.Code.General.Get_Single_System_Code("PF-TPPath");
 
 
                 //string path = Application.StartupPath;
                 //Settings = new PhantomCustomSettings();
-                //Settings.SettingsPath = Path.Combine(path, "FruPak.Phantom.config");
+                //Settings.SettingsPath = Path.Combine(path, "FP.Phantom.config");
                 //Settings.EncryptionKey = "phantomKey";
                 //Settings.Load();
                 //TempPath = Settings.Path_Local_PDF_Files;
@@ -1243,6 +1299,11 @@ namespace FruPak.PF.Dispatch
                     if (fi.Extension == ".pdf")
                     {
                         SendToPrinter(TempPath, fi.Name);
+
+                        // This is the solution to files being locked by another process. BN 10/11/2015
+                        System.GC.Collect();
+                        System.GC.WaitForPendingFinalizers();
+
                         // Delete the file
                         fi.Delete();
                     }
@@ -1267,7 +1328,7 @@ namespace FruPak.PF.Dispatch
             #region Pull the temp path from the database
             string path = Application.StartupPath;
             Settings = new PhantomCustomSettings();
-            Settings.SettingsPath = Path.Combine(path, "FruPak.Phantom.config");
+            Settings.SettingsPath = Path.Combine(path, "FP.Phantom.config");
             Settings.EncryptionKey = "phantomKey";
             Settings.Load();
             TempPath = Settings.Path_Local_PDF_Files;
@@ -1277,8 +1338,8 @@ namespace FruPak.PF.Dispatch
             {
                 if (fi.Extension == ".pdf")
                 {
-                    //FruPak.PF.Common.Code.SendEmail.attachment.Add(FruPak.PF.PrintLayer.Word.FilePath + "\\" + FruPak.PF.PrintLayer.Word.FileName + ".PDF");
-                    FruPak.PF.Common.Code.SendEmail.attachment.Add(TempPath + "\\" + fi.Name);
+                    //PF.Common.Code.SendEmail.attachment.Add(PF.PrintLayer.Word.FilePath + "\\" + PF.PrintLayer.Word.FileName + ".PDF");
+                    PF.Common.Code.SendEmail.attachment.Add(TempPath + "\\" + fi.Name);
 
                     // Delete the file
                     //fi.Delete();
@@ -1305,9 +1366,10 @@ namespace FruPak.PF.Dispatch
             info.WindowStyle = ProcessWindowStyle.Hidden;
 
             Process p = new Process();
+                
             p.StartInfo = info;
             p.Start();
-
+                // See if the GC trick works here ?
             p.WaitForInputIdle();
             System.Threading.Thread.Sleep(3000);
             if (false == p.CloseMainWindow())
@@ -1315,6 +1377,8 @@ namespace FruPak.PF.Dispatch
             }
             catch (Exception ex)
             {
+
+                logger.Log(LogLevel.Error, ex.Message);
                 Common.Code.DebugStacktrace.StackTrace(ex);
 
             }
@@ -1323,13 +1387,16 @@ namespace FruPak.PF.Dispatch
 
         private void buttonNewView_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
+            ClearOutTempFolder();
+
             // Duplicate of send email, without the email part
 
-            //logger.Log(LogLevel.Info, DecorateString("FruPak.PF.Dispatch.Shipping Search", "btn_Email_Click", "(Email)"));
+            //logger.Log(LogLevel.Info, DecorateString("PF.Dispatch.Shipping Search", "btn_Email_Click", "(Email)"));
             DLR_Message = new DialogResult();   // Added 24/9/2015 to fix problem where a success view or print operation left the DLR_Message with a result of OK
             try
             {
-                //FruPak.PF.Common.Code.SendEmail.attachment = new List<string>();
+                //PF.Common.Code.SendEmail.attachment = new List<string>();
 
                 //string str_msg = "";
                 //if (chb_All.Checked == true)
@@ -1372,7 +1439,7 @@ namespace FruPak.PF.Dispatch
                     if (chb_COA.Checked == true && DLR_Message != DialogResult.OK)
                     {
                         // this line is common to View, Print and Email - Just a path statement pulled from the Database
-                        FruPak.PF.PrintLayer.Word.FilePath = FruPak.PF.Common.Code.General.Get_Path("PF-TPPath");
+                        PF.PrintLayer.Word.FilePath = PF.Common.Code.General.Get_Path("PF-TPPath");
 
                         // This call is where it branches off from the rest (View and Print)
                         // The battle is won at last - setting print to true generates the pdf files correctly,
@@ -1381,7 +1448,7 @@ namespace FruPak.PF.Dispatch
 
                     // open the pdfs
                     ViewAnyPdfsInTheTempFolder();
-                    //FruPak.PF.Common.Code.General.Report_Viewer(FruPak.PF.PrintLayer.Word.FilePath + "\\" + view_file);
+                    //PF.Common.Code.General.Report_Viewer(PF.PrintLayer.Word.FilePath + "\\" + view_file);
 
                     //AttachAnyPdfsInTheTempFolder();
 
@@ -1389,7 +1456,7 @@ namespace FruPak.PF.Dispatch
                     // Will need to add in a delay to allow the send handler to do its thing
 
                     // Original single-file code
-                    //FruPak.PF.Common.Code.SendEmail.attachment.Add(FruPak.PF.PrintLayer.Word.FilePath + "\\" + FruPak.PF.PrintLayer.Word.FileName + ".PDF");
+                    //PF.Common.Code.SendEmail.attachment.Add(PF.PrintLayer.Word.FilePath + "\\" + PF.PrintLayer.Word.FileName + ".PDF");
 
                 }
 
@@ -1401,14 +1468,14 @@ namespace FruPak.PF.Dispatch
                     {
                         create_Packing_Slip(int_Loop_count, str_delivery_name, "Print", false);
 
-                        //FruPak.PF.Common.Code.SendEmail.attachment.Add(FruPak.PF.PrintLayer.Word.FilePath + "\\" + FruPak.PF.PrintLayer.Word.FileName + ".PDF");
+                        //PF.Common.Code.SendEmail.attachment.Add(PF.PrintLayer.Word.FilePath + "\\" + PF.PrintLayer.Word.FileName + ".PDF");
                     }
 
                     #endregion ------------- print Packing Slip -------------
 
                     #region ------------- Send Email -------------
 
-                    //str_msg = str_msg + FruPak.PF.Common.Code.Outlook.Check_Outlook(Convert.ToInt32(dataGridView1.CurrentRow.Cells["Customer_id"].Value.ToString()), "", "Email");
+                    //str_msg = str_msg + PF.Common.Code.Outlook.Check_Outlook(Convert.ToInt32(dataGridView1.CurrentRow.Cells["Customer_id"].Value.ToString()), "", "Email");
 
                     //if (str_msg.Length > 0)
                     //{
@@ -1417,10 +1484,10 @@ namespace FruPak.PF.Dispatch
 
                     //if (DLR_Message != System.Windows.Forms.DialogResult.OK)
                     //{
-                    //    FruPak.PF.Common.Code.Send_Email.Email_Subject = "Delivery Documentation";
-                    //    FruPak.PF.Common.Code.Send_Email.Email_Message = "Please find attached the documentation the order that was shipped from us on  " + Environment.NewLine
+                    //    PF.Common.Code.Send_Email.Email_Subject = "Delivery Documentation";
+                    //    PF.Common.Code.Send_Email.Email_Message = "Please find attached the documentation the order that was shipped from us on  " + Environment.NewLine
                     //        + dataGridView1.CurrentRow.Cells["Load_Date"].Value.ToString() + Environment.NewLine + "Thanks" + Environment.NewLine;
-                    //    int int_result = FruPak.PF.Common.Code.Outlook.Email(str_msg, true);
+                    //    int int_result = PF.Common.Code.Outlook.Email(str_msg, true);
 
                     //    if (int_result == 0)
                     //    {
@@ -1440,6 +1507,8 @@ namespace FruPak.PF.Dispatch
                 logger.Log(LogLevel.Error, ex.Message);
             }
 
+            Cursor.Current = Cursors.Default;
+
         }
 
         public static void ViewAnyPdfsInTheTempFolder()
@@ -1447,7 +1516,7 @@ namespace FruPak.PF.Dispatch
             try
             {
                 // Pull the temp path from the database
-                string TempPath = FruPak.PF.Common.Code.General.Get_Single_System_Code("PF-TPPath");
+                string TempPath = PF.Common.Code.General.Get_Single_System_Code("PF-TPPath");
 
                 //// This is new, now that I've finally got the COA print to pdf working
                 //string TempPath = string.Empty;
@@ -1455,7 +1524,7 @@ namespace FruPak.PF.Dispatch
                 //#region Pull the temp path from the database
                 //string path = Application.StartupPath;
                 //Settings = new PhantomCustomSettings();
-                //Settings.SettingsPath = Path.Combine(path, "FruPak.Phantom.config");
+                //Settings.SettingsPath = Path.Combine(path, "FP.Phantom.config");
                 //Settings.EncryptionKey = "phantomKey";
                 //Settings.Load();
                 //TempPath = Settings.Path_Local_PDF_Files;
@@ -1468,10 +1537,10 @@ namespace FruPak.PF.Dispatch
 
                     if (fi.Extension == ".pdf")
                     {
-                        //FruPak.PF.Common.Code.General.Report_Viewer(FruPak.PF.PrintLayer.Word.FilePath + "\\" + view_file);
+                        //PF.Common.Code.General.Report_Viewer(PF.PrintLayer.Word.FilePath + "\\" + view_file);
                         logger.Log(LogLevel.Info, "PDF Found: " + TempPath + "\\" + fi.Name);
 
-                        FruPak.PF.Common.Code.General.Report_Viewer(TempPath + "\\" + fi.Name);
+                        PF.Common.Code.General.Report_Viewer(TempPath + "\\" + fi.Name);
 
                         //SendToPrinter(TempPath, fi.Name);
                         // Delete the file
@@ -1497,16 +1566,19 @@ namespace FruPak.PF.Dispatch
         private void buttonCheckFilesInTheTempFolder_Click(object sender, EventArgs e)
         {
             // BN 23/10/2015
-            FruPak.PF.Common.Code.OpenPdfFileLocations.OpenTempPdfFileLocation();
+            PF.Common.Code.OpenPdfFileLocations.OpenTempPdfFileLocation();
         }
 
         private void btn_Email_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
+
             Generate_The_Email();
 
             // Clear out old files
             ClearOutTempFolder();   // BN
 
+            Cursor.Current = Cursors.Default;
         }
 
         private void buttonDeleteFiles_Click(object sender, EventArgs e)

@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Common
+namespace PF.Utils.Common
 {
     public partial class Grower : Form
     {
@@ -25,13 +25,13 @@ namespace FruPak.PF.Utils.Common
             btn_Add.Enabled = bol_w_a;
             //check if testing or not
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
             AddColumnsProgrammatically();
             populate_datagridview();
@@ -69,9 +69,9 @@ namespace FruPak.PF.Utils.Common
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -144,7 +144,7 @@ namespace FruPak.PF.Utils.Common
             dataGridView1.Columns.Add(img_delete);
             img_delete.HeaderText = "Delete";
             img_delete.Name = "Delete";
-            img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
+            img_delete.Image = PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
             img_delete.Visible = bol_write_access;
 
@@ -152,7 +152,7 @@ namespace FruPak.PF.Utils.Common
             dataGridView1.Columns.Add(img_edit);
             img_edit.HeaderText = "Edit";
             img_edit.Name = "Edit";
-            img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
+            img_edit.Image = PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
 
             DataGridViewButtonColumn btn_block1 = new DataGridViewButtonColumn();
@@ -166,7 +166,7 @@ namespace FruPak.PF.Utils.Common
             dataGridView1.Refresh();
             dataGridView1.Rows.Clear();
 
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Grower.Get_Info();
+            DataSet ds_Get_Info = PF.Data.AccessLayer.CM_Grower.Get_Info();
             DataRow dr_Get_Info;
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {
@@ -228,13 +228,13 @@ namespace FruPak.PF.Utils.Common
 
         private void populate_Combobox()
         {
-            ds_EX_Details = FruPak.PF.Data.AccessLayer.EX_Pipfruit_Orchard.Get_Distinct_RPINS();
+            ds_EX_Details = PF.Data.AccessLayer.EX_Pipfruit_Orchard.Get_Distinct_RPINS();
             cmb_Rpin.DataSource = ds_EX_Details.Tables[0];
             cmb_Rpin.DisplayMember = "RPIN";
             cmb_Rpin.ValueMember = "RPIN";
             cmb_Rpin.Text = null;
 
-            ds_CM_Orchardist = FruPak.PF.Data.AccessLayer.CM_Orchardist.Get_Info();
+            ds_CM_Orchardist = PF.Data.AccessLayer.CM_Orchardist.Get_Info();
             cmb_Orchardist.DataSource = ds_CM_Orchardist.Tables[0];
             cmb_Orchardist.DisplayMember = "Description";
             cmb_Orchardist.ValueMember = "Orchardist_Id";
@@ -295,7 +295,7 @@ namespace FruPak.PF.Utils.Common
                     str_rpin = cmb_Rpin.Text;
                 }
 
-                DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Grower.Get_Info(str_rpin);
+                DataSet ds_Get_Info = PF.Data.AccessLayer.CM_Grower.Get_Info(str_rpin);
 
                 if (Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()) > 0)
                 {
@@ -354,28 +354,28 @@ namespace FruPak.PF.Utils.Common
                 {
                     case "&Add":
 
-                        int_Grower_Id = FruPak.PF.Common.Code.General.int_max_user_id("CM_Grower");
-                        int_result = FruPak.PF.Data.AccessLayer.CM_Grower.Insert(int_Grower_Id, str_rpin, Convert.ToInt32(cmb_Orchardist.SelectedValue.ToString()),
+                        int_Grower_Id = PF.Common.Code.General.int_max_user_id("CM_Grower");
+                        int_result = PF.Data.AccessLayer.CM_Grower.Insert(int_Grower_Id, str_rpin, Convert.ToInt32(cmb_Orchardist.SelectedValue.ToString()),
                                                                               Convert.ToDecimal(txt_Global_Gap.Text), Convert.ToDecimal(txt_GST.Text), ckb_Active.Checked, customer1.Customer_Id, int_Current_User_Id);
                         //CREATE BLOCK FOR Grower
                         if (cmb_Rpin.SelectedValue != null)
                         {
-                            DataSet ds_Get_Blocks = FruPak.PF.Data.AccessLayer.EX_Pipfruit_Orchard.Get_Blocks(cmb_Rpin.SelectedValue.ToString());
+                            DataSet ds_Get_Blocks = PF.Data.AccessLayer.EX_Pipfruit_Orchard.Get_Blocks(cmb_Rpin.SelectedValue.ToString());
                             DataRow dr_Get_Blocks;
                             for (int i = 0; i < Convert.ToInt32(ds_Get_Blocks.Tables[0].Rows.Count.ToString()); i++)
                             {
                                 dr_Get_Blocks = ds_Get_Blocks.Tables[0].Rows[i];
 
-                                int int_Block_Id = FruPak.PF.Common.Code.General.int_max_user_id("CM_Block");
-                                int_result = FruPak.PF.Data.AccessLayer.CM_Block.Insert(int_Block_Id, int_Grower_Id, dr_Get_Blocks["Prodsite_code"].ToString() + dr_Get_Blocks["Mgmtarea_code"].ToString(), null, true, int_Current_User_Id);
+                                int int_Block_Id = PF.Common.Code.General.int_max_user_id("CM_Block");
+                                int_result = PF.Data.AccessLayer.CM_Block.Insert(int_Block_Id, int_Grower_Id, dr_Get_Blocks["Prodsite_code"].ToString() + dr_Get_Blocks["Mgmtarea_code"].ToString(), null, true, int_Current_User_Id);
                                 //Create Variety for each Block for Grower
 
-                                DataSet ds_Get_Variety = FruPak.PF.Data.AccessLayer.EX_Pipfruit_Orchard.Get_Variety(cmb_Rpin.SelectedValue.ToString(), dr_Get_Blocks["Prodsite_code"].ToString(), dr_Get_Blocks["Mgmtarea_code"].ToString());
+                                DataSet ds_Get_Variety = PF.Data.AccessLayer.EX_Pipfruit_Orchard.Get_Variety(cmb_Rpin.SelectedValue.ToString(), dr_Get_Blocks["Prodsite_code"].ToString(), dr_Get_Blocks["Mgmtarea_code"].ToString());
                                 DataRow dr_Get_Variety;
                                 for (int j = 0; j < Convert.ToInt32(ds_Get_Variety.Tables[0].Rows.Count.ToString()); j++)
                                 {
                                     dr_Get_Variety = ds_Get_Variety.Tables[0].Rows[j];
-                                    int_result = FruPak.PF.Data.AccessLayer.CM_Block_Variety_Relationship.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Block_Variety_Relationship"), int_Block_Id, Convert.ToInt32(dr_Get_Variety["Variety_Id"].ToString()), int_Current_User_Id);
+                                    int_result = PF.Data.AccessLayer.CM_Block_Variety_Relationship.Insert(PF.Common.Code.General.int_max_user_id("CM_Block_Variety_Relationship"), int_Block_Id, Convert.ToInt32(dr_Get_Variety["Variety_Id"].ToString()), int_Current_User_Id);
                                 }
                             }
 
@@ -395,7 +395,7 @@ namespace FruPak.PF.Utils.Common
                             str_rpin = cmb_Rpin.SelectedValue.ToString();
                         }
 
-                        int_result = FruPak.PF.Data.AccessLayer.CM_Grower.Update(int_Grower_Id, str_rpin, Convert.ToInt32(cmb_Orchardist.SelectedValue.ToString()),
+                        int_result = PF.Data.AccessLayer.CM_Grower.Update(int_Grower_Id, str_rpin, Convert.ToInt32(cmb_Orchardist.SelectedValue.ToString()),
                                                                               Convert.ToDecimal(txt_Global_Gap.Text), Convert.ToDecimal(txt_GST.Text), ckb_Active.Checked, int_Current_User_Id, customer1.Customer_Id);
                         lbl_message.Text = str_rpin + " has been updated";
                         break;
@@ -424,7 +424,7 @@ namespace FruPak.PF.Utils.Common
             {
                 string str_msg;
                 DataSet ds = null;
-                ds = FruPak.PF.Data.AccessLayer.PF_Work_Order.Check_Grower(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
+                ds = PF.Data.AccessLayer.PF_Work_Order.Check_Grower(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
 
                 if (ds.Tables[0].Rows.Count > 0)
                 {
@@ -444,19 +444,19 @@ namespace FruPak.PF.Utils.Common
                     if (DLR_Message == DialogResult.Yes)
                     {
                         //delete block variety link
-                        ds = FruPak.PF.Data.AccessLayer.CM_Block.Get_Info(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
+                        ds = PF.Data.AccessLayer.CM_Block.Get_Info(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
                         DataRow dr;
                         for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                         {
                             dr = ds.Tables[0].Rows[i];
-                            int_result = int_result + FruPak.PF.Data.AccessLayer.CM_Block_Variety_Relationship.Delete_For_Block(Convert.ToInt32(dr["Block_Id"].ToString()));
+                            int_result = int_result + PF.Data.AccessLayer.CM_Block_Variety_Relationship.Delete_For_Block(Convert.ToInt32(dr["Block_Id"].ToString()));
                         }
                         ds.Dispose();
 
                         //delete blocks linked to a grower
-                        int_result = int_result + FruPak.PF.Data.AccessLayer.CM_Block.Delete_All_for_Grower(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
+                        int_result = int_result + PF.Data.AccessLayer.CM_Block.Delete_All_for_Grower(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
                         //delete the grower
-                        int_result = int_result + FruPak.PF.Data.AccessLayer.CM_Grower.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
+                        int_result = int_result + PF.Data.AccessLayer.CM_Grower.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
                     }
 
                     if (int_result > 0)
@@ -544,7 +544,7 @@ namespace FruPak.PF.Utils.Common
 
         private void cmb_Orchardist_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            DataSet ds = FruPak.PF.Data.AccessLayer.CM_Orchardist.Get_Info(Convert.ToInt32((sender as ComboBox).SelectedValue.ToString()));
+            DataSet ds = PF.Data.AccessLayer.CM_Orchardist.Get_Info(Convert.ToInt32((sender as ComboBox).SelectedValue.ToString()));
             DataRow dr;
 
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
@@ -611,7 +611,7 @@ namespace FruPak.PF.Utils.Common
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

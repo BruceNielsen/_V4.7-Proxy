@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Accounts
+namespace PF.Accounts
 {
     public partial class Intended_Orders : Form
     {
@@ -22,13 +22,13 @@ namespace FruPak.PF.Accounts
 
             //check if testing or not
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text;
+            //    this.Text = "FP Process Factory - " + this.Text;
             //}
 
             #region Log any interesting events from the UI to the CSV log file
@@ -63,9 +63,9 @@ namespace FruPak.PF.Accounts
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -76,7 +76,7 @@ namespace FruPak.PF.Accounts
         private void populate_combobox()
         {
             DataSet ds = null;
-            ds = FruPak.PF.Data.AccessLayer.CM_Fruit_Type.Get_Info();
+            ds = PF.Data.AccessLayer.CM_Fruit_Type.Get_Info();
             cmb_Fruit_Type.DataSource = ds.Tables[0];
             cmb_Fruit_Type.DisplayMember = "Description";
             cmb_Fruit_Type.ValueMember = "FruitType_Id";
@@ -84,7 +84,7 @@ namespace FruPak.PF.Accounts
             ds.Dispose();
 
             cmb_Material_Num.DataSource = null;
-            ds = FruPak.PF.Data.AccessLayer.CM_Material.Get_For_Combo_For_Customer();
+            ds = PF.Data.AccessLayer.CM_Material.Get_For_Combo_For_Customer();
             cmb_Material_Num.DataSource = ds.Tables[0];
             cmb_Material_Num.DisplayMember = "Combined";
             cmb_Material_Num.ValueMember = "Material_Id";
@@ -161,7 +161,7 @@ namespace FruPak.PF.Accounts
             dataGridView1.Columns.Add(img_delete);
             img_delete.HeaderText = "Delete";
             img_delete.Name = "Delete";
-            img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
+            img_delete.Image = PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
             img_delete.Visible = bol_write_access;
 
@@ -169,7 +169,7 @@ namespace FruPak.PF.Accounts
             dataGridView1.Columns.Add(img_edit);
             img_edit.HeaderText = "Edit";
             img_edit.Name = "Edit";
-            img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
+            img_edit.Image = PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
         }
 
@@ -178,7 +178,7 @@ namespace FruPak.PF.Accounts
             dataGridView1.Refresh();
             dataGridView1.Rows.Clear();
 
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Orders_Intended.Get_info_translated();
+            DataSet ds_Get_Info = PF.Data.AccessLayer.PF_Orders_Intended.Get_info_translated();
             DataRow dr_Get_Info;
 
             for (int i = 0; i < ds_Get_Info.Tables[0].Rows.Count; i++)
@@ -284,7 +284,7 @@ namespace FruPak.PF.Accounts
         private void cmb_Fruit_Type_SelectionChangeCommitted(object sender, EventArgs e)
         {
             cmb_Material_Num.DataSource = null;
-            DataSet ds = FruPak.PF.Data.AccessLayer.CM_Material.Get_For_Combo_by_fruit(Convert.ToInt32(cmb_Fruit_Type.SelectedValue.ToString()));
+            DataSet ds = PF.Data.AccessLayer.CM_Material.Get_For_Combo_by_fruit(Convert.ToInt32(cmb_Fruit_Type.SelectedValue.ToString()));
             cmb_Material_Num.DataSource = ds.Tables[0];
             cmb_Material_Num.DisplayMember = "Combined";
             cmb_Material_Num.ValueMember = "Material_Id";
@@ -323,13 +323,13 @@ namespace FruPak.PF.Accounts
                 switch (btn_Add.Text)
                 {
                     case "&Add":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Orders_Intended.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Orders_Intended"), customer1.Customer_Id,
+                        int_result = PF.Data.AccessLayer.PF_Orders_Intended.Insert(PF.Common.Code.General.int_max_user_id("PF_Orders_Intended"), customer1.Customer_Id,
                                                                                           Convert.ToInt32(cmb_Material_Num.SelectedValue.ToString()), nud_Quantity.Value, nud_Unit_Price.Value,
                                                                                           txt_Comments.Text, txt_Customer_Order.Text, ckb_Active.Checked, int_Current_User_Id);
                         break;
 
                     case "&Update":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Orders_Intended.Update(int_dgv_Id, customer1.Customer_Id, Convert.ToInt32(cmb_Material_Num.SelectedValue.ToString()), nud_Quantity.Value, nud_Unit_Price.Value,
+                        int_result = PF.Data.AccessLayer.PF_Orders_Intended.Update(int_dgv_Id, customer1.Customer_Id, Convert.ToInt32(cmb_Material_Num.SelectedValue.ToString()), nud_Quantity.Value, nud_Unit_Price.Value,
                                                                                           txt_Comments.Text, txt_Customer_Order.Text, ckb_Active.Checked, int_Current_User_Id);
                         break;
                 }
@@ -357,7 +357,7 @@ namespace FruPak.PF.Accounts
 
             if (e.ColumnIndex == 11)
             {
-                int_result = FruPak.PF.Common.Code.General.Delete_Record("PF_Orders_Intended", dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString(), dataGridView1.Rows[e.RowIndex].Cells["Customer"].Value.ToString());
+                int_result = PF.Common.Code.General.Delete_Record("PF_Orders_Intended", dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString(), dataGridView1.Rows[e.RowIndex].Cells["Customer"].Value.ToString());
 
                 if (int_result > 0)
                 {
@@ -383,7 +383,7 @@ namespace FruPak.PF.Accounts
                 cmb_Material_Num.SelectedValue = Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Material_Id"].Value.ToString());
 
                 //get fruit type ID
-                DataSet ds = FruPak.PF.Data.AccessLayer.CM_Material.Get_Info(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Material_Id"].Value.ToString()));
+                DataSet ds = PF.Data.AccessLayer.CM_Material.Get_Info(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Material_Id"].Value.ToString()));
                 DataRow dr;
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
@@ -452,7 +452,7 @@ namespace FruPak.PF.Accounts
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 
@@ -503,7 +503,7 @@ namespace FruPak.PF.Accounts
 
         private void Intended_Orders_FormClosing(object sender, FormClosingEventArgs e)
         {
-            logger.Log(LogLevel.Info, "---------------------[ FruPak.PF.Accounts.Intended_Orders Form Closing]--- :" + DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString());
+            logger.Log(LogLevel.Info, "---------------------[ PF.Accounts.Intended_Orders Form Closing]--- :" + DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString());
         }
     }
 }

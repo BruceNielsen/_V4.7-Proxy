@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Menu
+namespace PF.Menu
 {
     public partial class InputWorkOrder : Form
     {

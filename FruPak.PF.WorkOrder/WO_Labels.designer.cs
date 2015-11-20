@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.WorkOrder
+﻿namespace PF.WorkOrder
 {
     partial class WO_Labels
     {
@@ -61,8 +61,8 @@
             this.cmb_Orders = new System.Windows.Forms.ComboBox();
             this.lbl_order = new System.Windows.Forms.Label();
             this.ckb_dup = new System.Windows.Forms.CheckBox();
-            this.woDisplay1 = new FruPak.PF.Utils.UserControls.WODisplay();
-            this.marqueeLabel1 = new FruPak.PF.WorkOrder.Marquee_Label();
+            this.woDisplay1 = new PF.Utils.UserControls.WODisplay();
+            this.marqueeLabel1 = new PF.WorkOrder.Marquee_Label();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Quantity1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Quantity2)).BeginInit();
@@ -466,7 +466,7 @@
             this.KeyPreview = true;
             this.Name = "WO_Labels";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.WorkOrder.Work Order Labels";
+            this.Text = "PF.WorkOrder.Work Order Labels (Process Factory --> Work Orders --> Pallets)";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.WO_Labels_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nud_Quantity1)).EndInit();

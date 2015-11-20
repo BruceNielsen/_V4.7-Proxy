@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.Scanning
+﻿namespace PF.Utils.Scanning
 {
     partial class Tipping_Onto_Order
     {
@@ -42,7 +42,7 @@
             this.label4 = new System.Windows.Forms.Label();
             this.cmb_barcode2 = new System.Windows.Forms.ComboBox();
             this.btn_Close = new System.Windows.Forms.Button();
-            this.barcode1 = new FruPak.PF.Utils.UserControls.Barcode();
+            this.barcode1 = new PF.Utils.UserControls.Barcode();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -199,7 +199,7 @@
             this.KeyPreview = true;
             this.Name = "Tipping_Onto_Order";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.Scanning.Tipping Onto Order";
+            this.Text = "PF.Utils.Scanning.Tipping Onto Order";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Tipping_Onto_Order_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

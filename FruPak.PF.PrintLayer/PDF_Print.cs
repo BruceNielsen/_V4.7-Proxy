@@ -1,11 +1,11 @@
-﻿using FruPak.PF.CustomSettings;
+﻿using PF.CustomSettings;
 using NLog;
 using System;
 using System.Diagnostics;
 using System.IO;
 using System.Windows.Forms;
 
-namespace FruPak.PF.PrintLayer
+namespace PF.PrintLayer
 {
     public class PDF_Print
     {
@@ -23,8 +23,8 @@ namespace FruPak.PF.PrintLayer
 
                 ProcessStartInfo startInfo = new ProcessStartInfo();
 
-                // Original string with typo:  @"\\FruPak=SBS\PublicDocs\FruPak\Client\acrowrap.exe" + @" ";
-                //startInfo.FileName = @"\\FruPak-SBS\PublicDocs\FruPak\Client\acrowrap.exe" + @" ";
+                // Original string with typo:  @"\\FP=SBS\PublicDocs\FP\Client\acrowrap.exe" + @" ";
+                //startInfo.FileName = @"\\FP-SBS\PublicDocs\FP\Client\acrowrap.exe" + @" ";
 
                 #region Load CustomSettings
 
@@ -36,7 +36,7 @@ namespace FruPak.PF.PrintLayer
 
                 // Initialize settings
                 Settings = new PhantomCustomSettings();
-                Settings.SettingsPath = Path.Combine(path, "FruPak.Phantom.config");
+                Settings.SettingsPath = Path.Combine(path, "FP.Phantom.config");
                 Settings.EncryptionKey = "phantomKey";
 
                 if (!File.Exists(Settings.SettingsPath))
@@ -71,7 +71,7 @@ namespace FruPak.PF.PrintLayer
             }
             catch (Exception ex)
             {
-                //string log_file = @"\\FruPak-SBS\PublicDocs\FruPak\Client\Logs\PDFPrint.txt";
+                //string log_file = @"\\FP-SBS\PublicDocs\FP\Client\Logs\PDFPrint.txt";
                 PhantomCustomSettings Settings = new PhantomCustomSettings();
 
                 #region Load CustomSettings
@@ -84,7 +84,7 @@ namespace FruPak.PF.PrintLayer
 
                 // Initialize settings
                 Settings = new PhantomCustomSettings();
-                Settings.SettingsPath = Path.Combine(path, "FruPak.Phantom.config");
+                Settings.SettingsPath = Path.Combine(path, "FP.Phantom.config");
                 Settings.EncryptionKey = "phantomKey";
 
                 if (!File.Exists(Settings.SettingsPath))

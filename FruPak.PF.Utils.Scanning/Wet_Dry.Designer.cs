@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.Scanning
+﻿namespace PF.Utils.Scanning
 {
     partial class Wet_Dry
     {
@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Wet_Dry));
-            this.barcode1 = new FruPak.PF.Utils.UserControls.Barcode();
+            this.barcode1 = new PF.Utils.UserControls.Barcode();
             this.lbl_WO_Num = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.lbl_message = new System.Windows.Forms.Label();
@@ -185,7 +185,7 @@
             this.KeyPreview = true;
             this.Name = "Wet_Dry";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.Scanning.WET_DRY";
+            this.Text = "PF.Utils.Scanning.WET_DRY";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Wet_Dry_KeyDown);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);

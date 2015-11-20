@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Dispatch
+﻿namespace PF.Dispatch
 {
     partial class Other_Work
     {
@@ -218,7 +218,7 @@
             this.KeyPreview = true;
             this.Name = "Other_Work";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Dispatch.Other Work Details";
+            this.Text = "PF.Dispatch.Other Work Details";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Other_Work_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

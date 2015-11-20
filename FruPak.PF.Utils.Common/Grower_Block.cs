@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Common
+namespace PF.Utils.Common
 {
     public partial class Grower_Block : Form
     {
@@ -20,16 +20,16 @@ namespace FruPak.PF.Utils.Common
 
             int_Current_User_Id = int_C_User_id;
             int_Grower_Id = int_Grow_Id;
-            txt_rpin.Text = FruPak.PF.Data.AccessLayer.CM_Grower.Get_RPIN(int_Grower_Id);
+            txt_rpin.Text = PF.Data.AccessLayer.CM_Grower.Get_RPIN(int_Grower_Id);
             //check if testing or not
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
             //restrict access
             bol_write_access = bol_w_a;
@@ -70,9 +70,9 @@ namespace FruPak.PF.Utils.Common
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -134,7 +134,7 @@ namespace FruPak.PF.Utils.Common
             dataGridView1.Columns.Add(img_edit);
             img_edit.HeaderText = "Edit";
             img_edit.Name = "Edit";
-            img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
+            img_edit.Image = PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
 
             DataGridViewButtonColumn btn_variety = new DataGridViewButtonColumn();
@@ -148,7 +148,7 @@ namespace FruPak.PF.Utils.Common
             dataGridView1.Refresh();
             dataGridView1.Rows.Clear();
 
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Block.Get_Info(int_Grower_Id);
+            DataSet ds_Get_Info = PF.Data.AccessLayer.CM_Block.Get_Info(int_Grower_Id);
             DataRow dr_Get_Info;
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {
@@ -227,13 +227,13 @@ namespace FruPak.PF.Utils.Common
                     case "&Add":
                         if (txt_code.TextLength > 0)
                         {
-                            int_result = FruPak.PF.Data.AccessLayer.CM_Block.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Block"), int_Grower_Id, txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
+                            int_result = PF.Data.AccessLayer.CM_Block.Insert(PF.Common.Code.General.int_max_user_id("CM_Block"), int_Grower_Id, txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                             lbl_message.Text = "Block " + txt_code.Text + " has been added";
                         }
                         break;
 
                     case "&Update":
-                        int_result = FruPak.PF.Data.AccessLayer.CM_Block.Update(int_Block_Id, int_Grower_Id, txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
+                        int_result = PF.Data.AccessLayer.CM_Block.Update(int_Block_Id, int_Grower_Id, txt_code.Text, txt_Description.Text, ckb_Active.Checked, int_Current_User_Id);
                         lbl_message.Text = "Block " + txt_code.Text + " has been updated";
                         break;
                 }
@@ -353,7 +353,7 @@ namespace FruPak.PF.Utils.Common
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

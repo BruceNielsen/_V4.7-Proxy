@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.Server
+﻿namespace PF.Utils.Server
 {
     partial class Print_Server
     {
@@ -115,7 +115,7 @@
             this.KeyPreview = true;
             this.Name = "Print_Server";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.Server.Print Server";
+            this.Text = "PF.Utils.Server.Print Server";
             this.WindowState = System.Windows.Forms.FormWindowState.Minimized;
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Print_Server_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

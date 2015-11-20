@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Security
+namespace PF.Utils.Security
 {
     /*Description
     -----------------
@@ -73,9 +73,9 @@ namespace FruPak.PF.Utils.Security
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
 
-                //else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                //else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 //{
-                //    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                //    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                 //    cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 //}
             }
@@ -121,7 +121,7 @@ namespace FruPak.PF.Utils.Security
             dataGridView1.Columns.Add(img_delete);
             img_delete.HeaderText = "Delete";
             img_delete.Name = "Delete";
-            img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
+            img_delete.Image = PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
             img_delete.Visible = bol_write_access;
 
@@ -129,7 +129,7 @@ namespace FruPak.PF.Utils.Security
             dataGridView1.Columns.Add(img_edit);
             img_edit.HeaderText = "Edit";
             img_edit.Name = "Edit";
-            img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
+            img_edit.Image = PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
         }
 
@@ -143,7 +143,7 @@ namespace FruPak.PF.Utils.Security
             switch (str_table)
             {
                 case "SC_Log_Action":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.SC_Log_Action.Get_Info();
+                    ds_Get_Info = PF.Data.AccessLayer.SC_Log_Action.Get_Info();
                     break;
             }
 
@@ -218,7 +218,7 @@ namespace FruPak.PF.Utils.Security
                     switch (str_table)
                     {
                         case "SC_Log_Action":
-                            int_result = FruPak.PF.Data.AccessLayer.SC_Log_Action.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
+                            int_result = PF.Data.AccessLayer.SC_Log_Action.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
                             break;
                     }
                 }
@@ -263,7 +263,7 @@ namespace FruPak.PF.Utils.Security
                         switch (str_table)
                         {
                             case "SC_Log_Action":
-                                int_result = FruPak.PF.Data.AccessLayer.SC_Log_Action.Insert(FruPak.PF.Common.Code.General.int_max_user_id("SC_Log_Action"), txt_code.Text, txt_Description.Text, int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.SC_Log_Action.Insert(PF.Common.Code.General.int_max_user_id("SC_Log_Action"), txt_code.Text, txt_Description.Text, int_Current_User_Id);
                                 break;
                         }
                         break;
@@ -272,7 +272,7 @@ namespace FruPak.PF.Utils.Security
                         switch (str_table)
                         {
                             case "SC_Log_Action":
-                                int_result = FruPak.PF.Data.AccessLayer.SC_Log_Action.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.SC_Log_Action.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, int_Current_User_Id);
                                 break;
                         }
                         break;
@@ -312,7 +312,7 @@ namespace FruPak.PF.Utils.Security
                 switch (str_table)
                 {
                     case "SC_Log_Action":
-                        ds_validate = FruPak.PF.Data.AccessLayer.SC_Log_Action.Get_Info(txt_code.Text);
+                        ds_validate = PF.Data.AccessLayer.SC_Log_Action.Get_Info(txt_code.Text);
                         break;
                 }
 
@@ -395,7 +395,7 @@ namespace FruPak.PF.Utils.Security
 
         //private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         //{
-        //    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+        //    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
         //    logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         //}
 

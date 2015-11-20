@@ -8,7 +8,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Accounts
+namespace PF.Accounts
 {
     public partial class Invoice_Search : Form
     {
@@ -45,13 +45,13 @@ namespace FruPak.PF.Accounts
                 "A copy of the invoice only is also emailed to the office.");  // Set multiline tooltip
                                                                                //check if testing or not
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
 
             populate_DataGridView1();
@@ -90,9 +90,9 @@ namespace FruPak.PF.Accounts
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -151,7 +151,7 @@ namespace FruPak.PF.Accounts
         {
             dataGridView1.Refresh();
             DataSet ds_Get_Info;
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_A_Invoice.Get_Info_for_Invoice_search();
+            ds_Get_Info = PF.Data.AccessLayer.PF_A_Invoice.Get_Info_for_Invoice_search();
             bs_dataSource = new BindingSource(ds_Get_Info, "Table");
             dataGridView1.DataSource = bs_dataSource;
             binding();
@@ -187,7 +187,7 @@ namespace FruPak.PF.Accounts
         private void btn_Close_Click(object sender, EventArgs e)
         {
             FireHistoryMessage("Invoice Search Close Button Clicked");
-            FruPak.PF.Common.Code.KillAllWordInstances.KillAllWordProcesses();
+            //PF.Common.Code.KillAllWordInstances.KillAllWordProcesses();
 
             this.Close();
         }
@@ -227,7 +227,7 @@ namespace FruPak.PF.Accounts
 
             #region ------------- defaults -------------
 
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_System.Get_Info_Like("PF%");
+            ds_Get_Info = PF.Data.AccessLayer.CM_System.Get_Info_Like("PF%");
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {
@@ -235,22 +235,22 @@ namespace FruPak.PF.Accounts
                 switch (dr_Get_Info["Code"].ToString())
                 {
                     case "PF-TPath":
-                        FruPak.PF.PrintLayer.Word.TemplatePath = dr_Get_Info["Value"].ToString();
+                        PF.PrintLayer.Word.TemplatePath = dr_Get_Info["Value"].ToString();
                         break;
 
                     case "PF-TInv1":
-                        FruPak.PF.PrintLayer.Word.TemplateName = dr_Get_Info["Value"].ToString();
+                        PF.PrintLayer.Word.TemplateName = dr_Get_Info["Value"].ToString();
                         break;
 
                     case "PF-SPath":
-                        FruPak.PF.PrintLayer.Word.FilePath = dr_Get_Info["Value"].ToString();
+                        PF.PrintLayer.Word.FilePath = dr_Get_Info["Value"].ToString();
                         break;
                 }
             }
             ds_Get_Info.Dispose();
 
             //get GST
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_System.Get_Info_Like("GST");
+            ds_Get_Info = PF.Data.AccessLayer.CM_System.Get_Info_Like("GST");
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {
                 dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
@@ -262,11 +262,11 @@ namespace FruPak.PF.Accounts
 
             #region ------------- Outlook details -------------
 
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_A_Invoice.Get_Info(Invoice_Id);
+            ds_Get_Info = PF.Data.AccessLayer.PF_A_Invoice.Get_Info(Invoice_Id);
             for (int i = 0; i < ds_Get_Info.Tables[0].Rows.Count; i++)
             {
                 dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
-                str_msg = str_msg + FruPak.PF.Common.Code.Outlook.Check_Outlook(Convert.ToInt32(dr_Get_Info["Customer_Id"].ToString()), str_msg, str_type);
+                str_msg = str_msg + PF.Common.Code.Outlook.Check_Outlook(Convert.ToInt32(dr_Get_Info["Customer_Id"].ToString()), str_msg, str_type);
                 try
                 {
                     if (dr_Get_Info["Trader_ID"] != null && dr_Get_Info["Trader_ID"] != DBNull.Value)
@@ -288,7 +288,7 @@ namespace FruPak.PF.Accounts
             }
             ds_Get_Info.Dispose();
 
-            str_delivery_name = FruPak.PF.Common.Code.General.delivery_name;
+            str_delivery_name = PF.Common.Code.General.delivery_name;
             str_save_filename = str_delivery_name;
 
             #endregion ------------- Outlook details -------------
@@ -307,7 +307,7 @@ namespace FruPak.PF.Accounts
                     Data = Data + ":" + Convert.ToString(dec_GST);
                     Data = Data + ":" + str_type;
                     int int_result = 0;
-                    int_result = FruPak.PF.PrintLayer.Invoice_Work_Orders.Print(Data, true);
+                    int_result = PF.PrintLayer.Invoice_Work_Orders.Print(Data, true);
                 }
                 else
                 {
@@ -322,7 +322,7 @@ namespace FruPak.PF.Accounts
                     Data = Data + ":" + str_type;
 
                     int int_result = 0;
-                    int_result = FruPak.PF.PrintLayer.Invoice_Sales.Print(Data, true);
+                    int_result = PF.PrintLayer.Invoice_Sales.Print(Data, true);
                 }
             }
 
@@ -347,7 +347,7 @@ namespace FruPak.PF.Accounts
         private void btn_Email_Customer_Click(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow != null)   // BN fix 10-03-2015 - Would crash if no rows and you accidentally hit the button
-            //if (dataGridView1.CurrentRow != null && FruPak.PF.PrintLayer.General.view_list != null)   // BN fix 10-03-2015 - Would crash if no rows and you accidentally hit the button
+            //if (dataGridView1.CurrentRow != null && PF.PrintLayer.General.view_list != null)   // BN fix 10-03-2015 - Would crash if no rows and you accidentally hit the button
             {
                 errorProvider1.Clear();
 
@@ -355,14 +355,14 @@ namespace FruPak.PF.Accounts
                 string str_msg = "";
                 // Email Customer only
                 Cursor = Cursors.WaitCursor;
-                FruPak.PF.Common.Code.Send_Email.Email_Subject = "";
-                FruPak.PF.Common.Code.Send_Email.Email_Message = "";
+                PF.Common.Code.Send_Email.Email_Subject = "";
+                PF.Common.Code.Send_Email.Email_Message = "";
                 str_msg = str_msg + Create_PDF_Defaults("Email", Convert.ToInt32(dataGridView1.CurrentRow.Cells["Invoice_Id"].Value.ToString()), dataGridView1.CurrentRow.Cells["Invoice_Date"].Value.ToString(), dataGridView1.CurrentRow.Cells["Order_Num"].Value.ToString());
-                FruPak.PF.Common.Code.SendEmail.attachment = new List<string>();
+                PF.Common.Code.SendEmail.attachment = new List<string>();
 
-                foreach (string view_file in FruPak.PF.PrintLayer.General.view_list)
+                foreach (string view_file in PF.PrintLayer.General.view_list)
                 {
-                    FruPak.PF.Common.Code.SendEmail.attachment.Add(FruPak.PF.PrintLayer.Word.FilePath + "\\" + view_file);
+                    PF.Common.Code.SendEmail.attachment.Add(PF.PrintLayer.Word.FilePath + "\\" + view_file);
                     logger.Log(LogLevel.Info, "Adding attachment for Customer: " + view_file);
                 }
 
@@ -373,7 +373,7 @@ namespace FruPak.PF.Accounts
                 if (ckb_COA.Checked == true)
                 {
                     Cursor = Cursors.WaitCursor;
-                    DataSet ds = FruPak.PF.Data.AccessLayer.PF_A_Invoice_Details.Get_Info(Convert.ToInt32(dataGridView1.CurrentRow.Cells["Invoice_Id"].Value.ToString()));
+                    DataSet ds = PF.Data.AccessLayer.PF_A_Invoice_Details.Get_Info(Convert.ToInt32(dataGridView1.CurrentRow.Cells["Invoice_Id"].Value.ToString()));
                     DataRow dr;
 
                     string str_order_num = "";
@@ -391,22 +391,22 @@ namespace FruPak.PF.Accounts
                         string Data = "";
                         Data = Data + dr["Order_Num"].ToString();
                         Data = Data + ":" + str_delivery_name;
-                        Data = Data + ":" + FruPak.PF.Data.Outlook.Contacts.Contact_Business_Address.ToString();
+                        Data = Data + ":" + PF.Data.Outlook.Contacts.Contact_Business_Address.ToString();
                         Data = Data + ":Email";
                         Cursor = Cursors.WaitCursor;
-                        FruPak.PF.PrintLayer.Word.FileName = "COA" + dr["Order_Num"].ToString() + "-" + Convert.ToString(i);
-                        FruPak.PF.PrintLayer.Certificate_Of_Analysis.Print(Data, true);
+                        PF.PrintLayer.Word.FileName = "COA" + dr["Order_Num"].ToString() + "-" + Convert.ToString(i);
+                        PF.PrintLayer.Certificate_Of_Analysis.Print(Data, true);
 
                         // This line is commented out - is it because it will only add one attachment? It's also not commented out in my usual style:
                         // Indented to the correct level, one space following the double forward slash indicating a comment,
                         // or indented to the correct level with no space preceding the code, indicating a temporarily disabled code line.
                         // This is not my code; must be Dave experimenting.
 
-                        //  FruPak.PF.Common.Code.SendEmail.attachment.Add(FruPak.PF.PrintLayer.Word.FilePath + "\\" + FruPak.PF.PrintLayer.Word.FileName + ".PDF");
+                        //  PF.Common.Code.SendEmail.attachment.Add(PF.PrintLayer.Word.FilePath + "\\" + PF.PrintLayer.Word.FileName + ".PDF");
                     }
 
                     // This is very strange; I don't really recognise the syntax... - BN 05-03-2015
-                    FruPak.PF.Common.Code.SendEmail.attachment.AddRange(System.IO.Directory.GetFiles(FruPak.PF.PrintLayer.Word.FilePath,
+                    PF.Common.Code.SendEmail.attachment.AddRange(System.IO.Directory.GetFiles(PF.PrintLayer.Word.FilePath,
                         "COA" + str_order_num + "*",
                         System.IO.SearchOption.TopDirectoryOnly)
                         .Select(path => Path.GetFullPath(path))     // Got it now. Is kind of like the With statement in VB. Is hard to read (for Me)
@@ -420,7 +420,7 @@ namespace FruPak.PF.Accounts
                     // I wonder about: the
                     //      .syntax, which really I have only ever seen in VB
                     //      the TopDirectoryOnly option - was that really necessary given we are explicitly looking in:
-                    //      C:\FruPak\Client\Printing\Saved\Ffowcs Williams-0 - 20141013.PDF
+                    //      C:\FP\Client\Printing\Saved\Ffowcs Williams-0 - 20141013.PDF
                     // But, if that's the intent, why not just loop through each file in the file/directory list and process each one sequentially.
                     //
                     // Also, it's happening just outside a loop which iterates through each record in a DataArray pertaining to a particular InvoiceId,
@@ -432,27 +432,27 @@ namespace FruPak.PF.Accounts
 
                 #endregion ------------- Certificate of Analysis -------------
 
-                int_result = FruPak.PF.Common.Code.Outlook.Email(str_msg, false);
+                int_result = PF.Common.Code.Outlook.Email(str_msg, false);
                 Cursor = Cursors.Default;
 
                 // Email Office Only
                 Cursor = Cursors.WaitCursor;
-                FruPak.PF.Common.Code.Send_Email.Email_Subject = "";
-                FruPak.PF.Common.Code.Send_Email.Email_Message = "";
+                PF.Common.Code.Send_Email.Email_Subject = "";
+                PF.Common.Code.Send_Email.Email_Message = "";
                 str_msg = str_msg + Create_PDF_Defaults("Email", Convert.ToInt32(dataGridView1.CurrentRow.Cells["Invoice_Id"].Value.ToString()), dataGridView1.CurrentRow.Cells["Invoice_Date"].Value.ToString(), dataGridView1.CurrentRow.Cells["Order_Num"].Value.ToString());
-                FruPak.PF.Common.Code.SendEmail.attachment = new List<string>();
-                FruPak.PF.Common.Code.SendEmail.attachment.Add(FruPak.PF.PrintLayer.Word.FilePath + "\\" + FruPak.PF.PrintLayer.Word.FileName);
+                PF.Common.Code.SendEmail.attachment = new List<string>();
+                PF.Common.Code.SendEmail.attachment.Add(PF.PrintLayer.Word.FilePath + "\\" + PF.PrintLayer.Word.FileName);
 
-                logger.Log(LogLevel.Info, "Adding attachment Office only: " + FruPak.PF.PrintLayer.Word.FileName);
+                logger.Log(LogLevel.Info, "Adding attachment Office only: " + PF.PrintLayer.Word.FileName);
 
-                FruPak.PF.Common.Code.Outlook.Email_Office("FP-Off1%", str_save_filename, str_msg);
+                PF.Common.Code.Outlook.Email_Office("FP-Off1%", str_save_filename, str_msg);
                 Cursor = Cursors.Default;
 
-                int_result = FruPak.PF.Data.AccessLayer.PF_A_Invoice.Update_Greentree_Date(Convert.ToInt32(dataGridView1.CurrentRow.Cells["Invoice_Id"].Value.ToString()), int_Current_User_Id);
+                int_result = PF.Data.AccessLayer.PF_A_Invoice.Update_Greentree_Date(Convert.ToInt32(dataGridView1.CurrentRow.Cells["Invoice_Id"].Value.ToString()), int_Current_User_Id);
                 if (int_result == 0)
                 {
                     lbl_message.Text = lbl_message.Text + "Invoice has been emailed to Office and Printed for Customer.";
-                    FruPak.PF.Data.AccessLayer.PF_A_Invoice.Update_Greentree_Date(Convert.ToInt32(dataGridView1.CurrentRow.Cells["Invoice_Id"].Value.ToString()), int_Current_User_Id);
+                    PF.Data.AccessLayer.PF_A_Invoice.Update_Greentree_Date(Convert.ToInt32(dataGridView1.CurrentRow.Cells["Invoice_Id"].Value.ToString()), int_Current_User_Id);
                     Reset();
                 }
 
@@ -491,19 +491,19 @@ namespace FruPak.PF.Accounts
                 {
                     Cursor = Cursors.WaitCursor;
                     str_msg = str_msg + Create_PDF_Defaults("EmailO", Convert.ToInt32(dataGridView1.CurrentRow.Cells["Invoice_Id"].Value.ToString()), dataGridView1.CurrentRow.Cells["Invoice_Date"].Value.ToString(), dataGridView1.CurrentRow.Cells["Order_Num"].Value.ToString());
-                    FruPak.PF.Common.Code.SendEmail.attachment = new List<string>();
+                    PF.Common.Code.SendEmail.attachment = new List<string>();
 
-                    FruPak.PF.Common.Code.SendEmail.attachment.Add(FruPak.PF.PrintLayer.Word.FilePath + "\\" + FruPak.PF.PrintLayer.Word.FileName);
+                    PF.Common.Code.SendEmail.attachment.Add(PF.PrintLayer.Word.FilePath + "\\" + PF.PrintLayer.Word.FileName);
 
-                    logger.Log(LogLevel.Info, "Adding attachment for Office: " + FruPak.PF.PrintLayer.Word.FileName);
+                    logger.Log(LogLevel.Info, "Adding attachment for Office: " + PF.PrintLayer.Word.FileName);
 
-                    FruPak.PF.Common.Code.Outlook.Email_Office("FP-Off1%", str_save_filename, str_msg);
+                    PF.Common.Code.Outlook.Email_Office("FP-Off1%", str_save_filename, str_msg);
                     Cursor = Cursors.Default;
-                    int_result = FruPak.PF.Data.AccessLayer.PF_A_Invoice.Update_Greentree_Date(Convert.ToInt32(dataGridView1.CurrentRow.Cells["Invoice_Id"].Value.ToString()), int_Current_User_Id);
+                    int_result = PF.Data.AccessLayer.PF_A_Invoice.Update_Greentree_Date(Convert.ToInt32(dataGridView1.CurrentRow.Cells["Invoice_Id"].Value.ToString()), int_Current_User_Id);
                     if (int_result == 0)
                     {
                         lbl_message.Text = lbl_message.Text + "Invoice has been emailed to Office.";
-                        FruPak.PF.Data.AccessLayer.PF_A_Invoice.Update_Greentree_Date(Convert.ToInt32(dataGridView1.CurrentRow.Cells["Invoice_Id"].Value.ToString()), int_Current_User_Id);
+                        PF.Data.AccessLayer.PF_A_Invoice.Update_Greentree_Date(Convert.ToInt32(dataGridView1.CurrentRow.Cells["Invoice_Id"].Value.ToString()), int_Current_User_Id);
                         Reset();
                     }
                 }
@@ -523,7 +523,7 @@ namespace FruPak.PF.Accounts
             string str_msg = "";
             DialogResult DLR_Message = new System.Windows.Forms.DialogResult();
 
-            FruPak.PF.PrintLayer.Word.FilePath = FruPak.PF.Common.Code.General.Get_Single_System_Code("PF-TPPath");
+            PF.PrintLayer.Word.FilePath = PF.Common.Code.General.Get_Single_System_Code("PF-TPPath");
 
             Cursor = Cursors.WaitCursor;
             str_msg = Create_PDF_Defaults("View", Convert.ToInt32(dataGridView1.CurrentRow.Cells["Invoice_Id"].Value.ToString()), dataGridView1.CurrentRow.Cells["Invoice_Date"].Value.ToString(), dataGridView1.CurrentRow.Cells["Order_Num"].Value.ToString());
@@ -537,9 +537,9 @@ namespace FruPak.PF.Accounts
             }
             if (DLR_Message != DialogResult.OK)
             {
-                foreach (string view_file in FruPak.PF.PrintLayer.General.view_list)
+                foreach (string view_file in PF.PrintLayer.General.view_list)
                 {
-                    FruPak.PF.Common.Code.General.Report_Viewer(FruPak.PF.PrintLayer.Word.FilePath + "\\" + view_file);
+                    PF.Common.Code.General.Report_Viewer(PF.PrintLayer.Word.FilePath + "\\" + view_file);
                 }
             }
         }
@@ -553,12 +553,12 @@ namespace FruPak.PF.Accounts
             btn_Print.Text = "Print";
 
             //must be done after file deletion.
-            FruPak.PF.Common.Code.Send_Email.Email_Subject = null;
-            FruPak.PF.Common.Code.Send_Email.Email_Message = null;
-            FruPak.PF.PrintLayer.Word.FilePath = null;
-            FruPak.PF.PrintLayer.Word.FileName = null;
-            FruPak.PF.Common.Code.SendEmail.attachment = null;
-            FruPak.PF.Common.Code.General.delivery_name = null;
+            PF.Common.Code.Send_Email.Email_Subject = null;
+            PF.Common.Code.Send_Email.Email_Message = null;
+            PF.PrintLayer.Word.FilePath = null;
+            PF.PrintLayer.Word.FileName = null;
+            PF.Common.Code.SendEmail.attachment = null;
+            PF.Common.Code.General.delivery_name = null;
         }
 
         private void ckb_CheckedChanged(object sender, EventArgs e)
@@ -641,7 +641,7 @@ namespace FruPak.PF.Accounts
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 
@@ -694,10 +694,10 @@ namespace FruPak.PF.Accounts
         {
             FireHistoryMessage("Send Debug Info Button Clicked");
             logger.Log(LogLevel.Info, "Calling: SendDebugInfo");
-            FruPak.PF.Common.Code.SendDebugEmail sde = new Common.Code.SendDebugEmail();
+            PF.Common.Code.SendDebugEmail sde = new Common.Code.SendDebugEmail();
             sde.Show();
 
-            //FruPak.PF.Common.Code.EmailDebugInfo.SendDebugInfo();
+            //PF.Common.Code.EmailDebugInfo.SendDebugInfo();
         }
 
         private void label1_TextChanged(object sender, EventArgs e)
@@ -778,7 +778,7 @@ namespace FruPak.PF.Accounts
 
             string savedPath = "";
 
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_System.Get_Info_Like("PF%");
+            ds_Get_Info = PF.Data.AccessLayer.CM_System.Get_Info_Like("PF%");
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {
@@ -793,7 +793,7 @@ namespace FruPak.PF.Accounts
             ds_Get_Info.Dispose();
 
             // Opens the folder in explorer
-            //Process.Start("explorer.exe", @"C:\FruPak\Client\Printing\Saved");
+            //Process.Start("explorer.exe", @"C:\FP\Client\Printing\Saved");
             Process.Start("explorer.exe", savedPath);
         }
     }

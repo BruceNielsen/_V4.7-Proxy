@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Scanning
+namespace PF.Utils.Scanning
 {
     public partial class Pallet_Weight : Form
     {
@@ -55,9 +55,9 @@ namespace FruPak.PF.Utils.Scanning
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -108,9 +108,9 @@ namespace FruPak.PF.Utils.Scanning
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -139,7 +139,7 @@ namespace FruPak.PF.Utils.Scanning
             {
                 DataSet ds = null;
                 DataRow dr;
-                ds = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Current();
+                ds = PF.Data.AccessLayer.PF_Work_Order.Get_Current();
                 int int_current_WO = 0;
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
@@ -150,7 +150,7 @@ namespace FruPak.PF.Utils.Scanning
 
                 try
                 {
-                    ds = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Pallet_barocde(int_current_WO, Convert.ToInt32(barcode1.BarcodeValue.ToString()));
+                    ds = PF.Data.AccessLayer.PF_Pallet.Get_Pallet_barocde(int_current_WO, Convert.ToInt32(barcode1.BarcodeValue.ToString()));
                     string str_Barcode = "";
                     for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                     {
@@ -179,11 +179,11 @@ namespace FruPak.PF.Utils.Scanning
 
             if (nud_Gross_Weight.Value > 0)
             {
-                int_result_G = FruPak.PF.Data.AccessLayer.PF_Pallet.Update_Gross_Weight(int_Bin_Id, nud_Gross_Weight.Value, int_Current_User_Id);
+                int_result_G = PF.Data.AccessLayer.PF_Pallet.Update_Gross_Weight(int_Bin_Id, nud_Gross_Weight.Value, int_Current_User_Id);
             }
             if (nud_Tare_Weight.Value > 0)
             {
-                int_result_T = FruPak.PF.Data.AccessLayer.PF_Pallet.Update_Tare_Weight(int_Bin_Id, nud_Tare_Weight.Value, int_Current_User_Id);
+                int_result_T = PF.Data.AccessLayer.PF_Pallet.Update_Tare_Weight(int_Bin_Id, nud_Tare_Weight.Value, int_Current_User_Id);
             }
             if (int_result_G > 0 && int_result_T == 0)
             {
@@ -229,7 +229,7 @@ namespace FruPak.PF.Utils.Scanning
             }
             else
             {
-                DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Pallet.Get_Pallet_Id_From_Baracode(barcode1.BarcodeValue.ToString());
+                DataSet ds_Get_Info = PF.Data.AccessLayer.PF_Pallet.Get_Pallet_Id_From_Baracode(barcode1.BarcodeValue.ToString());
                 if (ds_Get_Info.Tables[0].Rows.Count > 0)
                 {
                     DataRow dr_Get_Info;
@@ -353,7 +353,7 @@ namespace FruPak.PF.Utils.Scanning
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

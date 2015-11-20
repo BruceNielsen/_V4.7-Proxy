@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.Scanning
+﻿namespace PF.Utils.Scanning
 {
     partial class Bin_Tipping
     {
@@ -38,7 +38,7 @@
             this.lbl_WO_Num = new System.Windows.Forms.Label();
             this.btn_Dry = new System.Windows.Forms.Button();
             this.btn_Wet = new System.Windows.Forms.Button();
-            this.barcode1 = new FruPak.PF.Utils.UserControls.Barcode();
+            this.barcode1 = new PF.Utils.UserControls.Barcode();
             this.buttonZeroGrossWeight = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).BeginInit();
             this.SuspendLayout();
@@ -193,7 +193,7 @@
             this.KeyPreview = true;
             this.Name = "Bin_Tipping";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.Scanning.Bin Tipping";
+            this.Text = "PF.Utils.Scanning.Bin Tipping";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Bin_Tipping_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).EndInit();
             this.ResumeLayout(false);

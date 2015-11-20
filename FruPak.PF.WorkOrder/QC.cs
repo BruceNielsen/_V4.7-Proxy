@@ -4,7 +4,7 @@ using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace FruPak.PF.WorkOrder
+namespace PF.WorkOrder
 {
     public partial class QC : Form
     {
@@ -21,13 +21,13 @@ namespace FruPak.PF.WorkOrder
             int_Work_Order_Id = int_wo_Id;
             //check if testing or not
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
             //populate Work Order Display
             woDisplay1.Work_Order_Id = int_wo_Id;
@@ -73,9 +73,9 @@ namespace FruPak.PF.WorkOrder
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -85,7 +85,7 @@ namespace FruPak.PF.WorkOrder
 
         private void populate_RPIN()
         {
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Info(int_Work_Order_Id);
+            DataSet ds_Get_Info = PF.Data.AccessLayer.PF_Work_Order.Get_Info(int_Work_Order_Id);
             DataRow dr_Get_Info;
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {
@@ -100,7 +100,7 @@ namespace FruPak.PF.WorkOrder
             cmb_Defect.SeparatorColor = Color.DarkBlue;
             cmb_Defect.SeparatorWidth = 2;
             cmb_Defect.AutoAdjustItemHeight = true;
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Defect_Class.Get_Info();
+            DataSet ds_Get_Info = PF.Data.AccessLayer.CM_Defect_Class.Get_Info();
             DataRow dr_Get_Info;
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
@@ -109,7 +109,7 @@ namespace FruPak.PF.WorkOrder
 
                 cmb_Defect.AddStringWithSeparator(dr_Get_Info["Code"].ToString().PadLeft(40));
 
-                DataSet ds_Get_Info2 = FruPak.PF.Data.AccessLayer.CM_Defect.Get_Info_BY_Defect_Class(dr_Get_Info["Code"].ToString());
+                DataSet ds_Get_Info2 = PF.Data.AccessLayer.CM_Defect.Get_Info_BY_Defect_Class(dr_Get_Info["Code"].ToString());
                 DataRow dr_Get_Info2;
                 for (int i2 = 0; i2 < Convert.ToInt32(ds_Get_Info2.Tables[0].Rows.Count.ToString()); i2++)
                 {
@@ -175,7 +175,7 @@ namespace FruPak.PF.WorkOrder
             dataGridView1.Columns.Add(img_delete);
             img_delete.HeaderText = "Delete";
             img_delete.Name = "Delete";
-            img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
+            img_delete.Image = PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
             img_delete.Visible = bol_write_access;
 
@@ -183,7 +183,7 @@ namespace FruPak.PF.WorkOrder
             dataGridView1.Columns.Add(img_edit);
             img_edit.HeaderText = "Edit";
             img_edit.Name = "Edit";
-            img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
+            img_edit.Image = PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
 
             Column_Size();
@@ -213,7 +213,7 @@ namespace FruPak.PF.WorkOrder
             dataGridView1.Refresh();
             dataGridView1.Rows.Clear();
 
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Defect_Results.Get_Info_Translated(int_Work_Order_Id);
+            DataSet ds_Get_Info = PF.Data.AccessLayer.PF_Defect_Results.Get_Info_Translated(int_Work_Order_Id);
             DataRow dr_Get_Info;
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {
@@ -293,11 +293,11 @@ namespace FruPak.PF.WorkOrder
                 switch (btn_Add.Text)
                 {
                     case "&Add":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Defect_Results.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Defect_Results"), int_Work_Order_Id, int_Defect_Id, Convert.ToDecimal(nud_num_Found.Value.ToString()), txt_comments.Text, int_Current_User_Id);
+                        int_result = PF.Data.AccessLayer.PF_Defect_Results.Insert(PF.Common.Code.General.int_max_user_id("PF_Defect_Results"), int_Work_Order_Id, int_Defect_Id, Convert.ToDecimal(nud_num_Found.Value.ToString()), txt_comments.Text, int_Current_User_Id);
                         break;
 
                     case "&Update":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Defect_Results.Update(int_DVG_Row_id, int_Work_Order_Id, int_Defect_Id, Convert.ToDecimal(nud_num_Found.Value.ToString()), txt_comments.Text, int_Current_User_Id);
+                        int_result = PF.Data.AccessLayer.PF_Defect_Results.Update(int_DVG_Row_id, int_Work_Order_Id, int_Defect_Id, Convert.ToDecimal(nud_num_Found.Value.ToString()), txt_comments.Text, int_Current_User_Id);
                         break;
                 }
             }
@@ -336,7 +336,7 @@ namespace FruPak.PF.WorkOrder
 
                 if (DLR_MessageBox == DialogResult.Yes)
                 {
-                    int_result = FruPak.PF.Data.AccessLayer.PF_Defect_Results.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
+                    int_result = PF.Data.AccessLayer.PF_Defect_Results.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
                 }
 
                 if (int_result > 0)
@@ -429,7 +429,7 @@ namespace FruPak.PF.WorkOrder
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

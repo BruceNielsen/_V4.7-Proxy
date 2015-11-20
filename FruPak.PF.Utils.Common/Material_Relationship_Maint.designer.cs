@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.Common
+﻿namespace PF.Utils.Common
 {
     partial class Material_Relationship_Maint
     {
@@ -83,7 +83,7 @@
             this.KeyPreview = true;
             this.Name = "Material_Relationship_Maint";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.Common.Material Relationship Maintenance";
+            this.Text = "PF.Utils.Common.Material Relationship Maintenance";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Material_Relationship_Maint_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();

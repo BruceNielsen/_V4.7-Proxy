@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Data;
 
-namespace FruPak.PF.Utils.Security
+namespace PF.Utils.Security
 {
     /*Description
     -----------------
@@ -30,7 +30,7 @@ namespace FruPak.PF.Utils.Security
         {
             bool bol_valid_pswd = true;
 
-            DataSet ds_Get_User_Info = FruPak.PF.Data.AccessLayer.SC_User.Get_Info(str_User_ID);
+            DataSet ds_Get_User_Info = PF.Data.AccessLayer.SC_User.Get_Info(str_User_ID);
             DataRow dr_Get_User_Info;
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_User_Info.Tables[0].Rows.Count.ToString()); i++)
@@ -50,7 +50,7 @@ namespace FruPak.PF.Utils.Security
         public static int User_Id_Retrival(string str_Logon)
         {
             int int_User_Id = 0;
-            DataSet ds_Get_User_Info = FruPak.PF.Data.AccessLayer.SC_User.Get_Info(str_Logon);
+            DataSet ds_Get_User_Info = PF.Data.AccessLayer.SC_User.Get_Info(str_Logon);
             DataRow dr_Get_User_Info;
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_User_Info.Tables[0].Rows.Count.ToString()); i++)
@@ -97,7 +97,7 @@ namespace FruPak.PF.Utils.Security
                 }
                 else
                 {
-                    DataSet ds_Get_User_Info = FruPak.PF.Data.AccessLayer.SC_User.Get_Info(str_Logon);
+                    DataSet ds_Get_User_Info = PF.Data.AccessLayer.SC_User.Get_Info(str_Logon);
                     if (Convert.ToInt32(ds_Get_User_Info.Tables[0].Rows.Count.ToString()) > 0)
                     {
                         str_msg = str_msg + "Invalid UserID: UserID has already been taken. Please choose a different UserID" + Environment.NewLine;

@@ -1,8 +1,8 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using NLog;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -30,21 +30,21 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             logger.Log(LogLevel.Info, LogCodeStatic("SELECT max(PalletType_Id) as Current_Id FROM CM_Pallet_Type"));
             return SQLAccessLayer.Run_Query("SELECT max(PalletType_Id) as Current_Id FROM CM_Pallet_Type");
         }
 
         public static DataSet Get_Info(string Code)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             logger.Log(LogLevel.Info, LogCodeStatic("SELECT * FROM CM_Pallet_Type WHERE PF_Active_Ind = 1 AND Code = '" + Code + "'"));
             return SQLAccessLayer.Run_Query("SELECT * FROM CM_Pallet_Type WHERE PF_Active_Ind = 1 AND Code = '" + Code + "'");
         }
 
         public static int Insert(int PalletType_Id, string Code, string Description, bool PF_Active_Ind, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             logger.Log(LogLevel.Info, LogCodeStatic("INSERT INTO CM_Pallet_Type(PalletType_Id, Code, Description, PF_Active_Ind, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + PalletType_Id + ",'" + Code + "','" + Description + "','" + PF_Active_Ind + "', GETDATE()," + Mod_User_Id + ")"));
             return SQLAccessLayer.Run_NonQuery("INSERT INTO CM_Pallet_Type(PalletType_Id, Code, Description, PF_Active_Ind, Mod_Date, Mod_User_Id) " +
@@ -53,14 +53,14 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Delete(int PalletType_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             logger.Log(LogLevel.Info, LogCodeStatic("DELETE FROM CM_Pallet_Type WHERE PalletType_Id = " + PalletType_Id));
             return SQLAccessLayer.Run_NonQuery("DELETE FROM CM_Pallet_Type WHERE PalletType_Id = " + PalletType_Id);
         }
 
         public static int Update(int PalletType_Id, string Code, string Description, bool PF_Active_Ind, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             logger.Log(LogLevel.Info, LogCodeStatic("UPDATE CM_Pallet_Type SET Code = '" + Code + "', " +
                                                                   "Description = '" + Description + "', " +
                                                                   "PF_Active_Ind = '" + PF_Active_Ind + "', " +
@@ -81,7 +81,7 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_Info()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             logger.Log(LogLevel.Info, LogCodeStatic("CM_Pallet_Type_Get_Info"));
             return SQLAccessLayer.RunSP_Query("dbo.CM_Pallet_Type_Get_Info");
         }

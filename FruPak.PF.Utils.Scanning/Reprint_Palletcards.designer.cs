@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.Scanning
+﻿namespace PF.Utils.Scanning
 {
     partial class Reprint_Palletcards
     {
@@ -31,7 +31,7 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Reprint_Palletcards));
             this.btn_Print = new System.Windows.Forms.Button();
             this.btn_close = new System.Windows.Forms.Button();
-            this.barcode1 = new FruPak.PF.Utils.UserControls.Barcode();
+            this.barcode1 = new PF.Utils.UserControls.Barcode();
             this.rbn_PalletCard = new System.Windows.Forms.RadioButton();
             this.rbn_WPC = new System.Windows.Forms.RadioButton();
             this.lbl_message = new System.Windows.Forms.Label();
@@ -117,7 +117,7 @@
             this.KeyPreview = true;
             this.Name = "Reprint_Palletcards";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.Scanning.Reprint Palletcards";
+            this.Text = "PF.Utils.Scanning.Reprint Palletcards";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Reprint_Palletcards_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();

@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Security
+namespace PF.Utils.Security
 {
     /*Description
     -----------------
@@ -70,9 +70,9 @@ namespace FruPak.PF.Utils.Security
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
 
-                //else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                //else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 //{
-                //    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                //    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                 //    cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 //}
             }
@@ -138,7 +138,7 @@ namespace FruPak.PF.Utils.Security
             dataGridView1.Columns.Add(img_delete);
             img_delete.HeaderText = "Delete";
             img_delete.Name = "Delete";
-            img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
+            img_delete.Image = PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
             img_delete.Visible = bol_Write_access;
 
@@ -146,7 +146,7 @@ namespace FruPak.PF.Utils.Security
             dataGridView1.Columns.Add(img_edit);
             img_edit.HeaderText = "Edit";
             img_edit.Name = "Edit";
-            img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
+            img_edit.Image = PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
         }
 
@@ -155,7 +155,7 @@ namespace FruPak.PF.Utils.Security
             dataGridView1.Refresh();
             dataGridView1.Rows.Clear();
 
-            DataSet ds_Get_User_Info = FruPak.PF.Data.AccessLayer.SC_User.Get_Info();
+            DataSet ds_Get_User_Info = PF.Data.AccessLayer.SC_User.Get_Info();
             DataRow dr_Get_User_Info;
             for (int i = 0; i < Convert.ToInt32(ds_Get_User_Info.Tables[0].Rows.Count.ToString()); i++)
             {
@@ -215,7 +215,7 @@ namespace FruPak.PF.Utils.Security
 
         private void populate_check_boxList()
         {
-            DataSet ds_Get_User_Info = FruPak.PF.Data.AccessLayer.SC_User_Groups.Get_Info();
+            DataSet ds_Get_User_Info = PF.Data.AccessLayer.SC_User_Groups.Get_Info();
             DataRow dr_Get_User_Info;
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_User_Info.Tables[0].Rows.Count.ToString()); i++)
@@ -246,8 +246,8 @@ namespace FruPak.PF.Utils.Security
 
                 if (DLR_Message == DialogResult.Yes)
                 {
-                    int_result = FruPak.PF.Data.AccessLayer.SC_User_Group_Relationship.Delete_User(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["User_Id"].Value.ToString()));
-                    int_result = FruPak.PF.Data.AccessLayer.SC_User.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["User_Id"].Value.ToString()));
+                    int_result = PF.Data.AccessLayer.SC_User_Group_Relationship.Delete_User(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["User_Id"].Value.ToString()));
+                    int_result = PF.Data.AccessLayer.SC_User.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["User_Id"].Value.ToString()));
                 }
 
                 if (int_result > 0)
@@ -292,7 +292,7 @@ namespace FruPak.PF.Utils.Security
 
         private void update_checkList()
         {
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.SC_User_Group_Relationship.Get_Info_By_User(int_User_Id);
+            DataSet ds_Get_Info = PF.Data.AccessLayer.SC_User_Group_Relationship.Get_Info_By_User(int_User_Id);
             DataRow dr_Get_Info;
 
             for (int i = 0; i < Convert.ToInt32(checkedListBox1.Items.Count.ToString()); i++)
@@ -365,37 +365,37 @@ namespace FruPak.PF.Utils.Security
                 switch (int_update)
                 {
                     case 1:
-                        int_User_Id = FruPak.PF.Common.Code.General.int_max_user_id("SC_User");
-                        int_result = FruPak.PF.Data.AccessLayer.SC_User.Insert(int_User_Id, txt_Logon.Text, txt_First_Name.Text, txt_Last_Name.Text, General.Password_Encryption(txt_Password.Text), ckb_Active.Checked, ckb_allow_test.Checked, int_Current_User_Id);
+                        int_User_Id = PF.Common.Code.General.int_max_user_id("SC_User");
+                        int_result = PF.Data.AccessLayer.SC_User.Insert(int_User_Id, txt_Logon.Text, txt_First_Name.Text, txt_Last_Name.Text, General.Password_Encryption(txt_Password.Text), ckb_Active.Checked, ckb_allow_test.Checked, int_Current_User_Id);
                         break;
 
                     case 2:
-                        int_result = FruPak.PF.Data.AccessLayer.SC_User.Update(int_User_Id, txt_First_Name.Text, txt_Last_Name.Text, ckb_Active.Checked, ckb_allow_test.Checked, int_Current_User_Id);
+                        int_result = PF.Data.AccessLayer.SC_User.Update(int_User_Id, txt_First_Name.Text, txt_Last_Name.Text, ckb_Active.Checked, ckb_allow_test.Checked, int_Current_User_Id);
                         break;
 
                     case 3:
-                        int_result = FruPak.PF.Data.AccessLayer.SC_User.Update(int_User_Id, txt_First_Name.Text, txt_Last_Name.Text, txt_Logon.Text, ckb_Active.Checked, ckb_allow_test.Checked, int_Current_User_Id);
+                        int_result = PF.Data.AccessLayer.SC_User.Update(int_User_Id, txt_First_Name.Text, txt_Last_Name.Text, txt_Logon.Text, ckb_Active.Checked, ckb_allow_test.Checked, int_Current_User_Id);
                         break;
 
                     case 4:
-                        int_result = FruPak.PF.Data.AccessLayer.SC_User.Update(int_User_Id, txt_First_Name.Text, txt_Last_Name.Text, ckb_Active.Checked, ckb_allow_test.Checked, int_Current_User_Id);
-                        int_result = int_result + FruPak.PF.Data.AccessLayer.SC_User.Update_User_Password(int_User_Id, General.Password_Encryption(txt_Password.Text), int_Current_User_Id);
+                        int_result = PF.Data.AccessLayer.SC_User.Update(int_User_Id, txt_First_Name.Text, txt_Last_Name.Text, ckb_Active.Checked, ckb_allow_test.Checked, int_Current_User_Id);
+                        int_result = int_result + PF.Data.AccessLayer.SC_User.Update_User_Password(int_User_Id, General.Password_Encryption(txt_Password.Text), int_Current_User_Id);
                         break;
 
                     case 5:
-                        int_result = FruPak.PF.Data.AccessLayer.SC_User.Update(int_User_Id, txt_First_Name.Text, txt_Last_Name.Text, txt_Logon.Text, ckb_Active.Checked, ckb_allow_test.Checked, int_Current_User_Id);
-                        int_result = int_result + FruPak.PF.Data.AccessLayer.SC_User.Update_User_Password(int_User_Id, General.Password_Encryption(txt_Password.Text), int_Current_User_Id);
+                        int_result = PF.Data.AccessLayer.SC_User.Update(int_User_Id, txt_First_Name.Text, txt_Last_Name.Text, txt_Logon.Text, ckb_Active.Checked, ckb_allow_test.Checked, int_Current_User_Id);
+                        int_result = int_result + PF.Data.AccessLayer.SC_User.Update_User_Password(int_User_Id, General.Password_Encryption(txt_Password.Text), int_Current_User_Id);
                         break;
                 }
 
                 switch ((sender as Button).Text)
                 {
                     case "&Add":
-                        FruPak.PF.Common.Code.General.write_log(int_User_Id, "Usr - Add", int_Current_User_Id);
+                        PF.Common.Code.General.write_log(int_User_Id, "Usr - Add", int_Current_User_Id);
                         break;
 
                     case "&Update":
-                        FruPak.PF.Common.Code.General.write_log(int_User_Id, "Usr - Updated", int_Current_User_Id);
+                        PF.Common.Code.General.write_log(int_User_Id, "Usr - Updated", int_Current_User_Id);
                         break;
                 }
 
@@ -483,17 +483,17 @@ namespace FruPak.PF.Utils.Security
 
         private void btn_Add_Members_Click(object sender, EventArgs e)
         {
-            FruPak.PF.Data.AccessLayer.SC_User_Group_Relationship.Delete_User(int_User_Id);
+            PF.Data.AccessLayer.SC_User_Group_Relationship.Delete_User(int_User_Id);
             for (int i = 0; i < checkedListBox1.Items.Count; i++)
             {
                 int int_UserGroup_id = Convert.ToInt32(checkedListBox1.Items[i].ToString().Substring(0, checkedListBox1.Items[i].ToString().IndexOf(' ')));
                 if (checkedListBox1.GetItemCheckState(i) == CheckState.Checked)
                 {
-                    FruPak.PF.Data.AccessLayer.SC_User_Group_Relationship.Insert(FruPak.PF.Common.Code.General.int_max_user_id("SC_User_Group_Relationship"), int_User_Id, int_UserGroup_id, int_Current_User_Id);
+                    PF.Data.AccessLayer.SC_User_Group_Relationship.Insert(PF.Common.Code.General.int_max_user_id("SC_User_Group_Relationship"), int_User_Id, int_UserGroup_id, int_Current_User_Id);
                 }
                 else
                 {
-                    FruPak.PF.Data.AccessLayer.SC_User_Group_Relationship.Delete_User_From_Group(int_User_Id, int_UserGroup_id);
+                    PF.Data.AccessLayer.SC_User_Group_Relationship.Delete_User_From_Group(int_User_Id, int_UserGroup_id);
                 }
             }
         }
@@ -547,7 +547,7 @@ namespace FruPak.PF.Utils.Security
 
         //private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         //{
-        //    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+        //    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
         //    logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         //}
 

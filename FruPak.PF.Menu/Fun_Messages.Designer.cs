@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Menu
+﻿namespace PF.Menu
 {
     partial class Fun_Messages
     {
@@ -259,7 +259,7 @@
             this.KeyPreview = true;
             this.Name = "Fun_Messages";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Menu.Fun Messages";
+            this.Text = "PF.Menu.Fun Messages";
             this.Load += new System.EventHandler(this.Fun_Messages_Load);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Fun_Messages_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

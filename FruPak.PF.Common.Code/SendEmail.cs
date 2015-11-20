@@ -1,4 +1,4 @@
-﻿using FruPak.PF.CustomSettings;
+﻿using PF.CustomSettings;
 using NLog;
 using System;
 using System.Collections.Generic;
@@ -6,7 +6,7 @@ using System.IO;
 using System.Net.Mail;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Common.Code
+namespace PF.Common.Code
 {
     public class SendEmail
     {
@@ -122,7 +122,7 @@ namespace FruPak.PF.Common.Code
 
                 // Initialize settings
                 Settings = new PhantomCustomSettings();
-                Settings.SettingsPath = Path.Combine(path, "FruPak.Phantom.config");
+                Settings.SettingsPath = Path.Combine(path, "FP.Phantom.config");
                 Settings.EncryptionKey = "phantomKey";
 
                 if (!File.Exists(Settings.SettingsPath))
@@ -137,7 +137,7 @@ namespace FruPak.PF.Common.Code
 
                 #endregion Load CustomSettings
 
-                //smtp.Host = "FRUPAK-SBS.frupak.local";
+                //smtp.Host = "FP-SBS.FP.local";
                 smtp.Host = Settings.Path_SMTP_Host;
                 smtp.Credentials = new System.Net.NetworkCredential(Network_UserId, Network_Password);
 
@@ -216,7 +216,7 @@ namespace FruPak.PF.Common.Code
 
                 // Initialize settings
                 Settings = new PhantomCustomSettings();
-                Settings.SettingsPath = Path.Combine(path, "FruPak.Phantom.config");
+                Settings.SettingsPath = Path.Combine(path, "FP.Phantom.config");
                 Settings.EncryptionKey = "phantomKey";
 
                 if (!File.Exists(Settings.SettingsPath))
@@ -231,7 +231,7 @@ namespace FruPak.PF.Common.Code
 
                 #endregion Load CustomSettings
 
-                //smtp.Host = "FRUPAK-SBS.frupak.local";
+                //smtp.Host = "FP-SBS.FP.local";
                 smtp.Host = Settings.Path_SMTP_Host;
                 smtp.Credentials = new System.Net.NetworkCredential(Network_UserId, Network_Password);
 

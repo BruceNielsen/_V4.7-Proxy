@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.WorkOrder
+﻿namespace PF.WorkOrder
 {
     partial class WO_Staff
     {
@@ -45,7 +45,7 @@
             this.btn_reset = new System.Windows.Forms.Button();
             this.btn_Close = new System.Windows.Forms.Button();
             this.lbl_Extra_hrs = new System.Windows.Forms.Label();
-            this.woDisplay1 = new FruPak.PF.Utils.UserControls.WODisplay();
+            this.woDisplay1 = new PF.Utils.UserControls.WODisplay();
             this.txt_hourly_rate = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -281,7 +281,7 @@
             this.KeyPreview = true;
             this.Name = "WO_Staff";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.WorkOrder.Work Order Staff";
+            this.Text = "PF.WorkOrder.Work Order Staff";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.WO_Staff_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -311,7 +311,7 @@
         private System.Windows.Forms.Button btn_reset;
         private System.Windows.Forms.Button btn_Close;
         private System.Windows.Forms.Label lbl_Extra_hrs;
-        private FruPak.PF.Utils.UserControls.WODisplay woDisplay1;
+        private PF.Utils.UserControls.WODisplay woDisplay1;
         private System.Windows.Forms.TextBox txt_hourly_rate;
         private System.Windows.Forms.Label label2;
     }

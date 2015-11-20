@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.WorkOrder
+namespace PF.WorkOrder
 {
     public partial class WO_Chemicals : Form
     {
@@ -21,13 +21,13 @@ namespace FruPak.PF.WorkOrder
             int_Work_Order_Id = int_wo_Id;
             //check if testing or not
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
             //populate Work Order Display
             woDisplay1.Work_Order_Id = int_wo_Id;
@@ -78,9 +78,9 @@ namespace FruPak.PF.WorkOrder
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -92,7 +92,7 @@ namespace FruPak.PF.WorkOrder
         {
             DataSet ds_Get_Info;
             //Chemical List
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Product_Chemicals_Relationship.Get_Info(woDisplay1.Product_Id);
+            ds_Get_Info = PF.Data.AccessLayer.PF_Product_Chemicals_Relationship.Get_Info(woDisplay1.Product_Id);
             cmb_Test.DataSource = ds_Get_Info.Tables[0];
             cmb_Test.DisplayMember = "Chemical";
             cmb_Test.ValueMember = "Chemical_Id";
@@ -151,7 +151,7 @@ namespace FruPak.PF.WorkOrder
             dataGridView1.Columns.Add(img_delete);
             img_delete.HeaderText = "Delete";
             img_delete.Name = "Delete";
-            img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
+            img_delete.Image = PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
         }
 
@@ -160,7 +160,7 @@ namespace FruPak.PF.WorkOrder
             dataGridView1.Refresh();
             dataGridView1.Rows.Clear();
 
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Batch_Chemical.Get_Info(int_Work_Order_Id);
+            DataSet ds_Get_Info = PF.Data.AccessLayer.PF_Batch_Chemical.Get_Info(int_Work_Order_Id);
             DataRow dr_Get_Info;
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {
@@ -184,7 +184,7 @@ namespace FruPak.PF.WorkOrder
                 DGVC_Test_Id.Value = dr_Get_Info["Chemical_Id"].ToString();
                 dataGridView1.Rows[i_rows].Cells[3] = DGVC_Test_Id;
 
-                DataSet ds_Get_Info2 = FruPak.PF.Data.AccessLayer.PF_Chemicals.Get_Info(Convert.ToInt32(dr_Get_Info["Chemical_Id"].ToString()));
+                DataSet ds_Get_Info2 = PF.Data.AccessLayer.PF_Chemicals.Get_Info(Convert.ToInt32(dr_Get_Info["Chemical_Id"].ToString()));
                 DataRow dr_Get_Info2;
                 for (int j = 0; j < Convert.ToInt32(ds_Get_Info2.Tables[0].Rows.Count.ToString()); j++)
                 {
@@ -247,19 +247,19 @@ namespace FruPak.PF.WorkOrder
 
                 if (cmb_Test.SelectedValue == null)
                 {
-                    DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Product_Chemicals_Relationship.Get_Info(woDisplay1.Product_Id);
+                    DataSet ds_Get_Info = PF.Data.AccessLayer.PF_Product_Chemicals_Relationship.Get_Info(woDisplay1.Product_Id);
                     DataRow dr_Get_Info;
 
                     for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
                     {
                         dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Batch_Chemical.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Batch_Chemical"), Convert.ToInt32(str_batch), dtp_start.Value.ToString("HH:mm:ss"),
+                        int_result = PF.Data.AccessLayer.PF_Batch_Chemical.Insert(PF.Common.Code.General.int_max_user_id("PF_Batch_Chemical"), Convert.ToInt32(str_batch), dtp_start.Value.ToString("HH:mm:ss"),
                                                                              int_Work_Order_Id, Convert.ToInt32(dr_Get_Info["Chemical_Id"].ToString()), false, null, null, int_Current_User_Id);
                     }
                 }
                 else
                 {
-                    int_result = FruPak.PF.Data.AccessLayer.PF_Batch_Chemical.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Batch_Chemical"), Convert.ToInt32(str_batch), dtp_start.Value.ToString("HH:mm:ss"),
+                    int_result = PF.Data.AccessLayer.PF_Batch_Chemical.Insert(PF.Common.Code.General.int_max_user_id("PF_Batch_Chemical"), Convert.ToInt32(str_batch), dtp_start.Value.ToString("HH:mm:ss"),
                                                                          int_Work_Order_Id, Convert.ToInt32(cmb_Test.SelectedValue.ToString()), false, null, null, int_Current_User_Id);
                 }
                 populate_datagrid();
@@ -288,19 +288,19 @@ namespace FruPak.PF.WorkOrder
                 switch (Convert.ToBoolean(dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString()))
                 {
                     case true:
-                        FruPak.PF.Data.AccessLayer.PF_Batch_Chemical.Update(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()), false,
+                        PF.Data.AccessLayer.PF_Batch_Chemical.Update(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()), false,
                                                                 dataGridView1.Rows[e.RowIndex].Cells[6].Value.ToString(),
                                                                 dataGridView1.Rows[e.RowIndex].Cells[7].Value.ToString());
                         break;
 
                     case false:
-                        FruPak.PF.Data.AccessLayer.PF_Batch_Chemical.Update(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()), true,
+                        PF.Data.AccessLayer.PF_Batch_Chemical.Update(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()), true,
                                                                 dataGridView1.Rows[e.RowIndex].Cells[6].Value.ToString(),
                                                                 dataGridView1.Rows[e.RowIndex].Cells[7].Value.ToString());
                         break;
 
                     default:
-                        FruPak.PF.Data.AccessLayer.PF_Batch_Chemical.Update(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()), false,
+                        PF.Data.AccessLayer.PF_Batch_Chemical.Update(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()), false,
                                                                 dataGridView1.Rows[e.RowIndex].Cells[6].Value.ToString(),
                                                                 dataGridView1.Rows[e.RowIndex].Cells[7].Value.ToString());
                         break;
@@ -320,7 +320,7 @@ namespace FruPak.PF.WorkOrder
 
                 if (DLR_Message == DialogResult.Yes)
                 {
-                    int_result = FruPak.PF.Data.AccessLayer.PF_Batch_Test.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
+                    int_result = PF.Data.AccessLayer.PF_Batch_Test.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
                 }
 
                 if (int_result > 0)
@@ -359,14 +359,14 @@ namespace FruPak.PF.WorkOrder
         {
             if (e.ColumnIndex == 6)
             {
-                FruPak.PF.Data.AccessLayer.PF_Batch_Chemical.Update(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()),
+                PF.Data.AccessLayer.PF_Batch_Chemical.Update(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()),
                                                         Convert.ToBoolean(dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString()),
                                                         dataGridView1.Rows[e.RowIndex].Cells[6].EditedFormattedValue.ToString(),
                                                         dataGridView1.Rows[e.RowIndex].Cells[7].Value.ToString());
             }
             else if (e.ColumnIndex == 7)
             {
-                FruPak.PF.Data.AccessLayer.PF_Batch_Chemical.Update(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()),
+                PF.Data.AccessLayer.PF_Batch_Chemical.Update(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()),
                                                         Convert.ToBoolean(dataGridView1.Rows[e.RowIndex].Cells[5].Value.ToString()),
                                                         dataGridView1.Rows[e.RowIndex].Cells[6].Value.ToString(),
                                                         dataGridView1.Rows[e.RowIndex].Cells[7].EditedFormattedValue.ToString());
@@ -450,7 +450,7 @@ namespace FruPak.PF.WorkOrder
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

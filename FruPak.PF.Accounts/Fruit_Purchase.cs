@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Accounts
+namespace PF.Accounts
 {
     public partial class Fruit_Purchase : Form
     {
@@ -23,13 +23,13 @@ namespace FruPak.PF.Accounts
 
             //check if testing or not
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
 
             AddColumnsProgrammatically();
@@ -68,9 +68,9 @@ namespace FruPak.PF.Accounts
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -89,11 +89,11 @@ namespace FruPak.PF.Accounts
             switch (btn_Add.Text)
             {
                 case "&Update":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.GH_Submission.Get_ALL_Fruit_For_Customer(customer1.Customer_Id);
+                    ds_Get_Info = PF.Data.AccessLayer.GH_Submission.Get_ALL_Fruit_For_Customer(customer1.Customer_Id);
                     break;
 
                 default:
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.GH_Submission.Get_Fruit_NOT_Purchased(customer1.Customer_Id);
+                    ds_Get_Info = PF.Data.AccessLayer.GH_Submission.Get_Fruit_NOT_Purchased(customer1.Customer_Id);
                     break;
             }
 
@@ -308,7 +308,7 @@ namespace FruPak.PF.Accounts
             dataGridView2.Columns.Add(img_delete);
             img_delete.HeaderText = "Delete";
             img_delete.Name = "Delete";
-            img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
+            img_delete.Image = PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
             img_delete.Visible = bol_write_access;
 
@@ -316,7 +316,7 @@ namespace FruPak.PF.Accounts
             dataGridView2.Columns.Add(img_edit);
             img_edit.HeaderText = "Edit";
             img_edit.Name = "Edit";
-            img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
+            img_edit.Image = PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
 
             DataGridViewButtonColumn btn_Submit = new DataGridViewButtonColumn();
@@ -334,7 +334,7 @@ namespace FruPak.PF.Accounts
             dataGridView2.Rows.Clear();
 
             //get list of products
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_A_Fruit_Purchase.Get_Info_Translated();
+            ds_Get_Info = PF.Data.AccessLayer.PF_A_Fruit_Purchase.Get_Info_Translated();
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {
@@ -480,18 +480,18 @@ namespace FruPak.PF.Accounts
 
                     case "&Update":
                         // reset fruit_purchade_ID to null
-                        int_result = int_result + FruPak.PF.Data.AccessLayer.GH_Submission.Reset_Purchase(int_DGV_Cell0, int_Current_User_Id);
+                        int_result = int_result + PF.Data.AccessLayer.GH_Submission.Reset_Purchase(int_DGV_Cell0, int_Current_User_Id);
 
                         for (int i = 0; i < dataGridView1.Rows.Count; i++)
                         {
                             DataGridViewCheckBoxCell checkbox = (DataGridViewCheckBoxCell)dataGridView1.Rows[i].Cells["Select"];
                             if ((bool)checkbox.EditedFormattedValue == true)
                             {
-                                int_result = int_result + FruPak.PF.Data.AccessLayer.GH_Submission.Update_Purchase(Convert.ToInt32(dataGridView1.Rows[i].Cells["Submission_Id"].Value.ToString()), int_DGV_Cell0, int_Current_User_Id);
+                                int_result = int_result + PF.Data.AccessLayer.GH_Submission.Update_Purchase(Convert.ToInt32(dataGridView1.Rows[i].Cells["Submission_Id"].Value.ToString()), int_DGV_Cell0, int_Current_User_Id);
                             }
                         }
 
-                        int_result = int_result + FruPak.PF.Data.AccessLayer.PF_A_Fruit_Purchase.Update(int_DGV_Cell0, customer1.Customer_Id, nud_total.Value, txt_Comments.Text, int_Current_User_Id);
+                        int_result = int_result + PF.Data.AccessLayer.PF_A_Fruit_Purchase.Update(int_DGV_Cell0, customer1.Customer_Id, nud_total.Value, txt_Comments.Text, int_Current_User_Id);
                         break;
 
                     #endregion ------------- Update -------------
@@ -499,8 +499,8 @@ namespace FruPak.PF.Accounts
                     #region ------------- default -------------
 
                     default:
-                        int int_FruitPurchase_Id = FruPak.PF.Common.Code.General.int_max_user_id("PF_A_Fruit_Purchase");
-                        int_result = FruPak.PF.Data.AccessLayer.PF_A_Fruit_Purchase.insert(int_FruitPurchase_Id, customer1.Customer_Id, nud_total.Value, txt_Comments.Text, int_Current_User_Id);
+                        int int_FruitPurchase_Id = PF.Common.Code.General.int_max_user_id("PF_A_Fruit_Purchase");
+                        int_result = PF.Data.AccessLayer.PF_A_Fruit_Purchase.insert(int_FruitPurchase_Id, customer1.Customer_Id, nud_total.Value, txt_Comments.Text, int_Current_User_Id);
 
                         for (int i = 0; i < dataGridView1.Rows.Count; i++)
                         {
@@ -508,7 +508,7 @@ namespace FruPak.PF.Accounts
 
                             if ((bool)checkbox.EditedFormattedValue == true)
                             {
-                                int_result = int_result + FruPak.PF.Data.AccessLayer.GH_Submission.Update_Purchase(Convert.ToInt32(dataGridView1.Rows[i].Cells["Submission_Id"].Value.ToString()), int_FruitPurchase_Id, int_Current_User_Id);
+                                int_result = int_result + PF.Data.AccessLayer.GH_Submission.Update_Purchase(Convert.ToInt32(dataGridView1.Rows[i].Cells["Submission_Id"].Value.ToString()), int_FruitPurchase_Id, int_Current_User_Id);
                             }
                         }
                         break;
@@ -533,35 +533,35 @@ namespace FruPak.PF.Accounts
 
         private void btn_sub_Click(int int_fruitPurchase_id, string Customer)
         {
-            FruPak.PF.Data.Excel.Excel.FilePath = FruPak.PF.Common.Code.General.Get_Single_System_Code("PF-SPath");
+            PF.Data.Excel.Excel.FilePath = PF.Common.Code.General.Get_Single_System_Code("PF-SPath");
 
             str_save_filename = Customer + " - " + DateTime.Now.ToString("yyyyMMdd") + ".PDF";
-            FruPak.PF.Data.Excel.Excel.FileName = str_save_filename;
+            PF.Data.Excel.Excel.FileName = str_save_filename;
 
-            FruPak.PF.Data.Excel.Excel.startExcel();
+            PF.Data.Excel.Excel.startExcel();
 
-            FruPak.PF.Data.Excel.Excel.Add_Data_Text("A1", "Customer: " + Customer);
-            FruPak.PF.Data.Excel.Excel.Font_Size("A1", 18);
-            FruPak.PF.Data.Excel.Excel.Font_Bold("A1", true);
+            PF.Data.Excel.Excel.Add_Data_Text("A1", "Customer: " + Customer);
+            PF.Data.Excel.Excel.Font_Size("A1", 18);
+            PF.Data.Excel.Excel.Font_Bold("A1", true);
 
             int ip = 3;
-            FruPak.PF.Data.Excel.Excel.Add_Data_Text("B" + Convert.ToString(ip), "Fruit Type");
-            FruPak.PF.Data.Excel.Excel.Font_Bold("B" + Convert.ToString(ip), true);
-            FruPak.PF.Data.Excel.Excel.Font_Size("B" + Convert.ToString(ip), 12);
-            FruPak.PF.Data.Excel.Excel.Add_Data_Text("C" + Convert.ToString(ip), "Fruit Variety");
-            FruPak.PF.Data.Excel.Excel.Font_Bold("C" + Convert.ToString(ip), true);
-            FruPak.PF.Data.Excel.Excel.Font_Size("C" + Convert.ToString(ip), 12);
-            FruPak.PF.Data.Excel.Excel.Add_Data_Text("D" + Convert.ToString(ip), "Bins");
-            FruPak.PF.Data.Excel.Excel.Font_Bold("D" + Convert.ToString(ip), true);
-            FruPak.PF.Data.Excel.Excel.Font_Size("D" + Convert.ToString(ip), 12);
-            FruPak.PF.Data.Excel.Excel.Add_Data_Text("E" + Convert.ToString(ip), "Net Weight");
-            FruPak.PF.Data.Excel.Excel.Font_Bold("E" + Convert.ToString(ip), true);
-            FruPak.PF.Data.Excel.Excel.Font_Size("E" + Convert.ToString(ip), 12);
-            FruPak.PF.Data.Excel.Excel.Add_Data_Text("F" + Convert.ToString(ip), "Cost");
-            FruPak.PF.Data.Excel.Excel.Font_Bold("F" + Convert.ToString(ip), true);
-            FruPak.PF.Data.Excel.Excel.Font_Size("F" + Convert.ToString(ip), 12);
+            PF.Data.Excel.Excel.Add_Data_Text("B" + Convert.ToString(ip), "Fruit Type");
+            PF.Data.Excel.Excel.Font_Bold("B" + Convert.ToString(ip), true);
+            PF.Data.Excel.Excel.Font_Size("B" + Convert.ToString(ip), 12);
+            PF.Data.Excel.Excel.Add_Data_Text("C" + Convert.ToString(ip), "Fruit Variety");
+            PF.Data.Excel.Excel.Font_Bold("C" + Convert.ToString(ip), true);
+            PF.Data.Excel.Excel.Font_Size("C" + Convert.ToString(ip), 12);
+            PF.Data.Excel.Excel.Add_Data_Text("D" + Convert.ToString(ip), "Bins");
+            PF.Data.Excel.Excel.Font_Bold("D" + Convert.ToString(ip), true);
+            PF.Data.Excel.Excel.Font_Size("D" + Convert.ToString(ip), 12);
+            PF.Data.Excel.Excel.Add_Data_Text("E" + Convert.ToString(ip), "Net Weight");
+            PF.Data.Excel.Excel.Font_Bold("E" + Convert.ToString(ip), true);
+            PF.Data.Excel.Excel.Font_Size("E" + Convert.ToString(ip), 12);
+            PF.Data.Excel.Excel.Add_Data_Text("F" + Convert.ToString(ip), "Cost");
+            PF.Data.Excel.Excel.Font_Bold("F" + Convert.ToString(ip), true);
+            PF.Data.Excel.Excel.Font_Size("F" + Convert.ToString(ip), 12);
 
-            DataSet ds = FruPak.PF.Data.AccessLayer.PF_A_Fruit_Purchase.Get_Purchase_Info(int_fruitPurchase_id);
+            DataSet ds = PF.Data.AccessLayer.PF_A_Fruit_Purchase.Get_Purchase_Info(int_fruitPurchase_id);
             DataRow dr;
 
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
@@ -569,24 +569,24 @@ namespace FruPak.PF.Accounts
                 ip++; // increase the positional counter
 
                 dr = ds.Tables[0].Rows[i];
-                FruPak.PF.Data.Excel.Excel.Add_Data_Text("B" + Convert.ToString(ip), dr["FT_Description"].ToString());
-                FruPak.PF.Data.Excel.Excel.Add_Data_Text("C" + Convert.ToString(ip), dr["FV_Description"].ToString());
-                FruPak.PF.Data.Excel.Excel.Add_Data_Int("D" + Convert.ToString(ip), Convert.ToInt32(dr["Bin_Count"].ToString()));
-                FruPak.PF.Data.Excel.Excel.Set_Horizontal_Aligment("D" + Convert.ToString(ip), "Center");
-                FruPak.PF.Data.Excel.Excel.Add_Data_Dec("E" + Convert.ToString(ip), Convert.ToDecimal(dr["Gross_Weight"].ToString()) - Convert.ToDecimal(dr["Tare_Weight"].ToString()), 2);
-                FruPak.PF.Data.Excel.Excel.Set_Horizontal_Aligment("E" + Convert.ToString(ip), "Center");
-                FruPak.PF.Data.Excel.Excel.Add_Data_Dec("F" + Convert.ToString(ip), Convert.ToDecimal(dr["Cost"].ToString()), 2);
+                PF.Data.Excel.Excel.Add_Data_Text("B" + Convert.ToString(ip), dr["FT_Description"].ToString());
+                PF.Data.Excel.Excel.Add_Data_Text("C" + Convert.ToString(ip), dr["FV_Description"].ToString());
+                PF.Data.Excel.Excel.Add_Data_Int("D" + Convert.ToString(ip), Convert.ToInt32(dr["Bin_Count"].ToString()));
+                PF.Data.Excel.Excel.Set_Horizontal_Aligment("D" + Convert.ToString(ip), "Center");
+                PF.Data.Excel.Excel.Add_Data_Dec("E" + Convert.ToString(ip), Convert.ToDecimal(dr["Gross_Weight"].ToString()) - Convert.ToDecimal(dr["Tare_Weight"].ToString()), 2);
+                PF.Data.Excel.Excel.Set_Horizontal_Aligment("E" + Convert.ToString(ip), "Center");
+                PF.Data.Excel.Excel.Add_Data_Dec("F" + Convert.ToString(ip), Convert.ToDecimal(dr["Cost"].ToString()), 2);
 
-                FruPak.PF.Data.Excel.Excel.Set_Column_Width(2);
-                FruPak.PF.Data.Excel.Excel.Set_Column_Width(3);
-                FruPak.PF.Data.Excel.Excel.Set_Column_Width(4);
-                FruPak.PF.Data.Excel.Excel.Set_Column_Width(5);
+                PF.Data.Excel.Excel.Set_Column_Width(2);
+                PF.Data.Excel.Excel.Set_Column_Width(3);
+                PF.Data.Excel.Excel.Set_Column_Width(4);
+                PF.Data.Excel.Excel.Set_Column_Width(5);
             }
             ds.Dispose();
 
-            FruPak.PF.Data.Excel.Excel.SaveAS();
-            FruPak.PF.Data.Excel.Excel.SaveASPDF();
-            FruPak.PF.Data.Excel.Excel.CloseExcel();
+            PF.Data.Excel.Excel.SaveAS();
+            PF.Data.Excel.Excel.SaveASPDF();
+            PF.Data.Excel.Excel.CloseExcel();
         }
 
         private static int int_DGV_Cell0 = 0;
@@ -602,11 +602,11 @@ namespace FruPak.PF.Accounts
             {
                 btn_sub_Click(Convert.ToInt32(dataGridView2.CurrentRow.Cells["FruitPurchase_Id"].Value.ToString()), dataGridView2.CurrentRow.Cells["Customer"].Value.ToString());
 
-                int_result = FruPak.PF.Common.Code.Outlook.Email_Office("FP-Off2%", str_save_filename, "");
+                int_result = PF.Common.Code.Outlook.Email_Office("FP-Off2%", str_save_filename, "");
 
                 if (int_result == 0)
                 {
-                    int_result = FruPak.PF.Data.AccessLayer.PF_A_Fruit_Purchase.Update(Convert.ToInt32(dataGridView2.CurrentRow.Cells[""].Value.ToString()), DateTime.Now.ToString("yyyyMMdd"), int_Current_User_Id);
+                    int_result = PF.Data.AccessLayer.PF_A_Fruit_Purchase.Update(Convert.ToInt32(dataGridView2.CurrentRow.Cells[""].Value.ToString()), DateTime.Now.ToString("yyyyMMdd"), int_Current_User_Id);
                 }
                 if (int_result > 0)
                 {
@@ -646,7 +646,7 @@ namespace FruPak.PF.Accounts
                 Data = Data + dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString();
                 Data = Data + ":" + Convert.ToString(int_Current_User_Id);
 
-                int_result = FruPak.PF.Common.Code.General.Delete_Record("PF_A_Fruit_Purchase", Data, dataGridView2.Rows[e.RowIndex].Cells["Customer"].Value.ToString() + " (" + dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString() + ")");
+                int_result = PF.Common.Code.General.Delete_Record("PF_A_Fruit_Purchase", Data, dataGridView2.Rows[e.RowIndex].Cells["Customer"].Value.ToString() + " (" + dataGridView2.Rows[e.RowIndex].Cells[0].Value.ToString() + ")");
 
                 if (int_result > 0)
                 {
@@ -713,7 +713,7 @@ namespace FruPak.PF.Accounts
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 
@@ -764,7 +764,7 @@ namespace FruPak.PF.Accounts
 
         private void Fruit_Purchase_FormClosing(object sender, FormClosingEventArgs e)
         {
-            logger.Log(LogLevel.Info, "---------------------[ FruPak.PF.Accounts.Fruit_Purchase Form Closing]--- :" + DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString());
+            logger.Log(LogLevel.Info, "---------------------[ PF.Accounts.Fruit_Purchase Form Closing]--- :" + DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString());
         }
     }
 }

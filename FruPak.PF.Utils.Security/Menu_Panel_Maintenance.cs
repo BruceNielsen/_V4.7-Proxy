@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Security
+namespace PF.Utils.Security
 {
     /*Description
     -----------------
@@ -74,9 +74,9 @@ namespace FruPak.PF.Utils.Security
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
 
-                //else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                //else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 //{
-                //    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                //    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                 //    cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 //}
             }
@@ -127,7 +127,7 @@ namespace FruPak.PF.Utils.Security
             dataGridView1.Columns.Add(img_delete);
             img_delete.HeaderText = "Delete";
             img_delete.Name = "Delete";
-            img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
+            img_delete.Image = PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
             img_delete.Visible = bol_Write_access;
 
@@ -135,7 +135,7 @@ namespace FruPak.PF.Utils.Security
             dataGridView1.Columns.Add(img_edit);
             img_edit.HeaderText = "Edit";
             img_edit.Name = "Edit";
-            img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
+            img_edit.Image = PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
 
             var col1a = new DataGridViewTextBoxColumn();
@@ -161,7 +161,7 @@ namespace FruPak.PF.Utils.Security
             dataGridView1.Refresh();
             dataGridView1.Rows.Clear();
 
-            DataSet ds_Get_Menu_Info = FruPak.PF.Data.AccessLayer.SC_Menu_Panel.Get_Info();
+            DataSet ds_Get_Menu_Info = PF.Data.AccessLayer.SC_Menu_Panel.Get_Info();
             DataRow dr_Get_Menu_Info;
             for (int i = 0; i < Convert.ToInt32(ds_Get_Menu_Info.Tables[0].Rows.Count.ToString()); i++)
             {
@@ -206,7 +206,7 @@ namespace FruPak.PF.Utils.Security
 
         private void populate_datagridview2()
         {
-            DataSet ds_Get_UserGroup_Info = FruPak.PF.Data.AccessLayer.SC_User_Groups.Get_Info();
+            DataSet ds_Get_UserGroup_Info = PF.Data.AccessLayer.SC_User_Groups.Get_Info();
             DataRow dr_Get_UserGroup_Info;
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_UserGroup_Info.Tables[0].Rows.Count.ToString()); i++)
@@ -236,7 +236,7 @@ namespace FruPak.PF.Utils.Security
 
         private void populdate_combobox()
         {
-            DataSet ds_get_info = FruPak.PF.Data.AccessLayer.SC_Menu.Get_Info();
+            DataSet ds_get_info = PF.Data.AccessLayer.SC_Menu.Get_Info();
 
             cmb_Menu.DataSource = ds_get_info.Tables[0];
             cmb_Menu.DisplayMember = "Name";
@@ -259,8 +259,8 @@ namespace FruPak.PF.Utils.Security
 
                 if (DLR_Message == DialogResult.Yes)
                 {
-                    int_result = FruPak.PF.Data.AccessLayer.SC_Menu_Panel_Group_Relationship.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
-                    int_result = FruPak.PF.Data.AccessLayer.SC_Menu_Panel.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
+                    int_result = PF.Data.AccessLayer.SC_Menu_Panel_Group_Relationship.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
+                    int_result = PF.Data.AccessLayer.SC_Menu_Panel.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
                 }
 
                 if (int_result > 0)
@@ -292,7 +292,7 @@ namespace FruPak.PF.Utils.Security
 
         private void update_checkList()
         {
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.SC_Menu_Panel_Group_Relationship.Get_Info(int_SubMenu_id);
+            DataSet ds_Get_Info = PF.Data.AccessLayer.SC_Menu_Panel_Group_Relationship.Get_Info(int_SubMenu_id);
             DataRow dr_Get_Info;
 
             for (int i = 0; i < Convert.ToInt32(dataGridView2.RowCount.ToString()); i++)
@@ -327,7 +327,7 @@ namespace FruPak.PF.Utils.Security
             }
             else if ((sender as Button).Text == "&Add")
             {
-                DataSet ds_Get_Menu_Info = FruPak.PF.Data.AccessLayer.SC_Menu_Panel.Get_Info(Convert.ToInt32(cmb_Menu.SelectedValue.ToString()), txt_SubMenu_Name.Text);
+                DataSet ds_Get_Menu_Info = PF.Data.AccessLayer.SC_Menu_Panel.Get_Info(Convert.ToInt32(cmb_Menu.SelectedValue.ToString()), txt_SubMenu_Name.Text);
                 if (Convert.ToInt32(ds_Get_Menu_Info.Tables[0].Rows.Count.ToString()) > 0)
                 {
                     str_msg = str_msg + "Invalid SubMenu: A SubMenu by this name already exists for this Main Menu Item. Please choose a different SubMenu Name or a diffent Main Menu" + Environment.NewLine;
@@ -347,11 +347,11 @@ namespace FruPak.PF.Utils.Security
                 switch ((sender as Button).Text)
                 {
                     case "&Add":
-                        int_result = FruPak.PF.Data.AccessLayer.SC_Menu_Panel.Insert(FruPak.PF.Common.Code.General.int_max_user_id("SC_Menu_Panel"), Convert.ToInt32(cmb_Menu.SelectedValue.ToString()), txt_SubMenu_Name.Text, txt_Menu_Description.Text, int_Current_User_Id);
+                        int_result = PF.Data.AccessLayer.SC_Menu_Panel.Insert(PF.Common.Code.General.int_max_user_id("SC_Menu_Panel"), Convert.ToInt32(cmb_Menu.SelectedValue.ToString()), txt_SubMenu_Name.Text, txt_Menu_Description.Text, int_Current_User_Id);
                         break;
 
                     case "&Update":
-                        int_result = FruPak.PF.Data.AccessLayer.SC_Menu_Panel.Update(int_SubMenu_id, Convert.ToInt32(cmb_Menu.SelectedValue.ToString()), txt_SubMenu_Name.Text, txt_Menu_Description.Text, int_Current_User_Id);
+                        int_result = PF.Data.AccessLayer.SC_Menu_Panel.Update(int_SubMenu_id, Convert.ToInt32(cmb_Menu.SelectedValue.ToString()), txt_SubMenu_Name.Text, txt_Menu_Description.Text, int_Current_User_Id);
                         break;
                 }
             }
@@ -393,7 +393,7 @@ namespace FruPak.PF.Utils.Security
 
         private void btn_Add_Members_Click(object sender, EventArgs e)
         {
-            FruPak.PF.Data.AccessLayer.SC_Menu_Panel_Group_Relationship.Delete(int_SubMenu_id);
+            PF.Data.AccessLayer.SC_Menu_Panel_Group_Relationship.Delete(int_SubMenu_id);
 
             for (int i = 0; i < Convert.ToInt32(dataGridView2.RowCount.ToString()); i++)
             {
@@ -421,7 +421,7 @@ namespace FruPak.PF.Utils.Security
 
                 if (bol_selected == true)
                 {
-                    FruPak.PF.Data.AccessLayer.SC_Menu_Panel_Group_Relationship.Insert(FruPak.PF.Common.Code.General.int_max_user_id("SC_Menu_Panel_Group_Relationship"), int_UserGroup_id, int_SubMenu_id, bol_write_access, int_Current_User_Id);
+                    PF.Data.AccessLayer.SC_Menu_Panel_Group_Relationship.Insert(PF.Common.Code.General.int_max_user_id("SC_Menu_Panel_Group_Relationship"), int_UserGroup_id, int_SubMenu_id, bol_write_access, int_Current_User_Id);
                 }
             }
         }
@@ -480,7 +480,7 @@ namespace FruPak.PF.Utils.Security
 
         //private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         //{
-        //    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+        //    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
         //    logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         //}
 

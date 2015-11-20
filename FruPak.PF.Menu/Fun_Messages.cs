@@ -2,7 +2,7 @@
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Menu
+namespace PF.Menu
 {
     public partial class Fun_Messages : Form
     {
@@ -17,7 +17,7 @@ namespace FruPak.PF.Menu
 
         private void populate_combox()
         {
-            DataSet ds = FruPak.PF.Data.AccessLayer.SC_User.Get_For_Combo();
+            DataSet ds = PF.Data.AccessLayer.SC_User.Get_For_Combo();
 
             DataRow toinsert = ds.Tables[0].NewRow();
 
@@ -83,14 +83,14 @@ namespace FruPak.PF.Menu
             dataGridView1.Columns.Add(img_delete);
             img_delete.HeaderText = "Delete";
             img_delete.Name = "Delete";
-            img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
+            img_delete.Image = PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
 
             DataGridViewImageColumn img_edit = new DataGridViewImageColumn();
             dataGridView1.Columns.Add(img_edit);
             img_edit.HeaderText = "Edit";
             img_edit.Name = "Edit";
-            img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
+            img_edit.Image = PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
         }
 
@@ -99,7 +99,7 @@ namespace FruPak.PF.Menu
             dataGridView1.Refresh();
             dataGridView1.Rows.Clear();
 
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.SY_Message.Get_Info_Translated();
+            DataSet ds_Get_Info = PF.Data.AccessLayer.SY_Message.Get_Info_Translated();
             DataRow dr_Get_Info;
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {
@@ -306,11 +306,11 @@ namespace FruPak.PF.Menu
                 switch (btn_Add.Text)
                 {
                     case "&Add":
-                        int_result = int_result + FruPak.PF.Data.AccessLayer.SY_Message.Insert(FruPak.PF.Common.Code.General.int_max_user_id("SY_Message"), int_User_Id, str_Display, str_End_Date, str_repeat);
+                        int_result = int_result + PF.Data.AccessLayer.SY_Message.Insert(PF.Common.Code.General.int_max_user_id("SY_Message"), int_User_Id, str_Display, str_End_Date, str_repeat);
                         break;
 
                     case "&Update":
-                        int_result = int_result + FruPak.PF.Data.AccessLayer.SY_Message.Update(int_Message_Id, int_User_Id, str_Display, str_End_Date, str_repeat);
+                        int_result = int_result + PF.Data.AccessLayer.SY_Message.Update(int_Message_Id, int_User_Id, str_Display, str_End_Date, str_repeat);
                         break;
                 }
             }
@@ -343,7 +343,7 @@ namespace FruPak.PF.Menu
 
                 if (DLR_Message == DialogResult.Yes)
                 {
-                    int_result = int_result + FruPak.PF.Data.AccessLayer.SY_Message.Delete(Convert.ToInt32(dataGridView1.CurrentRow.Cells["Id"].Value.ToString()));
+                    int_result = int_result + PF.Data.AccessLayer.SY_Message.Delete(Convert.ToInt32(dataGridView1.CurrentRow.Cells["Id"].Value.ToString()));
                 }
                 if (int_result > 0)
                 {

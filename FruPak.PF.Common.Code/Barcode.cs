@@ -2,7 +2,7 @@
 using System.Data;
 using System.Linq;
 
-namespace FruPak.PF.Common.Code
+namespace PF.Common.Code
 {
     public class Barcode
     {
@@ -24,7 +24,7 @@ namespace FruPak.PF.Common.Code
 
         public static void Barcode_Create(int id)
         {
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_System.Get_Info_Like("Bar%");
+            DataSet ds_Get_Info = PF.Data.AccessLayer.CM_System.Get_Info_Like("Bar%");
             DataRow dr_Get_Info;
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {
@@ -52,7 +52,7 @@ namespace FruPak.PF.Common.Code
             if (Barcode_Trader != 0)
             {
                 // need to get the trader specific part of the barcode
-                ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Trader.Get_Info(Barcode_Trader);
+                ds_Get_Info = PF.Data.AccessLayer.CM_Trader.Get_Info(Barcode_Trader);
                 string traderBarCode = ds_Get_Info.Tables[0].Rows[0]["Barcode_Num"].ToString();
                 Barcode_Num = str_BarPre + traderBarCode + Convert.ToString(str_BarBin + id);
                 Barcode_Num = Barcode_Num + Convert.ToString(Barcode_Check_Digit());

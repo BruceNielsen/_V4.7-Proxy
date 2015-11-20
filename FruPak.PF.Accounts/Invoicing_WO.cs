@@ -5,7 +5,7 @@ using System.Data;
 using System.Diagnostics;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Accounts
+namespace PF.Accounts
 {
     public partial class Invoicing_WO : Form
     {
@@ -25,18 +25,18 @@ namespace FruPak.PF.Accounts
             btn_Add.Enabled = bol_w_a;
             //check if testing or not
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
 
             //set up outlook locations
-            FruPak.PF.Data.Outlook.Outlook.Folder_Name = FruPak.PF.Common.Code.Outlook.SetUp_Location("PF-Contact");
-            FruPak.PF.Data.Outlook.Outlook.Folder_Name_Location = FruPak.PF.Data.Outlook.Outlook.Folder_Name_Location;
+            PF.Data.Outlook.Outlook.Folder_Name = PF.Common.Code.Outlook.SetUp_Location("PF-Contact");
+            PF.Data.Outlook.Outlook.Folder_Name_Location = PF.Data.Outlook.Outlook.Folder_Name_Location;
 
             populate_combobox();
             AddColumnsProgrammatically();
@@ -74,9 +74,9 @@ namespace FruPak.PF.Accounts
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -118,7 +118,7 @@ namespace FruPak.PF.Accounts
             dataGridView1.Columns.Add(img_delete);
             img_delete.HeaderText = "Remove";
             img_delete.Name = "Remove";
-            img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
+            img_delete.Image = PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
             img_delete.Visible = bol_write_access;
         }
@@ -169,7 +169,7 @@ namespace FruPak.PF.Accounts
             dataGridView1.Refresh();
             dataGridView1.Rows.Clear();
 
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Invoice_Rate(WHERE);
+            ds_Get_Info = PF.Data.AccessLayer.PF_Work_Order.Get_Invoice_Rate(WHERE);
             DataRow dr_Get_Info;
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {
@@ -193,7 +193,7 @@ namespace FruPak.PF.Accounts
 
                 try
                 {
-                    string str_total_item = FruPak.PF.Common.Code.General.Calculate_Totals(dr_Get_Info["Code"].ToString().ToUpper().Substring(0, dr_Get_Info["Code"].ToString().IndexOf('-')), "(" + int_Where[i].ToString() + ")");
+                    string str_total_item = PF.Common.Code.General.Calculate_Totals(dr_Get_Info["Code"].ToString().ToUpper().Substring(0, dr_Get_Info["Code"].ToString().IndexOf('-')), "(" + int_Where[i].ToString() + ")");
                     DGVC_Cell3.Value = str_total_item;
                     dataGridView1.Rows[i].Cells["Total_Items"] = DGVC_Cell3;
                 }
@@ -223,7 +223,7 @@ namespace FruPak.PF.Accounts
         {
             dataGridView2.Refresh();
             dataGridView2.Rows.Clear();
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_UnInvoiced_for_Trader(Convert.ToInt32(cmb_Trader.SelectedValue.ToString()));
+            DataSet ds_Get_Info = PF.Data.AccessLayer.PF_Work_Order.Get_UnInvoiced_for_Trader(Convert.ToInt32(cmb_Trader.SelectedValue.ToString()));
             DataRow dr_Get_Info;
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
@@ -266,14 +266,14 @@ namespace FruPak.PF.Accounts
         public void populate_combobox()
         {
             DataSet ds_Get_Info;
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Trader.Get_Info();
+            ds_Get_Info = PF.Data.AccessLayer.CM_Trader.Get_Info();
             cmb_Trader.DataSource = ds_Get_Info.Tables[0];
             cmb_Trader.DisplayMember = "Description";
             cmb_Trader.ValueMember = "Trader_Id";
             cmb_Trader.Text = null;
             ds_Get_Info.Dispose();
 
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_A_Rates.Get_Info();
+            ds_Get_Info = PF.Data.AccessLayer.PF_A_Rates.Get_Info();
             cmb_Rates.DataSource = ds_Get_Info.Tables[0];
             cmb_Rates.DisplayMember = "Description";
             cmb_Rates.ValueMember = "Rates_Id";
@@ -357,7 +357,7 @@ namespace FruPak.PF.Accounts
         /// <param name="e"></param>
         private void btn_Add_Rates_Click(object sender, EventArgs e)
         {
-            DataSet ds = FruPak.PF.Data.AccessLayer.PF_A_Rates.Get_Info(Convert.ToInt32(cmb_Rates.SelectedValue.ToString()));
+            DataSet ds = PF.Data.AccessLayer.PF_A_Rates.Get_Info(Convert.ToInt32(cmb_Rates.SelectedValue.ToString()));
             DataRow dr;
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
@@ -379,7 +379,7 @@ namespace FruPak.PF.Accounts
 
         private void Manual_populate_DGV()
         {
-            DataSet ds_Rates = FruPak.PF.Data.AccessLayer.PF_A_Rates.Get_Info(Convert.ToInt32(cmb_Rates.SelectedValue.ToString()));
+            DataSet ds_Rates = PF.Data.AccessLayer.PF_A_Rates.Get_Info(Convert.ToInt32(cmb_Rates.SelectedValue.ToString()));
             DataRow dr_Rates;
             string str_get_wo = "(";
             foreach (int id in int_Where)
@@ -396,11 +396,11 @@ namespace FruPak.PF.Accounts
                 string str_total_item = "";
                 if (dr_Rates["Code"].ToString().ToUpper().Substring(0, dr_Rates["Code"].ToString().IndexOf('-')) == "STORAGE")
                 {
-                    str_total_item = FruPak.PF.Common.Code.General.Calculate_Totals(dr_Rates["Code"].ToString().ToUpper(), str_WHERE);
+                    str_total_item = PF.Common.Code.General.Calculate_Totals(dr_Rates["Code"].ToString().ToUpper(), str_WHERE);
                 }
                 else
                 {
-                    str_total_item = FruPak.PF.Common.Code.General.Calculate_Totals(dr_Rates["Code"].ToString().ToUpper().Substring(0, dr_Rates["Code"].ToString().IndexOf('-')), str_WHERE);
+                    str_total_item = PF.Common.Code.General.Calculate_Totals(dr_Rates["Code"].ToString().ToUpper().Substring(0, dr_Rates["Code"].ToString().IndexOf('-')), str_WHERE);
                 }
 
                 if (dr_Rates["Code"].ToString().ToUpper().Substring(0, dr_Rates["Code"].ToString().IndexOf('-')) == "FREIGHT")
@@ -473,11 +473,11 @@ namespace FruPak.PF.Accounts
 
             if (DLR_Message != System.Windows.Forms.DialogResult.OK)
             {
-                int_Invoice_Id = FruPak.PF.Common.Code.General.int_max_user_id("PF_A_Invoice");
+                int_Invoice_Id = PF.Common.Code.General.int_max_user_id("PF_A_Invoice");
 
                 //Get Customer ID
                 int int_customer_id = 0;
-                DataSet ds = FruPak.PF.Data.AccessLayer.CM_Trader.Get_Customer_Id(Convert.ToInt32(cmb_Trader.SelectedValue.ToString()));
+                DataSet ds = PF.Data.AccessLayer.CM_Trader.Get_Customer_Id(Convert.ToInt32(cmb_Trader.SelectedValue.ToString()));
                 DataRow dr;
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
                 {
@@ -490,14 +490,14 @@ namespace FruPak.PF.Accounts
                 dt_invoice = Convert.ToDateTime(dtp_Invoice_Date.Value.ToString());
 
                 //Create Invoice Record.
-                int_result = FruPak.PF.Data.AccessLayer.PF_A_Invoice.Insert(int_Invoice_Id, dt_invoice.Year.ToString() + '-' + dt_invoice.Month.ToString() + "-" + dt_invoice.Day.ToString(), Convert.ToInt32(cmb_Trader.SelectedValue.ToString()), txt_comments.Text, txt_order_num.Text, int_Current_User_Id, int_customer_id);
+                int_result = PF.Data.AccessLayer.PF_A_Invoice.Insert(int_Invoice_Id, dt_invoice.Year.ToString() + '-' + dt_invoice.Month.ToString() + "-" + dt_invoice.Day.ToString(), Convert.ToInt32(cmb_Trader.SelectedValue.ToString()), txt_comments.Text, txt_order_num.Text, int_Current_User_Id, int_customer_id);
 
                 // create detail records for the invoice
                 for (int i = 0; i < Convert.ToInt32(dataGridView1.RowCount); i++)
                 {
                     if (int_result > 0)
                     {
-                        int_result = int_result + FruPak.PF.Data.AccessLayer.PF_A_Invoice_Details.Insert_Rates(FruPak.PF.Common.Code.General.int_max_user_id("PF_A_Invoice_Details"), int_Invoice_Id, Convert.ToInt32(dataGridView1.Rows[i].Cells[0].Value.ToString()), Math.Round(Convert.ToDecimal(dataGridView1.Rows[i].Cells[4].Value.ToString()), 2), int_Current_User_Id);
+                        int_result = int_result + PF.Data.AccessLayer.PF_A_Invoice_Details.Insert_Rates(PF.Common.Code.General.int_max_user_id("PF_A_Invoice_Details"), int_Invoice_Id, Convert.ToInt32(dataGridView1.Rows[i].Cells[0].Value.ToString()), Math.Round(Convert.ToDecimal(dataGridView1.Rows[i].Cells[4].Value.ToString()), 2), int_Current_User_Id);
                     }
                 }
 
@@ -508,7 +508,7 @@ namespace FruPak.PF.Accounts
                     bool isChecked = (bool)checkbox.EditedFormattedValue;
                     if ((bool)checkbox.EditedFormattedValue == true)
                     {
-                        int_result = int_result + FruPak.PF.Data.AccessLayer.PF_Work_Order.Update_Invoiced(Convert.ToInt32(dataGridView2.Rows[i_wo].Cells["Work_Order_Id"].Value.ToString()), int_Invoice_Id, int_Current_User_Id);
+                        int_result = int_result + PF.Data.AccessLayer.PF_Work_Order.Update_Invoiced(Convert.ToInt32(dataGridView2.Rows[i_wo].Cells["Work_Order_Id"].Value.ToString()), int_Invoice_Id, int_Current_User_Id);
                     }
                 }
             }
@@ -538,7 +538,7 @@ namespace FruPak.PF.Accounts
 
             #region ------------- defaults -------------
 
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_System.Get_Info_Like("PF%");
+            ds_Get_Info = PF.Data.AccessLayer.CM_System.Get_Info_Like("PF%");
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {
@@ -546,22 +546,22 @@ namespace FruPak.PF.Accounts
                 switch (dr_Get_Info["Code"].ToString())
                 {
                     case "PF-TPath":
-                        FruPak.PF.PrintLayer.Word.TemplatePath = dr_Get_Info["Value"].ToString();
+                        PF.PrintLayer.Word.TemplatePath = dr_Get_Info["Value"].ToString();
                         break;
 
                     case "PF-TInv1":
-                        FruPak.PF.PrintLayer.Word.TemplateName = dr_Get_Info["Value"].ToString();
+                        PF.PrintLayer.Word.TemplateName = dr_Get_Info["Value"].ToString();
                         break;
 
                     case "PF-SPath":
-                        FruPak.PF.PrintLayer.Word.FilePath = dr_Get_Info["Value"].ToString();
+                        PF.PrintLayer.Word.FilePath = dr_Get_Info["Value"].ToString();
                         break;
                 }
             }
             ds_Get_Info.Dispose();
 
             //get GST
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_System.Get_Info_Like("GST");
+            ds_Get_Info = PF.Data.AccessLayer.CM_System.Get_Info_Like("GST");
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {
                 dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
@@ -573,20 +573,20 @@ namespace FruPak.PF.Accounts
 
             #region ------------- Outlook details -------------
 
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Trader.Get_Info(Convert.ToInt32(cmb_Trader.SelectedValue.ToString()));
+            ds_Get_Info = PF.Data.AccessLayer.CM_Trader.Get_Info(Convert.ToInt32(cmb_Trader.SelectedValue.ToString()));
             for (int i = 0; i < ds_Get_Info.Tables[0].Rows.Count; i++)
             {
                 dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
-                str_msg = str_msg + FruPak.PF.Common.Code.Outlook.Check_Outlook(Convert.ToInt32(dr_Get_Info["Customer_Id"].ToString()), str_msg, str_type);
+                str_msg = str_msg + PF.Common.Code.Outlook.Check_Outlook(Convert.ToInt32(dr_Get_Info["Customer_Id"].ToString()), str_msg, str_type);
             }
             ds_Get_Info.Dispose();
-            str_save_filename = FruPak.PF.Common.Code.General.delivery_name;
+            str_save_filename = PF.Common.Code.General.delivery_name;
 
             #endregion ------------- Outlook details -------------
 
             if (str_msg.Length <= 0)
             {
-                Create_PDF(str_type, dec_GST, FruPak.PF.Common.Code.General.delivery_name);
+                Create_PDF(str_type, dec_GST, PF.Common.Code.General.delivery_name);
             }
             return str_msg;
         }
@@ -603,7 +603,7 @@ namespace FruPak.PF.Accounts
             Data = Data + ":" + Convert.ToString(dec_GST);
             Data = Data + ":" + str_type;
             int int_result = 0;
-            int_result = FruPak.PF.PrintLayer.Invoice_Work_Orders.Print(Data, true);
+            int_result = PF.PrintLayer.Invoice_Work_Orders.Print(Data, true);
         }
 
         private void btn_email_Click(object sender, EventArgs e)
@@ -612,12 +612,12 @@ namespace FruPak.PF.Accounts
             int int_result = 9;
             Cursor = Cursors.WaitCursor;
             //reset email data
-            FruPak.PF.Common.Code.Send_Email.Email_Subject = null;
-            FruPak.PF.Common.Code.Send_Email.Email_Message = null;
+            PF.Common.Code.Send_Email.Email_Subject = null;
+            PF.Common.Code.Send_Email.Email_Message = null;
             str_msg = str_msg + Create_PDF_Defaults("Email");
-            FruPak.PF.Common.Code.SendEmail.attachment = new List<string>();
-            FruPak.PF.Common.Code.SendEmail.attachment.Add(FruPak.PF.PrintLayer.Word.FilePath + "\\" + FruPak.PF.PrintLayer.Word.FileName);
-            int_result = FruPak.PF.Common.Code.Outlook.Email(str_msg, true);
+            PF.Common.Code.SendEmail.attachment = new List<string>();
+            PF.Common.Code.SendEmail.attachment.Add(PF.PrintLayer.Word.FilePath + "\\" + PF.PrintLayer.Word.FileName);
+            int_result = PF.Common.Code.Outlook.Email(str_msg, true);
 
             Cursor = Cursors.Default;
 
@@ -629,15 +629,15 @@ namespace FruPak.PF.Accounts
             //Email to Office
             Cursor = Cursors.WaitCursor;
             str_msg = str_msg + Create_PDF_Defaults("Email");
-            int_result = int_result + FruPak.PF.Common.Code.Outlook.Email_Office("FP-Off1%", str_save_filename, str_msg);
+            int_result = int_result + PF.Common.Code.Outlook.Email_Office("FP-Off1%", str_save_filename, str_msg);
             Cursor = Cursors.Default;
 
             if (int_result == 0)
             {
                 lbl_message.Text = lbl_message.Text + "Invoice has been emailed to Customer and the Office.";
-                FruPak.PF.Data.AccessLayer.PF_A_Invoice.Update_Greentree_Date(int_Invoice_Id, int_Current_User_Id);
-                FruPak.PF.Common.Code.SendEmail.BCC_Email_Address.Clear();
-                FruPak.PF.Common.Code.SendEmail.attachment = null;
+                PF.Data.AccessLayer.PF_A_Invoice.Update_Greentree_Date(int_Invoice_Id, int_Current_User_Id);
+                PF.Common.Code.SendEmail.BCC_Email_Address.Clear();
+                PF.Common.Code.SendEmail.attachment = null;
             }
         }
 
@@ -657,13 +657,13 @@ namespace FruPak.PF.Accounts
             int int_result = 0;
             Cursor = Cursors.WaitCursor;
             str_msg = str_msg + Create_PDF_Defaults("Email");
-            int_result = int_result + FruPak.PF.Common.Code.Outlook.Email_Office("FP-Off1%", str_save_filename, str_msg);
+            int_result = int_result + PF.Common.Code.Outlook.Email_Office("FP-Off1%", str_save_filename, str_msg);
             Cursor = Cursors.Default;
 
             if (int_result == 0)
             {
                 lbl_message.Text = lbl_message.Text + "Invoice has been emailed to Office and Printed for Customer.";
-                FruPak.PF.Data.AccessLayer.PF_A_Invoice.Update_Greentree_Date(int_Invoice_Id, int_Current_User_Id);
+                PF.Data.AccessLayer.PF_A_Invoice.Update_Greentree_Date(int_Invoice_Id, int_Current_User_Id);
             }
         }
 
@@ -692,7 +692,7 @@ namespace FruPak.PF.Accounts
 
         private void btn_Close_Click(object sender, EventArgs e)
         {
-            FruPak.PF.Common.Code.KillAllWordInstances.KillAllWordProcesses();
+            //PF.Common.Code.KillAllWordInstances.KillAllWordProcesses();
 
             this.Close();
         }
@@ -700,7 +700,7 @@ namespace FruPak.PF.Accounts
         private void cmb_Rates_SelectionChangeCommitted(object sender, EventArgs e)
         {
             Cursor.Current = Cursors.WaitCursor;
-            DataSet ds = FruPak.PF.Data.AccessLayer.PF_A_Rates.Get_Info(Convert.ToInt32(cmb_Rates.SelectedValue.ToString()));
+            DataSet ds = PF.Data.AccessLayer.PF_A_Rates.Get_Info(Convert.ToInt32(cmb_Rates.SelectedValue.ToString()));
             DataRow dr;
             for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
             {
@@ -771,7 +771,7 @@ namespace FruPak.PF.Accounts
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 
@@ -827,7 +827,7 @@ namespace FruPak.PF.Accounts
 
             string savedPath = "";
 
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_System.Get_Info_Like("PF%");
+            ds_Get_Info = PF.Data.AccessLayer.CM_System.Get_Info_Like("PF%");
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
             {
@@ -842,7 +842,7 @@ namespace FruPak.PF.Accounts
             ds_Get_Info.Dispose();
 
             // Opens the folder in explorer
-            //Process.Start("explorer.exe", @"C:\FruPak\Client\Printing\Saved");
+            //Process.Start("explorer.exe", @"C:\FP\Client\Printing\Saved");
             Process.Start("explorer.exe", savedPath);
         }
     }

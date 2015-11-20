@@ -1,8 +1,8 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -28,38 +28,38 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(Block_Id) as Current_Id FROM CM_Block");
         }
 
         public static DataSet Get_Info()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT B.*, G.Rpin FROM CM_Block B INNER JOIN CM_Grower G on B.Grower_Id = G.Grower_Id WHERE B.PF_Active_Ind = 1 ORDER BY B.Grower_Id, B.Code");
         }
 
         public static DataSet Get_Info(int Grower_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT B.*, G.Rpin FROM CM_Block B INNER JOIN CM_Grower G on B.Grower_Id = G.Grower_Id WHERE B.PF_Active_Ind = 1 AND  B.Grower_Id = " + Grower_Id);
         }
 
         public static DataSet Get_Info(int Grower_Id, string Code)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT B.*, G.Rpin FROM CM_Block B INNER JOIN CM_Grower G on B.Grower_Id = G.Grower_Id WHERE B.PF_Active_Ind = 1 AND B.Code = '" + Code + "' AND  B.Grower_Id = " + Grower_Id);
         }
 
         public static DataSet Get_Info(string Code)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM CM_Block WHERE PF_Active_Ind = 1 AND Code = '" + Code + "'");
         }
 
         public static string Get_Block(int Block_Id)
         {
             string str_Block = "";
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             DataSet ds = SQLAccessLayer.Run_Query("SELECT Code FROM dbo.CM_Block WHERE PF_Active_Ind = 1 AND Block_Id = " + Block_Id);
             DataRow dr;
 
@@ -74,26 +74,26 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Insert(int Block_Id, int Grower_Id, string Code, string Description, bool PF_Active_Ind, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO CM_Block(Block_Id, Grower_Id, Code, Description, PF_Active_Ind, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + Block_Id + "," + Grower_Id + ",'" + Code + "','" + Description + "','" + PF_Active_Ind + "', GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Delete(int Block_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM CM_Block WHERE Block_Id = " + Block_Id);
         }
 
         public static int Delete_All_for_Grower(int Grower_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM CM_Block WHERE Grower_Id = " + Grower_Id);
         }
 
         public static int Update(int Block_Id, int Grower_Id, string Code, string Description, bool PF_Active_Ind, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE CM_Block SET Grower_Id = " + Grower_Id + ", " +
                                                                   "Code = '" + Code + "', " +
                                                                   "Description = '" + Description + "', " +

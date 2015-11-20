@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.Scanning
+﻿namespace PF.Utils.Scanning
 {
     partial class Bin_To_Order
     {
@@ -122,7 +122,7 @@
             this.KeyPreview = true;
             this.Name = "Bin_To_Order";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.Scanning.Bin To Order";
+            this.Text = "PF.Utils.Scanning.Bin To Order";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Bin_To_Order_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();

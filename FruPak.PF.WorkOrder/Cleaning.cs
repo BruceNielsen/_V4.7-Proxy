@@ -4,7 +4,7 @@ using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace FruPak.PF.WorkOrder
+namespace PF.WorkOrder
 {
     public partial class Cleaning : Form
     {
@@ -29,13 +29,13 @@ namespace FruPak.PF.WorkOrder
             bol_write_access = bol_w_a;
             //check if testing or not
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
             AddTabPages();
             update_checked_Status();
@@ -73,9 +73,9 @@ namespace FruPak.PF.WorkOrder
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -85,7 +85,7 @@ namespace FruPak.PF.WorkOrder
 
         private void AddTabPages()
         {
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area.Get_Info();
+            DataSet ds_Get_Info = PF.Data.AccessLayer.PF_Cleaning_Area.Get_Info();
             DataRow dr_Get_Info;
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
@@ -112,7 +112,7 @@ namespace FruPak.PF.WorkOrder
                 cmb_Staff.DataSource = null;
 
                 DataSet ds_Get_Info2;
-                ds_Get_Info2 = FruPak.PF.Data.AccessLayer.PF_Staff.Get_Info();
+                ds_Get_Info2 = PF.Data.AccessLayer.PF_Staff.Get_Info();
                 cmb_Staff.DataSource = ds_Get_Info2.Tables[0];
                 cmb_Staff.DisplayMember = "Name";
                 cmb_Staff.ValueMember = "Staff_Id";
@@ -170,7 +170,7 @@ namespace FruPak.PF.WorkOrder
                 int y = 50;
                 int x = 10;
                 int count = 0;
-                ds_Get_Info2 = FruPak.PF.Data.AccessLayer.PF_Clean_Area_Area_Parts_Relationship.Get_Info_Area_Translated(Convert.ToInt32(dr_Get_Info["CleanArea_Id"].ToString()));
+                ds_Get_Info2 = PF.Data.AccessLayer.PF_Clean_Area_Area_Parts_Relationship.Get_Info_Area_Translated(Convert.ToInt32(dr_Get_Info["CleanArea_Id"].ToString()));
                 DataRow dr_Get_Info2;
 
                 for (int icb = 0; icb < Convert.ToInt32(ds_Get_Info2.Tables[0].Rows.Count.ToString()); icb++)
@@ -224,7 +224,7 @@ namespace FruPak.PF.WorkOrder
             DataSet ds_Get_Info2;
             DataRow dr_Get_Info2;
             //add image to tab
-            ds_Get_Info2 = FruPak.PF.Data.AccessLayer.PF_Work_Order.Get_Cleaning(dtp_Completed.Value.ToString("yyyy/MM/dd"));
+            ds_Get_Info2 = PF.Data.AccessLayer.PF_Work_Order.Get_Cleaning(dtp_Completed.Value.ToString("yyyy/MM/dd"));
 
             foreach (TabPage tbp in tbc_Cleaning.TabPages)
             {
@@ -284,11 +284,11 @@ namespace FruPak.PF.WorkOrder
                 switch (str_btn_Base_text)
                 {
                     case "&Add":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Completed.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Cleaning_Area_Completed"), dtp_Completed.Value.ToString("yyyy/MM/dd"), Convert.ToInt32(tbc_Cleaning.SelectedTab.Tag), int_cmb_Staff_SelectedValue, str_dtp_start_Time_ValueChanged, str_dtp_finish_Time_ValueChanged, str_txt_comments_TextChanged, int_Current_User_Id);
+                        int_result = PF.Data.AccessLayer.PF_Cleaning_Area_Completed.Insert(PF.Common.Code.General.int_max_user_id("PF_Cleaning_Area_Completed"), dtp_Completed.Value.ToString("yyyy/MM/dd"), Convert.ToInt32(tbc_Cleaning.SelectedTab.Tag), int_cmb_Staff_SelectedValue, str_dtp_start_Time_ValueChanged, str_dtp_finish_Time_ValueChanged, str_txt_comments_TextChanged, int_Current_User_Id);
                         break;
 
                     case "&Update":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Completed.Update(int_CleanAreaCmp_Id, dtp_Completed.Value.ToString("yyyy/MM/dd"), int_cmb_Staff_SelectedValue, str_dtp_start_Time_ValueChanged, str_dtp_finish_Time_ValueChanged, str_txt_comments_TextChanged, int_Current_User_Id);
+                        int_result = PF.Data.AccessLayer.PF_Cleaning_Area_Completed.Update(int_CleanAreaCmp_Id, dtp_Completed.Value.ToString("yyyy/MM/dd"), int_cmb_Staff_SelectedValue, str_dtp_start_Time_ValueChanged, str_dtp_finish_Time_ValueChanged, str_txt_comments_TextChanged, int_Current_User_Id);
                         break;
                 }
             }
@@ -335,7 +335,7 @@ namespace FruPak.PF.WorkOrder
         {
             DataSet ds_Get_Info;
             DataRow dr_Get_Info;
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Completed.Get_Info(int_selected_CleaningArea_Id, dtp_Completed.Value.ToString("yyyy/MM/dd"));
+            ds_Get_Info = PF.Data.AccessLayer.PF_Cleaning_Area_Completed.Get_Info(int_selected_CleaningArea_Id, dtp_Completed.Value.ToString("yyyy/MM/dd"));
 
             if (Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()) > 0)
             {
@@ -346,21 +346,21 @@ namespace FruPak.PF.WorkOrder
                 }
             }
             ds_Get_Info.Dispose();
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Parts_Completed.Get_Info(int_CleanAreaCmp_Id, Convert.ToInt32((sender as CheckBox).Tag.ToString()), dtp_Completed.Value.ToString("yyyy-MM-dd"));
+            ds_Get_Info = PF.Data.AccessLayer.PF_Cleaning_Area_Parts_Completed.Get_Info(int_CleanAreaCmp_Id, Convert.ToInt32((sender as CheckBox).Tag.ToString()), dtp_Completed.Value.ToString("yyyy-MM-dd"));
 
             if (Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()) > 0)
             {
                 for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
                 {
                     dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
-                    FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Parts_Completed.Delete(Convert.ToInt32(dr_Get_Info["CleanAreaPartCmp_Id"].ToString()));
+                    PF.Data.AccessLayer.PF_Cleaning_Area_Parts_Completed.Delete(Convert.ToInt32(dr_Get_Info["CleanAreaPartCmp_Id"].ToString()));
                 }
             }
             else
             {
                 if ((sender as CheckBox).Checked == true && bol_djb == false)
                 {
-                    FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Parts_Completed.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Cleaning_Area_Parts_Completed"), int_CleanAreaCmp_Id, Convert.ToInt32((sender as CheckBox).Tag.ToString()), int_Current_User_Id);
+                    PF.Data.AccessLayer.PF_Cleaning_Area_Parts_Completed.Insert(PF.Common.Code.General.int_max_user_id("PF_Cleaning_Area_Parts_Completed"), int_CleanAreaCmp_Id, Convert.ToInt32((sender as CheckBox).Tag.ToString()), int_Current_User_Id);
                 }
             }
             //check that all checkboxes have been ticked
@@ -414,7 +414,7 @@ namespace FruPak.PF.WorkOrder
         {
             try
             {
-                DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Completed.Get_Info(int_selected_CleaningArea_Id, dtp_Completed.Value.ToString("yyyy/MM/dd"));
+                DataSet ds_Get_Info = PF.Data.AccessLayer.PF_Cleaning_Area_Completed.Get_Info(int_selected_CleaningArea_Id, dtp_Completed.Value.ToString("yyyy/MM/dd"));
 
                 if (Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()) > 0)
                 {
@@ -434,7 +434,7 @@ namespace FruPak.PF.WorkOrder
                                     break;
 
                                 case "cmb_Staff":
-                                    DataSet ds_Get_Info2 = FruPak.PF.Data.AccessLayer.PF_Staff.Get_Info(Convert.ToInt32(dr_Get_Info["Staff_Id"].ToString()));
+                                    DataSet ds_Get_Info2 = PF.Data.AccessLayer.PF_Staff.Get_Info(Convert.ToInt32(dr_Get_Info["Staff_Id"].ToString()));
                                     DataRow dr_Get_Info2;
                                     for (int i2 = 0; i2 < Convert.ToInt32(ds_Get_Info2.Tables[0].Rows.Count.ToString()); i2++)
                                     {
@@ -531,7 +531,7 @@ namespace FruPak.PF.WorkOrder
             {
                 if (control.GetType().ToString() == "System.Windows.Forms.CheckBox")
                 {
-                    DataSet ds_Get_Info3 = FruPak.PF.Data.AccessLayer.PF_Cleaning_Area_Parts_Completed.Get_Info(Convert.ToInt32(tbc_Cleaning.SelectedTab.Tag.ToString()), Convert.ToInt32(control.Tag.ToString()), dtp_Completed.Value.Date.ToString("yyyy-MM-dd"));
+                    DataSet ds_Get_Info3 = PF.Data.AccessLayer.PF_Cleaning_Area_Parts_Completed.Get_Info(Convert.ToInt32(tbc_Cleaning.SelectedTab.Tag.ToString()), Convert.ToInt32(control.Tag.ToString()), dtp_Completed.Value.Date.ToString("yyyy-MM-dd"));
                     if (Convert.ToInt32(ds_Get_Info3.Tables[0].Rows.Count.ToString()) > 0)
                     {
                         DataRow dr_Get_Info3;
@@ -601,7 +601,7 @@ namespace FruPak.PF.WorkOrder
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

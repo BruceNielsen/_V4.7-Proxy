@@ -351,7 +351,7 @@
     <value>customer1</value>
   </data>
   <data name="&gt;&gt;customer1.Type" xml:space="preserve">
-    <value>FruPak.PF.Utils.UserControls.Customer, FruPak.PF.Utils.UserControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
+    <value>PF.Utils.UserControls.Customer, PF.Utils.UserControls, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null</value>
   </data>
   <data name="&gt;&gt;customer1.Parent" xml:space="preserve">
     <value>$this</value>
@@ -468,7 +468,7 @@
     <value>CenterScreen</value>
   </data>
   <data name="$this.Text" xml:space="preserve">
-    <value>FruPak.PF.Accounts.Fruit Purchase</value>
+    <value>PF.Accounts.Fruit Purchase</value>
   </data>
   <data name="&gt;&gt;$this.Name" xml:space="preserve">
     <value>Fruit_Purchase</value>

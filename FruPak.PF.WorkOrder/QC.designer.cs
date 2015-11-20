@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.WorkOrder
+﻿namespace PF.WorkOrder
 {
     partial class QC
     {
@@ -35,8 +35,8 @@
             this.lbl_message = new System.Windows.Forms.Label();
             this.lbl_Grower = new System.Windows.Forms.Label();
             this.txt_grower = new System.Windows.Forms.TextBox();
-            this.woDisplay1 = new FruPak.PF.Utils.UserControls.WODisplay();
-            this.cmb_Defect = new FruPak.PF.Utils.UserControls.SeparatorComboBox();
+            this.woDisplay1 = new PF.Utils.UserControls.WODisplay();
+            this.cmb_Defect = new PF.Utils.UserControls.SeparatorComboBox();
             this.lbl_Defect = new System.Windows.Forms.Label();
             this.lbl_num_found = new System.Windows.Forms.Label();
             this.nud_num_Found = new System.Windows.Forms.NumericUpDown();
@@ -211,7 +211,7 @@
             this.KeyPreview = true;
             this.Name = "QC";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.WorkOrder.QC";
+            this.Text = "PF.WorkOrder.QC";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.QC_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nud_num_Found)).EndInit();
@@ -227,10 +227,10 @@
         private System.Windows.Forms.Button btn_reset;
         private System.Windows.Forms.Button btn_Add;
         private System.Windows.Forms.Label lbl_message;
-        private FruPak.PF.Utils.UserControls.WODisplay woDisplay1;
+        private PF.Utils.UserControls.WODisplay woDisplay1;
         private System.Windows.Forms.Label lbl_Grower;
         private System.Windows.Forms.TextBox txt_grower;
-        private FruPak.PF.Utils.UserControls.SeparatorComboBox cmb_Defect;
+        private PF.Utils.UserControls.SeparatorComboBox cmb_Defect;
         private System.Windows.Forms.Label lbl_Defect;
         private System.Windows.Forms.Label lbl_num_found;
         private System.Windows.Forms.NumericUpDown nud_num_Found;

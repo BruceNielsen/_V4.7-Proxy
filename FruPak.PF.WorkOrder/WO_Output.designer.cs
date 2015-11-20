@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.WorkOrder
+﻿namespace PF.WorkOrder
 {
     partial class WO_Output
     {
@@ -50,7 +50,7 @@
             this.cmb_Grade = new System.Windows.Forms.ComboBox();
             this.label3 = new System.Windows.Forms.Label();
             this.cmb_Treatment = new System.Windows.Forms.ComboBox();
-            this.woDisplay1 = new FruPak.PF.Utils.UserControls.WODisplay();
+            this.woDisplay1 = new PF.Utils.UserControls.WODisplay();
             this.label4 = new System.Windows.Forms.Label();
             this.cmb_Size = new System.Windows.Forms.ComboBox();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -340,7 +340,7 @@
             this.KeyPreview = true;
             this.Name = "WO_Output";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.WorkOrder.Work Order Output";
+            this.Text = "PF.WorkOrder.Work Order Output";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.WO_Output_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -372,7 +372,7 @@
         private System.Windows.Forms.ComboBox cmb_Grade;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.ComboBox cmb_Treatment;
-        private FruPak.PF.Utils.UserControls.WODisplay woDisplay1;
+        private PF.Utils.UserControls.WODisplay woDisplay1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cmb_Size;
     }

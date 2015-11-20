@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.Security
+﻿namespace PF.Utils.Security
 {
     partial class Security_Maintenance
     {
@@ -146,7 +146,7 @@
             this.KeyPreview = true;
             this.Name = "Security_Maintenance";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.Security.Security Maintenance";
+            this.Text = "PF.Utils.Security.Security Maintenance";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Security_Maintenance_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

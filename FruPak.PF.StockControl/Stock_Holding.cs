@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.StockControl
+namespace PF.StockControl
 {
     public partial class Stock_Holding : Form
     {
@@ -21,13 +21,13 @@ namespace FruPak.PF.StockControl
             btn_Add.Enabled = bol_w_a;
             //check if testing or not
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
 
             int_Current_User_Id = int_C_User_id;
@@ -69,9 +69,9 @@ namespace FruPak.PF.StockControl
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
 
-                //else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                //else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 //{
-                //    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                //    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                 //    cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 //}
             }
@@ -81,7 +81,7 @@ namespace FruPak.PF.StockControl
 
         private void populate_combobox()
         {
-            DataSet ds_get_info = FruPak.PF.Data.AccessLayer.PF_Stock_Item.Get_Info();
+            DataSet ds_get_info = PF.Data.AccessLayer.PF_Stock_Item.Get_Info();
             cmb_stock_Item.DataSource = ds_get_info.Tables[0];
             cmb_stock_Item.DisplayMember = "Combined";
             cmb_stock_Item.ValueMember = "Stock_Item_Id";
@@ -146,7 +146,7 @@ namespace FruPak.PF.StockControl
             dataGridView1.Columns.Add(img_delete);
             img_delete.HeaderText = "Delete";
             img_delete.Name = "Delete";
-            img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
+            img_delete.Image = PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
             img_delete.Visible = bol_write_access;
 
@@ -154,7 +154,7 @@ namespace FruPak.PF.StockControl
             dataGridView1.Columns.Add(img_edit);
             img_edit.HeaderText = "Edit";
             img_edit.Name = "Edit";
-            img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
+            img_edit.Image = PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
         }
 
@@ -164,7 +164,7 @@ namespace FruPak.PF.StockControl
             dataGridView1.Refresh();
             dataGridView1.Rows.Clear();
 
-            ds_Get_Info = FruPak.PF.Data.AccessLayer.PF_Stock_Holding.Get_Info_Translated();
+            ds_Get_Info = PF.Data.AccessLayer.PF_Stock_Holding.Get_Info_Translated();
 
             DataRow dr_Get_Info;
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
@@ -278,17 +278,17 @@ namespace FruPak.PF.StockControl
                 switch (btn_Add.Text)
                 {
                     case "&Add":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Stock_Holding.Insert(FruPak.PF.Common.Code.General.int_max_user_id("PF_Stock_Holding"), Convert.ToInt32(cmb_stock_Item.SelectedValue.ToString()), FruPak.PF.Common.Code.General.Get_Season(),
+                        int_result = PF.Data.AccessLayer.PF_Stock_Holding.Insert(PF.Common.Code.General.int_max_user_id("PF_Stock_Holding"), Convert.ToInt32(cmb_stock_Item.SelectedValue.ToString()), PF.Common.Code.General.Get_Season(),
                                         txt_Inv_Num.Text, dtp_Arrival_Date.Value.Year.ToString() + "/" + dtp_Arrival_Date.Value.Month.ToString() + "/" + dtp_Arrival_Date.Value.Day.ToString(), Convert.ToInt32(nud_quantity.Value), int_Current_User_Id);
                         if (int_result > 0)
                         {
-                            FruPak.PF.Data.AccessLayer.PF_Stock_Item.Update_Email(Convert.ToInt32(cmb_stock_Item.SelectedValue.ToString()), false, int_Current_User_Id);
+                            PF.Data.AccessLayer.PF_Stock_Item.Update_Email(Convert.ToInt32(cmb_stock_Item.SelectedValue.ToString()), false, int_Current_User_Id);
                         }
                         lbl_message.Text = "Consumable Item has been added.";
                         break;
 
                     case "&Update":
-                        int_result = FruPak.PF.Data.AccessLayer.PF_Stock_Holding.Update(int_DVG_Row_id, Convert.ToInt32(cmb_stock_Item.SelectedValue.ToString()),
+                        int_result = PF.Data.AccessLayer.PF_Stock_Holding.Update(int_DVG_Row_id, Convert.ToInt32(cmb_stock_Item.SelectedValue.ToString()),
                                         txt_Inv_Num.Text, dtp_Arrival_Date.Value.Year.ToString() + "/" + dtp_Arrival_Date.Value.Month.ToString() + "/" + dtp_Arrival_Date.Value.Day.ToString(), Convert.ToInt32(nud_quantity.Value), int_Current_User_Id);
                         lbl_message.Text = "Consumable Item has been Updated.";
                         break;
@@ -312,7 +312,7 @@ namespace FruPak.PF.StockControl
             //Delete
             if (e.ColumnIndex == 9)
             {
-                int int_result = FruPak.PF.Common.Code.General.Delete_Record("PF_Stock_Holding", dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString(), dataGridView1.Rows[e.RowIndex].Cells["Stock_Item"].Value.ToString());
+                int int_result = PF.Common.Code.General.Delete_Record("PF_Stock_Holding", dataGridView1.Rows[e.RowIndex].Cells["Id"].Value.ToString(), dataGridView1.Rows[e.RowIndex].Cells["Stock_Item"].Value.ToString());
                 if (int_result > 0)
                 {
                     lbl_message.ForeColor = System.Drawing.Color.Blue;
@@ -397,7 +397,7 @@ namespace FruPak.PF.StockControl
 
         //private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         //{
-        //    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+        //    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
         //    logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         //}
 

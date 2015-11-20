@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,26 +27,26 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(ProcesssetupWorkOrder_Relat_Id) as Current_Id FROM PF_Process_Setup_Work_Order_Relationship");
         }
 
         public static DataSet Get_Selected(int Work_Order_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT DISTINCT Work_Order_Id FROM PF_Process_Setup_Work_Order_Relationship WHERE Work_Order_Id = " + Work_Order_Id);
         }
 
         public static int Insert(int ProcesssetupWorkOrder_Relat_Id, int Processsetup_Id, int Work_Order_Id, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO PF_Process_Setup_Work_Order_Relationship(ProcesssetupWorkOrder_Relat_Id, Processsetup_Id, Work_Order_Id, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + ProcesssetupWorkOrder_Relat_Id + "," + Processsetup_Id + "," + Work_Order_Id + ", GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Delete(int Processsetup_Id, int Work_Order_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM PF_Process_Setup_Work_Order_Relationship WHERE Processsetup_Id = " + Processsetup_Id + " AND Work_Order_Id = " + Work_Order_Id);
         }
     }

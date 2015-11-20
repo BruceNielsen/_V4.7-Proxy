@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -26,44 +26,44 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(UsrGrp_Relat_Id) as Current_Id FROM  dbo.SC_User_Group_Relationship");
         }
 
         public static int Insert(int UsrGrp_Relat_Id, int User_Id, int UserGroup_Id, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO  dbo.SC_User_Group_Relationship(UsrGrp_Relat_Id, User_Id, UserGroup_Id, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + UsrGrp_Relat_Id + "," + User_Id + "," + UserGroup_Id + ", GETDATE()," + Mod_User_Id + ")");
         }
 
         public static DataSet Get_Info_By_Group(int UserGroup_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM  dbo.SC_User_Group_Relationship WHERE UserGroup_Id = " + UserGroup_Id);
         }
 
         public static DataSet Get_Info_By_User(int User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM  dbo.SC_User_Group_Relationship WHERE User_Id = " + User_Id);
         }
 
         public static int Delete_User(int User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM  dbo.SC_User_Group_Relationship WHERE User_Id = " + User_Id);
         }
 
         public static int Delete_User_From_Group(int UserGroup_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM  dbo.SC_User_Group_Relationship WHERE UserGroup_Id = " + UserGroup_Id);
         }
 
         public static int Delete_User_From_Group(int User_Id, int UserGroup_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM  dbo.SC_User_Group_Relationship WHERE UserGroup_Id = " + UserGroup_Id + " AND User_Id = " + User_Id);
         }
     }

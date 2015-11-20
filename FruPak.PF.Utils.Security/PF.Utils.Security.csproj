@@ -5,18 +5,18 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{02C7EB5C-0CBF-4D66-B7C9-594695060C3F}</ProjectGuid>
+    <ProjectGuid>{9988DAD2-9D6B-407B-AD96-DAA231D9A2C2}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FruPak.PF.BaseLoad</RootNamespace>
-    <AssemblyName>FruPak.PF.BaseLoad</AssemblyName>
+    <RootNamespace>PF.Utils.Security</RootNamespace>
+    <AssemblyName>PF.Utils.Security</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -39,6 +39,24 @@
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|AnyCPU'">
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="NLog">
       <HintPath>..\packages\NLog.3.1.0.0\lib\net40\NLog.dll</HintPath>
@@ -55,25 +73,66 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BLWO_Labels.cs">
+    <Compile Include="General.cs" />
+    <Compile Include="Logon.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="BLWO_Labels.designer.cs">
-      <DependentUpon>BLWO_Labels.cs</DependentUpon>
+    <Compile Include="Logon.designer.cs">
+      <DependentUpon>Logon.cs</DependentUpon>
     </Compile>
-    <Compile Include="Base_Load_Maintenance.cs">
+    <Compile Include="Security_Maintenance.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Base_Load_Maintenance.designer.cs">
-      <DependentUpon>Base_Load_Maintenance.cs</DependentUpon>
+    <Compile Include="Security_Maintenance.designer.cs">
+      <DependentUpon>Security_Maintenance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu_Maintenance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu_Maintenance.designer.cs">
+      <DependentUpon>Menu_Maintenance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Menu_Panel_Maintenance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Menu_Panel_Maintenance.designer.cs">
+      <DependentUpon>Menu_Panel_Maintenance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Password_Reset.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Password_Reset.designer.cs">
+      <DependentUpon>Password_Reset.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="BLWO_Labels.resx">
-      <DependentUpon>BLWO_Labels.cs</DependentUpon>
+    <Compile Include="User_Group_Maintenance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="User_Group_Maintenance.designer.cs">
+      <DependentUpon>User_Group_Maintenance.cs</DependentUpon>
+    </Compile>
+    <Compile Include="User_Maintenance.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="User_Maintenance.Designer.cs">
+      <DependentUpon>User_Maintenance.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="Logon.resx">
+      <DependentUpon>Logon.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="Base_Load_Maintenance.resx">
-      <DependentUpon>Base_Load_Maintenance.cs</DependentUpon>
+    <EmbeddedResource Include="Security_Maintenance.resx">
+      <DependentUpon>Security_Maintenance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu_Maintenance.resx">
+      <DependentUpon>Menu_Maintenance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Menu_Panel_Maintenance.resx">
+      <DependentUpon>Menu_Panel_Maintenance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Password_Reset.resx">
+      <DependentUpon>Password_Reset.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -85,6 +144,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
+    <EmbeddedResource Include="User_Group_Maintenance.resx">
+      <DependentUpon>User_Group_Maintenance.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="User_Maintenance.resx">
+      <DependentUpon>User_Maintenance.cs</DependentUpon>
+    </EmbeddedResource>
     <None Include="ClassDiagram1.cd" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -97,29 +162,21 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FruPak.PF.Common.Code\FruPak.PF.Common.Code.csproj">
+    <ProjectReference Include="..\FruPak.PF.Common.Code\PF.Common.Code.csproj">
       <Project>{7A894363-CA13-4FB8-9A82-ABB3F8FFAE50}</Project>
-      <Name>FruPak.PF.Common.Code</Name>
+      <Name>PF.Common.Code</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FruPak.PF.CustomSettings\FruPak.PF.CustomSettings.csproj">
+    <ProjectReference Include="..\FruPak.PF.CustomSettings\PF.CustomSettings.csproj">
       <Project>{03ac6274-6499-478e-ae47-3680a8451cd3}</Project>
-      <Name>FruPak.PF.CustomSettings</Name>
+      <Name>PF.CustomSettings</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FruPak.PF.Data.AccessLayer\FruPak.PF.Data.Access_Layer.csproj">
+    <ProjectReference Include="..\FruPak.PF.Data.AccessLayer\PF.Data.Access_Layer.csproj">
       <Project>{3414FDC5-0AA3-46FA-BDCB-37954C6CE2F5}</Project>
-      <Name>FruPak.PF.Data.Access_Layer</Name>
+      <Name>PF.Data.Access_Layer</Name>
     </ProjectReference>
-    <ProjectReference Include="..\FruPak.PF.Global\FruPak.PF.Global.csproj">
+    <ProjectReference Include="..\FruPak.PF.Global\PF.Global.csproj">
       <Project>{CC23E470-4C74-4F8E-9AC6-432DCD2DF065}</Project>
-      <Name>FruPak.PF.Global</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FruPak.PF.PrintLayer\FruPak.PF.PrintLayer.csproj">
-      <Project>{CD7844BC-7688-4047-B176-7D12816F889C}</Project>
-      <Name>FruPak.PF.PrintLayer</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FruPak.PF.Utils.UserControls\FruPak.PF.Utils.UserControls.csproj">
-      <Project>{23D1F355-55B4-4116-A9D6-C9AE36819F78}</Project>
-      <Name>FruPak.PF.Utils.UserControls</Name>
+      <Name>PF.Global</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,19 +27,19 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(MaterialSTProd_Relat_Id) as Current_Id FROM CM_Material_ST_Product_Relationship");
         }
 
         public static DataSet Get_Info_For_Material(int Material_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM CM_Material_ST_Product_Relationship WHERE Material_Id = " + Material_Id);
         }
 
         public static DataSet Get_Update_Info(int old_Material_Id, int new_Material_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT Stock_Item_Id FROM dbo.CM_Material_ST_Product_Relationship WHERE Material_Id = " + new_Material_Id + " " +
                                             "EXCEPT " +
                                             "SELECT Stock_Item_Id FROM dbo.CM_Material_ST_Product_Relationship WHERE Material_Id = " + old_Material_Id);
@@ -47,14 +47,14 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Insert(int MaterialSTProd_Relat_Id, int Material_Id, int Stock_Item_Id, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO CM_Material_ST_Product_Relationship(MaterialSTProd_Relat_Id, Material_Id, Stock_Item_Id, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + MaterialSTProd_Relat_Id + "," + Material_Id + "," + Stock_Item_Id + ", GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Delete_Material(int Material_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM CM_Material_ST_Product_Relationship WHERE Material_Id = " + Material_Id);
         }
     }

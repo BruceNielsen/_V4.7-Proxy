@@ -3,7 +3,7 @@ using System;
 using System.Data;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Utils.Common
+namespace PF.Utils.Common
 {
     /*Description
     -----------------
@@ -36,20 +36,20 @@ namespace FruPak.PF.Utils.Common
             str_table = str_type;
             //check if testing or not
 
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
 
             //setup Outlook location
 
             // Experimental Change 23-03-2015
-            // FruPak.PF.Data.Outlook.Outlook.Folder_Name = FruPak.PF.Common.Code.Outlook.SetUp_Location("OutLook%");
-            FruPak.PF.Data.Outlook.Outlook.Folder_Name = FruPak.PF.Common.Code.Outlook.SetUp_Location("OutLook");
+            // PF.Data.Outlook.Outlook.Folder_Name = PF.Common.Code.Outlook.SetUp_Location("OutLook%");
+            PF.Data.Outlook.Outlook.Folder_Name = PF.Common.Code.Outlook.SetUp_Location("OutLook");
 
             //restrict access
             bol_write_access = bol_w_a;
@@ -103,9 +103,9 @@ namespace FruPak.PF.Utils.Common
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -177,7 +177,7 @@ namespace FruPak.PF.Utils.Common
             dataGridView1.Columns.Add(img_delete);
             img_delete.HeaderText = "Delete";
             img_delete.Name = "Delete";
-            img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
+            img_delete.Image = PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
             img_delete.Visible = bol_write_access;
 
@@ -185,7 +185,7 @@ namespace FruPak.PF.Utils.Common
             dataGridView1.Columns.Add(img_edit);
             img_edit.HeaderText = "Edit";
             img_edit.Name = "Edit";
-            img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
+            img_edit.Image = PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
         }
 
@@ -201,11 +201,11 @@ namespace FruPak.PF.Utils.Common
             switch (str_table)
             {
                 case "CM_Trader":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Trader.Get_Info();
+                    ds_Get_Info = PF.Data.AccessLayer.CM_Trader.Get_Info();
                     break;
 
                 case "CM_Orchardist":
-                    ds_Get_Info = FruPak.PF.Data.AccessLayer.CM_Orchardist.Get_Info();
+                    ds_Get_Info = PF.Data.AccessLayer.CM_Orchardist.Get_Info();
                     break;
             }
 
@@ -276,7 +276,7 @@ namespace FruPak.PF.Utils.Common
             Cursor = Cursors.WaitCursor;
             cmb_Outlook.DataSource = null;
 
-            DataSet ds_Contacts = FruPak.PF.Data.AccessLayer.PF_Customer.Get_Info();
+            DataSet ds_Contacts = PF.Data.AccessLayer.PF_Customer.Get_Info();
             cmb_Outlook.DataSource = ds_Contacts.Tables[0];
             cmb_Outlook.DisplayMember = "Name";
             cmb_Outlook.ValueMember = "Customer_Id";
@@ -298,11 +298,11 @@ namespace FruPak.PF.Utils.Common
                 switch (str_table)
                 {
                     case "CM_Trader":
-                        ds_validate = FruPak.PF.Data.AccessLayer.CM_Trader.Get_Info(txt_code.Text);
+                        ds_validate = PF.Data.AccessLayer.CM_Trader.Get_Info(txt_code.Text);
                         break;
 
                     case "CM_Orchardist":
-                        ds_validate = FruPak.PF.Data.AccessLayer.CM_Orchardist.Get_Info(txt_code.Text);
+                        ds_validate = PF.Data.AccessLayer.CM_Orchardist.Get_Info(txt_code.Text);
                         break;
                 }
                 if (Convert.ToInt32(ds_validate.Tables[0].Rows.Count.ToString()) > 0)
@@ -372,11 +372,11 @@ namespace FruPak.PF.Utils.Common
                         switch (str_table)
                         {
                             case "CM_Trader":
-                                int_result = FruPak.PF.Data.AccessLayer.CM_Trader.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Trader"), txt_code.Text, txt_Description.Text, Convert.ToInt32(cmb_Outlook.SelectedValue.ToString()), txt_barcode.Text, ckb_Active.Checked, int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.CM_Trader.Insert(PF.Common.Code.General.int_max_user_id("CM_Trader"), txt_code.Text, txt_Description.Text, Convert.ToInt32(cmb_Outlook.SelectedValue.ToString()), txt_barcode.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
 
                             case "CM_Orchardist":
-                                int_result = FruPak.PF.Data.AccessLayer.CM_Orchardist.Insert(FruPak.PF.Common.Code.General.int_max_user_id("CM_Orchardist"), txt_code.Text, txt_Description.Text, Convert.ToInt32(cmb_Outlook.SelectedValue.ToString()), ckb_Active.Checked, int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.CM_Orchardist.Insert(PF.Common.Code.General.int_max_user_id("CM_Orchardist"), txt_code.Text, txt_Description.Text, Convert.ToInt32(cmb_Outlook.SelectedValue.ToString()), ckb_Active.Checked, int_Current_User_Id);
                                 break;
                         }
                         break;
@@ -385,11 +385,11 @@ namespace FruPak.PF.Utils.Common
                         switch (str_table)
                         {
                             case "CM_Trader":
-                                int_result = FruPak.PF.Data.AccessLayer.CM_Trader.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, Convert.ToInt32(cmb_Outlook.SelectedValue.ToString()), txt_barcode.Text, ckb_Active.Checked, int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.CM_Trader.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, Convert.ToInt32(cmb_Outlook.SelectedValue.ToString()), txt_barcode.Text, ckb_Active.Checked, int_Current_User_Id);
                                 break;
 
                             case "CM_Orchardist":
-                                int_result = FruPak.PF.Data.AccessLayer.CM_Orchardist.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, Convert.ToInt32(cmb_Outlook.SelectedValue.ToString()), ckb_Active.Checked, int_Current_User_Id);
+                                int_result = PF.Data.AccessLayer.CM_Orchardist.Update(int_DVG_Row_id, txt_code.Text, txt_Description.Text, Convert.ToInt32(cmb_Outlook.SelectedValue.ToString()), ckb_Active.Checked, int_Current_User_Id);
                                 break;
                         }
                         break;
@@ -425,7 +425,7 @@ namespace FruPak.PF.Utils.Common
                 switch (str_table)
                 {
                     case "CM_Trader":
-                        ds = FruPak.PF.Data.AccessLayer.CM_Trader.Check_Trader(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
+                        ds = PF.Data.AccessLayer.CM_Trader.Check_Trader(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
 
                         if (ds.Tables[0].Rows.Count > 0)
                         {
@@ -437,7 +437,7 @@ namespace FruPak.PF.Utils.Common
                         break;
 
                     case "CM_Orchardist":
-                        ds = FruPak.PF.Data.AccessLayer.CM_Orchardist.Check_Orchardist(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
+                        ds = PF.Data.AccessLayer.CM_Orchardist.Check_Orchardist(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
 
                         if (ds.Tables[0].Rows.Count > 0)
                         {
@@ -471,11 +471,11 @@ namespace FruPak.PF.Utils.Common
                         switch (str_table)
                         {
                             case "CM_Trader":
-                                int_result = FruPak.PF.Data.AccessLayer.CM_Trader.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
+                                int_result = PF.Data.AccessLayer.CM_Trader.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
                                 break;
 
                             case "CM_Orchardist":
-                                int_result = FruPak.PF.Data.AccessLayer.CM_Orchardist.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
+                                int_result = PF.Data.AccessLayer.CM_Orchardist.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells[0].Value.ToString()));
                                 break;
                         }
                     }
@@ -521,7 +521,7 @@ namespace FruPak.PF.Utils.Common
             else if (e.ColumnIndex == 10)
             {
                 int int_return_Code = 0;
-                int_return_Code = FruPak.PF.Data.Outlook.Contacts.Contact_Display(dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString());
+                int_return_Code = PF.Data.Outlook.Contacts.Contact_Display(dataGridView1.Rows[e.RowIndex].Cells[4].Value.ToString());
 
                 if (int_return_Code > 0)
                 {
@@ -615,7 +615,7 @@ namespace FruPak.PF.Utils.Common
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

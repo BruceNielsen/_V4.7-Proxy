@@ -4,7 +4,7 @@ using System.Data;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace FruPak.PF.Temp
+namespace PF.Temp
 {
     public partial class Submission : Form
     {
@@ -22,16 +22,16 @@ namespace FruPak.PF.Temp
             bol_write_access = bol_w_a;
             btn_Add.Enabled = bol_w_a;
             //check if testing or not
-            Console.WriteLine(FruPak.PF.Global.Global.bol_Testing);
+            Console.WriteLine(PF.Global.Global.bool_Testing);
 
-            grower1.bol_test = FruPak.PF.Global.Global.bol_Testing;
-            //if (FruPak.PF.Global.Global.bol_Testing == true)
+            grower1.bol_test = PF.Global.Global.bool_Testing;
+            //if (PF.Global.Global.bol_Testing == true)
             //{
-            //    this.Text = "FruPak Process Factory - " + this.Text + " - Test Environment";
+            //    this.Text = "FP Process Factory - " + this.Text + " - Test Environment";
             //}
             //else
             //{
-            //    this.Text = "FruPak Process Factory";
+            //    this.Text = "FP Process Factory";
             //}
 
             populate_combobox();
@@ -70,9 +70,9 @@ namespace FruPak.PF.Temp
                     CheckBox cb = (CheckBox)c;
                     cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
                 }
-                else if (c.GetType() == typeof(FruPak.PF.Utils.UserControls.Customer))
+                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
                 {
-                    FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)c;
+                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
                     cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
                 }
             }
@@ -83,7 +83,7 @@ namespace FruPak.PF.Temp
         private void populate_combobox()
         {
             DataSet ds_Get_info;
-            ds_Get_info = FruPak.PF.Data.AccessLayer.CM_Trader.Get_Info();
+            ds_Get_info = PF.Data.AccessLayer.CM_Trader.Get_Info();
             cmb_Trader.DataSource = ds_Get_info.Tables[0];
             cmb_Trader.DisplayMember = "Combined";
             cmb_Trader.ValueMember = "Trader_Id";
@@ -104,7 +104,7 @@ namespace FruPak.PF.Temp
             else
             {
                 DataSet ds_get_info;
-                ds_get_info = FruPak.PF.Data.AccessLayer.CM_Block.Get_Info(grower_id);
+                ds_get_info = PF.Data.AccessLayer.CM_Block.Get_Info(grower_id);
                 cmb_Block.DisplayMember = "Code";
                 cmb_Block.ValueMember = "Block_Id";
                 cmb_Block.DataSource = ds_get_info.Tables[0];
@@ -194,14 +194,14 @@ namespace FruPak.PF.Temp
             dataGridView1.Columns.Add(img_delete);
             img_delete.HeaderText = "Delete";
             img_delete.Name = "Delete";
-            img_delete.Image = FruPak.PF.Global.Properties.Resources.delete;
+            img_delete.Image = PF.Global.Properties.Resources.delete;
             img_delete.ReadOnly = true;
 
             DataGridViewImageColumn img_edit = new DataGridViewImageColumn();
             dataGridView1.Columns.Add(img_edit);
             img_edit.HeaderText = "Edit";
             img_edit.Name = "Edit";
-            img_edit.Image = FruPak.PF.Global.Properties.Resources.edit;
+            img_edit.Image = PF.Global.Properties.Resources.edit;
             img_edit.ReadOnly = true;
         }
 
@@ -210,7 +210,7 @@ namespace FruPak.PF.Temp
             dataGridView1.Refresh();
             dataGridView1.Rows.Clear();
 
-            DataSet ds_Get_Info = FruPak.PF.Data.AccessLayer.Temp_submission.Get_Info_Translated();
+            DataSet ds_Get_Info = PF.Data.AccessLayer.Temp_submission.Get_Info_Translated();
             DataRow dr_Get_Info;
 
             for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
@@ -331,7 +331,7 @@ namespace FruPak.PF.Temp
             switch (btn_Add.Text)
             {
                 case "&Add":
-                    int_new_Sub_Id = FruPak.PF.Common.Code.General.int_max_user_id("GH_Submission");
+                    int_new_Sub_Id = PF.Common.Code.General.int_max_user_id("GH_Submission");
                     break;
             }
 
@@ -341,14 +341,14 @@ namespace FruPak.PF.Temp
                 switch (btn_Add.Text)
                 {
                     case "&Add":
-                        int_result = FruPak.PF.Data.AccessLayer.GH_Submission.Insert(int_new_Sub_Id, Convert.ToInt32(cmb_Trader.SelectedValue.ToString()), grower1.Grower_Id,
+                        int_result = PF.Data.AccessLayer.GH_Submission.Insert(int_new_Sub_Id, Convert.ToInt32(cmb_Trader.SelectedValue.ToString()), grower1.Grower_Id,
                             Convert.ToInt32(cmb_Block.SelectedValue.ToString()), txt_Grower_Ref.Text, dtp_Sub_Date.Value.ToString("yyyy/MM/dd"), dtp_Harvest_Date.Value.ToString("yyyy/MM/dd"), Convert.ToInt32(nud_Pick_Num.Value.ToString()),
                             txt_Comments.Text, int_Current_User_Id);
                         bol_bins_Add = true;
                         break;
 
                     case "&Update":
-                        int_result = FruPak.PF.Data.AccessLayer.GH_Submission.Update(int_new_Sub_Id, Convert.ToInt32(cmb_Trader.SelectedValue.ToString()), grower1.Grower_Id,
+                        int_result = PF.Data.AccessLayer.GH_Submission.Update(int_new_Sub_Id, Convert.ToInt32(cmb_Trader.SelectedValue.ToString()), grower1.Grower_Id,
                             Convert.ToInt32(cmb_Block.SelectedValue.ToString()), txt_Grower_Ref.Text, dtp_Sub_Date.Value.ToString("yyyy/MM/dd"), dtp_Harvest_Date.Value.ToString("yyyy/MM/dd"), Convert.ToInt32(nud_Pick_Num.Value.ToString()),
                             txt_Comments.Text, int_Current_User_Id);
                         bol_bins_Add = false;
@@ -433,15 +433,15 @@ namespace FruPak.PF.Temp
                 Data = "S:" + dataGridView1.CurrentRow.Cells["Submission_Id"].Value.ToString() + ":" + Convert.ToBoolean(ckb_Print_all.Checked);
 
                 string curent_printer = System.Printing.LocalPrintServer.GetDefaultPrintQueue().FullName.ToString();
-                string str_req_Printer = FruPak.PF.Common.Code.General.Get_Single_System_Code("PR-Bincrd");
+                string str_req_Printer = PF.Common.Code.General.Get_Single_System_Code("PR-Bincrd");
                 foreach (string printer in System.Drawing.Printing.PrinterSettings.InstalledPrinters)
                 {
                     try
                     {
                         if (printer.IndexOf(str_req_Printer) > 0)
                         {
-                            FruPak.PF.PrintLayer.Word.Printer = printer;
-                            myPrinters.SetDefaultPrinter(FruPak.PF.PrintLayer.Word.Printer);
+                            PF.PrintLayer.Word.Printer = printer;
+                            myPrinters.SetDefaultPrinter(PF.PrintLayer.Word.Printer);
                         }
                     }
                     catch
@@ -450,7 +450,7 @@ namespace FruPak.PF.Temp
                     }
                 }
 
-                FruPak.PF.PrintLayer.Bin_Card.Print(Data, true);
+                PF.PrintLayer.Bin_Card.Print(Data, true);
                 myPrinters.SetDefaultPrinter(curent_printer);
             }
 
@@ -468,8 +468,8 @@ namespace FruPak.PF.Temp
 
                 if (DLR_Message == DialogResult.Yes)
                 {
-                    int_result = FruPak.PF.Data.AccessLayer.CM_Bins.Delete_Submission(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Submission_Id"].Value.ToString()));
-                    int_result = FruPak.PF.Data.AccessLayer.GH_Submission.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Submission_Id"].Value.ToString()));
+                    int_result = PF.Data.AccessLayer.CM_Bins.Delete_Submission(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Submission_Id"].Value.ToString()));
+                    int_result = PF.Data.AccessLayer.GH_Submission.Delete(Convert.ToInt32(dataGridView1.Rows[e.RowIndex].Cells["Submission_Id"].Value.ToString()));
                 }
                 if (int_result > 0)
                 {
@@ -496,7 +496,7 @@ namespace FruPak.PF.Temp
                 cmb_Trader.SelectedValue = Convert.ToInt32(dataGridView1.CurrentRow.Cells["Trader_Id"].Value.ToString());
 
                 //get orchardist Id
-                DataSet ds = FruPak.PF.Data.AccessLayer.CM_Grower.Get_Orchardist(Convert.ToInt32(dataGridView1.CurrentRow.Cells["Grower_Id"].Value.ToString()));
+                DataSet ds = PF.Data.AccessLayer.CM_Grower.Get_Orchardist(Convert.ToInt32(dataGridView1.CurrentRow.Cells["Grower_Id"].Value.ToString()));
                 DataRow dr;
 
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
@@ -572,7 +572,7 @@ namespace FruPak.PF.Temp
 
         private void CustomerControl_CustomerChanged(object sender, EventArgs e)
         {
-            FruPak.PF.Utils.UserControls.Customer cust = (FruPak.PF.Utils.UserControls.Customer)sender;
+            PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)sender;
             logger.Log(LogLevel.Info, DecorateString(cust.Name, cust.Customer_Name, "TextChanged"));
         }
 

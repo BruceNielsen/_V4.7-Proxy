@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,7 +27,7 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Check_Orchardist(int Orchardist_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT Orchardist_Id FROM dbo.CM_Grower WHERE Orchardist_Id = " + Orchardist_Id + " " +
                                             "UNION " +
                                             "SELECT Orchardist_Id FROM dbo.PF_Work_Order WHERE Orchardist_Id = " + Orchardist_Id + " ");
@@ -35,44 +35,44 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(Orchardist_Id) as Current_Id FROM CM_Orchardist");
         }
 
         public static DataSet Get_Info()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM CM_Orchardist WHERE PF_Active_Ind = 1 ORDER BY Code");
         }
 
         public static DataSet Get_Info(string Code)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM CM_Orchardist WHERE PF_Active_Ind = 1 AND Code = '" + Code + "'");
         }
 
         public static DataSet Get_Info(int Orchardist_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM CM_Orchardist WHERE PF_Active_Ind = 1 AND Orchardist_Id = " + Orchardist_Id);
         }
 
         public static int Insert(int Orchardist_Id, string Code, string Description, int Customer_Id, bool PF_Active_Ind, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO CM_Orchardist(Orchardist_Id, Code, Description, Customer_Id, PF_Active_Ind, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + Orchardist_Id + ",'" + Code + "','" + Description + "'," + Customer_Id + ",'" + PF_Active_Ind + "', GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Delete(int Orchardist_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM CM_Orchardist WHERE Orchardist_Id = " + Orchardist_Id);
         }
 
         public static int Update(int Orchardist_Id, string Code, string Description, int Customer_Id, bool PF_Active_Ind, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE CM_Orchardist SET Code = '" + Code + "', " +
                                                                   "Description = '" + Description + "', " +
                                                                   "Customer_Id = " + Customer_Id + ", " +

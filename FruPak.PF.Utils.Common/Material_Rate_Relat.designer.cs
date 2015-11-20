@@ -1,4 +1,4 @@
-﻿namespace FruPak.PF.Utils.Common
+﻿namespace PF.Utils.Common
 {
     partial class Material_Rate_Relat
     {
@@ -108,7 +108,7 @@
             this.KeyPreview = true;
             this.Name = "Material_Rate_Relat";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "FruPak.PF.Utils.Common.Material Rate Relationship";
+            this.Text = "PF.Utils.Common.Material Rate Relationship";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Material_Rate_Relat_KeyDown);
             this.ResumeLayout(false);
             this.PerformLayout();

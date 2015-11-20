@@ -1,7 +1,7 @@
-﻿using FruPak.Utils.Data;
+﻿using FP.Utils.Data;
 using System.Data;
 
-namespace FruPak.PF.Data.AccessLayer
+namespace PF.Data.AccessLayer
 {
     /*Description
     -----------------
@@ -27,13 +27,13 @@ namespace FruPak.PF.Data.AccessLayer
     {
         public static DataSet Get_Max_ID()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT max(FruitType_Id) as Current_Id FROM CM_Fruit_Type");
         }
 
         public static DataSet Get_Info()
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
 
             // 21/05/2015 BN - Will crash on the next line if the confic string is null
             // (can happen when inspecting a form in design mode when the UserControl Fruit is on the form.
@@ -43,19 +43,19 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static DataSet Get_Info(int FruitType_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM CM_Fruit_Type WHERE FruitType_Id = " + FruitType_Id);
         }
 
         public static DataSet Get_Info(string Code)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT * FROM CM_Fruit_Type WHERE Code = '" + Code + "'");
         }
 
         public static DataSet Get_Info_B(int Block_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_Query("SELECT distinct fv.FruitType_Id, ft.Description, ft.Code " +
                                             "FROM [dbo].[CM_Block_Variety_Relationship] bvr " +
                                             "INNER JOIN dbo.CM_Fruit_Variety fv ON fv.Variety_Id = bvr.Variety_Id " +
@@ -65,20 +65,20 @@ namespace FruPak.PF.Data.AccessLayer
 
         public static int Insert(int FruitType_Id, string Code, string Description, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("INSERT INTO CM_Fruit_Type(FruitType_Id, Code, Description, Mod_Date, Mod_User_Id) " +
                                                 "VALUES ( " + FruitType_Id + ",'" + Code + "','" + Description + "', GETDATE()," + Mod_User_Id + ")");
         }
 
         public static int Delete(int FruitType_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("DELETE FROM CM_Fruit_Type WHERE FruitType_Id = " + FruitType_Id);
         }
 
         public static int Update(int FruitType_Id, string Code, string Description, int Mod_User_Id)
         {
-            FruPak.PF.Data.AccessLayer.DConfig.CreateDConfig();
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
             return SQLAccessLayer.Run_NonQuery("UPDATE CM_Fruit_Type SET Code = '" + Code + "', " +
                                                                   "Description = '" + Description + "', " +
                                                                   "Mod_date = GETDATE(), " +
