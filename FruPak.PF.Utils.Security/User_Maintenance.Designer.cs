@@ -256,7 +256,7 @@
             this.KeyPreview = true;
             this.Name = "User_Maintenance";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PF.Utils.Security.User Maintenance";
+            this.Text = "PF.Utils.Security.User Maintenance (Security --> Maintenance --> User)";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.User_Maintenance_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

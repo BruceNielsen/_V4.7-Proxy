@@ -368,6 +368,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Accounts.Accounts_Maintenance("PF_A_Rates", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Accounts.Accounts_Maintenance (Accounting --> Costs --> Rates)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -380,6 +381,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Accounts.Fruit_Purchase(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Accounts.Fruit_Purchase (Accounting --> Invoicing --> Fruit Purchase)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -392,6 +394,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Accounts.Intended_Orders(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Accounts.Intended_Orders (Accounting --> Intent --> Order)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -404,6 +407,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Accounts.Order_Invoice_Link(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Accounts.Order_Invoice_Link (Accounting --> Invoicing --> Order/Invoice Link)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -416,6 +420,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Accounts.Payment_Received(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Accounts.Payment_Received (Accounting --> Invoicing --> Payments Received)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -430,6 +435,7 @@ namespace PF.Menu
 
             PF.Accounts.Invoicing_Sales frm = new PF.Accounts.Invoicing_Sales(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             //Form frm = new PF.Accounts.Invoicing_Sales(int_User_id, Convert.ToBoolean((sender as RibbonButton).Tag.ToString()));
+            frm.Text = "PF.Accounts.Invoicing_Sales (Accounting --> Invoicing --> Sales)";
 
             frm.HistoryUpdated += frm_HistoryUpdated;   // Attach to the EventHandler
 
@@ -453,6 +459,7 @@ namespace PF.Menu
             //Form frm = new PF.Accounts.Invoice_Search(int_User_id, Convert.ToBoolean((sender as RibbonButton).Tag.ToString()));
 
             PF.Accounts.Invoice_Search frm = new PF.Accounts.Invoice_Search(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Accounts.Invoice_Search (Accounting --> Invoicing --> Search)";
 
             frm.HistoryUpdated += frm_HistoryUpdated;   // Attach to the EventHandler
 
@@ -471,6 +478,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Accounts.Invoicing_WO(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Accounts.Invoicing_WO (Accounting --> Invoicing --> Work Order)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -483,6 +491,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Accounts.Sales_Rates("PF_A_Customer_Sales_Discount", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Accounts.Sales_Rates (Accounting --> Sales --> Discounts)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -495,6 +504,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Accounts.Sales_Rates("PF_A_Customer_Sales_Rates", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Accounts.Sales_Rates (Accounting --> Sales --> Rates)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -794,6 +804,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Common.Common_Maintenance("CM_ESP", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Utils.Common.Common Maintenance (Common --> ESP --> ESP)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -806,6 +817,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Common.Common_Maintenance("CM_Fruit_Type", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Utils.Common.Common Maintenance (Common --> Fruit --> Type)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -818,6 +830,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Common.Fruit_Variety(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Utils.Common.Common Maintenance (Common --> Fruit --> Variety)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -830,6 +843,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Common.Common_Maintenance("CM_Product_Group", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Utils.Common.Common Maintenance (Common --> Groups --> Product Groups)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -842,6 +856,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Common.PF_Customer(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Utils.Common.Common Maintenance (Common --> Grower --> Customer)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -854,6 +869,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Common.Grower(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Utils.Common.Common Maintenance (Common --> Grower --> Grower)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -866,7 +882,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Common.Common_Maintenance2("CM_Orchardist", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
-            frm.Text = "PF.Utils.Common Maintenance2 (Orchardist)";
+            frm.Text = "PF.Utils.Common Maintenance2 (Common --> Grower --> Orchardist)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -879,7 +895,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Common.Common_Maintenance2("CM_Trader", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
-            frm.Text = "PF.Utils.Common Maintenance2 (Trader)";
+            frm.Text = "PF.Utils.Common Maintenance2 (Common --> Grower --> Trader)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -892,6 +908,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Common.Common_Maintenance("CM_Cities", int_User_id, Convert.ToBoolean((sender as GroupedComboBox).Tag.ToString()));
+            frm.Text = "PF.Utils.Common.Common_Maintenance (Common --> Location --> Cities)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -904,6 +921,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Common.Common_Maintenance("CM_Truck", int_User_id, Convert.ToBoolean((sender as GroupedComboBox).Tag.ToString()));
+            frm.Text = "PF.Utils.Common.Common_Maintenance (Common --> Location --> Trucks)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -916,6 +934,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Common.Common_Maintenance("CM_Location", int_User_id, Convert.ToBoolean((sender as GroupedComboBox).Tag.ToString()));
+            frm.Text = "PF.Utils.Common.Common_Maintenance (Common --> Location --> Location)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -928,6 +947,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Common.Material(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Utils.Common.Common Maintenance (Common --> Material --> Material)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -939,6 +959,7 @@ namespace PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Common - Types - Material", "Common_Types_Material_Brand_Click", "(Brand)"));
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Common.Common_Maintenance("CM_Brand", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
+            frm.Text = "PF.Utils.Common.Common_Maintenance (Common --> Types --> Material --> Brand)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -951,6 +972,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Common.Common_Maintenance("CM_Count", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
+            frm.Text = "PF.Utils.Common.Common_Maintenance (Common --> Types --> Material --> Count)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -963,6 +985,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Common.Common_Maintenance("CM_Grade", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
+            frm.Text = "PF.Utils.Common.Common_Maintenance (Common --> Types --> Material --> Grade)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -975,6 +998,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Common.Common_Maintenance("CM_Growing_Method", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
+            frm.Text = "PF.Utils.Common.Common_Maintenance (Common --> Types --> Material --> Growing Method)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -987,6 +1011,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Common.Common_Maintenance("CM_Market_Attribute", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
+            frm.Text = "PF.Utils.Common.Common_Maintenance (Common --> Types --> Material --> Market Attribute)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -999,6 +1024,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Common.Common_Maintenance("CM_Size", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
+            frm.Text = "PF.Utils.Common.Common_Maintenance (Common --> Types --> Material --> Size Treatment)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1011,6 +1037,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Common.Common_Maintenance("CM_Treatment", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
+            frm.Text = "PF.Utils.Common.Common_Maintenance (Common --> Types --> Material --> Treatment)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1023,6 +1050,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Common.Common_Maintenance("CM_Defect", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
+            frm.Text = "PF.Utils.Common.Common_Maintenance (Common --> Types --> Type --> Defect)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1035,6 +1063,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Common.Common_Maintenance("CM_Defect_Class", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
+            frm.Text = "PF.Utils.Common.Common_Maintenance (Common --> Types --> Type --> Defect Class)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1046,6 +1075,7 @@ namespace PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Common - Types - Types", "Common_Types_Types_PackTypes_Click", "(Pack Types)"));
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Common.Common_Maintenance("CM_Pack_Type", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
+            frm.Text = "PF.Utils.Common.Common_Maintenance (Common --> Types --> Type --> Pack Types)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1058,6 +1088,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Common.Common_Maintenance("CM_Pallet_Type", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
+            frm.Text = "PF.Utils.Common.Common_Maintenance (Common --> Types --> Type --> Pallets)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1070,6 +1101,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Common.Common_Maintenance("CM_Storage", int_User_id, Convert.ToBoolean((sender as Tools.CueComboBox).Tag.ToString()));
+            frm.Text = "PF.Utils.Common.Common_Maintenance (Common --> Types --> Type --> Storage)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1114,6 +1146,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.StockControl.Stock_Holding(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.StockControl.Stock_Holding (Consumables --> Maintenance --> Holding)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1126,6 +1159,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.StockControl.Stock_Control_Maintenance("PF_Stock_Item", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.StockControl.Stock_Control_Maintenance (Consumables --> Maintenance --> Maintenance)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1138,6 +1172,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.StockControl.Stock_Used(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.StockControl.Stock_Used (Consumables --> Maintenance --> Usage Adjustment)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1455,6 +1490,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.BaseLoad.Base_Load_Maintenance(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.BaseLoad.Base_Load_Maintenance (Dispatch --> BaseLoad --> Add New)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1478,6 +1514,7 @@ namespace PF.Menu
                 {
                     Cursor = Cursors.WaitCursor;
                     Form frm = new PF.WorkOrder.WO_Output(Convert.ToInt32(cbi.Value.ToString()), int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+                    frm.Text = "PF.WorkOrder.WO_Output (Dispatch --> BaseLoad --> Add Output)";
                     //frm.TopMost = true; // 21/10/2015 BN
                     frm.Show();
                     Cursor = Cursors.Default;
@@ -1567,6 +1604,7 @@ namespace PF.Menu
                 {
                     Cursor = Cursors.WaitCursor;
                     Form frm = new PF.BaseLoad.BLWO_Labels(Convert.ToInt32(cbi.Value.ToString()), int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+                    frm.Text = "PF.BaseLoad.BLWO_Labels (Dispatch --> BaseLoad --> Run)";
                     //frm.TopMost = true; // 21/10/2015 BN
                     frm.Show();
                     Cursor = Cursors.Default;
@@ -1585,6 +1623,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Dispatch.Shipping_Order(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Dispatch.Shipping_Order (Dispatch --> Orders --> Create)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1597,6 +1636,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Dispatch.Shipping_Search(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Dispatch.Shipping_Search (Dispatch --> Orders --> Search)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
 
@@ -1609,6 +1649,7 @@ namespace PF.Menu
             logger.Log(LogLevel.Info, DecorateString("Dispatch - Other", "Dispatch_Other_OtherWork_Click", "(Other Work)"));
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Dispatch.Other_Work(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Dispatch.Other_Work (Dispatch --> Other --> Other Work)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1621,6 +1662,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Scanning.Repack(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Utils.Scanning.Repack (Dispatch --> Packing --> Pack)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1633,6 +1675,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Scanning.Tipping_Onto_Order(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Utils.Scanning.Tipping_Onto_Order (Dispatch --> Scanning --> Add Product to Order)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1645,6 +1688,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Scanning.Pallet_Transfer(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Utils.Scanning.Pallet_Transfer (Dispatch --> Scanning --> Pallet Transfer)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1657,6 +1701,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Scanning.Reprint_Palletcards(int_User_id);
+            frm.Text = "PF.Utils.Scanning.Reprint_Palletcards (Dispatch --> Scanning --> Print Pallet Card)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1725,6 +1770,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Temp.Submission(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Temp.Submission (Extra --> Gatehouse --> Submissions)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1737,6 +1783,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Temp.Pre_System_Stock(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Temp.Pre_System_Stock (Extra --> History --> Load Old Stock Numbers)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1749,6 +1796,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Scanning.Pallet_Weight(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Utils.Scanning.Pallet_Weight (Extra --> Scanning --> Pallet Weights)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1761,6 +1809,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Scanning.Reprint_Palletcards(int_User_id);
+            frm.Text = "PF.Utils.Scanning.Reprint_Palletcards (Extra --> Scanning --> Reprint Pallet Card)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -1774,6 +1823,7 @@ namespace PF.Menu
             Cursor = Cursors.WaitCursor;
             //Form frm = new PF.Utils.Scanning.Tablet_Menu();
             Form frm = new PF.Menu.Tablet.Tablet_Menu();
+            frm.Text = "PF.Menu.Tablet.Tablet_Menu (Extra --> Scanning --> Tablet Menu)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -2926,6 +2976,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.WorkOrder.Work_Order_Maintenance("PF_Cleaning_Area", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.WorkOrder.Work_Order_Maintenance (PF - Maintenance --> Cleaning --> Area)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -2938,6 +2989,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.WorkOrder.Work_Order_Maintenance("PF_Cleaning_Area_Parts", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.WorkOrder.Work_Order_Maintenance (PF - Maintenance --> Cleaning --> Parts)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -2950,6 +3002,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.WorkOrder.Work_Order_Maintenance("PF_Product_LabResults", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.WorkOrder.Work_Order_Maintenance (PF - Maintenance --> Lab --> Lab Results)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -2962,6 +3015,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Common.PF_Staff(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Utils.Common.PF_Staff (PF - Maintenance --> Staff --> Maintenance)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -2974,6 +3028,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.Utils.Common.Common_Maintenance("PF_Other_Work_Types", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.Utils.Common.Common_Maintenance (PF - Maintenance --> Staff --> Other Work Areas)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -2986,6 +3041,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.WorkOrder.Work_Order_Maintenance("PF_Chemicals", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.WorkOrder.Work_Order_Maintenance (PF - Maintenance --> Types --> Chemicals)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -2998,6 +3054,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.WorkOrder.Work_Order_Maintenance("PF_Product_Other", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.WorkOrder.Work_Order_Maintenance (PF - Maintenance --> Types --> Other Values)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -3009,6 +3066,7 @@ namespace PF.Menu
             logger.Log(LogLevel.Info, DecorateString("PF - Maintenance - Types", "Maintenance_Types_Products_Click", "(Products)"));
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.WorkOrder.Work_Order_Maintenance("PF_Product", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.WorkOrder.Work_Order_Maintenance (PF - Maintenance --> Types --> Products)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -3021,6 +3079,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.WorkOrder.Work_Order_Maintenance("PF_Tests", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.WorkOrder.Work_Order_Maintenance (PF - Maintenance --> Types --> Tests)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -3584,6 +3643,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.WorkOrder.Cleaning(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.WorkOrder.Cleaning (Process Factory --> Cleaning --> Cleaning)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -3596,6 +3656,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.WorkOrder.WO_Complete(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.WorkOrder.WO_Complete (Process Factory --> Complete Work Orders --> Complete)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -3608,6 +3669,7 @@ namespace PF.Menu
 
             Cursor = Cursors.WaitCursor;
             Form frm = new PF.WorkOrder.Process_Set_Up(int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.WorkOrder.Process_Set_Up (Process Factory --> Setup --> Factory)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
             Cursor = Cursors.Default;
@@ -3645,6 +3707,7 @@ namespace PF.Menu
             if (DLR_MessageBox != DialogResult.OK)
             {
                 Form frm = new PF.WorkOrder.WO_Chemicals(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+                frm.Text = "PF.WorkOrder.WO_Chemicals (Process Factory --> Work Orders --> Chemicals)";
                 //frm.TopMost = true; // 21/10/2015 BN
                 frm.Show();
             }
@@ -3698,6 +3761,7 @@ namespace PF.Menu
                 int_WO_Id = Convert.ToInt32(tempString);
             }
             Form frm = new PF.WorkOrder.WO_Create(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PF.WorkOrder.WO_Create (Process Factory --> Work Orders --> Create/View)";
             frm.ShowDialog();
 
             populate_Date_Combo();
@@ -3805,6 +3869,7 @@ namespace PF.Menu
             if (DLR_MessageBox != DialogResult.OK)
             {
                 Form frm = new PF.WorkOrder.WO_Output(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+                frm.Text = "PF.WorkOrder.WO_Output (Process Factory --> Work Orders --> Output)";
                 //frm.TopMost = true; // 21/10/2015 BN
                 frm.Show();
             }
@@ -3843,6 +3908,7 @@ namespace PF.Menu
             if (DLR_MessageBox != DialogResult.OK)
             {
                 Form frm = new PF.WorkOrder.WO_Labels(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+                frm.Text = "PF.WorkOrder.WO_Labels (Process Factory --> Work Orders --> Pallets)";
                 //frm.TopMost = true; // 21/10/2015 BN
                 frm.Show();
             }
@@ -3881,6 +3947,7 @@ namespace PF.Menu
             if (DLR_MessageBox != DialogResult.OK)
             {
                 Form frm = new PF.WorkOrder.QC(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+                frm.Text = "PF.WorkOrder.QC (Process Factory --> Work Orders --> QC)";
                 //frm.TopMost = true; // 21/10/2015 BN
                 frm.Show();
             }
@@ -3994,6 +4061,7 @@ namespace PF.Menu
             if (DLR_MessageBox != DialogResult.OK)
             {
                 Form frm = new PF.WorkOrder.WO_Staff(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+                frm.Text = "PF.WorkOrder.WO_Staff (Process Factory --> Work Orders --> Staff)";
                 //frm.TopMost = true; // 21/10/2015 BN
                 frm.Show();
             }
@@ -4032,6 +4100,7 @@ namespace PF.Menu
             if (DLR_MessageBox != DialogResult.OK)
             {
                 Form frm = new PF.WorkOrder.WO_Tests(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+                frm.Text = "PF.WorkOrder.WO_Tests (Process Factory --> Work Orders --> Tests)";
                 //frm.TopMost = true; // 21/10/2015 BN
                 frm.Show();
             }
@@ -4107,6 +4176,7 @@ namespace PF.Menu
             Cursor = Cursors.WaitCursor;
 
             Form frm = new PF.WorkOrder.Work_Order_Maintenance("PF_Reports", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            frm.Text = "PPF.WorkOrder.Work_Order_Maintenance (Reports --> Maintenance --> Add New Report)";
             frm.ShowDialog();
 
             Cursor = Cursors.Default;

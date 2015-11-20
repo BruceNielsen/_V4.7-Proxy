@@ -209,7 +209,7 @@
             this.KeyPreview = true;
             this.Name = "Common_Maintenance2";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PF.Utils.Common Maintenance2 (Trader)";
+            this.Text = "PF.Utils.Common Maintenance2 (Common --> Grower --> Trader)";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Common_Maintenance2_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();

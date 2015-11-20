@@ -491,7 +491,7 @@
             this.KeyPreview = true;
             this.Name = "Material";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PF.Utils.Common.Material";
+            this.Text = "PF.Utils.Common.Material (Common --> Material --> Material)";
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Material_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nud_weight)).EndInit();
             this.ResumeLayout(false);

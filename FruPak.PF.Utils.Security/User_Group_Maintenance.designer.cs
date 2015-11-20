@@ -174,7 +174,7 @@
             this.KeyPreview = true;
             this.Name = "User_Group_Maintenance";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "PF.Utils.Security.User Group Maintenance";
+            this.Text = "PF.Utils.Security.User Group Maintenance (Security --> Maintenance --> Group)";
             this.Load += new System.EventHandler(this.SizeAllColumns);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.User_Group_Maintenance_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
