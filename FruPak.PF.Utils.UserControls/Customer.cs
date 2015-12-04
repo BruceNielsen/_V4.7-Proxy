@@ -104,7 +104,12 @@ namespace PF.Utils.UserControls
 
         public bool CFocused { get; set; }
 
-        private void cmb_Customer_SelectionChangeCommitted(object sender, EventArgs e)
+        /// <summary>
+        /// Made this property public so I can trigger it externally - BN 4/12/2015
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void cmb_Customer_SelectionChangeCommitted(object sender, EventArgs e)
         {
             Customer_Id = Convert.ToInt32(cmb_Customer.SelectedValue.ToString());
             CFocused = true;

@@ -8,6 +8,14 @@ namespace PF.Utils.Scanning
 {
     public partial class Bin_Tipping_Combined : Form
     {
+        #region Messaging between forms - BN 21-22/11/2015
+        // add a delegate
+        public delegate void MessageUpdateHandler(object sender, MessageUpdateEventArgs e);
+
+        // add an event of the delegate type
+        public event MessageUpdateHandler MessageUpdated;
+        #endregion
+
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
         // These three are also used by Bin_Tare_Weight
@@ -94,7 +102,7 @@ namespace PF.Utils.Scanning
 
         private bool bol_msg_reset = true;
 
-        private void btn_Weight_Click(object sender, EventArgs e)
+        public void btn_Weight_Click(object sender, EventArgs e)
         {
             int int_result = -1;
             int_result = PF.Data.AccessLayer.CM_Bins.Update_Weight_Gross(int_Bin_Id, nud_weight_BinTipping.Value, int_Current_User_Id);
@@ -202,12 +210,12 @@ namespace PF.Utils.Scanning
             str_dump_ind = "";
         }
 
-        private void btn_Close_Click(object sender, EventArgs e)
+        public void btn_Close_Click(object sender, EventArgs e)
         {
             this.Close();
         }
 
-        private void btn_Wet_Dry_Click(object sender, EventArgs e)
+        public void btn_Wet_Dry_Click(object sender, EventArgs e)
         {
             if ((sender as Button).Name == "btn_Wet_BinTipping")
             {
@@ -267,7 +275,7 @@ namespace PF.Utils.Scanning
 
         #region Additions to accommodate combining Bin_Tare_Weights
 
-        private void btn_Tipped_Click(object sender, EventArgs e)
+        public void btn_Tipped_Click(object sender, EventArgs e)
         {
             bool bol_valid_wo = false;
             if (nud_weight_BinTareWeights.Value == 0)
@@ -534,5 +542,23 @@ namespace PF.Utils.Scanning
         {
             nud_weight_BinTareWeights.Value = 0;
         }
+
+        private void Bin_Tipping_Combined_Shown(object sender, EventArgs e)
+        {
+            //SendMessageHome("Work Orders (Create/View) - " + this.barcode_BinTipping.Barcode_Number + ", " + DateTime.Now.ToShortTimeString(), "");
+
+        }
+
+        private void SendMessageHome(string Header, string Message)
+        {
+            // This will raise the event which can then intercepted by any listeners
+
+            // instance the event args and pass it each value
+            MessageUpdateEventArgs args = new MessageUpdateEventArgs(Header, Message);
+
+            // raise the event with the updated arguments
+            MessageUpdated(this, args);
+        }
+
     }
 }

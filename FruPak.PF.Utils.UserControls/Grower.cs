@@ -167,8 +167,24 @@ namespace PF.Utils.UserControls
             }
         }
 
-        // set and get for orchardist id for the selected item
-        public int Orchardist_Id
+        public string GrowerName // BN 21/11/2015
+        {
+            get
+            {
+                //object o = cmb_Grower.Text;
+                return cmb_Grower.Text;
+            }
+        }
+        public string OrchardistName // BN 21/11/2015
+        {
+            get
+            {
+                return cmb_Orchardist.Text;
+            }
+        }
+        
+    // set and get for orchardist id for the selected item
+    public int Orchardist_Id
         {
             get
             {

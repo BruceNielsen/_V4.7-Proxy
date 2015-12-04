@@ -79,7 +79,7 @@ namespace PF.Data.Outlook
 
                 string djb = folder.FullFolderPath.ToString();
 
-                //Console.WriteLine("djb: " + djb);
+                Console.WriteLine("djb: " + djb);
 
                 if (djb.Length > 4)
                 {

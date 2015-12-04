@@ -250,7 +250,7 @@ namespace PF.Common.Code
         public static int Email_Office(string str_Office, string str_save_filename, string str_msg)
         {
             int int_result = 0;
-            //Get Offcie Email Address
+            //Get Office Email Address
             string str_office_email = "";
             string str_staff_Name = "";
 

@@ -30,6 +30,8 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Main_Menu));
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             this.lbl_message = new System.Windows.Forms.Label();
             this.propertyGridDebug = new System.Windows.Forms.PropertyGrid();
             this.richTextBoxDebug = new System.Windows.Forms.RichTextBox();
@@ -47,6 +49,7 @@
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripStatusLabelActive = new System.Windows.Forms.ToolStripStatusLabel();
+            this.toolStripStatusLabelBoldText = new System.Windows.Forms.ToolStripStatusLabel();
             this.toolTipMainMenu = new System.Windows.Forms.ToolTip(this.components);
             this.panelPropertyGridDebug = new System.Windows.Forms.Panel();
             this.labelCurrentPropertyGridSelectedObject = new System.Windows.Forms.Label();
@@ -206,6 +209,18 @@
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
             this.openSavedFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openTempFolderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripSeparator();
+            this.eachOfTheseAutomatesTheStepsNeededToCreateAWorkOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fullAutoModeToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripSeparator();
+            this.disableNetworkValidationForEmailTestingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.processFactoryWorkOrdersCreateViewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.processFactoryWorkOrdersOutputToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.extraScanningTabletMenuCombinedToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.processFactoryWorkOrdersPalletsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dispatchOrdersCreateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.dispatchScanningAddProductToOrderToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.accountingInvoicingSalesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.printDialog1 = new System.Windows.Forms.PrintDialog();
             this.tabControlMain = new System.Windows.Forms.TabControl();
             this.tabPageHome = new System.Windows.Forms.TabPage();
@@ -221,8 +236,12 @@
             this.imageList1 = new System.Windows.Forms.ImageList(this.components);
             this.labelTabControlMainBottomStatus = new System.Windows.Forms.Label();
             this.timerSysMon = new System.Windows.Forms.Timer(this.components);
+            this.timerIdleTimer = new System.Windows.Forms.Timer(this.components);
             this.gradientPanelHome = new Tools.GradientPanel.GradientPanel();
             this.grouperHomeHelp = new Tools.Grouper();
+            this.labelIdleTimeHeader = new System.Windows.Forms.Label();
+            this.labelIdleTime = new System.Windows.Forms.Label();
+            this.labelWordWarningText = new System.Windows.Forms.Label();
             this.labelPFLoginName = new System.Windows.Forms.Label();
             this.labelPFLoginValue = new System.Windows.Forms.Label();
             this.labelIpAddress = new System.Windows.Forms.Label();
@@ -273,6 +292,8 @@
             this.grouperCommonLocation = new Tools.Grouper();
             this.groupedComboBoxCommonLocation = new GroupedComboBox();
             this.gradientPanelProcessFactory = new Tools.GradientPanel.GradientPanel();
+            this.dataGridViewCurrentWorkOrder = new System.Windows.Forms.DataGridView();
+            this.treeViewProcessFactory = new System.Windows.Forms.TreeView();
             this.grouperProcessFactoryCompleteWorkOrders = new Tools.Grouper();
             this.buttonProcessFactoryCompleteWorkOrdersComplete = new System.Windows.Forms.Button();
             this.grouperProcessFactoryWorkOrders = new Tools.Grouper();
@@ -394,6 +415,7 @@
             this.grouperCommonGroups.SuspendLayout();
             this.grouperCommonLocation.SuspendLayout();
             this.gradientPanelProcessFactory.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCurrentWorkOrder)).BeginInit();
             this.grouperProcessFactoryCompleteWorkOrders.SuspendLayout();
             this.grouperProcessFactoryWorkOrders.SuspendLayout();
             this.grouperProcessFactoryCleaning.SuspendLayout();
@@ -448,9 +470,9 @@
             // 
             this.richTextBoxDebug.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.richTextBoxDebug.Font = new System.Drawing.Font("Segoe UI", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.richTextBoxDebug.Location = new System.Drawing.Point(0, 382);
+            this.richTextBoxDebug.Location = new System.Drawing.Point(0, 560);
             this.richTextBoxDebug.Name = "richTextBoxDebug";
-            this.richTextBoxDebug.Size = new System.Drawing.Size(1117, 287);
+            this.richTextBoxDebug.Size = new System.Drawing.Size(1117, 109);
             this.richTextBoxDebug.TabIndex = 5;
             this.richTextBoxDebug.Text = "";
             this.richTextBoxDebug.TextChanged += new System.EventHandler(this.richTextBoxDebug_TextChanged);
@@ -459,7 +481,8 @@
             // 
             this.statusStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripDropDownButtonDebug,
-            this.toolStripStatusLabelActive});
+            this.toolStripStatusLabelActive,
+            this.toolStripStatusLabelBoldText});
             this.statusStrip1.Location = new System.Drawing.Point(0, 669);
             this.statusStrip1.Name = "statusStrip1";
             this.statusStrip1.Size = new System.Drawing.Size(1350, 22);
@@ -572,6 +595,13 @@
             this.toolStripStatusLabelActive.Name = "toolStripStatusLabelActive";
             this.toolStripStatusLabelActive.Size = new System.Drawing.Size(10, 17);
             this.toolStripStatusLabelActive.Text = ".";
+            // 
+            // toolStripStatusLabelBoldText
+            // 
+            this.toolStripStatusLabelBoldText.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Bold);
+            this.toolStripStatusLabelBoldText.Name = "toolStripStatusLabelBoldText";
+            this.toolStripStatusLabelBoldText.Size = new System.Drawing.Size(10, 17);
+            this.toolStripStatusLabelBoldText.Text = ".";
             // 
             // panelPropertyGridDebug
             // 
@@ -1838,7 +1868,9 @@
             this.sendDebugReportToolStripMenuItem,
             this.toolStripMenuItem6,
             this.openSavedFolderToolStripMenuItem,
-            this.openTempFolderToolStripMenuItem});
+            this.openTempFolderToolStripMenuItem,
+            this.toolStripMenuItem5,
+            this.eachOfTheseAutomatesTheStepsNeededToCreateAWorkOrderToolStripMenuItem});
             this.debuggingToolStripMenuItem.Name = "debuggingToolStripMenuItem";
             this.debuggingToolStripMenuItem.Size = new System.Drawing.Size(78, 20);
             this.debuggingToolStripMenuItem.Text = "Debugging";
@@ -1846,29 +1878,121 @@
             // sendDebugReportToolStripMenuItem
             // 
             this.sendDebugReportToolStripMenuItem.Name = "sendDebugReportToolStripMenuItem";
-            this.sendDebugReportToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.sendDebugReportToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.sendDebugReportToolStripMenuItem.Text = "Send Debug Report";
             this.sendDebugReportToolStripMenuItem.Click += new System.EventHandler(this.sendDebugReportToolStripMenuItem_Click);
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(173, 6);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(188, 6);
             this.toolStripMenuItem6.Click += new System.EventHandler(this.toolStripMenuItem6_Click);
             // 
             // openSavedFolderToolStripMenuItem
             // 
             this.openSavedFolderToolStripMenuItem.Name = "openSavedFolderToolStripMenuItem";
-            this.openSavedFolderToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.openSavedFolderToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.openSavedFolderToolStripMenuItem.Text = "Open Saved Folder";
             this.openSavedFolderToolStripMenuItem.Click += new System.EventHandler(this.openSavedFolderToolStripMenuItem_Click);
             // 
             // openTempFolderToolStripMenuItem
             // 
             this.openTempFolderToolStripMenuItem.Name = "openTempFolderToolStripMenuItem";
-            this.openTempFolderToolStripMenuItem.Size = new System.Drawing.Size(176, 22);
+            this.openTempFolderToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
             this.openTempFolderToolStripMenuItem.Text = "Open Temp Folder";
             this.openTempFolderToolStripMenuItem.Click += new System.EventHandler(this.openTempFolderToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem5
+            // 
+            this.toolStripMenuItem5.Name = "toolStripMenuItem5";
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(188, 6);
+            // 
+            // eachOfTheseAutomatesTheStepsNeededToCreateAWorkOrderToolStripMenuItem
+            // 
+            this.eachOfTheseAutomatesTheStepsNeededToCreateAWorkOrderToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fullAutoModeToolStripMenuItem,
+            this.toolStripMenuItem7,
+            this.disableNetworkValidationForEmailTestingToolStripMenuItem,
+            this.processFactoryWorkOrdersCreateViewToolStripMenuItem,
+            this.processFactoryWorkOrdersOutputToolStripMenuItem,
+            this.extraScanningTabletMenuCombinedToolStripMenuItem1,
+            this.processFactoryWorkOrdersPalletsToolStripMenuItem,
+            this.dispatchOrdersCreateToolStripMenuItem,
+            this.dispatchScanningAddProductToOrderToolStripMenuItem,
+            this.accountingInvoicingSalesToolStripMenuItem});
+            this.eachOfTheseAutomatesTheStepsNeededToCreateAWorkOrderToolStripMenuItem.Name = "eachOfTheseAutomatesTheStepsNeededToCreateAWorkOrderToolStripMenuItem";
+            this.eachOfTheseAutomatesTheStepsNeededToCreateAWorkOrderToolStripMenuItem.Size = new System.Drawing.Size(191, 22);
+            this.eachOfTheseAutomatesTheStepsNeededToCreateAWorkOrderToolStripMenuItem.Text = "Automate Work Order";
+            // 
+            // fullAutoModeToolStripMenuItem
+            // 
+            this.fullAutoModeToolStripMenuItem.CheckOnClick = true;
+            this.fullAutoModeToolStripMenuItem.Name = "fullAutoModeToolStripMenuItem";
+            this.fullAutoModeToolStripMenuItem.Size = new System.Drawing.Size(354, 22);
+            this.fullAutoModeToolStripMenuItem.Text = "Full Auto Mode";
+            this.fullAutoModeToolStripMenuItem.Click += new System.EventHandler(this.fullAutoModeToolStripMenuItem_Click);
+            // 
+            // toolStripMenuItem7
+            // 
+            this.toolStripMenuItem7.Name = "toolStripMenuItem7";
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(351, 6);
+            // 
+            // disableNetworkValidationForEmailTestingToolStripMenuItem
+            // 
+            this.disableNetworkValidationForEmailTestingToolStripMenuItem.CheckOnClick = true;
+            this.disableNetworkValidationForEmailTestingToolStripMenuItem.Name = "disableNetworkValidationForEmailTestingToolStripMenuItem";
+            this.disableNetworkValidationForEmailTestingToolStripMenuItem.Size = new System.Drawing.Size(354, 22);
+            this.disableNetworkValidationForEmailTestingToolStripMenuItem.Text = "0. Disable Network Validation for Email Testing";
+            this.disableNetworkValidationForEmailTestingToolStripMenuItem.Click += new System.EventHandler(this.disableNetworkValidationForEmailTestingToolStripMenuItem_Click);
+            // 
+            // processFactoryWorkOrdersCreateViewToolStripMenuItem
+            // 
+            this.processFactoryWorkOrdersCreateViewToolStripMenuItem.Name = "processFactoryWorkOrdersCreateViewToolStripMenuItem";
+            this.processFactoryWorkOrdersCreateViewToolStripMenuItem.Size = new System.Drawing.Size(354, 22);
+            this.processFactoryWorkOrdersCreateViewToolStripMenuItem.Text = "1. Process Factory -->Work Orders --> Create/View";
+            this.processFactoryWorkOrdersCreateViewToolStripMenuItem.Click += new System.EventHandler(this.processFactoryWorkOrdersCreateViewToolStripMenuItem_Click);
+            // 
+            // processFactoryWorkOrdersOutputToolStripMenuItem
+            // 
+            this.processFactoryWorkOrdersOutputToolStripMenuItem.Name = "processFactoryWorkOrdersOutputToolStripMenuItem";
+            this.processFactoryWorkOrdersOutputToolStripMenuItem.Size = new System.Drawing.Size(354, 22);
+            this.processFactoryWorkOrdersOutputToolStripMenuItem.Text = "2. Process Factory --> Work Orders --> Output";
+            this.processFactoryWorkOrdersOutputToolStripMenuItem.Click += new System.EventHandler(this.processFactoryWorkOrdersOutputToolStripMenuItem_Click);
+            // 
+            // extraScanningTabletMenuCombinedToolStripMenuItem1
+            // 
+            this.extraScanningTabletMenuCombinedToolStripMenuItem1.Name = "extraScanningTabletMenuCombinedToolStripMenuItem1";
+            this.extraScanningTabletMenuCombinedToolStripMenuItem1.Size = new System.Drawing.Size(354, 22);
+            this.extraScanningTabletMenuCombinedToolStripMenuItem1.Text = "3. Extra --> Scanning --> Tablet Menu --> Combined";
+            this.extraScanningTabletMenuCombinedToolStripMenuItem1.Click += new System.EventHandler(this.extraScanningTabletMenuCombinedToolStripMenuItem1_Click);
+            // 
+            // processFactoryWorkOrdersPalletsToolStripMenuItem
+            // 
+            this.processFactoryWorkOrdersPalletsToolStripMenuItem.Name = "processFactoryWorkOrdersPalletsToolStripMenuItem";
+            this.processFactoryWorkOrdersPalletsToolStripMenuItem.Size = new System.Drawing.Size(354, 22);
+            this.processFactoryWorkOrdersPalletsToolStripMenuItem.Text = "4. Process Factory --> Work Orders --> Pallets";
+            this.processFactoryWorkOrdersPalletsToolStripMenuItem.Click += new System.EventHandler(this.processFactoryWorkOrdersPalletsToolStripMenuItem_Click);
+            // 
+            // dispatchOrdersCreateToolStripMenuItem
+            // 
+            this.dispatchOrdersCreateToolStripMenuItem.Name = "dispatchOrdersCreateToolStripMenuItem";
+            this.dispatchOrdersCreateToolStripMenuItem.Size = new System.Drawing.Size(354, 22);
+            this.dispatchOrdersCreateToolStripMenuItem.Text = "5. Dispatch --> Orders --> Create";
+            this.dispatchOrdersCreateToolStripMenuItem.Click += new System.EventHandler(this.dispatchOrdersCreateToolStripMenuItem_Click);
+            // 
+            // dispatchScanningAddProductToOrderToolStripMenuItem
+            // 
+            this.dispatchScanningAddProductToOrderToolStripMenuItem.Name = "dispatchScanningAddProductToOrderToolStripMenuItem";
+            this.dispatchScanningAddProductToOrderToolStripMenuItem.Size = new System.Drawing.Size(354, 22);
+            this.dispatchScanningAddProductToOrderToolStripMenuItem.Text = "6. Dispatch --> Scanning --> Add Product to Order";
+            this.dispatchScanningAddProductToOrderToolStripMenuItem.Click += new System.EventHandler(this.dispatchScanningAddProductToOrderToolStripMenuItem_Click);
+            // 
+            // accountingInvoicingSalesToolStripMenuItem
+            // 
+            this.accountingInvoicingSalesToolStripMenuItem.Name = "accountingInvoicingSalesToolStripMenuItem";
+            this.accountingInvoicingSalesToolStripMenuItem.Size = new System.Drawing.Size(354, 22);
+            this.accountingInvoicingSalesToolStripMenuItem.Text = "7. Accounting --> Invoicing --> Sales";
+            this.accountingInvoicingSalesToolStripMenuItem.Click += new System.EventHandler(this.accountingInvoicingSalesToolStripMenuItem_Click);
             // 
             // printDialog1
             // 
@@ -1891,7 +2015,7 @@
             this.tabControlMain.Location = new System.Drawing.Point(0, 24);
             this.tabControlMain.Name = "tabControlMain";
             this.tabControlMain.SelectedIndex = 0;
-            this.tabControlMain.Size = new System.Drawing.Size(1117, 331);
+            this.tabControlMain.Size = new System.Drawing.Size(1117, 500);
             this.tabControlMain.TabIndex = 1;
             this.tabControlMain.SelectedIndexChanged += new System.EventHandler(this.tabControlMain_SelectedIndexChanged);
             // 
@@ -1902,7 +2026,7 @@
             this.tabPageHome.Location = new System.Drawing.Point(4, 31);
             this.tabPageHome.Name = "tabPageHome";
             this.tabPageHome.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageHome.Size = new System.Drawing.Size(1114, 301);
+            this.tabPageHome.Size = new System.Drawing.Size(1114, 470);
             this.tabPageHome.TabIndex = 0;
             this.tabPageHome.Text = "Home";
             this.tabPageHome.UseVisualStyleBackColor = true;
@@ -1915,7 +2039,7 @@
             this.tabPageSecurity.Location = new System.Drawing.Point(4, 31);
             this.tabPageSecurity.Name = "tabPageSecurity";
             this.tabPageSecurity.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPageSecurity.Size = new System.Drawing.Size(1114, 301);
+            this.tabPageSecurity.Size = new System.Drawing.Size(1109, 465);
             this.tabPageSecurity.TabIndex = 1;
             this.tabPageSecurity.Text = "Security";
             this.tabPageSecurity.UseVisualStyleBackColor = true;
@@ -1926,7 +2050,7 @@
             this.tabPageCommon.ImageIndex = 2;
             this.tabPageCommon.Location = new System.Drawing.Point(4, 31);
             this.tabPageCommon.Name = "tabPageCommon";
-            this.tabPageCommon.Size = new System.Drawing.Size(1114, 301);
+            this.tabPageCommon.Size = new System.Drawing.Size(1109, 465);
             this.tabPageCommon.TabIndex = 2;
             this.tabPageCommon.Text = "Common";
             this.tabPageCommon.UseVisualStyleBackColor = true;
@@ -1937,7 +2061,7 @@
             this.tabPageProcessFactory.ImageIndex = 3;
             this.tabPageProcessFactory.Location = new System.Drawing.Point(4, 31);
             this.tabPageProcessFactory.Name = "tabPageProcessFactory";
-            this.tabPageProcessFactory.Size = new System.Drawing.Size(1114, 301);
+            this.tabPageProcessFactory.Size = new System.Drawing.Size(1109, 465);
             this.tabPageProcessFactory.TabIndex = 3;
             this.tabPageProcessFactory.Text = "Process Factory";
             this.tabPageProcessFactory.UseVisualStyleBackColor = true;
@@ -1948,7 +2072,7 @@
             this.tabPageDispatch.ImageIndex = 4;
             this.tabPageDispatch.Location = new System.Drawing.Point(4, 31);
             this.tabPageDispatch.Name = "tabPageDispatch";
-            this.tabPageDispatch.Size = new System.Drawing.Size(1109, 296);
+            this.tabPageDispatch.Size = new System.Drawing.Size(1109, 465);
             this.tabPageDispatch.TabIndex = 4;
             this.tabPageDispatch.Text = "Dispatch";
             this.tabPageDispatch.UseVisualStyleBackColor = true;
@@ -1959,7 +2083,7 @@
             this.tabPageMaintenance.ImageIndex = 5;
             this.tabPageMaintenance.Location = new System.Drawing.Point(4, 31);
             this.tabPageMaintenance.Name = "tabPageMaintenance";
-            this.tabPageMaintenance.Size = new System.Drawing.Size(1109, 296);
+            this.tabPageMaintenance.Size = new System.Drawing.Size(1109, 465);
             this.tabPageMaintenance.TabIndex = 5;
             this.tabPageMaintenance.Text = "PF - Maintenance";
             this.tabPageMaintenance.UseVisualStyleBackColor = true;
@@ -1970,7 +2094,7 @@
             this.tabPageAccounting.ImageIndex = 6;
             this.tabPageAccounting.Location = new System.Drawing.Point(4, 31);
             this.tabPageAccounting.Name = "tabPageAccounting";
-            this.tabPageAccounting.Size = new System.Drawing.Size(1109, 296);
+            this.tabPageAccounting.Size = new System.Drawing.Size(1109, 465);
             this.tabPageAccounting.TabIndex = 6;
             this.tabPageAccounting.Text = "Accounting";
             this.tabPageAccounting.UseVisualStyleBackColor = true;
@@ -1981,7 +2105,7 @@
             this.tabPageConsumables.ImageIndex = 7;
             this.tabPageConsumables.Location = new System.Drawing.Point(4, 31);
             this.tabPageConsumables.Name = "tabPageConsumables";
-            this.tabPageConsumables.Size = new System.Drawing.Size(1109, 296);
+            this.tabPageConsumables.Size = new System.Drawing.Size(1109, 465);
             this.tabPageConsumables.TabIndex = 7;
             this.tabPageConsumables.Text = "Consumables";
             this.tabPageConsumables.UseVisualStyleBackColor = true;
@@ -1992,7 +2116,7 @@
             this.tabPageExtra.ImageIndex = 8;
             this.tabPageExtra.Location = new System.Drawing.Point(4, 31);
             this.tabPageExtra.Name = "tabPageExtra";
-            this.tabPageExtra.Size = new System.Drawing.Size(1109, 296);
+            this.tabPageExtra.Size = new System.Drawing.Size(1109, 465);
             this.tabPageExtra.TabIndex = 8;
             this.tabPageExtra.Text = "Extra";
             this.tabPageExtra.UseVisualStyleBackColor = true;
@@ -2003,7 +2127,7 @@
             this.tabPageReports.ImageIndex = 9;
             this.tabPageReports.Location = new System.Drawing.Point(4, 31);
             this.tabPageReports.Name = "tabPageReports";
-            this.tabPageReports.Size = new System.Drawing.Size(1109, 296);
+            this.tabPageReports.Size = new System.Drawing.Size(1109, 465);
             this.tabPageReports.TabIndex = 9;
             this.tabPageReports.Text = "Reports";
             this.tabPageReports.UseVisualStyleBackColor = true;
@@ -2028,15 +2152,20 @@
             // 
             this.labelTabControlMainBottomStatus.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.labelTabControlMainBottomStatus.Font = new System.Drawing.Font("Microsoft Sans Serif", 11.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.labelTabControlMainBottomStatus.Location = new System.Drawing.Point(0, 355);
+            this.labelTabControlMainBottomStatus.Location = new System.Drawing.Point(0, 524);
             this.labelTabControlMainBottomStatus.Name = "labelTabControlMainBottomStatus";
-            this.labelTabControlMainBottomStatus.Size = new System.Drawing.Size(1117, 19);
+            this.labelTabControlMainBottomStatus.Size = new System.Drawing.Size(1117, 28);
             this.labelTabControlMainBottomStatus.TabIndex = 65;
             this.labelTabControlMainBottomStatus.Text = ".";
             // 
             // timerSysMon
             // 
             this.timerSysMon.Tick += new System.EventHandler(this.timerSysMon_Tick);
+            // 
+            // timerIdleTimer
+            // 
+            this.timerIdleTimer.Interval = 1000;
+            this.timerIdleTimer.Tick += new System.EventHandler(this.timerIdleTimer_Tick);
             // 
             // gradientPanelHome
             // 
@@ -2048,7 +2177,7 @@
             this.gradientPanelHome.Name = "gradientPanelHome";
             this.gradientPanelHome.PageEndColor = System.Drawing.Color.Empty;
             this.gradientPanelHome.PageStartColor = System.Drawing.SystemColors.ActiveCaption;
-            this.gradientPanelHome.Size = new System.Drawing.Size(1108, 295);
+            this.gradientPanelHome.Size = new System.Drawing.Size(1108, 464);
             this.gradientPanelHome.TabIndex = 96;
             // 
             // grouperHomeHelp
@@ -2058,6 +2187,9 @@
             this.grouperHomeHelp.BackgroundGradientMode = Tools.Grouper.GroupBoxGradientMode.ForwardDiagonal;
             this.grouperHomeHelp.BorderColor = System.Drawing.Color.Black;
             this.grouperHomeHelp.BorderThickness = 1F;
+            this.grouperHomeHelp.Controls.Add(this.labelIdleTimeHeader);
+            this.grouperHomeHelp.Controls.Add(this.labelIdleTime);
+            this.grouperHomeHelp.Controls.Add(this.labelWordWarningText);
             this.grouperHomeHelp.Controls.Add(this.labelPFLoginName);
             this.grouperHomeHelp.Controls.Add(this.labelPFLoginValue);
             this.grouperHomeHelp.Controls.Add(this.labelIpAddress);
@@ -2087,8 +2219,36 @@
             this.grouperHomeHelp.ShadowColor = System.Drawing.Color.DarkGray;
             this.grouperHomeHelp.ShadowControl = false;
             this.grouperHomeHelp.ShadowThickness = 3;
-            this.grouperHomeHelp.Size = new System.Drawing.Size(1108, 295);
+            this.grouperHomeHelp.Size = new System.Drawing.Size(1108, 464);
             this.grouperHomeHelp.TabIndex = 0;
+            // 
+            // labelIdleTimeHeader
+            // 
+            this.labelIdleTimeHeader.AutoSize = true;
+            this.labelIdleTimeHeader.Location = new System.Drawing.Point(23, 130);
+            this.labelIdleTimeHeader.Name = "labelIdleTimeHeader";
+            this.labelIdleTimeHeader.Size = new System.Drawing.Size(53, 13);
+            this.labelIdleTimeHeader.TabIndex = 70;
+            this.labelIdleTimeHeader.Text = "Idle Time:";
+            // 
+            // labelIdleTime
+            // 
+            this.labelIdleTime.AutoSize = true;
+            this.labelIdleTime.Location = new System.Drawing.Point(124, 130);
+            this.labelIdleTime.Name = "labelIdleTime";
+            this.labelIdleTime.Size = new System.Drawing.Size(10, 13);
+            this.labelIdleTime.TabIndex = 71;
+            this.labelIdleTime.Text = ".";
+            // 
+            // labelWordWarningText
+            // 
+            this.labelWordWarningText.AutoSize = true;
+            this.labelWordWarningText.Location = new System.Drawing.Point(124, 143);
+            this.labelWordWarningText.Name = "labelWordWarningText";
+            this.labelWordWarningText.Size = new System.Drawing.Size(648, 13);
+            this.labelWordWarningText.TabIndex = 69;
+            this.labelWordWarningText.Text = "Due to necessary changes in the print and email code, this app forcibly closes an" +
+    "y open Word documents automatically without warning.";
             // 
             // labelPFLoginName
             // 
@@ -2158,12 +2318,11 @@
             // labelWarningAboutWordDocuments
             // 
             this.labelWarningAboutWordDocuments.AutoSize = true;
-            this.labelWarningAboutWordDocuments.Location = new System.Drawing.Point(23, 210);
+            this.labelWarningAboutWordDocuments.Location = new System.Drawing.Point(23, 143);
             this.labelWarningAboutWordDocuments.Name = "labelWarningAboutWordDocuments";
-            this.labelWarningAboutWordDocuments.Size = new System.Drawing.Size(694, 13);
+            this.labelWarningAboutWordDocuments.Size = new System.Drawing.Size(50, 13);
             this.labelWarningAboutWordDocuments.TabIndex = 65;
-            this.labelWarningAboutWordDocuments.Text = "Warning: Due to necessary changes in the print and email code, this app forcibly " +
-    "closes any open Word documents automatically without warning.";
+            this.labelWarningAboutWordDocuments.Text = "Warning:";
             // 
             // labelDayOfWeekValue
             // 
@@ -2285,7 +2444,7 @@
             this.gradientPanelSecurity.Name = "gradientPanelSecurity";
             this.gradientPanelSecurity.PageEndColor = System.Drawing.Color.Empty;
             this.gradientPanelSecurity.PageStartColor = System.Drawing.SystemColors.ActiveCaption;
-            this.gradientPanelSecurity.Size = new System.Drawing.Size(1108, 295);
+            this.gradientPanelSecurity.Size = new System.Drawing.Size(1103, 459);
             this.gradientPanelSecurity.TabIndex = 97;
             // 
             // grouperSecurity_Server
@@ -2436,7 +2595,7 @@
             this.gradientPanelCommon.Name = "gradientPanelCommon";
             this.gradientPanelCommon.PageEndColor = System.Drawing.Color.Empty;
             this.gradientPanelCommon.PageStartColor = System.Drawing.SystemColors.ActiveCaption;
-            this.gradientPanelCommon.Size = new System.Drawing.Size(1114, 301);
+            this.gradientPanelCommon.Size = new System.Drawing.Size(1109, 465);
             this.gradientPanelCommon.TabIndex = 103;
             // 
             // grouperCommonGrower
@@ -2777,6 +2936,8 @@
             // 
             this.gradientPanelProcessFactory.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("gradientPanelProcessFactory.BackgroundImage")));
             this.gradientPanelProcessFactory.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.gradientPanelProcessFactory.Controls.Add(this.dataGridViewCurrentWorkOrder);
+            this.gradientPanelProcessFactory.Controls.Add(this.treeViewProcessFactory);
             this.gradientPanelProcessFactory.Controls.Add(this.grouperProcessFactoryCompleteWorkOrders);
             this.gradientPanelProcessFactory.Controls.Add(this.grouperProcessFactoryWorkOrders);
             this.gradientPanelProcessFactory.Controls.Add(this.grouperProcessFactoryCleaning);
@@ -2786,8 +2947,49 @@
             this.gradientPanelProcessFactory.Name = "gradientPanelProcessFactory";
             this.gradientPanelProcessFactory.PageEndColor = System.Drawing.Color.Empty;
             this.gradientPanelProcessFactory.PageStartColor = System.Drawing.SystemColors.ActiveCaption;
-            this.gradientPanelProcessFactory.Size = new System.Drawing.Size(1114, 301);
+            this.gradientPanelProcessFactory.Size = new System.Drawing.Size(1109, 465);
             this.gradientPanelProcessFactory.TabIndex = 112;
+            // 
+            // dataGridViewCurrentWorkOrder
+            // 
+            this.dataGridViewCurrentWorkOrder.AllowUserToAddRows = false;
+            this.dataGridViewCurrentWorkOrder.AllowUserToDeleteRows = false;
+            this.dataGridViewCurrentWorkOrder.AllowUserToResizeRows = false;
+            dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
+            dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dataGridViewCurrentWorkOrder.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.dataGridViewCurrentWorkOrder.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dataGridViewCurrentWorkOrder.DefaultCellStyle = dataGridViewCellStyle2;
+            this.dataGridViewCurrentWorkOrder.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.dataGridViewCurrentWorkOrder.Location = new System.Drawing.Point(0, 404);
+            this.dataGridViewCurrentWorkOrder.Name = "dataGridViewCurrentWorkOrder";
+            this.dataGridViewCurrentWorkOrder.ReadOnly = true;
+            this.dataGridViewCurrentWorkOrder.Size = new System.Drawing.Size(1109, 61);
+            this.dataGridViewCurrentWorkOrder.TabIndex = 10;
+            this.dataGridViewCurrentWorkOrder.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridViewCurrentWorkOrder_CellContentClick);
+            // 
+            // treeViewProcessFactory
+            // 
+            this.treeViewProcessFactory.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.treeViewProcessFactory.Location = new System.Drawing.Point(832, 4);
+            this.treeViewProcessFactory.Name = "treeViewProcessFactory";
+            this.treeViewProcessFactory.Size = new System.Drawing.Size(274, 394);
+            this.treeViewProcessFactory.TabIndex = 8;
+            this.toolTipMainMenu.SetToolTip(this.treeViewProcessFactory, "The TreeView is a historical record of Work Orders");
             // 
             // grouperProcessFactoryCompleteWorkOrders
             // 
@@ -2880,6 +3082,8 @@
             this.cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.Name = "cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder";
             this.cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.Size = new System.Drawing.Size(121, 21);
             this.cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.TabIndex = 5;
+            this.cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.SelectedIndexChanged += new System.EventHandler(this.cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder_SelectedIndexChanged);
+            this.cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.SelectionChangeCommitted += new System.EventHandler(this.cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder_SelectionChangeCommitted);
             // 
             // buttonProcessFactoryWorkOrdersCreateView
             // 
@@ -3113,7 +3317,7 @@
             this.gradientPanelDispatch.Name = "gradientPanelDispatch";
             this.gradientPanelDispatch.PageEndColor = System.Drawing.Color.Empty;
             this.gradientPanelDispatch.PageStartColor = System.Drawing.SystemColors.ActiveCaption;
-            this.gradientPanelDispatch.Size = new System.Drawing.Size(1109, 296);
+            this.gradientPanelDispatch.Size = new System.Drawing.Size(1109, 465);
             this.gradientPanelDispatch.TabIndex = 110;
             // 
             // grouperDispatchOther
@@ -3412,7 +3616,7 @@
             this.gradientPanelMaintenance.Name = "gradientPanelMaintenance";
             this.gradientPanelMaintenance.PageEndColor = System.Drawing.Color.Empty;
             this.gradientPanelMaintenance.PageStartColor = System.Drawing.SystemColors.ActiveCaption;
-            this.gradientPanelMaintenance.Size = new System.Drawing.Size(1109, 296);
+            this.gradientPanelMaintenance.Size = new System.Drawing.Size(1109, 465);
             this.gradientPanelMaintenance.TabIndex = 98;
             // 
             // grouperPfMaintenanceStaff
@@ -3638,7 +3842,7 @@
             this.gradientPanelAccounting.Name = "gradientPanelAccounting";
             this.gradientPanelAccounting.PageEndColor = System.Drawing.Color.Empty;
             this.gradientPanelAccounting.PageStartColor = System.Drawing.SystemColors.ActiveCaption;
-            this.gradientPanelAccounting.Size = new System.Drawing.Size(1109, 296);
+            this.gradientPanelAccounting.Size = new System.Drawing.Size(1109, 465);
             this.gradientPanelAccounting.TabIndex = 98;
             // 
             // grouperAccountingIntent
@@ -3875,7 +4079,7 @@
             this.gradientPanelConsumables.Name = "gradientPanelConsumables";
             this.gradientPanelConsumables.PageEndColor = System.Drawing.Color.Empty;
             this.gradientPanelConsumables.PageStartColor = System.Drawing.SystemColors.ActiveCaption;
-            this.gradientPanelConsumables.Size = new System.Drawing.Size(1109, 296);
+            this.gradientPanelConsumables.Size = new System.Drawing.Size(1109, 465);
             this.gradientPanelConsumables.TabIndex = 98;
             // 
             // grouperConsumablesMaintenance
@@ -3953,7 +4157,7 @@
             this.gradientPanelExtra.Name = "gradientPanelExtra";
             this.gradientPanelExtra.PageEndColor = System.Drawing.Color.Empty;
             this.gradientPanelExtra.PageStartColor = System.Drawing.SystemColors.ActiveCaption;
-            this.gradientPanelExtra.Size = new System.Drawing.Size(1109, 296);
+            this.gradientPanelExtra.Size = new System.Drawing.Size(1109, 465);
             this.gradientPanelExtra.TabIndex = 98;
             // 
             // grouperExtraHistory
@@ -4100,7 +4304,7 @@
             this.gradientPanelReports.Name = "gradientPanelReports";
             this.gradientPanelReports.PageEndColor = System.Drawing.Color.Empty;
             this.gradientPanelReports.PageStartColor = System.Drawing.SystemColors.ActiveCaption;
-            this.gradientPanelReports.Size = new System.Drawing.Size(1109, 296);
+            this.gradientPanelReports.Size = new System.Drawing.Size(1109, 465);
             this.gradientPanelReports.TabIndex = 98;
             // 
             // grouperReportsSSRS
@@ -4194,7 +4398,7 @@
             this.collapsibleSplitterDebug.Cursor = System.Windows.Forms.Cursors.HSplit;
             this.collapsibleSplitterDebug.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.collapsibleSplitterDebug.ExpandParentForm = false;
-            this.collapsibleSplitterDebug.Location = new System.Drawing.Point(0, 374);
+            this.collapsibleSplitterDebug.Location = new System.Drawing.Point(0, 552);
             this.collapsibleSplitterDebug.Name = "collapsibleSplitterDebug";
             this.collapsibleSplitterDebug.TabIndex = 66;
             this.collapsibleSplitterDebug.TabStop = false;
@@ -4280,6 +4484,7 @@
             this.grouperCommonGroups.ResumeLayout(false);
             this.grouperCommonLocation.ResumeLayout(false);
             this.gradientPanelProcessFactory.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridViewCurrentWorkOrder)).EndInit();
             this.grouperProcessFactoryCompleteWorkOrders.ResumeLayout(false);
             this.grouperProcessFactoryWorkOrders.ResumeLayout(false);
             this.grouperProcessFactoryCleaning.ResumeLayout(false);
@@ -4702,7 +4907,6 @@
         private System.Windows.Forms.Button buttonAccountingInvoicingWorkOrder;
         private System.Windows.Forms.Button buttonAccountingInvoicingSales;
         private System.Windows.Forms.Button buttonAccountingCostsRates;
-        private System.Windows.Forms.Button buttonAccountingSalesRates;
         private System.Windows.Forms.Button buttonAccountingSalesDiscounts;
         private System.Windows.Forms.Button buttonDispatchOrdersSearch;
         private System.Windows.Forms.Button buttonDispatchBaseLoadReset;
@@ -4726,7 +4930,6 @@
         private System.Windows.Forms.Button buttonDispatchScanningAddProductToOrder;
         private System.Windows.Forms.Button buttonDispatchPackingPack;
         private System.Windows.Forms.Button buttonDispatchOtherOtherWork;
-        private System.Windows.Forms.Button buttonDispatchOrdersCreate;
         private System.Windows.Forms.Button buttonDispatchScanningPalletTransfer;
         private Tools.GradientPanel.GradientPanel gradientPanelSecurity;
         private Tools.GradientPanel.GradientPanel gradientPanelCommon;
@@ -4802,6 +5005,27 @@
         private System.Windows.Forms.Button buttonResetCueComboBoxes;
         private System.Windows.Forms.Label labelPFLoginName;
         private System.Windows.Forms.Label labelPFLoginValue;
+        private System.Windows.Forms.TreeView treeViewProcessFactory;
+        private System.Windows.Forms.Label labelWordWarningText;
+        private System.Windows.Forms.DataGridView dataGridViewCurrentWorkOrder;
+        private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabelBoldText;
+        private System.Windows.Forms.Label labelIdleTimeHeader;
+        private System.Windows.Forms.Label labelIdleTime;
+        private System.Windows.Forms.Timer timerIdleTimer;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripMenuItem eachOfTheseAutomatesTheStepsNeededToCreateAWorkOrderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem processFactoryWorkOrdersCreateViewToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem processFactoryWorkOrdersOutputToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem extraScanningTabletMenuCombinedToolStripMenuItem1;
+        private System.Windows.Forms.ToolStripMenuItem processFactoryWorkOrdersPalletsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dispatchOrdersCreateToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem dispatchScanningAddProductToOrderToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem accountingInvoicingSalesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem disableNetworkValidationForEmailTestingToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fullAutoModeToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
+        public System.Windows.Forms.Button buttonDispatchOrdersCreate;
+        public System.Windows.Forms.Button buttonAccountingSalesRates;
         //private SystemMonitor.DataChart dataChartMem;
         //private SystemMonitor.DataChart dataChartCPU;
         //private SystemMonitor.DataChart dataChartNetI;

@@ -14,6 +14,8 @@ namespace PF.Dispatch
         private static int int_order_id;
         private static int int_OStf_Relat_Id = 0;
 
+        private bool bool_WasTheFormStartedWithAutomationRunning = false;
+
         public Shipping_Staff(int int_Order, int int_C_User_id, bool bol_w_a)
         {
             InitializeComponent();
@@ -37,46 +39,62 @@ namespace PF.Dispatch
             AddColumnsProgrammatically();
             populate_datagridview();
 
-            #region Log any interesting events from the UI to the CSV log file
+            #region Log any interesting events from the UI to the CSV log file (Disabled)
 
-            foreach (Control c in this.Controls)
-            {
-                if (c.GetType() == typeof(Button))
-                {
-                    c.Click += new EventHandler(this.Control_Click);
-                }
-                else if (c.GetType() == typeof(TextBox))
-                {
-                    c.Validated += new EventHandler(this.Control_Validated);
-                }
-                else if (c.GetType() == typeof(ComboBox))
-                {
-                    ComboBox cb = (ComboBox)c;
-                    cb.SelectedValueChanged += new EventHandler(this.Control_SelectedValueChanged);
-                }
-                else if (c.GetType() == typeof(DateTimePicker))
-                {
-                    DateTimePicker dtp = (DateTimePicker)c;
-                    dtp.ValueChanged += new EventHandler(this.Control_ValueChanged);
-                }
-                else if (c.GetType() == typeof(NumericUpDown))
-                {
-                    NumericUpDown nud = (NumericUpDown)c;
-                    nud.ValueChanged += new EventHandler(this.Control_NudValueChanged);
-                }
-                else if (c.GetType() == typeof(CheckBox))
-                {
-                    CheckBox cb = (CheckBox)c;
-                    cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
-                }
-                else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
-                {
-                    PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
-                    cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
-                }
-            }
+            //foreach (Control c in this.Controls)
+            //{
+            //    if (c.GetType() == typeof(Button))
+            //    {
+            //        c.Click += new EventHandler(this.Control_Click);
+            //    }
+            //    else if (c.GetType() == typeof(TextBox))
+            //    {
+            //        c.Validated += new EventHandler(this.Control_Validated);
+            //    }
+            //    else if (c.GetType() == typeof(ComboBox))
+            //    {
+            //        ComboBox cb = (ComboBox)c;
+            //        cb.SelectedValueChanged += new EventHandler(this.Control_SelectedValueChanged);
+            //    }
+            //    else if (c.GetType() == typeof(DateTimePicker))
+            //    {
+            //        DateTimePicker dtp = (DateTimePicker)c;
+            //        dtp.ValueChanged += new EventHandler(this.Control_ValueChanged);
+            //    }
+            //    else if (c.GetType() == typeof(NumericUpDown))
+            //    {
+            //        NumericUpDown nud = (NumericUpDown)c;
+            //        nud.ValueChanged += new EventHandler(this.Control_NudValueChanged);
+            //    }
+            //    else if (c.GetType() == typeof(CheckBox))
+            //    {
+            //        CheckBox cb = (CheckBox)c;
+            //        cb.CheckedChanged += new EventHandler(this.Control_CheckedChanged);
+            //    }
+            //    else if (c.GetType() == typeof(PF.Utils.UserControls.Customer))
+            //    {
+            //        PF.Utils.UserControls.Customer cust = (PF.Utils.UserControls.Customer)c;
+            //        cust.CustomerChanged += new EventHandler(this.CustomerControl_CustomerChanged);
+            //    }
+            //}
 
             #endregion Log any interesting events from the UI to the CSV log file
+
+            System.Threading.Thread.Sleep(1000);    // Slow it down
+            if(PF.Global.Global.bool_AutomatedTesting == true)
+            {
+                bool_WasTheFormStartedWithAutomationRunning = true; // For the timed close
+
+                lbl_message.Text = "Automated Testing is active";
+                // Automatically select the first entry and set the finish time an hour after the start time, then close
+                cmb_Staff.SelectedIndex = 1;
+                dtp_finish.Value = dtp_start.Value.AddHours(1);
+                //btn_Add.Focus();
+                System.Threading.Thread.Sleep(1000);    // You get to look at it for One second only
+                btn_Add_Click(btn_Add, EventArgs.Empty);
+                PF.Global.Global.bool_AutomatedTesting = false;
+                //btn_Close_Click(btn_Close, EventArgs.Empty);
+            }
         }
 
         private void populate_combobox()
@@ -224,7 +242,7 @@ namespace PF.Dispatch
             Add_btn();
         }
 
-        private void Add_btn()
+        public void Add_btn()
         {
             try
             {
@@ -344,7 +362,7 @@ namespace PF.Dispatch
             btn_Add.Text = "&Add";
         }
 
-        private void btn_Close_Click(object sender, EventArgs e)
+        public void btn_Close_Click(object sender, EventArgs e)
         {
             this.Close();
         }
@@ -514,5 +532,16 @@ namespace PF.Dispatch
         }
 
         #endregion Methods to log UI events to the CSV file. BN 29/01/2015
+
+        private void Shipping_Staff_Shown(object sender, EventArgs e)
+        {
+            Application.DoEvents();
+
+            if (bool_WasTheFormStartedWithAutomationRunning == true)
+            {
+                System.Threading.Thread.Sleep(3000);
+                btn_Close_Click(btn_Close, EventArgs.Empty);
+            }
+        }
     }
 }

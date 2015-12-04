@@ -15,6 +15,7 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.Design;
+using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
@@ -25,6 +26,7 @@ namespace Tools //Tools
     //[ToolboxBitmap(typeof(Grouper), "CodeVendor.Controls.Grouper.bmp")]
     [ToolboxBitmap(typeof(Grouper), "Tools.Grouper.bmp")]
     [Designer("System.Windows.Forms.Design.ParentControlDesigner, System.Design", typeof(IDesigner))]
+    [DebuggerStepThrough]
     public class Grouper : System.Windows.Forms.UserControl
     {
         #region Enumerations

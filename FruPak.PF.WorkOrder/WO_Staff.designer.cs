@@ -283,6 +283,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PF.WorkOrder.Work Order Staff";
             this.Load += new System.EventHandler(this.SizeAllColumns);
+            this.Shown += new System.EventHandler(this.WO_Staff_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.WO_Staff_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Extra_Hours)).EndInit();

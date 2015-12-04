@@ -62,6 +62,9 @@
             this.lbl_order = new System.Windows.Forms.Label();
             this.ckb_dup = new System.Windows.Forms.CheckBox();
             this.woDisplay1 = new PF.Utils.UserControls.WODisplay();
+            this.buttonCopyBarcode = new System.Windows.Forms.Button();
+            this.labelBarcodeCopy = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
             this.marqueeLabel1 = new PF.WorkOrder.Marquee_Label();
             ((System.ComponentModel.ISupportInitialize)(this.nud_Quantity1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
@@ -134,6 +137,7 @@
             this.dataGridView1.BackgroundColor = System.Drawing.SystemColors.MenuBar;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dataGridView1.Location = new System.Drawing.Point(32, 204);
+            this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
@@ -266,7 +270,7 @@
             this.dataGridView2.AllowUserToDeleteRows = false;
             this.dataGridView2.BackgroundColor = System.Drawing.SystemColors.MenuBar;
             this.dataGridView2.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView2.Location = new System.Drawing.Point(32, 341);
+            this.dataGridView2.Location = new System.Drawing.Point(32, 365);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.ReadOnly = true;
             this.dataGridView2.RowHeadersVisible = false;
@@ -413,6 +417,34 @@
             this.woDisplay1.Variety_Id = 0;
             this.woDisplay1.Work_Order_Id = 0;
             // 
+            // buttonCopyBarcode
+            // 
+            this.buttonCopyBarcode.Location = new System.Drawing.Point(32, 325);
+            this.buttonCopyBarcode.Name = "buttonCopyBarcode";
+            this.buttonCopyBarcode.Size = new System.Drawing.Size(236, 23);
+            this.buttonCopyBarcode.TabIndex = 82;
+            this.buttonCopyBarcode.Text = "Copy the pallet barcode to the clipboard";
+            this.buttonCopyBarcode.UseVisualStyleBackColor = true;
+            this.buttonCopyBarcode.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // labelBarcodeCopy
+            // 
+            this.labelBarcodeCopy.AutoSize = true;
+            this.labelBarcodeCopy.Location = new System.Drawing.Point(274, 335);
+            this.labelBarcodeCopy.Name = "labelBarcodeCopy";
+            this.labelBarcodeCopy.Size = new System.Drawing.Size(10, 13);
+            this.labelBarcodeCopy.TabIndex = 83;
+            this.labelBarcodeCopy.Text = ".";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(29, 302);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(323, 13);
+            this.label1.TabIndex = 84;
+            this.label1.Text = "Highlight the barcode you want to copy and press the button below";
+            // 
             // marqueeLabel1
             // 
             this.marqueeLabel1.AutoSize = true;
@@ -428,6 +460,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1006, 500);
+            this.Controls.Add(this.label1);
+            this.Controls.Add(this.labelBarcodeCopy);
+            this.Controls.Add(this.buttonCopyBarcode);
             this.Controls.Add(this.ckb_dup);
             this.Controls.Add(this.marqueeLabel1);
             this.Controls.Add(this.lbl_order);
@@ -468,6 +503,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PF.WorkOrder.Work Order Labels (Process Factory --> Work Orders --> Pallets)";
             this.Load += new System.EventHandler(this.SizeAllColumns);
+            this.Shown += new System.EventHandler(this.WO_Labels_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.WO_Labels_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nud_Quantity1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -481,28 +517,19 @@
         }
 
         #endregion
-
-        protected System.Windows.Forms.ComboBox cmb_Material;
         protected System.Windows.Forms.Label lbl_output;
-        protected System.Windows.Forms.ComboBox cmb_Batch1;
         protected System.Windows.Forms.Label lbl_batch;
-        protected System.Windows.Forms.NumericUpDown nud_Quantity1;
         protected System.Windows.Forms.Label lbl_qunatity;
-        protected System.Windows.Forms.DataGridView dataGridView1;
         protected System.Windows.Forms.NumericUpDown nud_Quantity2;
         protected System.Windows.Forms.ComboBox cmb_Batch2;
         protected System.Windows.Forms.TextBox txt_Pallet_Total;
         protected System.Windows.Forms.Label lbl_total;
         protected System.Windows.Forms.NumericUpDown nud_Quantity3;
         protected System.Windows.Forms.ComboBox cmb_Batch3;
-        protected System.Windows.Forms.Button btn_Close;
         protected System.Windows.Forms.Button btn_reset;
-        protected System.Windows.Forms.Button btn_Add;
         protected Utils.UserControls.WODisplay woDisplay1;
-        protected System.Windows.Forms.ComboBox cmb_Pallet_Type;
         protected System.Windows.Forms.Label lbl_Pallet_Type;
         protected System.Windows.Forms.Label lbl_Location;
-        protected System.Windows.Forms.ComboBox cmb_Location;
         protected System.Windows.Forms.DataGridView dataGridView2;
         protected System.Windows.Forms.CheckBox ckb_AutoPrint;
         protected System.Windows.Forms.CheckBox ckb_Auto_Reset;
@@ -516,7 +543,16 @@
         protected System.Windows.Forms.Label lbl_order;
         private Marquee_Label marqueeLabel1;
         protected System.Windows.Forms.CheckBox ckb_dup;
-
-
+        private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.ComboBox cmb_Material;
+        public System.Windows.Forms.ComboBox cmb_Batch1;
+        public System.Windows.Forms.NumericUpDown nud_Quantity1;
+        public System.Windows.Forms.Button btn_Close;
+        public System.Windows.Forms.Button btn_Add;
+        public System.Windows.Forms.Button buttonCopyBarcode;
+        public System.Windows.Forms.DataGridView dataGridView1;
+        public System.Windows.Forms.ComboBox cmb_Pallet_Type;
+        public System.Windows.Forms.ComboBox cmb_Location;
+        public System.Windows.Forms.Label labelBarcodeCopy;
     }
 }

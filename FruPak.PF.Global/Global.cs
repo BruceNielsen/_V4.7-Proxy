@@ -32,6 +32,23 @@ namespace PF.Global
         }
 
         /// <summary>
+        /// For final email testing - BN 3/12/2015
+        /// </summary>
+        private static bool _bool_DisableNetworkVerificationForEmailTesting = false;
+        public static bool bool_DisableNetworkVerificationForEmailTesting
+        {
+            get { return _bool_DisableNetworkVerificationForEmailTesting; }
+            set { _bool_DisableNetworkVerificationForEmailTesting = value; }
+        }
+
+        private static bool _bool_AutomatedTesting = false;
+        public static bool bool_AutomatedTesting
+        {
+            get { return _bool_AutomatedTesting; }
+            set { _bool_AutomatedTesting = value; }
+        }
+
+        /// <summary>
         /// Clean the comment field of any illegal SQL characters (just ' for now)
         /// </summary>
         /// <param name="Comment">String value to be cleaned</param>

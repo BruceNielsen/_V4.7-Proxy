@@ -243,6 +243,7 @@ namespace PF.Dispatch
             dataGridView1.AutoResizeColumn(7, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(8, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(9, DataGridViewAutoSizeColumnMode.AllCells);
+            dataGridView1.AutoResizeColumn(10, DataGridViewAutoSizeColumnMode.AllCells);    // Why wasn't this here before - BN 4/12/2105
             dataGridView1.AutoResizeColumn(11, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(12, DataGridViewAutoSizeColumnMode.AllCells);
             dataGridView1.AutoResizeColumn(13, DataGridViewAutoSizeColumnMode.AllCells);
@@ -451,7 +452,7 @@ namespace PF.Dispatch
             return str_msg;
         }
 
-        private void btn_Add_Click(object sender, EventArgs e)
+        public void btn_Add_Click(object sender, EventArgs e)
         {
             DLR_MessageBox = System.Windows.Forms.DialogResult.None;
 
@@ -912,10 +913,11 @@ namespace PF.Dispatch
             cmb_Truck.SelectedValue = int_cmb_Truck;
         }
 
-        private void btn_Close_Click(object sender, EventArgs e)
+        public void btn_Close_Click(object sender, EventArgs e)
         {
             //PF.Common.Code.KillAllWordInstances.KillAllWordProcesses();
             this.Close();
+            // might track history yet
         }
 
 

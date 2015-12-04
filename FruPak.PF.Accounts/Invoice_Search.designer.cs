@@ -71,14 +71,14 @@
             this.dataGridView1.Location = new System.Drawing.Point(12, 84);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(723, 317);
+            this.dataGridView1.Size = new System.Drawing.Size(1326, 510);
             this.dataGridView1.TabIndex = 2;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
             // btn_Close
             // 
-            this.btn_Close.Location = new System.Drawing.Point(660, 61);
+            this.btn_Close.Location = new System.Drawing.Point(1263, 61);
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 27);
             this.btn_Close.TabIndex = 10;
@@ -113,8 +113,9 @@
             this.lbl_message.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_message.Location = new System.Drawing.Point(14, 14);
             this.lbl_message.Name = "lbl_message";
-            this.lbl_message.Size = new System.Drawing.Size(0, 17);
+            this.lbl_message.Size = new System.Drawing.Size(12, 17);
             this.lbl_message.TabIndex = 12;
+            this.lbl_message.Text = ".";
             // 
             // btn_Email_Customer
             // 
@@ -124,7 +125,8 @@
             this.btn_Email_Customer.Size = new System.Drawing.Size(170, 38);
             this.btn_Email_Customer.TabIndex = 8;
             this.btn_Email_Customer.Text = "&Email to Customer";
-            this.toolTip1.SetToolTip(this.btn_Email_Customer, "Send a copy of the invoice to the customer. A copy is also emailed to the office.");
+            this.toolTip1.SetToolTip(this.btn_Email_Customer, "Send a copy of the invoice to the customer. A copy is also emailed to the office." +
+        "");
             this.btn_Email_Customer.UseVisualStyleBackColor = true;
             this.btn_Email_Customer.Click += new System.EventHandler(this.btn_Email_Customer_Click);
             // 
@@ -191,7 +193,7 @@
             this.customer1.Customer_Id = 0;
             this.customer1.Location = new System.Drawing.Point(12, 48);
             this.customer1.Name = "customer1";
-            this.customer1.Size = new System.Drawing.Size(295, 28);
+            this.customer1.Size = new System.Drawing.Size(306, 28);
             this.customer1.TabIndex = 1;
             this.customer1.CustomerChanged += new System.EventHandler(this.cmb_Customers_SelectedIndexChanged);
             // 
@@ -204,16 +206,16 @@
             this.panelInvoice_Search.Controls.Add(this.groupBox1);
             this.panelInvoice_Search.Controls.Add(this.btn_Close);
             this.panelInvoice_Search.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelInvoice_Search.Location = new System.Drawing.Point(0, 407);
+            this.panelInvoice_Search.Location = new System.Drawing.Point(0, 600);
             this.panelInvoice_Search.Name = "panelInvoice_Search";
-            this.panelInvoice_Search.Size = new System.Drawing.Size(747, 91);
+            this.panelInvoice_Search.Size = new System.Drawing.Size(1350, 91);
             this.panelInvoice_Search.TabIndex = 61;
             // 
             // buttonOpenPdfFileLocation
             // 
             this.buttonOpenPdfFileLocation.Image = ((System.Drawing.Image)(resources.GetObject("buttonOpenPdfFileLocation.Image")));
             this.buttonOpenPdfFileLocation.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.buttonOpenPdfFileLocation.Location = new System.Drawing.Point(554, 32);
+            this.buttonOpenPdfFileLocation.Location = new System.Drawing.Point(1157, 32);
             this.buttonOpenPdfFileLocation.Name = "buttonOpenPdfFileLocation";
             this.buttonOpenPdfFileLocation.Size = new System.Drawing.Size(181, 23);
             this.buttonOpenPdfFileLocation.TabIndex = 20;
@@ -224,7 +226,7 @@
             // 
             // buttonSendDebugInfo
             // 
-            this.buttonSendDebugInfo.Location = new System.Drawing.Point(554, 3);
+            this.buttonSendDebugInfo.Location = new System.Drawing.Point(1157, 3);
             this.buttonSendDebugInfo.Name = "buttonSendDebugInfo";
             this.buttonSendDebugInfo.Size = new System.Drawing.Size(181, 23);
             this.buttonSendDebugInfo.TabIndex = 9;
@@ -236,7 +238,7 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.btn_View);
-            this.groupBox3.Location = new System.Drawing.Point(12, 10);
+            this.groupBox3.Location = new System.Drawing.Point(615, 10);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(124, 74);
             this.groupBox3.TabIndex = 12;
@@ -248,7 +250,7 @@
             this.groupBox2.Controls.Add(this.btn_Print);
             this.groupBox2.Controls.Add(this.ckb_Office);
             this.groupBox2.Controls.Add(this.ckb_Customer);
-            this.groupBox2.Location = new System.Drawing.Point(142, 3);
+            this.groupBox2.Location = new System.Drawing.Point(745, 3);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(199, 80);
             this.groupBox2.TabIndex = 11;
@@ -259,7 +261,7 @@
             // 
             this.groupBox1.Controls.Add(this.btn_Email_Customer);
             this.groupBox1.Controls.Add(this.ckb_COA);
-            this.groupBox1.Location = new System.Drawing.Point(347, 3);
+            this.groupBox1.Location = new System.Drawing.Point(950, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(201, 81);
             this.groupBox1.TabIndex = 10;
@@ -274,7 +276,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(747, 498);
+            this.ClientSize = new System.Drawing.Size(1350, 691);
             this.Controls.Add(this.panelInvoice_Search);
             this.Controls.Add(this.customer1);
             this.Controls.Add(this.lbl_message);

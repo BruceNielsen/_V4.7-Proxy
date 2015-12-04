@@ -236,6 +236,22 @@ namespace PF.Utils.UserControls
                 handler(this, e);
             }
         }
+
+        public string FruitType // BN 21/11/2015
+        {
+            get
+            {
+                //object o = cmb_Grower.Text;
+                return cmb_Fruit_Type.Text;
+            }
+        }
+        public string FruitVariety // BN 21/11/2015
+        {
+            get
+            {
+                return cmb_Variety.Text;
+            }
+        }
     }
 
     // Class to hold a value_member and a description_member for each combobox.
@@ -274,5 +290,6 @@ namespace PF.Utils.UserControls
                 myDescription = value;
             }
         }
+
     }
 }

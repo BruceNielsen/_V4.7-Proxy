@@ -59,6 +59,7 @@
 // Note: SQL login is set to Windows Authentication, but the database is set to mixed-mode.
 // ----------------------------------------------------------------
 
+
 using AutoUpdaterDotNET;
 using PF.CustomSettings;
 using NLog;
@@ -79,6 +80,9 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Windows.Forms;
 using TreeViewSerialization;
+using System.Net.Sockets;
+using System.Net.NetworkInformation;
+using System.Text;
 
 #endregion Imports (23)
 
@@ -89,12 +93,6 @@ namespace PF.Menu
     /// </summary>
     public partial class Main_Menu : Form
     {
-
-        //public static string LoggedOnUserName
-        //{
-        //    get;
-        //    set;
-        //}
 
         #region Members of Main_Menu (20)
 
@@ -152,6 +150,17 @@ namespace PF.Menu
 
         #endregion Members of Main_Menu (20)
 
+        #region Idle Timer Imports
+        [DllImport("user32.dll")]
+        public static extern Boolean GetLastInputInfo(ref tagLASTINPUTINFO plii);
+
+        public struct tagLASTINPUTINFO
+        {
+            public uint cbSize;
+            public Int32 dwTime;
+        }
+        #endregion
+
         #region Constructors of Main_Menu (1)
 
         /// <summary>
@@ -160,6 +169,7 @@ namespace PF.Menu
         public Main_Menu()
         {
             InitializeComponent();
+            //listBoxMessagesHome.Items.Add("This process ID: " + Process.GetCurrentProcess().Id);
 
             #region SystemMonitor
 
@@ -497,13 +507,13 @@ namespace PF.Menu
             Cursor = Cursors.Default;
         }
 
-        private void Accounting_Sales_Rates_Click(object sender, EventArgs e)
+        public void Accounting_Sales_Rates_Click(object sender, EventArgs e)
         {
             historyAdd("Accounting - Sales - Rates");
             logger.Log(LogLevel.Info, DecorateString("Accounting - Sales", "Accounting_Sales_Rates_Click", "(Rates)"));
 
             Cursor = Cursors.WaitCursor;
-            Form frm = new PF.Accounts.Sales_Rates("PF_A_Customer_Sales_Rates", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            PF.Accounts.Sales_Rates frm = new PF.Accounts.Sales_Rates("PF_A_Customer_Sales_Rates", int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
             frm.Text = "PF.Accounts.Sales_Rates (Accounting --> Sales --> Rates)";
             //frm.TopMost = true; // 21/10/2015 BN
             frm.Show();
@@ -2847,29 +2857,12 @@ namespace PF.Menu
             this.collapsibleSplitterDebug.ToggleState();
             this.labelTabControlMainBottomStatus.Text = string.Empty;
 
-            #region Get how long since the system was last restarted - BN 01/04/2015
-
-            int iDay = GetUptime().Days; int iHour = GetUptime().Hours; int iMinute = GetUptime().Minutes;
-            string sDay = string.Empty; string sHour = string.Empty; string sMinute = string.Empty;
-
-            // Format nicely
-            if (iDay == 0) { sDay = " Days"; } else if (iDay == 1) { sDay = " Day"; } else { sDay = " Days"; }
-            if (iHour == 0) { sHour = " Hours"; } else if (iHour == 1) { sHour = " Hour"; } else { sHour = " Hours"; }
-            if (iMinute == 0) { sMinute = " Minutes"; } else if (iMinute == 1) { sMinute = " Minute"; } else { sMinute = " Minutes"; }
-
-            string UpTime =
-                "System UpTime: " +
-                iDay + sDay + ", " +
-                iHour + sHour + ", " +
-                iMinute + sMinute + ".";
-
-            #endregion Get how long since the system was last restarted - BN 01/04/2015
 
             //The version number has four parts, as follows:
             //<major version>.<minor version>.<build number>.<revision>
             
             // Having the windows logon name is causing confusion
-            this.Text += " V" + Application.ProductVersion + " (20/11/2015)";
+            this.Text += " V" + Application.ProductVersion + " (1/12/2015)";
 
             //this.Text += " V" + Application.ProductVersion + " (10/11/2015) " +
             //    System.Security.Principal.WindowsIdentity.GetCurrent().Name;
@@ -2918,7 +2911,7 @@ namespace PF.Menu
             // -----------------------------------------------------------------------------------------------------------
 
             logger.Log(LogLevel.Info, "---------------------[ Program Start ]--- :" + DateTime.Now.ToShortDateString() + " - " + DateTime.Now.ToLongTimeString());
-            logger.Log(LogLevel.Info, LogCode(UpTime));
+            //logger.Log(LogLevel.Info, LogCode(UpTime));
             logger.Log(LogLevel.Info, LogCode(this.Text));
 
             Check_The_Templates_Folder_Exists();
@@ -2931,6 +2924,8 @@ namespace PF.Menu
             //
             //
 
+            //Cursor.Current = Cursors.Default;
+            timerIdleTimer.Enabled = true;
 
         }
 
@@ -3398,43 +3393,60 @@ namespace PF.Menu
 
         private void populate_Date_Combo()
         {
-            //Not Completed Process Date
-            if (int_prod_combo == 0)
+            try
             {
-                ds_Get_Info = PF.Data.AccessLayer.PF_Work_Order.Get_Combo_Date();
-            }
-            else
-            {
-                ds_Get_Info = PF.Data.AccessLayer.PF_Work_Order.Get_Combo_Date(int_prod_combo);
-            }
-            //ribbonCombo_ProcessFactory_WorkOrders_Date.DropDownItems.Clear();
 
-            // New - 12/05/2015 BN
-            cueComboBoxProcessFactoryWorkOrdersSelectDate.Items.Clear();
 
-            for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
-            {
-                //rbtn_Combo_Date = new RibbonButton();
+ 
+                #region Get Combo Date
+                //Not Completed Process Date <--- Original comment from Dave Bishop
+                if (int_prod_combo == 0)
+                {
+                    ds_Get_Info = PF.Data.AccessLayer.PF_Work_Order.Get_Combo_Date();
+                }
+                else
+                {
+                    ds_Get_Info = PF.Data.AccessLayer.PF_Work_Order.Get_Combo_Date(int_prod_combo);
+                }
+
+                // Original code with that awful ribbon
+                //ribbonCombo_ProcessFactory_WorkOrders_Date.DropDownItems.Clear();
+                #endregion
+
 
                 // New - 12/05/2015 BN
-                ComboboxItem item = new ComboboxItem();
+                cueComboBoxProcessFactoryWorkOrdersSelectDate.Items.Clear();
 
-                dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
+                for (int i = 0; i < Convert.ToInt32(ds_Get_Info.Tables[0].Rows.Count.ToString()); i++)
+                {
+                    //rbtn_Combo_Date = new RibbonButton();
 
-                //rbtn_Combo_Date.Text = dr_Get_Info["Process_Date"].ToString();
+                    // New - 12/05/2015 BN
+                    ComboboxItem item = new ComboboxItem();
 
-                // New - 12/05/2015 BN
-                item.Text = dr_Get_Info["Process_Date"].ToString();
+                    dr_Get_Info = ds_Get_Info.Tables[0].Rows[i];
 
-                //ribbonCombo_ProcessFactory_WorkOrders_Date.DropDownItems.Add(rbtn_Combo_Date);
+                    //rbtn_Combo_Date.Text = dr_Get_Info["Process_Date"].ToString();
 
-                // New - 12/05/2015 BN
-                cueComboBoxProcessFactoryWorkOrdersSelectDate.Items.Add(item);
+                    // New - 12/05/2015 BN
+                    item.Text = dr_Get_Info["Process_Date"].ToString();
+
+                    //ribbonCombo_ProcessFactory_WorkOrders_Date.DropDownItems.Add(rbtn_Combo_Date);
+
+                    // New - 12/05/2015 BN
+                    cueComboBoxProcessFactoryWorkOrdersSelectDate.Items.Add(item);
+
+                }
+
+                ds_Get_Info.Dispose();
+
+                populate_Prod_Combo();
+                populate_WO_Combo();
             }
-
-            ds_Get_Info.Dispose();
-            populate_Prod_Combo();
-            populate_WO_Combo();
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.ToString());
+            }
         }
 
         /// <summary>
@@ -3735,7 +3747,7 @@ namespace PF.Menu
                 // 4/8/2015 Found stupid mistake causing the work orders to come
                 // up blank
 
-                // BN added 18/111/2015
+                // BN added 18/11/2015
 
                 int index = cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.FindString(cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.Text);
                 cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.SelectedIndex = index;
@@ -3760,7 +3772,14 @@ namespace PF.Menu
 
                 int_WO_Id = Convert.ToInt32(tempString);
             }
-            Form frm = new PF.WorkOrder.WO_Create(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+
+            // I've changed the signature from Form frm = new ...etc.. to this, as I couldn't expose the delegates
+            PF.WorkOrder.WO_Create frm = new PF.WorkOrder.WO_Create(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+
+            // Add an event handler to update this form
+            // when the Message form is updated (when MessageUpdated fires).
+            frm.MessageUpdated += new WorkOrder.WO_Create.MessageUpdateHandler(WO_Create_ButtonClicked);
+
             frm.Text = "PF.WorkOrder.WO_Create (Process Factory --> Work Orders --> Create/View)";
             frm.ShowDialog();
 
@@ -3868,7 +3887,12 @@ namespace PF.Menu
             }
             if (DLR_MessageBox != DialogResult.OK)
             {
-                Form frm = new PF.WorkOrder.WO_Output(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+                PF.WorkOrder.WO_Output frm = new PF.WorkOrder.WO_Output(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+
+                // Add an event handler to update this form
+                // when the Message form is updated (when MessageUpdated fires).
+                frm.MessageUpdated += new WorkOrder.WO_Output.MessageUpdateHandler(WO_Create_ButtonClicked);
+
                 frm.Text = "PF.WorkOrder.WO_Output (Process Factory --> Work Orders --> Output)";
                 //frm.TopMost = true; // 21/10/2015 BN
                 frm.Show();
@@ -3907,7 +3931,12 @@ namespace PF.Menu
             }
             if (DLR_MessageBox != DialogResult.OK)
             {
-                Form frm = new PF.WorkOrder.WO_Labels(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+                PF.WorkOrder.WO_Labels frm = new PF.WorkOrder.WO_Labels(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+
+                // Add an event handler to update this form
+                // when the Message form is updated (when MessageUpdated fires).
+                frm.MessageUpdated += new WorkOrder.WO_Labels.MessageUpdateHandler(WO_Create_ButtonClicked);
+
                 frm.Text = "PF.WorkOrder.WO_Labels (Process Factory --> Work Orders --> Pallets)";
                 //frm.TopMost = true; // 21/10/2015 BN
                 frm.Show();
@@ -4060,7 +4089,11 @@ namespace PF.Menu
             }
             if (DLR_MessageBox != DialogResult.OK)
             {
-                Form frm = new PF.WorkOrder.WO_Staff(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+                // I've changed the signature from Form frm = new ...etc.. to this, as I couldn't expose the delegates
+                PF.WorkOrder.WO_Staff frm = new PF.WorkOrder.WO_Staff(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+
+                frm.MessageUpdated += new WorkOrder.WO_Staff.MessageUpdateHandler(WO_Create_ButtonClicked);
+
                 frm.Text = "PF.WorkOrder.WO_Staff (Process Factory --> Work Orders --> Staff)";
                 //frm.TopMost = true; // 21/10/2015 BN
                 frm.Show();
@@ -4797,6 +4830,7 @@ namespace PF.Menu
         [DebuggerStepThrough]   // Don't stop here in debug mode BN
         protected override void WndProc(ref Message m)
         {
+
             base.WndProc(ref m);
 
             // Test if the About item was selected from the system menu
@@ -5123,6 +5157,881 @@ namespace PF.Menu
             cueComboBoxProcessFactoryWorkOrdersSelectDate.Text = "";
             cueComboBoxProcessFactoryWorkOrdersSelectProduct.Text = "";
             cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.Text = "";
+        }
+
+        //private void buttonDelegateTest_Click(object sender, EventArgs e)
+        //{
+        //    DelegateTest delTest = new DelegateTest();
+
+        //    // Add an event handler to update this form
+        //    // when the Message form is updated (when MessageUpdated fires).
+        //    delTest.MessageUpdated += new DelegateTest.MessageUpdateHandler(MessageForm_ButtonClicked);
+
+        //    delTest.Show();
+        //}
+
+        //// handles the event from DelegateTest form
+        //private void MessageForm_ButtonClicked(object sender, MessageUpdateEventArgs e)
+        //{
+        //    // update the forms values from the event args
+        //    toolStripStatusLabelActive.Text = e.Message;
+        //}
+
+        private void WO_Create_ButtonClicked(object sender, PF.WorkOrder.MessageUpdateEventArgs e)
+        {
+            // update the forms values from the event args
+            toolStripStatusLabelActive.Text = e.Message;
+
+            if (e.Header != "")
+            {
+                TreeNode tnHeader = new TreeNode();
+                tnHeader.Text = e.Header;
+                //tnHeader.Tag = "Group";
+                treeViewProcessFactory.Nodes.Add(tnHeader);
+
+                // Collapse all other nodes, as this one is current
+                treeViewProcessFactory.CollapseAll();
+            }
+            else
+            {
+                if (e.Message != "")
+                {
+                    int i = treeViewProcessFactory.Nodes.Count;
+                    TreeNode tnMessage = new TreeNode();
+                    tnMessage.Text = e.Message;
+                    treeViewProcessFactory.Nodes[i-1].Nodes.Add(tnMessage);
+                    treeViewProcessFactory.Nodes[i - 1].Expand();
+                }
+            }
+        }
+
+        private void cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+
+        }
+
+        private void AddColumn(DataTable table, string columnName, string columnCaption)
+        {
+            DataColumn column;
+            column = new DataColumn();
+            column.ColumnName = columnName;
+            column.DataType = System.Type.GetType("System.String");
+            //column.Unique = true;
+            column.AutoIncrement = false;
+            column.Caption = columnCaption;
+            column.ReadOnly = false;
+
+            // Add the column to the table's columns collection.
+            table.Columns.Add(column);
+        }
+
+        private void cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                Console.WriteLine(cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.SelectedItem);
+                string selectedWorkOrder = cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.SelectedItem.ToString();
+                //Console.WriteLine("Break");
+                // Every work order looks like this: 299 (2015-11-20)
+                // I need to strip off just the number, not the bracketed date
+                int indexOfBrace = selectedWorkOrder.IndexOf('(');
+                string subString = selectedWorkOrder.Substring(0, indexOfBrace - 1);    // -1 to allow for the space character
+
+                DataSet ds_Get_Info_Product_Description = null;   // Declare as null to avoid 'Use of unassigned variable error' - BN
+                DataSet ds_Get_Info_Fruit_Type = null;   // Declare as null to avoid 'Use of unassigned variable error' - BN
+                DataSet ds_Get_Info_Fruit_Variety = null;   // Declare as null to avoid 'Use of unassigned variable error' - BN
+
+                #region Create DataTable dt_Joined and add columns - BN 30/11/2015
+                // This is so newly rewritten it's not funny - BN 30/11/2015
+                // I have to build a new table to store the values that are Id references in the Custom table - it doesn't need a primary key
+                // So as to fill the new table with names, not numbers
+                DataTable dt_Joined = new DataTable();
+
+                //// I need the DataColumn to exist as a named entity so I can access it from within the loop - BN
+                //DataColumn dc_Work_Order_Id = new DataColumn("Work_Order_Id", typeof(String));
+                //DataColumn dc_ProcessDate = new DataColumn("Process_Date", typeof(String));
+                //DataColumn dc_Product_Id = new DataColumn("Product_Id", typeof(String));
+                //DataColumn dc_Fruit_Type_Id = new DataColumn("Fruit_Type_Id", typeof(String));
+                //DataColumn dc_Fruit_Variety_Id = new DataColumn("Fruit_Variety_Id", typeof(String));
+                ////DataColumn dc_Completed_Date = new DataColumn("Completed_Date", typeof(String));
+                //DataColumn dc_Comments = new DataColumn("Comments", typeof(String));
+
+                //dt_Joined.Columns.Add(dc_Work_Order_Id);
+                //dt_Joined.Columns.Add(dc_ProcessDate);
+                //dt_Joined.Columns.Add(dc_Product_Id);
+                //dt_Joined.Columns.Add(dc_Fruit_Type_Id);
+                //dt_Joined.Columns.Add(dc_Fruit_Variety_Id);
+                //dt_Joined.Columns.Add(dc_Comments);
+
+                AddColumn(dt_Joined, "Work_Order_Id", "Work Order");
+                AddColumn(dt_Joined, "Process_Date", "Process Date");
+                AddColumn(dt_Joined, "Product_Id", "Product");
+                AddColumn(dt_Joined, "Fruit_Type_Id", "Fruit Type");
+                AddColumn(dt_Joined, "Fruit_Variety_Id", "Fruit Variety");
+                AddColumn(dt_Joined, "Comments", "Comments");
+
+                #endregion
+
+                DataSet ds_Get_Info;
+
+                //ds_Get_Info = PF.Data.AccessLayer.PF_BaseLoad.Get_Info();
+
+                #region Grab the entire work order - this includes references to foreign keys - BN 30/11/2015
+                ds_Get_Info = PF.Data.AccessLayer.PF_Work_Order.Get_Info();
+                DataTable dt_Custom = ds_Get_Info.Tables[0];
+                #endregion
+
+                // New - 30/11/2015 BN
+                // On every pass through the loop, I need to translate the Ids relating to other tables
+                // into a string value I can use, then once I have gathered all that info,
+                // add the completed datarow into the new joined table, which will then become the 
+                // datasource for the multicolumncombobox
+
+                // Need to do a GetInfo for each key referenced in a foreign table
+
+                //DataRow dr_Get_Info_Custom = ds_Get_Info.Tables[0].Rows[0];
+                //string process_Date = dr_Get_Info_Custom[0].ToString();
+
+                DataRow[] foundRows;
+                foundRows = dt_Custom.Select("Work_Order_Id = '" + subString + "'");   // Locate the row matching the Process Date
+
+                // Fruit Type -------------------------
+                int fruitType = Convert.ToInt32(foundRows[0].ItemArray[10]);
+                ds_Get_Info_Fruit_Type = PF.Data.AccessLayer.CM_Fruit_Type.Get_Info(fruitType);
+
+                DataRow dr_Get_Info_Fruit_Type;
+                dr_Get_Info_Fruit_Type = ds_Get_Info_Fruit_Type.Tables[0].Rows[0];
+                string fruitTypeDescription = dr_Get_Info_Fruit_Type[2].ToString();
+
+                //Console.WriteLine("Fruit Type Description:\t\t" + fruitTypeDescription);
+
+                // Fruit Variety ----------------------
+                int fruitCode = Convert.ToInt32(foundRows[0].ItemArray[11]);
+                ds_Get_Info_Fruit_Variety = PF.Data.AccessLayer.CM_Fruit_Variety.Get_Info_std(fruitCode);
+
+                DataRow dr_Get_Info_Fruit_Variety;
+                dr_Get_Info_Fruit_Variety = ds_Get_Info_Fruit_Variety.Tables[0].Rows[0];
+                string fruitVarietyDescription = dr_Get_Info_Fruit_Variety[3].ToString();
+
+                //Console.WriteLine("Fruit Variety Description:\t" + fruitVarietyDescription);
+
+                // Product ----------------------------
+                int productCode = Convert.ToInt32(foundRows[0].ItemArray[6]);
+                ds_Get_Info_Product_Description = PF.Data.AccessLayer.PF_Product.Get_Info(productCode);
+
+                DataRow dr_Get_Info_Product_Description;
+                dr_Get_Info_Product_Description = ds_Get_Info_Product_Description.Tables[0].Rows[0];
+                string productDescription = dr_Get_Info_Product_Description[2].ToString();
+
+                //Console.WriteLine("Product Description:\t\t" + productDescription);
+
+                string workOrder_Number = foundRows[0].ItemArray[0].ToString();
+                string processDate = foundRows[0].ItemArray[2].ToString();
+                //string completed_Date = foundRows[0].ItemArray[14].ToString();
+                string comments = foundRows[0].ItemArray[16].ToString();
+
+                // Create new DataRow objects and add to DataTable.    
+                DataRow dr_Joined = dt_Joined.NewRow();
+                dr_Joined["Work_Order_Id"] = workOrder_Number;
+                dr_Joined["Process_Date"] = processDate;
+                dr_Joined["Product_Id"] = productDescription;
+                dr_Joined["Fruit_Type_Id"] = fruitTypeDescription;
+                dr_Joined["Fruit_Variety_Id"] = fruitVarietyDescription;
+                //dr_Joined["Completed_Date"] = completed_Date;
+                dr_Joined["Comments"] = comments;
+
+                dt_Joined.Rows.Add(dr_Joined);
+
+                dataGridViewCurrentWorkOrder.DataSource = dt_Joined;
+
+                // Forwards order - Doesn't autosize correctly
+                //dataGridViewCurrentWorkOrder.AutoResizeColumn(0, DataGridViewAutoSizeColumnMode.AllCells);
+                //dataGridViewCurrentWorkOrder.AutoResizeColumn(1, DataGridViewAutoSizeColumnMode.AllCells);
+                //dataGridViewCurrentWorkOrder.AutoResizeColumn(3, DataGridViewAutoSizeColumnMode.AllCells);
+                //dataGridViewCurrentWorkOrder.AutoResizeColumn(4, DataGridViewAutoSizeColumnMode.AllCells);
+                //dataGridViewCurrentWorkOrder.AutoResizeColumn(5, DataGridViewAutoSizeColumnMode.AllCells);
+
+                // Reverse order - Works correctly for some reason
+                dataGridViewCurrentWorkOrder.AutoResizeColumn(5, DataGridViewAutoSizeColumnMode.AllCells);
+                dataGridViewCurrentWorkOrder.AutoResizeColumn(4, DataGridViewAutoSizeColumnMode.AllCells);
+                dataGridViewCurrentWorkOrder.AutoResizeColumn(3, DataGridViewAutoSizeColumnMode.AllCells);
+                dataGridViewCurrentWorkOrder.AutoResizeColumn(2, DataGridViewAutoSizeColumnMode.AllCells);
+                dataGridViewCurrentWorkOrder.AutoResizeColumn(1, DataGridViewAutoSizeColumnMode.AllCells);
+
+                // This is to fix a Microsoft DataGridView bug where it ignores the Caption property
+                dataGridViewCurrentWorkOrder.Columns[0].HeaderText = dt_Joined.Columns[0].Caption;
+                dataGridViewCurrentWorkOrder.Columns[1].HeaderText = dt_Joined.Columns[1].Caption;
+                dataGridViewCurrentWorkOrder.Columns[2].HeaderText = dt_Joined.Columns[2].Caption;
+                dataGridViewCurrentWorkOrder.Columns[3].HeaderText = dt_Joined.Columns[3].Caption;
+                dataGridViewCurrentWorkOrder.Columns[4].HeaderText = dt_Joined.Columns[4].Caption;
+
+                // New - 30/12/2015 BN ------------------------------------------------------------------
+                ds_Get_Info_Product_Description.Dispose();  // BN
+                ds_Get_Info_Fruit_Type.Dispose();           // BN
+                ds_Get_Info_Fruit_Variety.Dispose();        // BN
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+
+        private void dataGridViewCurrentWorkOrder_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+            string cellValue = "";
+            try
+            {
+
+                DataGridViewCell cell = dataGridViewCurrentWorkOrder.SelectedCells[0] as DataGridViewCell;
+                if (cell != null)
+                {
+                    cellValue = cell.Value.ToString();
+
+                    cellValue = cellValue.Replace("\r\n", " ");
+
+                    // Strip out Carriage Returns, as they're screwing things up for the Status Label (Original text is copied anyway, including CRLF codes)
+
+                    //Clipboard.SetText(cellValue);                 // Don't assume - BN - 1/12/2015
+                    //labelBarcodeCopy.Text = Clipboard.GetText();
+                    toolStripStatusLabelActive.Text = "CTRL-C to copy to the Clipboard, for Pasting with CTRL-V: ";
+                    toolStripStatusLabelBoldText .Text = WordEllipsis(cellValue, 180);
+             }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+
+        }
+
+        /// <summary>
+        /// Ellipsis with C# (ending on a full word)
+        /// </summary>
+        /// <param name="text"></param>
+        /// <param name="maxLength"></param>
+        /// <returns></returns>
+        static public string WordEllipsis(string text, int maxLength)
+        {
+            string ellipsis = "";
+            if (text.Length < maxLength)
+            {
+                ellipsis = "";
+            }
+            else
+            {
+                ellipsis = "... etc.";
+            }
+
+            string result;
+
+            if (text.Length <= maxLength)
+            {
+                result = text;
+            }
+            else if (maxLength <= ellipsis.Length)
+            {
+                result = ellipsis.Substring(0, maxLength);
+            }
+            else
+            {
+                result = text.Substring(0, maxLength - ellipsis.Length);
+                var lastWordPosition = result.LastIndexOf(' ');
+
+                if (lastWordPosition < 0)
+                {
+                    lastWordPosition = 0;
+                }
+                result = result.Substring(0, lastWordPosition).Trim(new[] { '.', ',', '!', '?' }) + ellipsis;
+            }
+
+            return result;
+        }
+
+        private void timerIdleTimer_Tick(object sender, EventArgs e)
+        {
+            tagLASTINPUTINFO LastInput = new tagLASTINPUTINFO();
+            Int32 IdleTime;
+            LastInput.cbSize = (uint)Marshal.SizeOf(LastInput);
+            LastInput.dwTime = 0;
+
+            if (GetLastInputInfo(ref LastInput))
+            {
+                IdleTime = System.Environment.TickCount - LastInput.dwTime;
+
+                IdleTime = IdleTime / 1000;
+
+                //label1.Text = IdleTime + "ms";
+                //label1.Text = IdleTime + " seconds";
+
+                // .NET 4+ code
+                TimeSpan time = TimeSpan.FromSeconds(IdleTime);
+
+                //here backslash is just to tell that colon is
+                //not the part of format, it just a character that we want in output
+                //string str = time.ToString(@"hh\:mm\:ss\:fff");
+
+                // This is exactly what I want: 00:00:00 format
+                string idleTime = time.ToString(@"hh\:mm\:ss");
+
+                labelIdleTime.Text = idleTime;
+
+                // Doesn't work as expected when TotalHours > 24. – Homer Sep 19 '12 at 21:21
+                // @Homer He would need to change out t.Hours with Math.Floor(t.TotalHours) to fix that issue. 
+
+                #region Get how long since the system was last restarted - BN 01/04/2015
+
+                int iDay = GetUptime().Days; int iHour = GetUptime().Hours; int iMinute = GetUptime().Minutes;
+                string sDay = string.Empty; string sHour = string.Empty; string sMinute = string.Empty;
+
+                // Format nicely
+                if (iDay == 0) { sDay = " Days"; } else if (iDay == 1) { sDay = " Day"; } else { sDay = " Days"; }
+                if (iHour == 0) { sHour = " Hours"; } else if (iHour == 1) { sHour = " Hour"; } else { sHour = " Hours"; }
+                if (iMinute == 0) { sMinute = " Minutes"; } else if (iMinute == 1) { sMinute = " Minute"; } else { sMinute = " Minutes"; }
+
+                string UpTime =
+                    "System UpTime: " +
+                    iDay + sDay + ", " +
+                    iHour + sHour + ", " +
+                    iMinute + sMinute + ".";
+
+                #endregion Get how long since the system was last restarted - BN 01/04/2015
+            }
+
+        }
+
+        // Program Automation for Work Order Generation/Testing - In the same order as they appear in the debugging menu
+        // All following code started 3/12/2015 BN
+
+        /// <summary>
+            /// For testing only. Is not persisted, and defaults to false.
+            /// </summary>
+            /// <param name="sender"></param>
+            /// <param name="e"></param>
+        private void disableNetworkValidationForEmailTestingToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // This has the CheckOnClick property set to true (Auto-Toggle)
+            if (disableNetworkValidationForEmailTestingToolStripMenuItem.CheckState == CheckState.Checked)
+            {
+                PF.Global.Global.bool_DisableNetworkVerificationForEmailTesting = true;
+            }
+            else
+            {
+                PF.Global.Global.bool_DisableNetworkVerificationForEmailTesting = false;
+            }
+        }
+        private void processFactoryWorkOrdersCreateViewToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Cursor = Cursors.WaitCursor;
+            int int_WO_Id = 0;  // This forces the program to create a new work order
+
+            // Switch to the tab we want to be working from
+            this.tabControlMain.SelectedTab = tabPageProcessFactory;
+
+            // Start by clicking the reset button - this also ensures that we are creating a new work order
+            buttonResetCueComboBoxes_Click(this, EventArgs.Empty);
+
+            // Click the Create/View button - In this case the sender has to be the button, or it won't work
+            //ProcessFactory_WorkOrders_CreateView_Click(buttonProcessFactoryWorkOrdersCreateView, EventArgs.Empty);
+
+            // I've already preloaded cmb_Trader and grower1 - Orchardist to: 'PF - Process Factory' and 'Fruit through Gatehouse'
+            // within the WO_Create form's code, but in case I stop doing that in future, I'll re-select those options here
+
+            // I've changed the signature from Form frm = new ...etc.. to this, as I couldn't expose the event delegates otherwise
+            // (Create it explicitly as type WO_Create, and not a generic form - The rules of inheritance means that doing so hides most of its properties)
+
+            Button fakeButton = new Button();
+            fakeButton.Text = "Create/View";
+            fakeButton.Tag = true;  // Allow write access
+
+            //PF.WorkOrder.WO_Create frm = new PF.WorkOrder.WO_Create(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+            PF.WorkOrder.WO_Create frm = new PF.WorkOrder.WO_Create(int_WO_Id, int_User_id, Convert.ToBoolean(fakeButton.Tag.ToString()));
+
+            // Add an event handler to update this form when the Message form is updated (when MessageUpdated fires).
+            frm.MessageUpdated += new WorkOrder.WO_Create.MessageUpdateHandler(WO_Create_ButtonClicked);
+
+            frm.Text = "PF.WorkOrder.WO_Create (Process Factory --> Work Orders --> Create/View)";
+
+            // -------------------------------------------------------------------------------------------------------------------------------------------
+            // Here I pre-load all the choices - Note you have to set the access modifiers on each control on the form to public to make them visible here
+            // -------------------------------------------------------------------------------------------------------------------------------------------
+
+            // Increment the Start time by one minute and assign that value to the Finish time
+            DateTime dt = frm.dtp_start.Value;  // Grab the start time
+            dt = dt.AddSeconds(60);             // This is really deceptive - if you just go dt.AddSeconds(60) it doesn't take
+            frm.dtp_finish.Value = dt;          // Add one minute to the finish time
+
+            if (frm.cmb_Trader.Text == "")
+            {
+                // It's a new order, as an order number hasn't been supplied
+                // Default to PF - Process Factory
+                int indexTrader = frm.cmb_Trader.FindString("PF - Process Factory");
+                frm.cmb_Trader.SelectedIndex = indexTrader;
+            }
+
+            // Note - I gave myself access to the grower controls internal properties as an addition - you couldn't do that before
+            // Those mods live in PF.Utils.UserControls
+            if (frm.grower1.Orchardist_Id == 0)
+            {
+                // It's a new order, so default to the GateHouse
+                frm.grower1.Orchardist_Id = 9;  // Fruit through GateHouse (Value from database)
+            }
+
+            if (frm.grower1.Grower_Id == 0)
+            {
+                // This is quite tricky - Different orchardists can have multiple growers.
+                // You can't just go off the index in the combobox.
+                // I need to get to the real Grower_Id for this to work.
+
+                // e.Exception = {"Unable to cast object of type 'PF.Utils.UserControls.ComboboxValues' to type 'PF.Menu.ComboboxItem'."}
+                foreach (PF.Utils.UserControls.ComboboxValues cbv in frm.grower1.cmb_Grower.Items)
+                {
+                    string firstValue = cbv.GetValue;                       // (Value from database stored in ComboboxValues item)
+                    frm.grower1.Grower_Id = Convert.ToInt32(firstValue);    // Whichever one comes up first
+                    break;                                                  // Bail out on first match
+                }
+            }
+
+            frm.cmb_Product.SelectedIndex = 4;                              // Hotfill
+            frm.fruit1.FruitType_Id = 1;                                    // Apple
+            frm.fruit1.FruitVariety_Id = 2;                                 // 02 Granny Smith
+
+            frm.txt_comments.Text = "Automated Test Comment: " + 
+                DateTime.Now.ToShortDateString() + " - " + 
+                DateTime.Now.ToShortTimeString();
+
+            frm.txt_batches.Text = "2";                                     // 2 Batches
+            frm.cmb_Growing_Method.SelectedIndex = 1;                       // CO - Conventional
+
+            // Have to mimic the original functionality (dysfunctionality)
+            fakeButton.Text = "&Add";                                       // They don't bother with the tag property here
+            frm.btn_Add_Click(fakeButton, EventArgs.Empty);                 // Add the Order
+
+            frm.btn_Current_Click(this, EventArgs.Empty);                   // Set the Order to Current
+
+            // Finally, show the form now that it's populated.
+            frm.ShowDialog();
+            
+            // At this point, the form is fully populated with info, so all you have to do now is click the close button
+            frm.btn_Close.Focus();                                          // Focus doesn't seem to work here
+
+            populate_Date_Combo();
+            populate_Prod_Combo();
+            populate_WO_Combo();
+
+            Cursor = Cursors.Default;
+
+            cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.SelectedIndex = 0;   // New orders alway appear at the top of the list
+
+            Application.DoEvents();                 // Let any background screens refresh
+            System.Threading.Thread.Sleep(2000);    // Wait 2 seconds
+
+
+            if (fullAutoModeToolStripMenuItem.CheckState == CheckState.Checked)
+            {
+                toolStripStatusLabelActive.Text = "Automation Message: ";
+                toolStripStatusLabelBoldText.Text = "Work Order has been created";
+
+                frm.btn_Close_Click(frm.btn_Close, EventArgs.Empty);
+
+            }
+
+        }
+
+        private void processFactoryWorkOrdersOutputToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Cursor = Cursors.WaitCursor;
+
+            // Switch to the tab we want to be working from
+            this.tabControlMain.SelectedTab = tabPageProcessFactory;
+
+            Button fakeButton = new Button();
+            fakeButton.Text = "Output";
+            fakeButton.Tag = true;  // Allow write access
+            DialogResult DLR_MessageBox = new DialogResult();
+
+            int int_WO_Id = 0;
+
+            if (cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.SelectedItem != null && cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.Text != "Work Order")
+            {
+                //int_WO_Id = Convert.ToInt32(cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.SelectedValue.ToString());
+
+                ComboboxItem cbi = (ComboboxItem)cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.SelectedItem;
+                string tempString = cbi.Value.ToString();
+                int_WO_Id = Convert.ToInt32(tempString);
+            }
+            if (int_WO_Id == 0 && int_current_WO_Id == 0)
+            {
+                DLR_MessageBox = MessageBox.Show("Invalid Work Order - Please select a valid Work Order from the Drop Down List.", "FP - Menu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (int_WO_Id == 0 && int_current_WO_Id > 0)
+            {
+                int_WO_Id = int_current_WO_Id;
+            }
+            if (DLR_MessageBox != DialogResult.OK)
+            {
+                //PF.WorkOrder.WO_Output frm = new PF.WorkOrder.WO_Output(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+                PF.WorkOrder.WO_Output frm = new PF.WorkOrder.WO_Output(int_WO_Id, int_User_id, Convert.ToBoolean(fakeButton.Tag.ToString()));
+
+                // Add an event handler to update this form
+                // when the Message form is updated (when MessageUpdated fires).
+                frm.MessageUpdated += new WorkOrder.WO_Output.MessageUpdateHandler(WO_Create_ButtonClicked);
+
+                frm.Text = "PF.WorkOrder.WO_Output (Process Factory --> Work Orders --> Output)";
+                
+                // Preload
+                frm.cmb_Material.SelectedIndex = 0; // Whatever is first
+                //frm.TopMost = true; // 21/10/2015 BN
+                frm.Show();
+
+                frm.btn_Add.Focus();
+
+                Application.DoEvents();                 // Let any background screens refresh
+                System.Threading.Thread.Sleep(2000);    // Wait 2 seconds
+
+
+                if (fullAutoModeToolStripMenuItem.CheckState == CheckState.Checked)
+                {
+                    frm.btn_Add_Click(frm.btn_Add, EventArgs.Empty);
+                    toolStripStatusLabelActive.Text = "Automation Message: ";
+                    toolStripStatusLabelBoldText.Text = "Pallet has been tipped to the order";
+
+                    frm.btn_Close_Click(frm.btn_Close, EventArgs.Empty);
+                }
+
+            }
+            // ------------------------------------
+            Cursor = Cursors.Default;
+        }
+
+        private void extraScanningTabletMenuCombinedToolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            #region New Stored Procedure 4/12/2015 BN
+            // ----------------------------------------------------------------------------------------------------------------------------------
+            // New Stored Procedure 4/12/2015 BN
+            // ----------------------------------------------------------------------------------------------------------------------------------
+            //USE[Process_Factory]
+            //GO
+            ///****** Object:  StoredProcedure [dbo].[CM_Bins_Get_All_Barcodes_Where_Tipped_Date_Is_Null]    Script Date: 4/12/2015 7:53:08 AM ******/
+            //            SET ANSI_NULLS ON
+            //            GO
+            //SET QUOTED_IDENTIFIER ON
+            //GO
+            //-- =============================================
+            //--Author:		Bruce Nielsen
+            //--Create date:
+            //            04 / 12 / 2015
+            //-- Description: Return all Barcodes with null Tipped_Date
+            //-- For program testing automation
+            //-- =============================================
+            //ALTER PROCEDURE[dbo].[CM_Bins_Get_All_Barcodes_Where_Tipped_Date_Is_Null]
+            //--(
+            //    --@barcode varchar(20)
+            //--)
+            //AS
+            //BEGIN
+            //    --SET NOCOUNT ON added to prevent extra result sets from
+            //   -- interfering with SELECT statements.
+            //    SET NOCOUNT ON;
+            //            SELECT*
+            //            FROM CM_Bins
+            //            WHERE Tipped_Date is NULL
+            //    --AND barcode = @barcode
+            //END
+
+            // ----------------------------------------------------------------------------------------------------------------------------------
+            #endregion
+
+            // Switch to the tab we want to be working from
+            //this.tabControlMain.SelectedTab = tabPageProcessFactory;
+            // In this case I can just summon the form directly
+
+            // I've changed the signature from Form frm = new ...etc.. to this, as I couldn't expose the event delegates otherwise
+            // (Create it explicitly as type WO_Create, and not a generic form - The rules of inheritance means that doing so hides most of its properties)
+
+            PF.Utils.Scanning.Bin_Tipping_Combined frm = new PF.Utils.Scanning.Bin_Tipping_Combined(int_User_id, true);
+
+            // Automate grabbing a barcode from the database, where Tipped_Date is null
+            DataSet ds_Get_Info_Barcodes_With_Null_Tipping_Date = null;   // Declare as null to avoid 'Use of unassigned variable error' - BN
+
+            // Yay! I got it to work. BN 4/12/2015
+            ds_Get_Info_Barcodes_With_Null_Tipping_Date = PF.Data.AccessLayer.CM_Bins.Get_All_Barcodes_Where_Tipped_Date_Is_Null(); // New method in CM_Bins 4/12/2015 BN
+            DataTable dt_Custom = ds_Get_Info_Barcodes_With_Null_Tipping_Date.Tables[0];
+
+            DataRow dr_Get_Info_Custom = dt_Custom.Rows[0];
+            string realBarcode = dr_Get_Info_Custom[3].ToString();  // Position 3 = Barcode
+
+            //string fakeBarcode = "394541231000000147";  // Replace this once I write the database code
+            frm.barcode_BinTipping.BarcodeValue = realBarcode;
+
+            // Click the Dry Tip button
+            frm.btn_Wet_Dry_Click(frm.btn_Dry_BinTipping, EventArgs.Empty);
+
+            frm.Show();
+
+            // Fully Auto check will go here
+            frm.btn_Close_BinTipping.Focus();
+
+            Application.DoEvents();                 // Let any background screens refresh
+            System.Threading.Thread.Sleep(2000);    // Wait 2 seconds
+
+            if (fullAutoModeToolStripMenuItem.CheckState == CheckState.Checked)
+            {
+                toolStripStatusLabelActive.Text = "Automation Message: ";
+                toolStripStatusLabelBoldText.Text = "Product has been tipped to the order";
+
+                frm.btn_Close_Click(frm.btn_Close_BinTipping, EventArgs.Empty);
+            }
+
+        }
+
+        private void processFactoryWorkOrdersPalletsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Switch to the tab we want to be working from
+            this.tabControlMain.SelectedTab = tabPageProcessFactory;
+
+            cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.SelectedIndex = 0;   // New orders alway appear at the top of the list
+
+            DialogResult DLR_MessageBox = new DialogResult();
+            Cursor = Cursors.WaitCursor;
+            int int_WO_Id = 0;
+
+            if (cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.SelectedItem != null && cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.Text != "Work Order")
+            {
+                //int_WO_Id = Convert.ToInt32(cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.SelectedValue.ToString());
+
+                ComboboxItem cbi = (ComboboxItem)cueComboBoxProcessFactoryWorkOrdersSelectWorkOrder.SelectedItem;
+                string tempString = cbi.Value.ToString();
+                int_WO_Id = Convert.ToInt32(tempString);
+            }
+            if (int_WO_Id == 0 && int_current_WO_Id == 0)
+            {
+                DLR_MessageBox = MessageBox.Show("Invalid Work Order - Please select a valid Work Order from the Drop Down List.", "FP - Menu", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            else if (int_WO_Id == 0 && int_current_WO_Id > 0)
+            {
+                int_WO_Id = int_current_WO_Id;
+            }
+            if (DLR_MessageBox != DialogResult.OK)
+            {
+                //PF.WorkOrder.WO_Labels frm = new PF.WorkOrder.WO_Labels(int_WO_Id, int_User_id, Convert.ToBoolean((sender as Button).Tag.ToString()));
+                PF.WorkOrder.WO_Labels frm = new PF.WorkOrder.WO_Labels(int_WO_Id, int_User_id, Convert.ToBoolean((buttonProcessFactoryWorkOrdersPallets).Tag.ToString()));
+
+                // Add an event handler to update this form
+                // when the Message form is updated (when MessageUpdated fires).
+                frm.MessageUpdated += new WorkOrder.WO_Labels.MessageUpdateHandler(WO_Create_ButtonClicked);
+
+                frm.Text = "PF.WorkOrder.WO_Labels (Process Factory --> Work Orders --> Pallets)";
+                //frm.TopMost = true; // 21/10/2015 BN
+                frm.Show();
+                Cursor = Cursors.Default;
+
+                frm.cmb_Material.SelectedIndex = 0;
+                frm.cmb_Pallet_Type.SelectedIndex = 0;
+                frm.cmb_Batch1.SelectedIndex = 0;
+                frm.nud_Quantity1.Value = 1;
+                frm.btn_Add_Click(frm.btn_Add, EventArgs.Empty);
+
+                string barcode = "";
+                DataGridViewCellCollection dgvcc;
+                // Move to row 0, position 3 to select the barcode
+                foreach (DataGridViewRow dgvr in frm.dataGridView1.Rows)
+                {
+                    dgvcc = dgvr.Cells;
+                    barcode = dgvcc[3].FormattedValue.ToString();
+                }
+                if (barcode != null && barcode != "")
+                {
+                    Clipboard.SetText(barcode);
+                    frm.labelBarcodeCopy.Text = barcode;
+                }
+
+                frm.btn_Close.Focus();
+
+                Application.DoEvents();                 // Let any background screens refresh
+                System.Threading.Thread.Sleep(2000);    // Wait 2 seconds
+
+
+                if (fullAutoModeToolStripMenuItem.CheckState == CheckState.Checked)
+                {
+                    toolStripStatusLabelActive.Text = "Automation Message: ";
+                    toolStripStatusLabelBoldText.Text = "Pallet has been tipped to the order";
+
+                    frm.btn_Close_Click(frm.btn_Close, EventArgs.Empty);
+                }
+
+            }
+        }
+        private void dispatchOrdersCreateToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Switch to the tab we want to be working from
+            this.tabControlMain.SelectedTab = tabPageDispatch;
+
+            //Dispatch_Orders_Create_Click(buttonDispatchOrdersCreate, EventArgs.Empty);
+
+            Cursor = Cursors.WaitCursor;
+            PF.Dispatch.Shipping_Order frm = new PF.Dispatch.Shipping_Order(int_User_id, Convert.ToBoolean((buttonDispatchOrdersCreate).Tag.ToString()));
+            frm.Text = "PF.Dispatch.Shipping_Order (Dispatch --> Orders --> Create)";
+
+            frm.Show();
+            
+            frm.customer1.Customer_Id = 13; // Ffowcs Williams
+            frm.txt_Customer_Ref.Text = "Auto";
+            frm.txt_Comments.Text = "Automated Comment: " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString();
+            frm.cmb_Truck.SelectedIndex = 0;
+            frm.cmb_Destination.SelectedIndex = 0;
+            frm.txt_Freight_Docket.Text = "Auto Freight";
+
+            DataGridViewCellCollection dgvcc;
+            // Move to row 0, position 3 to select the barcode
+            foreach (DataGridViewRow dgvr in frm.dataGridView2.Rows)
+            {
+                dgvcc = dgvr.Cells;
+                dgvcc[2].Value = "1";
+                break;  // Just set the first entry
+            }
+
+
+            // When the button is pressed, the shipping_Staff form is opened immediately afterwards
+            // So signal that automated testing is in progress
+            PF.Global.Global.bool_AutomatedTesting = true;
+
+            Application.DoEvents();                 // Let any background screens refresh
+            System.Threading.Thread.Sleep(2000);    // Wait 2 seconds
+
+            if (fullAutoModeToolStripMenuItem.CheckState == CheckState.Checked)
+            {
+                frm.btn_Add_Click(frm.btn_Add, EventArgs.Empty);
+                toolStripStatusLabelActive.Text = "Automation Message: ";
+                toolStripStatusLabelBoldText.Text = "Pallet has been tipped to the order";
+
+                frm.btn_Close_Click(frm.btn_Close, EventArgs.Empty);
+            }
+
+            Cursor = Cursors.Default;
+
+        }
+
+        private void dispatchScanningAddProductToOrderToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Switch to the tab we want to be working from
+            this.tabControlMain.SelectedTab = tabPageDispatch;
+
+            Cursor = Cursors.WaitCursor;
+            PF.Utils.Scanning.Tipping_Onto_Order frm = new PF.Utils.Scanning.Tipping_Onto_Order(int_User_id, Convert.ToBoolean((buttonDispatchScanningAddProductToOrder).Tag.ToString()));
+            frm.Text = "PF.Utils.Scanning.Tipping_Onto_Order (Dispatch --> Scanning --> Add Product to Order)";
+
+            frm.Show();
+            Cursor = Cursors.Default;
+            frm.multiColumnComboBoxOrders.SelectedIndex = frm.multiColumnComboBoxOrders.Items.Count -1;
+
+            if (Clipboard.GetText() != "")
+            {
+                string clipText = Clipboard.GetText();
+                if(clipText.StartsWith("00394"))
+                {
+                    frm.barcode1.BarcodeValue = clipText;
+                }
+
+                //00394210096400038618 // A valid barcode always starts with 00394
+                // 94 	EAN New Zealand 	nz
+                // 940 – 949 GS1 New Zealand
+            }
+
+            DataGridViewCellCollection dgvcc;
+            // Move to row 0, position 3 to select the barcode
+            foreach (DataGridViewRow dgvr in frm.dataGridView1.Rows)
+            {
+                dgvcc = dgvr.Cells;
+                dgvcc[4].Value = "1";
+                break;  // Just set the first entry
+            }
+            
+            // Highlight the Add button
+            frm.btn_Add.Focus();
+
+            Application.DoEvents();                 // Let any background screens refresh
+            System.Threading.Thread.Sleep(2000);    // Wait 2 seconds
+
+
+            if(fullAutoModeToolStripMenuItem.CheckState == CheckState.Checked)
+            {
+                frm.btn_Add_Click(frm.btn_Add, EventArgs.Empty);
+                toolStripStatusLabelActive.Text = "Automation Message: ";
+                toolStripStatusLabelBoldText.Text = "Pallet has been tipped to the order";
+
+                frm.btn_Close_Click(frm.btn_Close, EventArgs.Empty);
+            }
+        }
+
+        private void accountingInvoicingSalesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // Switch to the tab we want to be working from
+            this.tabControlMain.SelectedTab = tabPageAccounting;
+
+            Cursor = Cursors.WaitCursor;
+
+            PF.Accounts.Invoicing_Sales frm = new PF.Accounts.Invoicing_Sales(int_User_id, Convert.ToBoolean((buttonAccountingInvoicingSales).Tag.ToString()));
+            frm.Text = "PF.Accounts.Invoicing_Sales (Accounting --> Invoicing --> Sales)";
+
+            frm.HistoryUpdated += frm_HistoryUpdated;   // Attach to the EventHandler
+
+            // 31-3-2015 BN
+            frm.Show(this); // Changed this to add the Form parameter in the constructor - same thing, but a bit different
+
+            Cursor = Cursors.Default;
+            frm.customer1.Customer_Id = 13;     // Ffowcs Williams
+
+            // Force the control to update - BN 4/12/2015
+            frm.customer1.cmb_Customer_SelectionChangeCommitted(frm.customer1, EventArgs.Empty);
+
+            // Select the first checkbox in the datagridview
+            DataGridViewCellCollection dgvcc;
+            // Move to row 0, position 0 to select the barcode
+            foreach (DataGridViewRow dgvr in frm.dataGridView2.Rows)    // Top DataGridView
+            {
+                dgvcc = dgvr.Cells;
+
+                // The first cell is a CheckBox type
+                DataGridViewCheckBoxCell dgvcbc = (DataGridViewCheckBoxCell)dgvcc[0];
+
+                dgvcbc.TrueValue = true;            // These two lines are pretty obscure, but it works
+                dgvcbc.Value = dgvcbc.TrueValue;    // These two lines are pretty obscure, but it works
+                break;                              // Just set the first entry and exit
+            }
+
+            frm.btn_Add_Click(frm.btn_Add, EventArgs.Empty);
+            frm.ckb_COA.CheckState = CheckState.Checked;
+            frm.txt_order_num.Text = "Auto";
+            frm.txt_comments.Text = "Automated Comment: " + DateTime.Now.ToShortDateString() + " " + DateTime.Now.ToShortTimeString();
+
+            toolStripStatusLabelActive.Text = "Automation Message: ";
+            toolStripStatusLabelBoldText.Text = "Automation has completed";
+
+            Application.DoEvents();                 // Let any background screens refresh
+            //System.Threading.Thread.Sleep(3000);    // Wait 3 seconds
+
+        }
+
+        private void accountingSalesRatesOptionalToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // This will be triggered by a missing rates message, so I'll be removing it from the menu 
+            // Sometime this weekend
+        }
+
+        private void fullAutoModeToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // CheckOnClick property set to true - BN 4/12/2015
+            // Call each automation step in turn
+
+            //disableNetworkValidationForEmailTestingToolStripMenuItem_Click(this, EventArgs.Empty);
+
+            processFactoryWorkOrdersCreateViewToolStripMenuItem_Click(this, EventArgs.Empty);
+            processFactoryWorkOrdersOutputToolStripMenuItem_Click(this, EventArgs.Empty);
+            extraScanningTabletMenuCombinedToolStripMenuItem1_Click(this, EventArgs.Empty);
+            processFactoryWorkOrdersPalletsToolStripMenuItem_Click(this, EventArgs.Empty);
+            dispatchOrdersCreateToolStripMenuItem_Click(this, EventArgs.Empty);
+            dispatchScanningAddProductToOrderToolStripMenuItem_Click(this, EventArgs.Empty);
+            accountingInvoicingSalesToolStripMenuItem_Click(this, EventArgs.Empty);
         }
 
     } // End of Main Class

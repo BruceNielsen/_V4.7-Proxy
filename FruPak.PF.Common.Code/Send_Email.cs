@@ -195,27 +195,28 @@ namespace PF.Common.Code
 
             // Inside here I can switch off all network validation so i can test for correct email functionality
             // BN 11/08/2015 -----------------------------------------------------------------------------------
-
-            //if (txt_Email_From.TextLength <= 0)
-            //{
-            //    str_msg = str_msg + "Invalid Email Address. Please enter a valid FP Email Address." + Environment.NewLine;
-            //}
-            //if (txt_Network_Id.TextLength <= 0)
-            //{
-            //    str_msg = str_msg + "Invalid UserId. Please enter the valid network UserId, that is associated with the supplied Email Address " + Environment.NewLine;
-            //}
-            //if (txt_Network_Pswd.TextLength <= 0)
-            //{
-            //    str_msg = str_msg + "Invalid Password. Please enter the valid network Password, that is associated with the supplied UserId" + Environment.NewLine;
-            //}
-            //if (txt_Network_Id.TextLength > 0 && txt_Network_Pswd.TextLength > 0)
-            //{
-            //    if (Validate_User(txt_Network_Id.Text, txt_Network_Pswd.Text) == false)
-            //    {
-            //        str_msg = str_msg + "Invalid UserId/Password. You have entered either an Invalid UserId or and Invalid Password. Please try again." + Environment.NewLine;
-            //    }
-            //}
-
+            if (PF.Global.Global.bool_DisableNetworkVerificationForEmailTesting == false)
+            {
+                if (txt_Email_From.TextLength <= 0)
+                {
+                    str_msg = str_msg + "Invalid Email Address. Please enter a valid FP Email Address." + Environment.NewLine;
+                }
+                if (txt_Network_Id.TextLength <= 0)
+                {
+                    str_msg = str_msg + "Invalid UserId. Please enter the valid network UserId, that is associated with the supplied Email Address " + Environment.NewLine;
+                }
+                if (txt_Network_Pswd.TextLength <= 0)
+                {
+                    str_msg = str_msg + "Invalid Password. Please enter the valid network Password, that is associated with the supplied UserId" + Environment.NewLine;
+                }
+                if (txt_Network_Id.TextLength > 0 && txt_Network_Pswd.TextLength > 0)
+                {
+                    if (Validate_User(txt_Network_Id.Text, txt_Network_Pswd.Text) == false)
+                    {
+                        str_msg = str_msg + "Invalid UserId/Password. You have entered either an Invalid UserId or and Invalid Password. Please try again." + Environment.NewLine;
+                    }
+                }
+            }
             // End of switch off network validation ---------------------------------------------------------
 
             if (str_msg.Length > 0)
@@ -468,13 +469,22 @@ namespace PF.Common.Code
             {
                 if (fi.Extension == ".pdf")
                 {
-                    //PF.Common.Code.SendEmail.attachment.Add(PF.PrintLayer.Word.FilePath + "\\" + PF.PrintLayer.Word.FileName + ".PDF");
-                    //PF.Common.Code.SendEmail.attachment.Add(TempPath + "\\" + fi.Name);
+                    try
+                    {
+                        //PF.Common.Code.SendEmail.attachment.Add(PF.PrintLayer.Word.FilePath + "\\" + PF.PrintLayer.Word.FileName + ".PDF");
+                        //PF.Common.Code.SendEmail.attachment.Add(TempPath + "\\" + fi.Name);
 
-                    logger.Log(LogLevel.Info, "Deleting: " + fi.Name);
+                        logger.Log(LogLevel.Info, "Deleting: " + fi.Name);
 
-                    // Delete the file
-                    fi.Delete();
+                        // Delete the file
+                        fi.Delete();
+                    }
+                    catch (Exception ex)
+                    {
+                        logger.Log(LogLevel.Info, "Unable to delete: " + fi.Name + " " + ex.Message);
+
+                    }
+
                 }
             }
 

@@ -644,7 +644,9 @@ namespace PF.Dispatch
                             }
                             else
                             {
-                                str_delivery_name = PF.Data.Outlook.Contacts.Contact_First_Name + " " + PF.Data.Outlook.Contacts.Contact_Last_Name;
+                                //str_delivery_name = PF.Data.Outlook.Contacts.Contact_First_Name + " " + PF.Data.Outlook.Contacts.Contact_Last_Name;
+
+                                str_delivery_name = PF.Data.Outlook.Contacts.Contact_Company_Name;
                             }
 
                             //str_delivery_name = PF.Data.Outlook.Contacts.Contact_Company_Name;

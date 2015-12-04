@@ -7,11 +7,14 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using PF.CustomSettings;
 
 namespace PF.Accounts
 {
     public partial class Invoice_Search : Form
     {
+        private static PhantomCustomSettings Settings;
+
         #region Delegates to pass messages - place just after public partial class
 
         // add a delegate
@@ -344,6 +347,42 @@ namespace PF.Accounts
             }
         }
 
+        public static void AttachAnyPdfsInTheTempFolder()
+        {
+            try
+            {
+                // This is new, now that I've finally got the COA print to pdf working
+                string TempPath = string.Empty;
+
+                #region Pull the temp path from the database
+                string path = Application.StartupPath;
+                Settings = new PhantomCustomSettings();
+                Settings.SettingsPath = Path.Combine(path, "FP.Phantom.config");
+                Settings.EncryptionKey = "phantomKey";
+                Settings.Load();
+                TempPath = Settings.Path_Local_PDF_Files;
+
+                DirectoryInfo di = new DirectoryInfo(TempPath);
+                foreach (FileInfo fi in di.GetFiles())
+                {
+                    if (fi.Extension.ToLower() == ".pdf")   // Added ToLower() 3/12/2015
+                    {
+                        //PF.Common.Code.SendEmail.attachment.Add(PF.PrintLayer.Word.FilePath + "\\" + PF.PrintLayer.Word.FileName + ".PDF");
+                        PF.Common.Code.SendEmail.attachment.Add(TempPath + "\\" + fi.Name);
+                        logger.Log(LogLevel.Info, "Adding attachment for Customer: " + fi.Name);
+                    }
+                }
+
+                #endregion
+            }
+            catch (Exception ex)
+            {
+                Common.Code.DebugStacktrace.StackTrace(ex);
+
+            }
+
+        }
+
         private void btn_Email_Customer_Click(object sender, EventArgs e)
         {
             if (dataGridView1.CurrentRow != null)   // BN fix 10-03-2015 - Would crash if no rows and you accidentally hit the button
@@ -358,13 +397,17 @@ namespace PF.Accounts
                 PF.Common.Code.Send_Email.Email_Subject = "";
                 PF.Common.Code.Send_Email.Email_Message = "";
                 str_msg = str_msg + Create_PDF_Defaults("Email", Convert.ToInt32(dataGridView1.CurrentRow.Cells["Invoice_Id"].Value.ToString()), dataGridView1.CurrentRow.Cells["Invoice_Date"].Value.ToString(), dataGridView1.CurrentRow.Cells["Order_Num"].Value.ToString());
-                PF.Common.Code.SendEmail.attachment = new List<string>();
 
-                foreach (string view_file in PF.PrintLayer.General.view_list)
-                {
-                    PF.Common.Code.SendEmail.attachment.Add(PF.PrintLayer.Word.FilePath + "\\" + view_file);
-                    logger.Log(LogLevel.Info, "Adding attachment for Customer: " + view_file);
-                }
+                // I think I've just found it 3/12/2015 - This is probably the bit that fails at attaching more than one invoice
+                //PF.Common.Code.SendEmail.attachment = new List<string>();
+
+                //foreach (string view_file in PF.PrintLayer.General.view_list)
+                //{
+                //    PF.Common.Code.SendEmail.attachment.Add(PF.PrintLayer.Word.FilePath + "\\" + view_file);
+                //    logger.Log(LogLevel.Info, "Adding attachment for Customer: " + view_file);
+                //}
+
+                AttachAnyPdfsInTheTempFolder();
 
                 // print COA
 

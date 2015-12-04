@@ -10,6 +10,14 @@ namespace PF.WorkOrder
 {
     public partial class WO_Labels : Form
     {
+        #region Messaging between forms - BN 21-22/11/2015
+        // add a delegate
+        public delegate void MessageUpdateHandler(object sender, MessageUpdateEventArgs e);
+
+        // add an event of the delegate type
+        public event MessageUpdateHandler MessageUpdated;
+        #endregion
+
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
         // Phantom 17/12/2014 Declare application settings object
@@ -639,7 +647,7 @@ namespace PF.WorkOrder
         private static string str_barcode = "";
         private static int int_Season = 0;
 
-        private void btn_Add_Click(object sender, EventArgs e)
+        public void btn_Add_Click(object sender, EventArgs e)
         {
             int return_code = 0;
             return_code = Submit();
@@ -1084,8 +1092,20 @@ namespace PF.WorkOrder
             }
         }
 
-        private void btn_Close_Click(object sender, EventArgs e)
+        public void btn_Close_Click(object sender, EventArgs e)
         {
+            SendMessageHome("", "Material: " + this.cmb_Material.Text);
+            SendMessageHome("", "Pallet Type: " + this.cmb_Pallet_Type.Text);
+            SendMessageHome("", "Location: " + this.cmb_Location.Text);
+            SendMessageHome("", "Batch 1: " + this.cmb_Batch1.Text);
+            SendMessageHome("", "Qty On Pallet 1: " + this.nud_Quantity1.Text);
+            SendMessageHome("", "Batch 2: " + this.cmb_Batch2.Text);
+            SendMessageHome("", "Qty On Pallet 2: " + this.nud_Quantity2.Text);
+            SendMessageHome("", "Batch 3: " + this.cmb_Batch3.Text);
+            SendMessageHome("", "Qty On Pallet 3: " + this.nud_Quantity3.Text);
+            SendMessageHome("", "Orders: " + this.cmb_Orders.Text);
+            SendMessageHome("", "Total: " + this.txt_Pallet_Total.Text);
+
             this.Close();
         }
 
@@ -1673,5 +1693,48 @@ namespace PF.WorkOrder
         }
 
         #endregion Methods to log UI events to the CSV file. BN 29/01/2015
+
+        private void SendMessageHome(string Header, string Message)
+        {
+            // This will raise the event which can then intercepted by any listeners
+
+            // instance the event args and pass it each value
+            MessageUpdateEventArgs args = new MessageUpdateEventArgs(Header, Message);
+
+            // raise the event with the updated arguments
+            MessageUpdated(this, args);
+        }
+
+        private void WO_Labels_Shown(object sender, EventArgs e)
+        {
+            // This sets the root tree branch a.k.a. header in the treeview
+            // Note that for this to work, I'm just sending the header and passing an empty string as the message
+            // What that does is to instruct the main app to create a root branch and populate the text property
+            // with the stuff below.
+            // When I want to add stuff below the root branch, I reverse things, as in, the header part is now empty,
+            // and the message part is utilised.
+             
+            SendMessageHome("Work Orders (Pallets) - " + this.woDisplay1.WorkOrder + ", " + DateTime.Now.ToShortTimeString(), "");
+
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                DataGridViewCell cell = dataGridView1.SelectedCells[0] as DataGridViewCell;
+                if (cell != null)
+                {
+                    string barcode = cell.Value.ToString();
+                    Clipboard.SetText(barcode);
+                    labelBarcodeCopy.Text = Clipboard.GetText();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
     }
 }

@@ -9,6 +9,7 @@ namespace PF.Utils.Scanning
     {
         // Phantom 11/12/2014
         private static Logger logger = LogManager.GetCurrentClassLogger();
+        DataTable dt_Custom;    // For Multi-Column ComboBox and also TreeView - BN 29/11/2015
 
         private static bool bool_write_access;
         private static int int_Current_User_Id = 0;
@@ -87,16 +88,42 @@ namespace PF.Utils.Scanning
         {
             DataSet ds_Get_Info = PF.Data.AccessLayer.PF_Orders.Get_Info_Desc();
 
-            cmb_Orders.DataSource = ds_Get_Info.Tables[0];
-            cmb_Orders.DisplayMember = "Order_Id";
-            cmb_Orders.ValueMember = "Order_Id";
-            cmb_Orders.Text = null;
+            //multiColumnComboBoxOrders.DataSource = ds_Get_Info.Tables[0];
+            //multiColumnComboBoxOrders.DisplayMember = "Order_Id";
+            //multiColumnComboBoxOrders.ValueMember = "Order_Id";
+            multiColumnComboBoxOrders.Text = null;
+
+            // MultiColumnComboBox - BN 29/11/2015
+
+            // Make a copy of the data
+            dt_Custom = ds_Get_Info.Tables[0];
+
+            // Remove the columns we don't want to see
+            dt_Custom.Columns.Remove("Truck_Id");
+            dt_Custom.Columns.Remove("City_Id");
+            dt_Custom.Columns.Remove("Load_Date");
+            dt_Custom.Columns.Remove("PF_Active_Ind");
+            dt_Custom.Columns.Remove("Mod_User_Id");
+            dt_Custom.Columns.Remove("Invoice_Id");
+            dt_Custom.Columns.Remove("Customer_Id");
+            dt_Custom.Columns.Remove("Hold_For_Payment");
+
+            // The Comments field can be a bit too long but there's no easy way to override it
+            // Easiest thing right now is to adjust the forms start position until I can find
+            // either a better way of displaying the data or another ComboBox control entirely
+
+            //dt_Custom.Columns("Comments");
+
+            multiColumnComboBoxOrders.DataSource = dt_Custom;
+            multiColumnComboBoxOrders.DisplayMember = "Order_Id";
+            multiColumnComboBoxOrders.ValueMember = "Order_Id";
+
             ds_Get_Info.Dispose();
         }
 
         private void populate_barcode_combo()
         {
-            DataSet ds_barcode = PF.Data.AccessLayer.PF_Pallet.Get_Barcode_For_Order(Convert.ToInt32(cmb_Orders.SelectedValue.ToString()));
+            DataSet ds_barcode = PF.Data.AccessLayer.PF_Pallet.Get_Barcode_For_Order(Convert.ToInt32(multiColumnComboBoxOrders.SelectedValue.ToString()));
             cmb_barcode2.DataSource = ds_barcode.Tables[0];
             cmb_barcode2.DisplayMember = "Barcode";
             cmb_barcode2.ValueMember = "Barcode";
@@ -175,7 +202,18 @@ namespace PF.Utils.Scanning
 
         private void SizeAllColumns(Object sender, EventArgs e)
         {
+            // Move the form away from centre screen to allow for the ridiculously long comments
+            // which hide the new ComboBox dropdown info off screen - BN 29/11/2015
+            //this.Left = 100;
+            //this.Top = 100;
+
             ColumnSize();
+
+            // multiColumnComboBoxOrders gets populated accidentally at startup - bit confusing - BN 29/11/2015
+            multiColumnComboBoxOrders.Text = "";
+
+            // Treeview gets populated accidentally at startup - bit confusing - BN 29/11/2015
+            treeViewTipOrder.Nodes.Clear();
         }
 
         private void ColumnSize()
@@ -226,7 +264,7 @@ namespace PF.Utils.Scanning
             txt_total.Text = Convert.ToString(int_new_value);
         }
 
-        private void btn_Add_Click(object sender, EventArgs e)
+        public void btn_Add_Click(object sender, EventArgs e)
         {
             string str_msg = "";
             int int_req_Amount = 0;
@@ -234,7 +272,7 @@ namespace PF.Utils.Scanning
             int int_result = 0;
             DialogResult DLR_Message = new DialogResult();
 
-            if (cmb_Orders.SelectedValue == null)
+            if (multiColumnComboBoxOrders.SelectedValue == null)
             {
                 str_msg = str_msg + "Invalid Order. Please Select an Order Number from the dropdown list.";
                 lbl_message.Text = str_msg;
@@ -279,7 +317,7 @@ namespace PF.Utils.Scanning
                 }
 
                 //find out if the order is waiting on payment
-                DataSet ds = PF.Data.AccessLayer.PF_Orders.Get_Info(Convert.ToInt32(cmb_Orders.SelectedValue.ToString()));
+                DataSet ds = PF.Data.AccessLayer.PF_Orders.Get_Info(Convert.ToInt32(multiColumnComboBoxOrders.SelectedValue.ToString()));
                 DataRow dr;
                 bool bol_hold_for_payment = false;
                 for (int i = 0; i < ds.Tables[0].Rows.Count; i++)
@@ -298,11 +336,18 @@ namespace PF.Utils.Scanning
                     {
                         // BN 21/01/2015 - Will crash here if rowcount = 0.
                         // Ideally, the Tip to Order button would be greyed out until there was actually at least one order ready
-                        int_result = PF.Data.AccessLayer.PF_Pallet.Update_Order_Id(Convert.ToInt32(dataGridView1.Rows[0].Cells["Pallet_Id"].Value.ToString()), Convert.ToInt32(cmb_Orders.SelectedValue.ToString()), int_Current_User_Id);
+                        if (dataGridView1.Rows.Count > 0)
+                        {
+                            int_result = PF.Data.AccessLayer.PF_Pallet.Update_Order_Id(Convert.ToInt32(dataGridView1.Rows[0].Cells["Pallet_Id"].Value.ToString()), Convert.ToInt32(multiColumnComboBoxOrders.SelectedValue.ToString()), int_Current_User_Id);
+                        }
+                        else
+                        {
+                            MessageBox.Show("DataGrid is empty", "Problem", MessageBoxButtons.OK, MessageBoxIcon.Hand);
+                        }
                     }
                     else
                     {
-                        int_result = PF.Data.AccessLayer.PF_Pallet.Update__Hold_Order_Id(Convert.ToInt32(dataGridView1.Rows[0].Cells["Pallet_Id"].Value.ToString()), Convert.ToInt32(cmb_Orders.SelectedValue.ToString()), int_Current_User_Id);
+                        int_result = PF.Data.AccessLayer.PF_Pallet.Update__Hold_Order_Id(Convert.ToInt32(dataGridView1.Rows[0].Cells["Pallet_Id"].Value.ToString()), Convert.ToInt32(multiColumnComboBoxOrders.SelectedValue.ToString()), int_Current_User_Id);
                     }
                 }
 
@@ -349,7 +394,7 @@ namespace PF.Utils.Scanning
                                     str_barcode,
                                     int_loc_id,
                                     Convert.ToInt32(dr_Get_info["Trader_Id"].ToString()),
-                                    Convert.ToInt32(cmb_Orders.SelectedValue.ToString()),
+                                    Convert.ToInt32(multiColumnComboBoxOrders.SelectedValue.ToString()),
                                     false,
                                     PF.Common.Code.General.Get_Season(),
                                     int_Current_User_Id);
@@ -361,7 +406,7 @@ namespace PF.Utils.Scanning
                                     str_barcode,
                                     int_loc_id,
                                     Convert.ToInt32(dr_Get_info["Trader_Id"].ToString()),
-                                    Convert.ToInt32(cmb_Orders.SelectedValue.ToString()),
+                                    Convert.ToInt32(multiColumnComboBoxOrders.SelectedValue.ToString()),
                                     false,
                                     PF.Common.Code.General.Get_Season(),
                                     int_Current_User_Id);
@@ -491,7 +536,7 @@ namespace PF.Utils.Scanning
         private void button2_Click(object sender, EventArgs e)
         {
             //this is to change the package from a plastic bag to a box example only
-            if (cmb_Orders.SelectedValue == null)
+            if (multiColumnComboBoxOrders.SelectedValue == null)
             {
                 lbl_message.Text = "Invalid Order. Please Select an Order Number from the dropdown list.";
                 lbl_message.ForeColor = System.Drawing.Color.Red;
@@ -519,20 +564,7 @@ namespace PF.Utils.Scanning
             }
         }
 
-        private void cmb_Orders_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            try
-            {
-                Convert.ToInt32(cmb_Orders.SelectedValue.ToString());
-                populate_barcode_combo();
-            }
-            catch (Exception ex)
-            {
-                logger.Log(LogLevel.Debug, ex.Message);
-            }
-        }
-
-        private void btn_Close_Click(object sender, EventArgs e)
+        public void btn_Close_Click(object sender, EventArgs e)
         {
             this.Close();
         }
@@ -634,5 +666,51 @@ namespace PF.Utils.Scanning
         }
 
         #endregion Methods to log UI events to the CSV file. BN 29/01/2015
+
+        private void multiColumnComboBoxOrders_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int currentIndex = multiColumnComboBoxOrders.SelectedIndex;
+
+            treeViewTipOrder.Nodes.Clear();
+            TreeNode tnRoot = new TreeNode();
+
+            tnRoot.Text = "Order";    // 
+
+            //for (int i = 0; i < dt_Custom.Columns.Count; i++)
+            //{
+                for (int iCell = 0; iCell < dt_Custom.Rows[currentIndex].ItemArray.Length; iCell++)
+                {
+                    TreeNode tn = new TreeNode(dt_Custom.Columns[iCell].ColumnName + ": " + dt_Custom.Rows[currentIndex].ItemArray[iCell].ToString());
+                    tnRoot.Nodes.Add(tn);
+                }
+            //}
+            treeViewTipOrder.Nodes.Add(tnRoot);    // order number as root text
+            treeViewTipOrder.ExpandAll();
+        }
+
+        private void multiColumnComboBoxOrders_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            try
+            {
+                Convert.ToInt32(multiColumnComboBoxOrders.SelectedValue.ToString());
+                populate_barcode_combo();
+            }
+            catch (Exception ex)
+            {
+                logger.Log(LogLevel.Debug, ex.Message);
+            }
+        }
+
+        private void buttonPasteThePalletBarcode_Click(object sender, EventArgs e)
+        {
+            string barcode = Clipboard.GetText();
+            barcode1.BarcodeValue = barcode;
+
+        }
+
+        private void buttonClearTheBarcodeText_Click(object sender, EventArgs e)
+        {
+            barcode1.BarcodeValue = string.Empty;
+        }
     }
 }

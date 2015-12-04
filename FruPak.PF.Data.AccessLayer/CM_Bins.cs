@@ -261,6 +261,17 @@ namespace PF.Data.AccessLayer
             return SQLAccessLayer.Run_Query("SELECT * FROM dbo.CM_Bins WHERE barcode = '" + barcode + "' ");
         }
 
+        /// <summary>
+        /// BN 4/12/2015 for automated testing
+        /// </summary>
+        /// <returns></returns>
+        public static DataSet Get_All_Barcodes_Where_Tipped_Date_Is_Null()
+        {
+            PF.Data.AccessLayer.DConfig.CreateDConfig();
+            //return SQLAccessLayer.Run_Query("SELECT * FROM dbo.CM_Bins WHERE Tipped_Date = '" + null + "' ");
+            return SQLAccessLayer.Run_Query("SELECT * FROM dbo.CM_Bins WHERE Tipped_Date IS NULL");
+        }
+
         public static DataSet Get_All_For_GDIBarcode(string barcode)
         {
             PF.Data.AccessLayer.DConfig.CreateDConfig();

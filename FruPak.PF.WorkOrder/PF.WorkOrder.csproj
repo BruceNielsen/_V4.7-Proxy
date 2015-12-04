@@ -61,6 +61,9 @@
     <Reference Include="NLog">
       <HintPath>..\packages\NLog.3.1.0.0\lib\net40\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="Scs">
+      <HintPath>..\Scs.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -79,6 +82,7 @@
     <Compile Include="Cleaning.designer.cs">
       <DependentUpon>Cleaning.cs</DependentUpon>
     </Compile>
+    <Compile Include="Messaging.cs" />
     <Compile Include="Work_Order_Maintenance.cs">
       <SubType>Form</SubType>
     </Compile>

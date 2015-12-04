@@ -7,6 +7,14 @@ namespace PF.WorkOrder
 {
     public partial class WO_Staff : Form
     {
+        #region Messaging between forms - BN 21-22/11/2015
+        // add a delegate
+        public delegate void MessageUpdateHandler(object sender, MessageUpdateEventArgs e);
+
+        // add an event of the delegate type
+        public event MessageUpdateHandler MessageUpdated;
+        #endregion
+
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static bool bol_write_access;
@@ -278,6 +286,8 @@ namespace PF.WorkOrder
                 {
                     if (cmb_Staff.SelectedValue != null)
                     {
+                        SendMessageHome("", "Staff Member: " + this.cmb_Staff.Text);
+
                         int_result = PF.Data.AccessLayer.PF_Work_Order_Staff_Relationship.Insert(PF.Common.Code.General.int_max_user_id("PF_Work_Order_Staff_Relationship"), int_Work_Order_Id, Convert.ToInt32(cmb_Staff.SelectedValue.ToString()), Convert.ToBoolean(ckb_Process_Hours.Checked), Convert.ToDecimal(nud_Extra_Hours.Value), int_Current_User_Id);
                         lbl_message.Text = "Staff Member has been added to the Work Order";
                     }
@@ -409,6 +419,17 @@ namespace PF.WorkOrder
             this.Close();
         }
 
+        private void SendMessageHome(string Header, string Message)
+        {
+            // This will raise the event which can then intercepted by any listeners
+
+            // instance the event args and pass it each value
+            MessageUpdateEventArgs args = new MessageUpdateEventArgs(Header, Message);
+
+            // raise the event with the updated arguments
+            MessageUpdated(this, args);
+        }
+
         private void KeyDown_1(object sender, KeyEventArgs e)
         {
             if (e.KeyData == Keys.Enter)
@@ -523,5 +544,13 @@ namespace PF.WorkOrder
         }
 
         #endregion Methods to log UI events to the CSV file. BN 29/01/2015
+
+        private void WO_Staff_Shown(object sender, EventArgs e)
+        {
+
+            SendMessageHome("Work Orders (Staff) - " + this.woDisplay1.WorkOrder + ", " + DateTime.Now.ToShortTimeString(), "");
+
+        }
     }
+
 }

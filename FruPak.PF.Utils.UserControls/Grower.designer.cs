@@ -91,8 +91,8 @@
         #endregion
 
         private System.Windows.Forms.Label lbl_Variety;
-        private System.Windows.Forms.ComboBox cmb_Grower;
         private System.Windows.Forms.Label lbl_Fruit_Type;
         private System.Windows.Forms.ComboBox cmb_Orchardist;
+        public System.Windows.Forms.ComboBox cmb_Grower;
     }
 }

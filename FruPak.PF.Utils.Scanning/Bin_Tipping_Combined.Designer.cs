@@ -96,8 +96,9 @@
             this.lbl_message_BinTipping.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_message_BinTipping.Location = new System.Drawing.Point(18, 23);
             this.lbl_message_BinTipping.Name = "lbl_message_BinTipping";
-            this.lbl_message_BinTipping.Size = new System.Drawing.Size(2, 22);
+            this.lbl_message_BinTipping.Size = new System.Drawing.Size(15, 22);
             this.lbl_message_BinTipping.TabIndex = 26;
+            this.lbl_message_BinTipping.Text = ".";
             // 
             // btn_Weight_BinTipping
             // 
@@ -313,8 +314,9 @@
             this.lbl_message_BinTareWeights.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_message_BinTareWeights.Location = new System.Drawing.Point(50, 23);
             this.lbl_message_BinTareWeights.Name = "lbl_message_BinTareWeights";
-            this.lbl_message_BinTareWeights.Size = new System.Drawing.Size(2, 22);
+            this.lbl_message_BinTareWeights.Size = new System.Drawing.Size(15, 22);
             this.lbl_message_BinTareWeights.TabIndex = 32;
+            this.lbl_message_BinTareWeights.Text = ".";
             // 
             // lbl_weight_BinTareWeights
             // 
@@ -339,6 +341,7 @@
             this.Name = "Bin_Tipping_Combined";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PF.Utils.Scanning.Bin_Tipping_Combined";
+            this.Shown += new System.EventHandler(this.Bin_Tipping_Combined_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Bin_Tipping_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.nud_weight_BinTipping)).EndInit();
             this.groupBoxBinTipping.ResumeLayout(false);
@@ -355,17 +358,10 @@
         private System.Windows.Forms.Label label_WorkOrder_BinTipping;
         private System.Windows.Forms.NumericUpDown nud_weight_BinTipping;
         private System.Windows.Forms.Label lbl_message_BinTipping;
-        private System.Windows.Forms.Button btn_Weight_BinTipping;
         private System.Windows.Forms.Label lbl_weight_BinTipping;
-        private System.Windows.Forms.Button btn_Close_BinTipping;
         private System.Windows.Forms.Label lbl_WO_Num;
-        private System.Windows.Forms.Button btn_Dry_BinTipping;
-        private System.Windows.Forms.Button btn_Wet_BinTipping;
-        private UserControls.Barcode barcode_BinTipping;
         private System.Windows.Forms.GroupBox groupBoxBinTipping;
         private System.Windows.Forms.GroupBox groupBoxBinTareWeights;
-        private UserControls.Barcode barcode_BinTareWeights;
-        private System.Windows.Forms.Button btn_Tipped_BinTareWeights;
         private System.Windows.Forms.NumericUpDown nud_weight_BinTareWeights;
         private System.Windows.Forms.Label lbl_message_BinTareWeights;
         private System.Windows.Forms.Label lbl_weight_BinTareWeights;
@@ -374,5 +370,12 @@
         private System.Windows.Forms.Button buttonCopyBinTareWeightsBarcode;
         private System.Windows.Forms.Button buttonZeroGrossWeight;
         private System.Windows.Forms.Button buttonZeroBinTareWeight;
+        public System.Windows.Forms.Button btn_Weight_BinTipping;
+        public System.Windows.Forms.Button btn_Close_BinTipping;
+        public System.Windows.Forms.Button btn_Dry_BinTipping;
+        public System.Windows.Forms.Button btn_Wet_BinTipping;
+        public UserControls.Barcode barcode_BinTipping;
+        public UserControls.Barcode barcode_BinTareWeights;
+        public System.Windows.Forms.Button btn_Tipped_BinTareWeights;
     }
 }

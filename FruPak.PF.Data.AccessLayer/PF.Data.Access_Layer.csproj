@@ -8,8 +8,8 @@
     <ProjectGuid>{3414FDC5-0AA3-46FA-BDCB-37954C6CE2F5}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FruPak.PF.Data.AccessLayer</RootNamespace>
-    <AssemblyName>FruPak.PF.Data.AccessLayer</AssemblyName>
+    <RootNamespace>PF.Data.AccessLayer</RootNamespace>
+    <AssemblyName>PF.Data.AccessLayer</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />

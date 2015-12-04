@@ -62,6 +62,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\packages\NLog.3.1.0.0\lib\net40\NLog.dll</HintPath>
     </Reference>
+    <Reference Include="Scs, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Scs.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Design" />
@@ -136,6 +140,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Tools\GroupedComboBox\Interop.cs" />
+    <Compile Include="Tools\MultiColumnComboBox\MultiColumnComboBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Tools\TheGrouper\Grouper.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -242,6 +249,10 @@
     <ProjectReference Include="..\FruPak.PF.Utils.Server\PF.Utils.Server.csproj">
       <Project>{E2D0A8A0-1F94-4845-A2E0-C7CC26FE7B81}</Project>
       <Name>PF.Utils.Server</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\FruPak.PF.Utils.UserControls\PF.Utils.UserControls.csproj">
+      <Project>{23D1F355-55B4-4116-A9D6-C9AE36819F78}</Project>
+      <Name>PF.Utils.UserControls</Name>
     </ProjectReference>
     <ProjectReference Include="..\FruPak.PF.WorkOrder\PF.WorkOrder.csproj">
       <Project>{264AB94C-1838-4790-8EA1-29459CB99445}</Project>

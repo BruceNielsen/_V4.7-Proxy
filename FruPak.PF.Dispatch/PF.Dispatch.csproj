@@ -8,8 +8,8 @@
     <ProjectGuid>{8811330E-005A-4AED-A0AC-7692C129AE9A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FruPak.PF.Dispatch</RootNamespace>
-    <AssemblyName>FruPak.PF.Dispatch</AssemblyName>
+    <RootNamespace>PF.Dispatch</RootNamespace>
+    <AssemblyName>PF.Dispatch</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>
     </TargetFrameworkProfile>

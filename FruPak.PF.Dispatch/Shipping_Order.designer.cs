@@ -49,13 +49,13 @@
             this.lbl_message = new System.Windows.Forms.Label();
             this.dataGridView2 = new System.Windows.Forms.DataGridView();
             this.label2 = new System.Windows.Forms.Label();
-            this.customer1 = new PF.Utils.UserControls.Customer();
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.label3 = new System.Windows.Forms.Label();
             this.textBox2 = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.ckb_Hold_For_Payment = new System.Windows.Forms.CheckBox();
             this.panelShipping_Order = new System.Windows.Forms.Panel();
+            this.customer1 = new PF.Utils.UserControls.Customer();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView2)).BeginInit();
             this.panelShipping_Order.SuspendLayout();
@@ -74,7 +74,7 @@
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
             this.dataGridView1.RowHeadersVisible = false;
-            this.dataGridView1.Size = new System.Drawing.Size(1110, 279);
+            this.dataGridView1.Size = new System.Drawing.Size(1311, 357);
             this.dataGridView1.TabIndex = 10;
             this.dataGridView1.CellClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellClick);
             // 
@@ -181,7 +181,7 @@
             // 
             // btn_Close
             // 
-            this.btn_Close.Location = new System.Drawing.Point(889, 5);
+            this.btn_Close.Location = new System.Drawing.Point(1251, 5);
             this.btn_Close.Name = "btn_Close";
             this.btn_Close.Size = new System.Drawing.Size(75, 23);
             this.btn_Close.TabIndex = 14;
@@ -191,7 +191,7 @@
             // 
             // btn_reset
             // 
-            this.btn_reset.Location = new System.Drawing.Point(727, 5);
+            this.btn_reset.Location = new System.Drawing.Point(1089, 5);
             this.btn_reset.Name = "btn_reset";
             this.btn_reset.Size = new System.Drawing.Size(75, 23);
             this.btn_reset.TabIndex = 12;
@@ -201,7 +201,7 @@
             // 
             // btn_Add
             // 
-            this.btn_Add.Location = new System.Drawing.Point(646, 5);
+            this.btn_Add.Location = new System.Drawing.Point(1008, 5);
             this.btn_Add.Name = "btn_Add";
             this.btn_Add.Size = new System.Drawing.Size(75, 23);
             this.btn_Add.TabIndex = 11;
@@ -211,7 +211,7 @@
             // 
             // btn_Refresh
             // 
-            this.btn_Refresh.Location = new System.Drawing.Point(808, 5);
+            this.btn_Refresh.Location = new System.Drawing.Point(1170, 5);
             this.btn_Refresh.Name = "btn_Refresh";
             this.btn_Refresh.Size = new System.Drawing.Size(75, 23);
             this.btn_Refresh.TabIndex = 13;
@@ -225,8 +225,9 @@
             this.lbl_message.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lbl_message.Location = new System.Drawing.Point(12, 9);
             this.lbl_message.Name = "lbl_message";
-            this.lbl_message.Size = new System.Drawing.Size(0, 17);
+            this.lbl_message.Size = new System.Drawing.Size(12, 17);
             this.lbl_message.TabIndex = 42;
+            this.lbl_message.Text = ".";
             // 
             // dataGridView2
             // 
@@ -239,7 +240,7 @@
             this.dataGridView2.Location = new System.Drawing.Point(623, 109);
             this.dataGridView2.Name = "dataGridView2";
             this.dataGridView2.RowHeadersVisible = false;
-            this.dataGridView2.Size = new System.Drawing.Size(502, 150);
+            this.dataGridView2.Size = new System.Drawing.Size(703, 150);
             this.dataGridView2.TabIndex = 9;
             this.dataGridView2.CellLeave += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView2_CellLeave);
             // 
@@ -252,20 +253,11 @@
             this.label2.TabIndex = 44;
             this.label2.Text = "Enter the number of pallets/bins being used for delivery";
             // 
-            // customer1
-            // 
-            this.customer1.CFocused = false;
-            this.customer1.Customer_Id = 0;
-            this.customer1.Location = new System.Drawing.Point(29, 84);
-            this.customer1.Name = "customer1";
-            this.customer1.Size = new System.Drawing.Size(294, 28);
-            this.customer1.TabIndex = 2;
-            // 
             // textBox1
             // 
             this.textBox1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
             this.textBox1.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox1.Location = new System.Drawing.Point(3, 3);
+            this.textBox1.Location = new System.Drawing.Point(15, 3);
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(21, 20);
             this.textBox1.TabIndex = 67;
@@ -273,7 +265,7 @@
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(30, 10);
+            this.label3.Location = new System.Drawing.Point(42, 7);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(91, 13);
             this.label3.TabIndex = 68;
@@ -283,7 +275,7 @@
             // 
             this.textBox2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.textBox2.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.textBox2.Location = new System.Drawing.Point(147, 3);
+            this.textBox2.Location = new System.Drawing.Point(179, 3);
             this.textBox2.Name = "textBox2";
             this.textBox2.Size = new System.Drawing.Size(21, 20);
             this.textBox2.TabIndex = 69;
@@ -291,7 +283,7 @@
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(174, 10);
+            this.label8.Location = new System.Drawing.Point(206, 7);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(84, 13);
             this.label8.TabIndex = 70;
@@ -318,16 +310,25 @@
             this.panelShipping_Order.Controls.Add(this.btn_Add);
             this.panelShipping_Order.Controls.Add(this.btn_reset);
             this.panelShipping_Order.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.panelShipping_Order.Location = new System.Drawing.Point(0, 578);
+            this.panelShipping_Order.Location = new System.Drawing.Point(0, 656);
             this.panelShipping_Order.Name = "panelShipping_Order";
-            this.panelShipping_Order.Size = new System.Drawing.Size(1149, 35);
+            this.panelShipping_Order.Size = new System.Drawing.Size(1350, 35);
             this.panelShipping_Order.TabIndex = 72;
+            // 
+            // customer1
+            // 
+            this.customer1.CFocused = false;
+            this.customer1.Customer_Id = 0;
+            this.customer1.Location = new System.Drawing.Point(29, 84);
+            this.customer1.Name = "customer1";
+            this.customer1.Size = new System.Drawing.Size(294, 28);
+            this.customer1.TabIndex = 2;
             // 
             // Shipping_Order
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1149, 613);
+            this.ClientSize = new System.Drawing.Size(1350, 691);
             this.Controls.Add(this.panelShipping_Order);
             this.Controls.Add(this.ckb_Hold_For_Payment);
             this.Controls.Add(this.customer1);
@@ -366,31 +367,31 @@
         #endregion
 
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.TextBox txt_Customer_Ref;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cmb_Truck;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.ComboBox cmb_Destination;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.DateTimePicker dtp_Load_Date;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.TextBox txt_Comments;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label lbl_Freight_Docket;
-        private System.Windows.Forms.TextBox txt_Freight_Docket;
-        private System.Windows.Forms.Button btn_Close;
         private System.Windows.Forms.Button btn_reset;
-        private System.Windows.Forms.Button btn_Add;
         private System.Windows.Forms.Button btn_Refresh;
         private System.Windows.Forms.Label lbl_message;
-        private System.Windows.Forms.DataGridView dataGridView2;
         private System.Windows.Forms.Label label2;
-        private Utils.UserControls.Customer customer1;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.TextBox textBox2;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.CheckBox ckb_Hold_For_Payment;
         private System.Windows.Forms.Panel panelShipping_Order;
+        public System.Windows.Forms.TextBox txt_Customer_Ref;
+        public System.Windows.Forms.ComboBox cmb_Truck;
+        public System.Windows.Forms.ComboBox cmb_Destination;
+        public System.Windows.Forms.TextBox txt_Comments;
+        public System.Windows.Forms.TextBox txt_Freight_Docket;
+        public System.Windows.Forms.Button btn_Close;
+        public System.Windows.Forms.Button btn_Add;
+        public System.Windows.Forms.DataGridView dataGridView2;
+        public Utils.UserControls.Customer customer1;
     }
 }

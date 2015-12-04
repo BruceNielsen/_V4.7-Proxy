@@ -246,7 +246,7 @@ namespace PF.Accounts
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void btn_Add_Click(object sender, EventArgs e)
+        public void btn_Add_Click(object sender, EventArgs e)
         {
             FireHistoryMessage("Add Orders to Invoice Clicked ");
 
@@ -410,9 +410,9 @@ namespace PF.Accounts
 
                     PF.PrintLayer.Certificate_Of_Analysis.Print(Data, true);
 
-                    
+
                     AttachAnyPdfsInTheTempFolder();
-                    
+
                     // Replace all this crap - because the sendmail attachment count is fubar 
                     //// Note: you can't use a foreach statement here as it modifies the collection - BN
                     //for (int ia = 0; ia < PF.Common.Code.SendEmail.attachment.Count; ia++)
@@ -432,7 +432,7 @@ namespace PF.Accounts
                     //    }
                     //}
                 }
-            
+
                 Cursor = Cursors.Default;
             }
 
@@ -605,7 +605,7 @@ namespace PF.Accounts
                         try
                         {
                             if (dataGridView1.Rows[i].Cells["Rates_Id"].Value != null)
-                                {
+                            {
                                 if (Convert.ToDecimal(dataGridView1.Rows[i].Cells["Rates_Id"].Value.ToString()) > 0)
                                 {
                                     int_result = int_result + PF.Data.AccessLayer.PF_A_Invoice_Details.Update_Rate(int_Invoice_Details_id, Convert.ToInt32(dataGridView1.Rows[i].Cells["Rates_Id"].Value.ToString()), int_Current_User_Id);
@@ -998,7 +998,7 @@ namespace PF.Accounts
 
                         Console.WriteLine("Trying to delete: " + filename);
                         logger.Log(LogLevel.Info, "Trying to delete: " + filename);
-                        
+
                         // This is the solution to files being locked by another process. BN 10/11/2015
                         System.GC.Collect();
                         System.GC.WaitForPendingFinalizers();
@@ -1105,7 +1105,7 @@ namespace PF.Accounts
                     // If STORAGE
                     if (dr_Rates["Code"].ToString().ToUpper().Substring(0, dr_Rates["Code"].ToString().IndexOf('-')) == "STORAGE")
                     {
-                        str_total_item = 
+                        str_total_item =
                             Common.Code.General.Calculate_Totals(dr_Rates["Code"].ToString().ToUpper(), str_WHERE);
                     }
                     else
@@ -1243,7 +1243,24 @@ namespace PF.Accounts
                 }
                 else
                 {
-                    MessageBox.Show("No Rates have been loaded for an Item. Please Load the missing Rates.", "Process Factory - Invoice Sales", MessageBoxButtons.OK, MessageBoxIcon.Stop);
+
+                    DataGridViewCellCollection dgvcc;
+                    // Move to row 0, position 0 to select the barcode
+                    foreach (DataGridViewRow dgvr in dataGridView1.Rows)
+                    {
+                        dgvcc = dgvr.Cells;
+
+                        string material = dgvcc[0].Value.ToString();
+                        Clipboard.SetText(material);
+                        labelMaterialCopy.Text = Clipboard.GetText();
+
+                        break;  // Just get the first entry
+                    }
+                    MessageBox.Show("No Rates have been loaded for item:\r\n\r\n" + labelMaterialCopy.Text + "\r\n\r\n" + 
+                        "Please go to Accounting --> Sales --> Rates and press the paste button.\r\n\r\n" + 
+                        "The missing rate item has already been copied to the clipboard.\r\n\r\n" +
+                        "When you press the paste button, the item will be automatically located for you.", 
+                        "Process Factory - Invoice Sales", MessageBoxButtons.OK, MessageBoxIcon.Stop);
                 }
 
                 DataGridViewCell DGVC_Cell3 = new DataGridViewTextBoxCell();
@@ -1470,9 +1487,9 @@ namespace PF.Accounts
                 Cursor.Current = Cursors.WaitCursor;
                 FireHistoryMessage("Rates ComboBox: " + cmb_Rates.Text);
                 Cursor.Current = Cursors.Default;
-                
+
                 // Added 10/11/2015 - BN
-                if(cmb_Rates.Text == "Freight Charges")
+                if (cmb_Rates.Text == "Freight Charges")
                 {
                     labelQuantity.Visible = false;
                     numericUpDownQuantity.Visible = false;
@@ -2062,13 +2079,10 @@ namespace PF.Accounts
                 DirectoryInfo di = new DirectoryInfo(TempPath);
                 foreach (FileInfo fi in di.GetFiles())
                 {
-                    if (fi.Extension == ".pdf")
+                    if (fi.Extension.ToLower() == ".pdf")   // Added ToLower() 3/12/2015
                     {
                         //PF.Common.Code.SendEmail.attachment.Add(PF.PrintLayer.Word.FilePath + "\\" + PF.PrintLayer.Word.FileName + ".PDF");
                         PF.Common.Code.SendEmail.attachment.Add(TempPath + "\\" + fi.Name);
-
-                        // Delete the file
-                        //fi.Delete();
                     }
                 }
 
@@ -2080,6 +2094,25 @@ namespace PF.Accounts
 
             }
 
+        }
+
+        private void buttonCopyTheMaterialEntry_Click(object sender, EventArgs e)
+        {
+            try
+            {
+
+                DataGridViewCell cell = dataGridView1.SelectedCells[0] as DataGridViewCell;
+                if (cell != null)
+                {
+                    string material = cell.Value.ToString();
+                    Clipboard.SetText(material);
+                    labelMaterialCopy.Text = Clipboard.GetText();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
         }
     }
 }

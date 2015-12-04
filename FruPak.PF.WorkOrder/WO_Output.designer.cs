@@ -342,6 +342,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PF.WorkOrder.Work Order Output";
             this.Load += new System.EventHandler(this.SizeAllColumns);
+            this.Shown += new System.EventHandler(this.WO_Output_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.WO_Output_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
@@ -352,7 +353,6 @@
         #endregion
 
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.ComboBox cmb_Material;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.ComboBox cmb_Weight;
         private System.Windows.Forms.Label label8;
@@ -364,9 +364,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox cmb_Trader;
         private System.Windows.Forms.DataGridView dataGridView1;
-        private System.Windows.Forms.Button btn_Close;
         private System.Windows.Forms.Button btn_reset;
-        private System.Windows.Forms.Button btn_Add;
         private System.Windows.Forms.Label lbl_message;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ComboBox cmb_Grade;
@@ -375,5 +373,8 @@
         private PF.Utils.UserControls.WODisplay woDisplay1;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.ComboBox cmb_Size;
+        public System.Windows.Forms.ComboBox cmb_Material;
+        public System.Windows.Forms.Button btn_Close;
+        public System.Windows.Forms.Button btn_Add;
     }
 }

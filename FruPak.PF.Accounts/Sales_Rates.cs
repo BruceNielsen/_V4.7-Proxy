@@ -238,20 +238,34 @@ namespace PF.Accounts
 
         private void Column_resize()
         {
-            dataGridView1.AutoResizeColumn(0, DataGridViewAutoSizeColumnMode.AllCells);
-            dataGridView1.AutoResizeColumn(1, DataGridViewAutoSizeColumnMode.AllCells);
-            dataGridView1.AutoResizeColumn(2, DataGridViewAutoSizeColumnMode.AllCells);
-            dataGridView1.AutoResizeColumn(3, DataGridViewAutoSizeColumnMode.AllCells);
+            //dataGridView1.AutoResizeColumn(0, DataGridViewAutoSizeColumnMode.AllCells);
+            //dataGridView1.AutoResizeColumn(1, DataGridViewAutoSizeColumnMode.AllCells);
+            //dataGridView1.AutoResizeColumn(2, DataGridViewAutoSizeColumnMode.AllCells);
+            //dataGridView1.AutoResizeColumn(3, DataGridViewAutoSizeColumnMode.AllCells);
 
-            dataGridView1.AutoResizeColumn(5, DataGridViewAutoSizeColumnMode.AllCells);
-            dataGridView1.AutoResizeColumn(6, DataGridViewAutoSizeColumnMode.AllCells);
-            dataGridView1.AutoResizeColumn(7, DataGridViewAutoSizeColumnMode.AllCells);
+            //dataGridView1.AutoResizeColumn(5, DataGridViewAutoSizeColumnMode.AllCells);
+            //dataGridView1.AutoResizeColumn(6, DataGridViewAutoSizeColumnMode.AllCells);
+            //dataGridView1.AutoResizeColumn(7, DataGridViewAutoSizeColumnMode.AllCells);
+            //dataGridView1.AutoResizeColumn(8, DataGridViewAutoSizeColumnMode.AllCells);
+
             dataGridView1.AutoResizeColumn(8, DataGridViewAutoSizeColumnMode.AllCells);
+            dataGridView1.AutoResizeColumn(7, DataGridViewAutoSizeColumnMode.AllCells);
+            dataGridView1.AutoResizeColumn(6, DataGridViewAutoSizeColumnMode.AllCells);
+            dataGridView1.AutoResizeColumn(5, DataGridViewAutoSizeColumnMode.AllCells);
+
+            dataGridView1.AutoResizeColumn(4, DataGridViewAutoSizeColumnMode.AllCells);
+            dataGridView1.AutoResizeColumn(3, DataGridViewAutoSizeColumnMode.AllCells);
+            dataGridView1.AutoResizeColumn(2, DataGridViewAutoSizeColumnMode.AllCells);
+            dataGridView1.AutoResizeColumn(1, DataGridViewAutoSizeColumnMode.AllCells);
+            dataGridView1.AutoResizeColumn(0, DataGridViewAutoSizeColumnMode.AllCells);
         }
 
         private void btn_Add_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             Add_btn();
+            Cursor.Current = Cursors.Default;
+
         }
 
         private void Add_btn()
@@ -259,6 +273,8 @@ namespace PF.Accounts
             DialogResult DLR_MessageBox = new DialogResult();
             string str_msg = "";
             int int_result = 0;
+
+            labelMissingRatesMaterial.Text = "";    // BN - 4/12/2015
 
             if (customer1.Customer_Id <= 0)
             {
@@ -344,6 +360,7 @@ namespace PF.Accounts
             {
                 lbl_message.ForeColor = System.Drawing.Color.Blue;
                 lbl_message.Text = "Value has been saved";
+
                 Reset();
             }
             else
@@ -525,5 +542,38 @@ namespace PF.Accounts
         {
             throw new ArgumentException("The parameter was invalid");
         }
+
+        public void buttonPasteMissingRateInfo_Click(object sender, EventArgs e)
+        {
+            Cursor.Current = Cursors.WaitCursor;
+            labelMissingRatesMaterial.Text = "Searching...";
+
+            string searchString = Clipboard.GetText();
+            bool found = false;
+            int counter = 0;
+
+            foreach (DataRowView drv in cmb_Material.Items)
+            {
+                DataRow dr = drv.Row;
+                Console.WriteLine(dr[1].ToString());
+                if (dr[1].ToString().Contains(searchString))
+                {
+                    found = true;
+                    break;
+                }
+                counter++;
+            }
+
+            if(found == true)
+            {
+                cmb_Material.SelectedIndex = counter;
+                labelMissingRatesMaterial.Text = "Product located. Now select the customer and enter a price.";
+                //customer1.; // Can't set focus
+            }
+
+            Cursor.Current = Cursors.Default;
+
+        }
+
     }
 }

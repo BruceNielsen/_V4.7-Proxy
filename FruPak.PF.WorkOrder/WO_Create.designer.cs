@@ -449,6 +449,7 @@
             this.Name = "WO_Create";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PF.WorkOrder.Work Order Create";
+            this.Shown += new System.EventHandler(this.WO_Create_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.WO_Create_KeyDown);
             this.gb_results.ResumeLayout(false);
             this.gb_results.PerformLayout();
@@ -461,9 +462,7 @@
 
         private System.Windows.Forms.DateTimePicker dtp_date;
         private System.Windows.Forms.Label lbl_Date;
-        private System.Windows.Forms.ComboBox cmb_Product;
         private System.Windows.Forms.Label lbl_Product;
-        private System.Windows.Forms.TextBox txt_batches;
         private System.Windows.Forms.Label lbl_Batches;
         private System.Windows.Forms.Label lbl_bin_tipped;
         private System.Windows.Forms.TextBox txt_bins_tipped;
@@ -473,30 +472,31 @@
         private System.Windows.Forms.TextBox txt_ctn_batch;
         private System.Windows.Forms.Label lbl_total_ctns;
         private System.Windows.Forms.TextBox txt_total_ctn;
-        private System.Windows.Forms.DateTimePicker dtp_start;
         private System.Windows.Forms.Label lbl_start;
         private System.Windows.Forms.Label lbl_finish;
-        private System.Windows.Forms.DateTimePicker dtp_finish;
-        private System.Windows.Forms.TextBox txt_comments;
         private System.Windows.Forms.Label lbl_comments;
         private System.Windows.Forms.Button btn_Print;
-        private System.Windows.Forms.Button btn_Add;
         private System.Windows.Forms.Button btn_Reset;
-        private System.Windows.Forms.Button btn_Current;
         private System.Windows.Forms.Label lbl_message;
         private System.Windows.Forms.TextBox txt_WorkOrder;
         private System.Windows.Forms.Label lbl_WorkOrder;
 
         private System.Windows.Forms.GroupBox gb_results;
-        private System.Windows.Forms.Button btn_Close;
-        private PF.Utils.UserControls.Fruit fruit1;
         private System.Windows.Forms.Label lbl_Trader;
-        private System.Windows.Forms.ComboBox cmb_Trader;
         private System.Windows.Forms.Label lbl_Growing_method;
-        private System.Windows.Forms.ComboBox cmb_Growing_Method;
         private System.Windows.Forms.Button btn_Update;
-        private Utils.UserControls.Grower grower1;
-        
+        public System.Windows.Forms.ComboBox cmb_Product;
+        public System.Windows.Forms.TextBox txt_batches;
+        public System.Windows.Forms.DateTimePicker dtp_finish;
+        public System.Windows.Forms.TextBox txt_comments;
+        public System.Windows.Forms.Button btn_Add;
+        public System.Windows.Forms.Button btn_Current;
+        public Utils.UserControls.Fruit fruit1;
+        public System.Windows.Forms.ComboBox cmb_Trader;
+        public System.Windows.Forms.ComboBox cmb_Growing_Method;
+        public Utils.UserControls.Grower grower1;
+        public System.Windows.Forms.DateTimePicker dtp_start;
+        public System.Windows.Forms.Button btn_Close;
     }
 }
 

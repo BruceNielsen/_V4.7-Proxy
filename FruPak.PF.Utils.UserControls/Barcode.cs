@@ -49,5 +49,13 @@ namespace PF.Utils.UserControls
                 handler(this, e);
             }
         }
+
+        public string Barcode_Number // BN 21/11/2015
+        {
+            get
+            {
+                return txt_Barcode.Text;
+            }
+        }
     }
 }

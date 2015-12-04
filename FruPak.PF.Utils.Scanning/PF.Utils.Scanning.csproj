@@ -68,6 +68,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Design" />
     <Reference Include="System.Printing" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -103,6 +104,7 @@
     <Compile Include="Bin_To_Order.Designer.cs">
       <DependentUpon>Bin_To_Order.cs</DependentUpon>
     </Compile>
+    <Compile Include="Messaging.cs" />
     <Compile Include="Create_Small_Rejects.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -114,6 +116,9 @@
     </Compile>
     <Compile Include="GDI_Scanning.designer.cs">
       <DependentUpon>GDI_Scanning.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MultiColumnComboBox\MultiColumnComboBox.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="Pallet_Transfer.cs">
       <SubType>Form</SubType>

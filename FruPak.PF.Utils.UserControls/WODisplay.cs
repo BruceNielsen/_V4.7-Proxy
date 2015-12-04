@@ -61,5 +61,41 @@ namespace PF.Utils.UserControls
                 Variety_Id = Convert.ToInt32(dr_Get_Info["Variety_Id"].ToString());
             }
         }
+
+        public string WorkOrder  // BN 22/11/2015
+        {
+            get
+            {
+                return txt_Work_Order.Text;
+            }
+        }
+        public string ProcessDate  // BN 22/11/2015
+        {
+            get
+            {
+                return txt_Process_Date.Text;
+            }
+        }
+        public string Product  // BN 22/11/2015
+        {
+            get
+            {
+                return txt_Product.Text;
+            }
+        }
+        public string FruitType  // BN 22/11/2015
+        {
+            get
+            {
+                return txt_Fruit_Type.Text;
+            }
+        }
+        public string FruitVariety  // BN 22/11/2015
+        {
+            get
+            {
+                return txt_Fruit_Variety.Text;
+            }
+        }
     }
 }

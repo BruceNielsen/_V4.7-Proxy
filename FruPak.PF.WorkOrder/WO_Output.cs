@@ -7,6 +7,14 @@ namespace PF.WorkOrder
 {
     public partial class WO_Output : Form
     {
+        #region Messaging between forms - BN 21-22/11/2015
+        // add a delegate
+        public delegate void MessageUpdateHandler(object sender, MessageUpdateEventArgs e);
+
+        // add an event of the delegate type
+        public event MessageUpdateHandler MessageUpdated;
+        #endregion
+
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static bool bol_write_access;
@@ -516,7 +524,7 @@ namespace PF.WorkOrder
             }
         }
 
-        private void btn_Add_Click(object sender, EventArgs e)
+        public void btn_Add_Click(object sender, EventArgs e)
         {
             Add_btn();
         }
@@ -607,8 +615,25 @@ namespace PF.WorkOrder
             populate_comboboxs();
         }
 
-        private void btn_Close_Click(object sender, EventArgs e)
+        public void btn_Close_Click(object sender, EventArgs e)
         {
+            // Header, Message
+
+            SendMessageHome("", "Date: " + this.woDisplay1.ProcessDate);
+            SendMessageHome("", "Product: " + this.woDisplay1.Product);
+            SendMessageHome("", "Fruit Type: " + this.woDisplay1.FruitType);
+            SendMessageHome("", "Fruit Variety: " + this.woDisplay1.FruitVariety);
+            //
+            SendMessageHome("", "Trader: " + this.cmb_Trader.Text);
+            SendMessageHome("", "Product Group: " + this.cmb_Product_Group.Text);
+            SendMessageHome("", "Treatment: " + this.cmb_Treatment.Text);
+            SendMessageHome("", "Pack Type: " + this.cmb_PackType.Text);
+            SendMessageHome("", "Brand: " + this.cmb_Brand.Text);
+            SendMessageHome("", "Grade: " + this.cmb_Grade.Text);
+            SendMessageHome("", "Weight: " + this.cmb_Weight.Text);
+            SendMessageHome("", "Size: " + this.cmb_Size.Text);
+            SendMessageHome("", "Material: " + this.cmb_Material.Text);
+
             this.Close();
         }
 
@@ -726,5 +751,34 @@ namespace PF.WorkOrder
         }
 
         #endregion Methods to log UI events to the CSV file. BN 29/01/2015
+
+        private void SendMessageHome(string Header, string Message)
+        {
+            // This will raise the event which can then intercepted by any listeners
+
+            // instance the event args and pass it each value
+            MessageUpdateEventArgs args = new MessageUpdateEventArgs(Header, Message);
+
+            try
+            {
+                // raise the event with the updated arguments
+
+                // Null exception here for MessageUpdated
+                MessageUpdated(this, args);
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine(ex.Message + " " + ex.StackTrace);
+                Console.WriteLine("Damn");
+            }
+
+        }
+
+        private void WO_Output_Shown(object sender, EventArgs e)
+        {
+            SendMessageHome("Work Orders (Output) - " + this.woDisplay1.WorkOrder + ", " + DateTime.Now.ToShortTimeString(), "");
+
+        }
     }
+
 }

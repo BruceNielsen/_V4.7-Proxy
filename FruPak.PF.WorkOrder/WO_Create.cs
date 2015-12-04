@@ -1,12 +1,29 @@
-﻿using NLog;
+﻿using Hik.Communication.Scs.Client;
+using Hik.Communication.Scs.Communication.EndPoints.Tcp;
+using Hik.Communication.Scs.Communication.Messages;
+
+using NLog;
 using System;
 using System.Data;
+using System.IO;
+using System.Net;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
+using System.Text;
 using System.Windows.Forms;
 
 namespace PF.WorkOrder
 {
     public partial class WO_Create : Form
     {
+        #region Messaging between forms - BN 21-22/11/2015
+        // add a delegate
+        public delegate void MessageUpdateHandler(object sender, MessageUpdateEventArgs e);
+
+        // add an event of the delegate type
+        public event MessageUpdateHandler MessageUpdated;
+        #endregion
+
         private static Logger logger = LogManager.GetCurrentClassLogger();
 
         private static bool bol_write_access;
@@ -199,7 +216,7 @@ namespace PF.WorkOrder
             ds_Get_Info.Dispose();
         }
 
-        private void btn_Add_Click(object sender, EventArgs e)
+        public void btn_Add_Click(object sender, EventArgs e)
         {
             DialogResult DLR_MessageBox = new DialogResult();
             string str_msg = "";
@@ -308,7 +325,7 @@ namespace PF.WorkOrder
             }
         }
 
-        private void btn_Current_Click(object sender, EventArgs e)
+        public void btn_Current_Click(object sender, EventArgs e)
         {
             DataSet ds_Current = PF.Data.AccessLayer.PF_Work_Order.Get_Current();
             DataRow dr_Current;
@@ -324,6 +341,7 @@ namespace PF.WorkOrder
             {
                 lbl_message.ForeColor = System.Drawing.Color.Blue;
                 lbl_message.Text = "Work Order: " + Convert.ToString(int_Work_Order_Id) + " has been Set to the Current Work Order.";
+                SendMessageHome("Status Update", this.lbl_message.Text);
             }
             else
             {
@@ -360,10 +378,49 @@ namespace PF.WorkOrder
             btn_Update.Visible = false;
             int_Work_Order_Id = 0;
             set_btn_Current();
+
+ 
+
         }
 
-        private void btn_Close_Click(object sender, EventArgs e)
+        public void btn_Close_Click(object sender, EventArgs e)
         {
+            #region Sadly, Tab commands don't work in a treecontrol - BN - 21/11/2015 Saturday (Working for free - I have no idea why)
+            //SendMessageHome("", "Work Order:\t" + this.txt_WorkOrder.Text);
+            //SendMessageHome("", "Date:\t\t" + this.dtp_date.Text);
+            //SendMessageHome("", "Start:\t\t" + this.dtp_start.Text);
+            //SendMessageHome("", "Finish:\t\t" + this.dtp_finish.Text);
+            //SendMessageHome("", "Trader:\t\t" + this.cmb_Trader.Text);
+            //SendMessageHome("", "Orchardist:\t" + this.grower1.OrchardistName);
+            //SendMessageHome("", "Grower:\t\t" + this.grower1.GrowerName);
+            //SendMessageHome("", "Product:\t\t" + this.cmb_Product.Text);
+            //SendMessageHome("", "Fruit Type:\t" + this.fruit1.FruitType);
+            //SendMessageHome("", "Fruit Variety:\t" + this.fruit1.FruitVariety);
+            //SendMessageHome("", "Num Batches:\t" + this.txt_batches.Text);
+            //SendMessageHome("", "Growing Method:\t" + this.cmb_Growing_Method.Text);
+            //SendMessageHome("", "Comments:\t" + this.txt_comments.Text);
+            //SendMessageHome("", "");
+            #endregion
+
+            #region TreeView version
+            // Header, Message
+            SendMessageHome("", "Work Order: " + this.txt_WorkOrder.Text);
+            SendMessageHome("", "Date: " + this.dtp_date.Text);
+            SendMessageHome("", "Start: " + this.dtp_start.Text);
+            SendMessageHome("", "Finish: " + this.dtp_finish.Text);
+            SendMessageHome("", "Trader: " + this.cmb_Trader.Text);
+            SendMessageHome("", "Orchardist: " + this.grower1.OrchardistName);
+            SendMessageHome("", "Grower: " + this.grower1.GrowerName);
+            SendMessageHome("", "Product: " + this.cmb_Product.Text);
+            SendMessageHome("", "Fruit Type: " + this.fruit1.FruitType);
+            SendMessageHome("", "Fruit Variety: " + this.fruit1.FruitVariety);
+            SendMessageHome("", "Num Batches: " + this.txt_batches.Text);
+            SendMessageHome("", "Growing Method: " + this.cmb_Growing_Method.Text);
+            SendMessageHome("", "Comments: " + this.txt_comments.Text);
+            SendMessageHome("", "");
+
+            #endregion
+
             this.Close();
         }
 
@@ -499,5 +556,37 @@ namespace PF.WorkOrder
         }
 
         #endregion Methods to log UI events to the CSV file. BN 29/01/2015
+
+        private void SendMessageHome(string Header, string Message)
+        {           
+            // This will raise the event which can then intercepted by any listeners
+
+            // instance the event args and pass it each value
+            MessageUpdateEventArgs args = new MessageUpdateEventArgs(Header, Message);
+
+            // raise the event with the updated arguments
+            MessageUpdated(this, args);
+        }
+
+        private void WO_Create_Shown(object sender, EventArgs e)
+        {
+            
+            SendMessageHome("Work Orders (Create/View) - " + this.txt_WorkOrder.Text + ", " + DateTime.Now.ToShortTimeString(), "");
+
+            if(cmb_Trader.Text == "")
+            {
+                // It's a new order, as an order number hasn't been supplied
+                // Default to PF
+                int indexTrader = cmb_Trader.FindString("PF - Process Factory");
+                cmb_Trader.SelectedIndex = indexTrader;
+            }
+
+            if(grower1.Orchardist_Id == 0)
+            {
+                // It's a new order
+                // Default to GateHouse
+                grower1.Orchardist_Id = 9;
+            }
+        }
     }
 }

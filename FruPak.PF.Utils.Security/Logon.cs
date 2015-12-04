@@ -176,6 +176,7 @@ namespace PF.Utils.Security
                     dr_Get_User_Info = ds_Get_User_Info.Tables[0].Rows[i];
                     int_User_id = Convert.ToInt32(dr_Get_User_Info["User_Id"].ToString());
                 }
+                //Cursor.Current = Cursors.WaitCursor;
             }
 
             ds_Get_User_Info.Dispose();

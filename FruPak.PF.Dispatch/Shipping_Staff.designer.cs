@@ -154,8 +154,9 @@
             this.lbl_message.ForeColor = System.Drawing.Color.Black;
             this.lbl_message.Location = new System.Drawing.Point(11, 9);
             this.lbl_message.Name = "lbl_message";
-            this.lbl_message.Size = new System.Drawing.Size(2, 22);
+            this.lbl_message.Size = new System.Drawing.Size(15, 22);
             this.lbl_message.TabIndex = 91;
+            this.lbl_message.Text = ".";
             // 
             // rb_Pre_Order
             // 
@@ -206,6 +207,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "PF.Dispatch.Shipping Staff";
             this.Load += new System.EventHandler(this.SizeAllColumns);
+            this.Shown += new System.EventHandler(this.Shipping_Staff_Shown);
             this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Shipping_Staff_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
@@ -214,19 +216,18 @@
         }
 
         #endregion
-
-        private System.Windows.Forms.Button btn_Close;
         private System.Windows.Forms.Button btn_reset;
-        private System.Windows.Forms.Button btn_Add;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.ComboBox cmb_Staff;
         private System.Windows.Forms.Label lbl_finish;
-        private System.Windows.Forms.DateTimePicker dtp_finish;
         private System.Windows.Forms.Label lbl_start;
-        private System.Windows.Forms.DateTimePicker dtp_start;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Label lbl_message;
         private System.Windows.Forms.RadioButton rb_Pre_Order;
         private System.Windows.Forms.RadioButton rb_Deliver;
+        public System.Windows.Forms.Button btn_Close;
+        public System.Windows.Forms.Button btn_Add;
+        public System.Windows.Forms.ComboBox cmb_Staff;
+        public System.Windows.Forms.DateTimePicker dtp_finish;
+        public System.Windows.Forms.DateTimePicker dtp_start;
     }
 }
